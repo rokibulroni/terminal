@@ -25,7 +25,7 @@ export function Layout({ children }: LayoutProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col w-full max-w-[100vw] overflow-x-hidden">
       <Header
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         isSidebarOpen={sidebarOpen}

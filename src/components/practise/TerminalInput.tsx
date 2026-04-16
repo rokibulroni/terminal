@@ -218,7 +218,7 @@ export const TerminalInputSimple: React.FC<TerminalInputProps> = ({
     return (
         <div
             className={cn(
-                "group flex w-full bg-black p-4 rounded-lg font-mono text-base shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-white/10",
+                "group flex flex-col sm:flex-row sm:items-center w-full bg-black p-4 rounded-lg font-mono text-base shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-white/10",
                 "focus-within:border-green-500/50 focus-within:ring-1 focus-within:ring-green-500/20 transition-all",
                 disabled && "opacity-50 grayscale"
             )}

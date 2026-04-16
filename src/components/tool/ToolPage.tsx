@@ -201,7 +201,7 @@ export function ToolPage() {
       {/* Content */}
       {showRawJson ? (
         <div className="terminal-card p-4 overflow-x-auto">
-          <pre className="font-mono text-sm text-foreground">
+          <pre className="font-mono text-sm text-foreground whitespace-pre-wrap break-all">
             {JSON.stringify(tool, null, 2)}
           </pre>
         </div>
