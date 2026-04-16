@@ -1,0 +1,427 @@
+{
+    "tool": "hostapd",
+    "description": "Complete hostapd command and workflow reference from basic to advanced wireless access point configuration",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Access Point Startup",
+            "command": "hostapd -h",
+            "example": "hostapd -h",
+            "explanation": "Displays the help message with all available command-line options and syntax"
+        },
+        {
+            "id": 2,
+            "category": "Basic Access Point Startup",
+            "command": "hostapd -v",
+            "example": "hostapd -v",
+            "explanation": "Prints the current version of hostapd to verify installation and build details"
+        },
+        {
+            "id": 3,
+            "category": "Basic Access Point Startup",
+            "command": "hostapd hostapd.conf",
+            "example": "hostapd /etc/hostapd/hostapd.conf",
+            "explanation": "Starts the access point in the foreground using a specific configuration file"
+        },
+        {
+            "id": 4,
+            "category": "Basic Access Point Startup",
+            "command": "hostapd -B hostapd.conf",
+            "example": "hostapd -B /etc/hostapd/hostapd.conf",
+            "explanation": "Starts hostapd in daemon mode (background) to run as a service"
+        },
+        {
+            "id": 5,
+            "category": "Basic Access Point Startup",
+            "command": "hostapd -P /run/hostapd.pid -B hostapd.conf",
+            "example": "hostapd -P /var/run/hostapd.pid -B hostapd.conf",
+            "explanation": "Runs in background and writes the process ID to a specific file for service management"
+        },
+        {
+            "id": 6,
+            "category": "Logging and Debugging",
+            "command": "hostapd -d hostapd.conf",
+            "example": "hostapd -d hostapd.conf",
+            "explanation": "Starts hostapd with verbose debugging enabled to show basic status and event messages"
+        },
+        {
+            "id": 7,
+            "category": "Logging and Debugging",
+            "command": "hostapd -dd hostapd.conf",
+            "example": "hostapd -dd hostapd.conf",
+            "explanation": "Enables excessive debugging to view detailed state machine transitions and frame details"
+        },
+        {
+            "id": 8,
+            "category": "Logging and Debugging",
+            "command": "hostapd -t -d hostapd.conf",
+            "example": "hostapd -t -d hostapd.conf",
+            "explanation": "Prepends timestamps to all debug output for timeline analysis of connection events"
+        },
+        {
+            "id": 9,
+            "category": "Logging and Debugging",
+            "command": "hostapd -f /var/log/hostapd.log hostapd.conf",
+            "example": "hostapd -f /var/log/hostapd.log hostapd.conf",
+            "explanation": "Redirects all log output to a specified file instead of standard output"
+        },
+        {
+            "id": 10,
+            "category": "Logging and Debugging",
+            "command": "hostapd -K -dd hostapd.conf",
+            "example": "hostapd -K -dd hostapd.conf",
+            "explanation": "Includes cryptographic key data in debug output (Warning: Unsafe for production, used for deep inspection)"
+        },
+        {
+            "id": 11,
+            "category": "Configuration File Handling",
+            "command": "hostapd -g /var/run/hostapd/global hostapd.conf",
+            "example": "hostapd -g /var/run/hostapd/global hostapd.conf",
+            "explanation": "Enables the global control interface for external management tools like hostapd_cli"
+        },
+        {
+            "id": 12,
+            "category": "Open Network Workflow",
+            "command": "printf 'interface=wlan0\\ndriver=nl80211\\nssid=OpenLab\\nhw_mode=g\\nchannel=6\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate minimal open config and run",
+            "explanation": "Creates and runs a basic Open (unencrypted) 2.4GHz access point on channel 6"
+        },
+        {
+            "id": 13,
+            "category": "Interface Management",
+            "command": "printf 'interface=wlan0\\nbridge=br0\\nssid=BridgedAP\\nhw_mode=g\\nchannel=1\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate bridged config and run",
+            "explanation": "Configures the AP to bridge traffic to a wired interface (br0) for network integration"
+        },
+        {
+            "id": 14,
+            "category": "SSID and Visibility",
+            "command": "printf 'interface=wlan0\\nssid=HiddenLab\\nignore_broadcast_ssid=1\\nhw_mode=g\\nchannel=11\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate hidden SSID config and run",
+            "explanation": "Creates an access point with a hidden SSID by disabling beacon SSID broadcasting"
+        },
+        {
+            "id": 15,
+            "category": "WPA2-PSK Configuration",
+            "command": "printf 'interface=wlan0\\nssid=WPA2-Test\\nhw_mode=g\\nchannel=6\\nwpa=2\\nwpa_passphrase=Password123\\nwpa_key_mgmt=WPA-PSK\\nwpa_pairwise=CCMP\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate WPA2-PSK config and run",
+            "explanation": "Sets up a standard WPA2 Personal network using CCMP (AES) encryption"
+        },
+        {
+            "id": 16,
+            "category": "WPA Mixed Mode Configuration",
+            "command": "printf 'interface=wlan0\\nssid=LegacyMix\\nwpa=3\\nwpa_passphrase=LegacyPass\\nwpa_key_mgmt=WPA-PSK\\nwpa_pairwise=TKIP CCMP\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate WPA1/WPA2 Mixed config and run",
+            "explanation": "Enables mixed WPA1/WPA2 mode allowing both TKIP and CCMP ciphers (Legacy support)"
+        },
+        {
+            "id": 17,
+            "category": "Access Control (MAC Filtering)",
+            "command": "printf 'interface=wlan0\\nssid=MacFilterAP\\nmacaddr_acl=1\\naccept_mac_file=hostapd.accept\\n' > hostapd.conf && echo '00:11:22:33:44:55' > hostapd.accept && hostapd hostapd.conf",
+            "example": "Generate MAC Allow List config and run",
+            "explanation": "Configures an Allow List (Whitelist) where only specified MAC addresses can associate"
+        },
+        {
+            "id": 18,
+            "category": "Access Control (MAC Filtering)",
+            "command": "printf 'interface=wlan0\\nssid=DenyListAP\\nmacaddr_acl=0\\ndeny_mac_file=hostapd.deny\\n' > hostapd.conf && echo 'aa:bb:cc:dd:ee:ff' > hostapd.deny && hostapd hostapd.conf",
+            "example": "Generate MAC Deny List config and run",
+            "explanation": "Configures a Deny List (Blacklist) to explicitly block specific devices from connecting"
+        },
+        {
+            "id": 19,
+            "category": "Performance Tuning (802.11n)",
+            "command": "printf 'interface=wlan0\\nssid=N-Mode-AP\\nhw_mode=g\\nchannel=6\\nieee80211n=1\\nht_capab=[HT40+]\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate 802.11n HT40 config and run",
+            "explanation": "Enables 802.11n High Throughput mode with 40MHz channel width"
+        },
+        {
+            "id": 20,
+            "category": "Performance Tuning (802.11ac)",
+            "command": "printf 'interface=wlan0\\nssid=AC-Mode-AP\\nhw_mode=a\\nchannel=36\\nieee80211n=1\\nieee80211ac=1\\nvht_oper_chwidth=1\\nvht_oper_centr_freq_seg0_idx=42\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate 802.11ac VHT80 config and run",
+            "explanation": "Enables 802.11ac Very High Throughput mode on 5GHz with 80MHz channel width"
+        },
+        {
+            "id": 21,
+            "category": "Performance Tuning (802.11ax)",
+            "command": "printf 'interface=wlan0\\nssid=AX-WiFi6\\nhw_mode=a\\nchannel=36\\nieee80211n=1\\nieee80211ac=1\\nieee80211ax=1\\nhe_su_beamformer=1\\nhe_su_beamformee=1\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate 802.11ax HE config and run",
+            "explanation": "Enables 802.11ax (Wi-Fi 6) High Efficiency features including beamforming support"
+        },
+        {
+            "id": 22,
+            "category": "Country and Regulatory",
+            "command": "printf 'interface=wlan0\\nssid=RegDomainTest\\ncountry_code=US\\nieee80211d=1\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Country Code config and run",
+            "explanation": "Advertises the US country code (802.11d) to clients to enforce regulatory domain constraints"
+        },
+        {
+            "id": 23,
+            "category": "WPA3-SAE Configuration",
+            "command": "printf 'interface=wlan0\\nssid=WPA3-SAE\\nhw_mode=g\\nchannel=6\\nwpa=2\\nwpa_passphrase=SecurePass123\\nwpa_key_mgmt=SAE\\nieee80211w=2\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate WPA3-SAE Only config and run",
+            "explanation": "Configures a pure WPA3 network using SAE authentication and mandatory Management Frame Protection (MFP)"
+        },
+        {
+            "id": 24,
+            "category": "WPA3 Transition Mode",
+            "command": "printf 'interface=wlan0\\nssid=WPA3-Transition\\nhw_mode=g\\nchannel=6\\nwpa=2\\nwpa_passphrase=TransitionPass\\nwpa_key_mgmt=WPA-PSK SAE\\nieee80211w=1\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate WPA3/WPA2 Transition config and run",
+            "explanation": "Allows both WPA3-SAE and WPA2-PSK clients to connect with optional MFP"
+        },
+        {
+            "id": 25,
+            "category": "OWE (Enhanced Open)",
+            "command": "printf 'interface=wlan0\\nssid=OWE-Net\\nhw_mode=g\\nchannel=6\\nwpa=2\\nwpa_key_mgmt=OWE\\nieee80211w=2\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate OWE config and run",
+            "explanation": "Sets up Opportunistic Wireless Encryption (Enhanced Open) for encrypted unauthenticated connections"
+        },
+        {
+            "id": 26,
+            "category": "WPA2-Enterprise (EAP-TLS/PEAP)",
+            "command": "printf 'interface=wlan0\\nssid=Enterprise-AP\\nwpa=2\\nwpa_key_mgmt=WPA-EAP\\nieee8021x=1\\nauth_server_addr=127.0.0.1\\nauth_server_port=1812\\nauth_server_shared_secret=radiusSecret\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate WPA2-Enterprise config and run",
+            "explanation": "Configures WPA2-Enterprise requiring an external RADIUS server for 802.1X authentication"
+        },
+        {
+            "id": 27,
+            "category": "Integrated EAP Server",
+            "command": "printf 'interface=wlan0\\nssid=LocalEAP\\nieee8021x=1\\neap_server=1\\neap_user_file=hostapd.eap_user\\nca_cert=ca.pem\\nserver_cert=server.pem\\nprivate_key=server.key\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Internal EAP Server config and run",
+            "explanation": "Uses hostapd's built-in EAP server to handle 802.1X authentication without an external RADIUS"
+        },
+        {
+            "id": 28,
+            "category": "RADIUS Accounting",
+            "command": "printf 'interface=wlan0\\nssid=AcctAP\\nwpa=2\\nwpa_key_mgmt=WPA-EAP\\nieee8021x=1\\nacct_server_addr=127.0.0.1\\nacct_server_port=1813\\nacct_server_shared_secret=radiusSecret\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate RADIUS Accounting config and run",
+            "explanation": "Enables RADIUS accounting to report session duration and data usage to an accounting server"
+        },
+        {
+            "id": 29,
+            "category": "Client Isolation",
+            "command": "printf 'interface=wlan0\\nssid=IsolatedGuests\\nap_isolate=1\\nhw_mode=g\\nchannel=6\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate AP Isolation config and run",
+            "explanation": "Prevents associated wireless clients from communicating directly with each other (Client Isolation)"
+        },
+        {
+            "id": 30,
+            "category": "WPS Configuration",
+            "command": "printf 'interface=wlan0\\nssid=WPS-Enabled\\nwps_state=2\\neap_server=1\\nconfig_methods=label display push_button keypad\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate WPS config and run",
+            "explanation": "Enables Wi-Fi Protected Setup (WPS) with Push Button and PIN methods (insecure but useful for testing)"
+        },
+        {
+            "id": 31,
+            "category": "Multiple BSSID (Virtual APs)",
+            "command": "printf 'interface=wlan0\\nssid=PrimaryNet\\nbss=wlan0_1\\nssid=GuestNet\\nwpa=2\\nwpa_passphrase=GuestPass\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Multi-BSSID config and run",
+            "explanation": "Creates multiple virtual access points (SSIDs) on a single physical wireless interface"
+        },
+        {
+            "id": 32,
+            "category": "Beacon Interval Tuning",
+            "command": "printf 'interface=wlan0\\nssid=FastBeacon\\nbeacon_int=15\\nhw_mode=g\\nchannel=6\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Custom Beacon Interval config and run",
+            "explanation": "Reduces the beacon interval to 15 TU (approx 15ms) for aggressive network advertising"
+        },
+        {
+            "id": 33,
+            "category": "Red Team Simulation (Karma/Mana)",
+            "command": "hostapd_cli -i wlan0 karma_enable",
+            "example": "hostapd_cli -i wlan0 karma_enable",
+            "explanation": "Enables Karma mode (if using a patched hostapd-mana) to respond to all probe requests"
+        },
+        {
+            "id": 34,
+            "category": "Red Team Simulation (Rogue AP)",
+            "command": "printf 'interface=wlan0\\nssid=CorporateWifi\\nwpa=2\\nwpa_passphrase=password123\\nlogger_stdout=-1\\nlogger_stdout_level=0\\n' > rogue.conf && hostapd -K rogue.conf",
+            "example": "Generate Rogue AP config and run",
+            "explanation": "Sets up a Rogue AP mimicking a corporate network and logging full details including keys for interception"
+        },
+        {
+            "id": 35,
+            "category": "Blue Team Defense (Management Frame Protection)",
+            "command": "printf 'interface=wlan0\\nssid=MFP-Strict\\nwpa=2\\nieee80211w=2\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Strict MFP config and run",
+            "explanation": "Enforces Management Frame Protection (PMF) to block deauthentication attacks"
+        },
+        {
+            "id": 36,
+            "category": "Purple Team Validation (VLAN Tagging)",
+            "command": "printf 'interface=wlan0\\nssid=VLAN-AP\\ndynamic_vlan=1\\nvlan_file=hostapd.vlan\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Dynamic VLAN config and run",
+            "explanation": "Configures dynamic VLAN assignment based on RADIUS attributes or station MAC addresses"
+        },
+        {
+            "id": 37,
+            "category": "Runtime Control",
+            "command": "hostapd_cli -p /var/run/hostapd ping",
+            "example": "hostapd_cli ping",
+            "explanation": "Pings the running hostapd daemon to verify the control interface is responsive"
+        },
+        {
+            "id": 38,
+            "category": "Runtime Control",
+            "command": "hostapd_cli all_sta",
+            "example": "hostapd_cli all_sta",
+            "explanation": "Lists all currently associated stations (clients) along with their statistics"
+        },
+        {
+            "id": 39,
+            "category": "Runtime Control",
+            "command": "hostapd_cli deauthenticate 00:11:22:33:44:55",
+            "example": "hostapd_cli deauthenticate <MAC>",
+            "explanation": "Forces a specific client to disconnect from the access point immediately"
+        },
+        {
+            "id": 40,
+            "category": "Runtime Control",
+            "command": "hostapd_cli disassociate 00:11:22:33:44:55",
+            "example": "hostapd_cli disassociate <MAC>",
+            "explanation": "Disassociates a client, effectively kicking them off but allowing immediate reconnection attempts"
+        },
+        {
+            "id": 41,
+            "category": "Runtime Control",
+            "command": "hostapd_cli set deny_mac_file hostapd.new_deny",
+            "example": "hostapd_cli set deny_mac_file /tmp/new_deny",
+            "explanation": "Dynamically updates the path to the MAC deny list file without restarting the AP"
+        },
+        {
+            "id": 42,
+            "category": "Runtime Control",
+            "command": "hostapd_cli reload",
+            "example": "hostapd_cli reload",
+            "explanation": "Reloads the configuration file to apply changes like updated MAC lists"
+        },
+        {
+            "id": 43,
+            "category": "Runtime Control",
+            "command": "hostapd_cli wps_pbc",
+            "example": "hostapd_cli wps_pbc",
+            "explanation": "Activates WPS Push Button Configuration mode for the next two minutes"
+        },
+        {
+            "id": 44,
+            "category": "Runtime Control",
+            "command": "hostapd_cli wps_pin any 12345670",
+            "example": "hostapd_cli wps_pin any 12345670",
+            "explanation": "Registers a specific WPS PIN to allow a client to connect using that PIN"
+        },
+        {
+            "id": 45,
+            "category": "Runtime Control",
+            "command": "hostapd_cli get_config",
+            "example": "hostapd_cli get_config",
+            "explanation": "Retrieves and displays the current runtime configuration details of the AP"
+        },
+        {
+            "id": 46,
+            "category": "Runtime Control",
+            "command": "hostapd_cli log_level DEBUG",
+            "example": "hostapd_cli log_level DEBUG",
+            "explanation": "Dynamically changes the logging verbosity to DEBUG while the AP is running"
+        },
+        {
+            "id": 47,
+            "category": "Advanced Troubleshooting",
+            "command": "hostapd -t -K -f /tmp/hostapd_debug.log hostapd.conf",
+            "example": "hostapd -t -K -f /tmp/debug.log hostapd.conf",
+            "explanation": "Runs hostapd logging keys and timestamps to a file for offline packet decryption analysis"
+        },
+        {
+            "id": 48,
+            "category": "Advanced Troubleshooting",
+            "command": "hostapd_cli sta 00:11:22:33:44:55",
+            "example": "hostapd_cli sta <MAC>",
+            "explanation": "Shows detailed statistics for a single connected client including signal strength and packet counts"
+        },
+        {
+            "id": 49,
+            "category": "Hotspot 2.0 (Passpoint)",
+            "command": "printf 'interface=wlan0\\nssid=PasspointAP\\ninterworking=1\\naccess_network_type=0\\ninternet=1\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Basic Passpoint config and run",
+            "explanation": "Enables Interworking bits to advertise Hotspot 2.0 capabilities to compatible clients"
+        },
+        {
+            "id": 50,
+            "category": "Channel Switch Announcement",
+            "command": "hostapd_cli chan_switch 5 5180",
+            "example": "hostapd_cli chan_switch <cs_count> <freq>",
+            "explanation": "Initiates a Channel Switch Announcement (CSA) moving the AP to a new frequency after 5 beacons"
+        },
+        {
+            "id": 51,
+            "category": "Airtime Fairness",
+            "command": "printf 'interface=wlan0\\nssid=FairAP\\nwsmm_ac_vo_aifs=2\\nwsmm_ac_vi_aifs=2\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate WMM AIFS config and run",
+            "explanation": "Tunes WMM parameters (AIFS) to prioritize Voice/Video traffic or enforce airtime fairness"
+        },
+        {
+            "id": 52,
+            "category": "Incident Response Simulation",
+            "command": "printf 'interface=wlan0\\nssid=ForensicHoneypot\\nwpa=2\\nwpa_passphrase=honeyhoney\\nlogger_syslog=1\\nlogger_syslog_level=0\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Honeypot config and run",
+            "explanation": "Deploys a honeypot AP that logs all events to syslog for SIEM ingestion and incident simulation"
+        },
+        {
+            "id": 53,
+            "category": "Dynamic Frequency Selection (DFS)",
+            "command": "printf 'interface=wlan0\\nssid=DFS-Test\\nhw_mode=a\\nchannel=52\\nieee80211h=1\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate DFS Channel config and run",
+            "explanation": "Configures the AP on a DFS channel (52) requiring radar detection (802.11h) enabled"
+        },
+        {
+            "id": 54,
+            "category": "Fast BSS Transition (802.11r)",
+            "command": "printf 'interface=wlan0\\nssid=RoamingAP\\nwpa=2\\nwpa_passphrase=roamingpass\\nieee80211r=1\\nmobility_domain=a1b2\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate FT 802.11r config and run",
+            "explanation": "Enables Fast Transition (FT) to allow clients to roam quickly between APs in the same mobility domain"
+        },
+        {
+            "id": 55,
+            "category": "Protection Mechanisms",
+            "command": "printf 'interface=wlan0\\nssid=ProtMode\\nhw_mode=g\\nchannel=6\\nrts_threshold=2347\\nfragm_threshold=2346\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate RTS/Frag config and run",
+            "explanation": "Adjusts RTS and Fragmentation thresholds to manage collisions in noisy environments"
+        },
+        {
+            "id": 56,
+            "category": "Client Load Balancing",
+            "command": "printf 'interface=wlan0\\nssid=LoadBalanceAP\\nmax_num_sta=10\\n' > hostapd.conf && hostapd hostapd.conf",
+            "example": "Generate Max Clients config and run",
+            "explanation": "Limits the maximum number of associated stations to 10 to force load balancing to other APs"
+        },
+        {
+            "id": 57,
+            "category": "Automation Workflow",
+            "command": "hostapd -B hostapd.conf && sleep 5 && hostapd_cli ping && echo 'AP Started'",
+            "example": "hostapd -B conf && check status",
+            "explanation": "Automation sequence to start hostapd, wait for initialization, and verify responsiveness"
+        },
+        {
+            "id": 58,
+            "category": "Cleanup",
+            "command": "killall hostapd",
+            "example": "killall hostapd",
+            "explanation": "Stops all running hostapd instances immediately"
+        },
+        {
+            "id": 59,
+            "category": "Cleanup",
+            "command": "rm -f /var/run/hostapd/*",
+            "example": "rm -f /var/run/hostapd/*",
+            "explanation": "Cleans up stale control interface sockets to prevent binding errors on restart"
+        },
+        {
+            "id": 60,
+            "category": "Cleanup",
+            "command": "ip link set wlan0 down && ip addr flush dev wlan0",
+            "example": "ip link set wlan0 down",
+            "explanation": "Resets the wireless interface state to default after stopping the access point"
+        }
+    ]
+}

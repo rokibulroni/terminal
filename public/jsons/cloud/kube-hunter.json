@@ -1,0 +1,427 @@
+{
+    "tool": "kube-hunter",
+    "description": "Complete kube-hunter command and workflow reference from basic to advanced Kubernetes hunting and exposure assessment",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Execution",
+            "command": "kube-hunter",
+            "example": "kube-hunter",
+            "explanation": "Runs kube-hunter in interactive mode to select scan types manually."
+        },
+        {
+            "id": 2,
+            "category": "Basic Execution",
+            "command": "kube-hunter --list",
+            "example": "kube-hunter --list",
+            "explanation": "Lists all available passive and active hunters (plugins) currently supported."
+        },
+        {
+            "id": 3,
+            "category": "Basic Execution",
+            "command": "kube-hunter --version",
+            "example": "kube-hunter --version",
+            "explanation": "Displays the current version of the kube-hunter tool."
+        },
+        {
+            "id": 4,
+            "category": "Basic Execution",
+            "command": "kube-hunter --help",
+            "example": "kube-hunter --help",
+            "explanation": "Shows the help menu with all available command-line arguments and flags."
+        },
+        {
+            "id": 5,
+            "category": "Remote Scanning",
+            "command": "kube-hunter --remote [IP]",
+            "example": "kube-hunter --remote 192.168.1.100",
+            "explanation": "Scans a specific remote IP address for Kubernetes vulnerabilities."
+        },
+        {
+            "id": 6,
+            "category": "Remote Scanning",
+            "command": "kube-hunter --remote [DNS_NAME]",
+            "example": "kube-hunter --remote k8s-cluster.example.com",
+            "explanation": "Scans a specific remote domain name for Kubernetes exposure."
+        },
+        {
+            "id": 7,
+            "category": "Remote Scanning",
+            "command": "kube-hunter --cidr [CIDR_BLOCK]",
+            "example": "kube-hunter --cidr 192.168.0.0/24",
+            "explanation": "Performs a scan across an entire network CIDR range to find Kubernetes nodes."
+        },
+        {
+            "id": 8,
+            "category": "Remote Scanning",
+            "command": "kube-hunter --remote [IP1] --remote [IP2]",
+            "example": "kube-hunter --remote 192.168.1.50 --remote 192.168.1.51",
+            "explanation": "Scans multiple distinct remote IP addresses in a single execution."
+        },
+        {
+            "id": 9,
+            "category": "Remote Scanning",
+            "command": "kube-hunter --url [URL]",
+            "example": "kube-hunter --url https://192.168.1.100:6443",
+            "explanation": "Targets a specific Kubernetes API server URL for assessment."
+        },
+        {
+            "id": 10,
+            "category": "Local Scanning",
+            "command": "kube-hunter --interface",
+            "example": "kube-hunter --interface",
+            "explanation": "Selects a local network interface to scan via interactive mode."
+        },
+        {
+            "id": 11,
+            "category": "Local Scanning",
+            "command": "kube-hunter --network [INTERFACE_TYPE]",
+            "example": "kube-hunter --network host",
+            "explanation": "Configures the network scanning mode to use the host network interface."
+        },
+        {
+            "id": 12,
+            "category": "Active Hunting",
+            "command": "kube-hunter --active",
+            "example": "kube-hunter --active",
+            "explanation": "Enables active hunting mode to attempt harmless exploitation of found vulnerabilities."
+        },
+        {
+            "id": 13,
+            "category": "Active Hunting",
+            "command": "kube-hunter --remote [IP] --active",
+            "example": "kube-hunter --remote 192.168.1.100 --active",
+            "explanation": "Performs an active vulnerability scan against a specific remote target."
+        },
+        {
+            "id": 14,
+            "category": "Active Hunting",
+            "command": "kube-hunter --cidr [CIDR] --active",
+            "example": "kube-hunter --cidr 10.0.0.0/16 --active",
+            "explanation": "Scans a network range and actively verifies vulnerabilities on discovered nodes."
+        },
+        {
+            "id": 15,
+            "category": "Reporting and Output",
+            "command": "kube-hunter --report json",
+            "example": "kube-hunter --report json",
+            "explanation": "Outputs the scan results in JSON format for automated parsing."
+        },
+        {
+            "id": 16,
+            "category": "Reporting and Output",
+            "command": "kube-hunter --report yaml",
+            "example": "kube-hunter --report yaml",
+            "explanation": "Outputs the scan results in YAML format for configuration management tools."
+        },
+        {
+            "id": 17,
+            "category": "Reporting and Output",
+            "command": "kube-hunter --report plain",
+            "example": "kube-hunter --report plain",
+            "explanation": "Outputs the scan results in plain text format for human readability."
+        },
+        {
+            "id": 18,
+            "category": "Reporting and Output",
+            "command": "kube-hunter --log [LEVEL]",
+            "example": "kube-hunter --log debug",
+            "explanation": "Sets the logging verbosity level to debug for detailed troubleshooting."
+        },
+        {
+            "id": 19,
+            "category": "Reporting and Output",
+            "command": "kube-hunter --log warn",
+            "example": "kube-hunter --log warn",
+            "explanation": "Reduces logging verbosity to show only warnings and errors."
+        },
+        {
+            "id": 20,
+            "category": "Reporting and Output",
+            "command": "kube-hunter --statistics",
+            "example": "kube-hunter --statistics",
+            "explanation": "Displays execution statistics at the end of the scan."
+        },
+        {
+            "id": 21,
+            "category": "Targeted Hunting",
+            "command": "kube-hunter --include-hunters [HUNTER_NAME]",
+            "example": "kube-hunter --include-hunters KubeletDiscovery",
+            "explanation": "Runs only the specified hunter, skipping all other checks."
+        },
+        {
+            "id": 22,
+            "category": "Targeted Hunting",
+            "command": "kube-hunter --exclude-hunters [HUNTER_NAME]",
+            "example": "kube-hunter --exclude-hunters KubeletDiscovery",
+            "explanation": "Runs all hunters except the one specified."
+        },
+        {
+            "id": 23,
+            "category": "Targeted Hunting",
+            "command": "kube-hunter --include-hunters [LIST]",
+            "example": "kube-hunter --include-hunters KubeletDiscovery,DashboardDiscovery",
+            "explanation": "Runs a comma-separated list of specific hunters for a focused audit."
+        },
+        {
+            "id": 24,
+            "category": "Internal/Pod Mode",
+            "command": "kube-hunter --pod",
+            "example": "kube-hunter --pod",
+            "explanation": "Flags execution as running inside a pod to leverage internal service discovery."
+        },
+        {
+            "id": 25,
+            "category": "Internal/Pod Mode",
+            "command": "kube-hunter --quick",
+            "example": "kube-hunter --quick",
+            "explanation": "Performs a quick scan by limiting subnet ranges and timeouts."
+        },
+        {
+            "id": 26,
+            "category": "Automation & Integration",
+            "command": "kube-hunter --dispatch stdout",
+            "example": "kube-hunter --dispatch stdout",
+            "explanation": "Forces results to standard output, useful for simple pipe operations."
+        },
+        {
+            "id": 27,
+            "category": "Automation & Integration",
+            "command": "kube-hunter --dispatch http --dispatch-url [URL]",
+            "example": "kube-hunter --dispatch http --dispatch-url https://collector.example.com/api",
+            "explanation": "Sends scan reports via HTTP POST to a remote collector URL."
+        },
+        {
+            "id": 28,
+            "category": "Advanced Configuration",
+            "command": "kube-hunter --mapping",
+            "example": "kube-hunter --mapping",
+            "explanation": "Outputs a mapping of the discovered nodes and cluster topology."
+        },
+        {
+            "id": 29,
+            "category": "Advanced Configuration",
+            "command": "kube-hunter --cidr [CIDR] --mapping",
+            "example": "kube-hunter --cidr 192.168.0.0/16 --mapping",
+            "explanation": "Maps the topology of a specific network range without running full vulnerability checks."
+        },
+        {
+            "id": 30,
+            "category": "Cloud Security Posture",
+            "command": "kube-hunter --remote [IP] --include-hunters GKEKubeletAnonymous",
+            "example": "kube-hunter --remote 35.1.1.1 --include-hunters GKEKubeletAnonymous",
+            "explanation": "Checks specifically for anonymous Kubelet access on GKE clusters."
+        },
+        {
+            "id": 31,
+            "category": "Cloud Security Posture",
+            "command": "kube-hunter --remote [IP] --include-hunters EKSKubeletAnonymous",
+            "example": "kube-hunter --remote 54.1.1.1 --include-hunters EKSKubeletAnonymous",
+            "explanation": "Checks specifically for anonymous Kubelet access on EKS clusters."
+        },
+        {
+            "id": 32,
+            "category": "Cloud Security Posture",
+            "command": "kube-hunter --remote [IP] --include-hunters AKSKubeletAnonymous",
+            "example": "kube-hunter --remote 20.1.1.1 --include-hunters AKSKubeletAnonymous",
+            "explanation": "Checks specifically for anonymous Kubelet access on AKS clusters."
+        },
+        {
+            "id": 33,
+            "category": "Blue Team Validation",
+            "command": "kube-hunter --remote [IP] --report json > scan_results.json",
+            "example": "kube-hunter --remote 192.168.1.100 --report json > scan_results.json",
+            "explanation": "Saves remote scan results to a JSON file for defensive analysis."
+        },
+        {
+            "id": 34,
+            "category": "Blue Team Validation",
+            "command": "kube-hunter --cidr [CIDR] --active --log warn",
+            "example": "kube-hunter --cidr 10.0.0.0/8 --active --log warn",
+            "explanation": "Runs a low-noise active scan over a large network to identify critical misconfigurations."
+        },
+        {
+            "id": 35,
+            "category": "Purple Team Simulation",
+            "command": "kube-hunter --active --include-hunters MountServiceToken",
+            "example": "kube-hunter --active --include-hunters MountServiceToken",
+            "explanation": "Actively attempts to mount and read service account tokens to simulate privilege escalation."
+        },
+        {
+            "id": 36,
+            "category": "Purple Team Simulation",
+            "command": "kube-hunter --active --include-hunters AnonymousAccess",
+            "example": "kube-hunter --active --include-hunters AnonymousAccess",
+            "explanation": "Actively tests if anonymous users can access restricted API endpoints."
+        },
+        {
+            "id": 37,
+            "category": "Incident Response",
+            "command": "kube-hunter --list | grep [KEYWORD]",
+            "example": "kube-hunter --list | grep etcd",
+            "explanation": "Filters the hunter list to identify available checks for specific components like etcd."
+        },
+        {
+            "id": 38,
+            "category": "Incident Response",
+            "command": "kube-hunter --remote [IP] --include-hunters EtcdRemoteAccess",
+            "example": "kube-hunter --remote 192.168.1.20 --include-hunters EtcdRemoteAccess",
+            "explanation": "Verifies if the etcd service is exposed and accessible remotely."
+        },
+        {
+            "id": 39,
+            "category": "Advanced Workflow",
+            "command": "kube-hunter --remote [IP] --report json --dispatch http --dispatch-url [URL]",
+            "example": "kube-hunter --remote 10.10.10.10 --report json --dispatch http --dispatch-url https://webhook.site/uuid",
+            "explanation": "Combines JSON reporting with HTTP dispatch for immediate remote logging."
+        },
+        {
+            "id": 40,
+            "category": "Advanced Workflow",
+            "command": "kube-hunter --pod --active --report yaml",
+            "example": "kube-hunter --pod --active --report yaml",
+            "explanation": "Runs inside a pod in active mode and generates a YAML report for GitOps processing."
+        },
+        {
+            "id": 41,
+            "category": "Advanced Workflow",
+            "command": "kube-hunter --cidr [CIDR] --exclude-hunters [NOISY_HUNTERS]",
+            "example": "kube-hunter --cidr 192.168.0.0/16 --exclude-hunters KubeletDiscovery,ProxyDiscovery",
+            "explanation": "Scans a network while excluding specific noisy discovery hunters."
+        },
+        {
+            "id": 42,
+            "category": "Validation & Compliance",
+            "command": "kube-hunter --include-hunters DashboardDiscovery,DashboardProxy",
+            "example": "kube-hunter --include-hunters DashboardDiscovery,DashboardProxy",
+            "explanation": "Focuses the audit strictly on Kubernetes Dashboard exposures."
+        },
+        {
+            "id": 43,
+            "category": "Validation & Compliance",
+            "command": "kube-hunter --include-hunters KubeletReadOnlyPorts,KubeletSecurePort",
+            "example": "kube-hunter --include-hunters KubeletReadOnlyPorts,KubeletSecurePort",
+            "explanation": "Focuses the audit strictly on Kubelet port configurations."
+        },
+        {
+            "id": 44,
+            "category": "Active Exploitation",
+            "command": "kube-hunter --active --include-hunters RCE",
+            "example": "kube-hunter --active --include-hunters RCE",
+            "explanation": "Attempts to verify Remote Code Execution vulnerabilities in discovered services."
+        },
+        {
+            "id": 45,
+            "category": "Pipeline Integration",
+            "command": "kube-hunter --cidr [CIDR] --report json --log none",
+            "example": "kube-hunter --cidr 172.16.0.0/12 --report json --log none",
+            "explanation": "Runs a silent scan outputting only JSON, ideal for parsing in CI pipelines."
+        },
+        {
+            "id": 46,
+            "category": "Specific Vulnerability",
+            "command": "kube-hunter --include-hunters CVE-2018-1002105",
+            "example": "kube-hunter --include-hunters CVE-2018-1002105",
+            "explanation": "Checks specifically for the critical Kubernetes privilege escalation vulnerability (if supported by version)."
+        },
+        {
+            "id": 47,
+            "category": "Specific Service",
+            "command": "kube-hunter --remote [IP] --include-hunters ProxyDiscovery",
+            "example": "kube-hunter --remote 192.168.1.1 --include-hunters ProxyDiscovery",
+            "explanation": "Checks specifically for an exposed Kubernetes Proxy service."
+        },
+        {
+            "id": 48,
+            "category": "Specific Service",
+            "command": "kube-hunter --remote [IP] --include-hunters AzureSpnExposure",
+            "example": "kube-hunter --remote 192.168.1.5 --include-hunters AzureSpnExposure",
+            "explanation": "Checks for exposed Azure Service Principal Names in the cluster."
+        },
+        {
+            "id": 49,
+            "category": "Network Mapping",
+            "command": "kube-hunter --cidr [CIDR] --quick --report json",
+            "example": "kube-hunter --cidr 192.168.1.0/24 --quick --report json",
+            "explanation": "Performs a fast network discovery scan and outputs results as JSON."
+        },
+        {
+            "id": 50,
+            "category": "Full Audit",
+            "command": "kube-hunter --remote [IP] --active --log debug",
+            "example": "kube-hunter --remote 192.168.1.10 --active --log debug",
+            "explanation": "Runs a comprehensive active audit on a single host with full debug logging."
+        },
+        {
+            "id": 51,
+            "category": "Containerized Execution",
+            "command": "docker run -it --rm --network host aquasec/kube-hunter",
+            "example": "docker run -it --rm --network host aquasec/kube-hunter",
+            "explanation": "Runs the official kube-hunter container using the host network for visibility."
+        },
+        {
+            "id": 52,
+            "category": "Containerized Execution",
+            "command": "docker run --rm aquasec/kube-hunter --cidr [CIDR]",
+            "example": "docker run --rm aquasec/kube-hunter --cidr 192.168.1.0/24",
+            "explanation": "Runs the kube-hunter container to scan a specific remote CIDR."
+        },
+        {
+            "id": 53,
+            "category": "Containerized Execution",
+            "command": "docker run --rm aquasec/kube-hunter --pod",
+            "example": "docker run --rm aquasec/kube-hunter --pod",
+            "explanation": "Runs the container in pod mode (useful when deployed as a Job inside K8s)."
+        },
+        {
+            "id": 54,
+            "category": "Complex Workflow",
+            "command": "kube-hunter --cidr [CIDR] --active --dispatch http --dispatch-url [URL] --report json",
+            "example": "kube-hunter --cidr 10.0.0.0/8 --active --dispatch http --dispatch-url http://log-server:8080 --report json",
+            "explanation": "Maximal command combining range scan, active hunting, JSON reporting, and HTTP dispatch."
+        },
+        {
+            "id": 55,
+            "category": "Specific Hunter",
+            "command": "kube-hunter --include-hunters ApiServerDiscovery",
+            "example": "kube-hunter --include-hunters ApiServerDiscovery",
+            "explanation": "Limits the scan to identifying if the API server is discoverable."
+        },
+        {
+            "id": 56,
+            "category": "Specific Hunter",
+            "command": "kube-hunter --include-hunters EtcdDiscovery",
+            "example": "kube-hunter --include-hunters EtcdDiscovery",
+            "explanation": "Limits the scan to identifying if the Etcd service is discoverable."
+        },
+        {
+            "id": 57,
+            "category": "Specific Hunter",
+            "command": "kube-hunter --active --include-hunters KubectlClient",
+            "example": "kube-hunter --active --include-hunters KubectlClient",
+            "explanation": "Actively checks if an exposed kubectl client configuration can be exploited."
+        },
+        {
+            "id": 58,
+            "category": "Specific Hunter",
+            "command": "kube-hunter --active --include-hunters HelmDiscovery",
+            "example": "kube-hunter --active --include-hunters HelmDiscovery",
+            "explanation": "Checks for exposed Helm Tiller instances (relevant for older clusters)."
+        },
+        {
+            "id": 59,
+            "category": "Timeout Tuning",
+            "command": "kube-hunter --remote [IP] --request-timeout [SECONDS]",
+            "example": "kube-hunter --remote 192.168.1.1 --request-timeout 5",
+            "explanation": "Sets a custom timeout for network requests to handle slow networks."
+        },
+        {
+            "id": 60,
+            "category": "Cleanup",
+            "command": "pkill -f kube-hunter",
+            "example": "pkill -f kube-hunter",
+            "explanation": "Forcefully terminates running kube-hunter processes."
+        }
+    ]
+}

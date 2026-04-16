@@ -1,0 +1,882 @@
+{
+    "tool": "kubectl",
+    "description": "Complete kubectl command and workflow reference from basic to advanced Kubernetes cluster operations",
+    "total_commands": 125,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Help",
+            "command": "kubectl --help",
+            "example": "kubectl --help",
+            "explanation": "Displays the root level help menu for kubectl commands and global flags."
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax & Help",
+            "command": "kubectl options",
+            "example": "kubectl options",
+            "explanation": "Lists all global command-line options available for every kubectl command."
+        },
+        {
+            "id": 3,
+            "category": "Cluster Information",
+            "command": "kubectl version",
+            "example": "kubectl version --output=json",
+            "explanation": "Prints the client and server version information in JSON format."
+        },
+        {
+            "id": 4,
+            "category": "Cluster Information",
+            "command": "kubectl cluster-info",
+            "example": "kubectl cluster-info dump",
+            "explanation": "Displays addresses of the master and services, or dumps detailed cluster debugging info."
+        },
+        {
+            "id": 5,
+            "category": "Cluster Information",
+            "command": "kubectl api-resources",
+            "example": "kubectl api-resources --namespaced=true",
+            "explanation": "Lists all supported API resources available on the server, filtered by namespaced scope."
+        },
+        {
+            "id": 6,
+            "category": "Cluster Information",
+            "command": "kubectl api-versions",
+            "example": "kubectl api-versions",
+            "explanation": "Lists the API versions that are supported by the current Kubernetes cluster."
+        },
+        {
+            "id": 7,
+            "category": "Context & Configuration",
+            "command": "kubectl config view",
+            "example": "kubectl config view --minify",
+            "explanation": "Displays the current kubeconfig settings, optionally minimizing output to the current context."
+        },
+        {
+            "id": 8,
+            "category": "Context & Configuration",
+            "command": "kubectl config get-contexts",
+            "example": "kubectl config get-contexts",
+            "explanation": "Lists all contexts defined in the kubeconfig file and highlights the active one."
+        },
+        {
+            "id": 9,
+            "category": "Context & Configuration",
+            "command": "kubectl config use-context",
+            "example": "kubectl config use-context my-cluster-context",
+            "explanation": "Switches the current active context to the specified context name."
+        },
+        {
+            "id": 10,
+            "category": "Context & Configuration",
+            "command": "kubectl config set-context",
+            "example": "kubectl config set-context --current --namespace=dev",
+            "explanation": "Modifies the current context to set a default namespace for future commands."
+        },
+        {
+            "id": 11,
+            "category": "Context & Configuration",
+            "command": "kubectl config delete-context",
+            "example": "kubectl config delete-context old-cluster",
+            "explanation": "Removes the specified context entry from the kubeconfig file."
+        },
+        {
+            "id": 12,
+            "category": "Namespace Management",
+            "command": "kubectl get namespaces",
+            "example": "kubectl get ns --show-labels",
+            "explanation": "Lists all namespaces in the cluster along with their associated labels."
+        },
+        {
+            "id": 13,
+            "category": "Namespace Management",
+            "command": "kubectl create namespace",
+            "example": "kubectl create namespace production --dry-run=client -o yaml",
+            "explanation": "Generates the YAML manifest for a new namespace without actually creating it."
+        },
+        {
+            "id": 14,
+            "category": "Resource Inspection (Basic)",
+            "command": "kubectl get all",
+            "example": "kubectl get all --all-namespaces",
+            "explanation": "Lists most resources (pods, services, deployments) across every namespace in the cluster."
+        },
+        {
+            "id": 15,
+            "category": "Resource Inspection (Basic)",
+            "command": "kubectl get pods",
+            "example": "kubectl get pods -o wide",
+            "explanation": "Lists pods with extended information such as IP address and Node assignment."
+        },
+        {
+            "id": 16,
+            "category": "Resource Inspection (Basic)",
+            "command": "kubectl get services",
+            "example": "kubectl get svc --sort-by=.metadata.name",
+            "explanation": "Lists services sorted alphabetically by their name."
+        },
+        {
+            "id": 17,
+            "category": "Resource Inspection (Detail)",
+            "command": "kubectl describe pod",
+            "example": "kubectl describe pod my-pod-name",
+            "explanation": "Shows detailed configuration, status, events, and conditions for a specific pod."
+        },
+        {
+            "id": 18,
+            "category": "Resource Inspection (Detail)",
+            "command": "kubectl describe node",
+            "example": "kubectl describe node worker-node-01",
+            "explanation": "Displays detailed node status, allocated resources, and system information."
+        },
+        {
+            "id": 19,
+            "category": "Imperative Creation",
+            "command": "kubectl run",
+            "example": "kubectl run nginx --image=nginx --restart=Never",
+            "explanation": "Creates a single pod instance imperatively using the specified image."
+        },
+        {
+            "id": 20,
+            "category": "Imperative Creation",
+            "command": "kubectl create deployment",
+            "example": "kubectl create deployment web --image=nginx --replicas=3",
+            "explanation": "Creates a deployment with a specified replica count and image."
+        },
+        {
+            "id": 21,
+            "category": "Imperative Creation",
+            "command": "kubectl expose",
+            "example": "kubectl expose deployment web --port=80 --target-port=8080 --type=LoadBalancer",
+            "explanation": "Exposes a resource as a new Kubernetes Service."
+        },
+        {
+            "id": 22,
+            "category": "Imperative Creation",
+            "command": "kubectl create job",
+            "example": "kubectl create job manual-job --image=busybox -- date",
+            "explanation": "Creates a Job resource that runs a specific command to completion."
+        },
+        {
+            "id": 23,
+            "category": "Imperative Creation",
+            "command": "kubectl create cronjob",
+            "example": "kubectl create cronjob my-cron --image=busybox --schedule=\"*/1 * * * *\" -- date",
+            "explanation": "Creates a CronJob that runs on a specific schedule."
+        },
+        {
+            "id": 24,
+            "category": "Debugging & Interaction",
+            "command": "kubectl logs",
+            "example": "kubectl logs my-pod",
+            "explanation": "Print the logs for a container in a pod or specified resource."
+        },
+        {
+            "id": 25,
+            "category": "Debugging & Interaction",
+            "command": "kubectl logs (follow)",
+            "example": "kubectl logs -f my-pod",
+            "explanation": "Streams the logs for a container in real-time, similar to tail -f."
+        },
+        {
+            "id": 26,
+            "category": "Debugging & Interaction",
+            "command": "kubectl logs (multi-container)",
+            "example": "kubectl logs my-pod -c sidecar-container",
+            "explanation": "Retrieves logs from a specific container within a multi-container pod."
+        },
+        {
+            "id": 27,
+            "category": "Debugging & Interaction",
+            "command": "kubectl logs (previous)",
+            "example": "kubectl logs my-pod --previous",
+            "explanation": "Retrieves logs from a previous instantiation of a container (e.g., after a crash)."
+        },
+        {
+            "id": 28,
+            "category": "Debugging & Interaction",
+            "command": "kubectl exec",
+            "example": "kubectl exec -it my-pod -- /bin/bash",
+            "explanation": "Executes a command inside a container with an interactive TTY."
+        },
+        {
+            "id": 29,
+            "category": "Debugging & Interaction",
+            "command": "kubectl cp",
+            "example": "kubectl cp /local/path my-pod:/container/path",
+            "explanation": "Copies files and directories to and from containers."
+        },
+        {
+            "id": 30,
+            "category": "Debugging & Interaction",
+            "command": "kubectl port-forward",
+            "example": "kubectl port-forward pod/my-pod 8080:80",
+            "explanation": "Forwards one or more local ports to a pod."
+        },
+        {
+            "id": 31,
+            "category": "Debugging & Interaction",
+            "command": "kubectl attach",
+            "example": "kubectl attach my-pod -c main-app -i -t",
+            "explanation": "Attaches to a running process in a container to view output or interact."
+        },
+        {
+            "id": 32,
+            "category": "Debugging & Interaction",
+            "command": "kubectl top pod",
+            "example": "kubectl top pod --containers",
+            "explanation": "Displays current CPU and memory usage for pods and their containers."
+        },
+        {
+            "id": 33,
+            "category": "Debugging & Interaction",
+            "command": "kubectl top node",
+            "example": "kubectl top node",
+            "explanation": "Displays current CPU and memory usage for nodes."
+        },
+        {
+            "id": 34,
+            "category": "Declarative Management",
+            "command": "kubectl apply",
+            "example": "kubectl apply -f ./manifests/",
+            "explanation": "Apply a configuration to a resource by filename or directory."
+        },
+        {
+            "id": 35,
+            "category": "Declarative Management",
+            "command": "kubectl apply (server-side)",
+            "example": "kubectl apply -f deployment.yaml --server-side",
+            "explanation": "Uses server-side apply to manage field ownership and merge conflicts."
+        },
+        {
+            "id": 36,
+            "category": "Declarative Management",
+            "command": "kubectl delete",
+            "example": "kubectl delete -f deployment.yaml",
+            "explanation": "Delete resources defined in a configuration file."
+        },
+        {
+            "id": 37,
+            "category": "Declarative Management",
+            "command": "kubectl diff",
+            "example": "kubectl diff -f deployment.yaml",
+            "explanation": "Displays differences between the current live cluster state and the local manifest."
+        },
+        {
+            "id": 38,
+            "category": "Declarative Management",
+            "command": "kubectl replace",
+            "example": "kubectl replace -f pod.yaml --force",
+            "explanation": "Replaces a resource by filename, optionally forcing deletion and recreation."
+        },
+        {
+            "id": 39,
+            "category": "Declarative Management",
+            "command": "kubectl kustomize",
+            "example": "kubectl kustomize ./overlays/production",
+            "explanation": "Builds a kustomization target and prints the resulting YAML to stdout."
+        },
+        {
+            "id": 40,
+            "category": "Declarative Management",
+            "command": "kubectl explain",
+            "example": "kubectl explain deployment.spec.strategy",
+            "explanation": "Describes the fields and structure of a Kubernetes resource type."
+        },
+        {
+            "id": 41,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl scale",
+            "example": "kubectl scale deployment/web --replicas=5",
+            "explanation": "Updates the replica count of a deployment, replicaset, or statefulset."
+        },
+        {
+            "id": 42,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl autoscale",
+            "example": "kubectl autoscale deployment/web --min=2 --max=10 --cpu-percent=80",
+            "explanation": "Creates a HorizontalPodAutoscaler to automatically manage scale."
+        },
+        {
+            "id": 43,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl rollout status",
+            "example": "kubectl rollout status daemonset/agent",
+            "explanation": "Watches the status of a rollout until it is complete."
+        },
+        {
+            "id": 44,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl rollout history",
+            "example": "kubectl rollout history deployment/web --revision=2",
+            "explanation": "Views the revision history of a rollout."
+        },
+        {
+            "id": 45,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl rollout undo",
+            "example": "kubectl rollout undo deployment/web --to-revision=1",
+            "explanation": "Rolls back a deployment to a previous revision."
+        },
+        {
+            "id": 46,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl rollout restart",
+            "example": "kubectl rollout restart deployment/web",
+            "explanation": "Restarts a resource, triggering a new rollout without configuration changes."
+        },
+        {
+            "id": 47,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl rollout pause",
+            "example": "kubectl rollout pause deployment/web",
+            "explanation": "Pauses a rollout to perform multiple changes before resuming."
+        },
+        {
+            "id": 48,
+            "category": "Scaling & Rollouts",
+            "command": "kubectl rollout resume",
+            "example": "kubectl rollout resume deployment/web",
+            "explanation": "Resumes a paused rollout."
+        },
+        {
+            "id": 49,
+            "category": "Config & Secrets",
+            "command": "kubectl create configmap",
+            "example": "kubectl create configmap app-config --from-file=config.properties",
+            "explanation": "Creates a ConfigMap from a file, directory, or literal value."
+        },
+        {
+            "id": 50,
+            "category": "Config & Secrets",
+            "command": "kubectl create secret generic",
+            "example": "kubectl create secret generic db-pass --from-literal=password=safe",
+            "explanation": "Creates a generic secret from literal values or files."
+        },
+        {
+            "id": 51,
+            "category": "Config & Secrets",
+            "command": "kubectl create secret docker-registry",
+            "example": "kubectl create secret docker-registry regcred --docker-server=x --docker-username=user --docker-password=pass",
+            "explanation": "Creates a secret for authenticating with a Docker registry."
+        },
+        {
+            "id": 52,
+            "category": "Config & Secrets",
+            "command": "kubectl create secret tls",
+            "example": "kubectl create secret tls tls-secret --cert=path/to/cert.crt --key=path/to/key.key",
+            "explanation": "Creates a TLS secret from a certificate and key file."
+        },
+        {
+            "id": 53,
+            "category": "Modification & Patching",
+            "command": "kubectl label",
+            "example": "kubectl label pods my-pod environment=production --overwrite",
+            "explanation": "Updates the labels on a resource, optionally overwriting existing ones."
+        },
+        {
+            "id": 54,
+            "category": "Modification & Patching",
+            "command": "kubectl annotate",
+            "example": "kubectl annotate service my-service description=\"Load Balancer\" --record",
+            "explanation": "Updates the annotations on a resource."
+        },
+        {
+            "id": 55,
+            "category": "Modification & Patching",
+            "command": "kubectl set image",
+            "example": "kubectl set image deployment/web nginx=nginx:1.19",
+            "explanation": "Updates the image of a container in a pod template."
+        },
+        {
+            "id": 56,
+            "category": "Modification & Patching",
+            "command": "kubectl set env",
+            "example": "kubectl set env deployment/registry STORAGE_DIR=/local",
+            "explanation": "Updates environment variables on a pod template."
+        },
+        {
+            "id": 57,
+            "category": "Modification & Patching",
+            "command": "kubectl set resources",
+            "example": "kubectl set resources deployment nginx -c=nginx --limits=cpu=200m,memory=512Mi",
+            "explanation": "Specifies compute resource requirements for a container."
+        },
+        {
+            "id": 58,
+            "category": "Modification & Patching",
+            "command": "kubectl edit",
+            "example": "kubectl edit svc/my-service",
+            "explanation": "Edit a resource on the server using the default text editor."
+        },
+        {
+            "id": 59,
+            "category": "Modification & Patching",
+            "command": "kubectl patch (merge)",
+            "example": "kubectl patch node k8s-node-1 -p '{\"spec\":{\"unschedulable\":true}}'",
+            "explanation": "Update field(s) of a resource using strategic merge patch."
+        },
+        {
+            "id": 60,
+            "category": "Modification & Patching",
+            "command": "kubectl patch (json)",
+            "example": "kubectl patch deployment web --type='json' -p='[{\"op\": \"replace\", \"path\": \"/spec/replicas\", \"value\": 3}]'",
+            "explanation": "Update resource using RFC 6902 JSON patch."
+        },
+        {
+            "id": 61,
+            "category": "Node Maintenance",
+            "command": "kubectl cordon",
+            "example": "kubectl cordon node-1",
+            "explanation": "Mark node as unschedulable to prevent new pods from arriving."
+        },
+        {
+            "id": 62,
+            "category": "Node Maintenance",
+            "command": "kubectl uncordon",
+            "example": "kubectl uncordon node-1",
+            "explanation": "Mark node as schedulable, allowing new pods to start."
+        },
+        {
+            "id": 63,
+            "category": "Node Maintenance",
+            "command": "kubectl drain",
+            "example": "kubectl drain node-1 --ignore-daemonsets --delete-emptydir-data",
+            "explanation": "Prepare node for maintenance by evicting all pods."
+        },
+        {
+            "id": 64,
+            "category": "Node Maintenance",
+            "command": "kubectl taint",
+            "example": "kubectl taint nodes node1 key=value:NoSchedule",
+            "explanation": "Update the taints on one or more nodes."
+        },
+        {
+            "id": 65,
+            "category": "Networking",
+            "command": "kubectl get endpoints",
+            "example": "kubectl get endpoints my-service",
+            "explanation": "Displays the endpoints (IP:Port) backing a service."
+        },
+        {
+            "id": 66,
+            "category": "Networking",
+            "command": "kubectl get ingress",
+            "example": "kubectl get ingress --all-namespaces",
+            "explanation": "Lists Ingress resources to view external access rules."
+        },
+        {
+            "id": 67,
+            "category": "Output Formatting",
+            "command": "kubectl get -o wide",
+            "example": "kubectl get pods -o wide",
+            "explanation": "Output in plain text with additional columns (e.g., Node, IP)."
+        },
+        {
+            "id": 68,
+            "category": "Output Formatting",
+            "command": "kubectl get -o yaml",
+            "example": "kubectl get pod my-pod -o yaml",
+            "explanation": "Output the full resource definition in YAML format."
+        },
+        {
+            "id": 69,
+            "category": "Output Formatting",
+            "command": "kubectl get -o json",
+            "example": "kubectl get pod my-pod -o json",
+            "explanation": "Output the full resource definition in JSON format."
+        },
+        {
+            "id": 70,
+            "category": "Output Formatting",
+            "command": "kubectl get --show-labels",
+            "example": "kubectl get pods --show-labels",
+            "explanation": "Include a column showing labels attached to resources."
+        },
+        {
+            "id": 71,
+            "category": "Output Formatting",
+            "command": "kubectl get --sort-by",
+            "example": "kubectl get pods --sort-by=.status.startTime",
+            "explanation": "Sort list output by a specific JSONPath expression."
+        },
+        {
+            "id": 72,
+            "category": "Output Formatting",
+            "command": "kubectl get -o jsonpath (names)",
+            "example": "kubectl get pods -o jsonpath='{.items[*].metadata.name}'",
+            "explanation": "Extract and print specific fields using a JSONPath expression."
+        },
+        {
+            "id": 73,
+            "category": "Output Formatting",
+            "command": "kubectl get -o custom-columns",
+            "example": "kubectl get pods -o custom-columns=NAME:.metadata.name,IMAGE:.spec.containers[0].image",
+            "explanation": "Define custom table columns based on field paths."
+        },
+        {
+            "id": 74,
+            "category": "Output Formatting",
+            "command": "kubectl get --no-headers",
+            "example": "kubectl get pods --no-headers",
+            "explanation": "Suppress the header row in output, useful for scripts."
+        },
+        {
+            "id": 75,
+            "category": "Filtering",
+            "command": "kubectl get -l (label selector)",
+            "example": "kubectl get pods -l app=nginx,tier=frontend",
+            "explanation": "Filter resources by label selector equality or set-based requirements."
+        },
+        {
+            "id": 76,
+            "category": "Filtering",
+            "command": "kubectl get --field-selector",
+            "example": "kubectl get pods --field-selector status.phase=Running",
+            "explanation": "Filter resources based on the value of resource fields."
+        },
+        {
+            "id": 77,
+            "category": "Wait & Automation",
+            "command": "kubectl wait",
+            "example": "kubectl wait --for=condition=Ready pod/my-pod --timeout=60s",
+            "explanation": "Wait for a specific condition on one or more resources."
+        },
+        {
+            "id": 78,
+            "category": "Wait & Automation",
+            "command": "kubectl delete (wait)",
+            "example": "kubectl delete pod my-pod --wait=false",
+            "explanation": "Delete resources without waiting for finalizer cleanup (returns immediately)."
+        },
+        {
+            "id": 79,
+            "category": "RBAC & Security",
+            "command": "kubectl create serviceaccount",
+            "example": "kubectl create serviceaccount my-sa",
+            "explanation": "Creates a new ServiceAccount in the current namespace."
+        },
+        {
+            "id": 80,
+            "category": "RBAC & Security",
+            "command": "kubectl create role",
+            "example": "kubectl create role pod-reader --verb=get,list --resource=pods",
+            "explanation": "Creates a Role with specific permissions within a namespace."
+        },
+        {
+            "id": 81,
+            "category": "RBAC & Security",
+            "command": "kubectl create rolebinding",
+            "example": "kubectl create rolebinding read-pods --role=pod-reader --user=jane",
+            "explanation": "Binds a Role to a user or group in a specific namespace."
+        },
+        {
+            "id": 82,
+            "category": "RBAC & Security",
+            "command": "kubectl create clusterrole",
+            "example": "kubectl create clusterrole node-reader --verb=get,list --resource=nodes",
+            "explanation": "Creates a ClusterRole with permissions across the entire cluster."
+        },
+        {
+            "id": 83,
+            "category": "RBAC & Security",
+            "command": "kubectl create clusterrolebinding",
+            "example": "kubectl create clusterrolebinding read-nodes-global --clusterrole=node-reader --group=system:authenticated",
+            "explanation": "Binds a ClusterRole to a user or group globally."
+        },
+        {
+            "id": 84,
+            "category": "RBAC & Security",
+            "command": "kubectl auth can-i",
+            "example": "kubectl auth can-i create pods",
+            "explanation": "Checks if the current user has permission to perform an action."
+        },
+        {
+            "id": 85,
+            "category": "RBAC & Security",
+            "command": "kubectl auth can-i (impersonate)",
+            "example": "kubectl auth can-i list secrets --as=jane --as-group=devs",
+            "explanation": "Checks permissions impersonating another user or group."
+        },
+        {
+            "id": 86,
+            "category": "RBAC & Security",
+            "command": "kubectl auth reconcile",
+            "example": "kubectl auth reconcile -f rbac-policy.yaml",
+            "explanation": "Patches RBAC roles and bindings to match the input file if safe."
+        },
+        {
+            "id": 87,
+            "category": "RBAC & Security",
+            "command": "kubectl certificate approve",
+            "example": "kubectl certificate approve my-csr",
+            "explanation": "Approves a CertificateSigningRequest (CSR)."
+        },
+        {
+            "id": 88,
+            "category": "RBAC & Security",
+            "command": "kubectl certificate deny",
+            "example": "kubectl certificate deny my-csr",
+            "explanation": "Denies a CertificateSigningRequest (CSR)."
+        },
+        {
+            "id": 89,
+            "category": "Events & Diagnostics",
+            "command": "kubectl get events",
+            "example": "kubectl get events --sort-by='.lastTimestamp'",
+            "explanation": "Lists recent events in the namespace, sorted by time."
+        },
+        {
+            "id": 90,
+            "category": "Events & Diagnostics",
+            "command": "kubectl get events (watch)",
+            "example": "kubectl get events --watch-only",
+            "explanation": "Streams events as they happen without listing history."
+        },
+        {
+            "id": 91,
+            "category": "Advanced Debugging",
+            "command": "kubectl debug (node)",
+            "example": "kubectl debug node/worker-1 -it --image=busybox",
+            "explanation": "Creates a debugging pod on a node to troubleshoot host issues."
+        },
+        {
+            "id": 92,
+            "category": "Advanced Debugging",
+            "command": "kubectl debug (pod)",
+            "example": "kubectl debug -it pod/my-pod --image=busybox --target=app-container",
+            "explanation": "Attaches a new container to a running pod for debugging purposes."
+        },
+        {
+            "id": 93,
+            "category": "Advanced Debugging",
+            "command": "kubectl alpha events",
+            "example": "kubectl alpha events --for=pod/nginx",
+            "explanation": "Experimental command to view events filtered for a specific object."
+        },
+        {
+            "id": 94,
+            "category": "Raw API Access",
+            "command": "kubectl get --raw",
+            "example": "kubectl get --raw /metrics",
+            "explanation": "Sends a raw GET request to the Kubernetes API server."
+        },
+        {
+            "id": 95,
+            "category": "Raw API Access",
+            "command": "kubectl proxy",
+            "example": "kubectl proxy --port=8001",
+            "explanation": "Creates a proxy server between localhost and the Kubernetes API server."
+        },
+        {
+            "id": 96,
+            "category": "Plugin Management",
+            "command": "kubectl plugin list",
+            "example": "kubectl plugin list",
+            "explanation": "Lists all available kubectl plugins installed in the path."
+        },
+        {
+            "id": 97,
+            "category": "Cluster Management",
+            "command": "kubectl delete node",
+            "example": "kubectl delete node worker-1",
+            "explanation": "Removes a node object from the cluster (does not terminate VM)."
+        },
+        {
+            "id": 98,
+            "category": "Cleanup",
+            "command": "kubectl delete pods (force)",
+            "example": "kubectl delete pod my-pod --grace-period=0 --force",
+            "explanation": "Forcefully deletes a pod, bypassing graceful termination."
+        },
+        {
+            "id": 99,
+            "category": "Cleanup",
+            "command": "kubectl delete evictions",
+            "example": "kubectl delete pod --field-selector=status.phase=Failed -A",
+            "explanation": "Deletes all failed pods across all namespaces (common cleanup task)."
+        },
+        {
+            "id": 100,
+            "category": "Blue Team/Defense",
+            "command": "kubectl get pod (security context)",
+            "example": "kubectl get pods -o jsonpath='{.items[*].spec.securityContext}'",
+            "explanation": "Audits the security context of running pods to find misconfigurations."
+        },
+        {
+            "id": 101,
+            "category": "Blue Team/Defense",
+            "command": "kubectl get psp",
+            "example": "kubectl get psp",
+            "explanation": "Lists PodSecurityPolicies (if enabled) to verify admission controls."
+        },
+        {
+            "id": 102,
+            "category": "Blue Team/Defense",
+            "command": "kubectl get networkpolicies",
+            "example": "kubectl get networkpolicies --all-namespaces",
+            "explanation": "Audits network segmentation rules across the cluster."
+        },
+        {
+            "id": 103,
+            "category": "Blue Team/Defense",
+            "command": "kubectl get clusterrolebindings (audit)",
+            "example": "kubectl get clusterrolebindings -o custom-columns=NAME:.metadata.name,ROLE:.roleRef.name,SUBJECT:.subjects[*].name",
+            "explanation": "Audits global permissions to identify privileged users."
+        },
+        {
+            "id": 104,
+            "category": "Incident Response",
+            "command": "kubectl get pods (by time)",
+            "example": "kubectl get pods --sort-by=.metadata.creationTimestamp",
+            "explanation": "Lists pods ordered by creation time to identify recently launched rogue containers."
+        },
+        {
+            "id": 105,
+            "category": "Incident Response",
+            "command": "kubectl get secrets (audit)",
+            "example": "kubectl get secrets -o jsonpath='{range .items[*]}{.metadata.name}{\"\\t\"}{.type}{\"\\n\"}{end}'",
+            "explanation": "Lists secrets and their types to audit for exposed credentials."
+        },
+        {
+            "id": 106,
+            "category": "Incident Response",
+            "command": "kubectl delete (cascade false)",
+            "example": "kubectl delete deployment nginx --cascade=orphan",
+            "explanation": "Deletes the deployment controller but leaves the pods running for investigation."
+        },
+        {
+            "id": 107,
+            "category": "Advanced Workflow",
+            "command": "kubectl cp (snapshot)",
+            "example": "kubectl cp my-pod:/var/log/app.log ./evidence.log",
+            "explanation": "Extracts logs or files from a compromised pod for forensic analysis."
+        },
+        {
+            "id": 108,
+            "category": "Advanced Workflow",
+            "command": "kubectl patch (finalizers)",
+            "example": "kubectl patch pvc my-pvc -p '{\"metadata\":{\"finalizers\":null}}'",
+            "explanation": "Removes finalizers to force deletion of stuck resources."
+        },
+        {
+            "id": 109,
+            "category": "Advanced Workflow",
+            "command": "kubectl diff (server-side)",
+            "example": "kubectl diff -f manifest.yaml --server-side",
+            "explanation": "Previews changes using server-side apply logic."
+        },
+        {
+            "id": 110,
+            "category": "Advanced Workflow",
+            "command": "kubectl replace (force)",
+            "example": "kubectl replace --force -f pod.yaml",
+            "explanation": "Forces resource replacement by deleting and recreating it immediately."
+        },
+        {
+            "id": 111,
+            "category": "Advanced Workflow",
+            "command": "kubectl get (watch)",
+            "example": "kubectl get pods -w",
+            "explanation": "Watches for changes to the list of pods in real-time."
+        },
+        {
+            "id": 112,
+            "category": "Advanced Workflow",
+            "command": "kubectl completion bash",
+            "example": "source <(kubectl completion bash)",
+            "explanation": "Generates and sources the bash auto-completion code for the current shell."
+        },
+        {
+            "id": 113,
+            "category": "Advanced Workflow",
+            "command": "kubectl completion zsh",
+            "example": "source <(kubectl completion zsh)",
+            "explanation": "Generates and sources the zsh auto-completion code."
+        },
+        {
+            "id": 114,
+            "category": "Advanced Workflow",
+            "command": "kubectl convert",
+            "example": "kubectl convert -f deployment.yaml --output-version apps/v1",
+            "explanation": "Converts config files between different API versions (requires plugin)."
+        },
+        {
+            "id": 115,
+            "category": "Metrics & Discovery",
+            "command": "kubectl get --raw (nodes)",
+            "example": "kubectl get --raw /api/v1/nodes/node1/proxy/metrics",
+            "explanation": "Fetches raw metrics directly from a specific node."
+        },
+        {
+            "id": 116,
+            "category": "Complex Filtering",
+            "command": "kubectl get (jsonpath conditional)",
+            "example": "kubectl get nodes -o jsonpath='{.items[?(@.spec.unschedulable)].metadata.name}'",
+            "explanation": "Lists only nodes that are currently cordon/unschedulable."
+        },
+        {
+            "id": 117,
+            "category": "Complex Filtering",
+            "command": "kubectl get (custom columns images)",
+            "example": "kubectl get pods -A -o custom-columns='NS:.metadata.namespace,POD:.metadata.name,IMAGE:.spec.containers[*].image'",
+            "explanation": "Audits all images running across the entire cluster."
+        },
+        {
+            "id": 118,
+            "category": "Service Mesh / Sidecar",
+            "command": "kubectl describe (sidecar)",
+            "example": "kubectl describe pod my-pod | grep -A 10 'istio-proxy'",
+            "explanation": "Inspects sidecar container details often used in service meshes."
+        },
+        {
+            "id": 119,
+            "category": "API Discovery",
+            "command": "kubectl explain (recursive)",
+            "example": "kubectl explain deployment.spec --recursive",
+            "explanation": "Recursively prints all fields and sub-fields for a resource spec."
+        },
+        {
+            "id": 120,
+            "category": "Lifecycle Management",
+            "command": "kubectl drain (force)",
+            "example": "kubectl drain node-1 --force --ignore-daemonsets",
+            "explanation": "Forces a node drain even if there are pods not managed by a controller."
+        },
+        {
+            "id": 121,
+            "category": "Security Auditing",
+            "command": "kubectl auth can-i (list)",
+            "example": "kubectl auth can-i --list --as=system:serviceaccount:ns:sa",
+            "explanation": "Lists all allowed actions for a specific service account."
+        },
+        {
+            "id": 122,
+            "category": "Resource Tuning",
+            "command": "kubectl set serviceaccount",
+            "example": "kubectl set serviceaccount deployment/web my-sa",
+            "explanation": "Updates the service account used by a workload resource."
+        },
+        {
+            "id": 123,
+            "category": "Connectivity Check",
+            "command": "kubectl run (curl)",
+            "example": "kubectl run curl-test --image=curlimages/curl -it --rm -- sh",
+            "explanation": "Launches a temporary curl pod to test internal cluster connectivity."
+        },
+        {
+            "id": 124,
+            "category": "Connectivity Check",
+            "command": "kubectl run (dns)",
+            "example": "kubectl run dns-test --image=busybox -it --rm -- nslookup kubernetes.default",
+            "explanation": "Launches a temporary pod to verify internal DNS resolution."
+        },
+        {
+            "id": 125,
+            "category": "Final Cleanup",
+            "command": "kubectl delete all",
+            "example": "kubectl delete all --all -n test-ns",
+            "explanation": "Deletes all resources in a namespace (use with extreme caution)."
+        }
+    ]
+}

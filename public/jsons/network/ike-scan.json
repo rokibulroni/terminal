@@ -1,0 +1,217 @@
+{
+    "tool": "ike-scan",
+    "description": "Complete ike-scan command reference covering all options from basic to advanced",
+    "total_commands": 30,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic IKE Discovery",
+            "command": "ike-scan 192.168.1.1",
+            "example": "ike-scan 192.168.1.1",
+            "explanation": "Sends standard Main Mode packets for discovery.\nIdentifies hosts running IKE services on the target IP."
+        },
+        {
+            "id": 2,
+            "category": "Target and Range Specification",
+            "command": "ike-scan 192.168.1.0/24",
+            "example": "ike-scan 192.168.1.0/24",
+            "explanation": "Scans an entire CIDR subnet for IKE endpoints.\nEfficiently maps VPN gateways across a broad network range."
+        },
+        {
+            "id": 3,
+            "category": "Target and Range Specification",
+            "command": "ike-scan -f targets.txt",
+            "example": "ike-scan -f targets.txt",
+            "explanation": "Reads target list from a text file (-f).\nEnables batch scanning of specifically documented server addresses."
+        },
+        {
+            "id": 4,
+            "category": "Aggressive Mode Scanning",
+            "command": "ike-scan -A 192.168.1.1",
+            "example": "ike-scan -A 192.168.1.1",
+            "explanation": "Uses Aggressive Mode for IKE discovery (-A).\nAttempts to elicit identity data and hashes from the VPN gateways."
+        },
+        {
+            "id": 5,
+            "category": "Main Mode Scanning",
+            "command": "ike-scan -M 192.168.1.1",
+            "example": "ike-scan -M 192.168.1.1",
+            "explanation": "Forces Main Mode for the exchange (-M).\nUses the standard, more secure 3-step handshake for identification."
+        },
+        {
+            "id": 6,
+            "category": "Pre Shared Key Detection Techniques",
+            "command": "ike-scan -A --id=groupname 192.168.1.1",
+            "example": "ike-scan -A --id=groupname 192.168.1.1",
+            "explanation": "Sends a specific Group ID in Aggressive Mode.\nProbes for valid responses that contain crackable PSK hashes."
+        },
+        {
+            "id": 7,
+            "category": "Basic IKE Discovery",
+            "command": "ike-scan -2 192.168.1.1",
+            "example": "ike-scan -2 192.168.1.1",
+            "explanation": "Uses IKEv2 mode for endpoint discovery (-2).\nIdentifies modern VPN services that support the updated IKE standard."
+        },
+        {
+            "id": 8,
+            "category": "Retry, Timeout, and Rate Control",
+            "command": "ike-scan --retry=3 --interval=500 192.168.1.1",
+            "example": "ike-scan --retry=3 --interval=500 192.168.1.1",
+            "explanation": "Retries 3 times with 500ms intervals.\nIncreases reliability when scanning over unstable or distant networks."
+        },
+        {
+            "id": 9,
+            "category": "Retry, Timeout, and Rate Control",
+            "command": "ike-scan --backoff=200 192.168.1.0/24",
+            "example": "ike-scan --backoff=200 192.168.1.0/24",
+            "explanation": "Enforces a 200ms delay between packets (--backoff).\nThrottles the scan to prevent overwhelming network bandwidth."
+        },
+        {
+            "id": 10,
+            "category": "Vendor ID and Device Fingerprinting",
+            "command": "ike-scan --showbackoff 192.168.1.1",
+            "example": "ike-scan --showbackoff 192.168.1.1",
+            "explanation": "Displays the backoff fingerprint table.\nHelps identify the VPN vendor based on how they handle retransmissions."
+        },
+        {
+            "id": 11,
+            "category": "Transform and Proposal Enumeration",
+            "command": "ike-scan --auth=1 --enc=5 --group=2 192.168.1.1",
+            "example": "ike-scan --auth=1 --enc=5 --group=2 192.168.1.1",
+            "explanation": "Specifies custom transform parameters.\nTests particular Auth/Enc/DH configurations to find supported proposals."
+        },
+        {
+            "id": 12,
+            "category": "Transform and Proposal Enumeration",
+            "command": "ike-scan --trans=5,2,1,2 192.168.1.1",
+            "example": "ike-scan --trans=5,2,1,2 192.168.1.1",
+            "explanation": "Manually defines transform payloads string.\nProvides absolute control over the proposal data sent to the target."
+        },
+        {
+            "id": 13,
+            "category": "Authentication and Exchange Options",
+            "command": "ike-scan --multimode 192.168.1.1",
+            "example": "ike-scan --multimode 192.168.1.1",
+            "explanation": "Sends multiple transforms in one packet (--multimode).\nEfficiently determines which cryptographic suites the server accepts."
+        },
+        {
+            "id": 14,
+            "category": "Source IP and Interface Binding",
+            "command": "ike-scan --interface=eth0 192.168.1.1",
+            "example": "ike-scan --interface=eth0 192.168.1.1",
+            "explanation": "Binds the scan to a specific network interface.\nEnsures discovery traffic exits through the intended physical adapter."
+        },
+        {
+            "id": 15,
+            "category": "Source IP and Interface Binding",
+            "command": "ike-scan --sourceip=192.168.1.5 192.168.1.1",
+            "example": "ike-scan --sourceip=192.168.1.5 192.168.1.1",
+            "explanation": "Spoofs the source IP address of the probes.\nMakes discovery packets appear to come from another host on the network."
+        },
+        {
+            "id": 16,
+            "category": "Source IP and Interface Binding",
+            "command": "ike-scan --sport=500 192.168.1.1",
+            "example": "ike-scan --sport=500 192.168.1.1",
+            "explanation": "Sets source UDP port to 500 (--sport 500).\nUses the standard IKE port to mimic legitimate VPN client traffic."
+        },
+        {
+            "id": 17,
+            "category": "Source IP and Interface Binding",
+            "command": "ike-scan --sport=0 192.168.1.1",
+            "example": "ike-scan --sport=0 192.168.1.1",
+            "explanation": "Randomizes the source UDP port (--sport 0).\nPrevents traffic filters from identifying the probe by its source port."
+        },
+        {
+            "id": 18,
+            "category": "NAT Traversal Detection",
+            "command": "ike-scan --nat-t 192.168.1.1",
+            "example": "ike-scan --nat-t 192.168.1.1",
+            "explanation": "Encapsulates packets in UDP/4500 (--nat-t).\nTests if the VPN endpoint supports and allows NAT Traversal."
+        },
+        {
+            "id": 19,
+            "category": "Output Formatting and Logging",
+            "command": "ike-scan -v 192.168.1.1",
+            "example": "ike-scan -v 192.168.1.1",
+            "explanation": "Enables verbose mode for detailed tracking (-v).\nDisplays information about handshake stages and payload contents."
+        },
+        {
+            "id": 20,
+            "category": "Quiet, Verbose, and Debug Modes",
+            "command": "ike-scan -q 192.168.1.1",
+            "example": "ike-scan -q 192.168.1.1",
+            "explanation": "Runs in quiet mode (-q).\nSuppresses non-essential log entries for cleaner automation output."
+        },
+        {
+            "id": 21,
+            "category": "Output Formatting and Logging",
+            "command": "ike-scan --hexdump 192.168.1.1",
+            "example": "ike-scan --hexdump 192.168.1.1",
+            "explanation": "Displays hex dump of received packets.\nEnables deep manual analysis of server-side IKE responses."
+        },
+        {
+            "id": 22,
+            "category": "Pre Shared Key Detection Techniques",
+            "command": "ike-scan -A --idtype=2 --id=test 192.168.1.1",
+            "example": "ike-scan -A --idtype=2 --id=test 192.168.1.1",
+            "explanation": "Uses DNS hostname for identification (--idtype 2).\nProbes targets that require hostname-based ID validation."
+        },
+        {
+            "id": 23,
+            "category": "IPv4 and IPv6 Scanning",
+            "command": "ike-scan -6 2001:db8::1",
+            "example": "ike-scan -6 2001:db8::1",
+            "explanation": "Scans an IPv6 address endpoint (-6).\nVerifies IKE accessibility on modern IPv6 network stacks."
+        },
+        {
+            "id": 24,
+            "category": "Red Team VPN Reconnaissance",
+            "command": "ike-scan -A -Phash.txt 192.168.1.1",
+            "example": "ike-scan -A -Phash.txt 192.168.1.1",
+            "explanation": "Saves PSK hashes to a file for offline cracking.\nEssential for capturing data required to crack VPN passwords."
+        },
+        {
+            "id": 25,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "ike-scan --random --retry=1 192.168.1.0/24",
+            "example": "ike-scan --random --retry=1 192.168.1.0/24",
+            "explanation": "Randomizes target order with 1 retry.\nImplements simple anti-detection measures when scanning large ranges."
+        },
+        {
+            "id": 26,
+            "category": "VPN Gateway Identification",
+            "command": "ike-scan --headerlen=100 192.168.1.1",
+            "example": "ike-scan --headerlen=100 192.168.1.1",
+            "explanation": "Sets custom ISAKMP header length.\nTests how the target handles malformed or non-standard IKE headers."
+        },
+        {
+            "id": 27,
+            "category": "Transform and Proposal Enumeration",
+            "command": "ike-scan --lifetime=28800 --lifesize=10000 192.168.1.1",
+            "example": "ike-scan --lifetime=28800 --lifesize=10000 192.168.1.1",
+            "explanation": "Specifies SA lifetime and size proposals.\nChecks if the server accepts non-standard security association limits."
+        },
+        {
+            "id": 28,
+            "category": "Blue Team Exposure Validation",
+            "command": "ike-scan --shownum 192.168.1.1",
+            "example": "ike-scan --shownum 192.168.1.1",
+            "explanation": "Displays the count of returned transforms.\nValidates the diversity of crypto proposals the server is willing to accept."
+        },
+        {
+            "id": 29,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "ike-scan -M -v --auth=1 192.168.1.1",
+            "example": "ike-scan -M -v --auth=1 192.168.1.1",
+            "explanation": "Verbose Main Mode scan for PSK auth.\nPerforms an audit to see if pre-shared keys are used on specific targets."
+        },
+        {
+            "id": 30,
+            "category": "Red Team VPN Reconnaissance",
+            "command": "ike-scan --patterns=custom_vendors.txt 192.168.1.1",
+            "example": "ike-scan --patterns=custom_vendors.txt 192.168.1.1",
+            "explanation": "Uses custom vendor signature file.\nIdentifies specific device models and firmware versions from obscure vendors."
+        }
+    ]
+}

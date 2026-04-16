@@ -1,0 +1,462 @@
+{
+    "tool": "strings",
+    "description": "Complete strings command and workflow reference from basic to advanced binary and forensic analysis",
+    "total_commands": 65,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic String Extraction",
+            "command": "strings sample.bin",
+            "example": "strings suspicious.exe",
+            "explanation": "Extracts default human-readable ASCII strings from the specified binary file."
+        },
+        {
+            "id": 2,
+            "category": "Basic String Extraction",
+            "command": "strings -a sample.bin",
+            "example": "strings -a malware.bin",
+            "explanation": "Forces the scan of the entire file rather than just specific initialized data sections."
+        },
+        {
+            "id": 3,
+            "category": "Basic String Extraction",
+            "command": "strings --all sample.bin",
+            "example": "strings --all rootkit.ko",
+            "explanation": "Equivalent to the -a flag, ensuring every byte of the file is analyzed for printable characters."
+        },
+        {
+            "id": 4,
+            "category": "Basic String Extraction",
+            "command": "strings - sample.bin",
+            "example": "strings - unknown_blob.dat",
+            "explanation": "Uses the dash shorthand to explicitly instruct strings to scan the whole file."
+        },
+        {
+            "id": 5,
+            "category": "Length Control",
+            "command": "strings -n 8 sample.bin",
+            "example": "strings -n 8 payload.exe",
+            "explanation": "Filters output to only show strings with a minimum length of 8 characters, reducing noise."
+        },
+        {
+            "id": 6,
+            "category": "Length Control",
+            "command": "strings --bytes=10 sample.bin",
+            "example": "strings --bytes=10 memory.dmp",
+            "explanation": "Sets the minimum sequence length to 10 characters using the verbose flag syntax."
+        },
+        {
+            "id": 7,
+            "category": "Length Control",
+            "command": "strings -6 sample.bin",
+            "example": "strings -6 dropper.elf",
+            "explanation": "Uses legacy shorthand to set the minimum string length to 6 characters."
+        },
+        {
+            "id": 8,
+            "category": "File and Input Handling",
+            "command": "strings -f *.bin",
+            "example": "strings -f *.dll",
+            "explanation": "Prints the filename before each string found, useful when scanning multiple files simultaneously."
+        },
+        {
+            "id": 9,
+            "category": "File and Input Handling",
+            "command": "strings --print-file-name sample.bin",
+            "example": "strings --print-file-name artifact.sys",
+            "explanation": "Explicitly enables filename prefixing for the output, aiding in attribution during bulk analysis."
+        },
+        {
+            "id": 10,
+            "category": "Offset and Locations",
+            "command": "strings -t d sample.bin",
+            "example": "strings -t d firmware.rom",
+            "explanation": "Displays the offset (location) of each string within the file in decimal format."
+        },
+        {
+            "id": 11,
+            "category": "Offset and Locations",
+            "command": "strings -t x sample.bin",
+            "example": "strings -t x exploit.doc",
+            "explanation": "Displays the offset of each string in hexadecimal format, standard for hex editor cross-referencing."
+        },
+        {
+            "id": 12,
+            "category": "Offset and Locations",
+            "command": "strings -t o sample.bin",
+            "example": "strings -t o archive.tar",
+            "explanation": "Displays the offset of each string in octal format."
+        },
+        {
+            "id": 13,
+            "category": "Offset and Locations",
+            "command": "strings --radix=x sample.bin",
+            "example": "strings --radix=x bootloader.img",
+            "explanation": "Sets the offset radix to hexadecimal using the verbose argument style."
+        },
+        {
+            "id": 14,
+            "category": "Encoding and Character Sets",
+            "command": "strings -e s sample.bin",
+            "example": "strings -e s text.txt",
+            "explanation": "Explicitly scans for standard 7-bit ASCII characters (default behavior)."
+        },
+        {
+            "id": 15,
+            "category": "Encoding and Character Sets",
+            "command": "strings -e S sample.bin",
+            "example": "strings -e S international.dat",
+            "explanation": "Scans for 8-bit characters to capture ISO-8859 or extended ASCII strings."
+        },
+        {
+            "id": 16,
+            "category": "Encoding and Character Sets",
+            "command": "strings -e l sample.bin",
+            "example": "strings -e l windows_log.evtx",
+            "explanation": "Scans for 16-bit little-endian characters, commonly used for Windows UTF-16 (Unicode) strings."
+        },
+        {
+            "id": 17,
+            "category": "Encoding and Character Sets",
+            "command": "strings -e b sample.bin",
+            "example": "strings -e b mips_firmware.bin",
+            "explanation": "Scans for 16-bit big-endian characters, often found in network appliances or legacy architectures."
+        },
+        {
+            "id": 18,
+            "category": "Encoding and Character Sets",
+            "command": "strings -e L sample.bin",
+            "example": "strings -e L data.db",
+            "explanation": "Scans for 32-bit little-endian characters."
+        },
+        {
+            "id": 19,
+            "category": "Encoding and Character Sets",
+            "command": "strings -e B sample.bin",
+            "example": "strings -e B old_system.img",
+            "explanation": "Scans for 32-bit big-endian characters."
+        },
+        {
+            "id": 20,
+            "category": "Output Formatting",
+            "command": "strings -s ' :: ' sample.bin",
+            "example": "strings -s ' :: ' logfile.dat",
+            "explanation": "Inserts a custom separator string between output items instead of a newline."
+        },
+        {
+            "id": 21,
+            "category": "Output Formatting",
+            "command": "strings --output-separator=',' sample.bin",
+            "example": "strings --output-separator=',' data.csv",
+            "explanation": "Uses a comma as the output separator, facilitating CSV-style output generation."
+        },
+        {
+            "id": 22,
+            "category": "Combined Basic Workflows",
+            "command": "strings -a -t x -n 10 sample.bin",
+            "example": "strings -a -t x -n 10 unknown_malware.exe",
+            "explanation": "Combines scanning all bytes, hex offsets, and minimum length filtering for a standard initial triage."
+        },
+        {
+            "id": 23,
+            "category": "Combined Basic Workflows",
+            "command": "strings -e l -t x sample.bin",
+            "example": "strings -e l -t x document.pdf",
+            "explanation": "Extracts UTF-16 strings with their hexadecimal offsets to locate Unicode artifacts."
+        },
+        {
+            "id": 24,
+            "category": "Malware and Artifact Analysis",
+            "command": "strings sample.bin | grep -i 'http'",
+            "example": "strings dropper.exe | grep -i 'http'",
+            "explanation": "Pipes output to grep to search for HTTP/HTTPS URLs specifically."
+        },
+        {
+            "id": 25,
+            "category": "Malware and Artifact Analysis",
+            "command": "strings -e l sample.bin | grep -i 'c:\\\\'",
+            "example": "strings -e l malware.exe | grep -i 'c:\\\\'",
+            "explanation": "Searches for Windows file paths inside Unicode-encoded strings."
+        },
+        {
+            "id": 26,
+            "category": "Malware and Artifact Analysis",
+            "command": "strings sample.bin | grep -E '[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}'",
+            "example": "strings c2_client.exe | grep -E '[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}'",
+            "explanation": "Uses regex to extract potential IPv4 addresses from the binary."
+        },
+        {
+            "id": 27,
+            "category": "Malware and Artifact Analysis",
+            "command": "strings sample.bin | grep -i 'pdb'",
+            "example": "strings unknown.dll | grep -i 'pdb'",
+            "explanation": "Searches for PDB (Program Database) paths which often reveal the developer's username and project path."
+        },
+        {
+            "id": 28,
+            "category": "Malware and Artifact Analysis",
+            "command": "strings sample.bin | grep -i 'user-agent'",
+            "example": "strings downloader.exe | grep -i 'user-agent'",
+            "explanation": "Hunts for hardcoded User-Agent strings used in network communications."
+        },
+        {
+            "id": 29,
+            "category": "Malware and Artifact Analysis",
+            "command": "strings sample.bin | grep -E '^[A-Za-z0-9+/]{20,}={0,2}$'",
+            "example": "strings payload.bin | grep -E '^[A-Za-z0-9+/]{20,}={0,2}$'",
+            "explanation": "Attempts to identify long Base64 encoded strings which may represent obfuscated configurations."
+        },
+        {
+            "id": 30,
+            "category": "Malware and Artifact Analysis",
+            "command": "strings sample.bin | grep -iE '(powershell|cmd|bash|sh)'",
+            "example": "strings script.exe | grep -iE '(powershell|cmd|bash|sh)'",
+            "explanation": "Scans for shell execution commands indicating potential system command injection capabilities."
+        },
+        {
+            "id": 31,
+            "category": "Incident Response Investigations",
+            "command": "strings -a memory.dmp | grep -C 5 'password'",
+            "example": "strings -a hiberfil.sys | grep -C 5 'password'",
+            "explanation": "Searches a memory dump for the term 'password' and prints 5 lines of surrounding context."
+        },
+        {
+            "id": 32,
+            "category": "Incident Response Investigations",
+            "command": "strings -e l memory.dmp | grep -i 'cmd.exe'",
+            "example": "strings -e l memdump.raw | grep -i 'cmd.exe'",
+            "explanation": "Searches a raw memory dump for Unicode references to command prompt executions."
+        },
+        {
+            "id": 33,
+            "category": "Incident Response Investigations",
+            "command": "strings -f /var/log/nginx/* | grep 'eval('",
+            "example": "strings -f /var/log/nginx/access.log* | grep 'eval('",
+            "explanation": "Scans multiple log files for PHP eval injection attempts while maintaining filename context."
+        },
+        {
+            "id": 34,
+            "category": "Incident Response Investigations",
+            "command": "cat disk_image.dd | strings -t d > image_strings.txt",
+            "example": "cat evidence.dd | strings -t d > evidence_strings.txt",
+            "explanation": "Streams a disk image into strings and saves the output with offsets to a text file for offline searching."
+        },
+        {
+            "id": 35,
+            "category": "Automation and Pipeline Workflows",
+            "command": "strings sample.bin | sort | uniq -c | sort -nr",
+            "example": "strings malware_set.bin | sort | uniq -c | sort -nr",
+            "explanation": "Counts unique string occurrences and sorts them by frequency to identify repeated patterns."
+        },
+        {
+            "id": 36,
+            "category": "Automation and Pipeline Workflows",
+            "command": "strings -n 20 sample.bin | head -n 15",
+            "example": "strings -n 20 ransom.exe | head -n 15",
+            "explanation": "Quickly previews the first 15 long strings (20+ chars) to get a high-level overview of the binary."
+        },
+        {
+            "id": 37,
+            "category": "Automation and Pipeline Workflows",
+            "command": "strings sample.bin | grep -vFf whitelist.txt",
+            "example": "strings system32_file.dll | grep -vFf known_strings.txt",
+            "explanation": "Filters out known-good strings listed in a file, leaving only anomalous or unique strings."
+        },
+        {
+            "id": 38,
+            "category": "Automation and Pipeline Workflows",
+            "command": "find . -name '*.exe' -exec strings -f {} + | grep '192.168.'",
+            "example": "find /suspicious -name '*.exe' -exec strings -f {} + | grep '192.168.'",
+            "explanation": "Recursively finds all EXE files in a directory and scans them for a specific local IP range."
+        },
+        {
+            "id": 39,
+            "category": "Advanced Filtering",
+            "command": "strings -t x sample.bin | awk '{print $1, $2}'",
+            "example": "strings -t x firmware.bin | awk '{print $1, $2}'",
+            "explanation": "Uses AWK to clean output, printing only the offset and the first word of the string string."
+        },
+        {
+            "id": 40,
+            "category": "Advanced Filtering",
+            "command": "strings sample.bin | tr -d '\\n' | grep -o 'http[^ ]*'",
+            "example": "strings blob.dat | tr -d '\\n' | grep -o 'http[^ ]*'",
+            "explanation": "Removes newlines to treat output as a stream and extracts full URLs without breaks."
+        },
+        {
+            "id": 41,
+            "category": "Blue Team Defensive Validation",
+            "command": "strings -n 50 codebase_build.exe",
+            "example": "strings -n 50 internal_tool.exe",
+            "explanation": "Checks compiled internal binaries for accidentally left-in long debug messages or API keys."
+        },
+        {
+            "id": 42,
+            "category": "Blue Team Defensive Validation",
+            "command": "strings lib.so | grep 'GLIBC'",
+            "example": "strings application.o | grep 'GLIBC'",
+            "explanation": "Verifies linked library versions and dependencies in Linux ELF binaries."
+        },
+        {
+            "id": 43,
+            "category": "Blue Team Defensive Validation",
+            "command": "strings -a production_config.dat | grep -iE '(key|token|secret)'",
+            "example": "strings -a app.config | grep -iE '(key|token|secret)'",
+            "explanation": "Scans configuration binaries for hardcoded secrets or tokens before deployment."
+        },
+        {
+            "id": 44,
+            "category": "Digital Forensics Reporting",
+            "command": "strings -t x -e l sample.bin > unicode_artifacts.txt",
+            "example": "strings -t x -e l evidence.001 > unicode_artifacts.txt",
+            "explanation": "Generates a comprehensive report of Unicode artifacts with offsets for a forensic case file."
+        },
+        {
+            "id": 45,
+            "category": "Digital Forensics Reporting",
+            "command": "strings -a sample.bin | md5sum",
+            "example": "strings -a malware.exe | md5sum",
+            "explanation": "Calculates a hash of the extracted strings to create a signature for the string content independent of the binary wrapper."
+        },
+        {
+            "id": 46,
+            "category": "Advanced Encoding Workflows",
+            "command": "strings -e S -n 6 sample.bin",
+            "example": "strings -e S -n 6 firmware_dump.bin",
+            "explanation": "Targets 8-bit character encoding with a minimum length of 6 to find non-standard ASCII tables."
+        },
+        {
+            "id": 47,
+            "category": "Advanced Encoding Workflows",
+            "command": "strings -e B -t x sample.bin",
+            "example": "strings -e B -t x powerpc_dump.bin",
+            "explanation": "Analyzes Big-Endian 32-bit architecture dumps (like PowerPC or older Mac) for readable text."
+        },
+        {
+            "id": 48,
+            "category": "Targeted Artifact Hunting",
+            "command": "strings sample.bin | grep -i 'registry'",
+            "example": "strings malware.exe | grep -i 'registry'",
+            "explanation": "Looks for references to Windows Registry modification or querying activities."
+        },
+        {
+            "id": 49,
+            "category": "Targeted Artifact Hunting",
+            "command": "strings sample.bin | grep -i '\\.onion'",
+            "example": "strings ransomware.exe | grep -i '\\.onion'",
+            "explanation": "specifically searches for Tor hidden service addresses often used in ransomware notes."
+        },
+        {
+            "id": 50,
+            "category": "Targeted Artifact Hunting",
+            "command": "strings sample.bin | grep -i 'bitcoin:'",
+            "example": "strings crypto_stealer.exe | grep -i 'bitcoin:'",
+            "explanation": "Searches for cryptocurrency wallet addresses or payment URI schemes."
+        },
+        {
+            "id": 51,
+            "category": "Advanced Forensics",
+            "command": "strings -a -t x sample.bin | grep '4d 5a'",
+            "example": "strings -a -t x memory.dmp | grep '4d 5a'",
+            "explanation": "Looks for string representations of the MZ header to identify embedded executables (less reliable than hex editors but useful)."
+        },
+        {
+            "id": 52,
+            "category": "Advanced Forensics",
+            "command": "strings sample.bin | grep -E '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}'",
+            "example": "strings dump.pst | grep -E '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}'",
+            "explanation": "Extracts email addresses using a standard regex pattern."
+        },
+        {
+            "id": 53,
+            "category": "Section Analysis",
+            "command": "objcopy -O binary --only-section=.text sample.elf /dev/stdout | strings",
+            "example": "objcopy -O binary --only-section=.text malicious.elf /dev/stdout | strings",
+            "explanation": "Extracts only the .text (code) section of an ELF binary and pipes it to strings to ignore data sections."
+        },
+        {
+            "id": 54,
+            "category": "Section Analysis",
+            "command": "objcopy -O binary --only-section=.rdata sample.exe /dev/stdout | strings",
+            "example": "objcopy -O binary --only-section=.rdata sample.exe /dev/stdout | strings",
+            "explanation": "Extracts the .rdata (read-only data) section where constants and import tables are usually stored."
+        },
+        {
+            "id": 55,
+            "category": "Complex Piping",
+            "command": "strings sample.bin | grep -vE '^.{0,4}$' | sort | uniq",
+            "example": "strings noise.bin | grep -vE '^.{0,4}$' | sort | uniq",
+            "explanation": "Filters out very short strings (less than 5 chars), sorts the remainder, and removes duplicates."
+        },
+        {
+            "id": 56,
+            "category": "Complex Piping",
+            "command": "strings -e l sample.bin | iconv -f UTF-16LE -t UTF-8",
+            "example": "strings -e l windows.bin | iconv -f UTF-16LE -t UTF-8",
+            "explanation": "Extracts Little Endian strings and converts them to UTF-8 for easier processing by other terminal tools."
+        },
+        {
+            "id": 57,
+            "category": "Timeline Analysis",
+            "command": "strings sample.bin | grep -E '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{1,2}'",
+            "example": "strings system.log | grep -E '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{1,2}'",
+            "explanation": "Searches for standard syslog timestamps to build a rudimentary timeline from a binary blob."
+        },
+        {
+            "id": 58,
+            "category": "Obfuscation Detection",
+            "command": "strings sample.bin | awk 'length($0) > 100'",
+            "example": "strings packed.exe | awk 'length($0) > 100'",
+            "explanation": "Isolates extremely long strings which may indicate packed data, base64 blobs, or embedded keys."
+        },
+        {
+            "id": 59,
+            "category": "Obfuscation Detection",
+            "command": "strings -n 3 sample.bin | grep -E '^[a-zA-Z]+$'",
+            "example": "strings obfuscated.js | grep -E '^[a-zA-Z]+$'",
+            "explanation": "Filters for pure alphabetic strings to detect variable names or function calls in obfuscated scripts."
+        },
+        {
+            "id": 60,
+            "category": "Cross-Platform Analysis",
+            "command": "strings -e b -t x firmware.bin > big_endian_strings.txt",
+            "example": "strings -e b -t x router_firmware.bin > big_endian_strings.txt",
+            "explanation": "Creates a specific extraction file for Big Endian architecture targets often found in IoT devices."
+        },
+        {
+            "id": 61,
+            "category": "Live Memory Analysis",
+            "command": "sudo cat /proc/kcore | strings -n 10 | grep 'secret_key'",
+            "example": "sudo cat /proc/kcore | strings -n 10 | grep 'secret_key'",
+            "explanation": "Reads the live kernel memory (dangerous/requires root) and searches for a specific key in memory."
+        },
+        {
+            "id": 62,
+            "category": "File Identification",
+            "command": "strings sample.bin | head -n 5",
+            "example": "strings unknown_file | head -n 5",
+            "explanation": "Checks the very beginning of the file for readable headers (like 'ELF', 'MZ', 'JFIF') to identify file type."
+        },
+        {
+            "id": 63,
+            "category": "Compiler Artifacts",
+            "command": "strings sample.bin | grep -i 'gcc'",
+            "example": "strings linux_malware | grep -i 'gcc'",
+            "explanation": "Searches for GCC version strings to identify the compiler version and environment used by the attacker."
+        },
+        {
+            "id": 64,
+            "category": "Compiler Artifacts",
+            "command": "strings sample.bin | grep -i 'visual studio'",
+            "example": "strings windows_malware | grep -i 'visual studio'",
+            "explanation": "Identifies if the binary was compiled with Visual Studio, potentially revealing the linker version."
+        },
+        {
+            "id": 65,
+            "category": "Cleanup",
+            "command": "strings sample.bin > /dev/null",
+            "example": "strings large_file.bin > /dev/null",
+            "explanation": "Runs strings and discards output, useful for testing command execution time or stability on large files."
+        }
+    ]
+}

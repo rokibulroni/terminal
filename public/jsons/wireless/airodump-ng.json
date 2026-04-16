@@ -1,0 +1,427 @@
+{
+    "tool": "airodump-ng",
+    "description": "Complete airodump-ng command and workflow reference from basic to advanced wireless monitoring and capture",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Wireless Monitoring",
+            "command": "airodump-ng --help",
+            "example": "airodump-ng --help",
+            "explanation": "Displays the help menu listing all available options and syntax usage"
+        },
+        {
+            "id": 2,
+            "category": "Basic Wireless Monitoring",
+            "command": "airodump-ng wlan0mon",
+            "example": "airodump-ng wlan0mon",
+            "explanation": "Starts monitoring all available channels on the 2.4GHz band using the specified interface"
+        },
+        {
+            "id": 3,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng -c 1 wlan0mon",
+            "example": "airodump-ng -c 1 wlan0mon",
+            "explanation": "Restricts monitoring strictly to channel 1 to prevent channel hopping"
+        },
+        {
+            "id": 4,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng -c 6 wlan0mon",
+            "example": "airodump-ng -c 6 wlan0mon",
+            "explanation": "Restricts monitoring strictly to channel 6"
+        },
+        {
+            "id": 5,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng -c 11 wlan0mon",
+            "example": "airodump-ng -c 11 wlan0mon",
+            "explanation": "Restricts monitoring strictly to channel 11"
+        },
+        {
+            "id": 6,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng -c 1,6,11 wlan0mon",
+            "example": "airodump-ng -c 1,6,11 wlan0mon",
+            "explanation": "Hops only between channels 1, 6, and 11 to monitor non-overlapping frequencies"
+        },
+        {
+            "id": 7,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng --channel 36-165 wlan0mon",
+            "example": "airodump-ng --channel 36-165 wlan0mon",
+            "explanation": "Monitors a specific range of channels typically associated with the 5GHz band"
+        },
+        {
+            "id": 8,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng --band a wlan0mon",
+            "example": "airodump-ng --band a wlan0mon",
+            "explanation": "Forces the card to hop on 5GHz band channels only"
+        },
+        {
+            "id": 9,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng --band bg wlan0mon",
+            "example": "airodump-ng --band bg wlan0mon",
+            "explanation": "Forces the card to hop on 2.4GHz band channels only"
+        },
+        {
+            "id": 10,
+            "category": "Interface and Channel Control",
+            "command": "airodump-ng --band abg wlan0mon",
+            "example": "airodump-ng --band abg wlan0mon",
+            "explanation": "Enables channel hopping across both 2.4GHz and 5GHz bands if the card supports it"
+        },
+        {
+            "id": 11,
+            "category": "Access Point Filtering",
+            "command": "airodump-ng --bssid AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "airodump-ng --bssid 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Filters the display and capture to show only traffic associated with a specific Access Point MAC address"
+        },
+        {
+            "id": 12,
+            "category": "Access Point Filtering",
+            "command": "airodump-ng --essid 'Target_Network' wlan0mon",
+            "example": "airodump-ng --essid 'Corporate_WiFi' wlan0mon",
+            "explanation": "Filters the view to show only Access Points broadcasting a specific network name"
+        },
+        {
+            "id": 13,
+            "category": "Access Point Filtering",
+            "command": "airodump-ng --essid-regex 'Corp.*' wlan0mon",
+            "example": "airodump-ng --essid-regex 'Guest.*' wlan0mon",
+            "explanation": "Uses a regular expression to filter and display networks matching a naming pattern"
+        },
+        {
+            "id": 14,
+            "category": "Encryption Filtering",
+            "command": "airodump-ng --encrypt OPN wlan0mon",
+            "example": "airodump-ng --encrypt OPN wlan0mon",
+            "explanation": "Filters output to show only Open (unencrypted) networks, useful for finding rogue guest networks"
+        },
+        {
+            "id": 15,
+            "category": "Encryption Filtering",
+            "command": "airodump-ng --encrypt WEP wlan0mon",
+            "example": "airodump-ng --encrypt WEP wlan0mon",
+            "explanation": "Filters output to show only networks using legacy WEP encryption"
+        },
+        {
+            "id": 16,
+            "category": "Encryption Filtering",
+            "command": "airodump-ng --encrypt WPA wlan0mon",
+            "example": "airodump-ng --encrypt WPA wlan0mon",
+            "explanation": "Filters output to show only networks using WPA or WPA2 encryption"
+        },
+        {
+            "id": 17,
+            "category": "Output and Logging",
+            "command": "airodump-ng -w capture_file wlan0mon",
+            "example": "airodump-ng -w lab_scan wlan0mon",
+            "explanation": "Saves the captured packet data to files with the prefix 'lab_scan' in multiple formats"
+        },
+        {
+            "id": 18,
+            "category": "Output and Logging",
+            "command": "airodump-ng --output-format csv -w report wlan0mon",
+            "example": "airodump-ng --output-format csv -w daily_report wlan0mon",
+            "explanation": "Saves the capture data only in CSV format, useful for parsing and reporting scripts"
+        },
+        {
+            "id": 19,
+            "category": "Output and Logging",
+            "command": "airodump-ng --output-format pcap -w traffic wlan0mon",
+            "example": "airodump-ng --output-format pcap -w raw_traffic wlan0mon",
+            "explanation": "Saves the capture data only in PCAP format for analysis in Wireshark"
+        },
+        {
+            "id": 20,
+            "category": "Output and Logging",
+            "command": "airodump-ng --output-format kismet -w log wlan0mon",
+            "example": "airodump-ng --output-format kismet -w kismet_log wlan0mon",
+            "explanation": "Saves the capture data in Kismet-compatible XML format"
+        },
+        {
+            "id": 21,
+            "category": "Output and Logging",
+            "command": "airodump-ng --output-format pcap,csv,kismet -w full wlan0mon",
+            "example": "airodump-ng --output-format pcap,csv,kismet -w full_audit wlan0mon",
+            "explanation": "Explicitly requests PCAP, CSV, and Kismet output formats simultaneously"
+        },
+        {
+            "id": 22,
+            "category": "Output and Logging",
+            "command": "airodump-ng --write-interval 5 -w live wlan0mon",
+            "example": "airodump-ng --write-interval 10 -w live_data wlan0mon",
+            "explanation": "Updates the output file on disk every 10 seconds instead of the default interval"
+        },
+        {
+            "id": 23,
+            "category": "Red Team Reconnaissance",
+            "command": "airodump-ng -c 1 --bssid AA:BB:CC:DD:EE:FF -w handshake wlan0mon",
+            "example": "airodump-ng -c 6 --bssid 00:11:22:33:44:55 -w wpa_handshake wlan0mon",
+            "explanation": "Targeted capture on a specific channel and BSSID to acquire WPA/WPA2 4-way handshakes"
+        },
+        {
+            "id": 24,
+            "category": "Red Team Reconnaissance",
+            "command": "airodump-ng --netmask 255.255.255.0 wlan0mon",
+            "example": "airodump-ng --netmask 255.255.255.0 wlan0mon",
+            "explanation": "Filters APs by masking the BSSID, useful for identifying equipment from the same batch"
+        },
+        {
+            "id": 25,
+            "category": "Red Team Reconnaissance",
+            "command": "airodump-ng --ivs -w wep_attack wlan0mon",
+            "example": "airodump-ng --ivs -w wep_crack wlan0mon",
+            "explanation": "Saves only IVs (Initialization Vectors) instead of full packets to save space during WEP attacks"
+        },
+        {
+            "id": 26,
+            "category": "Red Team Reconnaissance",
+            "command": "airodump-ng --gpsd -w map_walk wlan0mon",
+            "example": "airodump-ng --gpsd -w war_walking wlan0mon",
+            "explanation": "Uses gpsd to tag captured networks with GPS coordinates for war walking maps"
+        },
+        {
+            "id": 27,
+            "category": "Red Team Reconnaissance",
+            "command": "airodump-ng --showack wlan0mon",
+            "example": "airodump-ng --showack wlan0mon",
+            "explanation": "Displays ACK statistics to help identify the presence of hidden stations or client distance"
+        },
+        {
+            "id": 28,
+            "category": "Blue Team Defensive Validation",
+            "command": "airodump-ng --wps wlan0mon",
+            "example": "airodump-ng --wps wlan0mon",
+            "explanation": "Displays WPS (Wi-Fi Protected Setup) information to identify APs vulnerable to Pixie Dust or brute force"
+        },
+        {
+            "id": 29,
+            "category": "Blue Team Defensive Validation",
+            "command": "airodump-ng --manufacturer wlan0mon",
+            "example": "airodump-ng --manufacturer wlan0mon",
+            "explanation": "Resolves and displays the manufacturer name from the OUI of the MAC address"
+        },
+        {
+            "id": 30,
+            "category": "Blue Team Defensive Validation",
+            "command": "airodump-ng --uptime wlan0mon",
+            "example": "airodump-ng --uptime wlan0mon",
+            "explanation": "Displays the uptime of Access Points based on the timestamp in beacon frames"
+        },
+        {
+            "id": 31,
+            "category": "Blue Team Defensive Validation",
+            "command": "airodump-ng --beacons wlan0mon",
+            "example": "airodump-ng --beacons wlan0mon",
+            "explanation": "Records all beacons to the capture file, useful for detailed analysis of AP configuration broadcasting"
+        },
+        {
+            "id": 32,
+            "category": "Blue Team Defensive Validation",
+            "command": "airodump-ng --detect-anomaly wlan0mon",
+            "example": "airodump-ng --detect-anomaly wlan0mon",
+            "explanation": "Attempt to detect anomalies in the network traffic (feature dependent on specific airodump versions)"
+        },
+        {
+            "id": 33,
+            "category": "Display and Visualization Control",
+            "command": "airodump-ng --berlin 120 wlan0mon",
+            "example": "airodump-ng --berlin 120 wlan0mon",
+            "explanation": "Keeps APs and clients on the screen for 120 seconds after signal loss before removing them"
+        },
+        {
+            "id": 34,
+            "category": "Display and Visualization Control",
+            "command": "airodump-ng --update 1 wlan0mon",
+            "example": "airodump-ng --update 1 wlan0mon",
+            "explanation": "Sets the screen display update delay to 1 second for faster real-time monitoring"
+        },
+        {
+            "id": 35,
+            "category": "Display and Visualization Control",
+            "command": "airodump-ng --background 1 wlan0mon",
+            "example": "airodump-ng --background 1 wlan0mon",
+            "explanation": "Starts airodump-ng in a mode suitable for running in the background"
+        },
+        {
+            "id": 36,
+            "category": "Advanced Troubleshooting",
+            "command": "airodump-ng --ignore-negative-one wlan0mon",
+            "example": "airodump-ng --ignore-negative-one wlan0mon",
+            "explanation": "Prevents the 'fixed channel -1' error message caused by driver mismatches"
+        },
+        {
+            "id": 37,
+            "category": "Advanced Troubleshooting",
+            "command": "airodump-ng --skip-columns 1 wlan0mon",
+            "example": "airodump-ng --skip-columns 1 wlan0mon",
+            "explanation": "Skips displaying specific columns to save screen space or declutter the interface"
+        },
+        {
+            "id": 38,
+            "category": "Red Team Workflow",
+            "command": "airodump-ng -c 1,6,11 --encrypt WPA -w wpa_hunt wlan0mon",
+            "example": "airodump-ng -c 1,6,11 --encrypt WPA -w wpa_hunt wlan0mon",
+            "explanation": "Hops on common channels, filters for WPA networks, and records data to find attackable targets"
+        },
+        {
+            "id": 39,
+            "category": "Purple Team Validation",
+            "command": "airodump-ng -c 36 --bssid AA:BB:CC:DD:EE:FF --wps -w audit wlan0mon",
+            "example": "airodump-ng -c 36 --bssid 00:11:22:33:44:55 --wps -w internal_audit wlan0mon",
+            "explanation": "Focused audit on a corporate 5GHz AP to verify WPS status and capture traffic for intrusion analysis"
+        },
+        {
+            "id": 40,
+            "category": "Client Hunting",
+            "command": "airodump-ng --bssid AA:BB:CC:DD:EE:FF --showack wlan0mon",
+            "example": "airodump-ng --bssid AA:BB:CC:DD:EE:FF --showack wlan0mon",
+            "explanation": "Monitors a specific AP and watches for ACK packets to detect active clients even if silent"
+        },
+        {
+            "id": 41,
+            "category": "Hidden Network Discovery",
+            "command": "airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "airodump-ng -c 6 --bssid 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Monitors a hidden AP (BSSID known) to wait for a client association that reveals the ESSID"
+        },
+        {
+            "id": 42,
+            "category": "Combined Filter Workflow",
+            "command": "airodump-ng --encrypt OPN --band a wlan0mon",
+            "example": "airodump-ng --encrypt OPN --band a wlan0mon",
+            "explanation": "Scans the 5GHz band specifically for open/unsecured networks"
+        },
+        {
+            "id": 43,
+            "category": "Specific Frequency Targeting",
+            "command": "airodump-ng --ht20 wlan0mon",
+            "example": "airodump-ng --ht20 wlan0mon",
+            "explanation": "Sets the channel width to 20MHz (High Throughput) for specific capture requirements"
+        },
+        {
+            "id": 44,
+            "category": "Specific Frequency Targeting",
+            "command": "airodump-ng --ht40- wlan0mon",
+            "example": "airodump-ng --ht40- wlan0mon",
+            "explanation": "Sets the channel width to 40MHz with the secondary channel below the primary"
+        },
+        {
+            "id": 45,
+            "category": "Specific Frequency Targeting",
+            "command": "airodump-ng --ht40+ wlan0mon",
+            "example": "airodump-ng --ht40+ wlan0mon",
+            "explanation": "Sets the channel width to 40MHz with the secondary channel above the primary"
+        },
+        {
+            "id": 46,
+            "category": "Capture File Management",
+            "command": "airodump-ng -w capture --file-prefix my_scan wlan0mon",
+            "example": "airodump-ng -w capture --file-prefix site_a wlan0mon",
+            "explanation": "Manually sets the prefix for the generated capture files to organize data by site"
+        },
+        {
+            "id": 47,
+            "category": "Real-time Monitoring",
+            "command": "airodump-ng --clear wlan0mon",
+            "example": "airodump-ng --clear wlan0mon",
+            "explanation": "Clears the screen reset behavior (depends on terminal type) for cleaner updates"
+        },
+        {
+            "id": 48,
+            "category": "Incident Response Simulation",
+            "command": "airodump-ng -c 1 --bssid <ROGUE_MAC> -w evidence wlan0mon",
+            "example": "airodump-ng -c 1 --bssid 00:11:22:33:44:55 -w rogue_evidence wlan0mon",
+            "explanation": "Isolates a suspected rogue AP to capture all traffic for forensic evidence gathering"
+        },
+        {
+            "id": 49,
+            "category": "Advanced Filtering",
+            "command": "airodump-ng --essid-regex '^(Guest|Free)' wlan0mon",
+            "example": "airodump-ng --essid-regex '^(Guest|Free)' wlan0mon",
+            "explanation": "Uses regex to capture any network starting with 'Guest' or 'Free' to audit public facing Wi-Fi"
+        },
+        {
+            "id": 50,
+            "category": "Long Term Monitoring",
+            "command": "airodump-ng --write-interval 300 -w hourly_log wlan0mon",
+            "example": "airodump-ng --write-interval 300 -w hourly_log wlan0mon",
+            "explanation": "Writes to disk only every 5 minutes to reduce I/O load during long-duration surveillance"
+        },
+        {
+            "id": 51,
+            "category": "Hardware Specific",
+            "command": "airodump-ng --cswitch 0 wlan0mon",
+            "example": "airodump-ng --cswitch 0 wlan0mon",
+            "explanation": "Manually sets the channel switching method (0=FIFO, 1=Round Robin) for advanced card control"
+        },
+        {
+            "id": 52,
+            "category": "Help and Debug",
+            "command": "airodump-ng --help",
+            "example": "airodump-ng --help",
+            "explanation": "Displays the full help menu to verify supported flags for the installed version"
+        },
+        {
+            "id": 53,
+            "category": "Post-Processing Prep",
+            "command": "airodump-ng --output-format netxml -w kismet_import wlan0mon",
+            "example": "airodump-ng --output-format netxml -w kismet_import wlan0mon",
+            "explanation": "Generates a netxml file specifically for importing data into other tools like Kismet or databases"
+        },
+        {
+            "id": 54,
+            "category": "Visualization",
+            "command": "airodump-ng --realtime-bitmap wlan0mon",
+            "example": "airodump-ng --realtime-bitmap wlan0mon",
+            "explanation": "Shows a bitmap of received frames, useful for visualizing interference or high traffic bursts"
+        },
+        {
+            "id": 55,
+            "category": "Full Spectrum Audit",
+            "command": "airodump-ng --band abg --manufacturer --wps --uptime -w site_audit wlan0mon",
+            "example": "airodump-ng --band abg --manufacturer --wps --uptime -w site_audit wlan0mon",
+            "explanation": "Comprehensive command enabling all major informational columns and scanning all bands for a full site survey"
+        },
+        {
+            "id": 56,
+            "category": "Stealth Monitoring",
+            "command": "airodump-ng --encrypt WPA --bssid <MAC> --channel <CH> --output-format pcap -w stealth wlan0mon",
+            "example": "airodump-ng --encrypt WPA --bssid 00:11:22:33:44:55 --channel 6 --output-format pcap -w stealth wlan0mon",
+            "explanation": "Minimally invasive capture on a fixed target, writing only pcap to reduce disk noise"
+        },
+        {
+            "id": 57,
+            "category": "Client Tracking",
+            "command": "airodump-ng -d AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "airodump-ng -d 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Filter by BSSID using the -d short flag alias for rapid syntax entry"
+        },
+        {
+            "id": 58,
+            "category": "IV Collection",
+            "command": "airodump-ng --ivs --write-interval 1 -w fast_crack wlan0mon",
+            "example": "airodump-ng --ivs --write-interval 1 -w fast_crack wlan0mon",
+            "explanation": "Optimized WEP cracking setup: collecting only IVs and writing to disk every second for real-time cracking"
+        },
+        {
+            "id": 59,
+            "category": "Targeted BSSID List",
+            "command": "airodump-ng --bssid AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "airodump-ng --bssid AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Used in conjunction with aireplay-ng, this confirms the target is visible before launching deauth attacks"
+        },
+        {
+            "id": 60,
+            "category": "Complete Reset",
+            "command": "airodump-ng --channel 1-13 --band bg --clear wlan0mon",
+            "example": "airodump-ng --channel 1-13 --band bg --clear wlan0mon",
+            "explanation": "Resets the view to a standard 2.4GHz sweep across all valid channels with a clear screen"
+        }
+    ]
+}

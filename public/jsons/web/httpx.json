@@ -1,0 +1,777 @@
+{
+    "tool": "httpx",
+    "description": "Complete httpx command reference covering all options from basic to advanced",
+    "total_commands": 110,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic HTTP Probing",
+            "command": "httpx -u https://example.com",
+            "example": "httpx -u https://example.com",
+            "explanation": "Probes a single target URL to check for service availability."
+        },
+        {
+            "id": 2,
+            "category": "Basic HTTP Probing",
+            "command": "httpx -list targets.txt",
+            "example": "httpx -list targets.txt",
+            "explanation": "Runs httpx against a list of targets provided in a file."
+        },
+        {
+            "id": 3,
+            "category": "Basic HTTP Probing",
+            "command": "cat targets.txt | httpx",
+            "example": "cat targets.txt | httpx",
+            "explanation": "Accepts targets from standard input (STDIN) via a pipe."
+        },
+        {
+            "id": 4,
+            "category": "Status Code Detection",
+            "command": "httpx -u https://example.com -sc",
+            "example": "httpx -u https://example.com -sc",
+            "explanation": "Displays the HTTP status code returned by the target."
+        },
+        {
+            "id": 5,
+            "category": "Title and Technology Fingerprinting",
+            "command": "httpx -u https://example.com -title",
+            "example": "httpx -u https://example.com -title",
+            "explanation": "Extracts and displays the page title from the HTTP response."
+        },
+        {
+            "id": 6,
+            "category": "Title and Technology Fingerprinting",
+            "command": "httpx -u https://example.com -server",
+            "example": "httpx -u https://example.com -server",
+            "explanation": "Displays the 'Server' header value to identify the web server software."
+        },
+        {
+            "id": 7,
+            "category": "Title and Technology Fingerprinting",
+            "command": "httpx -u https://example.com -td",
+            "example": "httpx -u https://example.com -td",
+            "explanation": "Enables technology detection to identify frameworks and CMS used by the target."
+        },
+        {
+            "id": 8,
+            "category": "Content Analysis",
+            "command": "httpx -u https://example.com -cl",
+            "example": "httpx -u https://example.com -cl",
+            "explanation": "Displays the Content-Length of the HTTP response body."
+        },
+        {
+            "id": 9,
+            "category": "Content Analysis",
+            "command": "httpx -u https://example.com -ct",
+            "example": "httpx -u https://example.com -ct",
+            "explanation": "Displays the Content-Type header (e.g., text/html, application/json)."
+        },
+        {
+            "id": 10,
+            "category": "Content Analysis",
+            "command": "httpx -u https://example.com -wc",
+            "example": "httpx -u https://example.com -wc",
+            "explanation": "Counts and displays the number of words in the response body."
+        },
+        {
+            "id": 11,
+            "category": "Content Analysis",
+            "command": "httpx -u https://example.com -lc",
+            "example": "httpx -u https://example.com -lc",
+            "explanation": "Counts and displays the number of lines in the response body."
+        },
+        {
+            "id": 12,
+            "category": "Network Metadata",
+            "command": "httpx -u https://example.com -ip",
+            "example": "httpx -u https://example.com -ip",
+            "explanation": "Resolves and displays the IP address of the target web server."
+        },
+        {
+            "id": 13,
+            "category": "Network Metadata",
+            "command": "httpx -u https://example.com -cname",
+            "example": "httpx -u https://example.com -cname",
+            "explanation": "Displays the CNAME DNS record if one exists for the target."
+        },
+        {
+            "id": 14,
+            "category": "Network Metadata",
+            "command": "httpx -u https://example.com -asn",
+            "example": "httpx -u https://example.com -asn",
+            "explanation": "Displays the Autonomous System Number (ASN) organization details."
+        },
+        {
+            "id": 15,
+            "category": "Network Metadata",
+            "command": "httpx -u https://example.com -cdn",
+            "example": "httpx -u https://example.com -cdn",
+            "explanation": "Checks if the target is served via a Content Delivery Network (CDN)."
+        },
+        {
+            "id": 16,
+            "category": "Network Metadata",
+            "command": "httpx -u https://example.com -rt",
+            "example": "httpx -u https://example.com -rt",
+            "explanation": "Displays the response time (latency) taken to receive the response."
+        },
+        {
+            "id": 17,
+            "category": "Method Handling",
+            "command": "httpx -u https://example.com -method",
+            "example": "httpx -u https://example.com -method",
+            "explanation": "Displays the allowed HTTP method used for the probe."
+        },
+        {
+            "id": 18,
+            "category": "Method Handling",
+            "command": "httpx -u https://example.com -x POST",
+            "example": "httpx -u https://example.com -x POST",
+            "explanation": "Changes the HTTP request method to POST instead of the default GET."
+        },
+        {
+            "id": 19,
+            "category": "Method Handling",
+            "command": "httpx -u https://example.com -x PUT",
+            "example": "httpx -u https://example.com -x PUT",
+            "explanation": "Sends a PUT request to the target URL."
+        },
+        {
+            "id": 20,
+            "category": "Redirect Handling",
+            "command": "httpx -u https://example.com -location",
+            "example": "httpx -u https://example.com -location",
+            "explanation": "Displays the 'Location' header value for 3xx redirect responses."
+        },
+        {
+            "id": 21,
+            "category": "Redirect Handling",
+            "command": "httpx -u https://example.com -follow-redirects",
+            "example": "httpx -u https://example.com -follow-redirects",
+            "explanation": "Automatically follows HTTP redirects to reach the final destination."
+        },
+        {
+            "id": 22,
+            "category": "Redirect Handling",
+            "command": "httpx -u https://example.com -follow-host-redirects",
+            "example": "httpx -u https://example.com -follow-host-redirects",
+            "explanation": "Follows redirects only if they stay on the same host."
+        },
+        {
+            "id": 23,
+            "category": "Redirect Handling",
+            "command": "httpx -u https://example.com -max-redirects 5",
+            "example": "httpx -u https://example.com -max-redirects 5",
+            "explanation": "Sets a limit on the number of redirects to follow (default is 10)."
+        },
+        {
+            "id": 24,
+            "category": "Port Scanning",
+            "command": "httpx -u https://example.com -p 80,443,8080",
+            "example": "httpx -u https://example.com -p 80,443,8080",
+            "explanation": "Probes specific ports on the target URL."
+        },
+        {
+            "id": 25,
+            "category": "Port Scanning",
+            "command": "httpx -u https://example.com -p 80-90",
+            "example": "httpx -u https://example.com -p 80-90",
+            "explanation": "Probes a range of ports on the target URL."
+        },
+        {
+            "id": 26,
+            "category": "Port Scanning",
+            "command": "httpx -u https://example.com -ports http",
+            "example": "httpx -u https://example.com -ports http",
+            "explanation": "Probes standard HTTP ports defined in the tool's predefined list."
+        },
+        {
+            "id": 27,
+            "category": "Port Scanning",
+            "command": "httpx -u https://example.com -ports https",
+            "example": "httpx -u https://example.com -ports https",
+            "explanation": "Probes standard HTTPS ports defined in the tool's predefined list."
+        },
+        {
+            "id": 28,
+            "category": "Path Probing",
+            "command": "httpx -u https://example.com -path /admin",
+            "example": "httpx -u https://example.com -path /admin",
+            "explanation": "Appends a specific path to the target URL before probing."
+        },
+        {
+            "id": 29,
+            "category": "Path Probing",
+            "command": "httpx -u https://example.com -path /login,/dashboard",
+            "example": "httpx -u https://example.com -path /login,/dashboard",
+            "explanation": "Probes multiple paths for the target URL."
+        },
+        {
+            "id": 30,
+            "category": "Header Customization",
+            "command": "httpx -u https://example.com -H \"User-Agent: CustomBot\"",
+            "example": "httpx -u https://example.com -H \"User-Agent: CustomBot\"",
+            "explanation": "Sends a custom header with the request."
+        },
+        {
+            "id": 31,
+            "category": "Header Customization",
+            "command": "httpx -u https://example.com -H \"Cookie: session=123\"",
+            "example": "httpx -u https://example.com -H \"Cookie: session=123\"",
+            "explanation": "Includes a Cookie header in the request for authenticated probing."
+        },
+        {
+            "id": 32,
+            "category": "TLS and Certificate Analysis",
+            "command": "httpx -u https://example.com -tls-grab",
+            "example": "httpx -u https://example.com -tls-grab",
+            "explanation": "Extracts and displays TLS certificate data."
+        },
+        {
+            "id": 33,
+            "category": "TLS and Certificate Analysis",
+            "command": "httpx -u https://example.com -tls-probe",
+            "example": "httpx -u https://example.com -tls-probe",
+            "explanation": "Performs a TLS probe to gather detailed SSL/TLS configuration."
+        },
+        {
+            "id": 34,
+            "category": "TLS and Certificate Analysis",
+            "command": "httpx -u https://example.com -csp-probe",
+            "example": "httpx -u https://example.com -csp-probe",
+            "explanation": "Probes and displays the Content Security Policy (CSP) of the target."
+        },
+        {
+            "id": 35,
+            "category": "Pipeline & Automation",
+            "command": "httpx -u https://example.com -pipeline",
+            "example": "httpx -u https://example.com -pipeline",
+            "explanation": "Enables HTTP pipelining to send multiple requests in a single connection."
+        },
+        {
+            "id": 36,
+            "category": "Pipeline & Automation",
+            "command": "httpx -u https://example.com -http2",
+            "example": "httpx -u https://example.com -http2",
+            "explanation": "Forces the probe to use the HTTP/2 protocol."
+        },
+        {
+            "id": 37,
+            "category": "Pipeline & Automation",
+            "command": "httpx -u https://example.com -vhost",
+            "example": "httpx -u https://example.com -vhost",
+            "explanation": "Probes for VHOSTs by checking for differences in response when modifying the Host header."
+        },
+        {
+            "id": 38,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -mc 200",
+            "example": "httpx -l targets.txt -mc 200",
+            "explanation": "Matches and displays only targets returning a 200 OK status code."
+        },
+        {
+            "id": 39,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -mc 200,302,403",
+            "example": "httpx -l targets.txt -mc 200,302,403",
+            "explanation": "Matches targets returning status codes 200, 302, or 403."
+        },
+        {
+            "id": 40,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -ms \"admin\"",
+            "example": "httpx -l targets.txt -ms \"admin\"",
+            "explanation": "Matches targets containing the specific string 'admin' in the response body."
+        },
+        {
+            "id": 41,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -mr \"root:.*:0:0\"",
+            "example": "httpx -l targets.txt -mr \"root:.*:0:0\"",
+            "explanation": "Matches targets where the response body matches the provided regex."
+        },
+        {
+            "id": 42,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -ml 100",
+            "example": "httpx -l targets.txt -ml 100",
+            "explanation": "Matches targets with a Content-Length exactly equal to 100."
+        },
+        {
+            "id": 43,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -mwc 50",
+            "example": "httpx -l targets.txt -mwc 50",
+            "explanation": "Matches targets with exactly 50 words in the response body."
+        },
+        {
+            "id": 44,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -mlc 10",
+            "example": "httpx -l targets.txt -mlc 10",
+            "explanation": "Matches targets with exactly 10 lines in the response body."
+        },
+        {
+            "id": 45,
+            "category": "Matchers (Inclusion)",
+            "command": "httpx -l targets.txt -mrt \u003c1s",
+            "example": "httpx -l targets.txt -mrt \u003c1s",
+            "explanation": "Matches targets where the response time is less than 1 second."
+        },
+        {
+            "id": 46,
+            "category": "Filters (Exclusion)",
+            "command": "httpx -l targets.txt -fc 404",
+            "example": "httpx -l targets.txt -fc 404",
+            "explanation": "Filters out (hides) targets returning a 404 status code."
+        },
+        {
+            "id": 47,
+            "category": "Filters (Exclusion)",
+            "command": "httpx -l targets.txt -fc 500,502",
+            "example": "httpx -l targets.txt -fc 500,502",
+            "explanation": "Filters out targets returning 500 or 502 status codes."
+        },
+        {
+            "id": 48,
+            "category": "Filters (Exclusion)",
+            "command": "httpx -l targets.txt -fs \"Forbidden\"",
+            "example": "httpx -l targets.txt -fs \"Forbidden\"",
+            "explanation": "Filters out targets containing the string 'Forbidden' in the response."
+        },
+        {
+            "id": 49,
+            "category": "Filters (Exclusion)",
+            "command": "httpx -l targets.txt -fr \"error\"",
+            "example": "httpx -l targets.txt -fr \"error\"",
+            "explanation": "Filters out targets matching the regex 'error' in the response."
+        },
+        {
+            "id": 50,
+            "category": "Filters (Exclusion)",
+            "command": "httpx -l targets.txt -fl 0",
+            "example": "httpx -l targets.txt -fl 0",
+            "explanation": "Filters out targets with a Content-Length of 0."
+        },
+        {
+            "id": 51,
+            "category": "Filters (Exclusion)",
+            "command": "httpx -l targets.txt -fwc 0",
+            "example": "httpx -l targets.txt -fwc 0",
+            "explanation": "Filters out targets with 0 words in the response."
+        },
+        {
+            "id": 52,
+            "category": "Filters (Exclusion)",
+            "command": "httpx -l targets.txt -flc 0",
+            "example": "httpx -l targets.txt -flc 0",
+            "explanation": "Filters out targets with 0 lines in the response."
+        },
+        {
+            "id": 53,
+            "category": "Data Extraction",
+            "command": "httpx -l targets.txt -er \"title\"",
+            "example": "httpx -l targets.txt -er \"title\"",
+            "explanation": "Extracts the response content matching the regex for 'title'."
+        },
+        {
+            "id": 54,
+            "category": "Rate Limiting and Performance",
+            "command": "httpx -l targets.txt -t 50",
+            "example": "httpx -l targets.txt -t 50",
+            "explanation": "Sets the number of concurrent threads to 50 (default is usually 50)."
+        },
+        {
+            "id": 55,
+            "category": "Rate Limiting and Performance",
+            "command": "httpx -l targets.txt -rl 150",
+            "example": "httpx -l targets.txt -rl 150",
+            "explanation": "Limits the rate of requests to 150 requests per second."
+        },
+        {
+            "id": 56,
+            "category": "Rate Limiting and Performance",
+            "command": "httpx -l targets.txt -rlm 300",
+            "example": "httpx -l targets.txt -rlm 300",
+            "explanation": "Limits the rate of requests to 300 requests per minute."
+        },
+        {
+            "id": 57,
+            "category": "Timeout and Retries",
+            "command": "httpx -l targets.txt -timeout 10",
+            "example": "httpx -l targets.txt -timeout 10",
+            "explanation": "Sets the connection timeout to 10 seconds."
+        },
+        {
+            "id": 58,
+            "category": "Timeout and Retries",
+            "command": "httpx -l targets.txt -retries 3",
+            "example": "httpx -l targets.txt -retries 3",
+            "explanation": "Retries failed requests up to 3 times."
+        },
+        {
+            "id": 59,
+            "category": "Output Formatting",
+            "command": "httpx -l targets.txt -o output.txt",
+            "example": "httpx -l targets.txt -o output.txt",
+            "explanation": "Saves the results to a text file."
+        },
+        {
+            "id": 60,
+            "category": "Output Formatting",
+            "command": "httpx -l targets.txt -json",
+            "example": "httpx -l targets.txt -json",
+            "explanation": "Outputs the results in JSON format to stdout."
+        },
+        {
+            "id": 61,
+            "category": "Output Formatting",
+            "command": "httpx -l targets.txt -json -o output.json",
+            "example": "httpx -l targets.txt -json -o output.json",
+            "explanation": "Saves the results in JSON format to a file."
+        },
+        {
+            "id": 62,
+            "category": "Output Formatting",
+            "command": "httpx -l targets.txt -csv",
+            "example": "httpx -l targets.txt -csv",
+            "explanation": "Outputs the results in CSV format to stdout."
+        },
+        {
+            "id": 63,
+            "category": "Output Formatting",
+            "command": "httpx -l targets.txt -csv -o output.csv",
+            "example": "httpx -l targets.txt -csv -o output.csv",
+            "explanation": "Saves the results in CSV format to a file."
+        },
+        {
+            "id": 64,
+            "category": "Response Storage",
+            "command": "httpx -l targets.txt -sr",
+            "example": "httpx -l targets.txt -sr",
+            "explanation": "Stores the full HTTP response."
+        },
+        {
+            "id": 65,
+            "category": "Response Storage",
+            "command": "httpx -l targets.txt -srd responses/",
+            "example": "httpx -l targets.txt -srd responses/",
+            "explanation": "Specifies a directory to store the saved HTTP responses."
+        },
+        {
+            "id": 66,
+            "category": "Response Storage",
+            "command": "httpx -l targets.txt -store-chain",
+            "example": "httpx -l targets.txt -store-chain",
+            "explanation": "Stores the entire chain of requests and responses (useful for redirects)."
+        },
+        {
+            "id": 67,
+            "category": "Visualization",
+            "command": "httpx -l targets.txt -ss",
+            "example": "httpx -l targets.txt -ss",
+            "explanation": "Takes a screenshot of the target page (requires headless browser setup)."
+        },
+        {
+            "id": 68,
+            "category": "Visualization",
+            "command": "httpx -l targets.txt -screenshot-timeout 10",
+            "example": "httpx -l targets.txt -screenshot-timeout 10",
+            "explanation": "Sets the timeout for taking a screenshot to 10 seconds."
+        },
+        {
+            "id": 69,
+            "category": "Proxy and Network",
+            "command": "httpx -l targets.txt -proxy http://127.0.0.1:8080",
+            "example": "httpx -l targets.txt -proxy http://127.0.0.1:8080",
+            "explanation": "Routes all traffic through an HTTP proxy (e.g., Burp Suite)."
+        },
+        {
+            "id": 70,
+            "category": "Proxy and Network",
+            "command": "httpx -l targets.txt -proxy socks5://127.0.0.1:9050",
+            "example": "httpx -l targets.txt -proxy socks5://127.0.0.1:9050",
+            "explanation": "Routes all traffic through a SOCKS5 proxy."
+        },
+        {
+            "id": 71,
+            "category": "Proxy and Network",
+            "command": "httpx -l targets.txt -r 8.8.8.8",
+            "example": "httpx -l targets.txt -r 8.8.8.8",
+            "explanation": "Uses a custom DNS resolver (Google DNS) for resolution."
+        },
+        {
+            "id": 72,
+            "category": "Proxy and Network",
+            "command": "httpx -l targets.txt -r resolvers.txt",
+            "example": "httpx -l targets.txt -r resolvers.txt",
+            "explanation": "Uses a list of custom DNS resolvers from a file."
+        },
+        {
+            "id": 73,
+            "category": "Display and Debug",
+            "command": "httpx -l targets.txt -silent",
+            "example": "httpx -l targets.txt -silent",
+            "explanation": "Suppresses output and shows only the valid results (ideal for piping)."
+        },
+        {
+            "id": 74,
+            "category": "Display and Debug",
+            "command": "httpx -l targets.txt -verbose",
+            "example": "httpx -l targets.txt -verbose",
+            "explanation": "Displays verbose output including request and response details."
+        },
+        {
+            "id": 75,
+            "category": "Display and Debug",
+            "command": "httpx -l targets.txt -debug",
+            "example": "httpx -l targets.txt -debug",
+            "explanation": "Enables debug mode to show detailed internal request processing."
+        },
+        {
+            "id": 76,
+            "category": "Display and Debug",
+            "command": "httpx -l targets.txt -debug-req",
+            "example": "httpx -l targets.txt -debug-req",
+            "explanation": "Displays only the raw HTTP requests sent in debug mode."
+        },
+        {
+            "id": 77,
+            "category": "Display and Debug",
+            "command": "httpx -l targets.txt -debug-resp",
+            "example": "httpx -l targets.txt -debug-resp",
+            "explanation": "Displays only the raw HTTP responses received in debug mode."
+        },
+        {
+            "id": 78,
+            "category": "Display and Debug",
+            "command": "httpx -l targets.txt -no-color",
+            "example": "httpx -l targets.txt -no-color",
+            "explanation": "Disables colored output in the terminal."
+        },
+        {
+            "id": 79,
+            "category": "Display and Debug",
+            "command": "httpx -version",
+            "example": "httpx -version",
+            "explanation": "Displays the installed version of httpx."
+        },
+        {
+            "id": 80,
+            "category": "Input Handling",
+            "command": "httpx -request raw_request.txt",
+            "example": "httpx -request raw_request.txt",
+            "explanation": "Loads a raw HTTP request from a file and sends it to the target."
+        },
+        {
+            "id": 81,
+            "category": "Advanced Probing",
+            "command": "httpx -l targets.txt -favicon",
+            "example": "httpx -l targets.txt -favicon",
+            "explanation": "Calculates and displays the mmh3 hash of the /favicon.ico file."
+        },
+        {
+            "id": 82,
+            "category": "Advanced Probing",
+            "command": "httpx -l targets.txt -jarm",
+            "example": "httpx -l targets.txt -jarm",
+            "explanation": "Calculates and displays the JARM fingerprint hash of the SSL server."
+        },
+        {
+            "id": 83,
+            "category": "Advanced Probing",
+            "command": "httpx -l targets.txt -hash sha256",
+            "example": "httpx -l targets.txt -hash sha256",
+            "explanation": "Calculates and displays the SHA256 hash of the response body."
+        },
+        {
+            "id": 84,
+            "category": "Advanced Probing",
+            "command": "httpx -l targets.txt -hash md5",
+            "example": "httpx -l targets.txt -hash md5",
+            "explanation": "Calculates and displays the MD5 hash of the response body."
+        },
+        {
+            "id": 85,
+            "category": "Advanced Probing",
+            "command": "httpx -l targets.txt -websocket",
+            "example": "httpx -l targets.txt -websocket",
+            "explanation": "Probes for WebSocket connections on the target."
+        },
+        {
+            "id": 86,
+            "category": "Combined Probing",
+            "command": "httpx -l targets.txt -sc -title -tech-detect",
+            "example": "httpx -l targets.txt -sc -title -tech-detect",
+            "explanation": "Combines status code, title, and technology detection in a single run."
+        },
+        {
+            "id": 87,
+            "category": "Combined Probing",
+            "command": "httpx -l targets.txt -sc -cl -wc -lc",
+            "example": "httpx -l targets.txt -sc -cl -wc -lc",
+            "explanation": "Combines status code, content length, word count, and line count stats."
+        },
+        {
+            "id": 88,
+            "category": "Combined Probing",
+            "command": "httpx -l targets.txt -status-code -title -server -ip -cname -asn",
+            "example": "httpx -l targets.txt -status-code -title -server -ip -cname -asn",
+            "explanation": "Runs a full reconnaissance probe covering status, server info, and network data."
+        },
+        {
+            "id": 89,
+            "category": "Match and Extract",
+            "command": "httpx -l targets.txt -mc 200 -er \"token:[a-zA-Z0-9]+\"",
+            "example": "httpx -l targets.txt -mc 200 -er \"token:[a-zA-Z0-9]+\"",
+            "explanation": "Matches 200 OK responses and extracts patterns looking like tokens."
+        },
+        {
+            "id": 90,
+            "category": "Filter and Save",
+            "command": "httpx -l targets.txt -fc 404,403 -o live_hosts.txt",
+            "example": "httpx -l targets.txt -fc 404,403 -o live_hosts.txt",
+            "explanation": "Filters out 404/403 errors and saves accessible hosts to a file."
+        },
+        {
+            "id": 91,
+            "category": "Automation Integration",
+            "command": "subfinder -d example.com | httpx -sc -title",
+            "example": "subfinder -d example.com | httpx -sc -title",
+            "explanation": "Chains subfinder results into httpx to probe discovered subdomains."
+        },
+        {
+            "id": 92,
+            "category": "Automation Integration",
+            "command": "cat urls.txt | httpx -silent -json > results.json",
+            "example": "cat urls.txt | httpx -silent -json > results.json",
+            "explanation": "Quietly processes URLs and outputs pure JSON to a file for automation."
+        },
+        {
+            "id": 93,
+            "category": "Advanced Network",
+            "command": "httpx -l targets.txt -interface eth0",
+            "example": "httpx -l targets.txt -interface eth0",
+            "explanation": "Specifies the network interface to use for sending traffic."
+        },
+        {
+            "id": 94,
+            "category": "Advanced Network",
+            "command": "httpx -l targets.txt -source-ip 192.168.1.50",
+            "example": "httpx -l targets.txt -source-ip 192.168.1.50",
+            "explanation": "Spoofs or sets the source IP address for the requests."
+        },
+        {
+            "id": 95,
+            "category": "Probe Tuning",
+            "command": "httpx -l targets.txt -delay 100ms",
+            "example": "httpx -l targets.txt -delay 100ms",
+            "explanation": "Adds a 100ms delay between each request to avoid rate limiting."
+        },
+        {
+            "id": 96,
+            "category": "Probe Tuning",
+            "command": "httpx -l targets.txt -random-agent",
+            "example": "httpx -l targets.txt -random-agent",
+            "explanation": "Uses a random User-Agent header for each request."
+        },
+        {
+            "id": 97,
+            "category": "Probe Tuning",
+            "command": "httpx -l targets.txt -unsafe",
+            "example": "httpx -l targets.txt -unsafe",
+            "explanation": "Enables unsafe mode to handle invalid HTTP implementations or raw packets."
+        },
+        {
+            "id": 98,
+            "category": "Probe Tuning",
+            "command": "httpx -l targets.txt -resume resume_file.cfg",
+            "example": "httpx -l targets.txt -resume resume_file.cfg",
+            "explanation": "Resumes a scan using a previously generated resume configuration file."
+        },
+        {
+            "id": 99,
+            "category": "Filtering",
+            "command": "httpx -l targets.txt -filter-regex \"default page\"",
+            "example": "httpx -l targets.txt -filter-regex \"default page\"",
+            "explanation": "Filters out targets whose response body matches the regex 'default page'."
+        },
+        {
+            "id": 100,
+            "category": "Red Team Operations",
+            "command": "httpx -l targets.txt -path /admin -mc 200 -ss",
+            "example": "httpx -l targets.txt -path /admin -mc 200 -ss",
+            "explanation": "Probes for admin panels, matches 200 OK, and takes screenshots of hits."
+        },
+        {
+            "id": 101,
+            "category": "Blue Team Validation",
+            "command": "httpx -l internal_hosts.txt -status-code -title -tech-detect -json -o inventory.json",
+            "example": "httpx -l internal_hosts.txt -status-code -title -tech-detect -json -o inventory.json",
+            "explanation": "Generates a detailed JSON inventory of internal services for auditing."
+        },
+        {
+            "id": 102,
+            "category": "Advanced",
+            "command": "httpx -l targets.txt -bp",
+            "example": "httpx -l targets.txt -bp",
+            "explanation": "Enables the Burp Suite proxy integration mode."
+        },
+        {
+            "id": 103,
+            "category": "Advanced",
+            "command": "httpx -l targets.txt -tlsi",
+            "example": "httpx -l targets.txt -tlsi",
+            "explanation": "Displays the TLS handshake client hello info (TLS Imprint)."
+        },
+        {
+            "id": 104,
+            "category": "Advanced",
+            "command": "httpx -l targets.txt -cdn-check",
+            "example": "httpx -l targets.txt -cdn-check",
+            "explanation": "Checks if the target is behind a CDN and displays the provider name."
+        },
+        {
+            "id": 105,
+            "category": "Advanced",
+            "command": "httpx -l targets.txt -exclude-cdn",
+            "example": "httpx -l targets.txt -exclude-cdn",
+            "explanation": "Skips probing targets that are identified as being behind a CDN."
+        },
+        {
+            "id": 106,
+            "category": "Output",
+            "command": "httpx -l targets.txt -no-fallback",
+            "example": "httpx -l targets.txt -no-fallback",
+            "explanation": "Prevents httpx from probing HTTP if HTTPS fails (or vice versa)."
+        },
+        {
+            "id": 107,
+            "category": "Advanced Probing",
+            "command": "httpx -l targets.txt -probe",
+            "example": "httpx -l targets.txt -probe",
+            "explanation": "Displays the probe status (SUCCESS/FAILED) for the target."
+        },
+        {
+            "id": 108,
+            "category": "Filter",
+            "command": "httpx -l targets.txt -fhr",
+            "example": "httpx -l targets.txt -fhr",
+            "explanation": "Filters out responses that are host redirects."
+        },
+        {
+            "id": 109,
+            "category": "Rate Limiting",
+            "command": "httpx -l targets.txt -rate-limit-minute 60",
+            "example": "httpx -l targets.txt -rate-limit-minute 60",
+            "explanation": "Strictly limits the scan to 60 requests per minute."
+        },
+        {
+            "id": 110,
+            "category": "Tagging",
+            "command": "httpx -l targets.txt -tags customized_scan",
+            "example": "httpx -l targets.txt -tags customized_scan",
+            "explanation": "Adds a custom tag field to the JSON output for identification."
+        }
+    ]
+}

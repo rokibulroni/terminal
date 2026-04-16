@@ -1,0 +1,497 @@
+{
+    "tool": "plaso",
+    "description": "Complete Plaso command and workflow reference from basic to advanced forensic timeline generation",
+    "total_commands": 70,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Help",
+            "command": "log2timeline.py --version",
+            "example": "log2timeline.py --version",
+            "explanation": "Displays the installed version of the log2timeline extraction tool"
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax & Help",
+            "command": "log2timeline.py --help",
+            "example": "log2timeline.py --help",
+            "explanation": "Shows the main help menu and available arguments for the extraction tool"
+        },
+        {
+            "id": 3,
+            "category": "Basic Syntax & Help",
+            "command": "log2timeline.py --info",
+            "example": "log2timeline.py --info",
+            "explanation": "Lists all available parsers, parser plugins, and hashers supported by the current installation"
+        },
+        {
+            "id": 4,
+            "category": "Basic Syntax & Help",
+            "command": "psort.py -o list",
+            "example": "psort.py -o list",
+            "explanation": "Lists all available output modules for rendering timeline data"
+        },
+        {
+            "id": 5,
+            "category": "Basic Syntax & Help",
+            "command": "psort.py --analysis list",
+            "example": "psort.py --analysis list",
+            "explanation": "Lists all available analysis plugins for post-processing timelines"
+        },
+        {
+            "id": 6,
+            "category": "Basic Timeline Creation",
+            "command": "log2timeline.py [STORAGE_FILE] [SOURCE]",
+            "example": "log2timeline.py case_data.plaso disk_image.dd",
+            "explanation": "Performs a standard extraction of all supported artifacts from a disk image to a storage file"
+        },
+        {
+            "id": 7,
+            "category": "Basic Timeline Creation",
+            "command": "log2timeline.py [STORAGE_FILE] [DIRECTORY]",
+            "example": "log2timeline.py folder_evidence.plaso /mnt/evidence_share/",
+            "explanation": "Extracts forensic events recursively from a logical directory path instead of a disk image"
+        },
+        {
+            "id": 8,
+            "category": "Parser Configuration",
+            "command": "log2timeline.py --parsers 'win7' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --parsers 'win7' system.plaso disk.E01",
+            "explanation": "Restricts extraction to the Windows 7 parser preset, optimizing for that operating system"
+        },
+        {
+            "id": 9,
+            "category": "Parser Configuration",
+            "command": "log2timeline.py --parsers 'linux' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --parsers 'linux' server.plaso disk.img",
+            "explanation": "Restricts extraction to the Linux parser preset for standard Linux artifacts"
+        },
+        {
+            "id": 10,
+            "category": "Parser Configuration",
+            "command": "log2timeline.py --parsers 'macosx' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --parsers 'macosx' macbook.plaso disk.dmg",
+            "explanation": "Restricts extraction to macOS specific parsers and plugins"
+        },
+        {
+            "id": 11,
+            "category": "Parser Configuration",
+            "command": "log2timeline.py --parsers 'webhist' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --parsers 'webhist' browsing.plaso disk.dd",
+            "explanation": "Runs only web history parsers to extract browser activity from Chrome, Firefox, Safari, and Edge"
+        },
+        {
+            "id": 12,
+            "category": "Parser Configuration",
+            "command": "log2timeline.py --parsers '!filestat' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --parsers '!filestat' content_only.plaso disk.dd",
+            "explanation": "Excludes the filestat parser to reduce noise if file system metadata events are not required"
+        },
+        {
+            "id": 13,
+            "category": "Parser Configuration",
+            "command": "log2timeline.py --parsers 'winevtx,winreg' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --parsers 'winevtx,winreg' config_logs.plaso disk.dd",
+            "explanation": "Manually selects only the Windows Event Log and Windows Registry parsers for targeted extraction"
+        },
+        {
+            "id": 14,
+            "category": "Evidence Handling",
+            "command": "log2timeline.py --vss_stores all [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --vss_stores all shadows.plaso disk.E01",
+            "explanation": "Automatically processes all detected Volume Shadow Copies (VSS) found on the image"
+        },
+        {
+            "id": 15,
+            "category": "Evidence Handling",
+            "command": "log2timeline.py --vss_stores 1,3 [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --vss_stores 1,3 selected_shadows.plaso disk.E01",
+            "explanation": "Processes only specific Volume Shadow Copy stores identified by index"
+        },
+        {
+            "id": 16,
+            "category": "Evidence Handling",
+            "command": "log2timeline.py --partition [NUMBER] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --partition 2 system_drive.plaso disk.dd",
+            "explanation": "Targets a specific partition number on a multi-partition disk image"
+        },
+        {
+            "id": 17,
+            "category": "Processing & Hashing",
+            "command": "log2timeline.py --hashers 'md5' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --hashers 'md5' hashed_evidence.plaso disk.dd",
+            "explanation": "Calculates MD5 hashes for every file processed during the extraction phase"
+        },
+        {
+            "id": 18,
+            "category": "Processing & Hashing",
+            "command": "log2timeline.py --hashers 'sha256' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --hashers 'sha256' secure_hash.plaso disk.dd",
+            "explanation": "Calculates SHA256 hashes for file integrity verification during extraction"
+        },
+        {
+            "id": 19,
+            "category": "Performance Tuning",
+            "command": "log2timeline.py --workers [NUMBER] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --workers 8 fast_processing.plaso disk.dd",
+            "explanation": "Specifies the number of worker processes to spawn for parallel processing"
+        },
+        {
+            "id": 20,
+            "category": "Performance Tuning",
+            "command": "log2timeline.py --buffer_size [SIZE] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --buffer_size 65536 large_buffer.plaso disk.dd",
+            "explanation": "Adjusts the read buffer size to optimize I/O performance for specific storage types"
+        },
+        {
+            "id": 21,
+            "category": "Performance Tuning",
+            "command": "log2timeline.py --temporary_directory [PATH] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --temporary_directory /ssd/tmp/ temp_offload.plaso disk.dd",
+            "explanation": "Redirects temporary files to a specific path, useful for utilizing high-speed SSDs during processing"
+        },
+        {
+            "id": 22,
+            "category": "Storage Management",
+            "command": "log2timeline.py --compression 'none' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --compression 'none' uncompressed.plaso disk.dd",
+            "explanation": "Disables compression on the output storage file to improve write speed at the cost of disk space"
+        },
+        {
+            "id": 23,
+            "category": "Basic Analysis & Output",
+            "command": "psort.py -o l2tcsv -w [OUTPUT.CSV] [STORAGE]",
+            "example": "psort.py -o l2tcsv -w timeline.csv case.plaso",
+            "explanation": "Converts the Plaso storage file into the standard Log2Timeline CSV format"
+        },
+        {
+            "id": 24,
+            "category": "Basic Analysis & Output",
+            "command": "psort.py -o json -w [OUTPUT.JSON] [STORAGE]",
+            "example": "psort.py -o json -w timeline.json case.plaso",
+            "explanation": "Exports the timeline events into a standard JSON format for ingestion by other tools"
+        },
+        {
+            "id": 25,
+            "category": "Basic Analysis & Output",
+            "command": "psort.py -o json_line -w [OUTPUT.JSONL] [STORAGE]",
+            "example": "psort.py -o json_line -w timeline.jsonl case.plaso",
+            "explanation": "Exports events as JSON Lines (newline delimited JSON), ideal for Timesketch or ElasticSearch ingestion"
+        },
+        {
+            "id": 26,
+            "category": "Basic Analysis & Output",
+            "command": "psort.py -o tln -w [OUTPUT.TLN] [STORAGE]",
+            "example": "psort.py -o tln -w timeline.tln case.plaso",
+            "explanation": "Exports the data in the specific TLN (Timeline) format"
+        },
+        {
+            "id": 27,
+            "category": "Time & Zone Handling",
+            "command": "psort.py -z 'UTC' -o l2tcsv -w [OUTPUT] [STORAGE]",
+            "example": "psort.py -z 'UTC' -o l2tcsv -w utc_timeline.csv case.plaso",
+            "explanation": "Forces the output timeline to display all timestamps in Coordinated Universal Time (UTC)"
+        },
+        {
+            "id": 28,
+            "category": "Time & Zone Handling",
+            "command": "psort.py -z 'EST5EDT' -o l2tcsv -w [OUTPUT] [STORAGE]",
+            "example": "psort.py -z 'EST5EDT' -o l2tcsv -w est_timeline.csv case.plaso",
+            "explanation": "Adjusts output timestamps to the US Eastern timezone, accounting for daylight savings"
+        },
+        {
+            "id": 29,
+            "category": "Filtering & Slicing",
+            "command": "psort.py --slice '[DATE]' [STORAGE]",
+            "example": "psort.py --slice '2023-10-25T00:00:00' -w sliced.csv case.plaso",
+            "explanation": "Extracts events that occurred strictly after the specified ISO 8601 timestamp"
+        },
+        {
+            "id": 30,
+            "category": "Filtering & Slicing",
+            "command": "psort.py --slice '[START]...[END]' [STORAGE]",
+            "example": "psort.py --slice '2023-01-01...2023-02-01' -w jan_activity.csv case.plaso",
+            "explanation": "Create a timeline restricted to a specific date range window"
+        },
+        {
+            "id": 31,
+            "category": "Advanced Filtering",
+            "command": "psort.py [STORAGE] 'parser is \"[PARSER]\"'",
+            "example": "psort.py case.plaso -w evtx.csv 'parser is \"winevtx\"'",
+            "explanation": "Filters the output to include only events generated by the specified parser (e.g., Windows Event Logs)"
+        },
+        {
+            "id": 32,
+            "category": "Advanced Filtering",
+            "command": "psort.py [STORAGE] 'source is \"[SOURCE]\"'",
+            "example": "psort.py case.plaso -w registry.csv 'source is \"Windows Registry\"'",
+            "explanation": "Filters the output based on the user-friendly source description of the artifact"
+        },
+        {
+            "id": 33,
+            "category": "Advanced Filtering",
+            "command": "psort.py [STORAGE] 'message contains \"[KEYWORD]\"'",
+            "example": "psort.py case.plaso -w malware_hits.csv 'message contains \"malicious.exe\"'",
+            "explanation": "Performs a text search within the event message body for specific keywords"
+        },
+        {
+            "id": 34,
+            "category": "Advanced Filtering",
+            "command": "psort.py [STORAGE] 'filename contains \"[NAME]\"'",
+            "example": "psort.py case.plaso -w secret_docs.csv 'filename contains \"TopSecret\"'",
+            "explanation": "Filters events where the associated filename matches the search string"
+        },
+        {
+            "id": 35,
+            "category": "Complex Filtering",
+            "command": "psort.py [STORAGE] '[FILTER1] and [FILTER2]'",
+            "example": "psort.py case.plaso 'parser is \"winevtx\" and message contains \"4624\"'",
+            "explanation": "Combines filters using logical AND to find specific events (e.g., Login ID 4624 in Event Logs)"
+        },
+        {
+            "id": 36,
+            "category": "Complex Filtering",
+            "command": "psort.py [STORAGE] '[FILTER1] or [FILTER2]'",
+            "example": "psort.py case.plaso 'filename contains \".exe\" or filename contains \".dll\"'",
+            "explanation": "Combines filters using logical OR to broaden the search scope"
+        },
+        {
+            "id": 37,
+            "category": "All-in-One Workflow",
+            "command": "psteal.py --source [IMAGE] -o l2tcsv -w [OUTPUT]",
+            "example": "psteal.py --source disk.dd -o l2tcsv -w quick_timeline.csv",
+            "explanation": "Simultaneously extracts events and sorts them into a CSV, bypassing the intermediate storage file"
+        },
+        {
+            "id": 38,
+            "category": "All-in-One Workflow",
+            "command": "psteal.py --source [IMAGE] --parsers [PRESET] -w [OUTPUT]",
+            "example": "psteal.py --source disk.dd --parsers 'webhist' -w browsing.csv",
+            "explanation": "Performs a targeted extraction and export of web history in a single execution"
+        },
+        {
+            "id": 39,
+            "category": "Storage Metadata",
+            "command": "pinfo.py [STORAGE_FILE]",
+            "example": "pinfo.py case.plaso",
+            "explanation": "Displays general metadata about the storage file, including extraction start time and Plaso version"
+        },
+        {
+            "id": 40,
+            "category": "Storage Metadata",
+            "command": "pinfo.py -v [STORAGE_FILE]",
+            "example": "pinfo.py -v case.plaso",
+            "explanation": "Displays verbose details about the storage file, including counts of events per parser"
+        },
+        {
+            "id": 41,
+            "category": "Storage Metadata",
+            "command": "pinfo.py --verify_storage [STORAGE_FILE]",
+            "example": "pinfo.py --verify_storage case.plaso",
+            "explanation": "Checks the internal integrity of the Plaso storage file to ensure data is not corrupted"
+        },
+        {
+            "id": 42,
+            "category": "Incident Response - User Activity",
+            "command": "psort.py [STORAGE] 'parser is \"winreg\" and message contains \"UserAssist\"'",
+            "example": "psort.py case.plaso -w gui_execution.csv 'parser is \"winreg\" and message contains \"UserAssist\"'",
+            "explanation": "Isolates UserAssist registry keys to determine which GUI applications were executed by a user"
+        },
+        {
+            "id": 43,
+            "category": "Incident Response - Program Execution",
+            "command": "psort.py [STORAGE] 'parser is \"prefetch\"'",
+            "example": "psort.py case.plaso -w prefetch_exec.csv 'parser is \"prefetch\"'",
+            "explanation": "Extracts Windows Prefetch data to analyze application execution history and frequency"
+        },
+        {
+            "id": 44,
+            "category": "Incident Response - Program Execution",
+            "command": "psort.py [STORAGE] 'parser is \"winevtx\" and message contains \"7045\"'",
+            "example": "psort.py case.plaso -w services.csv 'parser is \"winevtx\" and message contains \"7045\"'",
+            "explanation": "Filters for Event ID 7045 to identify newly installed Windows services, a common persistence mechanism"
+        },
+        {
+            "id": 45,
+            "category": "Incident Response - USB Hunting",
+            "command": "psort.py [STORAGE] 'parser is \"winreg\" and message contains \"USBSTOR\"'",
+            "example": "psort.py case.plaso -w usb_devices.csv 'parser is \"winreg\" and message contains \"USBSTOR\"'",
+            "explanation": "Searches Registry artifacts for USBSTOR keys to identify removable devices connected to the system"
+        },
+        {
+            "id": 46,
+            "category": "Incident Response - Network",
+            "command": "psort.py [STORAGE] 'parser is \"winreg\" and message contains \"Interfaces\"'",
+            "example": "psort.py case.plaso -w net_interfaces.csv 'parser is \"winreg\" and message contains \"Interfaces\"'",
+            "explanation": "Extracts network interface configurations and history from the System registry hive"
+        },
+        {
+            "id": 47,
+            "category": "Analysis Plugins",
+            "command": "psort.py --analysis 'unique_domains_visited' [STORAGE]",
+            "example": "psort.py --analysis 'unique_domains_visited' case.plaso",
+            "explanation": "Runs a post-processing analysis plugin to summarize unique web domains found in the timeline"
+        },
+        {
+            "id": 48,
+            "category": "Analysis Plugins",
+            "command": "psort.py --analysis 'tagging' --tagging_file [FILE] [STORAGE]",
+            "example": "psort.py --analysis 'tagging' --tagging_file tag_rules.txt case.plaso",
+            "explanation": "Automatically tags events in the timeline matching rules defined in an external text file"
+        },
+        {
+            "id": 49,
+            "category": "ElasticSearch Integration",
+            "command": "psort.py -o elastic --server [IP] --index_name [NAME] [STORAGE]",
+            "example": "psort.py -o elastic --server 127.0.0.1 --index_name investigation_01 case.plaso",
+            "explanation": "Exports timeline events directly into an ElasticSearch instance for visualization in Kibana"
+        },
+        {
+            "id": 50,
+            "category": "Timesketch Integration",
+            "command": "psort.py -o timesketch --name [TIMELINE_NAME] [STORAGE]",
+            "example": "psort.py -o timesketch --name 'Case 2024-001' case.plaso",
+            "explanation": "Uploads the timeline directly to a Timesketch server instance (requires ~/.plaso_timesketchrc configuration)"
+        },
+        {
+            "id": 51,
+            "category": "File Extraction",
+            "command": "image_export.py --names [FILENAME] [IMAGE]",
+            "example": "image_export.py --names 'MFT' disk.dd",
+            "explanation": "Extracts specific files (like the $MFT) from the disk image based on exact filename matching"
+        },
+        {
+            "id": 52,
+            "category": "File Extraction",
+            "command": "image_export.py --extensions [EXT] [IMAGE]",
+            "example": "image_export.py --extensions 'evt,evtx' disk.dd",
+            "explanation": "Extracts all files with specific extensions from the forensic image to the local directory"
+        },
+        {
+            "id": 53,
+            "category": "File Extraction",
+            "command": "image_export.py --filter [FILTER] [IMAGE]",
+            "example": "image_export.py --filter 'modification_time > \"2023-01-01\"' disk.dd",
+            "explanation": "Extracts files from the image that match specific metadata criteria like modification timestamps"
+        },
+        {
+            "id": 54,
+            "category": "Debug & Troubleshooting",
+            "command": "log2timeline.py -d [STORAGE] [SOURCE]",
+            "example": "log2timeline.py -d debug_case.plaso disk.dd",
+            "explanation": "Runs the extraction in debug mode, providing extensive console output for troubleshooting parser errors"
+        },
+        {
+            "id": 55,
+            "category": "Debug & Troubleshooting",
+            "command": "log2timeline.py --logfile [FILE] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --logfile extraction.log case.plaso disk.dd",
+            "explanation": "Writes all execution logs to a specific file instead of standard output for later review"
+        },
+        {
+            "id": 56,
+            "category": "Debug & Troubleshooting",
+            "command": "log2timeline.py --profiling_type 'memory' [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --profiling_type 'memory' profile.plaso disk.dd",
+            "explanation": "Enables memory profiling to monitor resource usage during the extraction process"
+        },
+        {
+            "id": 57,
+            "category": "Output Formatting",
+            "command": "psort.py -o dynamic --fields [FIELDS] [STORAGE]",
+            "example": "psort.py -o dynamic --fields 'datetime,timestamp_desc,message' -w custom.csv case.plaso",
+            "explanation": "Creates a CSV with a user-defined column structure, useful for creating reports with specific columns only"
+        },
+        {
+            "id": 58,
+            "category": "Output Formatting",
+            "command": "psort.py --additional_fields [FIELDS] [STORAGE]",
+            "example": "psort.py -o l2tcsv --additional_fields 'inode,tag' -w detailed.csv case.plaso",
+            "explanation": "Adds extra metadata fields to the standard CSV output that are normally hidden"
+        },
+        {
+            "id": 59,
+            "category": "Artifact Definitions",
+            "command": "log2timeline.py --artifact_definitions [PATH] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --artifact_definitions my_artifacts.yaml case.plaso disk.dd",
+            "explanation": "Uses a custom artifacts definition file to direct the tool to non-standard file locations"
+        },
+        {
+            "id": 60,
+            "category": "Filter File Usage",
+            "command": "log2timeline.py --file_filter [PATH] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --file_filter filter.txt case.plaso disk.dd",
+            "explanation": "Restricts extraction to a list of files and paths specified in an external text file"
+        },
+        {
+            "id": 61,
+            "category": "YARA Integration",
+            "command": "log2timeline.py --yara_rules [PATH] [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --yara_rules malware.yar case.plaso disk.dd",
+            "explanation": "Applies YARA rules during extraction to flag or extract files matching specific signatures"
+        },
+        {
+            "id": 62,
+            "category": "Advanced Workflow - Deduplication",
+            "command": "psort.py --dedup [STORAGE]",
+            "example": "psort.py --dedup -o l2tcsv -w clean.csv case.plaso",
+            "explanation": "Removes duplicate timeline entries that share the exact same timestamp and message content"
+        },
+        {
+            "id": 63,
+            "category": "Threat Hunting - Shimcache",
+            "command": "psort.py [STORAGE] 'parser is \"shimcache\"'",
+            "example": "psort.py case.plaso -w shimcache.csv 'parser is \"shimcache\"'",
+            "explanation": "Extracts Application Compatibility Cache (Shimcache) data to identify executables present on the system"
+        },
+        {
+            "id": 64,
+            "category": "Threat Hunting - Amcache",
+            "command": "psort.py [STORAGE] 'parser is \"amcache\"'",
+            "example": "psort.py case.plaso -w amcache.csv 'parser is \"amcache\"'",
+            "explanation": "Extracts Amcache.hve data to correlate SHA1 hashes with filenames and execution timestamps"
+        },
+        {
+            "id": 65,
+            "category": "Threat Hunting - PowerShell",
+            "command": "psort.py [STORAGE] 'message contains \"PowerShell\"'",
+            "example": "psort.py case.plaso -w powershell.csv 'message contains \"PowerShell\"'",
+            "explanation": "Filters for PowerShell activity across Event Logs and other artifacts to detect script execution"
+        },
+        {
+            "id": 66,
+            "category": "Threat Hunting - RDP",
+            "command": "psort.py [STORAGE] 'message contains \"TerminalServices\"'",
+            "example": "psort.py case.plaso -w rdp.csv 'message contains \"TerminalServices\"'",
+            "explanation": "Filters for Terminal Services logs to reconstruct Remote Desktop Protocol (RDP) sessions"
+        },
+        {
+            "id": 67,
+            "category": "Threat Hunting - Scheduled Tasks",
+            "command": "psort.py [STORAGE] 'parser is \"winevtx\" and message contains \"Task Scheduler\"'",
+            "example": "psort.py case.plaso -w tasks.csv 'parser is \"winevtx\" and message contains \"Task Scheduler\"'",
+            "explanation": "Identifies creation and execution of scheduled tasks, often used for persistence"
+        },
+        {
+            "id": 68,
+            "category": "Reporting - Tagged Events",
+            "command": "psort.py -w [OUTPUT] --tagged_events [STORAGE]",
+            "example": "psort.py -w report_hits.csv --tagged_events case.plaso",
+            "explanation": "Exports only the events that were tagged by analysis plugins, creating a concise report of findings"
+        },
+        {
+            "id": 69,
+            "category": "Automated Pipeline",
+            "command": "psteal.py --source [IMAGE] --parsers 'win7' --analysis 'tagging' --tagging_file [RULES]",
+            "example": "psteal.py --source disk.dd --parsers 'win7' --analysis 'tagging' --tagging_file bad_stuff.txt",
+            "explanation": "Runs a complete pipeline: extraction, Windows parsing, tagging based on rules, and output generation"
+        },
+        {
+            "id": 70,
+            "category": "Cleanup",
+            "command": "log2timeline.py --force [STORAGE] [SOURCE]",
+            "example": "log2timeline.py --force case.plaso disk.dd",
+            "explanation": "Forces the overwrite of an existing storage file if it already exists during a new extraction"
+        }
+    ]
+}

@@ -1,0 +1,427 @@
+{
+    "tool": "exiftool",
+    "description": "Complete ExifTool command and workflow reference from basic to advanced metadata analysis and manipulation",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic ExifTool Syntax",
+            "command": "exiftool -ver",
+            "example": "exiftool -ver",
+            "explanation": "Displays the installed version number of the ExifTool application"
+        },
+        {
+            "id": 2,
+            "category": "Basic Metadata Inspection",
+            "command": "exiftool <file>",
+            "example": "exiftool evidence.jpg",
+            "explanation": "Extracts and displays all standard metadata tags found in the specified file"
+        },
+        {
+            "id": 3,
+            "category": "Basic Metadata Inspection",
+            "command": "exiftool -a <file>",
+            "example": "exiftool -a document.pdf",
+            "explanation": "Displays all metadata tags, including duplicate tags that are normally suppressed"
+        },
+        {
+            "id": 4,
+            "category": "Output and Formatting Control",
+            "command": "exiftool -s <file>",
+            "example": "exiftool -s image.png",
+            "explanation": "Displays tag names and values in a short format without extra whitespace"
+        },
+        {
+            "id": 5,
+            "category": "Output and Formatting Control",
+            "command": "exiftool -s -s <file>",
+            "example": "exiftool -s -s photo.jpg",
+            "explanation": "Displays tag values only, omitting the tag names entirely"
+        },
+        {
+            "id": 6,
+            "category": "Tag Filtering and Grouping",
+            "command": "exiftool -g <file>",
+            "example": "exiftool -g evidence.docx",
+            "explanation": "Organizes metadata output by tag group headers like EXIF, XMP, and IPTC"
+        },
+        {
+            "id": 7,
+            "category": "Tag Filtering and Grouping",
+            "command": "exiftool -G1 <file>",
+            "example": "exiftool -G1 video.mp4",
+            "explanation": "Displays the specific family 1 group name for each tag along with the value"
+        },
+        {
+            "id": 8,
+            "category": "Tag Filtering and Grouping",
+            "command": "exiftool -H <file>",
+            "example": "exiftool -H unknown_file.bin",
+            "explanation": "Displays the hexadecimal tag ID for each metadata tag found"
+        },
+        {
+            "id": 9,
+            "category": "Tag Filtering and Grouping",
+            "command": "exiftool -D <file>",
+            "example": "exiftool -D firmware.bin",
+            "explanation": "Displays the decimal tag ID for each metadata tag found"
+        },
+        {
+            "id": 10,
+            "category": "Incident Response Investigations",
+            "command": "exiftool -u <file>",
+            "example": "exiftool -u suspicious.jpg",
+            "explanation": "Extracts unknown tags that ExifTool does not recognize by name"
+        },
+        {
+            "id": 11,
+            "category": "Incident Response Investigations",
+            "command": "exiftool -U <file>",
+            "example": "exiftool -U payload.jpg",
+            "explanation": "Extracts unknown binary tags which may contain hidden data or payloads"
+        },
+        {
+            "id": 12,
+            "category": "Tag Filtering and Grouping",
+            "command": "exiftool -common <file>",
+            "example": "exiftool -common photo.jpg",
+            "explanation": "Displays only the most common and useful metadata tags for quick triage"
+        },
+        {
+            "id": 13,
+            "category": "Output and Formatting Control",
+            "command": "exiftool -j <file>",
+            "example": "exiftool -j evidence.jpg",
+            "explanation": "Exports the metadata output in standard JSON format"
+        },
+        {
+            "id": 14,
+            "category": "Output and Formatting Control",
+            "command": "exiftool -X <file>",
+            "example": "exiftool -X report.xml",
+            "explanation": "Exports the metadata output in RDF/XML format"
+        },
+        {
+            "id": 15,
+            "category": "Output and Formatting Control",
+            "command": "exiftool -php <file>",
+            "example": "exiftool -php image.jpg",
+            "explanation": "Formats the output as a PHP array for web integration"
+        },
+        {
+            "id": 16,
+            "category": "Batch Processing",
+            "command": "exiftool -csv <dir>",
+            "example": "exiftool -csv /case_data/",
+            "explanation": "Recursively scans a directory and outputs a single CSV file with all metadata"
+        },
+        {
+            "id": 17,
+            "category": "Output and Formatting Control",
+            "command": "exiftool -T -<tag1> -<tag2> <file>",
+            "example": "exiftool -T -filename -imagesize image.jpg",
+            "explanation": "Outputs specific tags in a tab-delimited format for spreadsheet import"
+        },
+        {
+            "id": 18,
+            "category": "Recursive and Batch Processing",
+            "command": "exiftool -r <dir>",
+            "example": "exiftool -r /evidence/images/",
+            "explanation": "Recursively processes all files in subdirectories of the specified folder"
+        },
+        {
+            "id": 19,
+            "category": "Recursive and Batch Processing",
+            "command": "exiftool -ext <ext> -r <dir>",
+            "example": "exiftool -ext jpg -r /home/user/",
+            "explanation": "Processes only files with the specified extension in a directory tree"
+        },
+        {
+            "id": 20,
+            "category": "Recursive and Batch Processing",
+            "command": "exiftool --ext <ext> -r <dir>",
+            "example": "exiftool --ext exe -r /server/uploads/",
+            "explanation": "Excludes files with the specified extension from processing"
+        },
+        {
+            "id": 21,
+            "category": "Threat Hunting and Analysis",
+            "command": "exiftool -if '<condition>' <dir>",
+            "example": "exiftool -if '$iso > 1600' /photos/",
+            "explanation": "Processes files only if they meet a specific metadata condition"
+        },
+        {
+            "id": 22,
+            "category": "Threat Hunting and Analysis",
+            "command": "exiftool -p '<string>' <file>",
+            "example": "exiftool -p '$filename found at $gpslatitude' photo.jpg",
+            "explanation": "Prints a custom formatted string using tag values for reporting"
+        },
+        {
+            "id": 23,
+            "category": "Metadata Editing",
+            "command": "exiftool -<tag>=<value> <file>",
+            "example": "exiftool -Artist='Investigator' photo.jpg",
+            "explanation": "Writes a new value to the specified metadata tag"
+        },
+        {
+            "id": 24,
+            "category": "Metadata Editing",
+            "command": "exiftool -<tag>+=<value> <file>",
+            "example": "exiftool -Keywords+='evidence' document.pdf",
+            "explanation": "Appends a value to a list-type tag like Keywords without overwriting"
+        },
+        {
+            "id": 25,
+            "category": "Metadata Removal",
+            "command": "exiftool -<tag>= <file>",
+            "example": "exiftool -Comment= private.jpg",
+            "explanation": "Deletes the specific tag from the file by assigning it an empty value"
+        },
+        {
+            "id": 26,
+            "category": "Metadata Removal",
+            "command": "exiftool -all= <file>",
+            "example": "exiftool -all= public_release.jpg",
+            "explanation": "Removes all supported metadata tags from the file for sanitization"
+        },
+        {
+            "id": 27,
+            "category": "Metadata Removal",
+            "command": "exiftool -gps:all= <file>",
+            "example": "exiftool -gps:all= photo.jpg",
+            "explanation": "Removes only the GPS and geolocation tags while keeping others intact"
+        },
+        {
+            "id": 28,
+            "category": "Metadata Editing",
+            "command": "exiftool -tagsfromfile <src> <dst>",
+            "example": "exiftool -tagsfromfile original.jpg edited.jpg",
+            "explanation": "Copies all metadata tags from a source file to a destination file"
+        },
+        {
+            "id": 29,
+            "category": "Metadata Editing",
+            "command": "exiftool -z -tagsfromfile <src> <dst>",
+            "example": "exiftool -z -tagsfromfile a.jpg b.jpg",
+            "explanation": "Copies tags while ignoring internal compression tags to prevent corruption"
+        },
+        {
+            "id": 30,
+            "category": "Date and Time Handling",
+            "command": "exiftool -alldates+=<shift> <file>",
+            "example": "exiftool -alldates+=1 image.jpg",
+            "explanation": "Shifts all common date/time tags forward by one hour"
+        },
+        {
+            "id": 31,
+            "category": "Date and Time Handling",
+            "command": "exiftool -GlobalTimeShift <shift> <file>",
+            "example": "exiftool -GlobalTimeShift -0:30 image.jpg",
+            "explanation": "Applies a global time shift to all date tags when reading or writing"
+        },
+        {
+            "id": 32,
+            "category": "File Renaming",
+            "command": "exiftool '-filename<CreateDate' -d <fmt> <dir>",
+            "example": "exiftool '-filename<CreateDate' -d %Y%m%d_%H%M%S.%%e .",
+            "explanation": "Renames files based on their creation date using a specific date format"
+        },
+        {
+            "id": 33,
+            "category": "File Renaming",
+            "command": "exiftool '-Directory<DateTimeOriginal' -d <fmt> <dir>",
+            "example": "exiftool '-Directory<DateTimeOriginal' -d %Y/%m .",
+            "explanation": "Moves files into a directory structure based on their original date year and month"
+        },
+        {
+            "id": 34,
+            "category": "Incident Response Investigations",
+            "command": "exiftool -ee <file>",
+            "example": "exiftool -ee video.mp4",
+            "explanation": "Extracts embedded metadata from video streams or document sub-files"
+        },
+        {
+            "id": 35,
+            "category": "Incident Response Investigations",
+            "command": "exiftool -ee3 <file>",
+            "example": "exiftool -ee3 video.mov",
+            "explanation": "Extracts all embedded data from video files, parsing the entire stream aggressively"
+        },
+        {
+            "id": 36,
+            "category": "Digital Forensics Reporting",
+            "command": "exiftool -b -ThumbnailImage <file> > <out>",
+            "example": "exiftool -b -ThumbnailImage doc.jpg > thumb.jpg",
+            "explanation": "Extracts the binary thumbnail data from a file and saves it as a separate image"
+        },
+        {
+            "id": 37,
+            "category": "Digital Forensics Reporting",
+            "command": "exiftool -b -PreviewImage <file> > <out>",
+            "example": "exiftool -b -PreviewImage raw.cr2 > preview.jpg",
+            "explanation": "Extracts the large embedded preview image from RAW camera files"
+        },
+        {
+            "id": 38,
+            "category": "Blue Team Defensive Validation",
+            "command": "exiftool -v <file>",
+            "example": "exiftool -v unknown.file",
+            "explanation": "Runs in verbose mode to show the detailed parsing process of the file structure"
+        },
+        {
+            "id": 39,
+            "category": "Blue Team Defensive Validation",
+            "command": "exiftool -v3 <file>",
+            "example": "exiftool -v3 exploit.pdf",
+            "explanation": "Runs in very high verbose mode, providing a hex dump of the parsed tags"
+        },
+        {
+            "id": 40,
+            "category": "Blue Team Defensive Validation",
+            "command": "exiftool -htmlDump <file>",
+            "example": "exiftool -htmlDump suspect.jpg > dump.html",
+            "explanation": "Generates an HTML file illustrating the binary structure and offsets of the metadata"
+        },
+        {
+            "id": 41,
+            "category": "Advanced Workflows",
+            "command": "exiftool -@ <argfile>",
+            "example": "exiftool -@ arguments.txt",
+            "explanation": "Reads command-line arguments from a file to bypass shell character limits"
+        },
+        {
+            "id": 42,
+            "category": "Advanced Workflows",
+            "command": "exiftool -config <cfg> <file>",
+            "example": "exiftool -config custom.config image.jpg",
+            "explanation": "Uses a custom configuration file to define user-specific tags or behaviors"
+        },
+        {
+            "id": 43,
+            "category": "Error Handling",
+            "command": "exiftool -m <file>",
+            "example": "exiftool -m corrupted.jpg",
+            "explanation": "Ignores minor errors and warnings to force processing of corrupted files"
+        },
+        {
+            "id": 44,
+            "category": "Error Handling",
+            "command": "exiftool -F <file>",
+            "example": "exiftool -F bad_offsets.jpg",
+            "explanation": "Attempts to fix the offsets of EXIF tags if they are incorrect"
+        },
+        {
+            "id": 45,
+            "category": "Performance Optimization",
+            "command": "exiftool -fast <file>",
+            "example": "exiftool -fast huge_dir/",
+            "explanation": "Scans files faster by avoiding the extraction of MakerNotes"
+        },
+        {
+            "id": 46,
+            "category": "Performance Optimization",
+            "command": "exiftool -fast2 <file>",
+            "example": "exiftool -fast2 network_share/",
+            "explanation": "Scans even faster by avoiding any unnecessary bit-level information processing"
+        },
+        {
+            "id": 47,
+            "category": "Character Encoding",
+            "command": "exiftool -L <file>",
+            "example": "exiftool -L legacy.jpg",
+            "explanation": "Assumes Latin1 encoding for tags instead of UTF-8 for legacy compatibility"
+        },
+        {
+            "id": 48,
+            "category": "Character Encoding",
+            "command": "exiftool -charset <set> <file>",
+            "example": "exiftool -charset cyrillic input.txt",
+            "explanation": "Specifies the character set to use when decoding tag values"
+        },
+        {
+            "id": 49,
+            "category": "Threat Hunting and Analysis",
+            "command": "exiftool -listx",
+            "example": "exiftool -listx",
+            "explanation": "Lists all available tags in XML format including their data types"
+        },
+        {
+            "id": 50,
+            "category": "Threat Hunting and Analysis",
+            "command": "exiftool -listw",
+            "example": "exiftool -listw",
+            "explanation": "Lists all Writeable tags available in the current version"
+        },
+        {
+            "id": 51,
+            "category": "Digital Forensics Reporting",
+            "command": "exiftool -W+! <fmt> <file>",
+            "example": "exiftool -W+! %d%f_%t%-c.%s -b -PreviewImage img.cr2",
+            "explanation": "Writes extracted binary data to a file with a unique name pattern"
+        },
+        {
+            "id": 52,
+            "category": "Metadata Editing",
+            "command": "exiftool -overwrite_original <file>",
+            "example": "exiftool -overwrite_original -all= image.jpg",
+            "explanation": "Overwrites the original file directly instead of creating a '_original' backup"
+        },
+        {
+            "id": 53,
+            "category": "Metadata Editing",
+            "command": "exiftool -overwrite_original_in_place <file>",
+            "example": "exiftool -overwrite_original_in_place image.jpg",
+            "explanation": "Overwrites the file while preserving file system attributes like creation time"
+        },
+        {
+            "id": 54,
+            "category": "Geolocation Analysis",
+            "command": "exiftool -geotag <log> <dir>",
+            "example": "exiftool -geotag track.gpx /photos/",
+            "explanation": "Adds GPS coordinates to images by correlating time with a GPS track log"
+        },
+        {
+            "id": 55,
+            "category": "Geolocation Analysis",
+            "command": "exiftool -geotime=<val> <file>",
+            "example": "exiftool -geotime='2023:01:01 12:00:00' image.jpg",
+            "explanation": "Sets the GPS timestamp used for synchronization during geotagging"
+        },
+        {
+            "id": 56,
+            "category": "Advanced Workflows",
+            "command": "exiftool -api LargeFileSupport=1 <file>",
+            "example": "exiftool -api LargeFileSupport=1 huge_video.mp4",
+            "explanation": "Enables API support for processing files larger than 4GB"
+        },
+        {
+            "id": 57,
+            "category": "Advanced Workflows",
+            "command": "exiftool -api RequestAll=2 <file>",
+            "example": "exiftool -api RequestAll=2 weird.jpg",
+            "explanation": "Forces ExifTool to recognize and dump even non-standard or obscure tags"
+        },
+        {
+            "id": 58,
+            "category": "Advanced Workflows",
+            "command": "exiftool -api QuickTimeUTC=1 <file>",
+            "example": "exiftool -api QuickTimeUTC=1 video.mov",
+            "explanation": "Assumes QuickTime date tags are in UTC rather than local time"
+        },
+        {
+            "id": 59,
+            "category": "Blue Team Defensive Validation",
+            "command": "exiftool -validate <file>",
+            "example": "exiftool -validate potential_malware.jpg",
+            "explanation": "Checks the file metadata structure for validity and potential corruption"
+        },
+        {
+            "id": 60,
+            "category": "Incident Response Investigations",
+            "command": "exiftool -warning -error -a <file>",
+            "example": "exiftool -warning -error -a evidence.pdf",
+            "explanation": "Extracts only the warning and error messages generated during file parsing"
+        }
+    ]
+}

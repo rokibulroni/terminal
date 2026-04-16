@@ -1,0 +1,532 @@
+{
+    "tool": "iperf3",
+    "description": "Complete iperf3 command reference covering all options from basic to advanced",
+    "total_commands": 75,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Server",
+            "command": "iperf3 -s",
+            "example": "iperf3 -s",
+            "explanation": "Starts an iperf server to listen for test connections.\nOperates on the default port to receive throughput measurements from clients."
+        },
+        {
+            "id": 2,
+            "category": "Basic Server",
+            "command": "iperf3 -s -p 5201",
+            "example": "iperf3 -s -p 5201",
+            "explanation": "Starts the server on a specific custom port (-p).\nRequired when the default port is blocked or already in use."
+        },
+        {
+            "id": 3,
+            "category": "Basic Server",
+            "command": "iperf3 -s -D",
+            "example": "iperf3 -s -D",
+            "explanation": "Runs the server in daemon mode (-D).\nMoves the process to the background, allowing the terminal to be used for other tasks."
+        },
+        {
+            "id": 4,
+            "category": "Basic Server",
+            "command": "iperf3 -s -1",
+            "example": "iperf3 -s -1",
+            "explanation": "Runs the server for exactly one test (-1).\nAutomatically shuts down the server once the first client completes its test."
+        },
+        {
+            "id": 5,
+            "category": "Basic Server",
+            "command": "iperf3 -s --logfile server_log.txt",
+            "example": "iperf3 -s --logfile /var/log/iperf3.log",
+            "explanation": "Redirects all server output to a log file.\nEnsures test results are persisted for later analysis without polluting the console."
+        },
+        {
+            "id": 6,
+            "category": "Basic Server",
+            "command": "iperf3 -s -i 1",
+            "example": "iperf3 -s -i 1",
+            "explanation": "Sets the reporting interval to 1 second (-i 1).\nProvides real-time throughput updates during the progress of the test."
+        },
+        {
+            "id": 7,
+            "category": "Basic Client",
+            "command": "iperf3 -c 192.168.1.10",
+            "example": "iperf3 -c 192.168.1.10",
+            "explanation": "Initiates a client test to a specific IP.\nConnects to the target server to begin measuring network performance."
+        },
+        {
+            "id": 8,
+            "category": "Basic Client",
+            "command": "iperf3 -c iperf.example.com",
+            "example": "iperf3 -c iperf.example.com",
+            "explanation": "Initiates a client test to a hostname.\nUses DNS resolution to find the target server for the performance audit."
+        },
+        {
+            "id": 9,
+            "category": "Basic Client",
+            "command": "iperf3 -c 192.168.1.10 -p 5201",
+            "example": "iperf3 -c 192.168.1.10 -p 5201",
+            "explanation": "Connects to a server on a specific port (-p).\nEnsures the client reaches the server matching the listener configuration."
+        },
+        {
+            "id": 10,
+            "category": "Format Control",
+            "command": "iperf3 -c 192.168.1.10 -f m",
+            "example": "iperf3 -c 192.168.1.10 -f m",
+            "explanation": "Displays bandwidth in Mbits/sec (-f m).\nStandardizes output format for easy comparison of multi-megabit links."
+        },
+        {
+            "id": 11,
+            "category": "Format Control",
+            "command": "iperf3 -c 192.168.1.10 -f K",
+            "example": "iperf3 -c 192.168.1.10 -f K",
+            "explanation": "Displays bandwidth in KBytes/sec (-f K).\nUseful for precisely measuring performance on low-speed or legacy connections."
+        },
+        {
+            "id": 12,
+            "category": "Duration Control",
+            "command": "iperf3 -c 192.168.1.10 -t 60",
+            "example": "iperf3 -c 192.168.1.10 -t 60",
+            "explanation": "Sets test duration to 60 seconds (-t 60).\nProvides a sustained measurement of throughput over a significant time period."
+        },
+        {
+            "id": 13,
+            "category": "Duration Control",
+            "command": "iperf3 -c 192.168.1.10 -n 1G",
+            "example": "iperf3 -c 192.168.1.10 -n 1G",
+            "explanation": "Transfers exactly 1 Gigabyte of data (-n 1G).\nCompletes the test based on data volume rather than a fixed time limit."
+        },
+        {
+            "id": 14,
+            "category": "Duration Control",
+            "command": "iperf3 -c 192.168.1.10 -k 1000",
+            "example": "iperf3 -c 192.168.1.10 -k 1000",
+            "explanation": "Transfers a specific number of blocks (-k 1000).\nAllows precise control over the total number of packets sent during the test."
+        },
+        {
+            "id": 15,
+            "category": "UDP Testing",
+            "command": "iperf3 -c 192.168.1.10 -u",
+            "example": "iperf3 -c 192.168.1.10 -u",
+            "explanation": "Runs the test in UDP mode (-u).\nMeasures jitter, packet loss, and throughput for connectionless traffic."
+        },
+        {
+            "id": 16,
+            "category": "UDP Testing",
+            "command": "iperf3 -c 192.168.1.10 -u -b 10M",
+            "example": "iperf3 -c 192.168.1.10 -u -b 10M",
+            "explanation": "Sets UDP target bandwidth to 10 Mbps (-b 10M).\nThrottles the client to a specific rate to test link capacity and packet loss."
+        },
+        {
+            "id": 17,
+            "category": "UDP Testing",
+            "command": "iperf3 -c 192.168.1.10 -u -b 100M -t 30",
+            "example": "iperf3 -c 192.168.1.10 -u -b 100M -t 30",
+            "explanation": "Runs a 30-second UDP test at 100 Mbps.\nEstablishes a baseline for high-speed wireless or wired network performance."
+        },
+        {
+            "id": 18,
+            "category": "UDP Testing",
+            "command": "iperf3 -c 192.168.1.10 -u -b 0",
+            "example": "iperf3 -c 192.168.1.10 -u -b 0",
+            "explanation": "UDP test with unlimited bandwidth (-b 0).\nAttempts to saturate the link completely to find its maximum physical throughput."
+        },
+        {
+            "id": 19,
+            "category": "UDP Testing",
+            "command": "iperf3 -c 192.168.1.10 -u -l 1000",
+            "example": "iperf3 -c 192.168.1.10 -u -l 1000",
+            "explanation": "Sets custom buffer length (-l 1000).\nControls the size of each packet sent to test MTU limits and overhead."
+        },
+        {
+            "id": 20,
+            "category": "Direction Control",
+            "command": "iperf3 -c 192.168.1.10 -R",
+            "example": "iperf3 -c 192.168.1.10 -R",
+            "explanation": "Enables reverse throughput mode (-R).\nMeasures download speed by having the server transmit data to the client."
+        },
+        {
+            "id": 21,
+            "category": "Direction Control",
+            "command": "iperf3 -c 192.168.1.10 --bidir",
+            "example": "iperf3 -c 192.168.1.10 --bidir",
+            "explanation": "Runs a bidirectional test (--bidir).\nSimulates real-world traffic by sending and receiving data simultaneously."
+        },
+        {
+            "id": 22,
+            "category": "Parallel Streams",
+            "command": "iperf3 -c 192.168.1.10 -P 4",
+            "example": "iperf3 -c 192.168.1.10 -P 4",
+            "explanation": "Uses 4 parallel TCP streams (-P 4).\nSaturates high-bandwidth links by overcoming standard single-stream limitations."
+        },
+        {
+            "id": 23,
+            "category": "Parallel Streams",
+            "command": "iperf3 -c 192.168.1.10 -P 8 -t 60",
+            "example": "iperf3 -c 192.168.1.10 -P 8 -t 60",
+            "explanation": "Sustained test with 8 parallel streams.\nUsed for stress testing and validating multi-path efficiency on the network."
+        },
+        {
+            "id": 24,
+            "category": "Interface Binding",
+            "command": "iperf3 -c 192.168.1.10 -B 192.168.1.20",
+            "example": "iperf3 -c 192.168.1.10 -B 192.168.1.20",
+            "explanation": "Binds client to specific source IP (-B).\nForces traffic out through a particular network interface on the local host."
+        },
+        {
+            "id": 25,
+            "category": "Interface Binding",
+            "command": "iperf3 -s -B 0.0.0.0",
+            "example": "iperf3 -s -B 0.0.0.0",
+            "explanation": "Binds server to listen on all IPv4 addresses.\nEnsures the listener responds to requests on any available network interface."
+        },
+        {
+            "id": 26,
+            "category": "IP Protocols",
+            "command": "iperf3 -c 192.168.1.10 -4",
+            "example": "iperf3 -c 192.168.1.10 -4",
+            "explanation": "Forces IPv4 usage for the test (-4).\nEnsures no IPv6 resolution or transport is used during the performance run."
+        },
+        {
+            "id": 27,
+            "category": "IP Protocols",
+            "command": "iperf3 -c 2001:db8::1 -6",
+            "example": "iperf3 -c 2001:db8::1 -6",
+            "explanation": "Forces IPv6 usage for the test (-6).\nValidates throughput and connectivity on the modern IPv6 network stack."
+        },
+        {
+            "id": 28,
+            "category": "Output Options",
+            "command": "iperf3 -c 192.168.1.10 -J",
+            "example": "iperf3 -c 192.168.1.10 -J",
+            "explanation": "Outputs test results in JSON format (-J).\nProvides a structured data stream ideal for automated logging and report generation."
+        },
+        {
+            "id": 29,
+            "category": "Output Options",
+            "command": "iperf3 -c 192.168.1.10 --logfile client_results.log",
+            "example": "iperf3 -c 192.168.1.10 --logfile client_results.log",
+            "explanation": "Saves client results to a file.\nPersists the detailed test output for archival and comparative analysis."
+        },
+        {
+            "id": 30,
+            "category": "Output Options",
+            "command": "iperf3 -c 192.168.1.10 --get-server-output",
+            "example": "iperf3 -c 192.168.1.10 --get-server-output",
+            "explanation": "Requests and displays server result output.\nProvides a complete end-to-end view of the test from both sides of the link."
+        },
+        {
+            "id": 31,
+            "category": "Output Options",
+            "command": "iperf3 -c 192.168.1.10 -O 5",
+            "example": "iperf3 -c 192.168.1.10 -O 5",
+            "explanation": "Omits first 5 seconds from statistics (-O 5).\nFilters out the initial TCP slow-start phase for more accurate steady-state data."
+        },
+        {
+            "id": 32,
+            "category": "Output Options",
+            "command": "iperf3 -c 192.168.1.10 -T 'Core Switch Test'",
+            "example": "iperf3 -c 192.168.1.10 -T 'Core Switch Test'",
+            "explanation": "Adds a custom title to the output (-T).\nLabels the test run for easy identification in aggregate logs or reports."
+        },
+        {
+            "id": 33,
+            "category": "Output Options",
+            "command": "iperf3 -c 192.168.1.10 -V",
+            "example": "iperf3 -c 192.168.1.10 -V",
+            "explanation": "Enables verbose output for detailed tracking (-V).\nShows extensive connection parameters, CPU usage, and endpoint details."
+        },
+        {
+            "id": 34,
+            "category": "Output Options",
+            "command": "iperf3 -c 192.168.1.10 -d",
+            "example": "iperf3 -c 192.168.1.10 -d",
+            "explanation": "Enables internal debug mode (-d).\nProvides low-level diagnostic data for troubleshooting iperf3 execution issues."
+        },
+        {
+            "id": 35,
+            "category": "TCP Tuning",
+            "command": "iperf3 -c 192.168.1.10 -w 512K",
+            "example": "iperf3 -c 192.168.1.10 -w 512K",
+            "explanation": "Sets the socket buffer size (-w 512K).\nManually adjusts the TCP window to optimize performance on high-latency links."
+        },
+        {
+            "id": 36,
+            "category": "TCP Tuning",
+            "command": "iperf3 -c 192.168.1.10 -M 1400",
+            "example": "iperf3 -c 192.168.1.10 -M 1400",
+            "explanation": "Sets TCP Maximum Segment Size (-M 1400).\nLimits the size of TCP segments to avoid fragmentation on restrictive paths."
+        },
+        {
+            "id": 37,
+            "category": "TCP Tuning",
+            "command": "iperf3 -c 192.168.1.10 -N",
+            "example": "iperf3 -c 192.168.1.10 -N",
+            "explanation": "Disables Nagle's algorithm (-N).\nReduces latency by sending all packets immediately without waiting for buffer fills."
+        },
+        {
+            "id": 38,
+            "category": "TCP Tuning",
+            "command": "iperf3 -c 192.168.1.10 -Z",
+            "example": "iperf3 -c 192.168.1.10 -Z",
+            "explanation": "Enables Zero Copy data transfer (-Z).\nReduces system overhead by moving data between kernel spaces without CPU copying."
+        },
+        {
+            "id": 39,
+            "category": "TCP Tuning",
+            "command": "iperf3 -c 192.168.1.10 -C cubic",
+            "example": "iperf3 -c 192.168.1.10 -C cubic",
+            "explanation": "Sets TCP congestion control to 'cubic'.\nConfigures the algorithm used to manage traffic flow and bandwidth usage."
+        },
+        {
+            "id": 40,
+            "category": "TCP Tuning",
+            "command": "iperf3 -c 192.168.1.10 -C bbr",
+            "example": "iperf3 -c 192.168.1.10 -C bbr",
+            "explanation": "Sets TCP congestion control to 'bbr'.\nUses Google's Bottleneck Bandwidth and RTT algorithm for enhanced performance."
+        },
+        {
+            "id": 41,
+            "category": "System Control",
+            "command": "iperf3 -c 192.168.1.10 -A 1",
+            "example": "iperf3 -c 192.168.1.10 -A 1",
+            "explanation": "Binds the process to a specific CPU core (-A 1).\nMinimizes context switching overhead and ensures consistent processing performance."
+        },
+        {
+            "id": 42,
+            "category": "System Control",
+            "command": "iperf3 -s -I /var/run/iperf3.pid",
+            "example": "iperf3 -s -I /var/run/iperf3.pid",
+            "explanation": "Writes server Process ID to a file (-I).\nUseful for shell scripts and system monitors to manage the server lifecycle."
+        },
+        {
+            "id": 43,
+            "category": "Alternative Protocols",
+            "command": "iperf3 -c 192.168.1.10 --sctp",
+            "example": "iperf3 -c 192.168.1.10 --sctp",
+            "explanation": "Uses SCTP transport protocol (--sctp).\nTests performance over the multi-homed, message-oriented SCTP protocol."
+        },
+        {
+            "id": 44,
+            "category": "QoS & Marking",
+            "command": "iperf3 -c 192.168.1.10 --dscp 46",
+            "example": "iperf3 -c 192.168.1.10 --dscp 46",
+            "explanation": "Sets DSCP marking for the traffic (--dscp 46).\nAssigns Expedited Forwarding (EF) quality to packets to test QoS handling."
+        },
+        {
+            "id": 45,
+            "category": "QoS & Marking",
+            "command": "iperf3 -c 192.168.1.10 -S 0x10",
+            "example": "iperf3 -c 192.168.1.10 -S 0x10",
+            "explanation": "Sets the IP Type of Service byte (-S 0x10).\nProvides legacy QoS marking for network path prioritization testing."
+        },
+        {
+            "id": 46,
+            "category": "QoS & Marking",
+            "command": "iperf3 -c 192.168.1.10 -L 12345",
+            "example": "iperf3 -c 192.168.1.10 -L 12345",
+            "explanation": "Sets the IPv6 Flow Label (-L 12345).\nTags IPv6 packet streams for experimental or path-specific routing tests."
+        },
+        {
+            "id": 47,
+            "category": "Security",
+            "command": "iperf3 -s --rsa-private-key-path server.key --authorized-users-path users.csv",
+            "example": "iperf3 -s --rsa-private-key-path /etc/iperf3/server.key --authorized-users-path /etc/iperf3/users",
+            "explanation": "Starts a secure server using RSA authentication.\nProtects the performance audit by requiring valid credentials and keys."
+        },
+        {
+            "id": 48,
+            "category": "Security",
+            "command": "iperf3 -c 192.168.1.10 --username testuser --rsa-public-key-path pub.key",
+            "example": "iperf3 -c 192.168.1.10 --username testuser --rsa-public-key-path pub.key",
+            "explanation": "Connects to a secure server with credentials.\nAuthenticates the client test session to ensure authorized network monitoring."
+        },
+        {
+            "id": 49,
+            "category": "Data Control",
+            "command": "iperf3 -c 192.168.1.10 --repeating-payload",
+            "example": "iperf3 -c 192.168.1.10 --repeating-payload",
+            "explanation": "Uses a repeating payload pattern.\nSimulates highly compressible data to test its impact on link optimization."
+        },
+        {
+            "id": 50,
+            "category": "Advanced",
+            "command": "iperf3 -c 192.168.1.10 -X /var/run/sctp_bind",
+            "example": "iperf3 -c 192.168.1.10 -X /var/run/sctp_bind",
+            "explanation": "Binds SCTP associations to links (-X).\nAdvanced control for multi-homing tests over the SCTP transport."
+        },
+        {
+            "id": 51,
+            "category": "Advanced",
+            "command": "iperf3 -c 192.168.1.10 --fq-rate 500M",
+            "example": "iperf3 -c 192.168.1.10 --fq-rate 500M",
+            "explanation": "Sets Fair Queueing rate limit (--fq-rate).\nThrottles the socket at the kernel level for advanced traffic policy simulation."
+        },
+        {
+            "id": 52,
+            "category": "Advanced",
+            "command": "iperf3 -s --server-bitrate-limit 100M",
+            "example": "iperf3 -s --server-bitrate-limit 100M",
+            "explanation": "Caps maximum acceptable server-side bitrate.\nProtects the server from being overwhelmed by high-speed client floods."
+        },
+        {
+            "id": 53,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 -t 3600 -i 60 --logfile long_test.txt",
+            "example": "iperf3 -c 192.168.1.10 -t 3600 -i 60 --logfile long_test.txt",
+            "explanation": "Performs a 1-hour stability test with periodic logging.\nMonitors network performance consistency and identifies long-term drift."
+        },
+        {
+            "id": 54,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 -u -b 50M -R",
+            "example": "iperf3 -c 192.168.1.10 -u -b 50M -R",
+            "explanation": "Tests UDP download capacity at 50 Mbps.\nEstablishes specific performance metrics for reverse-direction traffic."
+        },
+        {
+            "id": 55,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 -P 16 -w 1M",
+            "example": "iperf3 -c 192.168.1.10 -P 16 -w 1M",
+            "explanation": "Heavy load test for high-capacity WAN links.\nCombines many parallel streams with large windows to saturate the pipe."
+        },
+        {
+            "id": 56,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 -u -b 10M --length 100",
+            "example": "iperf3 -c 192.168.1.10 -u -b 10M --length 100",
+            "explanation": "Simulates low-bandwidth VoIP traffic flow.\nUses UDP with small packet sizes to measure jitter and delay characteristics."
+        },
+        {
+            "id": 57,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 -6 -P 4",
+            "example": "iperf3 -c 192.168.1.10 -6 -P 4",
+            "explanation": "Tests IPv6 specific throughput with multiple streams.\nValidates performance parity between IPv4 and IPv6 network paths."
+        },
+        {
+            "id": 58,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 --cport 6001",
+            "example": "iperf3 -c 192.168.1.10 --cport 6001",
+            "explanation": "Binds the client to a fixed source port (--cport).\nRequired for testing through restrictive firewalls with static port policies."
+        },
+        {
+            "id": 59,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 -J --logfile result.json",
+            "example": "iperf3 -c 192.168.1.10 -J --logfile result.json",
+            "explanation": "Saves structured JSON results for automated analysis.\nEnables seamless integration into observability and data pipelines."
+        },
+        {
+            "id": 60,
+            "category": "Real World Scenario",
+            "command": "iperf3 -c 192.168.1.10 -O 3 -t 10 -J",
+            "example": "iperf3 -c 192.168.1.10 -O 3 -t 10 -J",
+            "explanation": "Runs a standardized automated performance test.\nIncludes warm-up filtering and structured data output for consistency."
+        },
+        {
+            "id": 61,
+            "category": "Bandwidth Limiting",
+            "command": "iperf3 -c 192.168.1.10 -b 500K",
+            "example": "iperf3 -c 192.168.1.10 -b 500K",
+            "explanation": "Caps TCP bandwidth to 500 Kbits/sec (-b 500K).\nUseful for simulating narrowband links and throttling test traffic."
+        },
+        {
+            "id": 62,
+            "category": "Bandwidth Limiting",
+            "command": "iperf3 -c 192.168.1.10 -b 2G/100",
+            "example": "iperf3 -c 192.168.1.10 -b 2G/100",
+            "explanation": "Sets high-speed target with burst control.\nBenchmarks performance while modeling bursty traffic patterns."
+        },
+        {
+            "id": 63,
+            "category": "Debugging",
+            "command": "iperf3 -v",
+            "example": "iperf3 -v",
+            "explanation": "Displays software build and feature set (-v).\nDocuments the exact version of iperf3 and its available capabilities."
+        },
+        {
+            "id": 64,
+            "category": "Debugging",
+            "command": "iperf3 -h",
+            "example": "iperf3 -h",
+            "explanation": "Displays command help menu (-h).\nProvides quick reference for all available performance testing flags."
+        },
+        {
+            "id": 65,
+            "category": "Server Advanced",
+            "command": "iperf3 -s --idle-timeout 60",
+            "example": "iperf3 -s --idle-timeout 60",
+            "explanation": "Client connection timeout setting (--connect-timeout).\nForces a 5s connection wait limit before failing the test attempt."
+        },
+        {
+            "id": 66,
+            "category": "Client Advanced",
+            "command": "iperf3 -c 192.168.1.10 --connect-timeout 5000",
+            "example": "iperf3 -c 192.168.1.10 --connect-timeout 5000",
+            "explanation": "Client connection timeout setting (--connect-timeout).\nForces a 5s connection wait limit before failing the test attempt."
+        },
+        {
+            "id": 67,
+            "category": "Combined",
+            "command": "iperf3 -c 192.168.1.10 -u -b 100M -t 10 -i 1 -V",
+            "example": "iperf3 -c 192.168.1.10 -u -b 100M -t 10 -i 1 -V",
+            "explanation": "Verbose high-speed UDP audit (-u -b 100M).\nProvides granular reporting and detailed tracking for UDP throughput."
+        },
+        {
+            "id": 68,
+            "category": "Combined",
+            "command": "iperf3 -c 192.168.1.10 --bidir -t 30 -P 2",
+            "example": "iperf3 -c 192.168.1.10 --bidir -t 30 -P 2",
+            "explanation": "sustained bidirectional performance measurement.\nUses multiple streams to test full-duplex bandwidth availability."
+        },
+        {
+            "id": 69,
+            "category": "Combined",
+            "command": "iperf3 -c 192.168.1.10 -4 -R -w 2M",
+            "example": "iperf3 -c 192.168.1.10 -4 -R -w 2M",
+            "explanation": "IPv4 Download test with optimized window (-4 -R).\nMaximizes throughput by increasing the receiver's data buffer."
+        },
+        {
+            "id": 70,
+            "category": "Automation",
+            "command": "iperf3 -c 192.168.1.10 --json",
+            "example": "iperf3 -c 192.168.1.10 --json",
+            "explanation": "Alias for structured JSON data output.\nEnsures the test results are delivered in a machine-parseable format."
+        },
+        {
+            "id": 71,
+            "category": "Automation",
+            "command": "iperf3 -s --json",
+            "example": "iperf3 -s --json",
+            "explanation": "Server-side JSON event logging.\nCaptures all incoming connection events in a structured developer format."
+        },
+        {
+            "id": 72,
+            "category": "Advanced",
+            "command": "iperf3 -c 192.168.1.10 --time-wait-interval 2000",
+            "example": "iperf3 -c 192.168.1.10 --time-wait-interval 2000",
+            "explanation": "Sets wait time between repeated tests.\nControls the spacing of test iterations for automated scripting."
+        },
+        {
+            "id": 73,
+            "category": "Advanced",
+            "command": "iperf3 -c 192.168.1.10 -b 0 -t 20 --pacing-timer 1000",
+            "example": "iperf3 -c 192.168.1.10 -b 0 -t 20 --pacing-timer 1000",
+            "explanation": "Sets granular pacing timer for the socket.\nManually adjusts the timing interval for outbound data transmissions."
+        },
+        {
+            "id": 74,
+            "category": "Advanced",
+            "command": "iperf3 -c 192.168.1.10 -u -b 20M --packet-size 500",
+            "example": "iperf3 -c 192.168.1.10 -u -b 20M --packet-size 500",
+            "explanation": "Customizes UDP packet size for specialized testing.\nValidates how the link handles non-standard message lengths."
+        },
+        {
+            "id": 75,
+            "category": "Final Complete Test",
+            "command": "iperf3 -c 192.168.1.10 -P 4 -t 60 -i 5 -O 5 -J --logfile full_test.json",
+            "example": "iperf3 -c 192.168.1.10 -P 4 -t 60 -i 5 -O 5 -J --logfile full_test.json",
+            "explanation": "Executes a complete, documented performance profile.\nA comprehensive audit command for high-speed network validation."
+        }
+    ]
+}

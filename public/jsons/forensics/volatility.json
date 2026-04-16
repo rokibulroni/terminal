@@ -1,0 +1,602 @@
+{
+    "tool": "volatility",
+    "description": "Complete Volatility command and workflow reference from basic to advanced memory forensics",
+    "total_commands": 85,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Memory Analysis",
+            "command": "volatility -f memory.img imageinfo",
+            "example": "volatility -f memory.img imageinfo",
+            "explanation": "Identifies the operating system profile and basic information from a memory image"
+        },
+        {
+            "id": 2,
+            "category": "Basic Memory Analysis",
+            "command": "volatility -f memory.img kdbgscan",
+            "example": "volatility -f memory.img kdbgscan",
+            "explanation": "Scans for the KDBG structure to identify the correct profile if imageinfo fails"
+        },
+        {
+            "id": 3,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 pslist",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 pslist",
+            "explanation": "Lists high-level running processes by walking the doubly linked list of EPROCESS structures"
+        },
+        {
+            "id": 4,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 psscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 psscan",
+            "explanation": "Scans physical memory for EPROCESS pool tags to find unlinked or hidden processes"
+        },
+        {
+            "id": 5,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 pstree",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 pstree",
+            "explanation": "Displays processes in a tree format to visualize parent-child relationships"
+        },
+        {
+            "id": 6,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 psxview",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 psxview",
+            "explanation": "Compares process lists from different sources like pslist and psscan to detect hiding techniques"
+        },
+        {
+            "id": 7,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 privs -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 privs -p 1234",
+            "explanation": "Displays process privileges for a specific PID to check for escalation or extensive rights"
+        },
+        {
+            "id": 8,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 envars -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 envars -p 1234",
+            "explanation": "Displays environment variables for a specific process which may contain paths or configurations"
+        },
+        {
+            "id": 9,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 getsids -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 getsids -p 1234",
+            "explanation": "Prints the Security Identifiers (SIDs) associated with a process to understand ownership"
+        },
+        {
+            "id": 10,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 verinfo -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 verinfo -p 1234",
+            "explanation": "Displays version information embedded in the binary of a running process"
+        },
+        {
+            "id": 11,
+            "category": "DLL and Module Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 dlllist -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 dlllist -p 1234",
+            "explanation": "Lists loaded dynamic link libraries (DLLs) for a specific process"
+        },
+        {
+            "id": 12,
+            "category": "DLL and Module Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 ldrmodules -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 ldrmodules -p 1234",
+            "explanation": "Detects unlinked DLLs by comparing the VAD with the PEB module list"
+        },
+        {
+            "id": 13,
+            "category": "Network Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 netscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 netscan",
+            "explanation": "Scans for network artifacts like connections and sockets on Windows Vista and later"
+        },
+        {
+            "id": 14,
+            "category": "Network Analysis",
+            "command": "volatility -f memory.img --profile=WinXPSP2x86 connscan",
+            "example": "volatility -f memory.img --profile=WinXPSP2x86 connscan",
+            "explanation": "Scans for active TCP connections on older Windows XP and Server 2003 systems"
+        },
+        {
+            "id": 15,
+            "category": "Network Analysis",
+            "command": "volatility -f memory.img --profile=WinXPSP2x86 sockets",
+            "example": "volatility -f memory.img --profile=WinXPSP2x86 sockets",
+            "explanation": "Prints a list of open sockets on older Windows XP and Server 2003 systems"
+        },
+        {
+            "id": 16,
+            "category": "System Artifacts",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 cmdscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 cmdscan",
+            "explanation": "Extracts command history buffers from csrss.exe on XP and Win7"
+        },
+        {
+            "id": 17,
+            "category": "System Artifacts",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 consoles",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 consoles",
+            "explanation": "Scans for console information to retrieve command history and screen output"
+        },
+        {
+            "id": 18,
+            "category": "System Artifacts",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 svcscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 svcscan",
+            "explanation": "Scans for Windows service records and displays their state and binary path"
+        },
+        {
+            "id": 19,
+            "category": "Handle and File Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 handles -p 1234 -t File",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 handles -p 1234 -t File",
+            "explanation": "Lists open file handles for a specific process to see what files it is accessing"
+        },
+        {
+            "id": 20,
+            "category": "Handle and File Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 handles -p 1234 -t Mutant",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 handles -p 1234 -t Mutant",
+            "explanation": "Lists mutant/mutex handles for a process often used for malware persistence checks"
+        },
+        {
+            "id": 21,
+            "category": "Handle and File Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 filescan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 filescan",
+            "explanation": "Scans memory for FILE_OBJECTs to find open files across the entire system"
+        },
+        {
+            "id": 22,
+            "category": "Handle and File Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 mutantscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 mutantscan",
+            "explanation": "Scans memory for global mutexes which can indicate presence of specific malware families"
+        },
+        {
+            "id": 23,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 malfind -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 malfind -p 1234",
+            "explanation": "Scans for injected code and memory regions with RWX permissions often used by malware"
+        },
+        {
+            "id": 24,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 apihooks",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 apihooks",
+            "explanation": "Detects API hooks in user mode and kernel mode to find rootkits or spyware"
+        },
+        {
+            "id": 25,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 ssdt",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 ssdt",
+            "explanation": "Analyses the System Service Descriptor Table for hooked functions"
+        },
+        {
+            "id": 26,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 driverirp",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 driverirp",
+            "explanation": "Scans for hooked IRP (I/O Request Packet) major function tables in drivers"
+        },
+        {
+            "id": 27,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 idt",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 idt",
+            "explanation": "Displays the Interrupt Descriptor Table to check for malicious interrupt handlers"
+        },
+        {
+            "id": 28,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 gdt",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 gdt",
+            "explanation": "Displays the Global Descriptor Table to check for memory segmentation anomalies"
+        },
+        {
+            "id": 29,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 callbacks",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 callbacks",
+            "explanation": "Lists kernel callbacks used by drivers to monitor process, thread, and image loading"
+        },
+        {
+            "id": 30,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 timers",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 timers",
+            "explanation": "Scans for kernel timers which can be used by malware to schedule delayed execution"
+        },
+        {
+            "id": 31,
+            "category": "Malware Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 devicetree",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 devicetree",
+            "explanation": "Maps the relationship between drivers and device objects to find hidden devices"
+        },
+        {
+            "id": 32,
+            "category": "Memory Extraction",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 procdump -p 1234 -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 procdump -p 1234 -D ./output/",
+            "explanation": "Dumps a process executable from memory to disk for static analysis"
+        },
+        {
+            "id": 33,
+            "category": "Memory Extraction",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 memdump -p 1234 -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 memdump -p 1234 -D ./output/",
+            "explanation": "Dumps the addressable memory of a process into a single file"
+        },
+        {
+            "id": 34,
+            "category": "Memory Extraction",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 vaddump -p 1234 -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 vaddump -p 1234 -D ./output/",
+            "explanation": "Dumps individual VAD (Virtual Address Descriptor) segments useful for unpacking malware"
+        },
+        {
+            "id": 35,
+            "category": "Memory Extraction",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 dlldump -p 1234 -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 dlldump -p 1234 -D ./output/",
+            "explanation": "Extracts DLLs from a process memory space to disk"
+        },
+        {
+            "id": 36,
+            "category": "Memory Extraction",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 moddump -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 moddump -D ./output/",
+            "explanation": "Dumps kernel drivers and modules to disk"
+        },
+        {
+            "id": 37,
+            "category": "Memory Extraction",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 dumpfiles -Q 0x000000007e05d1b0 -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 dumpfiles -Q 0x000000007e05d1b0 -D ./output/",
+            "explanation": "Extracts a file from memory using its physical offset found via filescan"
+        },
+        {
+            "id": 38,
+            "category": "Registry Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 hivelist",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 hivelist",
+            "explanation": "Lists available registry hives and their virtual offsets in memory"
+        },
+        {
+            "id": 39,
+            "category": "Registry Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 printkey -o 0x87654321 -K 'Software\\Microsoft\\Windows\\CurrentVersion\\Run'",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 printkey -o 0x87654321 -K 'Software\\Microsoft\\Windows\\CurrentVersion\\Run'",
+            "explanation": "Prints subkeys and values of a specific registry key using the hive offset"
+        },
+        {
+            "id": 40,
+            "category": "Registry Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 userassist",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 userassist",
+            "explanation": "Parses UserAssist registry keys to see what programs were recently executed"
+        },
+        {
+            "id": 41,
+            "category": "Registry Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 dumpregistry -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 dumpregistry -D ./output/",
+            "explanation": "Dumps all available registry hives from memory to disk"
+        },
+        {
+            "id": 42,
+            "category": "Credential Theft",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 hashdump",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 hashdump",
+            "explanation": "Extracts and decrypts NTLM password hashes from the SAM registry hive"
+        },
+        {
+            "id": 43,
+            "category": "Credential Theft",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 lsadump",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 lsadump",
+            "explanation": "Extracts LSA secrets including service account passwords and potential cleartext credentials"
+        },
+        {
+            "id": 44,
+            "category": "Credential Theft",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 cachedump",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 cachedump",
+            "explanation": "Extracts cached domain credentials (MSCACHE) from the registry"
+        },
+        {
+            "id": 45,
+            "category": "User Activity",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 clipboard",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 clipboard",
+            "explanation": "Extracts the contents of the Windows clipboard"
+        },
+        {
+            "id": 46,
+            "category": "User Activity",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 screenshot -D ./output/",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 screenshot -D ./output/",
+            "explanation": "Attempts to recover GDI screenshots of user desktops"
+        },
+        {
+            "id": 47,
+            "category": "User Activity",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 iehistory",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 iehistory",
+            "explanation": "Recovers Internet Explorer history artifacts and URLs"
+        },
+        {
+            "id": 48,
+            "category": "Advanced Forensics",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 mftparser",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 mftparser",
+            "explanation": "Scans memory for MFT entries to reconstruct deleted file metadata"
+        },
+        {
+            "id": 49,
+            "category": "Advanced Forensics",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 shellbags",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 shellbags",
+            "explanation": "Parses Shellbag artifacts to reveal folder access history and user navigation"
+        },
+        {
+            "id": 50,
+            "category": "Advanced Forensics",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 shimcache",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 shimcache",
+            "explanation": "Parses the Application Compatibility Cache to track execution evidence"
+        },
+        {
+            "id": 51,
+            "category": "Advanced Forensics",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 amcache",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 amcache",
+            "explanation": "Parses AmCache.hve artifacts for execution history and program metadata"
+        },
+        {
+            "id": 52,
+            "category": "Advanced Forensics",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 vadinfo -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 vadinfo -p 1234",
+            "explanation": "Displays detailed VAD information including protection levels and memory mapping"
+        },
+        {
+            "id": 53,
+            "category": "Advanced Forensics",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 vadwalk -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 vadwalk -p 1234",
+            "explanation": "Walks the VAD tree to inspect memory page tables"
+        },
+        {
+            "id": 54,
+            "category": "Threat Hunting",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 yarascan --yara-file=malware.yar",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 yarascan --yara-file=malware.yar",
+            "explanation": "Scans memory using YARA rules to find signatures of known malware"
+        },
+        {
+            "id": 55,
+            "category": "Threat Hunting",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 yarascan -Y 'string_to_find'",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 yarascan -Y 'string_to_find'",
+            "explanation": "Searches for a specific string pattern across process memory or kernel memory"
+        },
+        {
+            "id": 56,
+            "category": "Timeline Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 timeliner",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 timeliner",
+            "explanation": "Creates a comprehensive timeline of events from all supported plugins"
+        },
+        {
+            "id": 57,
+            "category": "Timeline Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 timeliner --type=Process",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 timeliner --type=Process",
+            "explanation": "Generates a timeline filtered specifically for process creation and exit events"
+        },
+        {
+            "id": 58,
+            "category": "Kernel Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 modules",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 modules",
+            "explanation": "Lists loaded kernel modules and drivers"
+        },
+        {
+            "id": 59,
+            "category": "Kernel Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 modscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 modscan",
+            "explanation": "Scans memory for pool tags to find unloaded or hidden kernel modules"
+        },
+        {
+            "id": 60,
+            "category": "Kernel Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 kpcrscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 kpcrscan",
+            "explanation": "Scans for the Kernel Processor Control Region to analyze CPU state"
+        },
+        {
+            "id": 61,
+            "category": "Kernel Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 thrdscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 thrdscan",
+            "explanation": "Scans for ETHREAD objects to find threads that may belong to hidden processes"
+        },
+        {
+            "id": 62,
+            "category": "Code Injection Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 hollowfind -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 hollowfind -p 1234",
+            "explanation": "Detects process hollowing by comparing the VAD to the PE header"
+        },
+        {
+            "id": 63,
+            "category": "Code Injection Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 threadmap -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 threadmap -p 1234",
+            "explanation": "Analyzes threads to find code injection where the start address doesn't map to a module"
+        },
+        {
+            "id": 64,
+            "category": "Utility",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 bioskbd",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 bioskbd",
+            "explanation": "Attempts to read the BIOS keyboard buffer for keystrokes"
+        },
+        {
+            "id": 65,
+            "category": "Utility",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 crashinfo",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 crashinfo",
+            "explanation": "Displays crash dump information if the memory image is a crash dump"
+        },
+        {
+            "id": 66,
+            "category": "Utility",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 hibinfo",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 hibinfo",
+            "explanation": "Displays information stored in a hibernation file header"
+        },
+        {
+            "id": 67,
+            "category": "Utility",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 kdbgscan --kdbg=0xf8000285b0a0",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 kdbgscan --kdbg=0xf8000285b0a0",
+            "explanation": "Forces the usage of a specific KDBG address to speed up plugin execution"
+        },
+        {
+            "id": 68,
+            "category": "Import Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 impscan -p 1234",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 impscan -p 1234",
+            "explanation": "Scans for calls to imported functions which helps analyzing injected shellcode"
+        },
+        {
+            "id": 69,
+            "category": "Scanning",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 patcher",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 patcher",
+            "explanation": "Scans for inline patching or hooks in system libraries"
+        },
+        {
+            "id": 70,
+            "category": "Advanced/Plugin",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 mimikatz",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 mimikatz",
+            "explanation": "Extracts clear text passwords from memory using the Mimikatz plugin functionality"
+        },
+        {
+            "id": 71,
+            "category": "Advanced/Plugin",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 chromehistory",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 chromehistory",
+            "explanation": "Attempts to recover browsing history artifacts from Chrome processes"
+        },
+        {
+            "id": 72,
+            "category": "Output Formatting",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 pslist --output=json",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 pslist --output=json",
+            "explanation": "Runs the pslist command and outputs the results in JSON format"
+        },
+        {
+            "id": 73,
+            "category": "Output Formatting",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 pslist --output=html --output-file=report.html",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 pslist --output=html --output-file=report.html",
+            "explanation": "Exports the process list to an HTML report file"
+        },
+        {
+            "id": 74,
+            "category": "Linux Analysis",
+            "command": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_pslist",
+            "example": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_pslist",
+            "explanation": "Lists running processes for a Linux memory image"
+        },
+        {
+            "id": 75,
+            "category": "Linux Analysis",
+            "command": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_lsof",
+            "example": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_lsof",
+            "explanation": "Lists open files for processes in a Linux memory image"
+        },
+        {
+            "id": 76,
+            "category": "Linux Analysis",
+            "command": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_bash",
+            "example": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_bash",
+            "explanation": "Recovers bash history from running shells in Linux memory"
+        },
+        {
+            "id": 77,
+            "category": "Linux Analysis",
+            "command": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_mount",
+            "example": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_mount",
+            "explanation": "Displays mounted filesystems in a Linux memory image"
+        },
+        {
+            "id": 78,
+            "category": "Linux Analysis",
+            "command": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_check_fop",
+            "example": "volatility -f linux.mem --profile=LinuxUbuntu_x64 linux_check_fop",
+            "explanation": "Checks for hooked file operation structures in the Linux kernel"
+        },
+        {
+            "id": 79,
+            "category": "Mac Analysis",
+            "command": "volatility -f mac.mem --profile=MacMountainLion_x64 mac_pslist",
+            "example": "volatility -f mac.mem --profile=MacMountainLion_x64 mac_pslist",
+            "explanation": "Lists running processes for a Mac OS X memory image"
+        },
+        {
+            "id": 80,
+            "category": "Mac Analysis",
+            "command": "volatility -f mac.mem --profile=MacMountainLion_x64 mac_tasks",
+            "example": "volatility -f mac.mem --profile=MacMountainLion_x64 mac_tasks",
+            "explanation": "Lists active tasks in a Mac OS X memory image"
+        },
+        {
+            "id": 81,
+            "category": "Automation",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 imageinfo --output-file=info.txt",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 imageinfo --output-file=info.txt",
+            "explanation": "Saves image identification output to a text file for automated scripts"
+        },
+        {
+            "id": 82,
+            "category": "Automation",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 shutdowntime",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 shutdowntime",
+            "explanation": " Reads the shutdown time from the registry to determine the last clean shutdown"
+        },
+        {
+            "id": 83,
+            "category": "Process Analysis",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 joblinks",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 joblinks",
+            "explanation": "Walks the job object links to find processes grouped in jobs"
+        },
+        {
+            "id": 84,
+            "category": "Advanced/Plugin",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 deskscan",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 deskscan",
+            "explanation": "Scans for desktop objects and threads associated with them"
+        },
+        {
+            "id": 85,
+            "category": "Advanced/Plugin",
+            "command": "volatility -f memory.img --profile=Win7SP1x64 atoms",
+            "example": "volatility -f memory.img --profile=Win7SP1x64 atoms",
+            "explanation": "Lists session and window station atom tables"
+        }
+    ]
+}

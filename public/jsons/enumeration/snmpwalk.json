@@ -1,0 +1,427 @@
+{
+    "tool": "snmpwalk",
+    "description": "Complete snmpwalk command reference covering all options from basic to advanced",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic SNMP Enumeration",
+            "command": "snmpwalk -v 1 -c public 192.168.1.1",
+            "example": "snmpwalk -v 1 -c public 192.168.1.1",
+            "explanation": "Performs a basic SNMP walk using the older SNMPv1 protocol and community string."
+        },
+        {
+            "id": 2,
+            "category": "Basic SNMP Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1",
+            "explanation": "Executes a standard walk using the widely supported SNMPv2c protocol."
+        },
+        {
+            "id": 3,
+            "category": "OID Based Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 system",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 system",
+            "explanation": "Restricts the walk specifically to the 'system' subtree to gather device details."
+        },
+        {
+            "id": 4,
+            "category": "OID Based Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 1.3.6.1.2.1.1",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 1.3.6.1.2.1.1",
+            "explanation": "Queries the system information subtree using its numeric OID representation."
+        },
+        {
+            "id": 5,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -On 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -On 192.168.1.1",
+            "explanation": "Displays output OIDs numerically (e.g., .1.3.6...) instead of using symbolic names."
+        },
+        {
+            "id": 6,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Of 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Of 192.168.1.1",
+            "explanation": "Shows the full path of the OID symbolic name in the output."
+        },
+        {
+            "id": 7,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Os 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Os 192.168.1.1",
+            "explanation": "Displays only the last symbolic part of the OID for cleaner reading."
+        },
+        {
+            "id": 8,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Oq 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Oq 192.168.1.1",
+            "explanation": "Enables 'quick' print mode for easier parsing, removing the equal sign and type information."
+        },
+        {
+            "id": 9,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Ov 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Ov 192.168.1.1",
+            "explanation": "Outputs only the values of the variables, hiding the OID names entirely."
+        },
+        {
+            "id": 10,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Ox 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Ox 192.168.1.1",
+            "explanation": "Forces string values to be displayed in Hexadecimal format."
+        },
+        {
+            "id": 11,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Ob 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Ob 192.168.1.1",
+            "explanation": "Forces output to display bit indexes where available."
+        },
+        {
+            "id": 12,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Oe 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Oe 192.168.1.1",
+            "explanation": "Removes symbolic labels from enumerated values, showing the raw integer instead."
+        },
+        {
+            "id": 13,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -Ot 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Ot 192.168.1.1",
+            "explanation": "Displays timeticks as raw integers instead of formatted time strings."
+        },
+        {
+            "id": 14,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -OT 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -OT 192.168.1.1",
+            "explanation": "Forces hexadecimal display specifically for transport address values."
+        },
+        {
+            "id": 15,
+            "category": "Rate and Performance Control",
+            "command": "snmpwalk -v 2c -c public -t 5 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -t 5 192.168.1.1",
+            "explanation": "Sets the timeout to 5 seconds to wait longer for responses from slow devices."
+        },
+        {
+            "id": 16,
+            "category": "Rate and Performance Control",
+            "command": "snmpwalk -v 2c -c public -r 3 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -r 3 192.168.1.1",
+            "explanation": "Configures the tool to retry the request 3 times if no response is received."
+        },
+        {
+            "id": 17,
+            "category": "MIB Usage and Name Resolution",
+            "command": "snmpwalk -v 2c -c public -m ALL 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -m ALL 192.168.1.1",
+            "explanation": "Loads all available MIB modules to resolve OIDs to names as much as possible."
+        },
+        {
+            "id": 18,
+            "category": "MIB Usage and Name Resolution",
+            "command": "snmpwalk -v 2c -c public -M /opt/mibs 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -M /opt/mibs 192.168.1.1",
+            "explanation": "Specifies a custom directory to look for MIB files."
+        },
+        {
+            "id": 19,
+            "category": "Advanced Error Handling",
+            "command": "snmpwalk -v 2c -c public -Cc 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Cc 192.168.1.1",
+            "explanation": "Disables the check that ensures OIDs are returned in increasing order."
+        },
+        {
+            "id": 20,
+            "category": "Advanced Error Handling",
+            "command": "snmpwalk -v 2c -c public -Ci 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Ci 192.168.1.1",
+            "explanation": "Includes the requested OID itself in the output, which is usually skipped."
+        },
+        {
+            "id": 21,
+            "category": "Advanced Error Handling",
+            "command": "snmpwalk -v 2c -c public -Cp 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Cp 192.168.1.1",
+            "explanation": "Prints statistics about how many variables were found at the end of the walk."
+        },
+        {
+            "id": 22,
+            "category": "Advanced Error Handling",
+            "command": "snmpwalk -v 2c -c public -Ct 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Ct 192.168.1.1",
+            "explanation": "Prints the total wall-clock time taken to complete the walk upon completion."
+        },
+        {
+            "id": 23,
+            "category": "Debug and Verbose Modes",
+            "command": "snmpwalk -v 2c -c public -d 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -d 192.168.1.1",
+            "explanation": "Dumps the raw input and output SNMP packets for low-level debugging."
+        },
+        {
+            "id": 24,
+            "category": "Debug and Verbose Modes",
+            "command": "snmpwalk -v 2c -c public -D all 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -D all 192.168.1.1",
+            "explanation": "Enables verbose debugging output for all internal SNMP library tokens."
+        },
+        {
+            "id": 25,
+            "category": "Target and Transport Specification",
+            "command": "snmpwalk -v 2c -c public tcp:192.168.1.1",
+            "example": "snmpwalk -v 2c -c public tcp:192.168.1.1",
+            "explanation": "Forces the connection to use TCP instead of the default UDP transport."
+        },
+        {
+            "id": 26,
+            "category": "Target and Transport Specification",
+            "command": "snmpwalk -v 2c -c public udp6:[::1]",
+            "example": "snmpwalk -v 2c -c public udp6:[::1]",
+            "explanation": "Targets an IPv6 address using UDP explicitly."
+        },
+        {
+            "id": 27,
+            "category": "Target and Transport Specification",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1:1161",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1:1161",
+            "explanation": "Specifies a custom destination port (1161) instead of the default 161."
+        },
+        {
+            "id": 28,
+            "category": "User Based Security Model (USM)",
+            "command": "snmpwalk -v 3 -u myuser -l noAuthNoPriv 192.168.1.1",
+            "example": "snmpwalk -v 3 -u myuser -l noAuthNoPriv 192.168.1.1",
+            "explanation": "Uses SNMPv3 with a username but without authentication or privacy (encryption)."
+        },
+        {
+            "id": 29,
+            "category": "Authentication Protocols",
+            "command": "snmpwalk -v 3 -u myuser -l authNoPriv -a MD5 -A mypassword 192.168.1.1",
+            "example": "snmpwalk -v 3 -u myuser -l authNoPriv -a MD5 -A mypassword 192.168.1.1",
+            "explanation": "Uses SNMPv3 with MD5 authentication but no encryption."
+        },
+        {
+            "id": 30,
+            "category": "Authentication Protocols",
+            "command": "snmpwalk -v 3 -u myuser -l authNoPriv -a SHA -A mypassword 192.168.1.1",
+            "example": "snmpwalk -v 3 -u myuser -l authNoPriv -a SHA -A mypassword 192.168.1.1",
+            "explanation": "Uses SNMPv3 with SHA authentication but no encryption."
+        },
+        {
+            "id": 31,
+            "category": "Privacy Protocols",
+            "command": "snmpwalk -v 3 -u myuser -l authPriv -a MD5 -A authpass -x DES -X privpass 192.168.1.1",
+            "example": "snmpwalk -v 3 -u myuser -l authPriv -a MD5 -A authpass -x DES -X privpass 192.168.1.1",
+            "explanation": "Uses SNMPv3 with MD5 authentication and DES encryption (Privacy)."
+        },
+        {
+            "id": 32,
+            "category": "Privacy Protocols",
+            "command": "snmpwalk -v 3 -u myuser -l authPriv -a SHA -A authpass -x AES -X privpass 192.168.1.1",
+            "example": "snmpwalk -v 3 -u myuser -l authPriv -a SHA -A authpass -x AES -X privpass 192.168.1.1",
+            "explanation": "Uses SNMPv3 with SHA authentication and AES encryption (Privacy)."
+        },
+        {
+            "id": 33,
+            "category": "Privacy Protocols",
+            "command": "snmpwalk -v 3 -u myuser -l authPriv -a SHA -A authpass -x AES128 -X privpass 192.168.1.1",
+            "example": "snmpwalk -v 3 -u myuser -l authPriv -a SHA -A authpass -x AES128 -X privpass 192.168.1.1",
+            "explanation": "Explicitly specifies AES128 for the privacy protocol in SNMPv3."
+        },
+        {
+            "id": 34,
+            "category": "SNMPv3 Contexts",
+            "command": "snmpwalk -v 3 -n contextName -u myuser -l noAuthNoPriv 192.168.1.1",
+            "example": "snmpwalk -v 3 -n contextName -u myuser -l noAuthNoPriv 192.168.1.1",
+            "explanation": "Queries a specific SNMPv3 context name on the target device."
+        },
+        {
+            "id": 35,
+            "category": "SNMPv3 Contexts",
+            "command": "snmpwalk -v 3 -e 0x8000000001 -u myuser -l noAuthNoPriv 192.168.1.1",
+            "example": "snmpwalk -v 3 -e 0x8000000001 -u myuser -l noAuthNoPriv 192.168.1.1",
+            "explanation": "Specifies the authoritative security engine ID for the SNMPv3 request."
+        },
+        {
+            "id": 36,
+            "category": "SNMPv3 Advanced",
+            "command": "snmpwalk -v 3 -Z 10 -u myuser -l noAuthNoPriv 192.168.1.1",
+            "example": "snmpwalk -v 3 -Z 10 -u myuser -l noAuthNoPriv 192.168.1.1",
+            "explanation": "Sets the engine boot count and time for SNMPv3 communication manually."
+        },
+        {
+            "id": 37,
+            "category": "Interface Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 ifTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 ifTable",
+            "explanation": "Walks the Interface Table to list network interfaces and their metrics."
+        },
+        {
+            "id": 38,
+            "category": "Interface Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 ifXTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 ifXTable",
+            "explanation": "Walks the Extended Interface Table for high-capacity counters on modern devices."
+        },
+        {
+            "id": 39,
+            "category": "Interface Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 ifDescr",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 ifDescr",
+            "explanation": "Enumerates only the descriptions of the network interfaces."
+        },
+        {
+            "id": 40,
+            "category": "Routing Table Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 ipRouteTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 ipRouteTable",
+            "explanation": "Dumps the device's routing table to understand network topology."
+        },
+        {
+            "id": 41,
+            "category": "Address Resolution Enumeration",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 ipNetToMediaTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 ipNetToMediaTable",
+            "explanation": "Retrieves the ARP table (IP to MAC mappings) from the target device."
+        },
+        {
+            "id": 42,
+            "category": "System and Host Information",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 hrSWRunTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 hrSWRunTable",
+            "explanation": "Lists software currently running on the host via the Host Resources MIB."
+        },
+        {
+            "id": 43,
+            "category": "System and Host Information",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 hrStorageTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 hrStorageTable",
+            "explanation": "Enumerates storage devices and their usage statistics."
+        },
+        {
+            "id": 44,
+            "category": "System and Host Information",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 hrSystemProcesses",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 hrSystemProcesses",
+            "explanation": "Returns the number of currently active processes on the system."
+        },
+        {
+            "id": 45,
+            "category": "Protocol Stats",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 tcpConnTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 tcpConnTable",
+            "explanation": "Lists active TCP connections on the device."
+        },
+        {
+            "id": 46,
+            "category": "Protocol Stats",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 udpTable",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 udpTable",
+            "explanation": "Lists open UDP listening ports on the device."
+        },
+        {
+            "id": 47,
+            "category": "Red Team Reconnaissance",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 1.3.6.1.4.1",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 1.3.6.1.4.1",
+            "explanation": "Walks the 'enterprises' subtree to find vendor-specific configurations and potential vulnerabilities."
+        },
+        {
+            "id": 48,
+            "category": "Blue Team Asset Inventory",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 entPhysicalSerialNum",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 entPhysicalSerialNum",
+            "explanation": "Extracts serial numbers for hardware components for asset tracking."
+        },
+        {
+            "id": 49,
+            "category": "Incident Response",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 1.3.6.1.2.1.25.4.2.1.2",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 1.3.6.1.2.1.25.4.2.1.2",
+            "explanation": "Enumerates running process names specifically to identify suspicious activity."
+        },
+        {
+            "id": 50,
+            "category": "Advanced Configuration",
+            "command": "snmpwalk -v 2c -c public -Lsd 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Lsd 192.168.1.1",
+            "explanation": "Logs messages to syslog with the 'daemon' facility during execution."
+        },
+        {
+            "id": 51,
+            "category": "Advanced Configuration",
+            "command": "snmpwalk -v 2c -c public -Lf /tmp/snmp.log 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Lf /tmp/snmp.log 192.168.1.1",
+            "explanation": "Redirects log messages to a specific file instead of standard output."
+        },
+        {
+            "id": 52,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -O T 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -O T 192.168.1.1",
+            "explanation": "Ensures that printable characters are hex-encoded to avoid terminal issues."
+        },
+        {
+            "id": 53,
+            "category": "Output Formatting",
+            "command": "snmpwalk -v 2c -c public -O v 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -O v 192.168.1.1",
+            "explanation": "Outputs only the values (terse mode) which is useful for scripts."
+        },
+        {
+            "id": 54,
+            "category": "Combined Real World Walk",
+            "command": "snmpwalk -v 2c -c public -On -t 2 -r 1 192.168.1.1 system",
+            "example": "snmpwalk -v 2c -c public -On -t 2 -r 1 192.168.1.1 system",
+            "explanation": "Fast system walk with numeric OIDs, short timeout, and low retries for quick scanning."
+        },
+        {
+            "id": 55,
+            "category": "Combined Real World Walk",
+            "command": "snmpwalk -v 3 -u admin -l authPriv -a SHA -A pass -x AES -X priv -Oq 192.168.1.1",
+            "example": "snmpwalk -v 3 -u admin -l authPriv -a SHA -A pass -x AES -X priv -Oq 192.168.1.1",
+            "explanation": "Secure, encrypted walk with quick output formatting for parsing."
+        },
+        {
+            "id": 56,
+            "category": "Combined Real World Walk",
+            "command": "snmpwalk -v 2c -c public -Cp -Ci -Ct 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -Cp -Ci -Ct 192.168.1.1",
+            "explanation": "Comprehensive audit walk printing stats, time, and ensuring all OIDs are included."
+        },
+        {
+            "id": 57,
+            "category": "Input Configuration",
+            "command": "snmpwalk -v 2c -c public -I R 192.168.1.1",
+            "example": "snmpwalk -v 2c -c public -I R 192.168.1.1",
+            "explanation": "Uses random access lookup for the MIB file parsing."
+        },
+        {
+            "id": 58,
+            "category": "Alias Usage",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 nsCache",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 nsCache",
+            "explanation": "Walks the Net-SNMP internal cache information subtree."
+        },
+        {
+            "id": 59,
+            "category": "Alias Usage",
+            "command": "snmpwalk -v 2c -c public 192.168.1.1 nsError",
+            "example": "snmpwalk -v 2c -c public 192.168.1.1 nsError",
+            "explanation": "Walks the Net-SNMP internal error counting subtree."
+        },
+        {
+            "id": 60,
+            "category": "Legacy Compatibility",
+            "command": "snmpwalk -v 1 -c public -Oa 192.168.1.1",
+            "example": "snmpwalk -v 1 -c public -Oa 192.168.1.1",
+            "explanation": "Walks using SNMPv1 and forces string output to be ASCII only."
+        }
+    ]
+}

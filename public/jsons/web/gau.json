@@ -1,0 +1,322 @@
+{
+    "tool": "gau",
+    "description": "Complete gau command reference covering all options from basic to advanced for web reconnaissance",
+    "total_commands": 45,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic URL Collection",
+            "command": "gau example.com",
+            "example": "gau example.com",
+            "explanation": "Fetches all known URLs for the single target domain from all default providers."
+        },
+        {
+            "id": 2,
+            "category": "Basic URL Collection",
+            "command": "gau www.example.com",
+            "example": "gau www.example.com",
+            "explanation": "Fetches URLs specifically for the www subdomain of the target."
+        },
+        {
+            "id": 3,
+            "category": "Input from STDIN",
+            "command": "echo example.com | gau",
+            "example": "echo example.com | gau",
+            "explanation": "Accepts a single domain from standard input via pipe for automation."
+        },
+        {
+            "id": 4,
+            "category": "Input from STDIN",
+            "command": "cat domains.txt | gau",
+            "example": "cat domains.txt | gau",
+            "explanation": "Accepts a list of domains from a file via cat and pipe for bulk scanning."
+        },
+        {
+            "id": 5,
+            "category": "Subdomain Inclusion",
+            "command": "gau --subs example.com",
+            "example": "gau --subs example.com",
+            "explanation": "Includes subdomains of the target domain in the search results."
+        },
+        {
+            "id": 6,
+            "category": "Multiple Domain Enumeration",
+            "command": "gau example.com test.com",
+            "example": "gau example.com test.com",
+            "explanation": "Accepts multiple domains as command line arguments for simultaneous scanning."
+        },
+        {
+            "id": 7,
+            "category": "Provider Selection",
+            "command": "gau --providers wayback example.com",
+            "example": "gau --providers wayback example.com",
+            "explanation": "Fetches URLs exclusively from the Wayback Machine provider."
+        },
+        {
+            "id": 8,
+            "category": "Provider Selection",
+            "command": "gau --providers commoncrawl example.com",
+            "example": "gau --providers commoncrawl example.com",
+            "explanation": "Fetches URLs exclusively from the Common Crawl provider."
+        },
+        {
+            "id": 9,
+            "category": "Provider Selection",
+            "command": "gau --providers otx example.com",
+            "example": "gau --providers otx example.com",
+            "explanation": "Fetches URLs exclusively from AlienVault OTX."
+        },
+        {
+            "id": 10,
+            "category": "Provider Selection",
+            "command": "gau --providers urlscan example.com",
+            "example": "gau --providers urlscan example.com",
+            "explanation": "Fetches URLs exclusively from URLScan.io."
+        },
+        {
+            "id": 11,
+            "category": "Provider Control",
+            "command": "gau --providers wayback,otx example.com",
+            "example": "gau --providers wayback,otx example.com",
+            "explanation": "Fetches URLs only from specific selected providers, comma-separated."
+        },
+        {
+            "id": 12,
+            "category": "Extension Filtering",
+            "command": "gau --blacklist png,jpg,gif example.com",
+            "example": "gau --blacklist png,jpg,gif example.com",
+            "explanation": "Excludes URLs ending in specific file extensions to reduce noise."
+        },
+        {
+            "id": 13,
+            "category": "Extension Filtering",
+            "command": "gau --blacklist ttf,woff,svg,css example.com",
+            "example": "gau --blacklist ttf,woff,svg,css example.com",
+            "explanation": "Filters out static asset files like fonts and stylesheets."
+        },
+        {
+            "id": 14,
+            "category": "Performance Tuning",
+            "command": "gau --threads 5 example.com",
+            "example": "gau --threads 5 example.com",
+            "explanation": "Sets the number of concurrent workers to 5 to control request rate."
+        },
+        {
+            "id": 15,
+            "category": "Performance Tuning",
+            "command": "gau --threads 50 example.com",
+            "example": "gau --threads 50 example.com",
+            "explanation": "Increases concurrency to 50 threads for faster data retrieval."
+        },
+        {
+            "id": 16,
+            "category": "Verbose Mode",
+            "command": "gau --verbose example.com",
+            "example": "gau --verbose example.com",
+            "explanation": "Displays real-time progress and active fetching status during execution."
+        },
+        {
+            "id": 17,
+            "category": "JSON Output",
+            "command": "gau --json example.com",
+            "example": "gau --json example.com",
+            "explanation": "Outputs the results in JSON format containing metadata like method and status code."
+        },
+        {
+            "id": 18,
+            "category": "File Output",
+            "command": "gau --o results.txt example.com",
+            "example": "gau --o results.txt example.com",
+            "explanation": "Saves the discovered URLs directly to a text file."
+        },
+        {
+            "id": 19,
+            "category": "File Output",
+            "command": "gau --o results.json --json example.com",
+            "example": "gau --o results.json --json example.com",
+            "explanation": "Saves the output in JSON format to a file for structured analysis."
+        },
+        {
+            "id": 20,
+            "category": "Date Filtering (Wayback)",
+            "command": "gau --from 202301 example.com",
+            "example": "gau --from 202301 example.com",
+            "explanation": "Fetches URLs archived from a specific date (YearMonth format) onwards."
+        },
+        {
+            "id": 21,
+            "category": "Date Filtering (Wayback)",
+            "command": "gau --to 202212 example.com",
+            "example": "gau --to 202212 example.com",
+            "explanation": "Fetches URLs archived up to a specific date."
+        },
+        {
+            "id": 22,
+            "category": "Date Filtering (Wayback)",
+            "command": "gau --from 202201 --to 202212 example.com",
+            "example": "gau --from 202201 --to 202212 example.com",
+            "explanation": "Fetches URLs archived within a specific year range."
+        },
+        {
+            "id": 23,
+            "category": "Network Configuration",
+            "command": "gau --retries 10 example.com",
+            "example": "gau --retries 10 example.com",
+            "explanation": "Increases the number of retries for failed HTTP requests to improve reliability."
+        },
+        {
+            "id": 24,
+            "category": "Proxy Configuration",
+            "command": "gau --proxy http://127.0.0.1:8080 example.com",
+            "example": "gau --proxy http://127.0.0.1:8080 example.com",
+            "explanation": "Routes all traffic through a specified HTTP proxy for privacy or analysis."
+        },
+        {
+            "id": 25,
+            "category": "Advanced Combination",
+            "command": "gau --subs --blacklist png,jpg,gif example.com",
+            "example": "gau --subs --blacklist png,jpg,gif example.com",
+            "explanation": "Fetches URLs including subdomains while excluding common image files."
+        },
+        {
+            "id": 26,
+            "category": "Advanced Combination",
+            "command": "gau --subs --providers wayback,commoncrawl example.com",
+            "example": "gau --subs --providers wayback,commoncrawl example.com",
+            "explanation": "Queries specific providers for the domain and all its subdomains."
+        },
+        {
+            "id": 27,
+            "category": "Red Team URL Discovery",
+            "command": "gau --subs --blacklist png,jpg,css,js,gif --o potential_targets.txt example.com",
+            "example": "gau --subs --blacklist png,jpg,css,js,gif --o potential_targets.txt example.com",
+            "explanation": "Collects interesting endpoints by excluding static assets and saving to file."
+        },
+        {
+            "id": 28,
+            "category": "Blue Team Surface Mapping",
+            "command": "gau --subs --json --o inventory.json example.com",
+            "example": "gau --subs --json --o inventory.json example.com",
+            "explanation": "Creates a full structured inventory of all exposed URLs for a domain organization."
+        },
+        {
+            "id": 29,
+            "category": "Parameter Discovery",
+            "command": "gau --subs example.com | grep \"=\"",
+            "example": "gau --subs example.com | grep \"=\"",
+            "explanation": "Pipes output to grep to filter only URLs containing query parameters."
+        },
+        {
+            "id": 30,
+            "category": "Silent Mode Usage",
+            "command": "gau example.com > urls.txt",
+            "example": "gau example.com > urls.txt",
+            "explanation": "Redirects standard output to a file, effectively silencing the terminal output."
+        },
+        {
+            "id": 31,
+            "category": "Large Scale Recon",
+            "command": "cat targets.txt | gau --threads 20 --blacklist png,jpg,gif,css",
+            "example": "cat targets.txt | gau --threads 20 --blacklist png,jpg,gif,css",
+            "explanation": "Scans a list of targets with moderate concurrency and asset filtering."
+        },
+        {
+            "id": 32,
+            "category": "Specific Year Investigation",
+            "command": "gau --from 2023 --to 2023 example.com",
+            "example": "gau --from 2023 --to 2023 example.com",
+            "explanation": "Retrieves URLs that were archived specifically during the year 2023."
+        },
+        {
+            "id": 33,
+            "category": "URL Normalization",
+            "command": "gau --subs example.com | sort -u",
+            "example": "gau --subs example.com | sort -u",
+            "explanation": "Uses standard sort to deduplicate the URL list collected by gau."
+        },
+        {
+            "id": 34,
+            "category": "Mime Type Filtering (Advanced)",
+            "command": "gau --mc 200 example.com",
+            "example": "gau --mc 200 example.com",
+            "explanation": "Attempt to filter by match status code if supported by the provider index (feature availability varies)."
+        },
+        {
+            "id": 35,
+            "category": "Web App Reconnaissance",
+            "command": "gau --subs --blacklist exe,zip,rar,tar example.com",
+            "example": "gau --subs --blacklist exe,zip,rar,tar example.com",
+            "explanation": "Excludes large binary files to focus on web application endpoints."
+        },
+        {
+            "id": 36,
+            "category": "API Discovery",
+            "command": "gau --subs example.com | grep \"api\"",
+            "example": "gau --subs example.com | grep \"api\"",
+            "explanation": "Filters the output for URLs containing the keyword 'api' to find API endpoints."
+        },
+        {
+            "id": 37,
+            "category": "JavaScript File Discovery",
+            "command": "gau --subs example.com | grep \"\\.js$\"",
+            "example": "gau --subs example.com | grep \"\\.js$\"",
+            "explanation": "Filters the output to find only JavaScript files for static analysis."
+        },
+        {
+            "id": 38,
+            "category": "Configuration File Hunting",
+            "command": "gau --subs example.com | grep -E \"\\.xml|\\.json|\\.config\"",
+            "example": "gau --subs example.com | grep -E \"\\.xml|\\.json|\\.config\"",
+            "explanation": "Filters for potential configuration files exposed in archives."
+        },
+        {
+            "id": 39,
+            "category": "Timeout Configuration",
+            "command": "gau --timeout 60 example.com",
+            "example": "gau --timeout 60 example.com",
+            "explanation": "Sets a custom timeout in seconds to prevent hanging on slow providers."
+        },
+        {
+            "id": 40,
+            "category": "Exclude Subdomains",
+            "command": "gau example.com",
+            "example": "gau example.com",
+            "explanation": "Running without the --subs flag implicitly excludes subdomains, fetching only root domain URLs."
+        },
+        {
+            "id": 41,
+            "category": "Short Syntax",
+            "command": "gau -s -b png,jpg example.com",
+            "example": "gau -s -b png,jpg example.com",
+            "explanation": "Uses short flags (-s for subs, -b for blacklist) for quicker typing."
+        },
+        {
+            "id": 42,
+            "category": "Deep Archive Search",
+            "command": "gau --providers wayback --from 2010 example.com",
+            "example": "gau --providers wayback --from 2010 example.com",
+            "explanation": "Performs a deep search into historical archives starting from 2010."
+        },
+        {
+            "id": 43,
+            "category": "Pipeline Integration",
+            "command": "gau --subs example.com | httpx -silent",
+            "example": "gau --subs example.com | httpx -silent",
+            "explanation": "Pipes discovered URLs directly into httpx to probe for live status."
+        },
+        {
+            "id": 44,
+            "category": "Complex Filtering",
+            "command": "gau --subs --blacklist png,jpg,svg,gif,css,woff --providers wayback,otx --threads 10 example.com",
+            "example": "gau --subs --blacklist png,jpg,svg,gif,css,woff --providers wayback,otx --threads 10 example.com",
+            "explanation": "A highly specific command combining subdomains, heavy filtering, specific providers, and threading."
+        },
+        {
+            "id": 45,
+            "category": "Full Automation",
+            "command": "cat domains.txt | gau --subs --blacklist png,jpg,gif --threads 20 --o all_urls.txt",
+            "example": "cat domains.txt | gau --subs --blacklist png,jpg,gif --threads 20 --o all_urls.txt",
+            "explanation": "The ultimate automation command for bulk processing domains with filters and file output."
+        }
+    ]
+}

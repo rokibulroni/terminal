@@ -1,0 +1,427 @@
+{
+    "tool": "smbclient",
+    "description": "Complete smbclient command reference covering all options from basic to advanced",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Share Enumeration",
+            "command": "smbclient -L //192.168.1.10 -N",
+            "example": "smbclient -L //192.168.1.10 -N",
+            "explanation": "Lists available shares on the target using a null session (no authentication)."
+        },
+        {
+            "id": 2,
+            "category": "Share Enumeration",
+            "command": "smbclient -L //192.168.1.10 -U guest%",
+            "example": "smbclient -L //192.168.1.10 -U guest%",
+            "explanation": "Lists shares using the guest account with a blank password."
+        },
+        {
+            "id": 3,
+            "category": "Share Enumeration",
+            "command": "smbclient -L //192.168.1.10 -U username",
+            "example": "smbclient -L //192.168.1.10 -U administrator",
+            "explanation": "Lists shares prompting for a password for the specified user."
+        },
+        {
+            "id": 4,
+            "category": "Basic Connection",
+            "command": "smbclient //192.168.1.10/share -N",
+            "example": "smbclient //192.168.1.10/public -N",
+            "explanation": "Connects to a specific share using a null session."
+        },
+        {
+            "id": 5,
+            "category": "Basic Connection",
+            "command": "smbclient //192.168.1.10/share -U username%password",
+            "example": "smbclient //192.168.1.10/c$ -U admin%SecurePass123",
+            "explanation": "Connects to a share providing both username and password inline."
+        },
+        {
+            "id": 6,
+            "category": "Domain Authentication",
+            "command": "smbclient //dc.example.local/share -W DOMAIN -U user",
+            "example": "smbclient //192.168.1.5/files -W CORP -U john.doe",
+            "explanation": "Connects to a share authenticating against a specific Windows domain or workgroup."
+        },
+        {
+            "id": 7,
+            "category": "Authentication",
+            "command": "smbclient //192.168.1.10/share -A authfile.txt",
+            "example": "smbclient //192.168.1.10/finance -A creds.txt",
+            "explanation": "Uses a file containing username, password, and domain for authentication to avoid CLI logging."
+        },
+        {
+            "id": 8,
+            "category": "Kerberos Authentication",
+            "command": "smbclient -k //dc.example.local/share",
+            "example": "smbclient -k //fileserver.corp.local/data",
+            "explanation": "Connects using an existing Kerberos ticket (ccache) instead of a password."
+        },
+        {
+            "id": 9,
+            "category": "Kerberos Authentication",
+            "command": "smbclient -k -L //dc.example.local",
+            "example": "smbclient -k -L //dc.corp.local",
+            "explanation": "Lists shares using Kerberos authentication."
+        },
+        {
+            "id": 10,
+            "category": "Connection Options",
+            "command": "smbclient //192.168.1.10/share -p 445",
+            "example": "smbclient //192.168.1.10/share -p 445",
+            "explanation": "Forces the connection to use TCP port 445 explicitly."
+        },
+        {
+            "id": 11,
+            "category": "Connection Options",
+            "command": "smbclient //192.168.1.10/share -p 139",
+            "example": "smbclient //192.168.1.10/share -p 139",
+            "explanation": "Forces the connection to use NetBIOS over TCP port 139."
+        },
+        {
+            "id": 12,
+            "category": "Target Specification",
+            "command": "smbclient //hostname/share -I 192.168.1.10",
+            "example": "smbclient //fileserver/docs -I 192.168.1.50 -U user",
+            "explanation": "Connects to a hostname but overrides the destination IP address (useful for DNS spoofing/testing)."
+        },
+        {
+            "id": 13,
+            "category": "NetBIOS",
+            "command": "smbclient //192.168.1.10/share -n NETBIOS_NAME",
+            "example": "smbclient //192.168.1.10/share -n KALI_BOX -U user",
+            "explanation": "Sets the NetBIOS name of the client source machine during the handshake."
+        },
+        {
+            "id": 14,
+            "category": "Protocol Selection",
+            "command": "smbclient //192.168.1.10/share -m SMB2",
+            "example": "smbclient //192.168.1.10/legacy -m SMB2 -U user",
+            "explanation": "Forces the client to use the SMB2 protocol version max."
+        },
+        {
+            "id": 15,
+            "category": "Protocol Selection",
+            "command": "smbclient //192.168.1.10/share -m SMB3",
+            "example": "smbclient //192.168.1.10/secure -m SMB3 -U user",
+            "explanation": "Forces the client to use the SMB3 protocol version max (often required for newer Windows)."
+        },
+        {
+            "id": 16,
+            "category": "Protocol Selection",
+            "command": "smbclient //192.168.1.10/share -m NT1",
+            "example": "smbclient //192.168.1.10/ancient -m NT1 -U user",
+            "explanation": "Forces the use of NT1 (SMB1), useful for targeting legacy Windows XP or Server 2003 systems."
+        },
+        {
+            "id": 17,
+            "category": "Interactive Mode",
+            "command": "smbclient //192.168.1.10/share",
+            "example": "smbclient //192.168.1.10/share -U user",
+            "explanation": "Starts an interactive shell session where you can type commands like ls, get, and put."
+        },
+        {
+            "id": 18,
+            "category": "Command Execution",
+            "command": "smbclient //192.168.1.10/share -c 'ls'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'ls'",
+            "explanation": "Connects, lists the files in the root directory, and disconnects immediately."
+        },
+        {
+            "id": 19,
+            "category": "File Retrieval",
+            "command": "smbclient //192.168.1.10/share -c 'get sensitive.docx'",
+            "example": "smbclient //192.168.1.10/hr -U user -c 'get payroll.xls'",
+            "explanation": "Connects and downloads a specific single file non-interactively."
+        },
+        {
+            "id": 20,
+            "category": "File Upload",
+            "command": "smbclient //192.168.1.10/share -c 'put payload.exe'",
+            "example": "smbclient //192.168.1.10/wwwroot -U user -c 'put shell.aspx'",
+            "explanation": "Connects and uploads a file to the remote share."
+        },
+        {
+            "id": 21,
+            "category": "Directory Management",
+            "command": "smbclient //192.168.1.10/share -c 'mkdir tempdir'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'mkdir hidden'",
+            "explanation": "Creates a new directory on the remote share."
+        },
+        {
+            "id": 22,
+            "category": "Recursive Operations",
+            "command": "smbclient //192.168.1.10/share -c 'recurse; ls'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'recurse; ls'",
+            "explanation": "Toggles recursion to ON and lists all files in the share including subdirectories."
+        },
+        {
+            "id": 23,
+            "category": "Recursive Download",
+            "command": "smbclient //192.168.1.10/share -c 'prompt OFF; recurse ON; mget *'",
+            "example": "smbclient //192.168.1.10/backup -U user -c 'prompt OFF; recurse ON; mget *'",
+            "explanation": "Downloads the entire contents of a share recursively without asking for confirmation per file."
+        },
+        {
+            "id": 24,
+            "category": "File Deletion",
+            "command": "smbclient //192.168.1.10/share -c 'del oldfile.txt'",
+            "example": "smbclient //192.168.1.10/logs -U user -c 'del error.log'",
+            "explanation": "Deletes a specific file from the remote share."
+        },
+        {
+            "id": 25,
+            "category": "File Deletion",
+            "command": "smbclient //192.168.1.10/share -c 'rmdir old_folder'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'rmdir temp'",
+            "explanation": "Removes an empty directory from the remote share."
+        },
+        {
+            "id": 26,
+            "category": "File Reading",
+            "command": "smbclient //192.168.1.10/share -c 'more readme.txt'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'more config.ini'",
+            "explanation": "Displays the contents of a remote file directly to stdout."
+        },
+        {
+            "id": 27,
+            "category": "Archive Operations",
+            "command": "smbclient //192.168.1.10/share -T c backup.tar *",
+            "example": "smbclient //192.168.1.10/docs -U user -T c docs_backup.tar *",
+            "explanation": "Creates a local TAR archive of all files on the remote share directly."
+        },
+        {
+            "id": 28,
+            "category": "Archive Operations",
+            "command": "smbclient //192.168.1.10/share -T x restore.tar",
+            "example": "smbclient //192.168.1.10/docs -U user -T x local_backup.tar",
+            "explanation": "Extracts a local TAR archive and uploads the files to the remote share."
+        },
+        {
+            "id": 29,
+            "category": "Debug & Logging",
+            "command": "smbclient //192.168.1.10/share -d 5",
+            "example": "smbclient //192.168.1.10/share -U user -d 5",
+            "explanation": "Increases the debug level to 5, showing detailed protocol handshake and error information."
+        },
+        {
+            "id": 30,
+            "category": "Connection Control",
+            "command": "smbclient //192.168.1.10/share -t 60",
+            "example": "smbclient //192.168.1.10/large_share -U user -t 120",
+            "explanation": "Sets the connection timeout in seconds (useful for slow links or large transfers)."
+        },
+        {
+            "id": 31,
+            "category": "Misc Options",
+            "command": "smbclient //192.168.1.10/share -g",
+            "example": "smbclient -L //192.168.1.10 -U user -g",
+            "explanation": "Uses grepable output format, useful for parsing results in scripts."
+        },
+        {
+            "id": 32,
+            "category": "Messaging",
+            "command": "smbclient -M NETBIOS_NAME",
+            "example": "smbclient -M WIN10-TARGET -U user",
+            "explanation": "Sends a WinPopup message to the target machine (requires Messenger service)."
+        },
+        {
+            "id": 33,
+            "category": "IPv6 Connection",
+            "command": "smbclient //ipv6-address/share -U user",
+            "example": "smbclient //2001:db8::1/share -U user",
+            "explanation": "Connects to an SMB share hosted on an IPv6 address."
+        },
+        {
+            "id": 34,
+            "category": "System Info",
+            "command": "smbclient //192.168.1.10/IPC$ -c 'q'",
+            "example": "smbclient //192.168.1.10/IPC$ -N -c 'q'",
+            "explanation": "Connects to IPC$ (Inter-Process Communication) merely to validate access rights or null session capability."
+        },
+        {
+            "id": 35,
+            "category": "Permissions",
+            "command": "smbclient //192.168.1.10/share -c 'getfacl filename'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'getfacl confidential.txt'",
+            "explanation": "Displays the Access Control List (ACL) and permissions for a specific file (if server supports UNIX extensions)."
+        },
+        {
+            "id": 36,
+            "category": "Permissions",
+            "command": "smbclient //192.168.1.10/share -c 'stat filename'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'stat report.pdf'",
+            "explanation": "Shows file attributes, timestamps, and size information."
+        },
+        {
+            "id": 37,
+            "category": "File Operations",
+            "command": "smbclient //192.168.1.10/share -c 'rename old new'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'rename draft.txt final.txt'",
+            "explanation": "Renames a file on the remote server."
+        },
+        {
+            "id": 38,
+            "category": "Advanced Config",
+            "command": "smbclient //192.168.1.10/share -O 'socket options'",
+            "example": "smbclient //192.168.1.10/share -U user -O 'TCP_NODELAY SO_KEEPALIVE'",
+            "explanation": "Sets TCP socket options for performance tuning or stability."
+        },
+        {
+            "id": 39,
+            "category": "Scripting",
+            "command": "smbclient //192.168.1.10/share -E",
+            "example": "smbclient //192.168.1.10/share -U user -E -c 'ls'",
+            "explanation": "Writes messages to stderr instead of stdout, keeping stdout clean for data piping."
+        },
+        {
+            "id": 40,
+            "category": "Directory Navigation",
+            "command": "smbclient //192.168.1.10/share -D directory",
+            "example": "smbclient //192.168.1.10/share -U user -D 'Documents/Finance'",
+            "explanation": "Starts the session directly inside a specific subdirectory within the share."
+        },
+        {
+            "id": 41,
+            "category": "IO Control",
+            "command": "smbclient //192.168.1.10/share -b size",
+            "example": "smbclient //192.168.1.10/share -U user -b 16384",
+            "explanation": "Changes the transmit/send buffer size (useful for performance tuning on specific networks)."
+        },
+        {
+            "id": 42,
+            "category": "Config File",
+            "command": "smbclient -s /etc/samba/smb.conf",
+            "example": "smbclient -L //192.168.1.10 -s ./local-smb.conf",
+            "explanation": "Uses a specific local Samba configuration file instead of the default."
+        },
+        {
+            "id": 43,
+            "category": "Interactive",
+            "command": "smbclient //192.168.1.10/share -c 'history'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'history'",
+            "explanation": "Displays the command history within the smbclient context (mostly useful in interactive mode)."
+        },
+        {
+            "id": 44,
+            "category": "File Integrity",
+            "command": "smbclient //192.168.1.10/share -c 'md5 filename'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'md5 image.iso'",
+            "explanation": "Calculates MD5 hash of a remote file (if supported by server/client extensions)."
+        },
+        {
+            "id": 45,
+            "category": "Red Team",
+            "command": "smbclient //192.168.1.10/C$ -U user",
+            "example": "smbclient //192.168.1.10/C$ -U Administrator%Password",
+            "explanation": "Connects to the administrative C$ share, typically allowing full filesystem access."
+        },
+        {
+            "id": 46,
+            "category": "Red Team",
+            "command": "smbclient //192.168.1.10/ADMIN$ -U user",
+            "example": "smbclient //192.168.1.10/ADMIN$ -U Administrator",
+            "explanation": "Connects to the ADMIN$ share, often used for remote execution and PsExec-style attacks."
+        },
+        {
+            "id": 47,
+            "category": "Path parsing",
+            "command": "smbclient \\\\192.168.1.10\\share -U user",
+            "example": "smbclient \\\\192.168.1.10\\share -U user",
+            "explanation": "Connects using Windows-style backslashes (must be escaped in shell)."
+        },
+        {
+            "id": 48,
+            "category": "Quiet Mode",
+            "command": "smbclient //192.168.1.10/share -q",
+            "example": "smbclient //192.168.1.10/share -U user -q",
+            "explanation": "Suppresses informational messages, useful for scripts expecting clean output."
+        },
+        {
+            "id": 49,
+            "category": "Advanced",
+            "command": "smbclient //192.168.1.10/share -c 'posix'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'posix'",
+            "explanation": "Turns on POSIX path handling to allow case-sensitive filenames if server supports it."
+        },
+        {
+            "id": 50,
+            "category": "Advanced",
+            "command": "smbclient //192.168.1.10/share -c 'case_sensitive'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'case_sensitive'",
+            "explanation": "Toggles case sensitivity for file matching."
+        },
+        {
+            "id": 51,
+            "category": "Printing",
+            "command": "smbclient //192.168.1.10/print$ -c 'print file.pdf'",
+            "example": "smbclient //192.168.1.10/print$ -U user -c 'print document.pdf'",
+            "explanation": "Uploads and queues a file to be printed on a remote printer share."
+        },
+        {
+            "id": 52,
+            "category": "Offline",
+            "command": "smbclient //192.168.1.10/share -c 'logon'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'logon'",
+            "explanation": "Establishes a new logon context (re-authenticates) within the session."
+        },
+        {
+            "id": 53,
+            "category": "Resolve Order",
+            "command": "smbclient //hostname/share -R lmhosts",
+            "example": "smbclient //server/share -R wins -U user",
+            "explanation": "Sets the name resolution order (e.g., lmhosts, host, wins, bcast)."
+        },
+        {
+            "id": 54,
+            "category": "Encryption",
+            "command": "smbclient -e //192.168.1.10/share",
+            "example": "smbclient -e //192.168.1.10/private -U user",
+            "explanation": "Forces SMB encryption (SMB3) for the connection, protecting data on the wire."
+        },
+        {
+            "id": 55,
+            "category": "Advanced",
+            "command": "smbclient //192.168.1.10/share -c 'l'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'l'",
+            "explanation": "Alternative command for 'ls' (list) inside the interactive shell."
+        },
+        {
+            "id": 56,
+            "category": "File Ops",
+            "command": "smbclient //192.168.1.10/share -c 'du'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'du'",
+            "explanation": "Displays disk usage for the current share."
+        },
+        {
+            "id": 57,
+            "category": "Batch",
+            "command": "echo 'ls' | smbclient //192.168.1.10/share",
+            "example": "echo 'ls' | smbclient //192.168.1.10/share -N",
+            "explanation": "Pipes commands directly into smbclient from stdin (alternative to -c)."
+        },
+        {
+            "id": 58,
+            "category": "Enumeration",
+            "command": "smbclient -L 192.168.1.10 -I 192.168.1.10",
+            "example": "smbclient -L 192.168.1.10 -I 192.168.1.10 -N",
+            "explanation": "Enumerates shares when the NetBIOS name is unknown or identical to IP."
+        },
+        {
+            "id": 59,
+            "category": "Interactive",
+            "command": "smbclient //192.168.1.10/share -c 'volume'",
+            "example": "smbclient //192.168.1.10/share -U user -c 'volume'",
+            "explanation": "Prints the volume serial number of the remote share."
+        },
+        {
+            "id": 60,
+            "category": "Archive",
+            "command": "smbclient //192.168.1.10/share -D folder -T c archive.tar",
+            "example": "smbclient //192.168.1.10/share -U user -D 'sub/folder' -T c backup.tar",
+            "explanation": "Changes directory to a subfolder first, then creates a tar archive of its contents."
+        }
+    ]
+}

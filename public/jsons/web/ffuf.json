@@ -1,0 +1,602 @@
+{
+    "tool": "ffuf",
+    "description": "Complete ffuf command reference covering all options from basic to advanced",
+    "total_commands": 85,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Directory Fuzzing",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt",
+            "explanation": "Performs basic directory discovery by injecting words into the URL."
+        },
+        {
+            "id": 2,
+            "category": "Basic Directory Fuzzing",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -c",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -c",
+            "explanation": "Enables colorized output for better readability during basic fuzzing."
+        },
+        {
+            "id": 3,
+            "category": "Extension Fuzzing",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -e .php,.html,.txt",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -e .php,.html,.txt",
+            "explanation": "Appends specific file extensions to each wordlist entry to find files."
+        },
+        {
+            "id": 4,
+            "category": "Status Code Matching",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc 200",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc 200",
+            "explanation": "Filters results to show only responses with a 200 OK status code."
+        },
+        {
+            "id": 5,
+            "category": "Status Code Matching",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc 200,301,302",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc 200,301,302",
+            "explanation": "Matches multiple specific HTTP status codes indicating success or redirection."
+        },
+        {
+            "id": 6,
+            "category": "Status Code Matching",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc all",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc all",
+            "explanation": "Matches and displays responses with any HTTP status code."
+        },
+        {
+            "id": 7,
+            "category": "Status Code Filtering",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fc 404",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fc 404",
+            "explanation": "Hides responses that return a 404 Not Found status code."
+        },
+        {
+            "id": 8,
+            "category": "Size Filtering",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fs 1234",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fs 1234",
+            "explanation": "Filters out responses that have a specific response body size in bytes."
+        },
+        {
+            "id": 9,
+            "category": "Word Count Filtering",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fw 50",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fw 50",
+            "explanation": "Filters out responses containing exactly 50 words in the body."
+        },
+        {
+            "id": 10,
+            "category": "Line Count Filtering",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fl 10",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fl 10",
+            "explanation": "Filters out responses containing exactly 10 lines in the body."
+        },
+        {
+            "id": 11,
+            "category": "Regex Matching",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mr \"root:x:0:0\"",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mr \"root:x:0:0\"",
+            "explanation": "Matches responses where the body content matches a specific regular expression."
+        },
+        {
+            "id": 12,
+            "category": "Regex Filtering",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fr \"error\"",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fr \"error\"",
+            "explanation": "Filters out responses where the body matches a specific regular expression."
+        },
+        {
+            "id": 13,
+            "category": "Recursive Fuzzing",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -recursion",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -recursion",
+            "explanation": "Enables recursive scanning where discovered directories are added to the queue."
+        },
+        {
+            "id": 14,
+            "category": "Recursive Fuzzing",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -recursion -recursion-depth 2",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -recursion -recursion-depth 2",
+            "explanation": "Limits the recursive scanning to a depth of 2 levels."
+        },
+        {
+            "id": 15,
+            "category": "HTTP Methods",
+            "command": "ffuf -u https://example.com/resource -w wordlist.txt -X POST",
+            "example": "ffuf -u https://example.com/resource -w wordlist.txt -X POST",
+            "explanation": "Sends POST requests instead of the default GET requests."
+        },
+        {
+            "id": 16,
+            "category": "POST Data Fuzzing",
+            "command": "ffuf -u https://example.com/login -w wordlist.txt -X POST -d \"user=admin&pass=FUZZ\"",
+            "example": "ffuf -u https://example.com/login -w wordlist.txt -X POST -d \"user=admin&pass=FUZZ\"",
+            "explanation": "Fuzzes a specific parameter within the POST body data."
+        },
+        {
+            "id": 17,
+            "category": "POST Data Fuzzing",
+            "command": "ffuf -u https://example.com/login -w wordlist.txt -X POST -d \"user=admin&pass=FUZZ\" -H \"Content-Type: application/x-www-form-urlencoded\"",
+            "example": "ffuf -u https://example.com/login -w wordlist.txt -X POST -d \"user=admin&pass=FUZZ\" -H \"Content-Type: application/x-www-form-urlencoded\"",
+            "explanation": "Sets the correct Content-Type header when fuzzing form data."
+        },
+        {
+            "id": 18,
+            "category": "JSON API Fuzzing",
+            "command": "ffuf -u https://api.example.com/v1/user -w wordlist.txt -X POST -d '{\"username\": \"FUZZ\", \"role\": \"admin\"}' -H \"Content-Type: application/json\"",
+            "example": "ffuf -u https://api.example.com/v1/user -w wordlist.txt -X POST -d '{\"username\": \"FUZZ\", \"role\": \"admin\"}' -H \"Content-Type: application/json\"",
+            "explanation": "Fuzzes values inside a JSON request body for API testing."
+        },
+        {
+            "id": 19,
+            "category": "Header Fuzzing",
+            "command": "ffuf -u https://example.com -w wordlist.txt -H \"X-Forwarded-For: FUZZ\"",
+            "example": "ffuf -u https://example.com -w wordlist.txt -H \"X-Forwarded-For: FUZZ\"",
+            "explanation": "Fuzzes HTTP headers to test for header injection or proxy bypass."
+        },
+        {
+            "id": 20,
+            "category": "Virtual Host Fuzzing",
+            "command": "ffuf -u https://example.com -w subdomains.txt -H \"Host: FUZZ.example.com\"",
+            "example": "ffuf -u https://example.com -w subdomains.txt -H \"Host: FUZZ.example.com\"",
+            "explanation": "Fuzzes the Host header to discover virtual hosts on the target IP."
+        },
+        {
+            "id": 21,
+            "category": "Cookie Fuzzing",
+            "command": "ffuf -u https://example.com/admin -w wordlist.txt -b \"PHPSESSID=FUZZ\"",
+            "example": "ffuf -u https://example.com/admin -w wordlist.txt -b \"PHPSESSID=FUZZ\"",
+            "explanation": "Fuzzes the Cookie header to test for session hijacking or privilege escalation."
+        },
+        {
+            "id": 22,
+            "category": "Cookie Fuzzing",
+            "command": "ffuf -u https://example.com -w wordlist.txt -H \"Cookie: user=FUZZ; role=admin\"",
+            "example": "ffuf -u https://example.com -w wordlist.txt -H \"Cookie: user=FUZZ; role=admin\"",
+            "explanation": "Alternative method to fuzz cookies using the -H flag explicitly."
+        },
+        {
+            "id": 23,
+            "category": "Multiple Wordlists",
+            "command": "ffuf -u https://example.com/W1/W2 -w folders.txt:W1 -w files.txt:W2",
+            "example": "ffuf -u https://example.com/W1/W2 -w folders.txt:W1 -w files.txt:W2",
+            "explanation": "Uses multiple wordlists mapped to different fuzzing locations (W1 and W2)."
+        },
+        {
+            "id": 24,
+            "category": "Clusterbomb Mode",
+            "command": "ffuf -u https://example.com/login -w users.txt:USER -w pass.txt:PASS -mode clusterbomb -d \"u=USER&p=PASS\"",
+            "example": "ffuf -u https://example.com/login -w users.txt:USER -w pass.txt:PASS -mode clusterbomb -d \"u=USER&p=PASS\"",
+            "explanation": "Tries every combination of payloads from multiple wordlists (Cartesian product)."
+        },
+        {
+            "id": 25,
+            "category": "Pitchfork Mode",
+            "command": "ffuf -u https://example.com/login -w users.txt:USER -w pass.txt:PASS -mode pitchfork -d \"u=USER&p=PASS\"",
+            "example": "ffuf -u https://example.com/login -w users.txt:USER -w pass.txt:PASS -mode pitchfork -d \"u=USER&p=PASS\"",
+            "explanation": "Maps words one-to-one from wordlists (1st user with 1st pass, etc)."
+        },
+        {
+            "id": 26,
+            "category": "Silent Mode",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -s",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -s",
+            "explanation": "Suppresses the banner and running status, printing only results."
+        },
+        {
+            "id": 27,
+            "category": "Verbose Mode",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -v",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -v",
+            "explanation": "Prints the full URL and redirect location for every result."
+        },
+        {
+            "id": 28,
+            "category": "Output to File",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results.json -of json",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results.json -of json",
+            "explanation": "Saves the fuzzing results to a file in JSON format."
+        },
+        {
+            "id": 29,
+            "category": "Output Formats",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results.html -of html",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results.html -of html",
+            "explanation": "Saves the fuzzing results to a generic HTML report."
+        },
+        {
+            "id": 30,
+            "category": "Output Formats",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results.csv -of csv",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results.csv -of csv",
+            "explanation": "Saves the fuzzing results to a CSV file for spreadsheet analysis."
+        },
+        {
+            "id": 31,
+            "category": "All Output Formats",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results -of all",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -o results -of all",
+            "explanation": "Generates output files in all supported formats simultaneously."
+        },
+        {
+            "id": 32,
+            "category": "Performance Threading",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -t 100",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -t 100",
+            "explanation": "Increases the number of concurrent threads to 100 for faster scanning."
+        },
+        {
+            "id": 33,
+            "category": "Performance Throttling",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -p 0.1",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -p 0.1",
+            "explanation": "Adds a delay of 0.1 seconds between requests to avoid overwhelming the server."
+        },
+        {
+            "id": 34,
+            "category": "Rate Limiting",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -rate 50",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -rate 50",
+            "explanation": "Limits the scan to strictly 50 requests per second."
+        },
+        {
+            "id": 35,
+            "category": "Timeouts",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -timeout 5",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -timeout 5",
+            "explanation": "Sets the HTTP request timeout to 5 seconds."
+        },
+        {
+            "id": 36,
+            "category": "Proxy Configuration",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -x http://127.0.0.1:8080",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -x http://127.0.0.1:8080",
+            "explanation": "Routes all traffic through a proxy (e.g., Burp Suite) for analysis."
+        },
+        {
+            "id": 37,
+            "category": "Proxy Replay",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -replay-proxy http://127.0.0.1:8080",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -replay-proxy http://127.0.0.1:8080",
+            "explanation": "Routes only successfully matched requests through the proxy."
+        },
+        {
+            "id": 38,
+            "category": "Auto Calibration",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ac",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ac",
+            "explanation": "Automatically calibrates filtering based on random requests to determine stability."
+        },
+        {
+            "id": 39,
+            "category": "Auto Calibration Custom",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -acc \"User-Agent: Fuzz\"",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -acc \"User-Agent: Fuzz\"",
+            "explanation": "Customizes the auto-calibration string to be more specific."
+        },
+        {
+            "id": 40,
+            "category": "Auto Calibration Strategies",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -acs advanced",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -acs advanced",
+            "explanation": "Uses advanced auto-calibration strategies to fine-tune filters."
+        },
+        {
+            "id": 41,
+            "category": "Ignore Comments",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ic",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ic",
+            "explanation": "Ignores lines starting with comments in the wordlist."
+        },
+        {
+            "id": 42,
+            "category": "Stop On Error",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -se",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -se",
+            "explanation": "Aborts the entire process if a spurious error occurs."
+        },
+        {
+            "id": 43,
+            "category": "Stop On Spurious 403",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -sf",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -sf",
+            "explanation": "Stops fuzzing if too many 403 Forbidden errors are received (WAF detection)."
+        },
+        {
+            "id": 44,
+            "category": "TLS/HTTPS",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -k",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -k",
+            "explanation": "Ignores SSL/TLS certificate verification errors (useful for internal targets)."
+        },
+        {
+            "id": 45,
+            "category": "TLS/HTTPS",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -sni example.com",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -sni example.com",
+            "explanation": "Sets the TLS SNI (Server Name Indication) explicitly."
+        },
+        {
+            "id": 46,
+            "category": "HTTP2",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -http2",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -http2",
+            "explanation": "Forces the use of the HTTP/2 protocol for the requests."
+        },
+        {
+            "id": 47,
+            "category": "Follow Redirects",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -r",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -r",
+            "explanation": "Follows HTTP redirects to their final destination."
+        },
+        {
+            "id": 48,
+            "category": "Request File",
+            "command": "ffuf -request request.txt -w wordlist.txt",
+            "example": "ffuf -request request.txt -w wordlist.txt",
+            "explanation": "Loads the raw HTTP request from a file and injects payloads at the FUZZ keyword."
+        },
+        {
+            "id": 49,
+            "category": "Request File Options",
+            "command": "ffuf -request request.txt -w wordlist.txt -request-proto https",
+            "example": "ffuf -request request.txt -w wordlist.txt -request-proto https",
+            "explanation": "Forces the raw request file to use HTTPS protocol."
+        },
+        {
+            "id": 50,
+            "category": "Max Time",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -maxtime 60",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -maxtime 60",
+            "explanation": "Stops the fuzzing process after 60 seconds."
+        },
+        {
+            "id": 51,
+            "category": "Max Time Per Job",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -maxtime-job 10",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -maxtime-job 10",
+            "explanation": "Stops specific jobs if they exceed 10 seconds (useful in recursion)."
+        },
+        {
+            "id": 52,
+            "category": "Ignore Body",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ignore-body",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ignore-body",
+            "explanation": "Does not fetch the response body, useful for blind timing attacks."
+        },
+        {
+            "id": 53,
+            "category": "Input Encoding",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -input-encoding latin1",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -input-encoding latin1",
+            "explanation": "Specifies the encoding of the input wordlist."
+        },
+        {
+            "id": 54,
+            "category": "Output Directory",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -od /tmp/out",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -od /tmp/out",
+            "explanation": "Saves every matched response body to a separate file in the specified directory."
+        },
+        {
+            "id": 55,
+            "category": "Config File",
+            "command": "ffuf -config ffuf.conf",
+            "example": "ffuf -config ffuf.conf",
+            "explanation": "Loads fuzzing configuration and options from a configuration file."
+        },
+        {
+            "id": 56,
+            "category": "Non-Interactive",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -noninteractive",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -noninteractive",
+            "explanation": "Disables TTY interactions, suitable for CI/CD pipelines."
+        },
+        {
+            "id": 57,
+            "category": "Scraper Mode",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -scraperfile scraper.json",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -scraperfile scraper.json",
+            "explanation": "Uses a custom scraper definition to extract specific data from responses."
+        },
+        {
+            "id": 58,
+            "category": "Match Size Range",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ms 100-200",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ms 100-200",
+            "explanation": "Matches responses with a size falling within the 100 to 200 bytes range."
+        },
+        {
+            "id": 59,
+            "category": "Match Line Range",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ml 5-10",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ml 5-10",
+            "explanation": "Matches responses that have between 5 and 10 lines."
+        },
+        {
+            "id": 60,
+            "category": "Match Word Range",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mw 50-100",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mw 50-100",
+            "explanation": "Matches responses that have between 50 and 100 words."
+        },
+        {
+            "id": 61,
+            "category": "Filter Size Range",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fs 100-200",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fs 100-200",
+            "explanation": "Filters out responses with sizes between 100 and 200 bytes."
+        },
+        {
+            "id": 62,
+            "category": "Filter Line Range",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fl 1-5",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fl 1-5",
+            "explanation": "Filters out responses containing 1 to 5 lines."
+        },
+        {
+            "id": 63,
+            "category": "Header Append",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -H \"User-Agent: BugBounty\" -H \"Authorization: Bearer 123\"",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -H \"User-Agent: BugBounty\" -H \"Authorization: Bearer 123\"",
+            "explanation": "Appends multiple headers by repeating the -H flag."
+        },
+        {
+            "id": 64,
+            "category": "Wordlist Offset",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt:FUZZ:100",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt:FUZZ:100",
+            "explanation": "Skips the first 100 words in the wordlist before starting."
+        },
+        {
+            "id": 65,
+            "category": "Client Certificate",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -cc client.cert -ck client.key",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -cc client.cert -ck client.key",
+            "explanation": "Uses a client certificate and private key for mutual TLS authentication."
+        },
+        {
+            "id": 66,
+            "category": "Search History",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -search-history 5",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -search-history 5",
+            "explanation": "Searches through the last 5 request history entries (experimental/advanced)."
+        },
+        {
+            "id": 67,
+            "category": "Method Fuzzing",
+            "command": "ffuf -u https://example.com/resource -w methods.txt:METHOD -X METHOD",
+            "example": "ffuf -u https://example.com/resource -w methods.txt:METHOD -X METHOD",
+            "explanation": "Fuzzes the HTTP verb (GET, POST, PUT, DELETE) itself."
+        },
+        {
+            "id": 68,
+            "category": "Combined Calibration",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ac -mc 200",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ac -mc 200",
+            "explanation": "Combines auto-calibration with specific status code matching."
+        },
+        {
+            "id": 69,
+            "category": "Multiple Keywords",
+            "command": "ffuf -u https://example.com/DIR/FILE -w dirs.txt:DIR -w files.txt:FILE",
+            "example": "ffuf -u https://example.com/DIR/FILE -w dirs.txt:DIR -w files.txt:FILE",
+            "explanation": "Uses different keywords in the URL for multi-level directory fuzzing."
+        },
+        {
+            "id": 70,
+            "category": "Standard Input Wordlist",
+            "command": "cat wordlist.txt | ffuf -u https://example.com/FUZZ -w -",
+            "example": "cat wordlist.txt | ffuf -u https://example.com/FUZZ -w -",
+            "explanation": "Reads the wordlist from standard input (stdin) via pipe."
+        },
+        {
+            "id": 71,
+            "category": "Parameter Discovery",
+            "command": "ffuf -u https://example.com/page.php?FUZZ=test -w parameters.txt -fs 400",
+            "example": "ffuf -u https://example.com/page.php?FUZZ=test -w parameters.txt -fs 400",
+            "explanation": "Discovers valid GET parameters by observing response size changes."
+        },
+        {
+            "id": 72,
+            "category": "Colors Disable",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -no-color",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -no-color",
+            "explanation": "Disables all color output code (useful for logging)."
+        },
+        {
+            "id": 73,
+            "category": "Interface Binding",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -interface eth0",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -interface eth0",
+            "explanation": "Binds the traffic to a specific network interface (e.g., eth0 or tun0)."
+        },
+        {
+            "id": 74,
+            "category": "Follow Redirects Custom",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -r -recursion -lc",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -r -recursion -lc",
+            "explanation": "Follows redirects while storing cookies (lc = learn cookies) from responses."
+        },
+        {
+            "id": 75,
+            "category": "Rate Limit Per Host",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -rate 10 -p 0.5",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -rate 10 -p 0.5",
+            "explanation": "Combines rate limiting (10 req/s) with a delay (0.5s) for stealth."
+        },
+        {
+            "id": 76,
+            "category": "Output Field Selection",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -of csv -o out.csv -or",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -of csv -o out.csv -or",
+            "explanation": "Don't create the output file if no results were found (-or)."
+        },
+        {
+            "id": 77,
+            "category": "Subdomain Enumeration",
+            "command": "ffuf -u https://FUZZ.example.com -w subdomains.txt -v",
+            "example": "ffuf -u https://FUZZ.example.com -w subdomains.txt -v",
+            "explanation": "Fuzzes the subdomain portion of the URL directly."
+        },
+        {
+            "id": 78,
+            "category": "Raw Request Debug",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -debug-log debug.log",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -debug-log debug.log",
+            "explanation": "Writes all internal logging and debug information to a file."
+        },
+        {
+            "id": 79,
+            "category": "Stop on All",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -sa",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -sa",
+            "explanation": "Stops the scan on any error (TCP, DNS, timeout, etc)."
+        },
+        {
+            "id": 80,
+            "category": "Disable Keep-Alive",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -H \"Connection: close\"",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -H \"Connection: close\"",
+            "explanation": "Disables HTTP Keep-Alive by setting the Connection header to close."
+        },
+        {
+            "id": 81,
+            "category": "Baseline Comparison",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fr \"The standard error text\"",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -fr \"The standard error text\"",
+            "explanation": "Filters results containing specific text found in a baseline error response."
+        },
+        {
+            "id": 82,
+            "category": "Extension Priority",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -e .php -e .bak",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -e .php -e .bak",
+            "explanation": "Checks for multiple extensions per wordlist entry in sequence."
+        },
+        {
+            "id": 83,
+            "category": "Silent JSON Output",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -s -json",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -s -json",
+            "explanation": "Prints results in JSON format to stdout silently (deprecated alias for -of json)."
+        },
+        {
+            "id": 84,
+            "category": "Red Team Discovery",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ac -t 300 -rate 200 -H \"User-Agent: Googlebot\"",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -ac -t 300 -rate 200 -H \"User-Agent: Googlebot\"",
+            "explanation": "Aggressive, high-speed discovery scan masking as a search engine bot."
+        },
+        {
+            "id": 85,
+            "category": "Blue Team Validation",
+            "command": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc 200 -o valid_paths.txt",
+            "example": "ffuf -u https://example.com/FUZZ -w wordlist.txt -mc 200 -o valid_paths.txt",
+            "explanation": "Maps all publicly accessible 200 OK paths for exposure verification."
+        }
+    ]
+}

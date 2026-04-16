@@ -1,0 +1,77 @@
+{
+    "tool": "spiderfoot",
+    "description": "SpiderFoot: An incredibly comprehensive OSINT automation engine designed to rapidly integrate over 200 different modules bridging black-box footprints.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Headless Initialization",
+            "command": "spiderfoot -s <target>",
+            "example": "spiderfoot -s example.com",
+            "explanation": "Boots a terminal-only CLI automation loop exclusively scanning the defined target with standard modules natively."
+        },
+        {
+            "id": 2,
+            "category": "Web Interface",
+            "command": "spiderfoot -l <ip>:<port>",
+            "example": "spiderfoot -l 127.0.0.1:5001",
+            "explanation": "Deploys a robust local HTTP dashboard web server enabling highly visual graphical configuration mapping."
+        },
+        {
+            "id": 3,
+            "category": "Module Filtering",
+            "command": "spiderfoot -m <modules> -s <target>",
+            "example": "spiderfoot -m sfp_shodan,sfp_whois -s example.com",
+            "explanation": "Bypasses overall mass scanning explicitly restricting execution ONLY to the specified programmatic modules."
+        },
+        {
+            "id": 4,
+            "category": "Event Depth",
+            "command": "spiderfoot -s <target> -q -F",
+            "example": "spiderfoot -s target.com -q -F",
+            "explanation": "Executes the scan extremely rapidly without stdout spam (-q), strictly enforcing deep brute-force analysis directives (-F)."
+        },
+        {
+            "id": 5,
+            "category": "Configuration Setup",
+            "command": "spiderfoot -C <file>",
+            "example": "spiderfoot -C custom_opts.txt -s target.com",
+            "explanation": "Automates API authentication parameters bridging customized module rules directly from a local configuration artifact."
+        },
+        {
+            "id": 6,
+            "category": "Data Reporting",
+            "command": "spiderfoot -t <target> -o <format>",
+            "example": "spiderfoot -s target.com -o json",
+            "explanation": "Dumps the absolute aggregated OSINT analytical results explicitly formatting them as native raw JSON, CSV, or GEXF."
+        },
+        {
+            "id": 7,
+            "category": "Status Checks",
+            "command": "spiderfoot CLI",
+            "example": "spiderfoot -cli",
+            "explanation": "Drops into a passive interactive CLI explicitly utilized for tracking the internal status of asynchronously running background scans."
+        },
+        {
+            "id": 8,
+            "category": "Database Purging",
+            "command": "spiderfoot -X <scan_id>",
+            "example": "spiderfoot -X 21A4B022",
+            "explanation": "Deletes incredibly massive internal local sql caches completely erasing historical execution data associated with the Target ID."
+        },
+        {
+            "id": 9,
+            "category": "Proxy Routing",
+            "command": "spiderfoot -r <proxy>",
+            "example": "spiderfoot -r socks5://127.0.0.1:9050 -s deepweb.onion",
+            "explanation": "Forces the entire python request architecture explicitly through an active TOR/SOCKS proxy layer."
+        },
+        {
+            "id": 10,
+            "category": "Custom Signatures",
+            "command": "spiderfoot -s <target> -u <type>",
+            "example": "spiderfoot -s 192.168.1.1 -u IP",
+            "explanation": "Strictly defines the data-type format (IP, Domain, Email, User) preventing the internal engines from guessing the baseline target type."
+        }
+    ]
+}

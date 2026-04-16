@@ -1,0 +1,392 @@
+{
+    "tool": "airmon-ng",
+    "description": "Complete airmon-ng command and workflow reference from basic to advanced wireless interface management",
+    "total_commands": 55,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax",
+            "command": "airmon-ng",
+            "example": "airmon-ng",
+            "explanation": "Lists all physically detected wireless interfaces and their current status without modifying them."
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax",
+            "command": "airmon-ng --help",
+            "example": "airmon-ng --help",
+            "explanation": "Displays the help menu showing supported arguments and usage syntax."
+        },
+        {
+            "id": 3,
+            "category": "Interfering Process Management",
+            "command": "airmon-ng check",
+            "example": "airmon-ng check",
+            "explanation": "Identifies system processes like NetworkManager or wpa_supplicant that may interfere with monitor mode."
+        },
+        {
+            "id": 4,
+            "category": "Interfering Process Management",
+            "command": "airmon-ng check kill",
+            "example": "airmon-ng check kill",
+            "explanation": "Forcefully terminates all processes identified as conflicting with wireless monitor mode operations."
+        },
+        {
+            "id": 5,
+            "category": "Monitor Mode Enablement",
+            "command": "airmon-ng start <interface>",
+            "example": "airmon-ng start wlan0",
+            "explanation": "Enables monitor mode on the specified interface, typically creating a virtual interface named wlan0mon."
+        },
+        {
+            "id": 6,
+            "category": "Monitor Mode Enablement",
+            "command": "airmon-ng start <interface> <channel>",
+            "example": "airmon-ng start wlan0 1",
+            "explanation": "Enables monitor mode on the specified interface and locks the radio to channel 1."
+        },
+        {
+            "id": 7,
+            "category": "Monitor Mode Enablement",
+            "command": "airmon-ng start <interface> <channel>",
+            "example": "airmon-ng start wlan0 6",
+            "explanation": "Enables monitor mode on the specified interface and locks the radio to channel 6."
+        },
+        {
+            "id": 8,
+            "category": "Monitor Mode Enablement",
+            "command": "airmon-ng start <interface> <channel>",
+            "example": "airmon-ng start wlan0 11",
+            "explanation": "Enables monitor mode on the specified interface and locks the radio to channel 11."
+        },
+        {
+            "id": 9,
+            "category": "Monitor Mode Disablement",
+            "command": "airmon-ng stop <mon_interface>",
+            "example": "airmon-ng stop wlan0mon",
+            "explanation": "Disables monitor mode on the virtual interface and attempts to restore the original managed mode interface."
+        },
+        {
+            "id": 10,
+            "category": "Monitor Mode Disablement",
+            "command": "airmon-ng stop <phy_interface>",
+            "example": "airmon-ng stop wlan0",
+            "explanation": "Disables monitor mode by referencing the physical interface name if the virtual name is unknown."
+        },
+        {
+            "id": 11,
+            "category": "Output and Logging",
+            "command": "airmon-ng --verbose",
+            "example": "airmon-ng --verbose",
+            "explanation": "Runs airmon-ng with verbose output to display detailed information about interface detection and driver handling."
+        },
+        {
+            "id": 12,
+            "category": "Output and Logging",
+            "command": "airmon-ng --debug",
+            "example": "airmon-ng --debug",
+            "explanation": "Runs airmon-ng in debug mode to trace internal script execution and diagnose driver compatibility issues."
+        },
+        {
+            "id": 13,
+            "category": "Monitor Mode Enablement",
+            "command": "airmon-ng start <interface> <5ghz_channel>",
+            "example": "airmon-ng start wlan0 36",
+            "explanation": "Enables monitor mode and locks the radio to 5GHz channel 36 for low-band 5GHz analysis."
+        },
+        {
+            "id": 14,
+            "category": "Monitor Mode Enablement",
+            "command": "airmon-ng start <interface> <5ghz_channel>",
+            "example": "airmon-ng start wlan0 149",
+            "explanation": "Enables monitor mode and locks the radio to 5GHz channel 149 for high-band 5GHz analysis."
+        },
+        {
+            "id": 15,
+            "category": "Advanced Troubleshooting",
+            "command": "airmon-ng --verbose start <interface>",
+            "example": "airmon-ng --verbose start wlan0",
+            "explanation": "Combines verbose logging with the start command to identify errors during the monitor mode transition."
+        },
+        {
+            "id": 16,
+            "category": "Advanced Troubleshooting",
+            "command": "airmon-ng --verbose stop <interface>",
+            "example": "airmon-ng --verbose stop wlan0mon",
+            "explanation": "Combines verbose logging with the stop command to diagnose issues when returning to managed mode."
+        },
+        {
+            "id": 17,
+            "category": "Advanced Troubleshooting",
+            "command": "airmon-ng --debug check",
+            "example": "airmon-ng --debug check",
+            "explanation": "Debugs the process check routine to see exactly which PIDs are being identified as conflicting."
+        },
+        {
+            "id": 18,
+            "category": "Red Team Preparation",
+            "command": "airmon-ng check kill && airmon-ng start <interface>",
+            "example": "airmon-ng check kill && airmon-ng start wlan0",
+            "explanation": "Standard Red Team preparation workflow to kill interference and immediately start monitoring in one sequence."
+        },
+        {
+            "id": 19,
+            "category": "Red Team Preparation",
+            "command": "airmon-ng start <interface> && iwconfig",
+            "example": "airmon-ng start wlan0 && iwconfig",
+            "explanation": "Starts monitor mode and immediately verifies the interface mode and settings using iwconfig."
+        },
+        {
+            "id": 20,
+            "category": "Red Team Preparation",
+            "command": "airmon-ng check kill && airmon-ng start <interface> <channel>",
+            "example": "airmon-ng check kill && airmon-ng start wlan0 6",
+            "explanation": "Prepares the environment and starts monitoring specifically on channel 6 for targeted attacks."
+        },
+        {
+            "id": 21,
+            "category": "Blue Team Defensive Validation",
+            "command": "airmon-ng start <interface> <channel> && airodump-ng <mon_interface>",
+            "example": "airmon-ng start wlan0 1 && airodump-ng wlan0mon",
+            "explanation": "Starts monitor mode on channel 1 and immediately begins packet capture to validate visibility of threats."
+        },
+        {
+            "id": 22,
+            "category": "Blue Team Defensive Validation",
+            "command": "airmon-ng check > check_log.txt",
+            "example": "airmon-ng check > check_log.txt",
+            "explanation": "Logs the list of interfering processes to a file for auditing which services interfere with security tools."
+        },
+        {
+            "id": 23,
+            "category": "Purple Team Detection Testing",
+            "command": "airmon-ng start <interface> && echo 'Monitor Mode Active' || echo 'Failed'",
+            "example": "airmon-ng start wlan0 && echo 'Monitor Mode Active' || echo 'Failed'",
+            "explanation": "Automation friendly command to attempt monitor mode and output a clear success or failure status."
+        },
+        {
+            "id": 24,
+            "category": "Multiple Interface Management",
+            "command": "airmon-ng start <interface1> && airmon-ng start <interface2>",
+            "example": "airmon-ng start wlan0 && airmon-ng start wlan1",
+            "explanation": "Enables monitor mode on two separate physical cards for multi-channel or full-duplex attack simulation."
+        },
+        {
+            "id": 25,
+            "category": "Multiple Interface Management",
+            "command": "airmon-ng start <interface1> 6 && airmon-ng start <interface2> 11",
+            "example": "airmon-ng start wlan0 6 && airmon-ng start wlan1 11",
+            "explanation": "Configures two interfaces on non-overlapping channels to double capture bandwidth or jam/monitor simultaneously."
+        },
+        {
+            "id": 26,
+            "category": "Incident Response Simulation",
+            "command": "airmon-ng start <interface> && tcpdump -i <mon_interface>",
+            "example": "airmon-ng start wlan0 && tcpdump -i wlan0mon",
+            "explanation": "Rapidly enables monitor mode and pipes traffic into tcpdump for immediate forensic packet analysis."
+        },
+        {
+            "id": 27,
+            "category": "Cleanup and Recovery",
+            "command": "airmon-ng stop <mon_interface> && service network-manager start",
+            "example": "airmon-ng stop wlan0mon && service network-manager start",
+            "explanation": "Stops monitor mode and manually restarts the Network Manager service to restore internet connectivity."
+        },
+        {
+            "id": 28,
+            "category": "Cleanup and Recovery",
+            "command": "airmon-ng stop <mon_interface> && airmon-ng check",
+            "example": "airmon-ng stop wlan0mon && airmon-ng check",
+            "explanation": "Disables monitor mode and runs a check to confirm if interference processes are still absent."
+        },
+        {
+            "id": 29,
+            "category": "Driver Specific Handling",
+            "command": "airmon-ng check kill && modprobe -r <driver> && modprobe <driver>",
+            "example": "airmon-ng check kill && modprobe -r ath9k && modprobe ath9k",
+            "explanation": "Kills processes and reloads the specific wireless driver to reset the hardware state before starting."
+        },
+        {
+            "id": 30,
+            "category": "Automation and Pipeline",
+            "command": "airmon-ng | grep <chipset>",
+            "example": "airmon-ng | grep Atheros",
+            "explanation": "Filters airmon-ng output to confirm the presence of a specific chipset family for script logic."
+        },
+        {
+            "id": 31,
+            "category": "Automation and Pipeline",
+            "command": "airmon-ng | awk '{print $2}'",
+            "example": "airmon-ng | awk '{print $2}'",
+            "explanation": "Extracts just the interface names from the airmon-ng list for use in variables or loops."
+        },
+        {
+            "id": 32,
+            "category": "Specific Frequency Targeting",
+            "command": "airmon-ng start <interface> <DFS_channel>",
+            "example": "airmon-ng start wlan0 52",
+            "explanation": "Attempts to start monitor mode on a DFS (Dynamic Frequency Selection) channel for radar compliance testing."
+        },
+        {
+            "id": 33,
+            "category": "Specific Frequency Targeting",
+            "command": "airmon-ng start <interface> <weather_channel>",
+            "example": "airmon-ng start wlan0 120",
+            "explanation": "Targets specific weather radar frequencies to validate driver compliance or specialized listening capabilities."
+        },
+        {
+            "id": 34,
+            "category": "Legacy Compatibility",
+            "command": "airmon-ng start <interface> && iw <mon_interface> set channel <channel>",
+            "example": "airmon-ng start wlan0 && iw wlan0mon set channel 1",
+            "explanation": "Starts monitor mode via airmon-ng but delegates channel switching to 'iw' for granular control."
+        },
+        {
+            "id": 35,
+            "category": "Legacy Compatibility",
+            "command": "airmon-ng stop <mon_interface> && ifconfig <phy_interface> up",
+            "example": "airmon-ng stop wlan0mon && ifconfig wlan0 up",
+            "explanation": "Stops monitor mode and explicitly forces the physical interface up using legacy ifconfig tools."
+        },
+        {
+            "id": 36,
+            "category": "Verbose Diagnostics",
+            "command": "airmon-ng --verbose check kill",
+            "example": "airmon-ng --verbose check kill",
+            "explanation": "Executes the kill command with verbose output to see exactly which PIDs and process names are terminated."
+        },
+        {
+            "id": 37,
+            "category": "Scripted Deployment",
+            "command": "airmon-ng check kill; airmon-ng start wlan0; airmon-ng",
+            "example": "airmon-ng check kill; airmon-ng start wlan0; airmon-ng",
+            "explanation": "Full scripted sequence: kill processes, start monitor mode, and print status to verify success."
+        },
+        {
+            "id": 38,
+            "category": "High Frequency Monitoring",
+            "command": "airmon-ng start <interface> 165",
+            "example": "airmon-ng start wlan0 165",
+            "explanation": "Targets channel 165, often used for industrial scientific applications, to check for non-standard Wi-Fi traffic."
+        },
+        {
+            "id": 39,
+            "category": "Interface Renaming Verification",
+            "command": "airmon-ng start <interface> && ip link show",
+            "example": "airmon-ng start wlan0 && ip link show",
+            "explanation": "Starts monitor mode and uses ip link to verify the new interface name (e.g., wlan0mon vs mon0)."
+        },
+        {
+            "id": 40,
+            "category": "Safe Termination",
+            "command": "airmon-ng stop <mon_interface>; systemctl restart NetworkManager",
+            "example": "airmon-ng stop wlan0mon; systemctl restart NetworkManager",
+            "explanation": "Modern systemd-based command to stop monitoring and restore full network stack functionality."
+        },
+        {
+            "id": 41,
+            "category": "Headless Operation",
+            "command": "airmon-ng start <interface> > /dev/null 2>&1",
+            "example": "airmon-ng start wlan0 > /dev/null 2>&1",
+            "explanation": "Starts monitor mode silently, suppressing all output, suitable for background cron jobs or automated boxes."
+        },
+        {
+            "id": 42,
+            "category": "Interactive Verification",
+            "command": "airmon-ng check kill && read -p 'Press Enter to Start' && airmon-ng start <interface>",
+            "example": "airmon-ng check kill && read -p 'Press Enter to Start' && airmon-ng start wlan0",
+            "explanation": "Pauses the workflow after killing processes to allow manual verification before enabling monitor mode."
+        },
+        {
+            "id": 43,
+            "category": "Conflict Resolution",
+            "command": "killall wpa_supplicant && airmon-ng start <interface>",
+            "example": "killall wpa_supplicant && airmon-ng start wlan0",
+            "explanation": "Manually kills wpa_supplicant before starting airmon-ng if the internal check fails to remove it."
+        },
+        {
+            "id": 44,
+            "category": "Chipset ID Enumeration",
+            "command": "airmon-ng | grep -E 'Ralink|Realtek|Atheros|Intel'",
+            "example": "airmon-ng | grep -E 'Ralink|Realtek|Atheros|Intel'",
+            "explanation": "Rapidly filters airmon-ng output to identify major chipset manufacturers for driver selection."
+        },
+        {
+            "id": 45,
+            "category": "Reset State",
+            "command": "airmon-ng stop <mon_interface>; airmon-ng start <phy_interface>",
+            "example": "airmon-ng stop wlan0mon; airmon-ng start wlan0",
+            "explanation": "Cycles monitor mode off and then immediately back on to clear buffer errors or stuck radio states."
+        },
+        {
+            "id": 46,
+            "category": "Specific Band Start",
+            "command": "airmon-ng start <interface> 14",
+            "example": "airmon-ng start wlan0 14",
+            "explanation": "Attempts to start on channel 14, which is valid only in specific regulatory domains (e.g., Japan)."
+        },
+        {
+            "id": 47,
+            "category": "Virtual Interface Check",
+            "command": "airmon-ng | grep mon",
+            "example": "airmon-ng | grep mon",
+            "explanation": "Quickly checks if any monitor mode interfaces are currently active."
+        },
+        {
+            "id": 48,
+            "category": "Red Team Persistence",
+            "command": "airmon-ng start <interface> && while true; do :; done",
+            "example": "airmon-ng start wlan0 && while true; do :; done",
+            "explanation": "Starts monitor mode and keeps the shell session alive, preventing timeout in some remote shell environments."
+        },
+        {
+            "id": 49,
+            "category": "Driver Debugging",
+            "command": "airmon-ng --debug start <interface> > debug_log.txt 2>&1",
+            "example": "airmon-ng --debug start wlan0 > debug_log.txt 2>&1",
+            "explanation": "Captures full debug output to a file for later analysis when reporting driver bugs."
+        },
+        {
+            "id": 50,
+            "category": "Multi-Card Setup",
+            "command": "airmon-ng start wlan0 && airmon-ng start wlan1 && airmon-ng start wlan2",
+            "example": "airmon-ng start wlan0 && airmon-ng start wlan1 && airmon-ng start wlan2",
+            "explanation": "Enables monitor mode on a 3-card array for simultaneous monitoring of channels 1, 6, and 11."
+        },
+        {
+            "id": 51,
+            "category": "Force Channel Hop",
+            "command": "airmon-ng start <interface> && airodump-ng <mon_interface> --channel 1,6,11",
+            "example": "airmon-ng start wlan0 && airodump-ng wlan0mon --channel 1,6,11",
+            "explanation": "Starts monitor mode and immediately delegates hopping between non-overlapping channels to airodump."
+        },
+        {
+            "id": 52,
+            "category": "Pre-flight Check",
+            "command": "rfkill unblock all && airmon-ng check kill",
+            "example": "rfkill unblock all && airmon-ng check kill",
+            "explanation": "Ensures no hardware or software blocks exist via rfkill before attempting to manage processes."
+        },
+        {
+            "id": 53,
+            "category": "Post-Op Verification",
+            "command": "airmon-ng stop <mon_interface> && ping -c 1 8.8.8.8",
+            "example": "airmon-ng stop wlan0mon && ping -c 1 8.8.8.8",
+            "explanation": "Stops monitor mode and attempts a ping to verify that normal managed mode networking is restored."
+        },
+        {
+            "id": 54,
+            "category": "Advanced Channel Lock",
+            "command": "airmon-ng start <interface> <channel> && iwconfig <mon_interface> freq <frequency>",
+            "example": "airmon-ng start wlan0 6 && iwconfig wlan0mon freq 2.437G",
+            "explanation": "Starts on a channel and double-confirms the frequency lock using iwconfig for sensitive measurements."
+        },
+        {
+            "id": 55,
+            "category": "Full Reset Workflow",
+            "command": "airmon-ng stop <mon_interface>; rmmod <driver>; modprobe <driver>; airmon-ng start <phy_interface>",
+            "example": "airmon-ng stop wlan0mon; rmmod iwlwifi; modprobe iwlwifi; airmon-ng start wlan0",
+            "explanation": "Complete nuclear reset: stops monitor, reloads kernel module, and restarts monitor mode to clear deep driver faults."
+        }
+    ]
+}

@@ -1,0 +1,1057 @@
+{
+    "tool": "auditd",
+    "description": "Complete auditd command and workflow reference from basic to advanced Linux auditing and monitoring",
+    "total_commands": 150,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Service Management",
+            "command": "systemctl status auditd",
+            "example": "systemctl status auditd",
+            "explanation": "Checks the current operational status of the audit daemon service."
+        },
+        {
+            "id": 2,
+            "category": "Service Management",
+            "command": "systemctl start auditd",
+            "example": "systemctl start auditd",
+            "explanation": "Starts the audit daemon if it is currently stopped."
+        },
+        {
+            "id": 3,
+            "category": "Service Management",
+            "command": "systemctl stop auditd",
+            "example": "systemctl stop auditd",
+            "explanation": "Stops the audit daemon service completely."
+        },
+        {
+            "id": 4,
+            "category": "Service Management",
+            "command": "systemctl restart auditd",
+            "example": "systemctl restart auditd",
+            "explanation": "Restarts the audit daemon to reload configurations."
+        },
+        {
+            "id": 5,
+            "category": "Service Management",
+            "command": "systemctl enable auditd",
+            "example": "systemctl enable auditd",
+            "explanation": "Enables the audit daemon to start automatically at system boot."
+        },
+        {
+            "id": 6,
+            "category": "Service Management",
+            "command": "service auditd rotate",
+            "example": "service auditd rotate",
+            "explanation": "Forces the rotation of audit log files immediately."
+        },
+        {
+            "id": 7,
+            "category": "Service Management",
+            "command": "service auditd resume",
+            "example": "service auditd resume",
+            "explanation": "Resumes logging after auditd was suspended due to disk space issues."
+        },
+        {
+            "id": 8,
+            "category": "Audit Control",
+            "command": "auditctl -s",
+            "example": "auditctl -s",
+            "explanation": "Displays the current status, variables, and settings of the kernel audit system."
+        },
+        {
+            "id": 9,
+            "category": "Audit Control",
+            "command": "auditctl -e 1",
+            "example": "auditctl -e 1",
+            "explanation": "Enables the audit system if it has been disabled."
+        },
+        {
+            "id": 10,
+            "category": "Audit Control",
+            "command": "auditctl -e 0",
+            "example": "auditctl -e 0",
+            "explanation": "Temporarily disables the audit system and stops logging."
+        },
+        {
+            "id": 11,
+            "category": "Audit Control",
+            "command": "auditctl -e 2",
+            "example": "auditctl -e 2",
+            "explanation": "Locks the audit configuration so it cannot be changed until reboot."
+        },
+        {
+            "id": 12,
+            "category": "Audit Control",
+            "command": "auditctl -b 8192",
+            "example": "auditctl -b 8192",
+            "explanation": "Increases the audit buffer size to 8192 messages to prevent loss."
+        },
+        {
+            "id": 13,
+            "category": "Audit Control",
+            "command": "auditctl -f 1",
+            "example": "auditctl -f 1",
+            "explanation": "Sets failure mode to print a message to syslog on critical errors."
+        },
+        {
+            "id": 14,
+            "category": "Audit Control",
+            "command": "auditctl -f 2",
+            "example": "auditctl -f 2",
+            "explanation": "Sets failure mode to trigger a kernel panic on critical errors."
+        },
+        {
+            "id": 15,
+            "category": "Audit Control",
+            "command": "auditctl -r 0",
+            "example": "auditctl -r 0",
+            "explanation": "Disables the rate limit for generated audit messages."
+        },
+        {
+            "id": 16,
+            "category": "Rule Management",
+            "command": "auditctl -l",
+            "example": "auditctl -l",
+            "explanation": "Lists all currently loaded audit rules."
+        },
+        {
+            "id": 17,
+            "category": "Rule Management",
+            "command": "auditctl -D",
+            "example": "auditctl -D",
+            "explanation": "Deletes all currently loaded audit rules."
+        },
+        {
+            "id": 18,
+            "category": "File Monitoring",
+            "command": "auditctl -w /etc/passwd -p wa -k passwd_changes",
+            "example": "auditctl -w /etc/passwd -p wa -k passwd_changes",
+            "explanation": "Watches /etc/passwd for write or attribute changes and tags with key."
+        },
+        {
+            "id": 19,
+            "category": "File Monitoring",
+            "command": "auditctl -w /etc/shadow -p wa -k shadow_access",
+            "example": "auditctl -w /etc/shadow -p wa -k shadow_access",
+            "explanation": "Watches /etc/shadow for write or attribute changes."
+        },
+        {
+            "id": 20,
+            "category": "File Monitoring",
+            "command": "auditctl -w /bin/bash -p x -k shell_exec",
+            "example": "auditctl -w /bin/bash -p x -k shell_exec",
+            "explanation": "Logs every execution of the bash binary."
+        },
+        {
+            "id": 21,
+            "category": "File Monitoring",
+            "command": "auditctl -w /etc/sudoers -p wa -k sudo_mod",
+            "example": "auditctl -w /etc/sudoers -p wa -k sudo_mod",
+            "explanation": "Monitors the sudoers file for unauthorized modifications."
+        },
+        {
+            "id": 22,
+            "category": "File Monitoring",
+            "command": "auditctl -W /etc/passwd",
+            "example": "auditctl -W /etc/passwd",
+            "explanation": "Removes the watch rule specifically for /etc/passwd."
+        },
+        {
+            "id": 23,
+            "category": "Syscall Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S openat -k file_open",
+            "example": "auditctl -a always,exit -F arch=b64 -S openat -k file_open",
+            "explanation": "Audits the openat syscall on 64-bit architecture upon exit."
+        },
+        {
+            "id": 24,
+            "category": "Syscall Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S execve -k process_spawn",
+            "example": "auditctl -a always,exit -F arch=b64 -S execve -k process_spawn",
+            "explanation": "Audits process creation via execve on 64-bit systems."
+        },
+        {
+            "id": 25,
+            "category": "Syscall Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S unlink -S rmdir -k deletion",
+            "example": "auditctl -a always,exit -F arch=b64 -S unlink -S rmdir -k deletion",
+            "explanation": "Audits file and directory deletion events."
+        },
+        {
+            "id": 26,
+            "category": "Syscall Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S chmod -S fchmod -S chown -k perm_mod",
+            "example": "auditctl -a always,exit -F arch=b64 -S chmod -S fchmod -S chown -k perm_mod",
+            "explanation": "Audits changes to file permissions or ownership."
+        },
+        {
+            "id": 27,
+            "category": "Syscall Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S mount -S umount2 -k storage_mount",
+            "example": "auditctl -a always,exit -F arch=b64 -S mount -S umount2 -k storage_mount",
+            "explanation": "Audits mounting and unmounting of filesystems."
+        },
+        {
+            "id": 28,
+            "category": "Syscall Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S settimeofday -S clock_settime -k time_change",
+            "example": "auditctl -a always,exit -F arch=b64 -S settimeofday -S clock_settime -k time_change",
+            "explanation": "Audits attempts to change the system time."
+        },
+        {
+            "id": 29,
+            "category": "Syscall Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S init_module -S delete_module -k kernel_mod",
+            "example": "auditctl -a always,exit -F arch=b64 -S init_module -S delete_module -k kernel_mod",
+            "explanation": "Audits loading and unloading of kernel modules."
+        },
+        {
+            "id": 30,
+            "category": "User Monitoring",
+            "command": "auditctl -a always,exit -F arch=b64 -S all -F auid=1001 -k user_monitor",
+            "example": "auditctl -a always,exit -F arch=b64 -S all -F auid=1001 -k user_monitor",
+            "explanation": "Audits all syscalls made by the user with Audit UID 1001."
+        },
+        {
+            "id": 31,
+            "category": "User Monitoring",
+            "command": "auditctl -a always,exit -F arch=b64 -S execve -F uid=0 -k root_exec",
+            "example": "auditctl -a always,exit -F arch=b64 -S execve -F uid=0 -k root_exec",
+            "explanation": "Audits command execution attempted by the root user."
+        },
+        {
+            "id": 32,
+            "category": "User Monitoring",
+            "command": "auditctl -a always,exit -F arch=b64 -S all -F gid=100 -k group_monitor",
+            "example": "auditctl -a always,exit -F arch=b64 -S all -F gid=100 -k group_monitor",
+            "explanation": "Audits all actions performed by members of GID 100."
+        },
+        {
+            "id": 33,
+            "category": "User Monitoring",
+            "command": "auditctl -a always,exit -F arch=b64 -S execve -F euid=0 -k effective_root",
+            "example": "auditctl -a always,exit -F arch=b64 -S execve -F euid=0 -k effective_root",
+            "explanation": "Audits executions where the effective user ID is root."
+        },
+        {
+            "id": 34,
+            "category": "Filter Optimization",
+            "command": "auditctl -a always,exit -F arch=b64 -S open -F success=0 -k open_fail",
+            "example": "auditctl -a always,exit -F arch=b64 -S open -F success=0 -k open_fail",
+            "explanation": "Only audits open syscalls that result in failure."
+        },
+        {
+            "id": 35,
+            "category": "Filter Optimization",
+            "command": "auditctl -a always,exit -F arch=b64 -S open -F auid>=1000 -F auid!=4294967295 -k human_activity",
+            "example": "auditctl -a always,exit -F arch=b64 -S open -F auid>=1000 -F auid!=4294967295 -k human_activity",
+            "explanation": "Audits file opens by real human users, ignoring daemons and unset AUIDs."
+        },
+        {
+            "id": 36,
+            "category": "Network Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S connect -k net_connect",
+            "example": "auditctl -a always,exit -F arch=b64 -S connect -k net_connect",
+            "explanation": "Audits outgoing network connection attempts."
+        },
+        {
+            "id": 37,
+            "category": "Network Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S accept -k net_accept",
+            "example": "auditctl -a always,exit -F arch=b64 -S accept -k net_accept",
+            "explanation": "Audits incoming network connection acceptances."
+        },
+        {
+            "id": 38,
+            "category": "Network Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S bind -k net_bind",
+            "example": "auditctl -a always,exit -F arch=b64 -S bind -k net_bind",
+            "explanation": "Audits attempts to bind a socket to a local address or port."
+        },
+        {
+            "id": 39,
+            "category": "Persistent Configuration",
+            "command": "augenrules --load",
+            "example": "augenrules --load",
+            "explanation": "Compiles rules from /etc/audit/rules.d/ and loads them into the kernel."
+        },
+        {
+            "id": 40,
+            "category": "Persistent Configuration",
+            "command": "augenrules --check",
+            "example": "augenrules --check",
+            "explanation": "Checks if the rules in kernel memory match the persistent configuration."
+        },
+        {
+            "id": 41,
+            "category": "Log Searching",
+            "command": "ausearch -m USER_LOGIN",
+            "example": "ausearch -m USER_LOGIN",
+            "explanation": "Searches logs for user login events."
+        },
+        {
+            "id": 42,
+            "category": "Log Searching",
+            "command": "ausearch -m USER_AUTH",
+            "example": "ausearch -m USER_AUTH",
+            "explanation": "Searches logs for authentication attempts."
+        },
+        {
+            "id": 43,
+            "category": "Log Searching",
+            "command": "ausearch -m SYSCALL -sv no",
+            "example": "ausearch -m SYSCALL -sv no",
+            "explanation": "Searches for system call events that failed."
+        },
+        {
+            "id": 44,
+            "category": "Log Searching",
+            "command": "ausearch -ua 1000",
+            "example": "ausearch -ua 1000",
+            "explanation": "Searches for events triggered by the user with UID 1000."
+        },
+        {
+            "id": 45,
+            "category": "Log Searching",
+            "command": "ausearch -k passwd_changes",
+            "example": "ausearch -k passwd_changes",
+            "explanation": "Searches for events tagged with the key 'passwd_changes'."
+        },
+        {
+            "id": 46,
+            "category": "Log Searching",
+            "command": "ausearch -f /etc/shadow",
+            "example": "ausearch -f /etc/shadow",
+            "explanation": "Searches for any events related to the file /etc/shadow."
+        },
+        {
+            "id": 47,
+            "category": "Log Searching",
+            "command": "ausearch -p 1234",
+            "example": "ausearch -p 1234",
+            "explanation": "Searches for events generated by process ID 1234."
+        },
+        {
+            "id": 48,
+            "category": "Log Searching",
+            "command": "ausearch -ts today",
+            "example": "ausearch -ts today",
+            "explanation": "Searches for events that occurred today."
+        },
+        {
+            "id": 49,
+            "category": "Log Searching",
+            "command": "ausearch -ts recent",
+            "example": "ausearch -ts recent",
+            "explanation": "Searches for events that occurred in the last 10 minutes."
+        },
+        {
+            "id": 50,
+            "category": "Log Searching",
+            "command": "ausearch -ts 08:00:00 -te 17:00:00",
+            "example": "ausearch -ts 08:00:00 -te 17:00:00",
+            "explanation": "Searches for events between 8 AM and 5 PM today."
+        },
+        {
+            "id": 51,
+            "category": "Log Searching",
+            "command": "ausearch -tm pts/0",
+            "example": "ausearch -tm pts/0",
+            "explanation": "Searches for events originating from terminal pts/0."
+        },
+        {
+            "id": 52,
+            "category": "Log Searching",
+            "command": "ausearch -i -k shell_exec",
+            "example": "ausearch -i -k shell_exec",
+            "explanation": "Searches for 'shell_exec' events and interprets numeric IDs to names."
+        },
+        {
+            "id": 53,
+            "category": "Log Searching",
+            "command": "ausearch -x /usr/bin/passwd",
+            "example": "ausearch -x /usr/bin/passwd",
+            "explanation": "Searches for execution events of the passwd binary."
+        },
+        {
+            "id": 54,
+            "category": "Log Searching",
+            "command": "ausearch -c httpd",
+            "example": "ausearch -c httpd",
+            "explanation": "Searches for events generated by the command name 'httpd'."
+        },
+        {
+            "id": 55,
+            "category": "Log Searching",
+            "command": "ausearch --raw",
+            "example": "ausearch --raw",
+            "explanation": "Outputs search results in raw format suitable for parsing."
+        },
+        {
+            "id": 56,
+            "category": "Reporting",
+            "command": "aureport",
+            "example": "aureport",
+            "explanation": "Generates a general summary report of all audit events."
+        },
+        {
+            "id": 57,
+            "category": "Reporting",
+            "command": "aureport -au",
+            "example": "aureport -au",
+            "explanation": "Generates a report of all authentication attempts."
+        },
+        {
+            "id": 58,
+            "category": "Reporting",
+            "command": "aureport -l",
+            "example": "aureport -l",
+            "explanation": "Generates a report of all login events."
+        },
+        {
+            "id": 59,
+            "category": "Reporting",
+            "command": "aureport -p",
+            "example": "aureport -p",
+            "explanation": "Generates a report of process related events."
+        },
+        {
+            "id": 60,
+            "category": "Reporting",
+            "command": "aureport -f",
+            "example": "aureport -f",
+            "explanation": "Generates a report of all file related events."
+        },
+        {
+            "id": 61,
+            "category": "Reporting",
+            "command": "aureport -u",
+            "example": "aureport -u",
+            "explanation": "Generates a report summarizing events by user."
+        },
+        {
+            "id": 62,
+            "category": "Reporting",
+            "command": "aureport -s",
+            "example": "aureport -s",
+            "explanation": "Generates a report summarizing system call events."
+        },
+        {
+            "id": 63,
+            "category": "Reporting",
+            "command": "aureport -t",
+            "example": "aureport -t",
+            "explanation": "Generates a report of events by log time range."
+        },
+        {
+            "id": 64,
+            "category": "Reporting",
+            "command": "aureport -c",
+            "example": "aureport -c",
+            "explanation": "Generates a report of configuration change events."
+        },
+        {
+            "id": 65,
+            "category": "Reporting",
+            "command": "aureport -m",
+            "example": "aureport -m",
+            "explanation": "Generates a report of account modification events."
+        },
+        {
+            "id": 66,
+            "category": "Reporting",
+            "command": "aureport -x",
+            "example": "aureport -x",
+            "explanation": "Generates a report of executable execution events."
+        },
+        {
+            "id": 67,
+            "category": "Reporting",
+            "command": "aureport --failed",
+            "example": "aureport --failed",
+            "explanation": "Generates a summary report of only failed events."
+        },
+        {
+            "id": 68,
+            "category": "Reporting",
+            "command": "aureport --success",
+            "example": "aureport --success",
+            "explanation": "Generates a summary report of only successful events."
+        },
+        {
+            "id": 69,
+            "category": "Reporting",
+            "command": "aureport -ts yesterday -te today",
+            "example": "aureport -ts yesterday -te today",
+            "explanation": "Generates a report covering events from yesterday to today."
+        },
+        {
+            "id": 70,
+            "category": "Reporting",
+            "command": "aureport -u -i",
+            "example": "aureport -u -i",
+            "explanation": "Generates a user summary report with numeric IDs resolved to names."
+        },
+        {
+            "id": 71,
+            "category": "Advanced Rules",
+            "command": "auditctl -a always,exit -F arch=b64 -S ptrace -k tracing",
+            "example": "auditctl -a always,exit -F arch=b64 -S ptrace -k tracing",
+            "explanation": "Audits attempts to trace processes (often used by debuggers or malware)."
+        },
+        {
+            "id": 72,
+            "category": "Advanced Rules",
+            "command": "auditctl -a always,exit -F arch=b64 -S mknod -S mknodat -k special_files",
+            "example": "auditctl -a always,exit -F arch=b64 -S mknod -S mknodat -k special_files",
+            "explanation": "Audits creation of special device files."
+        },
+        {
+            "id": 73,
+            "category": "Advanced Rules",
+            "command": "auditctl -a always,exit -F arch=b64 -S rename -S renameat -k file_rename",
+            "example": "auditctl -a always,exit -F arch=b64 -S rename -S renameat -k file_rename",
+            "explanation": "Audits file renaming operations."
+        },
+        {
+            "id": 74,
+            "category": "Advanced Rules",
+            "command": "auditctl -a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time_modification",
+            "example": "auditctl -a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time_modification",
+            "explanation": "Audits advanced time adjustment syscalls."
+        },
+        {
+            "id": 75,
+            "category": "Advanced Rules",
+            "command": "auditctl -a always,exit -F arch=b64 -S swapon -S swapoff -k swap_mod",
+            "example": "auditctl -a always,exit -F arch=b64 -S swapon -S swapoff -k swap_mod",
+            "explanation": "Audits enabling or disabling of swap space."
+        },
+        {
+            "id": 76,
+            "category": "Advanced Rules",
+            "command": "auditctl -w /var/log/audit/ -p wa -k audit_log_tampering",
+            "example": "auditctl -w /var/log/audit/ -p wa -k audit_log_tampering",
+            "explanation": "Watches the audit log directory itself for tampering attempts."
+        },
+        {
+            "id": 77,
+            "category": "Advanced Rules",
+            "command": "auditctl -w /sbin/insmod -p x -k module_insertion",
+            "example": "auditctl -w /sbin/insmod -p x -k module_insertion",
+            "explanation": "Watches the insmod binary for execution."
+        },
+        {
+            "id": 78,
+            "category": "Advanced Rules",
+            "command": "auditctl -w /sbin/rmmod -p x -k module_removal",
+            "example": "auditctl -w /sbin/rmmod -p x -k module_removal",
+            "explanation": "Watches the rmmod binary for execution."
+        },
+        {
+            "id": 79,
+            "category": "Process Tracing",
+            "command": "autrace /bin/ls",
+            "example": "autrace /bin/ls",
+            "explanation": "Traces the 'ls' command and logs all its syscalls."
+        },
+        {
+            "id": 80,
+            "category": "Process Tracing",
+            "command": "autrace -r /usr/bin/python3 script.py",
+            "example": "autrace -r /usr/bin/python3 script.py",
+            "explanation": "Traces a python script execution including resource usage."
+        },
+        {
+            "id": 81,
+            "category": "SOC Workflow",
+            "command": "ausearch -k net_connect | aureport -f -i",
+            "example": "ausearch -k net_connect | aureport -f -i",
+            "explanation": "Finds network connection events and reports which files (sockets) were accessed."
+        },
+        {
+            "id": 82,
+            "category": "SOC Workflow",
+            "command": "ausearch -ul 1000 -m USER_LOGIN -i",
+            "example": "ausearch -ul 1000 -m USER_LOGIN -i",
+            "explanation": "Investigates all login events for a specific user ID."
+        },
+        {
+            "id": 83,
+            "category": "SOC Workflow",
+            "command": "ausearch -k passwd_changes -ts today | aureport -u -i",
+            "example": "ausearch -k passwd_changes -ts today | aureport -u -i",
+            "explanation": "Identifies which users modified password files today."
+        },
+        {
+            "id": 84,
+            "category": "SOC Workflow",
+            "command": "ausearch -m PROCTITLE -i",
+            "example": "ausearch -m PROCTITLE -i",
+            "explanation": "Searches for events containing process title information (command line args)."
+        },
+        {
+            "id": 85,
+            "category": "SOC Workflow",
+            "command": "ausearch -k root_exec -i | grep ' /bin/bash'",
+            "example": "ausearch -k root_exec -i | grep ' /bin/bash'",
+            "explanation": "Filters root execution logs specifically for bash shells."
+        },
+        {
+            "id": 86,
+            "category": "Blue Team Validation",
+            "command": "auditctl -s | grep 'enabled'",
+            "example": "auditctl -s | grep 'enabled'",
+            "explanation": "Validates that the audit service is currently enabled."
+        },
+        {
+            "id": 87,
+            "category": "Blue Team Validation",
+            "command": "ausearch -m DAEMON_ABORT",
+            "example": "ausearch -m DAEMON_ABORT",
+            "explanation": "Checks logs for instances where the audit daemon crashed or aborted."
+        },
+        {
+            "id": 88,
+            "category": "Blue Team Validation",
+            "command": "ausearch -m ANOM_PROMISCUOUS",
+            "example": "ausearch -m ANOM_PROMISCUOUS",
+            "explanation": "Searches for network interfaces entering promiscuous mode (sniffing)."
+        },
+        {
+            "id": 89,
+            "category": "Blue Team Validation",
+            "command": "ausearch -m ANOM_ABEND",
+            "example": "ausearch -m ANOM_ABEND",
+            "explanation": "Searches for applications that terminated abnormally (segfaults)."
+        },
+        {
+            "id": 90,
+            "category": "Blue Team Validation",
+            "command": "ausearch -f /root/.ssh/authorized_keys -i",
+            "example": "ausearch -f /root/.ssh/authorized_keys -i",
+            "explanation": "Monitors access to root SSH keys for unauthorized persistence."
+        },
+        {
+            "id": 91,
+            "category": "Compliance",
+            "command": "auditctl -a always,exit -F arch=b64 -S fchown -S fchownat -k ownership_change",
+            "example": "auditctl -a always,exit -F arch=b64 -S fchown -S fchownat -k ownership_change",
+            "explanation": "Compliance rule to track all file ownership changes."
+        },
+        {
+            "id": 92,
+            "category": "Compliance",
+            "command": "auditctl -a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -k attr_mod",
+            "example": "auditctl -a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -k attr_mod",
+            "explanation": "Compliance rule to track extended attribute modifications."
+        },
+        {
+            "id": 93,
+            "category": "Compliance",
+            "command": "auditctl -w /var/log/tallylog -p wa -k logins",
+            "example": "auditctl -w /var/log/tallylog -p wa -k logins",
+            "explanation": "Monitors the tallylog file for failed login attempt tracking."
+        },
+        {
+            "id": 94,
+            "category": "Compliance",
+            "command": "auditctl -w /etc/group -p wa -k group_mod",
+            "example": "auditctl -w /etc/group -p wa -k group_mod",
+            "explanation": "Monitors the group file for changes to user groups."
+        },
+        {
+            "id": 95,
+            "category": "Compliance",
+            "command": "auditctl -w /etc/issue -p wa -k banner_mod",
+            "example": "auditctl -w /etc/issue -p wa -k banner_mod",
+            "explanation": "Monitors changes to the system login banner."
+        },
+        {
+            "id": 96,
+            "category": "Incident Response",
+            "command": "ausearch --start recent -m EXECVE -i | grep 'nc -e'",
+            "example": "ausearch --start recent -m EXECVE -i | grep 'nc -e'",
+            "explanation": "Hunts for recent executions of netcat reverse shells."
+        },
+        {
+            "id": 97,
+            "category": "Incident Response",
+            "command": "ausearch -f /tmp -i | grep 'EXECVE'",
+            "example": "ausearch -f /tmp -i | grep 'EXECVE'",
+            "explanation": "Investigates any binaries executed from the /tmp directory."
+        },
+        {
+            "id": 98,
+            "category": "Incident Response",
+            "command": "ausearch -f /dev/shm -i",
+            "example": "ausearch -f /dev/shm -i",
+            "explanation": "Checks for suspicious file activity in shared memory (malware staging)."
+        },
+        {
+            "id": 99,
+            "category": "Incident Response",
+            "command": "ausearch -k kernel_mod -i",
+            "example": "ausearch -k kernel_mod -i",
+            "explanation": "Checks for unauthorized kernel module loading (rootkits)."
+        },
+        {
+            "id": 100,
+            "category": "Incident Response",
+            "command": "ausearch -m USER_CMD -i --failed",
+            "example": "ausearch -m USER_CMD -i --failed",
+            "explanation": "Reviews failed sudo commands to detect privilege escalation attempts."
+        },
+        {
+            "id": 101,
+            "category": "Incident Response",
+            "command": "ausearch -ts today -m LOGIN -F success=no",
+            "example": "ausearch -ts today -m LOGIN -F success=no",
+            "explanation": "Lists all failed login attempts from the current day."
+        },
+        {
+            "id": 102,
+            "category": "Incident Response",
+            "command": "ausearch -k deletion -i | grep '/var/log'",
+            "example": "ausearch -k deletion -i | grep '/var/log'",
+            "explanation": "Detects attempts to delete log files to cover tracks."
+        },
+        {
+            "id": 103,
+            "category": "Advanced Filtering",
+            "command": "auditctl -a always,exit -F arch=b64 -S socket -F a0=2 -k ipv4_socket",
+            "example": "auditctl -a always,exit -F arch=b64 -S socket -F a0=2 -k ipv4_socket",
+            "explanation": "Audits creation of IPv4 sockets specifically."
+        },
+        {
+            "id": 104,
+            "category": "Advanced Filtering",
+            "command": "auditctl -a always,exit -F arch=b64 -S socket -F a0=10 -k ipv6_socket",
+            "example": "auditctl -a always,exit -F arch=b64 -S socket -F a0=10 -k ipv6_socket",
+            "explanation": "Audits creation of IPv6 sockets specifically."
+        },
+        {
+            "id": 105,
+            "category": "Advanced Filtering",
+            "command": "auditctl -a always,exit -F dir=/home -F uid=0 -C auid!=obj_uid -k admin_home_access",
+            "example": "auditctl -a always,exit -F dir=/home -F uid=0 -C auid!=obj_uid -k admin_home_access",
+            "explanation": "Audits root accessing home directories not belonging to them."
+        },
+        {
+            "id": 106,
+            "category": "Advanced Filtering",
+            "command": "auditctl -a always,exit -F arch=b64 -S execve -F exe=/usr/bin/wget -k suspicious_download",
+            "example": "auditctl -a always,exit -F arch=b64 -S execve -F exe=/usr/bin/wget -k suspicious_download",
+            "explanation": "Specifically audits execution of wget."
+        },
+        {
+            "id": 107,
+            "category": "Advanced Filtering",
+            "command": "auditctl -a always,exit -F arch=b64 -S execve -F exe=/usr/bin/curl -k suspicious_download",
+            "example": "auditctl -a always,exit -F arch=b64 -S execve -F exe=/usr/bin/curl -k suspicious_download",
+            "explanation": "Specifically audits execution of curl."
+        },
+        {
+            "id": 108,
+            "category": "Advanced Filtering",
+            "command": "auditctl -a always,exit -F arch=b64 -S execve -F exe=/usr/bin/ncat -k reverse_shell_tool",
+            "example": "auditctl -a always,exit -F arch=b64 -S execve -F exe=/usr/bin/ncat -k reverse_shell_tool",
+            "explanation": "Audits ncat execution, often used for reverse shells."
+        },
+        {
+            "id": 109,
+            "category": "Configuration Maintenance",
+            "command": "sh -c 'auditctl -R /etc/audit/audit.rules'",
+            "example": "sh -c 'auditctl -R /etc/audit/audit.rules'",
+            "explanation": "Manually reloads rules from the legacy audit.rules file."
+        },
+        {
+            "id": 110,
+            "category": "Configuration Maintenance",
+            "command": "grep -i 'backlog' /var/log/syslog",
+            "example": "grep -i 'backlog' /var/log/syslog",
+            "explanation": "Checks system logs for audit backlog limit exceeded warnings."
+        },
+        {
+            "id": 111,
+            "category": "Configuration Maintenance",
+            "command": "auditctl -m 'Audit checkpoint: System update started'",
+            "example": "auditctl -m 'Audit checkpoint: System update started'",
+            "explanation": "Injects a custom text message into the audit log for marking events."
+        },
+        {
+            "id": 112,
+            "category": "Automated Analysis",
+            "command": "aureport --summary",
+            "example": "aureport --summary",
+            "explanation": "Provides a high-level statistical summary of all audit events."
+        },
+        {
+            "id": 113,
+            "category": "Automated Analysis",
+            "command": "ausearch -te now -ts recent -i | aureport -f",
+            "example": "ausearch -te now -ts recent -i | aureport -f",
+            "explanation": "Pipelines recent logs into a file access report."
+        },
+        {
+            "id": 114,
+            "category": "Automated Analysis",
+            "command": "ausearch -k deletion | aureport -f -i",
+            "example": "ausearch -k deletion | aureport -f -i",
+            "explanation": "Reports exactly which files were deleted based on the deletion key."
+        },
+        {
+            "id": 115,
+            "category": "Automated Analysis",
+            "command": "ausearch -m AVC -i",
+            "example": "ausearch -m AVC -i",
+            "explanation": "Searches for SELinux Access Vector Cache denials."
+        },
+        {
+            "id": 116,
+            "category": "Automated Analysis",
+            "command": "ausearch -m USER_TTY -i",
+            "example": "ausearch -m USER_TTY -i",
+            "explanation": "Searches for TTY (terminal) allocation events."
+        },
+        {
+            "id": 117,
+            "category": "Deep Dive",
+            "command": "auditctl -a always,exit -F arch=b64 -S clone -S fork -S vfork -k process_fork",
+            "example": "auditctl -a always,exit -F arch=b64 -S clone -S fork -S vfork -k process_fork",
+            "explanation": "Audits all process forking methods."
+        },
+        {
+            "id": 118,
+            "category": "Deep Dive",
+            "command": "auditctl -a always,exit -F arch=b64 -S kill -k process_kill",
+            "example": "auditctl -a always,exit -F arch=b64 -S kill -k process_kill",
+            "explanation": "Audits the kill syscall to track process termination signals."
+        },
+        {
+            "id": 119,
+            "category": "Deep Dive",
+            "command": "auditctl -a always,exit -F arch=b64 -S ptrace -F a0=4 -k process_injection",
+            "example": "auditctl -a always,exit -F arch=b64 -S ptrace -F a0=4 -k process_injection",
+            "explanation": "Audits PTRACE_POKETEXT/DATA calls, indicative of code injection."
+        },
+        {
+            "id": 120,
+            "category": "Deep Dive",
+            "command": "auditctl -a always,exit -F arch=b64 -S memfd_create -k memory_exec",
+            "example": "auditctl -a always,exit -F arch=b64 -S memfd_create -k memory_exec",
+            "explanation": "Audits creation of memory file descriptors, used by fileless malware."
+        },
+        {
+            "id": 121,
+            "category": "Deep Dive",
+            "command": "auditctl -a always,exit -F arch=b64 -S prctl -k process_control",
+            "example": "auditctl -a always,exit -F arch=b64 -S prctl -k process_control",
+            "explanation": "Audits process control operations."
+        },
+        {
+            "id": 122,
+            "category": "Immutable Systems",
+            "command": "sed -i 's/immutable = 0/immutable = 1/' /etc/audit/auditd.conf",
+            "example": "sed -i 's/immutable = 0/immutable = 1/' /etc/audit/auditd.conf",
+            "explanation": "Configures auditd to start in immutable mode via config file."
+        },
+        {
+            "id": 123,
+            "category": "Log Management",
+            "command": "grep 'max_log_file' /etc/audit/auditd.conf",
+            "example": "grep 'max_log_file' /etc/audit/auditd.conf",
+            "explanation": "Checks the maximum size of a single audit log file."
+        },
+        {
+            "id": 124,
+            "category": "Log Management",
+            "command": "grep 'max_log_file_action' /etc/audit/auditd.conf",
+            "example": "grep 'max_log_file_action' /etc/audit/auditd.conf",
+            "explanation": "Checks what action auditd takes when a log file fills up."
+        },
+        {
+            "id": 125,
+            "category": "Log Management",
+            "command": "grep 'space_left_action' /etc/audit/auditd.conf",
+            "example": "grep 'space_left_action' /etc/audit/auditd.conf",
+            "explanation": "Checks action taken when disk space is running low."
+        },
+        {
+            "id": 126,
+            "category": "Log Management",
+            "command": "grep 'admin_space_left_action' /etc/audit/auditd.conf",
+            "example": "grep 'admin_space_left_action' /etc/audit/auditd.conf",
+            "explanation": "Checks action taken when disk space is critically low."
+        },
+        {
+            "id": 127,
+            "category": "Real-time Monitoring",
+            "command": "tail -f /var/log/audit/audit.log",
+            "example": "tail -f /var/log/audit/audit.log",
+            "explanation": "Tails the raw audit log file for real-time observation."
+        },
+        {
+            "id": 128,
+            "category": "Real-time Monitoring",
+            "command": "tail -f /var/log/audit/audit.log | ausearch -i",
+            "example": "tail -f /var/log/audit/audit.log | ausearch -i",
+            "explanation": "Tails the log and pipes it to ausearch for real-time interpretation."
+        },
+        {
+            "id": 129,
+            "category": "Log Decoding",
+            "command": "ausearch -i -f /usr/bin/sudo | less",
+            "example": "ausearch -i -f /usr/bin/sudo | less",
+            "explanation": "Pages through interpreted audit logs related to sudo execution."
+        },
+        {
+            "id": 130,
+            "category": "Log Decoding",
+            "command": "aureport --node",
+            "example": "aureport --node",
+            "explanation": "Reports events by node name (useful in clustered environments)."
+        },
+        {
+            "id": 131,
+            "category": "Privilege Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S setuid -S setgid -k privilege_escalation",
+            "example": "auditctl -a always,exit -F arch=b64 -S setuid -S setgid -k privilege_escalation",
+            "explanation": "Audits explicit calls to set user or group identity."
+        },
+        {
+            "id": 132,
+            "category": "Privilege Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S capset -k capability_change",
+            "example": "auditctl -a always,exit -F arch=b64 -S capset -k capability_change",
+            "explanation": "Audits changes to process capabilities."
+        },
+        {
+            "id": 133,
+            "category": "Filesystem Integrity",
+            "command": "auditctl -w /boot/ -p wa -k boot_integrity",
+            "example": "auditctl -w /boot/ -p wa -k boot_integrity",
+            "explanation": "Monitors the boot directory for modifications (kernel tampering)."
+        },
+        {
+            "id": 134,
+            "category": "Filesystem Integrity",
+            "command": "auditctl -w /lib64/ld-linux-x86-64.so.2 -p wa -k library_hijack",
+            "example": "auditctl -w /lib64/ld-linux-x86-64.so.2 -p wa -k library_hijack",
+            "explanation": "Monitors the dynamic linker for tampering."
+        },
+        {
+            "id": 135,
+            "category": "Complex Queries",
+            "command": "ausearch -k user_monitor -ts today -te 12:00:00",
+            "example": "ausearch -k user_monitor -ts today -te 12:00:00",
+            "explanation": "Filters user monitor events for the morning session only."
+        },
+        {
+            "id": 136,
+            "category": "Complex Queries",
+            "command": "ausearch -m CRYPTO_KEY_USER",
+            "example": "ausearch -m CRYPTO_KEY_USER",
+            "explanation": "Searches for events related to cryptographic key usage."
+        },
+        {
+            "id": 137,
+            "category": "Complex Queries",
+            "command": "ausearch -m SERVICE_START -i",
+            "example": "ausearch -m SERVICE_START -i",
+            "explanation": "Searches for service start events."
+        },
+        {
+            "id": 138,
+            "category": "Complex Queries",
+            "command": "ausearch -m SERVICE_STOP -i",
+            "example": "ausearch -m SERVICE_STOP -i",
+            "explanation": "Searches for service stop events."
+        },
+        {
+            "id": 139,
+            "category": "Container Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S unshare -k container_creation",
+            "example": "auditctl -a always,exit -F arch=b64 -S unshare -k container_creation",
+            "explanation": "Audits namespace unsharing, often used in container creation."
+        },
+        {
+            "id": 140,
+            "category": "Container Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S setns -k container_entry",
+            "example": "auditctl -a always,exit -F arch=b64 -S setns -k container_entry",
+            "explanation": "Audits entry into an existing namespace (container exec)."
+        },
+        {
+            "id": 141,
+            "category": "Container Auditing",
+            "command": "auditctl -a always,exit -F arch=b64 -S pivot_root -k container_pivot",
+            "example": "auditctl -a always,exit -F arch=b64 -S pivot_root -k container_pivot",
+            "explanation": "Audits pivoting of the root filesystem."
+        },
+        {
+            "id": 142,
+            "category": "Search Optimization",
+            "command": "ausearch --checkpoint ./checkpoint.txt",
+            "example": "ausearch --checkpoint ./checkpoint.txt",
+            "explanation": "Performs a search and saves a checkpoint to resume later."
+        },
+        {
+            "id": 143,
+            "category": "Search Optimization",
+            "command": "ausearch --checkpoint ./checkpoint.txt --resume",
+            "example": "ausearch --checkpoint ./checkpoint.txt --resume",
+            "explanation": "Resumes a search from the saved checkpoint file."
+        },
+        {
+            "id": 144,
+            "category": "Automation",
+            "command": "ausearch -ts today -m AVC --raw | audit2allow",
+            "example": "ausearch -ts today -m AVC --raw | audit2allow",
+            "explanation": "Pipes raw AVC denials to audit2allow to generate SELinux policies."
+        },
+        {
+            "id": 145,
+            "category": "Automation",
+            "command": "aureport --input /var/log/audit/audit.log.1",
+            "example": "aureport --input /var/log/audit/audit.log.1",
+            "explanation": "Generates a report from a rotated (archived) log file."
+        },
+        {
+            "id": 146,
+            "category": "Automation",
+            "command": "ausearch -if /var/log/audit/audit.log.1 -m LOGIN",
+            "example": "ausearch -if /var/log/audit/audit.log.1 -m LOGIN",
+            "explanation": "Searches for login events within a specific rotated log file."
+        },
+        {
+            "id": 147,
+            "category": "Cleanup",
+            "command": "auditctl -D",
+            "example": "auditctl -D",
+            "explanation": "Removes all rules in preparation for a clean shutdown or reset."
+        },
+        {
+            "id": 148,
+            "category": "Cleanup",
+            "command": "systemctl stop auditd",
+            "example": "systemctl stop auditd",
+            "explanation": "Stops the daemon after testing is complete."
+        },
+        {
+            "id": 149,
+            "category": "Cleanup",
+            "command": "rm /etc/audit/rules.d/test.rules",
+            "example": "rm /etc/audit/rules.d/test.rules",
+            "explanation": "Removes temporary test rule files."
+        },
+        {
+            "id": 150,
+            "category": "Cleanup",
+            "command": "augenrules --load",
+            "example": "augenrules --load",
+            "explanation": "Reloads the default configuration to restore system state."
+        }
+    ]
+}

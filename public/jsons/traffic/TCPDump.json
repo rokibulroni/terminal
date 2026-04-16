@@ -1,0 +1,602 @@
+{
+  "tool": "tcpdump",
+  "description": "Complete tcpdump command reference covering all options from basic to advanced",
+  "total_commands": 85,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Interface Selection",
+      "command": "tcpdump -D",
+      "example": "tcpdump -D",
+      "explanation": "Lists all available network interfaces on the system that can be captured."
+    },
+    {
+      "id": 2,
+      "category": "Basic Capture",
+      "command": "tcpdump -i eth0",
+      "example": "tcpdump -i eth0",
+      "explanation": "Captures all traffic flowing through the specific interface named eth0."
+    },
+    {
+      "id": 3,
+      "category": "Basic Capture",
+      "command": "tcpdump -i any",
+      "example": "tcpdump -i any",
+      "explanation": "Captures traffic from all active interfaces simultaneously (Pseudo-device capture)."
+    },
+    {
+      "id": 4,
+      "category": "Output Formatting",
+      "command": "tcpdump -n",
+      "example": "tcpdump -n -i eth0",
+      "explanation": "Disables DNS name resolution to display IP addresses instead of hostnames."
+    },
+    {
+      "id": 5,
+      "category": "Output Formatting",
+      "command": "tcpdump -nn",
+      "example": "tcpdump -nn -i eth0",
+      "explanation": "Disables both DNS name resolution and port name resolution (shows port numbers)."
+    },
+    {
+      "id": 6,
+      "category": "Capture Count",
+      "command": "tcpdump -c 10",
+      "example": "tcpdump -c 10 -i eth0",
+      "explanation": "Captures exactly 10 packets and then automatically exits."
+    },
+    {
+      "id": 7,
+      "category": "Verbosity",
+      "command": "tcpdump -v",
+      "example": "tcpdump -v -i eth0",
+      "explanation": "Enables verbose output to see TTL, ID, total length, and options."
+    },
+    {
+      "id": 8,
+      "category": "Verbosity",
+      "command": "tcpdump -vv",
+      "example": "tcpdump -vv -i eth0",
+      "explanation": "Enables extra verbose output including NFS and SMB file decoding."
+    },
+    {
+      "id": 9,
+      "category": "Verbosity",
+      "command": "tcpdump -vvv",
+      "example": "tcpdump -vvv -i eth0",
+      "explanation": "Enables maximum verbosity for full protocol decoding and analysis."
+    },
+    {
+      "id": 10,
+      "category": "Quiet Output",
+      "command": "tcpdump -q",
+      "example": "tcpdump -q -i eth0",
+      "explanation": "Prints less protocol information for a cleaner, easier to read line."
+    },
+    {
+      "id": 11,
+      "category": "Output Formatting",
+      "command": "tcpdump -t",
+      "example": "tcpdump -t -i eth0",
+      "explanation": "Disables timestamp printing on each line."
+    },
+    {
+      "id": 12,
+      "category": "Output Formatting",
+      "command": "tcpdump -tt",
+      "example": "tcpdump -tt -i eth0",
+      "explanation": "Prints an unformatted unix epoch timestamp on each line."
+    },
+    {
+      "id": 13,
+      "category": "Output Formatting",
+      "command": "tcpdump -tttt",
+      "example": "tcpdump -tttt -i eth0",
+      "explanation": "Prints a human-readable date and timestamp for every packet."
+    },
+    {
+      "id": 14,
+      "category": "Link Layer",
+      "command": "tcpdump -e",
+      "example": "tcpdump -e -i eth0",
+      "explanation": "Prints the link-level header on each line, showing MAC addresses."
+    },
+    {
+      "id": 15,
+      "category": "Packet Display",
+      "command": "tcpdump -A",
+      "example": "tcpdump -A -i eth0",
+      "explanation": "Prints packets in ASCII format, useful for reading web pages or plain text data."
+    },
+    {
+      "id": 16,
+      "category": "Packet Display",
+      "command": "tcpdump -X",
+      "example": "tcpdump -X -i eth0",
+      "explanation": "Prints packets in both Hex and ASCII format, essential for payload analysis."
+    },
+    {
+      "id": 17,
+      "category": "Packet Display",
+      "command": "tcpdump -xx",
+      "example": "tcpdump -xx -i eth0",
+      "explanation": "Prints the full packet data in hex, including the ethernet header."
+    },
+    {
+      "id": 18,
+      "category": "Snapshot Length",
+      "command": "tcpdump -s 0",
+      "example": "tcpdump -s 0 -i eth0",
+      "explanation": "Sets snapshot length to default (unlimited) to capture full packet bodies instead of truncating."
+    },
+    {
+      "id": 19,
+      "category": "Writing to File",
+      "command": "tcpdump -w capture.pcap",
+      "example": "tcpdump -w capture.pcap -i eth0",
+      "explanation": "Writes raw packet data to a standard PCAP file for later analysis."
+    },
+    {
+      "id": 20,
+      "category": "Reading from File",
+      "command": "tcpdump -r capture.pcap",
+      "example": "tcpdump -r capture.pcap",
+      "explanation": "Reads and analyzes packets from a previously saved PCAP file."
+    },
+    {
+      "id": 21,
+      "category": "File Rotation",
+      "command": "tcpdump -C 100 -w capture.pcap",
+      "example": "tcpdump -C 100 -w capture.pcap",
+      "explanation": "Rotates the capture file every 100 million bytes (approx 100MB)."
+    },
+    {
+      "id": 22,
+      "category": "File Rotation",
+      "command": "tcpdump -G 3600 -w capture_%H.pcap",
+      "example": "tcpdump -G 3600 -w capture_%H.pcap",
+      "explanation": "Rotates the capture file every 3600 seconds (1 hour) incorporating timestamp into filename."
+    },
+    {
+      "id": 23,
+      "category": "Host Filter",
+      "command": "tcpdump host 192.168.1.50",
+      "example": "tcpdump -n host 192.168.1.50",
+      "explanation": "Filters traffic specifically to or from the host IP 192.168.1.50."
+    },
+    {
+      "id": 24,
+      "category": "Direction Filter",
+      "command": "tcpdump src 192.168.1.50",
+      "example": "tcpdump -n src 192.168.1.50",
+      "explanation": "Captures only traffic originating from the specific IP address."
+    },
+    {
+      "id": 25,
+      "category": "Direction Filter",
+      "command": "tcpdump dst 192.168.1.50",
+      "example": "tcpdump -n dst 192.168.1.50",
+      "explanation": "Captures only traffic destined to the specific IP address."
+    },
+    {
+      "id": 26,
+      "category": "Network Filter",
+      "command": "tcpdump net 10.0.0.0/24",
+      "example": "tcpdump -n net 10.0.0.0/24",
+      "explanation": "Captures all traffic belonging to the 10.0.0.0/24 subnet."
+    },
+    {
+      "id": 27,
+      "category": "Port Filter",
+      "command": "tcpdump port 80",
+      "example": "tcpdump -n port 80",
+      "explanation": "Captures traffic flowing through port 80 (HTTP) regardless of direction."
+    },
+    {
+      "id": 28,
+      "category": "Port Range",
+      "command": "tcpdump portrange 1000-2000",
+      "example": "tcpdump -n portrange 1000-2000",
+      "explanation": "Captures traffic on a range of ports from 1000 to 2000."
+    },
+    {
+      "id": 29,
+      "category": "Protocol Filter",
+      "command": "tcpdump tcp",
+      "example": "tcpdump -n tcp",
+      "explanation": "Filters output to show only TCP protocol traffic."
+    },
+    {
+      "id": 30,
+      "category": "Protocol Filter",
+      "command": "tcpdump udp",
+      "example": "tcpdump -n udp",
+      "explanation": "Filters output to show only UDP protocol traffic."
+    },
+    {
+      "id": 31,
+      "category": "Protocol Filter",
+      "command": "tcpdump icmp",
+      "example": "tcpdump -n icmp",
+      "explanation": "Filters output to show only ICMP (Ping/Unreachable) traffic."
+    },
+    {
+      "id": 32,
+      "category": "Protocol Filter",
+      "command": "tcpdump arp",
+      "example": "tcpdump -n arp",
+      "explanation": "Filters output to show only ARP address resolution traffic."
+    },
+    {
+      "id": 33,
+      "category": "Protocol Filter",
+      "command": "tcpdump ip6",
+      "example": "tcpdump -n ip6",
+      "explanation": "Filters output to show only IPv6 traffic."
+    },
+    {
+      "id": 34,
+      "category": "Logical Operators",
+      "command": "tcpdump \"src 10.0.0.1 and dst port 80\"",
+      "example": "tcpdump -n \"src 10.0.0.1 and dst port 80\"",
+      "explanation": "Combines filters to match packets from 10.0.0.1 going to port 80."
+    },
+    {
+      "id": 35,
+      "category": "Logical Operators",
+      "command": "tcpdump \"port 80 or port 443\"",
+      "example": "tcpdump -n \"port 80 or port 443\"",
+      "explanation": "Matches packets using either port 80 or port 443."
+    },
+    {
+      "id": 36,
+      "category": "Logical Operators",
+      "command": "tcpdump \"not port 22\"",
+      "example": "tcpdump -n \"not port 22\"",
+      "explanation": "Excludes all SSH traffic from the capture."
+    },
+    {
+      "id": 37,
+      "category": "Complex Logic",
+      "command": "tcpdump \"host 10.0.0.1 and (port 80 or port 443)\"",
+      "example": "tcpdump -n \"host 10.0.0.1 and (port 80 or port 443)\"",
+      "explanation": "Uses parentheses to group logic for a specific host on web ports."
+    },
+    {
+      "id": 38,
+      "category": "TCP Flags",
+      "command": "tcpdump \"tcp[tcpflags] & tcp-syn != 0\"",
+      "example": "tcpdump -n \"tcp[tcpflags] & tcp-syn != 0\"",
+      "explanation": "Captures only TCP packets with the SYN flag set (connection requests)."
+    },
+    {
+      "id": 39,
+      "category": "TCP Flags",
+      "command": "tcpdump \"tcp[tcpflags] & tcp-ack != 0\"",
+      "example": "tcpdump -n \"tcp[tcpflags] & tcp-ack != 0\"",
+      "explanation": "Captures only TCP packets with the ACK flag set."
+    },
+    {
+      "id": 40,
+      "category": "TCP Flags",
+      "command": "tcpdump \"tcp[tcpflags] & tcp-fin != 0\"",
+      "example": "tcpdump -n \"tcp[tcpflags] & tcp-fin != 0\"",
+      "explanation": "Captures only TCP packets with the FIN flag set (connection termination)."
+    },
+    {
+      "id": 41,
+      "category": "TCP Flags",
+      "command": "tcpdump \"tcp[tcpflags] & tcp-rst != 0\"",
+      "example": "tcpdump -n \"tcp[tcpflags] & tcp-rst != 0\"",
+      "explanation": "Captures only TCP packets with the RST flag set (connection reset)."
+    },
+    {
+      "id": 42,
+      "category": "TCP Flags",
+      "command": "tcpdump \"tcp[tcpflags] & tcp-push != 0\"",
+      "example": "tcpdump -n \"tcp[tcpflags] & tcp-push != 0\"",
+      "explanation": "Captures packets with the PUSH flag, indicating data should be processed immediately."
+    },
+    {
+      "id": 43,
+      "category": "Specific Flows",
+      "command": "tcpdump \"tcp[tcpflags] & (tcp-syn|tcp-ack) == (tcp-syn|tcp-ack)\"",
+      "example": "tcpdump -n \"tcp[tcpflags] & (tcp-syn|tcp-ack) == (tcp-syn|tcp-ack)\"",
+      "explanation": "Captures only SYN-ACK packets, representing the server response in a handshake."
+    },
+    {
+      "id": 44,
+      "category": "Packet Size",
+      "command": "tcpdump \"less 32\"",
+      "example": "tcpdump -n \"less 32\"",
+      "explanation": "Captures packets smaller than 32 bytes."
+    },
+    {
+      "id": 45,
+      "category": "Packet Size",
+      "command": "tcpdump \"greater 1000\"",
+      "example": "tcpdump -n \"greater 1000\"",
+      "explanation": "Captures packets larger than 1000 bytes."
+    },
+    {
+      "id": 46,
+      "category": "Advanced BPF",
+      "command": "tcpdump \"ip[2:2] > 600\"",
+      "example": "tcpdump -n \"ip[2:2] > 600\"",
+      "explanation": "Uses byte offset filtering to capture packets with a total IP length greater than 600."
+    },
+    {
+      "id": 47,
+      "category": "Advanced BPF",
+      "command": "tcpdump \"tcp[13] & 2 != 0\"",
+      "example": "tcpdump -n \"tcp[13] & 2 != 0\"",
+      "explanation": "Manual BPF filter checking the 13th byte of TCP header for the SYN flag."
+    },
+    {
+      "id": 48,
+      "category": "ICMP Type",
+      "command": "tcpdump \"icmp[icmptype] == icmp-echo\"",
+      "example": "tcpdump -n \"icmp[icmptype] == icmp-echo\"",
+      "explanation": "Captures only ICMP Echo Requests (standard Pings)."
+    },
+    {
+      "id": 49,
+      "category": "ICMP Type",
+      "command": "tcpdump \"icmp[icmptype] == icmp-echoreply\"",
+      "example": "tcpdump -n \"icmp[icmptype] == icmp-echoreply\"",
+      "explanation": "Captures only ICMP Echo Replies (Pong)."
+    },
+    {
+      "id": 50,
+      "category": "Broadcast/Multicast",
+      "command": "tcpdump \"ether dst ff:ff:ff:ff:ff:ff\"",
+      "example": "tcpdump -n \"ether dst ff:ff:ff:ff:ff:ff\"",
+      "explanation": "Captures layer 2 broadcast traffic specifically."
+    },
+    {
+      "id": 51,
+      "category": "Broadcast/Multicast",
+      "command": "tcpdump \"ip multicast\"",
+      "example": "tcpdump -n \"ip multicast\"",
+      "explanation": "Captures traffic destined for multicast groups."
+    },
+    {
+      "id": 52,
+      "category": "VLAN Capture",
+      "command": "tcpdump vlan",
+      "example": "tcpdump -n -i eth0 vlan",
+      "explanation": "Filters for traffic containing 802.1Q VLAN headers."
+    },
+    {
+      "id": 53,
+      "category": "VLAN Capture",
+      "command": "tcpdump vlan 100",
+      "example": "tcpdump -n -i eth0 vlan 100",
+      "explanation": "Captures traffic specifically tagged with VLAN ID 100."
+    },
+    {
+      "id": 54,
+      "category": "IPv6 Capture",
+      "command": "tcpdump ip6 proto 6",
+      "example": "tcpdump -n ip6 proto 6",
+      "explanation": "Captures IPv6 traffic specifically using the TCP protocol (Protocol 6)."
+    },
+    {
+      "id": 55,
+      "category": "Security Forensics",
+      "command": "tcpdump -X -s 0 port 80",
+      "example": "tcpdump -X -s 0 port 80",
+      "explanation": "Captures full HTTP packets in Hex/ASCII to inspect payloads for malicious data."
+    },
+    {
+      "id": 56,
+      "category": "Security Forensics",
+      "command": "tcpdump \"tcp[tcpflags] == 0\"",
+      "example": "tcpdump -n \"tcp[tcpflags] == 0\"",
+      "explanation": "Detects Null Scan attacks where a packet is sent with no TCP flags set."
+    },
+    {
+      "id": 57,
+      "category": "Security Forensics",
+      "command": "tcpdump \"tcp[tcpflags] & (tcp-fin|tcp-urg|tcp-push) == (tcp-fin|tcp-urg|tcp-push)\"",
+      "example": "tcpdump -n \"tcp[tcpflags] & (tcp-fin|tcp-urg|tcp-push) == (tcp-fin|tcp-urg|tcp-push)\"",
+      "explanation": "Detects Xmas Tree scans which set the FIN, URG, and PUSH flags simultaneously."
+    },
+    {
+      "id": 58,
+      "category": "Security Forensics",
+      "command": "tcpdump \"tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420\"",
+      "example": "tcpdump -A \"tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420\"",
+      "explanation": "Advanced filter matching the bytes 'GET ' at the beginning of the TCP payload."
+    },
+    {
+      "id": 59,
+      "category": "Security Forensics",
+      "command": "tcpdump \"tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354\"",
+      "example": "tcpdump -A \"tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354\"",
+      "explanation": "Advanced filter matching the bytes 'POST' at the beginning of the TCP payload."
+    },
+    {
+      "id": 60,
+      "category": "Security Forensics",
+      "command": "tcpdump \"tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x48545450\"",
+      "example": "tcpdump -A \"tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x48545450\"",
+      "explanation": "Matches 'HTTP' in payload, useful for finding HTTP responses or custom headers."
+    },
+    {
+      "id": 61,
+      "category": "Security Forensics",
+      "command": "tcpdump -l",
+      "example": "tcpdump -l -i eth0 | grep 'Error'",
+      "explanation": "Makes stdout line-buffered, allowing immediate piping to tools like grep."
+    },
+    {
+      "id": 62,
+      "category": "Tunnel Traffic",
+      "command": "tcpdump proto 47",
+      "example": "tcpdump -n proto 47",
+      "explanation": "Captures GRE (Generic Routing Encapsulation) tunnel traffic."
+    },
+    {
+      "id": 63,
+      "category": "Tunnel Traffic",
+      "command": "tcpdump port 4789",
+      "example": "tcpdump -n port 4789",
+      "explanation": "Captures VXLAN traffic commonly used in modern cloud and container networking."
+    },
+    {
+      "id": 64,
+      "category": "Performance Tuning",
+      "command": "tcpdump -B 4096",
+      "example": "tcpdump -B 4096 -i eth0",
+      "explanation": "Increases the capture buffer size to 4096KB to prevent packet drops during heavy load."
+    },
+    {
+      "id": 65,
+      "category": "Performance Tuning",
+      "command": "tcpdump -K",
+      "example": "tcpdump -K -i eth0",
+      "explanation": "Don't verify checksums (default on some systems), improves performance on high-speed interfaces."
+    },
+    {
+      "id": 66,
+      "category": "User Agent Detection",
+      "command": "tcpdump -A -s 0 \"tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)\"",
+      "example": "tcpdump -A -s 0 \"tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)\"",
+      "explanation": "Filters for TCP segments that actually contain data (payload) to ignore empty ACKs."
+    },
+    {
+      "id": 67,
+      "category": "DNS Analysis",
+      "command": "tcpdump udp port 53",
+      "example": "tcpdump -n udp port 53",
+      "explanation": "Standard filter for monitoring DNS queries and responses."
+    },
+    {
+      "id": 68,
+      "category": "NTP Analysis",
+      "command": "tcpdump udp port 123",
+      "example": "tcpdump -n udp port 123",
+      "explanation": "Captures Network Time Protocol traffic for troubleshooting sync issues."
+    },
+    {
+      "id": 69,
+      "category": "DHCP Analysis",
+      "command": "tcpdump port 67 or port 68",
+      "example": "tcpdump -n port 67 or port 68",
+      "explanation": "Captures DHCP discovery, offer, request, and ack sequences."
+    },
+    {
+      "id": 70,
+      "category": "Intrusion Detection",
+      "command": "tcpdump \"icmp[icmptype] == icmp-timexceed\"",
+      "example": "tcpdump -n \"icmp[icmptype] == icmp-timexceed\"",
+      "explanation": "Captures TTL Exceeded messages, useful for visualizing traceroutes targeting your network."
+    },
+    {
+      "id": 71,
+      "category": "Intrusion Detection",
+      "command": "tcpdump \"icmp[icmptype] == icmp-unreach\"",
+      "example": "tcpdump -n \"icmp[icmptype] == icmp-unreach\"",
+      "explanation": "Captures Destination Unreachable messages, often indicating closed ports or firewall rejects."
+    },
+    {
+      "id": 72,
+      "category": "Red Team",
+      "command": "tcpdump -w sensitive.pcap port 21 or port 23 or port 110",
+      "example": "tcpdump -w sensitive.pcap port 21 or port 23 or port 110",
+      "explanation": "Captures cleartext protocols (FTP, Telnet, POP3) to harvest credentials."
+    },
+    {
+      "id": 73,
+      "category": "Advanced Filtering",
+      "command": "tcpdump -i eth0 -n \"broadcast or multicast\"",
+      "example": "tcpdump -i eth0 -n \"broadcast or multicast\"",
+      "explanation": "Identifies noisy broadcast traffic that might be causing network storms."
+    },
+    {
+      "id": 74,
+      "category": "Specific Host Noise",
+      "command": "tcpdump -n \"not host 192.168.1.50\"",
+      "example": "tcpdump -n \"not host 192.168.1.50\"",
+      "explanation": "Captures everything EXCEPT traffic from a specific noisy backup server or admin host."
+    },
+    {
+      "id": 75,
+      "category": "Packet Header Analysis",
+      "command": "tcpdump -x",
+      "example": "tcpdump -x -i eth0",
+      "explanation": "Prints payload in hex without ASCII, useful for strict byte-level header verification."
+    },
+    {
+      "id": 76,
+      "category": "Absolute Sequence",
+      "command": "tcpdump -S",
+      "example": "tcpdump -S -i eth0",
+      "explanation": "Prints absolute TCP sequence numbers instead of relative ones, critical for TCP stream analysis."
+    },
+    {
+      "id": 77,
+      "category": "MPLS Capture",
+      "command": "tcpdump mpls",
+      "example": "tcpdump -n mpls",
+      "explanation": "Captures Multi-Protocol Label Switching packets."
+    },
+    {
+      "id": 78,
+      "category": "Cookie/Header Hunt",
+      "command": "tcpdump -A -s 0 'tcp port 80 and tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x436f6f6b'",
+      "example": "tcpdump -A -s 0 'tcp port 80 and tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x436f6f6b'",
+      "explanation": "Matches packets starting with 'Cook' (Cookie) in the payload."
+    },
+    {
+      "id": 79,
+      "category": "Directional Interface",
+      "command": "tcpdump -Q in",
+      "example": "tcpdump -Q in -i eth0",
+      "explanation": "Captures only ingress (incoming) traffic on the interface (Linux specific)."
+    },
+    {
+      "id": 80,
+      "category": "Directional Interface",
+      "command": "tcpdump -Q out",
+      "example": "tcpdump -Q out -i eth0",
+      "explanation": "Captures only egress (outgoing) traffic on the interface (Linux specific)."
+    },
+    {
+      "id": 81,
+      "category": "Raw Capture",
+      "command": "tcpdump -U -w capture.pcap",
+      "example": "tcpdump -U -w capture.pcap",
+      "explanation": "Writes packets to file immediately as they arrive without buffering (Packet Buffered)."
+    },
+    {
+      "id": 82,
+      "category": "Protocol Specific",
+      "command": "tcpdump proto 89",
+      "example": "tcpdump -n proto 89",
+      "explanation": "Captures OSPF routing protocol traffic."
+    },
+    {
+      "id": 83,
+      "category": "Protocol Specific",
+      "command": "tcpdump port 179",
+      "example": "tcpdump -n port 179",
+      "explanation": "Captures BGP (Border Gateway Protocol) traffic."
+    },
+    {
+      "id": 84,
+      "category": "Advanced BPF",
+      "command": "tcpdump \"ip[6] & 128 != 0\"",
+      "example": "tcpdump -n \"ip[6] & 128 != 0\"",
+      "explanation": "Detects packets with the 'Evil Bit' (Reserved bit) set in the IP header."
+    },
+    {
+      "id": 85,
+      "category": "Complex Exclusion",
+      "command": "tcpdump \"host 10.0.0.1 and not port 22 and not port 53\"",
+      "example": "tcpdump -n \"host 10.0.0.1 and not port 22 and not port 53\"",
+      "explanation": "Focuses on a host while removing standard administrative noise like SSH and DNS."
+    }
+  ]
+}

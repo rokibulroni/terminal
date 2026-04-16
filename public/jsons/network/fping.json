@@ -1,0 +1,217 @@
+{
+    "tool": "fping",
+    "description": "Complete fping command reference covering all options from basic to advanced",
+    "total_commands": 30,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Host Reachability",
+            "command": "fping 192.168.1.1",
+            "example": "fping 192.168.1.1",
+            "explanation": "Sends ICMP echo requests to a single target.\nVerifies connectivity quickly using ICMP."
+        },
+        {
+            "id": 2,
+            "category": "Multiple Hosts and CIDR Ranges",
+            "command": "fping 192.168.1.1 192.168.1.2",
+            "example": "fping 192.168.1.1 192.168.1.2",
+            "explanation": "Pings multiple specified IPs sequentially.\nEfficiently checks a list of hosts without multiple command calls."
+        },
+        {
+            "id": 3,
+            "category": "Multiple Hosts and CIDR Ranges",
+            "command": "fping -g 192.168.1.0/24",
+            "example": "fping -g 192.168.1.0/24",
+            "explanation": "Generates target list from CIDR mask (-g).\nSweeps an entire subnet to find active hosts."
+        },
+        {
+            "id": 4,
+            "category": "Multiple Hosts and CIDR Ranges",
+            "command": "fping -g 192.168.1.1 192.168.1.50",
+            "example": "fping -g 192.168.1.1 192.168.1.50",
+            "explanation": "Scans a specific IP range (-g start end).\nDefined by start and end IP addresses for precise scope control."
+        },
+        {
+            "id": 5,
+            "category": "Input from File",
+            "command": "fping -f targets.txt",
+            "example": "fping -f targets.txt",
+            "explanation": "Reads targets from a file (-f).\nIdeal for bulk scanning lists of servers or devices."
+        },
+        {
+            "id": 6,
+            "category": "Alive Host Detection",
+            "command": "fping -a -g 192.168.1.0/24",
+            "example": "fping -a -g 192.168.1.0/24",
+            "explanation": "Displays only alive hosts (-a).\nFilters output to show only reachable targets, reducing noise."
+        },
+        {
+            "id": 7,
+            "category": "Unreachable Host Detection",
+            "command": "fping -u -g 192.168.1.0/24",
+            "example": "fping -u -g 192.168.1.0/24",
+            "explanation": "Displays only unreachable hosts (-u).\nUseful for identifying downed servers or connectivity gaps."
+        },
+        {
+            "id": 8,
+            "category": "Quiet and Summary Modes",
+            "command": "fping -q -g 192.168.1.0/24",
+            "example": "fping -q -g 192.168.1.0/24",
+            "explanation": "Quiet mode (-q).\nSuppresses per-host output, showing only final summary or specified status."
+        },
+        {
+            "id": 9,
+            "category": "Latency and Statistics Reporting",
+            "command": "fping -s -g 192.168.1.0/24",
+            "example": "fping -s -g 192.168.1.0/24",
+            "explanation": "Prints cumulative statistics (-s).\nShows total targets found, elapsed time, and other metrics upon completion."
+        },
+        {
+            "id": 10,
+            "category": "Latency and Statistics Reporting",
+            "command": "fping -e 192.168.1.1",
+            "example": "fping -e 192.168.1.1",
+            "explanation": "Displays elapsed round trip time (-e).\nShows latency for each response, helping diagnose network slowness."
+        },
+        {
+            "id": 11,
+            "category": "Packet Count and Interval Control",
+            "command": "fping -c 5 192.168.1.1",
+            "example": "fping -c 5 192.168.1.1",
+            "explanation": "Sends 5 packets per target (-c).\nProvides a more reliable connectivity test than a single ping."
+        },
+        {
+            "id": 12,
+            "category": "Packet Count and Interval Control",
+            "command": "fping -i 10 -g 192.168.1.0/24",
+            "example": "fping -i 10 -g 192.168.1.0/24",
+            "explanation": "Sets packet interval to 10ms (-i).\nControls the rate of sending packets to manage network load."
+        },
+        {
+            "id": 13,
+            "category": "Timeout and Retry Configuration",
+            "command": "fping -t 500 192.168.1.1",
+            "example": "fping -t 500 192.168.1.1",
+            "explanation": "Sets per-packet timeout to 500ms (-t).\nSpeeds up failure detection for unresponsive hosts."
+        },
+        {
+            "id": 14,
+            "category": "Timeout and Retry Configuration",
+            "command": "fping -r 3 192.168.1.1",
+            "example": "fping -r 3 192.168.1.1",
+            "explanation": "Retries 3 times on failure (-r).\nIncreases robustness against transient packet loss."
+        },
+        {
+            "id": 15,
+            "category": "Loop and Continuous Monitoring",
+            "command": "fping -l 192.168.1.1",
+            "example": "fping -l 192.168.1.1",
+            "explanation": "Loops indefinitely (-l).\nContinuous monitoring similar to standard ping, useful for stability testing."
+        },
+        {
+            "id": 16,
+            "category": "Output Formatting and Script Friendly Output",
+            "command": "fping -C 5 192.168.1.1",
+            "example": "fping -C 5 192.168.1.1",
+            "explanation": "Columnar output format (-C).\nPrints results in columns for easier parsing and visual comparison."
+        },
+        {
+            "id": 17,
+            "category": "Logging and File Output",
+            "command": "fping -D -l 192.168.1.1",
+            "example": "fping -D -l 192.168.1.1",
+            "explanation": "Adds timestamps to output (-D).\nLogs when each ping occurred, essential for correlating network events."
+        },
+        {
+            "id": 18,
+            "category": "IPv4 and IPv6 Scanning",
+            "command": "fping -6 ::1",
+            "example": "fping -6 ::1",
+            "explanation": "Forces IPv6 usage (-6).\nEnsures the tool uses the IPv6 stack for connectivity checks."
+        },
+        {
+            "id": 19,
+            "category": "Packet Count and Interval Control",
+            "command": "fping -b 100 192.168.1.1",
+            "example": "fping -b 100 192.168.1.1",
+            "explanation": "Sets packet payload size (-b).\nTests MTU and throughput by sending larger data chunks."
+        },
+        {
+            "id": 20,
+            "category": "Source Address and Interface Binding",
+            "command": "fping -I eth0 192.168.1.1",
+            "example": "fping -I eth0 192.168.1.1",
+            "explanation": "Binds to interface (-I).\nForces traffic out a specific network interface."
+        },
+        {
+            "id": 21,
+            "category": "Source Address and Interface Binding",
+            "command": "fping -S 192.168.1.5 192.168.1.1",
+            "example": "fping -S 192.168.1.5 192.168.1.1",
+            "explanation": "Sets source IP address (-S).\nSpoofs or specifices the source IP for the ping packets."
+        },
+        {
+            "id": 22,
+            "category": "Network Troubleshooting Use Cases",
+            "command": "fping -O 0x10 192.168.1.1",
+            "example": "fping -O 0x10 192.168.1.1",
+            "explanation": "Sets TOS byte (-O).\nTests IP ToS configurations for QoS and traffic shaping verification."
+        },
+        {
+            "id": 23,
+            "category": "Network Troubleshooting Use Cases",
+            "command": "fping -H 10 192.168.1.1",
+            "example": "fping -H 10 192.168.1.1",
+            "explanation": "Sets TTL value (-H).\nuseful for testing path reachability limits or mapping hop counts."
+        },
+        {
+            "id": 24,
+            "category": "Asset Discovery and Inventory",
+            "command": "fping -A -g 192.168.1.0/24",
+            "example": "fping -A -g 192.168.1.0/24",
+            "explanation": "Displays targets by hostname (-A).\nResolves IPs to hostnames for easier identification of targets."
+        },
+        {
+            "id": 25,
+            "category": "Blue Team Monitoring Scenarios",
+            "command": "fping -l -Q 10 192.168.1.1",
+            "example": "fping -l -Q 10 192.168.1.1",
+            "explanation": "Loops and prints summary every 10s (-l -Q).\nContinuous monitoring with periodic status updates."
+        },
+        {
+            "id": 26,
+            "category": "Red Team Reconnaissance Validation",
+            "command": "fping -aq -g 10.0.0.0/24 > live_hosts.txt",
+            "example": "fping -aq -g 10.0.0.0/24 > live_hosts.txt",
+            "explanation": "Quietly scans and saves live hosts (-aq).\nProduces a clean list of active IPs for further enumeration."
+        },
+        {
+            "id": 27,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "fping -c 20 -p 500 -e 192.168.1.1",
+            "example": "fping -c 20 -p 500 -e 192.168.1.1",
+            "explanation": "Precision latency testing.\nSends 20 packets with 500ms intervals, showing RTT for each."
+        },
+        {
+            "id": 28,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "fping -g 192.168.1.0/24 -a -r 0",
+            "example": "fping -g 192.168.1.0/24 -a -r 0",
+            "explanation": "Fast sweep with zero retries.\nMaximizes speed for quick network discovery."
+        },
+        {
+            "id": 29,
+            "category": "Blue Team Monitoring Scenarios",
+            "command": "fping -d 8.8.8.8",
+            "example": "fping -d 8.8.8.8",
+            "explanation": "DNS lookup of return address (-d).\nVerifies the reverse DNS record of the target IP."
+        },
+        {
+            "id": 30,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "fping -f targets.txt -C 5 -q -s",
+            "example": "fping -f targets.txt -C 5 -q -s",
+            "explanation": "Batch ping with summary stats.\nEfficiency checks a list of targets and reports final availability metrics."
+        }
+    ]
+}

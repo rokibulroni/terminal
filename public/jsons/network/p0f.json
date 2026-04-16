@@ -1,0 +1,392 @@
+{
+    "tool": "p0f",
+    "description": "Complete p0f command reference covering all options from basic to advanced",
+    "total_commands": 55,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Passive Monitoring",
+            "command": "p0f -L",
+            "example": "p0f -L",
+            "explanation": "Lists all available network interfaces that p0f can listen on (-L).\nEssential first step to identify valid target adapters for passive monitoring."
+        },
+        {
+            "id": 2,
+            "category": "Basic Passive Monitoring",
+            "command": "p0f -i eth0",
+            "example": "p0f -i eth0",
+            "explanation": "Starts passive OS fingerprinting on a specific interface (-i).\nQuietly identifies remote system characteristics without generating network noise."
+        },
+        {
+            "id": 3,
+            "category": "Basic Passive Monitoring",
+            "command": "p0f -i any",
+            "example": "p0f -i any",
+            "explanation": "Listens on all available interfaces simultaneously (-i any).\nEnables comprehensive traffic analysis across the entire host adapter stack."
+        },
+        {
+            "id": 4,
+            "category": "Basic Passive Monitoring",
+            "command": "p0f -i wlan0 -p",
+            "example": "p0f -i wlan0 -p",
+            "explanation": "Enables promiscuous mode on the specified interface (-p).\nCaptures and analyzes all traffic on the segment, not just packets for this host."
+        },
+        {
+            "id": 5,
+            "category": "Offline PCAP Analysis",
+            "command": "p0f -r capture.pcap",
+            "example": "p0f -r capture.pcap",
+            "explanation": "Analyzes network traffic from a previously saved PCAP file (-r).\nEnables offline reconnaissance and forensic investigation of captured data."
+        },
+        {
+            "id": 6,
+            "category": "Logging and Output Files",
+            "command": "p0f -i eth0 -o p0f.log",
+            "example": "p0f -i eth0 -o p0f.log",
+            "explanation": "Writes timestamped fingerprinting events to a log file (-o).\nStandardizes data capture for long-term monitoring and automated reporting."
+        },
+        {
+            "id": 7,
+            "category": "Logging and Output Files",
+            "command": "p0f -r evidence.pcap -o forensics.log",
+            "example": "p0f -r evidence.pcap -o forensics.log",
+            "explanation": "Processes a forensic PCAP file and saves fingerprints to a log.\nConverts raw packet data into a readable summary of identified system states."
+        },
+        {
+            "id": 8,
+            "category": "Signature Database Usage",
+            "command": "p0f -i eth0 -f /etc/p0f/p0f.fp",
+            "example": "p0f -i eth0 -f /etc/p0f/p0f.fp",
+            "explanation": "Loads a specific custom fingerprint database file (-f).\nEnables granular identification using proprietary or updated signature sets."
+        },
+        {
+            "id": 9,
+            "category": "Socket and API Integration",
+            "command": "p0f -i eth0 -s /tmp/p0f.sock",
+            "example": "p0f -i eth0 -s /tmp/p0f.sock",
+            "explanation": "Creates a UNIX socket for real-time fingerprint queries (-s).\nEnables third-party tools to programmatically access p0f's discovery data."
+        },
+        {
+            "id": 10,
+            "category": "Daemon and Background Mode",
+            "command": "p0f -i eth0 -d",
+            "example": "p0f -i eth0 -d",
+            "explanation": "Runs p0f in the background as a daemon process (-d).\nIdeal for continuous, non-interactive network visibility across reboots."
+        },
+        {
+            "id": 11,
+            "category": "Daemon and Background Mode",
+            "command": "p0f -i eth0 -d -o /var/log/p0f.log",
+            "example": "p0f -i eth0 -d -o /var/log/p0f.log",
+            "explanation": "Runs as a background daemon and logs to a specific file.\nAutomates persistent reconnaissance without requiring an active terminal session."
+        },
+        {
+            "id": 12,
+            "category": "Security and Permissions",
+            "command": "p0f -i eth0 -u nobody",
+            "example": "p0f -i eth0 -u nobody",
+            "explanation": "Drops privileges to the specified user account after startup (-u).\nEnhances system security by minimizing the impact of a potential tool compromise."
+        },
+        {
+            "id": 13,
+            "category": "Security and Permissions",
+            "command": "p0f -i eth0 -d -u p0fuser",
+            "example": "p0f -i eth0 -d -u p0fuser",
+            "explanation": "Combines daemon mode with privilege dropping for secure monitoring.\nStandard production configuration for persistent background network visibility."
+        },
+        {
+            "id": 14,
+            "category": "Performance and Resource Control",
+            "command": "p0f -i eth0 -m 1000",
+            "example": "p0f -i eth0 -m 1000",
+            "explanation": "Sets the maximum number of simultaneous tracked connections (-m).\nOptimizes memory usage when monitoring extremely high-traffic network links."
+        },
+        {
+            "id": 15,
+            "category": "Performance and Resource Control",
+            "command": "p0f -i eth0 -t 30m",
+            "example": "p0f -i eth0 -t 30m",
+            "explanation": "Configures the timeout interval for connection tracking (-t).\nControls how quickly stale sessions are pruned from p0f's internal table."
+        },
+        {
+            "id": 16,
+            "category": "Performance and Resource Control",
+            "command": "p0f -i eth0 -S 20",
+            "example": "p0f -i eth0 -S 20",
+            "explanation": "Limits the maximum number of simultaneous API connections (-S).\nProtects the monitoring service from resource exhaustion via its query socket."
+        },
+        {
+            "id": 17,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'src host 192.168.1.50'",
+            "example": "p0f -i eth0 'src host 192.168.1.50'",
+            "explanation": "Uses BPF filters to target traffic from a specific host IP.\nNarrows reconnaissance to a single high-value target to reduce log noise."
+        },
+        {
+            "id": 18,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'dst port 80'",
+            "example": "p0f -i eth0 'dst port 80'",
+            "explanation": "Filters traffic to specifically analyze packets for TCP port 80.\nFocuses reconnaissance on web-based services and underlying server stacks."
+        },
+        {
+            "id": 19,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'tcp'",
+            "example": "p0f -i eth0 'tcp'",
+            "explanation": "Restricts analysis strictly to the Transmission Control Protocol stack.\nIgnores UDP and ICMP traffic to focus on reliable stream-based session analysis."
+        },
+        {
+            "id": 20,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'not host 10.0.0.1'",
+            "example": "p0f -i eth0 'not host 10.0.0.1'",
+            "explanation": "Excludes a noisy or known host from the fingerprinting session.\nRefines the analysis stream by removing traffic from irrelevant network assets."
+        },
+        {
+            "id": 21,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'net 192.168.0.0/16'",
+            "example": "p0f -i eth0 'net 192.168.0.0/16'",
+            "explanation": "Analyzes traffic only for a specific CIDR-defined subnet range.\nEnables systematic mapping of all hosts within a particular network segment."
+        },
+        {
+            "id": 22,
+            "category": "IPv4 and IPv6 Traffic Analysis",
+            "command": "p0f -i eth0 'ip6'",
+            "example": "p0f -i eth0 'ip6'",
+            "explanation": "Filters input to focus exclusively on IPv6 transport analysis.\nIdentifies system types communicating over the next-generation protocol stack."
+        },
+        {
+            "id": 23,
+            "category": "IPv4 and IPv6 Traffic Analysis",
+            "command": "p0f -i eth0 'ip or ip6'",
+            "example": "p0f -i eth0 'ip or ip6'",
+            "explanation": "Explicitly captures both IPv4 and IPv6 packets for analysis.\nProvides a complete dual-stack view of all active network assets."
+        },
+        {
+            "id": 24,
+            "category": "Red Team Passive Reconnaissance",
+            "command": "p0f -i eth0 -p -o targets.log 'net 10.10.10.0/24'",
+            "example": "p0f -i eth0 -p -o targets.log 'net 10.10.10.0/24'",
+            "explanation": "Silently maps OS details of a target subnet using promiscuous mode.\nEnables complete infra mapping without ever transmitting a single probe packet."
+        },
+        {
+            "id": 25,
+            "category": "Blue Team Continuous Monitoring",
+            "command": "p0f -i eth0 -d -o /var/log/p0f-monitor.log 'port 443 or port 80'",
+            "example": "p0f -i eth0 -d -o /var/log/p0f-monitor.log 'port 443 or port 80'",
+            "explanation": "Monitors web traffic indefinitely to identify visitor profiles.\nTracks client-side OS versions and browser signatures for behavioral analysis."
+        },
+        {
+            "id": 26,
+            "category": "Network Forensics Use Cases",
+            "command": "p0f -r attack_dump.pcap -o analysis.txt 'host 192.168.1.100'",
+            "example": "p0f -r attack_dump.pcap -o analysis.txt 'host 192.168.1.100'",
+            "explanation": "Isolates a specific host within a PCAP for forensic OS identification.\nDetermines the exact platform and uptime of an asset involved in an incident."
+        },
+        {
+            "id": 27,
+            "category": "NAT and Firewall Detection",
+            "command": "p0f -i eth0 -o nat_log.txt",
+            "example": "p0f -i eth0 -o nat_log.txt",
+            "explanation": "Standard logging that automatically flags masquerade (NAT) events.\nIdentifies network sharing or middlebox presence between the sensor and target."
+        },
+        {
+            "id": 28,
+            "category": "Advanced Combined Analysis",
+            "command": "p0f -i eth0 -p -f custom.fp -o deep_scan.log",
+            "example": "p0f -i eth0 -p -f custom.fp -o deep_scan.log",
+            "explanation": "Combines promiscuous mode, custom signatures, and file logging.\nProvides a high-precision, deep-dive forensic audit of local network traffic."
+        },
+        {
+            "id": 29,
+            "category": "Socket and API Integration",
+            "command": "p0f -i eth0 -s /var/run/p0f.sock -u www-data -d",
+            "example": "p0f -i eth0 -s /var/run/p0f.sock -u www-data -d",
+            "explanation": "Sets up a secure daemonized API socket with custom user shell.\nEnables production-ready integration with web backends for client identification."
+        },
+        {
+            "id": 30,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'tcp[tcpflags] & (tcp-syn) != 0'",
+            "example": "p0f -i eth0 'tcp[tcpflags] & (tcp-syn) != 0'",
+            "explanation": "Uses a low-level BPF filter to only capture TCP SYN (handshake) packets.\nRapidly analyzes new connection attempts while ignoring established payload flow."
+        },
+        {
+            "id": 31,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'port 25 or port 587'",
+            "example": "p0f -i eth0 'port 25 or port 587'",
+            "explanation": "Focuses fingerprinting specifically on email infrastructure transport.\nIdentifies software types used by local or remote SMTP server assets."
+        },
+        {
+            "id": 32,
+            "category": "Performance and Resource Control",
+            "command": "p0f -i eth0 -m 5000 -t 10s",
+            "example": "p0f -i eth0 -m 5000 -t 10s",
+            "explanation": "High-performance tuning for saturated network links.\nIncreases capacity and speeds up table cleanup for massive connection counts."
+        },
+        {
+            "id": 33,
+            "category": "Incident Response and Investigation",
+            "command": "p0f -r incident.pcap -o timeline.log 'src net 192.168.1.0/24 and dst port 445'",
+            "example": "p0f -r incident.pcap -o timeline.log 'src net 192.168.1.0/24 and dst port 445'",
+            "explanation": "Analyzes specific subnet SMB traffic from a PCAP for lateral movement.\nTraces file-sharing activity back to identifiable OS and platform signatures."
+        },
+        {
+            "id": 34,
+            "category": "Automation and Script Friendly",
+            "command": "p0f -i eth0 -d -o /dev/null -s /tmp/p0f_api.sock",
+            "example": "p0f -i eth0 -d -o /dev/null -s /tmp/p0f_api.sock",
+            "explanation": "Runs purely as an API provider without generating local log files.\nProvides real-time discovery data while minimizing disk I/O and storage impact."
+        },
+        {
+            "id": 35,
+            "category": "OS, Browser, and Device Detection",
+            "command": "p0f -i eth0 'src port 80 or src port 443'",
+            "example": "p0f -i eth0 'src port 80 or src port 443'",
+            "explanation": "Analyzes web server response headers and network stack signatures.\nIdentifies underlying OS and server versions through passive monitoring."
+        },
+        {
+            "id": 36,
+            "category": "Advanced Combined Analysis",
+            "command": "p0f -i eth0 -u nobody -f /etc/p0f/p0f.fp -o daily.log -d",
+            "example": "p0f -i eth0 -u nobody -f /etc/p0f/p0f.fp -o daily.log -d",
+            "explanation": "A production-optimized background monitoring configuration.\nCombines specific signatures, privilege control, and persistent logging."
+        },
+        {
+            "id": 37,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'vlan 10'",
+            "example": "p0f -i eth0 'vlan 10'",
+            "explanation": "Filters traffic to only analyze packets on a specific VLAN ID.\nEnables targeted reconnaissance within segmented enterprise network environments."
+        },
+        {
+            "id": 38,
+            "category": "Offline PCAP Analysis",
+            "command": "p0f -r large_capture.pcap -m 10000",
+            "example": "p0f -r large_capture.pcap -m 10000",
+            "explanation": "Processes a large PCAP while scaling internal connection table limits.\nEnsures no data loss when analyzing extremely heavy traffic captures."
+        },
+        {
+            "id": 39,
+            "category": "MTU and Window Size Analysis",
+            "command": "p0f -i eth0 -o link_params.log 'icmp'",
+            "example": "p0f -i eth0 -o link_params.log 'icmp'",
+            "explanation": "Focuses on ICMP traffic to reveal physical link characteristics.\nIdentifies MTU sizes and potential hop-count distances through passive analysis."
+        },
+        {
+            "id": 40,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'gateway 192.168.1.1'",
+            "example": "p0f -i eth0 'gateway 192.168.1.1'",
+            "explanation": "Filters for packets routed through a specific gateway MAC address.\nIsolates traffic entering or exiting a particular network segment gateway."
+        },
+        {
+            "id": 41,
+            "category": "Blue Team Continuous Monitoring",
+            "command": "p0f -i eth0 -o alerts.log 'dst net 10.0.0.0/8 and not src net 10.0.0.0/8'",
+            "example": "p0f -i eth0 -o alerts.log 'dst net 10.0.0.0/8 and not src net 10.0.0.0/8'",
+            "explanation": "Logs only external traffic entering the internal subnet range.\nIdeal for perimeter monitoring and identifying unknown inbound assets."
+        },
+        {
+            "id": 42,
+            "category": "Advanced Combined Analysis",
+            "command": "p0f -i eth0 -p -m 2000 -t 1m -o high_load.log",
+            "example": "p0f -i eth0 -p -m 2000 -t 1m -o high_load.log",
+            "explanation": "Optimizes p0f for high-traffic environments with fast table pruning.\nEnsures consistent monitoring performance on saturated promiscuous segments."
+        },
+        {
+            "id": 43,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'less 128'",
+            "example": "p0f -i eth0 'less 128'",
+            "explanation": "Captures only packets smaller than 128 bytes to optimize header analysis.\nProvides a fast, payload-free look at stack signatures for rapid identification."
+        },
+        {
+            "id": 44,
+            "category": "Socket and API Integration",
+            "command": "p0f -i eth0 -s /tmp/p0f.sock -S 5",
+            "example": "p0f -i eth0 -s /tmp/p0f.sock -S 5",
+            "explanation": "Opens an API socket with strict concurrent connection throttling.\nProtects the p0f discovery service from exhaustion-based denial of service."
+        },
+        {
+            "id": 45,
+            "category": "Incident Response and Investigation",
+            "command": "p0f -r malware.pcap 'tcp port 6667'",
+            "example": "p0f -r malware.pcap 'tcp port 6667'",
+            "explanation": "Analyzes a PCAP specifically for IRC command and control traffic.\nIdentifies legacy botnet presence through distinct network stack signatures."
+        },
+        {
+            "id": 46,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'broadcast'",
+            "example": "p0f -i eth0 'broadcast'",
+            "explanation": "Analyzes broadcast traffic to identify noisy system announcements.\nDiscovers new assets by monitoring their network presence advertisements."
+        },
+        {
+            "id": 47,
+            "category": "Red Team Passive Reconnaissance",
+            "command": "p0f -i eth0 -o wifi_clients.log 'wlan host 192.168.1.5'",
+            "example": "p0f -i eth0 -o wifi_clients.log 'wlan host 192.168.1.5'",
+            "explanation": "Filters for wireless headers to fingerprint specific mobile clients.\nEnables passive tracking of individual devices on a wireless segment (if supported)."
+        },
+        {
+            "id": 48,
+            "category": "Daemon and Background Mode",
+            "command": "p0f -i eth0 -d -u root -o /var/log/p0f_privileged.log",
+            "example": "p0f -i eth0 -d -u root -o /var/log/p0f_privileged.log",
+            "explanation": "Runs in background mode with full administrative privileges.\nAllows the tool to write logs to protected system paths and access all adapters."
+        },
+        {
+            "id": 49,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'tcp portrange 1-1024'",
+            "example": "p0f -i eth0 'tcp portrange 1-1024'",
+            "explanation": "Monitors all privileged ports for identifying standard system services.\nEnsures that only authentic, recognized OS services are running on key ports."
+        },
+        {
+            "id": 50,
+            "category": "Timestamp and Output Formatting",
+            "command": "p0f -r drift.pcap -o drift_analysis.log",
+            "example": "p0f -r drift.pcap -o drift_analysis.log",
+            "explanation": "Processes a PCAP using original packet timestamps for the log file.\nEnsures forensic accuracy when correlating p0f data with other system logs."
+        },
+        {
+            "id": 51,
+            "category": "Performance and Resource Control",
+            "command": "p0f -i lo -o loopback.log",
+            "example": "p0f -i lo -o loopback.log",
+            "explanation": "Listens on the local loopback interface for IPC fingerprinting.\nIdentifies local services and their internal communication signatures."
+        },
+        {
+            "id": 52,
+            "category": "Filtering and Traffic Control",
+            "command": "p0f -i eth0 'ip[8] < 64'",
+            "example": "p0f -i eth0 'ip[8] < 64'",
+            "explanation": "Uses BPF filters to identify traffic from distant, multi-hop networks.\nIsolates remote assets by analyzing Time To Live (TTL) stack characteristics."
+        },
+        {
+            "id": 53,
+            "category": "Advanced Combined Analysis",
+            "command": "p0f -i eth0 -p -f /etc/p0f/p0f.fp -u p0f -d -o /var/log/p0f/full.log -m 5000",
+            "example": "p0f -i eth0 -p -f /etc/p0f/p0f.fp -u p0f -d -o /var/log/p0f/full.log -m 5000",
+            "explanation": "Maximum production configuration for multi-link passive reconnaissance.\nStandardizes enterprise monitoring with custom signatures and secure daemon mode."
+        },
+        {
+            "id": 54,
+            "category": "Incident Response and Investigation",
+            "command": "p0f -r breach.pcap 'tcp[13] & 2 != 0'",
+            "example": "p0f -r breach.pcap 'tcp[13] & 2 != 0'",
+            "explanation": "Filters a PCAP for TCP SYN packets to map all connection attempts.\nIdentifies failed and successful penetration attempts through passive log analysis."
+        },
+        {
+            "id": 55,
+            "category": "Network Forensics Use Cases",
+            "command": "p0f -r evidence.pcap -o /tmp/parsed.log -f /dev/null",
+            "example": "p0f -r evidence.pcap -o /tmp/parsed.log -f /dev/null",
+            "explanation": "Forensic audit mode using a null configuration to test raw parsing.\nVerifies data capture integrity without influence from signature database matching."
+        }
+    ]
+}

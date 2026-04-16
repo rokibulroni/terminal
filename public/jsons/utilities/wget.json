@@ -1,0 +1,882 @@
+{
+    "tool": "wget",
+    "description": "Complete wget command and workflow reference from basic to advanced file retrieval and web mirroring",
+    "total_commands": 125,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Usage",
+            "command": "wget https://example.com/file.txt",
+            "example": "wget https://example.com/file.txt",
+            "explanation": "Downloads a single file from a URL and saves it to the current directory."
+        },
+        {
+            "id": 2,
+            "category": "Basic Usage",
+            "command": "wget -O output.txt https://example.com/file.php?id=1",
+            "example": "wget -O custom_name.txt https://example.com/dynamic_file",
+            "explanation": "Downloads a file and saves it with a specific custom filename."
+        },
+        {
+            "id": 3,
+            "category": "Basic Usage",
+            "command": "wget -P /tmp/downloads https://example.com/image.jpg",
+            "example": "wget -P /var/www/html https://example.com/asset.png",
+            "explanation": "Downloads a file and saves it to a specific directory path."
+        },
+        {
+            "id": 4,
+            "category": "Basic Usage",
+            "command": "wget -i urls.txt",
+            "example": "wget -i list_of_targets.txt",
+            "explanation": "Downloads multiple files sequentially from a list of URLs contained in a text file."
+        },
+        {
+            "id": 5,
+            "category": "Basic Usage",
+            "command": "wget --no-clobber https://example.com/file.zip",
+            "example": "wget -nc https://example.com/dataset.zip",
+            "explanation": "Skips the download if the file already exists locally."
+        },
+        {
+            "id": 6,
+            "category": "Basic Usage",
+            "command": "wget -c https://example.com/large.iso",
+            "example": "wget --continue https://example.com/backup.tar.gz",
+            "explanation": "Resumes a partially downloaded file from where it left off."
+        },
+        {
+            "id": 7,
+            "category": "Basic Usage",
+            "command": "wget -B https://example.com/ -i relative_urls.txt",
+            "example": "wget --base=https://site.com/ -i paths.txt",
+            "explanation": "Resolves relative URLs in an input file against a specified base URL."
+        },
+        {
+            "id": 8,
+            "category": "Download Resilience",
+            "command": "wget --tries=10 https://example.com/unstable.file",
+            "example": "wget -t 5 https://example.com/api/data",
+            "explanation": "Sets the maximum number of retries for a failed download attempt."
+        },
+        {
+            "id": 9,
+            "category": "Download Resilience",
+            "command": "wget --tries=inf https://example.com/critical.service",
+            "example": "wget -t 0 https://example.com/stream",
+            "explanation": "Retries the download infinitely until successful."
+        },
+        {
+            "id": 10,
+            "category": "Download Resilience",
+            "command": "wget --timeout=60 https://example.com/slow.resource",
+            "example": "wget -T 30 https://example.com/large_query",
+            "explanation": "Sets the network read timeout in seconds to prevent hanging connections."
+        },
+        {
+            "id": 11,
+            "category": "Download Resilience",
+            "command": "wget --connect-timeout=10 https://example.com",
+            "example": "wget --connect-timeout=5 https://192.168.1.50",
+            "explanation": "Sets the timeout specifically for the initial connection establishment."
+        },
+        {
+            "id": 12,
+            "category": "Download Resilience",
+            "command": "wget --waitretry=5 https://example.com/file",
+            "example": "wget --waitretry=10 https://example.com/api",
+            "explanation": "Waits for a specified number of seconds between retry attempts."
+        },
+        {
+            "id": 13,
+            "category": "Logging and Output",
+            "command": "wget -o download.log https://example.com/file.txt",
+            "example": "wget -o session.log https://example.com/data",
+            "explanation": "Redirects all operational messages and errors to a log file instead of stdout."
+        },
+        {
+            "id": 14,
+            "category": "Logging and Output",
+            "command": "wget -a download.log https://example.com/file2.txt",
+            "example": "wget -a history.log https://example.com/update",
+            "explanation": "Appends operational messages to an existing log file."
+        },
+        {
+            "id": 15,
+            "category": "Logging and Output",
+            "command": "wget -q https://example.com/silent_script.sh",
+            "example": "wget --quiet https://example.com/installer",
+            "explanation": "Runs in quiet mode with absolutely no output to the terminal."
+        },
+        {
+            "id": 16,
+            "category": "Logging and Output",
+            "command": "wget -nv https://example.com/report.pdf",
+            "example": "wget --no-verbose https://example.com/daily_brief",
+            "explanation": "Runs in non-verbose mode, printing only basic status lines and errors."
+        },
+        {
+            "id": 17,
+            "category": "Logging and Output",
+            "command": "wget -b https://example.com/huge_dataset.csv",
+            "example": "wget --background https://example.com/backup.sql",
+            "explanation": "Goes to background immediately after startup and writes output to wget-log."
+        },
+        {
+            "id": 18,
+            "category": "Logging and Output",
+            "command": "wget --progress=bar:force https://example.com/file",
+            "example": "wget --progress=dot https://example.com/file",
+            "explanation": "Forces a specific type of progress bar display even if stderr is not a terminal."
+        },
+        {
+            "id": 19,
+            "category": "Bandwidth and Networking",
+            "command": "wget --limit-rate=200k https://example.com/movie.mp4",
+            "example": "wget --limit-rate=500k https://example.com/iso",
+            "explanation": "Limits the download speed to 200 kilobytes per second to save bandwidth."
+        },
+        {
+            "id": 20,
+            "category": "Bandwidth and Networking",
+            "command": "wget -w 10 https://example.com/file",
+            "example": "wget --wait=20 https://example.com/scrape",
+            "explanation": "Waits the specified number of seconds between multiple file retrievals."
+        },
+        {
+            "id": 21,
+            "category": "Bandwidth and Networking",
+            "command": "wget --random-wait -w 10 -i list.txt",
+            "example": "wget --random-wait --wait=5 -i urls.txt",
+            "explanation": "Waits a random interval between 0.5 and 1.5 times the specified wait value to simulate human behavior."
+        },
+        {
+            "id": 22,
+            "category": "Bandwidth and Networking",
+            "command": "wget --bind-address=192.168.1.5 https://example.com",
+            "example": "wget --bind-address=10.0.0.2 https://internal.lab",
+            "explanation": "Binds the client socket to a specific local IP address on a multi-interface system."
+        },
+        {
+            "id": 23,
+            "category": "Bandwidth and Networking",
+            "command": "wget -4 https://example.com",
+            "example": "wget --inet4-only https://example.com",
+            "explanation": "Forces the connection to use IPv4 addresses only."
+        },
+        {
+            "id": 24,
+            "category": "Bandwidth and Networking",
+            "command": "wget -6 https://example.com",
+            "example": "wget --inet6-only https://example.com",
+            "explanation": "Forces the connection to use IPv6 addresses only."
+        },
+        {
+            "id": 25,
+            "category": "Bandwidth and Networking",
+            "command": "wget --no-dns-cache https://example.com",
+            "example": "wget --no-dns-cache https://dynamic-dns.com",
+            "explanation": "Disables DNS caching to force a new lookup for every request."
+        },
+        {
+            "id": 26,
+            "category": "HTTP Headers and User Agent",
+            "command": "wget --user-agent=\"Mozilla/5.0\" https://example.com",
+            "example": "wget -U \"Googlebot/2.1\" https://example.com",
+            "explanation": "Spoofs the User-Agent header to identify as a specific browser or bot."
+        },
+        {
+            "id": 27,
+            "category": "HTTP Headers and User Agent",
+            "command": "wget --header=\"Accept: application/json\" https://example.com/api",
+            "example": "wget --header=\"X-Admin: true\" https://example.com/admin",
+            "explanation": "Adds a custom HTTP header to the request."
+        },
+        {
+            "id": 28,
+            "category": "HTTP Headers and User Agent",
+            "command": "wget --referer=\"https://google.com\" https://example.com/hidden",
+            "example": "wget --referer=\"http://trusted.com\" https://target.com",
+            "explanation": "Sets the HTTP Referer header to simulate clicking a link from another site."
+        },
+        {
+            "id": 29,
+            "category": "Authentication",
+            "command": "wget --user=admin --password=secret https://example.com/protected",
+            "example": "wget --user=deploy --password=pass https://staging.com",
+            "explanation": "Uses basic HTTP authentication with provided username and password."
+        },
+        {
+            "id": 30,
+            "category": "Authentication",
+            "command": "wget --ask-password --user=admin https://example.com/protected",
+            "example": "wget --ask-password --user=root https://secure.lab",
+            "explanation": "Prompts the user to enter the password interactively to avoid recording it in history."
+        },
+        {
+            "id": 31,
+            "category": "Authentication",
+            "command": "wget --auth-no-challenge --user=admin --password=pass https://example.com",
+            "example": "wget --auth-no-challenge --user=user --password=pass https://api.com",
+            "explanation": "Sends authentication credentials immediately without waiting for a server challenge."
+        },
+        {
+            "id": 32,
+            "category": "Authentication",
+            "command": "wget --header=\"Authorization: Bearer <token>\" https://api.example.com/v1/data",
+            "example": "wget --header=\"Authorization: Bearer xyz123\" https://api.lab/user",
+            "explanation": "Authenticates using a Bearer token in the Authorization header."
+        },
+        {
+            "id": 33,
+            "category": "Session Management",
+            "command": "wget --save-cookies cookies.txt --keep-session-cookies https://example.com/login",
+            "example": "wget --save-cookies session.txt https://example.com/auth",
+            "explanation": "Saves the cookies received from the server, including session cookies, to a file."
+        },
+        {
+            "id": 34,
+            "category": "Session Management",
+            "command": "wget --load-cookies cookies.txt https://example.com/dashboard",
+            "example": "wget --load-cookies session.txt https://example.com/profile",
+            "explanation": "Loads cookies from a file to maintain a session across multiple requests."
+        },
+        {
+            "id": 35,
+            "category": "Proxy Configuration",
+            "command": "wget -e use_proxy=yes -e http_proxy=127.0.0.1:8080 https://example.com",
+            "example": "wget -e http_proxy=10.10.10.5:3128 https://external.com",
+            "explanation": "Configures a specific HTTP proxy for the connection using command line execution."
+        },
+        {
+            "id": 36,
+            "category": "Proxy Configuration",
+            "command": "wget --proxy-user=user --proxy-password=pass https://example.com",
+            "example": "wget --proxy-user=corp --proxy-password=secret https://internet.com",
+            "explanation": "Provides credentials for authenticating with the proxy server itself."
+        },
+        {
+            "id": 37,
+            "category": "Proxy Configuration",
+            "command": "wget --no-proxy https://internal.example.com",
+            "example": "wget --no-proxy https://localhost",
+            "explanation": "Explicitly bypasses proxy settings for specific requests."
+        },
+        {
+            "id": 38,
+            "category": "SSL and Security",
+            "command": "wget --no-check-certificate https://self-signed.local",
+            "example": "wget --no-check-certificate https://192.168.1.1",
+            "explanation": "Skips SSL certificate validation, useful for self-signed certificates in labs."
+        },
+        {
+            "id": 39,
+            "category": "SSL and Security",
+            "command": "wget --secure-protocol=TLSv1_2 https://example.com",
+            "example": "wget --secure-protocol=TLSv1_3 https://secure.com",
+            "explanation": "Forces the connection to use a specific version of the TLS protocol."
+        },
+        {
+            "id": 40,
+            "category": "SSL and Security",
+            "command": "wget --certificate=client.pem --private-key=key.pem https://mtls.example.com",
+            "example": "wget --certificate=cert.crt --private-key=key.key https://secure-api.com",
+            "explanation": "Uses a client-side certificate and private key for mutual TLS (mTLS) authentication."
+        },
+        {
+            "id": 41,
+            "category": "SSL and Security",
+            "command": "wget --ca-certificate=rootCA.pem https://internal.lab",
+            "example": "wget --ca-certificate=company-ca.crt https://intranet.com",
+            "explanation": "Verifies the server's certificate against a specific custom CA file."
+        },
+        {
+            "id": 42,
+            "category": "Recursive Operations",
+            "command": "wget -r https://example.com/directory/",
+            "example": "wget --recursive https://example.com/files/",
+            "explanation": "Recursively downloads files and subdirectories from the specified URL."
+        },
+        {
+            "id": 43,
+            "category": "Recursive Operations",
+            "command": "wget -r -l 2 https://example.com",
+            "example": "wget --level=3 -r https://example.com",
+            "explanation": "Recursively downloads with a maximum depth limit."
+        },
+        {
+            "id": 44,
+            "category": "Recursive Operations",
+            "command": "wget -m https://example.com",
+            "example": "wget --mirror https://example.com",
+            "explanation": "Mirrors a website (enables recursion, time-stamping, and infinite depth)."
+        },
+        {
+            "id": 45,
+            "category": "Recursive Operations",
+            "command": "wget -r -k https://example.com",
+            "example": "wget -r --convert-links https://example.com",
+            "explanation": "Recursively downloads and converts links to point to local files for offline viewing."
+        },
+        {
+            "id": 46,
+            "category": "Recursive Operations",
+            "command": "wget -p https://example.com/page.html",
+            "example": "wget --page-requisites https://example.com/article",
+            "explanation": "Downloads all files necessary to display the HTML page (images, CSS, JS)."
+        },
+        {
+            "id": 47,
+            "category": "Recursive Operations",
+            "command": "wget -mpk https://example.com",
+            "example": "wget --mirror --page-requisites --convert-links https://example.com",
+            "explanation": "Combines mirror, page requisites, and link conversion for a complete offline backup."
+        },
+        {
+            "id": 48,
+            "category": "Directory Control",
+            "command": "wget -r -nd https://example.com/files/",
+            "example": "wget -r --no-directories https://example.com/assets/",
+            "explanation": "Recursively downloads files but saves them all to the current directory, flattening the structure."
+        },
+        {
+            "id": 49,
+            "category": "Directory Control",
+            "command": "wget -r --no-parent https://example.com/pub/data/",
+            "example": "wget -r -np https://example.com/files/user/",
+            "explanation": "Recursively downloads but prevents ascending to parent directories."
+        },
+        {
+            "id": 50,
+            "category": "Directory Control",
+            "command": "wget -r --no-host-directories https://example.com",
+            "example": "wget -r -nH https://example.com",
+            "explanation": "Recursively downloads but skips creating a directory named after the hostname."
+        },
+        {
+            "id": 51,
+            "category": "Filtering and Parsing",
+            "command": "wget -r -A pdf,docx https://example.com/documents/",
+            "example": "wget -r --accept=jpg,png https://example.com/gallery/",
+            "explanation": "Recursively downloads only files matching the specified extensions."
+        },
+        {
+            "id": 52,
+            "category": "Filtering and Parsing",
+            "command": "wget -r -R index.html,robots.txt https://example.com",
+            "example": "wget -r --reject=tmp,bak https://example.com/backup",
+            "explanation": "Recursively downloads while explicitly excluding specified filenames or extensions."
+        },
+        {
+            "id": 53,
+            "category": "Filtering and Parsing",
+            "command": "wget -r --accept-regex \"/2023/.*\\.pdf\" https://example.com/archive/",
+            "example": "wget -r --accept-regex \"user-[0-9]+\" https://example.com/users",
+            "explanation": "Uses a regular expression to filter which URLs should be downloaded during recursion."
+        },
+        {
+            "id": 54,
+            "category": "Filtering and Parsing",
+            "command": "wget --ignore-case -A JPEG,jpg https://example.com/photos",
+            "example": "wget --ignore-case -A PDF https://example.com/docs",
+            "explanation": "Matches file extensions case-insensitively during filtering."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Interactions",
+            "command": "wget --post-data=\"id=5&action=delete\" https://example.com/api.php",
+            "example": "wget --post-data=\"user=admin\" https://example.com/login",
+            "explanation": "Sends data to the server using the HTTP POST method."
+        },
+        {
+            "id": 56,
+            "category": "Advanced Interactions",
+            "command": "wget --post-file=payload.json --header=\"Content-Type: application/json\" https://example.com/api",
+            "example": "wget --post-file=soap.xml https://example.com/service",
+            "explanation": "Uploads the contents of a file via HTTP POST with appropriate headers."
+        },
+        {
+            "id": 57,
+            "category": "Advanced Interactions",
+            "command": "wget --method=PUT --body-file=update.json https://example.com/resource/1",
+            "example": "wget --method=DELETE https://example.com/resource/1",
+            "explanation": "Uses a specific HTTP verb (like PUT or DELETE) to interact with RESTful APIs."
+        },
+        {
+            "id": 58,
+            "category": "Advanced Interactions",
+            "command": "wget --content-disposition https://example.com/download?id=123",
+            "example": "wget --content-disposition https://example.com/get/file",
+            "explanation": "Honors the Content-Disposition header sent by the server to name the saved file."
+        },
+        {
+            "id": 59,
+            "category": "Advanced Interactions",
+            "command": "wget --spider https://example.com/file",
+            "example": "wget --spider -r https://example.com",
+            "explanation": "Checks if the file exists without downloading it (HEAD request)."
+        },
+        {
+            "id": 60,
+            "category": "Advanced Interactions",
+            "command": "wget -O - https://example.com/script.sh | bash",
+            "example": "wget -O - https://example.com/key.pub | apt-key add -",
+            "explanation": "Downloads a file to standard output for immediate piping into another command."
+        },
+        {
+            "id": 61,
+            "category": "FTP Support",
+            "command": "wget ftp://user:password@ftp.example.com/file.txt",
+            "example": "wget ftp://anonymous:test@ftp.example.com/pub/file",
+            "explanation": "Downloads a file using the FTP protocol with authentication."
+        },
+        {
+            "id": 62,
+            "category": "FTP Support",
+            "command": "wget --glob=on ftp://ftp.example.com/pub/*.txt",
+            "example": "wget --glob=on ftp://server/logs/log_*.txt",
+            "explanation": "Uses wildcard globbing to download multiple files via FTP."
+        },
+        {
+            "id": 63,
+            "category": "FTP Support",
+            "command": "wget --no-passive-ftp ftp://ftp.example.com/file",
+            "example": "wget --no-passive-ftp ftp://internal/file",
+            "explanation": "Forces active FTP mode instead of passive mode."
+        },
+        {
+            "id": 64,
+            "category": "Red Team and Recon",
+            "command": "wget --spider -r -nd --no-parent https://example.com 2>&1 | grep 'Broken link'",
+            "example": "wget --spider -r https://target.com 2>&1 | grep '404'",
+            "explanation": "Crawls a site without downloading to identify broken links and potential hijackable assets."
+        },
+        {
+            "id": 65,
+            "category": "Red Team and Recon",
+            "command": "wget -r -l 5 --spider --force-html -i input.html",
+            "example": "wget --spider --force-html -i list.html",
+            "explanation": "Forces wget to treat an input file as HTML to parse and follow links within it."
+        },
+        {
+            "id": 66,
+            "category": "Red Team and Recon",
+            "command": "wget --user-agent=\" \" https://example.com",
+            "example": "wget -U \"\" https://example.com",
+            "explanation": "Sends an empty User-Agent string to test server behavior for unknown clients."
+        },
+        {
+            "id": 67,
+            "category": "Red Team and Recon",
+            "command": "wget --header=\"X-Forwarded-For: 127.0.0.1\" https://example.com",
+            "example": "wget --header=\"Client-IP: 127.0.0.1\" https://example.com",
+            "explanation": "Injects headers attempting to bypass IP-based access controls."
+        },
+        {
+            "id": 68,
+            "category": "Red Team and Recon",
+            "command": "wget --execute robots=off -r https://example.com/admin",
+            "example": "wget -e robots=off -m https://target.com",
+            "explanation": "Ignores the robots.txt file to crawl paths specifically disallowed by the administrator."
+        },
+        {
+            "id": 69,
+            "category": "Red Team and Recon",
+            "command": "wget -r -A config,conf,cfg,ini,env,sh,bak,sql https://example.com",
+            "example": "wget -r -A bak,old,swp https://example.com",
+            "explanation": "Recursively scans for sensitive configuration and backup files left on the server."
+        },
+        {
+            "id": 70,
+            "category": "Blue Team and Forensics",
+            "command": "wget --warc-file=evidence --warc-cdx -m https://malicious-site.com",
+            "example": "wget --warc-file=case_101 -m https://example.com",
+            "explanation": "Mirrors a site and saves the request/response data into a WARC archive for forensic evidence."
+        },
+        {
+            "id": 71,
+            "category": "Blue Team and Forensics",
+            "command": "wget --server-response --spider https://example.com",
+            "example": "wget -S --spider https://example.com",
+            "explanation": "Prints the full HTTP headers sent by the server to analyze security headers."
+        },
+        {
+            "id": 72,
+            "category": "Blue Team and Forensics",
+            "command": "wget --timestamping https://example.com/daily_log.txt",
+            "example": "wget -N https://example.com/database.db",
+            "explanation": "Downloads the file only if the server version is newer than the local version."
+        },
+        {
+            "id": 73,
+            "category": "Blue Team and Forensics",
+            "command": "wget --preserve-permissions https://example.com/script.sh",
+            "example": "wget --no-use-server-timestamps https://example.com/file",
+            "explanation": "Preserves the file permissions of the downloaded file as they are on the remote server."
+        },
+        {
+            "id": 74,
+            "category": "Blue Team and Forensics",
+            "command": "wget --max-redirect=0 https://example.com/redirect",
+            "example": "wget --max-redirect=0 https://phishing.link",
+            "explanation": "Prevents wget from following redirects to analyze the initial redirect destination."
+        },
+        {
+            "id": 75,
+            "category": "Performance Tuning",
+            "command": "wget --no-cache https://example.com/live_data",
+            "example": "wget --header=\"Pragma: no-cache\" https://example.com",
+            "explanation": "Ensures the server sends a fresh version of the data rather than a cached copy."
+        },
+        {
+            "id": 76,
+            "category": "Performance Tuning",
+            "command": "wget --local-encoding=UTF-8 --remote-encoding=ISO-8859-1 https://example.com",
+            "example": "wget --remote-encoding=Windows-1252 https://legacy.com",
+            "explanation": "Handles encoding differences between the local system and the remote server."
+        },
+        {
+            "id": 77,
+            "category": "Performance Tuning",
+            "command": "wget --unlink https://example.com/file",
+            "example": "wget --unlink -r https://example.com",
+            "explanation": "Unlinks (deletes) the file before writing the new download, preventing symlink attacks."
+        },
+        {
+            "id": 78,
+            "category": "Performance Tuning",
+            "command": "wget --backups=1 https://example.com/config.xml",
+            "example": "wget --backups=3 https://example.com/settings.json",
+            "explanation": "Rotates existing files by adding a .1 suffix instead of overwriting them."
+        },
+        {
+            "id": 79,
+            "category": "Advanced Workflow",
+            "command": "wget --load-cookies=cookies.txt --post-data \"download=true\" -O - https://example.com/export | gzip > dump.gz",
+            "example": "wget --load-cookies=auth.txt -O - https://site.com/stream | tar -xvf -",
+            "explanation": "Authenticates, requests a POST export, streams to stdout, and compresses immediately."
+        },
+        {
+            "id": 80,
+            "category": "Advanced Workflow",
+            "command": "wget -r -l 1 --no-parent -A.txt -H -D example.com,cdn.example.com https://example.com",
+            "example": "wget -r -H -D site.com,img.site.com https://site.com",
+            "explanation": "Recursively downloads with host spanning enabled but restricted to specific domains."
+        },
+        {
+            "id": 81,
+            "category": "Advanced Workflow",
+            "command": "wget --regex-type=posix --accept-regex '.*\\.(jpg|png)' https://example.com",
+            "example": "wget --regex-type=pcre --reject-regex 'logout' https://example.com",
+            "explanation": "Specifies the regular expression type (POSIX or PCRE) for advanced filtering."
+        },
+        {
+            "id": 82,
+            "category": "Advanced Workflow",
+            "command": "wget --no-if-modified-since https://example.com/data",
+            "example": "wget --no-if-modified-since -N https://example.com",
+            "explanation": "Forces a download even if the server claims the file has not been modified."
+        },
+        {
+            "id": 83,
+            "category": "Advanced Workflow",
+            "command": "wget --crl-file=crl.pem https://secure.example.com",
+            "example": "wget --crl-file=revoked.crl https://internal.lab",
+            "explanation": "Checks the server certificate against a Certificate Revocation List (CRL)."
+        },
+        {
+            "id": 84,
+            "category": "Advanced Workflow",
+            "command": "wget --random-wait --limit-rate=100k --user-agent=\"Mozilla/5.0\" -e robots=off -m https://example.com",
+            "example": "wget --random-wait -w 3 -e robots=off -r https://target.com",
+            "explanation": "A 'stealthy' mirror workflow attempting to evade detection by acting like a slow human browser."
+        },
+        {
+            "id": 85,
+            "category": "Advanced Workflow",
+            "command": "wget -O /dev/null https://example.com/speedtest.bin",
+            "example": "wget -O /dev/null https://example.com/10GB.zip",
+            "explanation": "Downloads a file and discards it immediately to test network throughput."
+        },
+        {
+            "id": 86,
+            "category": "Advanced Workflow",
+            "command": "wget --force-directories -i list.txt",
+            "example": "wget -x -i urls.txt",
+            "explanation": "Forces the creation of a hierarchy of directories even if one would not normally be created."
+        },
+        {
+            "id": 87,
+            "category": "Advanced Workflow",
+            "command": "wget --protocol-directories -r https://example.com",
+            "example": "wget --protocol-directories -r https://cdn.com",
+            "explanation": "Uses the protocol name as a directory component when saving files locally."
+        },
+        {
+            "id": 88,
+            "category": "Advanced Workflow",
+            "command": "wget --cut-dirs=2 -r https://example.com/dir1/dir2/data/",
+            "example": "wget --cut-dirs=1 -r https://example.com/pub/files/",
+            "explanation": "Ignores the specified number of parent directory components when saving files."
+        },
+        {
+            "id": 89,
+            "category": "Advanced Workflow",
+            "command": "wget --adjust-extension -r https://example.com/cgi-bin/script",
+            "example": "wget -E -r https://example.com/dynamic",
+            "explanation": "Appends the proper extension (like .html) to files downloaded with unknown content types."
+        },
+        {
+            "id": 90,
+            "category": "Advanced Workflow",
+            "command": "wget --restrict-file-names=windows https://example.com/aux.txt",
+            "example": "wget --restrict-file-names=unix https://example.com/file",
+            "explanation": "Escapes characters in filenames to ensure compatibility with specific operating systems."
+        },
+        {
+            "id": 91,
+            "category": "Debugging",
+            "command": "wget -d https://example.com",
+            "example": "wget --debug https://example.com",
+            "explanation": "Prints extensive debug output to the terminal (requires wget compiled with debug support)."
+        },
+        {
+            "id": 92,
+            "category": "Authentication",
+            "command": "wget --http-user=user --http-password=pass https://example.com",
+            "example": "wget --http-user=admin --http-password=123 https://router.local",
+            "explanation": " Explicitly sets HTTP authentication separate from FTP authentication options."
+        },
+        {
+            "id": 93,
+            "category": "Authentication",
+            "command": "wget --ftp-user=user --ftp-password=pass ftp://example.com",
+            "example": "wget --ftp-user=anon --ftp-password=anon ftp://public.ftp",
+            "explanation": "Explicitly sets FTP authentication separate from HTTP authentication options."
+        },
+        {
+            "id": 94,
+            "category": "Filtering",
+            "command": "wget -r --exclude-domains facebook.com,twitter.com https://example.com",
+            "example": "wget -r --exclude-domains google.com https://blog.com",
+            "explanation": "Follows links but explicitly avoids downloading content from specific excluded domains."
+        },
+        {
+            "id": 95,
+            "category": "Filtering",
+            "command": "wget -r --follow-tags=a,img,link https://example.com",
+            "example": "wget -r --follow-tags=script https://example.com",
+            "explanation": "Only parses and follows links found within specific HTML tags."
+        },
+        {
+            "id": 96,
+            "category": "Filtering",
+            "command": "wget -r --ignore-tags=area,form https://example.com",
+            "example": "wget -r --ignore-tags=script https://example.com",
+            "explanation": "Parses the document but ignores links found within specific HTML tags."
+        },
+        {
+            "id": 97,
+            "category": "Filtering",
+            "command": "wget --span-hosts -r https://example.com",
+            "example": "wget -H -r https://example.com",
+            "explanation": "Allows recursion to jump to foreign hosts (use with caution and filters)."
+        },
+        {
+            "id": 98,
+            "category": "Output Control",
+            "command": "wget --no-http-keep-alive https://example.com",
+            "example": "wget --no-http-keep-alive -i urls.txt",
+            "explanation": "Disables HTTP Keep-Alive, forcing a new TCP connection for every file."
+        },
+        {
+            "id": 99,
+            "category": "SSL and Security",
+            "command": "wget --secure-protocol=PFS https://example.com",
+            "example": "wget --secure-protocol=auto https://example.com",
+            "explanation": "Enforces Perfect Forward Secrecy or allows automatic protocol negotiation."
+        },
+        {
+            "id": 100,
+            "category": "SSL and Security",
+            "command": "wget --https-only -r https://example.com",
+            "example": "wget --https-only -m https://site.com",
+            "explanation": "When recurring, only follows links that use the HTTPS protocol."
+        },
+        {
+            "id": 101,
+            "category": "Advanced Workflow",
+            "command": "wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com/wiki/",
+            "example": "wget -mkEpnp https://example.com/docs/",
+            "explanation": "The ultimate 'make a local copy of this documentation section' command."
+        },
+        {
+            "id": 102,
+            "category": "Advanced Workflow",
+            "command": "wget --header=\"Cookie: session=123\" https://example.com/admin",
+            "example": "wget --header=\"Cookie: id=abc\" https://example.com",
+            "explanation": "Manually sets the Cookie header without loading from a file."
+        },
+        {
+            "id": 103,
+            "category": "Network Tuning",
+            "command": "wget --retry-connrefused -t 5 https://example.com",
+            "example": "wget --retry-connrefused https://flaky-server.com",
+            "explanation": "Considers 'Connection Refused' as a transient error and retries."
+        },
+        {
+            "id": 104,
+            "category": "Output Control",
+            "command": "wget -O- https://example.com/logs.txt | grep error",
+            "example": "wget -O- https://example.com/data | awk '{print $1}'",
+            "explanation": "Uses standard output strictly for piping data into text processing tools."
+        },
+        {
+            "id": 105,
+            "category": "Meta",
+            "command": "wget --version",
+            "example": "wget -V",
+            "explanation": "Displays the version of wget and the compilation options."
+        },
+        {
+            "id": 106,
+            "category": "Meta",
+            "command": "wget --help",
+            "example": "wget -h",
+            "explanation": "Displays the help message with a summary of available options."
+        },
+        {
+            "id": 107,
+            "category": "Recursive Operations",
+            "command": "wget -r --level=inf https://example.com",
+            "example": "wget -r -l 0 https://example.com",
+            "explanation": "Recurses with infinite depth (use with extreme caution)."
+        },
+        {
+            "id": 108,
+            "category": "Red Team and Recon",
+            "command": "wget --spider --no-check-certificate https://192.168.1.1/admin",
+            "example": "wget --spider --no-check-certificate https://10.0.0.1/config",
+            "explanation": "Probes an internal IP endpoint for existence ignoring SSL errors."
+        },
+        {
+            "id": 109,
+            "category": "Performance Tuning",
+            "command": "wget --inet4-only --bind-address=127.0.0.1 https://localhost/test",
+            "example": "wget -4 --bind-address=10.0.0.5 https://example.com",
+            "explanation": "Combinatory command forcing IPv4 and a specific interface binding."
+        },
+        {
+            "id": 110,
+            "category": "Logging",
+            "command": "wget --no-verbose --show-progress https://example.com/file",
+            "example": "wget -nv --show-progress https://example.com/iso",
+            "explanation": "Keeps the log quiet but still displays the progress bar on the terminal."
+        },
+        {
+            "id": 111,
+            "category": "Output Control",
+            "command": "wget --ask-password --output-file=/dev/stderr https://example.com/secret",
+            "example": "wget -o /dev/stderr https://example.com",
+            "explanation": "Forces log output to standard error specifically."
+        },
+        {
+            "id": 112,
+            "category": "Recursive Operations",
+            "command": "wget -r --accept-regex 'index\\.(html|php)' https://example.com",
+            "example": "wget -r --accept-regex 'view\\?id=' https://example.com",
+            "explanation": "Recursively downloads only index files or specific dynamic pages via regex."
+        },
+        {
+            "id": 113,
+            "category": "Advanced Workflow",
+            "command": "wget --start-pos=1000 https://example.com/file.txt",
+            "example": "wget --start-pos=500k https://example.com/video.mp4",
+            "explanation": "Starts the download from a specific byte offset."
+        },
+        {
+            "id": 114,
+            "category": "Advanced Workflow",
+            "command": "wget --no-cookies --header \"Cookie: auth=token\" https://example.com",
+            "example": "wget --no-cookies https://example.com",
+            "explanation": "Prevents wget from using its internal cookie jar, relying manual headers."
+        },
+        {
+            "id": 115,
+            "category": "Red Team and Recon",
+            "command": "wget --method=OPTIONS -S https://example.com",
+            "example": "wget --method=OPTIONS -S https://api.target.com",
+            "explanation": "Sends an HTTP OPTIONS request to discover allowed methods on the server."
+        },
+        {
+            "id": 116,
+            "category": "Red Team and Recon",
+            "command": "wget --method=TRACE -S https://example.com",
+            "example": "wget --method=TRACE https://example.com",
+            "explanation": "Sends a TRACE request to debug upstream proxies or test for Cross-Site Tracing (XST)."
+        },
+        {
+            "id": 117,
+            "category": "Blue Team and Forensics",
+            "command": "wget --content-on-error https://example.com/error_page",
+            "example": "wget --content-on-error https://example.com/api/404",
+            "explanation": "Saves the body of the response even if the server returns a 4xx or 5xx error code."
+        },
+        {
+            "id": 118,
+            "category": "Advanced Workflow",
+            "command": "wget --body-data=\"param=value\" --method=POST https://example.com/api",
+            "example": "wget --body-data=\"json={}\" --method=POST https://example.com",
+            "explanation": "Alternative way to send data strings with specific methods."
+        },
+        {
+            "id": 119,
+            "category": "Advanced Workflow",
+            "command": "wget --compression=auto https://example.com/data",
+            "example": "wget --compression=gzip https://example.com/data",
+            "explanation": "Asks the server to compress the response (gzip) to save bandwidth."
+        },
+        {
+            "id": 120,
+            "category": "Directory Control",
+            "command": "wget -r --no-host-directories --cut-dirs=1 https://example.com/user/files/",
+            "example": "wget -r -nH --cut-dirs=2 https://example.com/a/b/c/",
+            "explanation": "Combines host skipping and directory cutting for a clean local folder structure."
+        },
+        {
+            "id": 121,
+            "category": "Proxy Configuration",
+            "command": "wget --no-proxy --header=\"Host: internal.test\" https://127.0.0.1",
+            "example": "wget --no-proxy https://10.0.0.1",
+            "explanation": "Directly accesses a localhost service with a spoofed Host header, bypassing proxies."
+        },
+        {
+            "id": 122,
+            "category": "Recursive Operations",
+            "command": "wget -r --delete-after https://example.com",
+            "example": "wget -r --delete-after https://cache-warmer.com",
+            "explanation": "Downloads files recursively to warm up a cache or test throughput, then deletes them."
+        },
+        {
+            "id": 123,
+            "category": "Recursive Operations",
+            "command": "wget -r -k -p -E https://example.com",
+            "example": "wget --recursive --convert-links --page-requisites --adjust-extension https://example.com",
+            "explanation": "The most robust set of flags for ensuring a mirrored HTML page renders correctly offline."
+        },
+        {
+            "id": 124,
+            "category": "Security Testing",
+            "command": "wget --ciphers=DEFAULT:!AES https://example.com",
+            "example": "wget --ciphers=ECDHE-RSA-AES256-GCM-SHA384 https://example.com",
+            "explanation": "Specifies the GnuTLS cipher priority string to test server SSL/TLS configurations."
+        },
+        {
+            "id": 125,
+            "category": "Cleanup",
+            "command": "wget --no-hsts https://example.com",
+            "example": "wget --no-hsts https://secure.com",
+            "explanation": "Prevents wget from creating or updating the HSTS (HTTP Strict Transport Security) database file."
+        }
+    ]
+}

@@ -1,0 +1,444 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Terminal - Cybersecurity Command Reference Hub
+   Design System: Electric Blue/Cyan Cyberpunk Theme
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  /* ========== HARVEST THEME (Default) ========== */
+  :root,
+  :root[data-theme="harvest"] {
+    /* Light mode - Harvest Theme (Warm Autumn) */
+    --background: 35 30% 97%;
+    --foreground: 25 30% 15%;
+    --card: 35 25% 99%;
+    --card-foreground: 25 30% 15%;
+    --popover: 35 20% 95%;
+    --popover-foreground: 25 30% 15%;
+    --primary: 25 85% 50%;
+    --primary-foreground: 35 100% 98%;
+    --secondary: 35 15% 90%;
+    --secondary-foreground: 25 30% 20%;
+    --muted: 35 10% 85%;
+    --muted-foreground: 25 15% 40%;
+    --accent: 40 90% 55%;
+    --accent-foreground: 25 40% 15%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 35 15% 82%;
+    --input: 35 15% 85%;
+    --ring: 25 85% 50%;
+    --radius: 0.75rem;
+    --sidebar-background: 35 25% 95%;
+    --sidebar-foreground: 25 30% 15%;
+    --sidebar-primary: 25 85% 50%;
+    --sidebar-primary-foreground: 35 100% 98%;
+    --sidebar-accent: 40 60% 92%;
+    --sidebar-accent-foreground: 25 30% 20%;
+    --sidebar-border: 35 15% 82%;
+    --sidebar-ring: 25 85% 50%;
+    --terminal-bg: 25 25% 12%;
+    --terminal-text: 40 100% 70%;
+    --neon-glow: 25 100% 55%;
+    --neon-cyan: 40 100% 55%;
+    --success: 140 65% 40%;
+    --warning: 40 95% 50%;
+    --command-bg: 35 20% 93%;
+    --chart-1: 25 85% 55%;
+    --chart-2: 40 90% 55%;
+    --chart-3: 15 80% 50%;
+    --chart-4: 50 85% 50%;
+    --chart-5: 35 20% 45%;
+    --sidebar: 35 25% 97%;
+    --font-sans: 'Roboto', ui-sans-serif, system-ui;
+    --font-serif: 'Libre Caslon Text', ui-serif, Georgia;
+    --font-mono: 'Roboto Mono', ui-monospace, monospace;
+    --shadow-2xs: 0 1px 3px 0px hsl(25 30% 20% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(25 30% 20% / 0.05);
+    --shadow-sm: 0 1px 3px 0px hsl(25 30% 20% / 0.08), 0 1px 2px -1px hsl(25 30% 20% / 0.08);
+    --shadow: 0 1px 3px 0px hsl(25 30% 20% / 0.1), 0 1px 2px -1px hsl(25 30% 20% / 0.1);
+    --shadow-md: 0 1px 3px 0px hsl(25 30% 20% / 0.1), 0 2px 4px -1px hsl(25 30% 20% / 0.1);
+    --shadow-lg: 0 1px 3px 0px hsl(25 30% 20% / 0.1), 0 4px 6px -1px hsl(25 30% 20% / 0.1);
+    --shadow-xl: 0 1px 3px 0px hsl(25 30% 20% / 0.1), 0 8px 10px -1px hsl(25 30% 20% / 0.1);
+    --shadow-2xl: 0 1px 3px 0px hsl(25 30% 20% / 0.2);
+    --tracking-normal: 0em;
+    --spacing: 0.25rem;
+  }
+
+  .dark,
+  :root[data-theme="harvest"].dark {
+    --background: 25 20% 8%;
+    --foreground: 35 20% 95%;
+    --card: 25 18% 12%;
+    --card-foreground: 35 20% 95%;
+    --popover: 25 15% 15%;
+    --popover-foreground: 35 20% 95%;
+    --primary: 25 90% 55%;
+    --primary-foreground: 25 30% 10%;
+    --secondary: 25 12% 20%;
+    --secondary-foreground: 35 20% 90%;
+    --muted: 25 10% 25%;
+    --muted-foreground: 35 15% 70%;
+    --accent: 40 85% 50%;
+    --accent-foreground: 25 30% 10%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 25 12% 22%;
+    --input: 25 12% 22%;
+    --ring: 25 90% 55%;
+    --sidebar-background: 25 22% 6%;
+    --sidebar-foreground: 35 20% 95%;
+    --sidebar-primary: 25 90% 55%;
+    --sidebar-primary-foreground: 25 30% 10%;
+    --sidebar-accent: 25 20% 15%;
+    --sidebar-accent-foreground: 35 20% 90%;
+    --sidebar-border: 25 12% 22%;
+    --sidebar-ring: 25 90% 55%;
+    --terminal-bg: 25 25% 5%;
+    --terminal-text: 40 100% 70%;
+    --neon-glow: 25 100% 60%;
+    --neon-cyan: 40 100% 60%;
+    --success: 140 65% 50%;
+    --warning: 40 95% 55%;
+    --command-bg: 25 18% 10%;
+    --chart-1: 25 90% 60%;
+    --chart-2: 40 90% 60%;
+    --chart-3: 15 85% 55%;
+    --chart-4: 50 85% 55%;
+    --chart-5: 35 15% 50%;
+    --sidebar: 25 18% 12%;
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.1);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.1);
+    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.15), 0 1px 2px -1px hsl(0 0% 0% / 0.15);
+    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.2), 0 1px 2px -1px hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.2), 0 2px 4px -1px hsl(0 0% 0% / 0.2);
+    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.2), 0 4px 6px -1px hsl(0 0% 0% / 0.2);
+    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.2), 0 8px 10px -1px hsl(0 0% 0% / 0.2);
+    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.35);
+  }
+
+  /* ========== CRIMSON THEME (Red) ========== */
+  :root[data-theme="crimson"] {
+    --background: 0 20% 97%;
+    --foreground: 0 30% 15%;
+    --card: 0 15% 99%;
+    --card-foreground: 0 30% 15%;
+    --popover: 0 15% 95%;
+    --popover-foreground: 0 30% 15%;
+    --primary: 0 75% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 10% 90%;
+    --secondary-foreground: 0 30% 20%;
+    --muted: 0 8% 85%;
+    --muted-foreground: 0 15% 40%;
+    --accent: 350 80% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 12% 82%;
+    --input: 0 12% 85%;
+    --ring: 0 75% 50%;
+    --sidebar-background: 0 18% 95%;
+    --sidebar-foreground: 0 30% 15%;
+    --sidebar-primary: 0 75% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 50% 92%;
+    --sidebar-accent-foreground: 0 30% 20%;
+    --sidebar-border: 0 12% 82%;
+    --sidebar-ring: 0 75% 50%;
+    --terminal-bg: 0 25% 12%;
+    --terminal-text: 0 100% 70%;
+    --neon-glow: 0 100% 55%;
+    --neon-cyan: 350 100% 55%;
+    --success: 140 65% 40%;
+    --warning: 45 95% 50%;
+    --command-bg: 0 15% 93%;
+    --chart-1: 0 75% 55%;
+    --chart-2: 350 80% 55%;
+    --chart-3: 15 70% 50%;
+    --chart-4: 330 75% 50%;
+    --chart-5: 0 15% 45%;
+    --sidebar: 0 18% 97%;
+  }
+
+  :root[data-theme="crimson"].dark {
+    --background: 0 20% 8%;
+    --foreground: 0 15% 95%;
+    --card: 0 18% 12%;
+    --card-foreground: 0 15% 95%;
+    --popover: 0 15% 15%;
+    --popover-foreground: 0 15% 95%;
+    --primary: 0 80% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 12% 20%;
+    --secondary-foreground: 0 15% 90%;
+    --muted: 0 10% 25%;
+    --muted-foreground: 0 10% 70%;
+    --accent: 350 75% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 12% 22%;
+    --input: 0 12% 22%;
+    --ring: 0 80% 55%;
+    --sidebar-background: 0 22% 6%;
+    --sidebar-foreground: 0 15% 95%;
+    --sidebar-primary: 0 80% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 20% 15%;
+    --sidebar-accent-foreground: 0 15% 90%;
+    --sidebar-border: 0 12% 22%;
+    --sidebar-ring: 0 80% 55%;
+    --terminal-bg: 0 25% 5%;
+    --terminal-text: 0 100% 70%;
+    --neon-glow: 0 100% 60%;
+    --neon-cyan: 350 100% 60%;
+    --success: 140 65% 50%;
+    --warning: 45 95% 55%;
+    --command-bg: 0 18% 10%;
+    --chart-1: 0 80% 60%;
+    --chart-2: 350 80% 60%;
+    --chart-3: 15 75% 55%;
+    --chart-4: 330 80% 55%;
+    --chart-5: 0 12% 50%;
+    --sidebar: 0 18% 12%;
+  }
+
+  /* ========== FOREST THEME (Green) ========== */
+  :root[data-theme="forest"] {
+    --background: 140 25% 97%;
+    --foreground: 140 30% 15%;
+    --card: 140 20% 99%;
+    --card-foreground: 140 30% 15%;
+    --popover: 140 18% 95%;
+    --popover-foreground: 140 30% 15%;
+    --primary: 140 60% 40%;
+    --primary-foreground: 140 100% 98%;
+    --secondary: 140 12% 90%;
+    --secondary-foreground: 140 30% 20%;
+    --muted: 140 8% 85%;
+    --muted-foreground: 140 15% 40%;
+    --accent: 160 70% 45%;
+    --accent-foreground: 140 100% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 140 12% 82%;
+    --input: 140 12% 85%;
+    --ring: 140 60% 40%;
+    --sidebar-background: 140 20% 95%;
+    --sidebar-foreground: 140 30% 15%;
+    --sidebar-primary: 140 60% 40%;
+    --sidebar-primary-foreground: 140 100% 98%;
+    --sidebar-accent: 140 45% 92%;
+    --sidebar-accent-foreground: 140 30% 20%;
+    --sidebar-border: 140 12% 82%;
+    --sidebar-ring: 140 60% 40%;
+    --terminal-bg: 140 25% 12%;
+    --terminal-text: 140 100% 70%;
+    --neon-glow: 140 100% 50%;
+    --neon-cyan: 160 100% 50%;
+    --success: 140 65% 40%;
+    --warning: 45 95% 50%;
+    --command-bg: 140 18% 93%;
+    --chart-1: 140 60% 45%;
+    --chart-2: 160 70% 45%;
+    --chart-3: 120 55% 40%;
+    --chart-4: 180 60% 40%;
+    --chart-5: 140 15% 45%;
+    --sidebar: 140 20% 97%;
+  }
+
+  :root[data-theme="forest"].dark {
+    --background: 140 20% 8%;
+    --foreground: 140 15% 95%;
+    --card: 140 18% 12%;
+    --card-foreground: 140 15% 95%;
+    --popover: 140 15% 15%;
+    --popover-foreground: 140 15% 95%;
+    --primary: 140 65% 50%;
+    --primary-foreground: 140 30% 10%;
+    --secondary: 140 12% 20%;
+    --secondary-foreground: 140 15% 90%;
+    --muted: 140 10% 25%;
+    --muted-foreground: 140 10% 70%;
+    --accent: 160 65% 45%;
+    --accent-foreground: 140 30% 10%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 140 12% 22%;
+    --input: 140 12% 22%;
+    --ring: 140 65% 50%;
+    --sidebar-background: 140 22% 6%;
+    --sidebar-foreground: 140 15% 95%;
+    --sidebar-primary: 140 65% 50%;
+    --sidebar-primary-foreground: 140 30% 10%;
+    --sidebar-accent: 140 20% 15%;
+    --sidebar-accent-foreground: 140 15% 90%;
+    --sidebar-border: 140 12% 22%;
+    --sidebar-ring: 140 65% 50%;
+    --terminal-bg: 140 25% 5%;
+    --terminal-text: 140 100% 70%;
+    --neon-glow: 140 100% 55%;
+    --neon-cyan: 160 100% 55%;
+    --success: 140 65% 50%;
+    --warning: 45 95% 55%;
+    --command-bg: 140 18% 10%;
+    --chart-1: 140 65% 55%;
+    --chart-2: 160 70% 50%;
+    --chart-3: 120 60% 45%;
+    --chart-4: 180 65% 45%;
+    --chart-5: 140 12% 50%;
+    --sidebar: 140 18% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Monospace for code/commands */
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Neon glow effects */
+  .neon-border {
+    @apply border border-primary/50;
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.3),
+                inset 0 0 10px hsl(var(--primary) / 0.1);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.8),
+                 0 0 20px hsl(var(--primary) / 0.5),
+                 0 0 30px hsl(var(--primary) / 0.3);
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 5px hsl(var(--primary) / 0.5),
+                0 0 15px hsl(var(--primary) / 0.3),
+                0 0 30px hsl(var(--primary) / 0.2);
+  }
+
+  /* Terminal card style */
+  .terminal-card {
+    @apply bg-card border border-border rounded-lg;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--card)) 0%,
+      hsl(var(--card) / 0.95) 100%
+    );
+  }
+
+  /* Command block styling */
+  .command-block {
+    @apply bg-muted font-mono text-sm px-4 py-3 rounded-md border border-border;
+    background: hsl(var(--command-bg));
+  }
+
+  /* Scanline effect (subtle) */
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(var(--foreground) / 0.03) 2px,
+      hsl(var(--foreground) / 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Category badges */
+  .category-badge {
+    @apply px-2 py-0.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20;
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-200;
+  }
+  .hover-lift:hover {
+    @apply -translate-y-0.5;
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.15);
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.5);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.7);
+  }
+}
+
+@layer utilities {
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--accent)) 100%
+    );
+  }
+
+  /* Blinking cursor */
+  .cursor-blink::after {
+    content: '▋';
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Slide in from left */
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+}

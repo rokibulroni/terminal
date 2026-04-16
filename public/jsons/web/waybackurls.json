@@ -1,0 +1,322 @@
+{
+    "tool": "waybackurls",
+    "description": "Complete waybackurls command reference covering all usage patterns from basic to advanced, including filtering, pipelines, and integrations.",
+    "total_commands": 45,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic URL Enumeration",
+            "command": "waybackurls example.com",
+            "example": "waybackurls example.com",
+            "explanation": "Fetches archived URLs for the target domain from public web archives."
+        },
+        {
+            "id": 2,
+            "category": "Basic URL Enumeration",
+            "command": "echo \"example.com\" | waybackurls",
+            "example": "echo \"example.com\" | waybackurls",
+            "explanation": "Fetches archived URLs by piping the domain from stdin."
+        },
+        {
+            "id": 3,
+            "category": "Multiple Domain Enumeration",
+            "command": "cat domains.txt | waybackurls",
+            "example": "cat domains.txt | waybackurls",
+            "explanation": "Fetches archived URLs for a list of domains provided in a file."
+        },
+        {
+            "id": 4,
+            "category": "Subdomain Handling",
+            "command": "waybackurls -no-subs example.com",
+            "example": "waybackurls -no-subs example.com",
+            "explanation": "Fetches archived URLs for the main domain only, excluding subdomains."
+        },
+        {
+            "id": 5,
+            "category": "Dates and Versions",
+            "command": "waybackurls -dates example.com",
+            "example": "waybackurls -dates example.com",
+            "explanation": "Retrieves the archived URLs along with the timestamp of the capture."
+        },
+        {
+            "id": 6,
+            "category": "Output Management",
+            "command": "waybackurls example.com > archive_urls.txt",
+            "example": "waybackurls example.com > archive_urls.txt",
+            "explanation": "Saves the discovered archived URLs to a text file for later analysis."
+        },
+        {
+            "id": 7,
+            "category": "Deduplication",
+            "command": "waybackurls example.com | sort -u",
+            "example": "waybackurls example.com | sort -u",
+            "explanation": "Fetches URLs and removes duplicate entries using sort."
+        },
+        {
+            "id": 8,
+            "category": "Parameter Discovery",
+            "command": "waybackurls example.com | grep \"?\"",
+            "example": "waybackurls example.com | grep \"?\"",
+            "explanation": "Filters the output to show only URLs that contain query parameters."
+        },
+        {
+            "id": 9,
+            "category": "Parameter Discovery",
+            "command": "waybackurls example.com | grep \"=\"",
+            "example": "waybackurls example.com | grep \"=\"",
+            "explanation": "Filters for URLs that likely contain values assigned to parameters."
+        },
+        {
+            "id": 10,
+            "category": "File Extension Discovery",
+            "command": "waybackurls example.com | grep \"\\.js\"",
+            "example": "waybackurls example.com | grep \"\\.js\"",
+            "explanation": "Extracts only JavaScript files from the archived URL list."
+        },
+        {
+            "id": 11,
+            "category": "File Extension Discovery",
+            "command": "waybackurls example.com | grep \"\\.json\"",
+            "example": "waybackurls example.com | grep \"\\.json\"",
+            "explanation": "Extracts JSON files which may contain configuration or API data."
+        },
+        {
+            "id": 12,
+            "category": "File Extension Discovery",
+            "command": "waybackurls example.com | grep \"\\.php\"",
+            "example": "waybackurls example.com | grep \"\\.php\"",
+            "explanation": "Identifies archived PHP endpoints for potential vulnerability testing."
+        },
+        {
+            "id": 13,
+            "category": "File Extension Discovery",
+            "command": "waybackurls example.com | grep -E \"\\.xml|\\.conf|\\.config|\\.yml|\\.yaml\"",
+            "example": "waybackurls example.com | grep -E \"\\.xml|\\.conf|\\.config|\\.yml|\\.yaml\"",
+            "explanation": "Filters for configuration files that might disclose sensitive information."
+        },
+        {
+            "id": 14,
+            "category": "Filtering Pipelines",
+            "command": "waybackurls example.com | grep -ivE \"\\.(jpg|jpeg|gif|css|png|svg|woff|woff2|ico|pdf)\"",
+            "example": "waybackurls example.com | grep -ivE \"\\.(jpg|jpeg|gif|css|png|svg|woff|woff2|ico|pdf)\"",
+            "explanation": "Removes static assets like images and fonts to focus on application logic."
+        },
+        {
+            "id": 15,
+            "category": "Sensitive Data Discovery",
+            "command": "waybackurls example.com | grep -i \"admin\"",
+            "example": "waybackurls example.com | grep -i \"admin\"",
+            "explanation": "Searches the archived URLs for paths containing the word admin."
+        },
+        {
+            "id": 16,
+            "category": "Sensitive Data Discovery",
+            "command": "waybackurls example.com | grep -i \"api\"",
+            "example": "waybackurls example.com | grep -i \"api\"",
+            "explanation": "Identifies potential API endpoints within the archived history."
+        },
+        {
+            "id": 17,
+            "category": "Sensitive Data Discovery",
+            "command": "waybackurls example.com | grep -i \"login\"",
+            "example": "waybackurls example.com | grep -i \"login\"",
+            "explanation": "Finds historical login pages which may still be accessible."
+        },
+        {
+            "id": 18,
+            "category": "Sensitive Data Discovery",
+            "command": "waybackurls example.com | grep -i \"dashboard\"",
+            "example": "waybackurls example.com | grep -i \"dashboard\"",
+            "explanation": "Looks for dashboard interfaces that might expose internal functionality."
+        },
+        {
+            "id": 19,
+            "category": "Sensitive Data Discovery",
+            "command": "waybackurls example.com | grep \"\\.git\"",
+            "example": "waybackurls example.com | grep \"\\.git\"",
+            "explanation": "Checks for accidentally exposed git repositories in the archive history."
+        },
+        {
+            "id": 20,
+            "category": "Sensitive Data Discovery",
+            "command": "waybackurls example.com | grep \"\\.env\"",
+            "example": "waybackurls example.com | grep \"\\.env\"",
+            "explanation": "Searches for environment files which often contain keys and secrets."
+        },
+        {
+            "id": 21,
+            "category": "Advanced Filtering",
+            "command": "waybackurls -dates example.com | sort -n | cut -d \" \" -f 2",
+            "example": "waybackurls -dates example.com | sort -n | cut -d \" \" -f 2",
+            "explanation": "Sorts archived URLs chronologically by date and extracts just the URL."
+        },
+        {
+            "id": 22,
+            "category": "Advanced Filtering",
+            "command": "waybackurls example.com | sed 's/:80//g;s/:443//g' | sort -u",
+            "example": "waybackurls example.com | sed 's/:80//g;s/:443//g' | sort -u",
+            "explanation": "Normalizes URLs by removing standard ports and deduplicating."
+        },
+        {
+            "id": 23,
+            "category": "Tool Integration",
+            "command": "waybackurls example.com | uro",
+            "example": "waybackurls example.com | uro",
+            "explanation": "Pipes URLs to 'uro' for advanced cleaning and deduplication of parameters."
+        },
+        {
+            "id": 24,
+            "category": "Tool Integration",
+            "command": "waybackurls example.com | unfurl domains",
+            "example": "waybackurls example.com | unfurl domains",
+            "explanation": "Extracts unique domains and subdomains found in the archived URL list."
+        },
+        {
+            "id": 25,
+            "category": "Tool Integration",
+            "command": "waybackurls example.com | unfurl paths",
+            "example": "waybackurls example.com | unfurl paths",
+            "explanation": "Extracts unique URL paths to understand the application structure."
+        },
+        {
+            "id": 26,
+            "category": "Tool Integration",
+            "command": "waybackurls example.com | httpx -title -status-code",
+            "example": "waybackurls example.com | httpx -title -status-code",
+            "explanation": "Checks which archived URLs are still alive and grabs their title and status."
+        },
+        {
+            "id": 27,
+            "category": "Tool Integration",
+            "command": "waybackurls example.com | httpx -mc 200",
+            "example": "waybackurls example.com | httpx -mc 200",
+            "explanation": "Filters the list to return only URLs that currently respond with a 200 OK."
+        },
+        {
+            "id": 28,
+            "category": "Vulnerability Hunting",
+            "command": "waybackurls example.com | gf xss",
+            "example": "waybackurls example.com | gf xss",
+            "explanation": "Uses 'gf' to filter URLs that match common XSS parameter patterns."
+        },
+        {
+            "id": 29,
+            "category": "Vulnerability Hunting",
+            "command": "waybackurls example.com | gf sqli",
+            "example": "waybackurls example.com | gf sqli",
+            "explanation": "Uses 'gf' to filter URLs that match common SQL injection patterns."
+        },
+        {
+            "id": 30,
+            "category": "Vulnerability Hunting",
+            "command": "waybackurls example.com | gf ssrf",
+            "example": "waybackurls example.com | gf ssrf",
+            "explanation": "Uses 'gf' to filter URLs that match common SSRF parameter patterns."
+        },
+        {
+            "id": 31,
+            "category": "Vulnerability Hunting",
+            "command": "waybackurls example.com | gf lfi",
+            "example": "waybackurls example.com | gf lfi",
+            "explanation": "Uses 'gf' to filter URLs that match common Local File Inclusion patterns."
+        },
+        {
+            "id": 32,
+            "category": "Vulnerability Hunting",
+            "command": "waybackurls example.com | gf redirect",
+            "example": "waybackurls example.com | gf redirect",
+            "explanation": "Uses 'gf' to filter URLs that match open redirect patterns."
+        },
+        {
+            "id": 33,
+            "category": "Advanced Pipeline",
+            "command": "waybackurls example.com | qsreplace -a | grep \"=\"",
+            "example": "waybackurls example.com | qsreplace -a | grep \"=\"",
+            "explanation": "Removes duplicate parameter combinations to create a unique fuzzing list."
+        },
+        {
+            "id": 34,
+            "category": "Advanced Pipeline",
+            "command": "waybackurls example.com | qsreplace \"FUZZ\" | nuclei -t vulnerabilities/generic/ -dast",
+            "example": "waybackurls example.com | qsreplace \"FUZZ\" | nuclei -t vulnerabilities/generic/ -dast",
+            "explanation": "Replaces parameters with a placeholder and pipes to Nuclei for scanning."
+        },
+        {
+            "id": 35,
+            "category": "Red Team Recon",
+            "command": "waybackurls example.com | grep -E \"\\.xls|\\.xlsx|\\.doc|\\.docx|\\.pdf\"",
+            "example": "waybackurls example.com | grep -E \"\\.xls|\\.xlsx|\\.doc|\\.docx|\\.pdf\"",
+            "explanation": "Hunts for document files that might contain metadata or sensitive business info."
+        },
+        {
+            "id": 36,
+            "category": "Red Team Recon",
+            "command": "waybackurls example.com | grep \"aws\" | grep \"s3\"",
+            "example": "waybackurls example.com | grep \"aws\" | grep \"s3\"",
+            "explanation": "Specifically targets URLs that reference AWS S3 buckets."
+        },
+        {
+            "id": 37,
+            "category": "Blue Team Mapping",
+            "command": "cat subdomains.txt | waybackurls | sort -u > full_history.txt",
+            "example": "cat subdomains.txt | waybackurls | sort -u > full_history.txt",
+            "explanation": "Aggregates historical URLs for an entire list of organization subdomains."
+        },
+        {
+            "id": 38,
+            "category": "Advanced Pipeline",
+            "command": "waybackurls example.com | grep -E \"\\.js$\" | httpx -mc 200 -content-type \"javascript\"",
+            "example": "waybackurls example.com | grep -E \"\\.js$\" | httpx -mc 200 -content-type \"javascript\"",
+            "explanation": "Finds live JavaScript files from history and verifies their content type."
+        },
+        {
+            "id": 39,
+            "category": "Advanced Pipeline",
+            "command": "waybackurls example.com | anew previous_scan.txt",
+            "example": "waybackurls example.com | anew previous_scan.txt",
+            "explanation": "Appends only new URLs found in history to an existing dataset using 'anew'."
+        },
+        {
+            "id": 40,
+            "category": "Specific Tech Discovery",
+            "command": "waybackurls example.com | grep \"wp-content\"",
+            "example": "waybackurls example.com | grep \"wp-content\"",
+            "explanation": "Filters for WordPress-specific paths to identify WordPress installations."
+        },
+        {
+            "id": 41,
+            "category": "Specific Tech Discovery",
+            "command": "waybackurls example.com | grep \"/api/v\"",
+            "example": "waybackurls example.com | grep \"/api/v\"",
+            "explanation": "Looks for versioned API endpoints (e.g., /api/v1) in the archive."
+        },
+        {
+            "id": 42,
+            "category": "Specific Tech Discovery",
+            "command": "waybackurls example.com | grep \".jsp\"",
+            "example": "waybackurls example.com | grep \".jsp\"",
+            "explanation": "Identifies Java Server Pages which may indicate legacy Java applications."
+        },
+        {
+            "id": 43,
+            "category": "Specific Tech Discovery",
+            "command": "waybackurls example.com | grep \".aspx\"",
+            "example": "waybackurls example.com | grep \".aspx\"",
+            "explanation": "Identifies ASP.NET pages which may indicate a Microsoft stack."
+        },
+        {
+            "id": 44,
+            "category": "Interactive Pipeline",
+            "command": "waybackurls example.com | grep \"debug\"",
+            "example": "waybackurls example.com | grep \"debug\"",
+            "explanation": "Searches for URLs containing 'debug' which are high-value targets."
+        },
+        {
+            "id": 45,
+            "category": "Automation",
+            "command": "echo example.com | waybackurls | grep -vE \"png|jpg|css|ico\" | qsreplace -a",
+            "example": "echo example.com | waybackurls | grep -vE \"png|jpg|css|ico\" | qsreplace -a",
+            "explanation": "A complete one-liner to fetch, clean, and deduplicate parameters for testing."
+        }
+    ]
+}

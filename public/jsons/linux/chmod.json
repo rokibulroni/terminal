@@ -1,0 +1,77 @@
+{
+  "tool": "chmod",
+  "description": "Change Mode (chmod): Essential Linux utility for modifying file systems access permissions (read, write, execute) for owners, groups, and global audiences.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Octal Method",
+      "command": "chmod 777 <file>",
+      "example": "chmod 777 script.sh",
+      "explanation": "Grants absolute read (4), write (2), and execute (1) permissions to Owner, Group, and Anyone perfectly. Highly insecure for regular usage."
+    },
+    {
+      "id": 2,
+      "category": "Octal Method",
+      "command": "chmod 755 <file>",
+      "example": "chmod 755 public_dir/",
+      "explanation": "Grants Owner absolute rights (7) while Group and Others can strictly only read and execute (5). Standard for web server files."
+    },
+    {
+      "id": 3,
+      "category": "Octal Method",
+      "command": "chmod 600 <file>",
+      "example": "chmod 600 id_rsa",
+      "explanation": "Sets permissions so strictly that the file is only readable and writable by the direct Owner (6). Perfect for SSH private keys."
+    },
+    {
+      "id": 4,
+      "category": "Symbolic Method",
+      "command": "chmod +x <file>",
+      "example": "chmod +x installer.run",
+      "explanation": "Universally adds the 'execute' permission logic natively allowing all users to run this binary or script."
+    },
+    {
+      "id": 5,
+      "category": "Symbolic Method",
+      "command": "chmod u=rwx,g=rw,o=r <file>",
+      "example": "chmod u=rwx,g=rw,o=r database.db",
+      "explanation": "Explicitly assigns User/Owner (rwx), Group (rw-), and Others (r--) via explicit symbolic representation rather than math."
+    },
+    {
+      "id": 6,
+      "category": "Symbolic Method",
+      "command": "chmod g-w <file>",
+      "example": "chmod g-w report.pdf",
+      "explanation": "Specifically subtracts/removes write permissions exclusively from the Group assigned to this file."
+    },
+    {
+      "id": 7,
+      "category": "Recursion",
+      "command": "chmod -R 755 <directory>",
+      "example": "chmod -R 755 /var/www/html",
+      "explanation": "Recursively sweeps through a directory assigning the 755 permission structure to all sub-directories and embedded files."
+    },
+    {
+      "id": 8,
+      "category": "Special Permissions",
+      "command": "chmod u+s <file>",
+      "example": "chmod u+s /usr/bin/ping",
+      "explanation": "Sets the SUID (Set-user Identification) bit. This enables anyone to execute the file pretending they hold the permissions of the file owner."
+    },
+    {
+      "id": 9,
+      "category": "Special Permissions",
+      "command": "chmod g+s <directory>",
+      "example": "chmod g+s shared_folder/",
+      "explanation": "Sets the SGID bit on a directory. All new files created within this directory will inherently inherit the directory's group ownership."
+    },
+    {
+      "id": 10,
+      "category": "Special Permissions",
+      "command": "chmod +t <directory>",
+      "example": "chmod +t /tmp",
+      "explanation": "Applies the Sticky Bit constraint. Inside this directory, files can only be genuinely deleted by their specific Owner or root."
+    }
+  ]
+}

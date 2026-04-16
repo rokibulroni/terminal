@@ -1,0 +1,707 @@
+{
+    "tool": "wireshark-cli",
+    "description": "Complete Wireshark CLI command reference covering tshark, dumpcap, and capinfos from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Setup and Info",
+            "command": "tshark -v",
+            "example": "tshark -v",
+            "explanation": "Displays the version information and compiled-in options for Tshark."
+        },
+        {
+            "id": 2,
+            "category": "Setup and Info",
+            "command": "dumpcap -v",
+            "example": "dumpcap -v",
+            "explanation": "Displays the version information for the raw capture tool Dumpcap."
+        },
+        {
+            "id": 3,
+            "category": "Setup and Info",
+            "command": "capinfos -v",
+            "example": "capinfos -v",
+            "explanation": "Displays the version information for the capture file metadata tool Capinfos."
+        },
+        {
+            "id": 4,
+            "category": "Interface Listing",
+            "command": "dumpcap -D",
+            "example": "dumpcap -D",
+            "explanation": "Lists all available network interfaces that can be used for capturing packets."
+        },
+        {
+            "id": 5,
+            "category": "Interface Listing",
+            "command": "tshark -D",
+            "example": "tshark -D",
+            "explanation": "Lists available interfaces using Tshark which may differ slightly from Dumpcap regarding pipes."
+        },
+        {
+            "id": 6,
+            "category": "File Metadata",
+            "command": "capinfos capture.pcap",
+            "example": "capinfos traffic.pcap",
+            "explanation": "Prints general metadata statistics about a capture file including duration and packet counts."
+        },
+        {
+            "id": 7,
+            "category": "File Metadata",
+            "command": "capinfos -c capture.pcap",
+            "example": "capinfos -c traffic.pcap",
+            "explanation": "Displays only the total count of packets contained in the capture file."
+        },
+        {
+            "id": 8,
+            "category": "File Metadata",
+            "command": "capinfos -u capture.pcap",
+            "example": "capinfos -u traffic.pcap",
+            "explanation": "Displays the start and end timestamps of the capture duration."
+        },
+        {
+            "id": 9,
+            "category": "File Metadata",
+            "command": "capinfos -s capture.pcap",
+            "example": "capinfos -s traffic.pcap",
+            "explanation": "Displays the size of the capture file in bytes."
+        },
+        {
+            "id": 10,
+            "category": "File Metadata",
+            "command": "capinfos -d capture.pcap",
+            "example": "capinfos -d traffic.pcap",
+            "explanation": "Displays the total data size of all packets excluding file overhead."
+        },
+        {
+            "id": 11,
+            "category": "Basic Capture",
+            "command": "dumpcap -i eth0 -w output.pcap",
+            "example": "dumpcap -i eth0 -w raw_capture.pcap",
+            "explanation": "Captures packets from a specific interface and writes them directly to a file."
+        },
+        {
+            "id": 12,
+            "category": "Basic Capture",
+            "command": "dumpcap -i any -w output.pcap",
+            "example": "dumpcap -i any -w all_interfaces.pcap",
+            "explanation": "Captures traffic from all available interfaces simultaneously on Linux systems."
+        },
+        {
+            "id": 13,
+            "category": "Capture Limits",
+            "command": "dumpcap -i eth0 -c 100 -w output.pcap",
+            "example": "dumpcap -i eth0 -c 100 -w sample.pcap",
+            "explanation": "Stops the packet capture automatically after capturing exactly 100 packets."
+        },
+        {
+            "id": 14,
+            "category": "Capture Limits",
+            "command": "dumpcap -i eth0 -a duration:60 -w output.pcap",
+            "example": "dumpcap -i eth0 -a duration:60 -w minute_capture.pcap",
+            "explanation": "Stops the packet capture automatically after 60 seconds."
+        },
+        {
+            "id": 15,
+            "category": "Capture Limits",
+            "command": "dumpcap -i eth0 -a filesize:10000 -w output.pcap",
+            "example": "dumpcap -i eth0 -a filesize:10000 -w limited_size.pcap",
+            "explanation": "Stops the capture when the output file size reaches 10,000 kilobytes."
+        },
+        {
+            "id": 16,
+            "category": "Ring Buffer",
+            "command": "dumpcap -i eth0 -b files:5 -b filesize:50000 -w buffer.pcap",
+            "example": "dumpcap -i eth0 -b files:5 -b filesize:50000 -w evidence.pcap",
+            "explanation": "Uses a ring buffer to keep the last 5 files of 50MB each, overwriting old ones."
+        },
+        {
+            "id": 17,
+            "category": "Ring Buffer",
+            "command": "dumpcap -i eth0 -b duration:3600 -w hourly.pcap",
+            "example": "dumpcap -i eth0 -b duration:3600 -w hourly_log.pcap",
+            "explanation": "Creates a new capture file every hour continuously."
+        },
+        {
+            "id": 18,
+            "category": "Capture Filters",
+            "command": "dumpcap -i eth0 -f \"tcp port 80\" -w web.pcap",
+            "example": "dumpcap -i eth0 -f \"tcp port 80\" -w web_traffic.pcap",
+            "explanation": "Captures only TCP traffic destined for or originating from port 80."
+        },
+        {
+            "id": 19,
+            "category": "Capture Filters",
+            "command": "dumpcap -i eth0 -f \"host 192.168.1.5\" -w host.pcap",
+            "example": "dumpcap -i eth0 -f \"host 192.168.1.5\" -w target.pcap",
+            "explanation": "Captures only traffic involving the specific IP address 192.168.1.5."
+        },
+        {
+            "id": 20,
+            "category": "Capture Filters",
+            "command": "dumpcap -i eth0 -f \"not port 22\" -w no_ssh.pcap",
+            "example": "dumpcap -i eth0 -f \"not port 22\" -w clean.pcap",
+            "explanation": "Captures all traffic except SSH traffic on port 22."
+        },
+        {
+            "id": 21,
+            "category": "Promiscuous Mode",
+            "command": "dumpcap -i eth0 -p -w output.pcap",
+            "example": "dumpcap -i eth0 -p -w unicast_only.pcap",
+            "explanation": "Captures in non-promiscuous mode, seeing only traffic addressed to the interface."
+        },
+        {
+            "id": 22,
+            "category": "Basic Analysis",
+            "command": "tshark -r capture.pcap",
+            "example": "tshark -r traffic.pcap",
+            "explanation": "Reads and displays a summary of packets from an existing capture file."
+        },
+        {
+            "id": 23,
+            "category": "Basic Analysis",
+            "command": "tshark -i eth0",
+            "example": "tshark -i eth0",
+            "explanation": "Captures packets from an interface and prints decoded one-line summaries to the terminal."
+        },
+        {
+            "id": 24,
+            "category": "Time Formatting",
+            "command": "tshark -r capture.pcap -t ad",
+            "example": "tshark -r traffic.pcap -t ad",
+            "explanation": "Displays packet timestamps as absolute dates with time."
+        },
+        {
+            "id": 25,
+            "category": "Time Formatting",
+            "command": "tshark -r capture.pcap -t ud",
+            "example": "tshark -r traffic.pcap -t ud",
+            "explanation": "Displays packet timestamps using UTC absolute date and time."
+        },
+        {
+            "id": 26,
+            "category": "Time Formatting",
+            "command": "tshark -r capture.pcap -t d",
+            "example": "tshark -r traffic.pcap -t d",
+            "explanation": "Displays timestamps as the time delta from the previous displayed packet."
+        },
+        {
+            "id": 27,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"http\"",
+            "example": "tshark -r traffic.pcap -Y \"http\"",
+            "explanation": "Displays only packets that are identified as HTTP protocol."
+        },
+        {
+            "id": 28,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"ip.addr == 192.168.1.1\"",
+            "example": "tshark -r traffic.pcap -Y \"ip.addr == 192.168.1.1\"",
+            "explanation": "Displays only packets where the source or destination IP matches the address."
+        },
+        {
+            "id": 29,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"tcp.flags.reset == 1\"",
+            "example": "tshark -r traffic.pcap -Y \"tcp.flags.reset == 1\"",
+            "explanation": "Displays only TCP packets where the RST (reset) flag is set."
+        },
+        {
+            "id": 30,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"frame.len > 1000\"",
+            "example": "tshark -r traffic.pcap -Y \"frame.len > 1000\"",
+            "explanation": "Displays only packets with a frame length greater than 1000 bytes."
+        },
+        {
+            "id": 31,
+            "category": "Two-Pass Analysis",
+            "command": "tshark -r capture.pcap -2 -R \"tcp.analysis.retransmission\"",
+            "example": "tshark -r traffic.pcap -2 -R \"tcp.analysis.retransmission\"",
+            "explanation": "Performs a two-pass analysis to accurately detect and filter TCP retransmissions."
+        },
+        {
+            "id": 32,
+            "category": "Field Extraction",
+            "command": "tshark -r capture.pcap -T fields -e ip.src -e ip.dst",
+            "example": "tshark -r traffic.pcap -T fields -e ip.src -e ip.dst",
+            "explanation": "Extracts and prints only the source and destination IP addresses."
+        },
+        {
+            "id": 33,
+            "category": "Field Extraction",
+            "command": "tshark -r capture.pcap -T fields -e http.host -e http.request.uri",
+            "example": "tshark -r traffic.pcap -T fields -e http.host -e http.request.uri",
+            "explanation": "Extracts the HTTP host and requested URI from HTTP traffic."
+        },
+        {
+            "id": 34,
+            "category": "Field Extraction",
+            "command": "tshark -r capture.pcap -T fields -e dns.qry.name",
+            "example": "tshark -r traffic.pcap -T fields -e dns.qry.name",
+            "explanation": "Extracts only the DNS query names being requested in the traffic."
+        },
+        {
+            "id": 35,
+            "category": "CSV Output",
+            "command": "tshark -r capture.pcap -T fields -e frame.number -e ip.src -E separator=,",
+            "example": "tshark -r traffic.pcap -T fields -e frame.number -e ip.src -E separator=,",
+            "explanation": "Outputs the extracted fields in CSV format separated by commas."
+        },
+        {
+            "id": 36,
+            "category": "CSV Output",
+            "command": "tshark -r capture.pcap -T fields -e ip.src -E header=y",
+            "example": "tshark -r traffic.pcap -T fields -e ip.src -E header=y",
+            "explanation": "Includes a header row describing the fields in the text output."
+        },
+        {
+            "id": 37,
+            "category": "JSON Output",
+            "command": "tshark -r capture.pcap -T json",
+            "example": "tshark -r traffic.pcap -T json",
+            "explanation": "Exports the full dissection of packets into a detailed JSON format."
+        },
+        {
+            "id": 38,
+            "category": "JSON Output",
+            "command": "tshark -r capture.pcap -T jsonraw",
+            "example": "tshark -r traffic.pcap -T jsonraw",
+            "explanation": "Exports the packet dissection to JSON including the raw hex data for fields."
+        },
+        {
+            "id": 39,
+            "category": "JSON Output",
+            "command": "tshark -r capture.pcap -T ek",
+            "example": "tshark -r traffic.pcap -T ek",
+            "explanation": "Exports packets in Newline Delimited JSON format suitable for Elasticsearch."
+        },
+        {
+            "id": 40,
+            "category": "Verbose Output",
+            "command": "tshark -r capture.pcap -V",
+            "example": "tshark -r traffic.pcap -V",
+            "explanation": "Displays the full, verbose packet tree details for every packet in the file."
+        },
+        {
+            "id": 41,
+            "category": "Verbose Output",
+            "command": "tshark -r capture.pcap -O http",
+            "example": "tshark -r traffic.pcap -O http",
+            "explanation": "Displays full verbose details only for the HTTP protocol layer."
+        },
+        {
+            "id": 42,
+            "category": "Hex Output",
+            "command": "tshark -r capture.pcap -x",
+            "example": "tshark -r traffic.pcap -x",
+            "explanation": "Prints the packet data in both hex and ASCII format alongside the summary."
+        },
+        {
+            "id": 43,
+            "category": "Statistics",
+            "command": "tshark -r capture.pcap -q -z io,phs",
+            "example": "tshark -r traffic.pcap -q -z io,phs",
+            "explanation": "Displays the Protocol Hierarchy Statistics showing traffic distribution by protocol."
+        },
+        {
+            "id": 44,
+            "category": "Statistics",
+            "command": "tshark -r capture.pcap -q -z conv,ip",
+            "example": "tshark -r traffic.pcap -q -z conv,ip",
+            "explanation": "Displays a table of IPv4 conversations including packet counts and bytes."
+        },
+        {
+            "id": 45,
+            "category": "Statistics",
+            "command": "tshark -r capture.pcap -q -z conv,tcp",
+            "example": "tshark -r traffic.pcap -q -z conv,tcp",
+            "explanation": "Displays a table of TCP conversations identifying active connections."
+        },
+        {
+            "id": 46,
+            "category": "Statistics",
+            "command": "tshark -r capture.pcap -q -z endpoints,ip",
+            "example": "tshark -r traffic.pcap -q -z endpoints,ip",
+            "explanation": "Lists all IPv4 endpoints found in the capture file with traffic stats."
+        },
+        {
+            "id": 47,
+            "category": "Statistics",
+            "command": "tshark -r capture.pcap -q -z expert",
+            "example": "tshark -r traffic.pcap -q -z expert",
+            "explanation": "Displays expert info warnings, errors, and notes detected in the trace."
+        },
+        {
+            "id": 48,
+            "category": "Advanced Statistics",
+            "command": "tshark -r capture.pcap -q -z http,tree",
+            "example": "tshark -r traffic.pcap -q -z http,tree",
+            "explanation": "Calculates and displays a statistical tree of HTTP packet distribution."
+        },
+        {
+            "id": 49,
+            "category": "Advanced Statistics",
+            "command": "tshark -r capture.pcap -q -z http,stat",
+            "example": "tshark -r traffic.pcap -q -z http,stat",
+            "explanation": "Displays HTTP status code statistics and request distribution."
+        },
+        {
+            "id": 50,
+            "category": "Advanced Statistics",
+            "command": "tshark -r capture.pcap -q -z dns,tree",
+            "example": "tshark -r traffic.pcap -q -z dns,tree",
+            "explanation": "Displays a statistical tree summarizing DNS query types and response codes."
+        },
+        {
+            "id": 51,
+            "category": "Advanced Statistics",
+            "command": "tshark -r capture.pcap -q -z io,stat,1",
+            "example": "tshark -r traffic.pcap -q -z io,stat,1",
+            "explanation": "Calculates traffic statistics in 1-second intervals."
+        },
+        {
+            "id": 52,
+            "category": "Advanced Statistics",
+            "command": "tshark -r capture.pcap -q -z io,stat,1,\"COUNT(tcp.analysis.retransmission) tcp.analysis.retransmission\"",
+            "example": "tshark -r traffic.pcap -q -z io,stat,1,\"COUNT(tcp.analysis.retransmission) tcp.analysis.retransmission\"",
+            "explanation": "Counts TCP retransmissions per second to identify network congestion."
+        },
+        {
+            "id": 53,
+            "category": "Decryption",
+            "command": "tshark -r capture.pcap -o \"ssl.keys_list:0.0.0.0,443,http,server.pem\"",
+            "example": "tshark -r traffic.pcap -o \"ssl.keys_list:0.0.0.0,443,http,server.pem\"",
+            "explanation": "Decrypts SSL/TLS traffic using the provided server private key file."
+        },
+        {
+            "id": 54,
+            "category": "Decryption",
+            "command": "tshark -r capture.pcap -o \"tls.keylog_file:secrets.log\"",
+            "example": "tshark -r traffic.pcap -o \"tls.keylog_file:secrets.log\"",
+            "explanation": "Decrypts TLS traffic using a browser-generated session key log file."
+        },
+        {
+            "id": 55,
+            "category": "Protocol Preferences",
+            "command": "tshark -r capture.pcap -o \"tcp.desegment_tcp_streams:TRUE\"",
+            "example": "tshark -r traffic.pcap -o \"tcp.desegment_tcp_streams:TRUE\"",
+            "explanation": "Forces reassembly of TCP segments to analyze complete application layer payloads."
+        },
+        {
+            "id": 56,
+            "category": "Protocol Preferences",
+            "command": "tshark -r capture.pcap -d tcp.port==8080,http",
+            "example": "tshark -r traffic.pcap -d tcp.port==8080,http",
+            "explanation": "Decodes traffic on TCP port 8080 as HTTP regardless of standard port assignments."
+        },
+        {
+            "id": 57,
+            "category": "Stream Analysis",
+            "command": "tshark -r capture.pcap -z follow,tcp,ascii,0",
+            "example": "tshark -r traffic.pcap -z follow,tcp,ascii,0",
+            "explanation": "Follows TCP stream index 0 and displays the content in ASCII format."
+        },
+        {
+            "id": 58,
+            "category": "Stream Analysis",
+            "command": "tshark -r capture.pcap -z follow,udp,hex,0",
+            "example": "tshark -r traffic.pcap -z follow,udp,hex,0",
+            "explanation": "Follows UDP stream index 0 and displays the content in Hex format."
+        },
+        {
+            "id": 59,
+            "category": "Object Extraction",
+            "command": "tshark -r capture.pcap --export-objects http,./output_dir",
+            "example": "tshark -r traffic.pcap --export-objects http,./files",
+            "explanation": "Extracts all files (images, binaries) transferred via HTTP to the specified directory."
+        },
+        {
+            "id": 60,
+            "category": "Object Extraction",
+            "command": "tshark -r capture.pcap --export-objects smb,./output_dir",
+            "example": "tshark -r traffic.pcap --export-objects smb,./files",
+            "explanation": "Extracts files transferred over SMB/CIFS shares to the specified directory."
+        },
+        {
+            "id": 61,
+            "category": "GeoIP",
+            "command": "tshark -r capture.pcap -T fields -e ip.src -e ip.geoip.country",
+            "example": "tshark -r traffic.pcap -T fields -e ip.src -e ip.geoip.country",
+            "explanation": "Displays source IP addresses alongside their resolved GeoIP country."
+        },
+        {
+            "id": 62,
+            "category": "Name Resolution",
+            "command": "tshark -r capture.pcap -n",
+            "example": "tshark -r traffic.pcap -n",
+            "explanation": "Disables network name resolution (DNS) to speed up processing."
+        },
+        {
+            "id": 63,
+            "category": "Name Resolution",
+            "command": "tshark -r capture.pcap -N n",
+            "example": "tshark -r traffic.pcap -N n",
+            "explanation": "Enables network name resolution to resolve IP addresses to hostnames."
+        },
+        {
+            "id": 64,
+            "category": "Filtering and Saving",
+            "command": "tshark -r full.pcap -Y \"tcp.port == 80\" -w http_only.pcap",
+            "example": "tshark -r full.pcap -Y \"tcp.port == 80\" -w http_only.pcap",
+            "explanation": "Reads a capture file, applies a display filter, and saves the matches to a new file."
+        },
+        {
+            "id": 65,
+            "category": "Anonymization",
+            "command": "editcap -I 128 input.pcap output.pcap",
+            "example": "editcap -I 128 sensitive.pcap sanitized.pcap",
+            "explanation": "Injects packet length errors or trims packets to remove sensitive payload data (requires editcap)."
+        },
+        {
+            "id": 66,
+            "category": "Slicing",
+            "command": "tshark -r capture.pcap -s 64 -w header_only.pcap",
+            "example": "tshark -r traffic.pcap -s 64 -w headers.pcap",
+            "explanation": "Reads a file and saves only the first 64 bytes of each packet, discarding payloads."
+        },
+        {
+            "id": 67,
+            "category": "IPv6 Analysis",
+            "command": "tshark -r capture.pcap -Y \"ipv6\"",
+            "example": "tshark -r traffic.pcap -Y \"ipv6\"",
+            "explanation": "Filters and displays only IPv6 traffic."
+        },
+        {
+            "id": 68,
+            "category": "IPv6 Analysis",
+            "command": "tshark -r capture.pcap -q -z conv,ipv6",
+            "example": "tshark -r traffic.pcap -q -z conv,ipv6",
+            "explanation": "Displays statistics for IPv6 conversations."
+        },
+        {
+            "id": 69,
+            "category": "Tunneling",
+            "command": "tshark -r capture.pcap -Y \"gtp\"",
+            "example": "tshark -r traffic.pcap -Y \"gtp\"",
+            "explanation": "Filters traffic to show GPRS Tunneling Protocol packets used in mobile networks."
+        },
+        {
+            "id": 70,
+            "category": "Tunneling",
+            "command": "tshark -r capture.pcap -Y \"vxlan\"",
+            "example": "tshark -r traffic.pcap -Y \"vxlan\"",
+            "explanation": "Filters traffic to show VXLAN encapsulated packets common in data centers."
+        },
+        {
+            "id": 71,
+            "category": "VLAN Analysis",
+            "command": "tshark -r capture.pcap -Y \"vlan.id == 10\"",
+            "example": "tshark -r traffic.pcap -Y \"vlan.id == 10\"",
+            "explanation": "Filters traffic belonging specifically to VLAN ID 10."
+        },
+        {
+            "id": 72,
+            "category": "WLAN Analysis",
+            "command": "tshark -r wifi.pcap -Y \"wlan.fc.type_subtype == 0x08\"",
+            "example": "tshark -r wifi.pcap -Y \"wlan.fc.type_subtype == 0x08\"",
+            "explanation": "Filters specific 802.11 frame types, such as Beacon frames (subtype 0x08)."
+        },
+        {
+            "id": 73,
+            "category": "USB Analysis",
+            "command": "tshark -i usbmon0",
+            "example": "tshark -i usbmon0",
+            "explanation": "Captures USB traffic on Linux systems using the usbmon interface."
+        },
+        {
+            "id": 74,
+            "category": "Bluetooth Analysis",
+            "command": "tshark -i bluetooth0",
+            "example": "tshark -i bluetooth0",
+            "explanation": "Captures Bluetooth traffic if the hardware and drivers support monitor mode."
+        },
+        {
+            "id": 75,
+            "category": "VoIP Analysis",
+            "command": "tshark -r capture.pcap -Y \"sip || rtp\"",
+            "example": "tshark -r traffic.pcap -Y \"sip || rtp\"",
+            "explanation": "Filters traffic to show only SIP signaling and RTP media streams."
+        },
+        {
+            "id": 76,
+            "category": "VoIP Analysis",
+            "command": "tshark -r capture.pcap -q -z sip,stat",
+            "example": "tshark -r traffic.pcap -q -z sip,stat",
+            "explanation": "Displays statistics for SIP methods and response codes."
+        },
+        {
+            "id": 77,
+            "category": "Error Analysis",
+            "command": "tshark -r capture.pcap -Y \"tcp.analysis.lost_segment\"",
+            "example": "tshark -r traffic.pcap -Y \"tcp.analysis.lost_segment\"",
+            "explanation": "Identifies packets that indicate a previous TCP segment was lost in transit."
+        },
+        {
+            "id": 78,
+            "category": "Error Analysis",
+            "command": "tshark -r capture.pcap -Y \"tcp.analysis.window_full\"",
+            "example": "tshark -r traffic.pcap -Y \"tcp.analysis.window_full\"",
+            "explanation": "Identifies when the TCP receive window is full, indicating a potential bottleneck."
+        },
+        {
+            "id": 79,
+            "category": "Security Monitoring",
+            "command": "tshark -r capture.pcap -Y \"http.request.method == POST\"",
+            "example": "tshark -r traffic.pcap -Y \"http.request.method == POST\"",
+            "explanation": "Filters for HTTP POST requests which often contain form submissions or uploads."
+        },
+        {
+            "id": 80,
+            "category": "Security Monitoring",
+            "command": "tshark -r capture.pcap -Y \"tcp.port == 4444\"",
+            "example": "tshark -r traffic.pcap -Y \"tcp.port == 4444\"",
+            "explanation": "Filters for traffic on port 4444, a common default port for Metasploit payloads."
+        },
+        {
+            "id": 81,
+            "category": "Security Monitoring",
+            "command": "tshark -r capture.pcap -Y \"dns.qry.name contains \\\"base64\\\"\"",
+            "example": "tshark -r traffic.pcap -Y \"dns.qry.name contains \\\"base64\\\"\"",
+            "explanation": "Searches for DNS queries containing suspicious strings like 'base64' indicating tunneling."
+        },
+        {
+            "id": 82,
+            "category": "Security Monitoring",
+            "command": "tshark -r capture.pcap -Y \"tls.handshake.extensions_server_name\"",
+            "example": "tshark -r traffic.pcap -Y \"tls.handshake.extensions_server_name\"",
+            "explanation": "Inspects the SNI (Server Name Indication) in TLS handshakes to see target domains."
+        },
+        {
+            "id": 83,
+            "category": "Formatting",
+            "command": "tshark -r capture.pcap -T text -e frame.number",
+            "example": "tshark -r traffic.pcap -T text",
+            "explanation": "Forces standard text output even if configured otherwise in preferences."
+        },
+        {
+            "id": 84,
+            "category": "Formatting",
+            "command": "tshark -r capture.pcap -T tabs",
+            "example": "tshark -r traffic.pcap -T tabs",
+            "explanation": "Displays packet summaries with tab-separated columns for easier parsing."
+        },
+        {
+            "id": 85,
+            "category": "Live Display",
+            "command": "tshark -i eth0 -l",
+            "example": "tshark -i eth0 -l",
+            "explanation": "Flushes the standard output after every packet, useful when piping to other tools."
+        },
+        {
+            "id": 86,
+            "category": "Live Limits",
+            "command": "tshark -i eth0 -a duration:10",
+            "example": "tshark -i eth0 -a duration:10",
+            "explanation": "Captures and displays packets for 10 seconds before terminating."
+        },
+        {
+            "id": 87,
+            "category": "Read Filter",
+            "command": "tshark -r capture.pcap -R \"ip.addr==1.2.3.4\" -2",
+            "example": "tshark -r traffic.pcap -R \"ip.addr==1.2.3.4\" -2",
+            "explanation": "Uses a read filter with two-pass analysis, necessary for some complex filters."
+        },
+        {
+            "id": 88,
+            "category": "Merge",
+            "command": "mergecap -w merged.pcap file1.pcap file2.pcap",
+            "example": "mergecap -w combined.pcap part1.pcap part2.pcap",
+            "explanation": "Combines multiple capture files into a single file based on packet timestamps."
+        },
+        {
+            "id": 89,
+            "category": "Compare",
+            "command": "diff <(tshark -r f1.pcap) <(tshark -r f2.pcap)",
+            "example": "diff <(tshark -r f1.pcap) <(tshark -r f2.pcap)",
+            "explanation": "Uses bash process substitution and tshark to textually compare two capture files."
+        },
+        {
+            "id": 90,
+            "category": "Deduplication",
+            "command": "editcap -d input.pcap output.pcap",
+            "example": "editcap -d duplicate.pcap unique.pcap",
+            "explanation": "Removes duplicate packets from a capture file based on a moving time window."
+        },
+        {
+            "id": 91,
+            "category": "Time Adjustment",
+            "command": "editcap -t 3600 input.pcap output.pcap",
+            "example": "editcap -t 3600 input.pcap timezone_fix.pcap",
+            "explanation": "Adjusts the timestamp of every packet in the file forward by 3600 seconds."
+        },
+        {
+            "id": 92,
+            "category": "Format Conversion",
+            "command": "editcap -F pcapng input.pcap output.pcapng",
+            "example": "editcap -F pcapng old.pcap new.pcapng",
+            "explanation": "Converts an old PCAP file format to the newer, more versatile PCAPNG format."
+        },
+        {
+            "id": 93,
+            "category": "Protocol Hierarchy",
+            "command": "tshark -r capture.pcap -z io,phs,udp",
+            "example": "tshark -r traffic.pcap -z io,phs,udp",
+            "explanation": "Displays protocol hierarchy statistics specifically filtering for the UDP branch."
+        },
+        {
+            "id": 94,
+            "category": "Latency Analysis",
+            "command": "tshark -r capture.pcap -T fields -e frame.number -e tcp.analysis.ack_rtt",
+            "example": "tshark -r traffic.pcap -T fields -e frame.number -e tcp.analysis.ack_rtt",
+            "explanation": "Extracts the Round Trip Time (RTT) for TCP acknowledgments to analyze latency."
+        },
+        {
+            "id": 95,
+            "category": "Large File Analysis",
+            "command": "tshark -r large.pcap -c 1000",
+            "example": "tshark -r gigabyte.pcap -c 1000",
+            "explanation": "Reads only the first 1000 packets of a large file to avoid loading everything."
+        },
+        {
+            "id": 96,
+            "category": "Credential Hunting",
+            "command": "tshark -r capture.pcap -Y \"http.authbasic\"",
+            "example": "tshark -r traffic.pcap -Y \"http.authbasic\"",
+            "explanation": "Filters for HTTP Basic Authentication headers which contain base64 credentials."
+        },
+        {
+            "id": 97,
+            "category": "Credential Hunting",
+            "command": "tshark -r capture.pcap -Y \"ftp.request.command == USER || ftp.request.command == PASS\"",
+            "example": "tshark -r traffic.pcap -Y \"ftp.request.command == USER || ftp.request.command == PASS\"",
+            "explanation": "Filters for FTP login commands to capture cleartext usernames and passwords."
+        },
+        {
+            "id": 98,
+            "category": "Elasticsearch",
+            "command": "tshark -r capture.pcap -T ek -J \"http tcp ip\"",
+            "example": "tshark -r traffic.pcap -T ek -J \"http tcp ip\"",
+            "explanation": "Generates Elasticsearch-compatible JSON only for the HTTP, TCP, and IP layers."
+        },
+        {
+            "id": 99,
+            "category": "Custom Columns",
+            "command": "tshark -r capture.pcap -o \"gui.column.format:\\\"Source\\\",\\\"%s\\\",\\\"Dest\\\",\\\"%d\\\"\"",
+            "example": "tshark -r traffic.pcap -o \"gui.column.format:\\\"Source\\\",\\\"%s\\\",\\\"Dest\\\",\\\"%d\\\"\"",
+            "explanation": "Overrides the default summary columns with custom columns defined in the command."
+        },
+        {
+            "id": 100,
+            "category": "Advanced Capture",
+            "command": "dumpcap -i eth0 -w output.pcap -f \"tcp[13] & 8 != 0\"",
+            "example": "dumpcap -i eth0 -w push.pcap -f \"tcp[13] & 8 != 0\"",
+            "explanation": "Uses a raw BPF bitmask filter to capture only TCP packets with the PSH flag set."
+        }
+    ]
+}

@@ -1,0 +1,532 @@
+{
+    "tool": "snort",
+    "description": "Complete Snort command and workflow reference from basic to advanced network intrusion detection and monitoring",
+    "total_commands": 75,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Snort Syntax",
+            "command": "snort -V",
+            "example": "snort -V",
+            "explanation": "Displays the installed Snort version and build information to verify successful installation."
+        },
+        {
+            "id": 2,
+            "category": "Basic Snort Syntax",
+            "command": "snort -?",
+            "example": "snort -?",
+            "explanation": "Lists all available command-line switches and usage instructions for the current version."
+        },
+        {
+            "id": 3,
+            "category": "Sniffer Mode Operation",
+            "command": "snort -v",
+            "example": "snort -v",
+            "explanation": "Runs Snort in verbose mode to print TCP/IP packet headers to the console without logging."
+        },
+        {
+            "id": 4,
+            "category": "Sniffer Mode Operation",
+            "command": "snort -vd",
+            "example": "snort -vd",
+            "explanation": "Displays packet headers and application layer data (payloads) in verbose mode."
+        },
+        {
+            "id": 5,
+            "category": "Sniffer Mode Operation",
+            "command": "snort -vde",
+            "example": "snort -vde",
+            "explanation": "Displays packet headers, payloads, and Data Link Layer (Layer 2) headers for deep inspection."
+        },
+        {
+            "id": 6,
+            "category": "Sniffer Mode Operation",
+            "command": "snort -v -X",
+            "example": "snort -v -X",
+            "explanation": "Dumps the raw packet data starting from the link layer in hex and ASCII format."
+        },
+        {
+            "id": 7,
+            "category": "Interface Selection",
+            "command": "snort -i",
+            "example": "snort -i eth0 -v",
+            "explanation": "Specifies the network interface to listen on for traffic capture and inspection."
+        },
+        {
+            "id": 8,
+            "category": "Packet Logger Mode",
+            "command": "snort -l",
+            "example": "snort -v -l ./log",
+            "explanation": "Logs captured packets to the specified directory, creating hierarchical folders based on IP addresses."
+        },
+        {
+            "id": 9,
+            "category": "Packet Logger Mode",
+            "command": "snort -b",
+            "example": "snort -l ./log -b",
+            "explanation": "Logs packets in binary (tcpdump) format, which is much faster than ASCII logging."
+        },
+        {
+            "id": 10,
+            "category": "Packet Logger Mode",
+            "command": "snort -K ascii",
+            "example": "snort -l ./log -K ascii -v",
+            "explanation": "Forces Snort to log packets in ASCII format regardless of other default settings."
+        },
+        {
+            "id": 11,
+            "category": "Packet Logger Mode",
+            "command": "snort -K none",
+            "example": "snort -l ./log -K none",
+            "explanation": "Disables packet logging entirely, useful when only alerting is required to save disk space."
+        },
+        {
+            "id": 12,
+            "category": "Configuration File Usage",
+            "command": "snort -c",
+            "example": "snort -c /etc/snort/snort.conf",
+            "explanation": "Loads the main configuration file containing rules, preprocessors, and variable definitions."
+        },
+        {
+            "id": 13,
+            "category": "Configuration File Usage",
+            "command": "snort -T",
+            "example": "snort -T -c /etc/snort/snort.conf",
+            "explanation": "Validates the configuration file and rules for errors without actually starting the engine."
+        },
+        {
+            "id": 14,
+            "category": "Network Intrusion Detection Mode",
+            "command": "snort -A console",
+            "example": "snort -c /etc/snort/snort.conf -A console",
+            "explanation": "Prints alerts directly to the console screen for real-time monitoring of rule matches."
+        },
+        {
+            "id": 15,
+            "category": "Network Intrusion Detection Mode",
+            "command": "snort -A fast",
+            "example": "snort -c /etc/snort/snort.conf -A fast",
+            "explanation": "Logs alerts in a single-line format including timestamp, message, IPs, and ports for rapid parsing."
+        },
+        {
+            "id": 16,
+            "category": "Network Intrusion Detection Mode",
+            "command": "snort -A full",
+            "example": "snort -c /etc/snort/snort.conf -A full",
+            "explanation": "Logs alerts with full packet header information, providing maximum context for each detection."
+        },
+        {
+            "id": 17,
+            "category": "Network Intrusion Detection Mode",
+            "command": "snort -A unsock",
+            "example": "snort -c /etc/snort/snort.conf -A unsock",
+            "explanation": "Sends alerts to a UNIX socket for processing by external programs."
+        },
+        {
+            "id": 18,
+            "category": "Network Intrusion Detection Mode",
+            "command": "snort -A none",
+            "example": "snort -c /etc/snort/snort.conf -A none",
+            "explanation": "Disables internal alerting, typically used when logging is handled strictly by Unified2 output."
+        },
+        {
+            "id": 19,
+            "category": "Network Intrusion Detection Mode",
+            "command": "snort -q",
+            "example": "snort -q -A console -c /etc/snort/snort.conf",
+            "explanation": "Runs Snort in quiet mode, suppressing banner and initialization messages to focus on alerts."
+        },
+        {
+            "id": 20,
+            "category": "Alert Generation",
+            "command": "snort -A cmg",
+            "example": "snort -A cmg -c /etc/snort/snort.conf",
+            "explanation": "Generates 'cozy' alerts that display the packet payload in hex and text alongside the alert message."
+        },
+        {
+            "id": 21,
+            "category": "Packet Capture Handling",
+            "command": "snort -r",
+            "example": "snort -r capture.pcap -c /etc/snort/snort.conf",
+            "explanation": "Reads and processes a single PCAP file through the NIDS engine instead of listening on an interface."
+        },
+        {
+            "id": 22,
+            "category": "Packet Capture Handling",
+            "command": "snort --pcap-dir",
+            "example": "snort --pcap-dir=/var/pcaps/ -c /etc/snort/snort.conf",
+            "explanation": "Recursively processes all PCAP files found within the specified directory."
+        },
+        {
+            "id": 23,
+            "category": "Packet Capture Handling",
+            "command": "snort --pcap-filter",
+            "example": "snort --pcap-dir=/pcaps --pcap-filter=\"*.pcap\" -c snort.conf",
+            "explanation": "Filters the files in a PCAP directory to only process those matching a specific shell pattern."
+        },
+        {
+            "id": 24,
+            "category": "Packet Capture Handling",
+            "command": "snort --pcap-show",
+            "example": "snort -r capture.pcap -A console --pcap-show",
+            "explanation": "Displays the name of the PCAP file currently being processed during a bulk read operation."
+        },
+        {
+            "id": 25,
+            "category": "Blue Team Detection Validation",
+            "command": "snort -r -n",
+            "example": "snort -r attack.pcap -c snort.conf -n 10",
+            "explanation": "Processes only the first N packets of a capture file, useful for quick rule validation on large files."
+        },
+        {
+            "id": 26,
+            "category": "Performance Tuning",
+            "command": "snort -N",
+            "example": "snort -N -c /etc/snort/snort.conf",
+            "explanation": "Disables packet logging regardless of configuration, retaining only alerts to improve I/O performance."
+        },
+        {
+            "id": 27,
+            "category": "Performance Tuning",
+            "command": "snort -D",
+            "example": "snort -D -c /etc/snort/snort.conf",
+            "explanation": "Runs Snort as a background daemon process, detaching it from the current terminal session."
+        },
+        {
+            "id": 28,
+            "category": "Performance Tuning",
+            "command": "snort -k none",
+            "example": "snort -k none -c /etc/snort/snort.conf",
+            "explanation": "Disables checksum verification, useful if packets are captured on interfaces performing checksum offloading."
+        },
+        {
+            "id": 29,
+            "category": "Rule Management",
+            "command": "snort --dump-dynamic-rules",
+            "example": "snort -c snort.conf --dump-dynamic-rules=/tmp/rules",
+            "explanation": "Exports loaded dynamic rules (shared object rules) to text files for inspection and debugging."
+        },
+        {
+            "id": 30,
+            "category": "Custom Rule Testing",
+            "command": "snort -S",
+            "example": "snort -c snort.conf -S HOME_NET=192.168.1.0/24",
+            "explanation": "Overrides variable definitions from the command line without modifying the configuration file."
+        },
+        {
+            "id": 31,
+            "category": "SOC Monitoring Workflow",
+            "command": "BPF Filtering",
+            "example": "snort -c snort.conf -A console 'not port 22'",
+            "explanation": "Applies a Berkeley Packet Filter (BPF) at the end of the command to ignore specific traffic (e.g., SSH)."
+        },
+        {
+            "id": 32,
+            "category": "SOC Monitoring Workflow",
+            "command": "snort -u -g",
+            "example": "snort -D -c snort.conf -u snort_user -g snort_group",
+            "explanation": "Runs Snort as a specific user and group to minimize security risks associated with running as root."
+        },
+        {
+            "id": 33,
+            "category": "Output Formats",
+            "command": "snort -L",
+            "example": "snort -c snort.conf -l ./log -b -L binary_log",
+            "explanation": "Sets the base filename for binary log files when running in packet logger mode."
+        },
+        {
+            "id": 34,
+            "category": "Output Formats",
+            "command": "snort -U",
+            "example": "snort -c snort.conf -A fast -U",
+            "explanation": "Forces timestamps in logs to use UTC instead of the local system timezone."
+        },
+        {
+            "id": 35,
+            "category": "Advanced Usage",
+            "command": "snort --snaplen",
+            "example": "snort -i eth0 --snaplen 1518 -v",
+            "explanation": "Sets the snap length (packet capture size) manually, ensuring full packet capture for jumbo frames."
+        },
+        {
+            "id": 36,
+            "category": "Advanced Usage",
+            "command": "snort -M",
+            "example": "snort -c snort.conf -A console -M",
+            "explanation": "Logs console messages to syslog in addition to printing them to the screen."
+        },
+        {
+            "id": 37,
+            "category": "Advanced Usage",
+            "command": "snort --conf-error-out",
+            "example": "snort -c snort.conf --conf-error-out",
+            "explanation": "Forces Snort to stop processing and exit immediately upon encountering the first configuration error."
+        },
+        {
+            "id": 38,
+            "category": "Preprocessor Configuration",
+            "command": "snort --disable-inline-init",
+            "example": "snort -c snort.conf --disable-inline-init",
+            "explanation": "Allows Snort to run in inline mode without requiring hardware bridging initialization."
+        },
+        {
+            "id": 39,
+            "category": "Inline and IPS Mode",
+            "command": "snort -Q",
+            "example": "snort -c snort.conf -Q --daq afpacket -i eth0:eth1",
+            "explanation": "Enables Inline Mode (IPS), allowing Snort to drop packets defined by 'drop' rules."
+        },
+        {
+            "id": 40,
+            "category": "Inline and IPS Mode",
+            "command": "snort --daq",
+            "example": "snort --daq pcap -c snort.conf",
+            "explanation": "Specifies the Data Acquisition (DAQ) module type (e.g., pcap, afpacket, nfq) for packet I/O."
+        },
+        {
+            "id": 41,
+            "category": "Inline and IPS Mode",
+            "command": "snort --daq-dir",
+            "example": "snort --daq-dir /usr/local/lib/daq --daq afpacket",
+            "explanation": "Tells Snort where to look for DAQ modules if they are not in the standard system library path."
+        },
+        {
+            "id": 42,
+            "category": "Inline and IPS Mode",
+            "command": "snort --daq-list",
+            "example": "snort --daq-list",
+            "explanation": "Lists the available Data Acquisition (DAQ) modules installed on the system."
+        },
+        {
+            "id": 43,
+            "category": "Purple Team Simulation",
+            "command": "snort -O",
+            "example": "snort -c snort.conf -O",
+            "explanation": "Obfuscates IP addresses in printed logs to sanitize data during sensitive sharing or testing."
+        },
+        {
+            "id": 44,
+            "category": "Blue Team Defensive Validation",
+            "command": "snort --warn-all",
+            "example": "snort -c snort.conf --warn-all",
+            "explanation": "Enables all warning messages during configuration loading to identify potential rule syntax issues."
+        },
+        {
+            "id": 45,
+            "category": "Performance Tuning",
+            "command": "snort --search-method",
+            "example": "snort -c snort.conf --search-method ac-split",
+            "explanation": "Forces the use of a specific pattern matching algorithm (e.g., Aho-Corasick) for performance testing."
+        },
+        {
+            "id": 46,
+            "category": "Incident Response Investigation",
+            "command": "snort --logid",
+            "example": "snort -c snort.conf -l ./log --logid 101",
+            "explanation": "Appends a specific Log ID to output filenames to distinguish between parallel Snort instances."
+        },
+        {
+            "id": 47,
+            "category": "Incident Response Investigation",
+            "command": "snort -y",
+            "example": "snort -c snort.conf -A fast -y",
+            "explanation": "Includes the year in the timestamp of alert logs, critical for long-term forensic timelines."
+        },
+        {
+            "id": 48,
+            "category": "Automation and Scripting",
+            "command": "snort --pid-path",
+            "example": "snort -D -c snort.conf --pid-path /var/run/snort",
+            "explanation": "Specifies the directory where the PID file should be written, essential for service management scripts."
+        },
+        {
+            "id": 49,
+            "category": "Automation and Scripting",
+            "command": "snort --nolock-pidfile",
+            "example": "snort -c snort.conf --pid-path /var/run --nolock-pidfile",
+            "explanation": "Creates the PID file without locking it, useful in specific containerized or scripted environments."
+        },
+        {
+            "id": 50,
+            "category": "Debugging Rules",
+            "command": "snort --rule-to-hex",
+            "example": "snort --rule-to-hex",
+            "explanation": "Outputs the binary rule database in a hex format, typically used for low-level rule engine debugging."
+        },
+        {
+            "id": 51,
+            "category": "Advanced Combined Workflow",
+            "command": "Validate Local Rules",
+            "example": "snort -T -c /etc/snort/snort.conf --include-path /home/user/custom_rules",
+            "explanation": "Validates the main config while dynamically adding a custom rule path not defined in the main file."
+        },
+        {
+            "id": 52,
+            "category": "Advanced Combined Workflow",
+            "command": "Offline PCAP Forensics",
+            "example": "snort -r malware.pcap -c snort.conf -k none -A full",
+            "explanation": "Analyzes a malware PCAP ignoring checksums and generating full-detail alerts for forensic review."
+        },
+        {
+            "id": 53,
+            "category": "Advanced Combined Workflow",
+            "command": "High Performance Sniffing",
+            "example": "snort -i eth0 -b -l /tmp/snort_raw -k none",
+            "explanation": "Captures packets to a binary log file with no checksums or alerting for maximum write speed."
+        },
+        {
+            "id": 54,
+            "category": "Advanced Combined Workflow",
+            "command": "Rule Profiling",
+            "example": "snort -c snort.conf --pcap-dir=./test_pcaps --profile-rules",
+            "explanation": "Runs against a directory of PCAPs and prints performance statistics for the top CPU-consuming rules."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Combined Workflow",
+            "command": "Preprocessor Profiling",
+            "example": "snort -c snort.conf --pcap-dir=./test_pcaps --profile-preprocs",
+            "explanation": "Profiles the performance of enabled preprocessors to identify bottlenecks in inspection modules."
+        },
+        {
+            "id": 56,
+            "category": "Advanced Combined Workflow",
+            "command": "Packet Data Printing",
+            "example": "snort -d -e -v -C",
+            "explanation": "Prints packet data in a character-only format, omitting hex dumps, for easier reading of text payloads."
+        },
+        {
+            "id": 57,
+            "category": "Interface Configuration",
+            "command": "snort --address",
+            "example": "snort -i eth0 --address 192.168.1.50",
+            "explanation": "Specifies the IP address of the listening interface if Snort cannot auto-detect it correctly."
+        },
+        {
+            "id": 58,
+            "category": "Cleanup and Termination",
+            "command": "Signal Handling",
+            "example": "kill -SIGHUP $(pidof snort)",
+            "explanation": "Sends a SIGHUP signal to the Snort process to force it to reload the configuration file and restart."
+        },
+        {
+            "id": 59,
+            "category": "Cleanup and Termination",
+            "command": "Signal Handling",
+            "example": "kill -SIGUSR1 $(pidof snort)",
+            "explanation": "Forces Snort to dump current packet capture statistics to the console/syslog without stopping the process."
+        },
+        {
+            "id": 60,
+            "category": "Purple Team Attack Simulation",
+            "command": "Verbose Replay Inspection",
+            "example": "snort -A cmg -q -c snort.conf -r exploit_traffic.pcap",
+            "explanation": "Replays exploit traffic quietly while showing 'cozy' alerts with payload data to confirm signature match location."
+        },
+        {
+            "id": 61,
+            "category": "Sniffer Mode Operation",
+            "command": "snort -e",
+            "example": "snort -e",
+            "explanation": "Displays the Layer 2 (Data Link) headers, including MAC addresses, for captured packets."
+        },
+        {
+            "id": 62,
+            "category": "Logging Behavior",
+            "command": "snort -n",
+            "example": "snort -i eth0 -n 100",
+            "explanation": "Processes only the specified number of packets and then exits automatically."
+        },
+        {
+            "id": 63,
+            "category": "Output Plugins",
+            "command": "CSV Output",
+            "example": "snort -c snort.conf -A fast -y --csv-separator ,",
+            "explanation": "Customizes the output format of logs (if CSV output plugin is enabled) by defining the separator character."
+        },
+        {
+            "id": 64,
+            "category": "Advanced Combined Workflow",
+            "command": "Specific Interface Type",
+            "example": "snort -i eth0 --daq-var buffer_size_mb=1024",
+            "explanation": "Passes specific variables to the DAQ module, such as increasing the buffer size to prevent packet loss."
+        },
+        {
+            "id": 65,
+            "category": "Rule Management",
+            "command": "snort --pause",
+            "example": "snort -c snort.conf --pause",
+            "explanation": "Starts Snort but pauses processing immediately, waiting for a resume signal, used in synchronized testing."
+        },
+        {
+            "id": 66,
+            "category": "Logging Behavior",
+            "command": "snort -t",
+            "example": "snort -D -t /var/chroot/snort -c snort.conf",
+            "explanation": "Chroots the Snort process to a specific directory after initialization for enhanced security isolation."
+        },
+        {
+            "id": 67,
+            "category": "Advanced Usage",
+            "command": "snort --create-pidfile",
+            "example": "snort -c snort.conf --create-pidfile",
+            "explanation": "Forces creation of a PID file even if Snort is not running in daemon mode."
+        },
+        {
+            "id": 68,
+            "category": "Debugging and Development",
+            "command": "snort --version",
+            "example": "snort --version",
+            "explanation": "Prints the full version information including library versions and compiler options."
+        },
+        {
+            "id": 69,
+            "category": "Packet Capture Handling",
+            "command": "snort --pcap-reset",
+            "example": "snort --pcap-dir ./pcaps --pcap-reset -c snort.conf",
+            "explanation": "Resets the internal Snort state between processing each PCAP file in a directory to ensure clean tests."
+        },
+        {
+            "id": 70,
+            "category": "Performance Tuning",
+            "command": "snort --max-packet-threads",
+            "example": "snort -c snort.conf --max-packet-threads 4",
+            "explanation": "Limits the number of packet processing threads (Snort 3 specific or experimental threading builds)."
+        },
+        {
+            "id": 71,
+            "category": "Advanced Combined Workflow",
+            "command": "Alert to Syslog Only",
+            "example": "snort -c snort.conf -s -l /dev/null",
+            "explanation": "Sends alerts to syslog facilities and discards local log files by pointing the log directory to null."
+        },
+        {
+            "id": 72,
+            "category": "SOC Monitoring Workflow",
+            "command": "Show Application Data",
+            "example": "snort -d",
+            "explanation": "Dumps the application layer (payload) data for captured packets, useful for inspecting HTTP or DNS bodies."
+        },
+        {
+            "id": 73,
+            "category": "Interface Selection",
+            "command": "snort --help",
+            "example": "snort --help",
+            "explanation": "Displays a summary of command-line options (synonym for -?)."
+        },
+        {
+            "id": 74,
+            "category": "Blue Team Defensive Validation",
+            "command": "Capture and Analyze",
+            "example": "snort -i eth0 -b -l ./temp && snort -r ./temp/snort.log.* -c snort.conf",
+            "explanation": "Workflow: Captures traffic to binary first, then analyzes it offline with full rules to minimize packet drops."
+        },
+        {
+            "id": 75,
+            "category": "Clean Termination",
+            "command": "Quit",
+            "example": "kill -SIGTERM $(pidof snort)",
+            "explanation": "Gracefully shuts down the Snort process, ensuring all logs are flushed and closed properly."
+        }
+    ]
+}

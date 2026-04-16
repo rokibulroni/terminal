@@ -1,0 +1,497 @@
+{
+    "tool": "dirsearch",
+    "description": "Complete dirsearch command reference covering all options from basic to advanced",
+    "total_commands": 70,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Directory Enumeration",
+            "command": "dirsearch -u https://example.com",
+            "example": "dirsearch -u https://example.com",
+            "explanation": "Performs a standard directory brute-force scan on a single target URL using default settings."
+        },
+        {
+            "id": 2,
+            "category": "Basic Directory Enumeration",
+            "command": "dirsearch -u https://example.com/",
+            "example": "dirsearch -u https://example.com/",
+            "explanation": "Runs a scan ensuring the target URL includes a trailing slash for root directory enumeration."
+        },
+        {
+            "id": 3,
+            "category": "Basic Directory Enumeration",
+            "command": "dirsearch -u https://example.com/admin",
+            "example": "dirsearch -u https://example.com/admin",
+            "explanation": "Targets a specific subdirectory path to begin the enumeration process."
+        },
+        {
+            "id": 4,
+            "category": "File Extension Enumeration",
+            "command": "dirsearch -u https://example.com -e php",
+            "example": "dirsearch -u https://example.com -e php",
+            "explanation": "Scans for files with the specific .php extension along with directories."
+        },
+        {
+            "id": 5,
+            "category": "File Extension Enumeration",
+            "command": "dirsearch -u https://example.com -e php,html,js",
+            "example": "dirsearch -u https://example.com -e php,html,js",
+            "explanation": "Enumerates files matching multiple extensions separated by commas."
+        },
+        {
+            "id": 6,
+            "category": "File Extension Enumeration",
+            "command": "dirsearch -u https://example.com -e *",
+            "example": "dirsearch -u https://example.com -e *",
+            "explanation": "Forces the tool to fuzz with all extensions found in the selected wordlist."
+        },
+        {
+            "id": 7,
+            "category": "File Extension Enumeration",
+            "command": "dirsearch -u https://example.com -X php",
+            "example": "dirsearch -u https://example.com -X php",
+            "explanation": "Excludes specific file extensions from the scan results to reduce noise."
+        },
+        {
+            "id": 8,
+            "category": "Recursive Scanning",
+            "command": "dirsearch -u https://example.com -r",
+            "example": "dirsearch -u https://example.com -r",
+            "explanation": "Enables recursive scanning to brute-force subdirectories found during the initial scan."
+        },
+        {
+            "id": 9,
+            "category": "Recursive Scanning",
+            "command": "dirsearch -u https://example.com -r --recursion-depth 3",
+            "example": "dirsearch -u https://example.com -r --recursion-depth 3",
+            "explanation": "Limits the recursive scan to a maximum depth of 3 directory levels."
+        },
+        {
+            "id": 10,
+            "category": "Recursive Scanning",
+            "command": "dirsearch -u https://example.com -r --recursion-status 200-399",
+            "example": "dirsearch -u https://example.com -r --recursion-status 200-399",
+            "explanation": "Only triggers recursion on paths that return status codes between 200 and 399."
+        },
+        {
+            "id": 11,
+            "category": "Recursive Scanning",
+            "command": "dirsearch -u https://example.com --deep-recursive",
+            "example": "dirsearch -u https://example.com --deep-recursive",
+            "explanation": "Forces deep recursion on all found paths regardless of status code heuristics."
+        },
+        {
+            "id": 12,
+            "category": "Multiple Target Scanning",
+            "command": "dirsearch -l targets.txt",
+            "example": "dirsearch -l targets.txt",
+            "explanation": "Scans a list of URLs provided in a text file line by line."
+        },
+        {
+            "id": 13,
+            "category": "Multiple Target Scanning",
+            "command": "dirsearch --stdin",
+            "example": "cat urls.txt | dirsearch --stdin",
+            "explanation": "Accepts target URLs piped directly from standard input for pipeline integration."
+        },
+        {
+            "id": 14,
+            "category": "Wordlist Selection and Customization",
+            "command": "dirsearch -u https://example.com -w /path/to/wordlist.txt",
+            "example": "dirsearch -u https://example.com -w /usr/share/wordlists/dirb/common.txt",
+            "explanation": "Specifies a custom dictionary file instead of using the built-in default wordlist."
+        },
+        {
+            "id": 15,
+            "category": "Wordlist Selection and Customization",
+            "command": "dirsearch -u https://example.com --prefixes .admin",
+            "example": "dirsearch -u https://example.com --prefixes .admin",
+            "explanation": "Adds a custom prefix to all wordlist entries during the scan."
+        },
+        {
+            "id": 16,
+            "category": "Wordlist Selection and Customization",
+            "command": "dirsearch -u https://example.com --suffixes .bak",
+            "example": "dirsearch -u https://example.com --suffixes .bak",
+            "explanation": "Appends a custom suffix to all wordlist entries to find backup files."
+        },
+        {
+            "id": 17,
+            "category": "Wordlist Selection and Customization",
+            "command": "dirsearch -u https://example.com --uppercase",
+            "example": "dirsearch -u https://example.com --uppercase",
+            "explanation": "Mutates the wordlist to use uppercase characters for case-sensitive servers."
+        },
+        {
+            "id": 18,
+            "category": "HTTP Methods",
+            "command": "dirsearch -u https://example.com -m POST",
+            "example": "dirsearch -u https://example.com -m POST",
+            "explanation": "Changes the HTTP request method to POST for all enumeration attempts."
+        },
+        {
+            "id": 19,
+            "category": "HTTP Methods",
+            "command": "dirsearch -u https://example.com -m HEAD",
+            "example": "dirsearch -u https://example.com -m HEAD",
+            "explanation": "Uses HEAD requests to reduce bandwidth usage while checking for existence."
+        },
+        {
+            "id": 20,
+            "category": "Header and Cookie Customization",
+            "command": "dirsearch -u https://example.com --header \"Authorization: Bearer <token>\"",
+            "example": "dirsearch -u https://example.com --header \"Authorization: Bearer 12345\"",
+            "explanation": "Injects a custom HTTP header such as an Authorization token into every request."
+        },
+        {
+            "id": 21,
+            "category": "Header and Cookie Customization",
+            "command": "dirsearch -u https://example.com --cookie \"SessionId=123\"",
+            "example": "dirsearch -u https://example.com --cookie \"SessionId=123\"",
+            "explanation": "Sets a custom cookie to perform authenticated scanning or session testing."
+        },
+        {
+            "id": 22,
+            "category": "Header and Cookie Customization",
+            "command": "dirsearch -u https://example.com --user-agent \"Googlebot/2.1\"",
+            "example": "dirsearch -u https://example.com --user-agent \"Googlebot/2.1\"",
+            "explanation": "Spoofs the User-Agent string to bypass filters or emulate specific clients."
+        },
+        {
+            "id": 23,
+            "category": "Header and Cookie Customization",
+            "command": "dirsearch -u https://example.com --random-agent",
+            "example": "dirsearch -u https://example.com --random-agent",
+            "explanation": "Rotates a random User-Agent for each request to evade simple WAF blocking."
+        },
+        {
+            "id": 24,
+            "category": "Authentication Handling",
+            "command": "dirsearch -u https://example.com --auth \"user:password\"",
+            "example": "dirsearch -u https://example.com --auth \"admin:secret\"",
+            "explanation": "Uses Basic Authentication credentials for protected endpoints."
+        },
+        {
+            "id": 25,
+            "category": "Authentication Handling",
+            "command": "dirsearch -u https://example.com --auth-type digest --auth \"user:password\"",
+            "example": "dirsearch -u https://example.com --auth-type digest --auth \"admin:secret\"",
+            "explanation": "Specifies Digest authentication method instead of the default Basic auth."
+        },
+        {
+            "id": 26,
+            "category": "Proxy and Burp Integration",
+            "command": "dirsearch -u https://example.com --proxy 127.0.0.1:8080",
+            "example": "dirsearch -u https://example.com --proxy 127.0.0.1:8080",
+            "explanation": "Routes all traffic through an HTTP proxy like Burp Suite or OWASP ZAP."
+        },
+        {
+            "id": 27,
+            "category": "Proxy and Burp Integration",
+            "command": "dirsearch -u https://example.com --proxy socks5://127.0.0.1:9050",
+            "example": "dirsearch -u https://example.com --proxy socks5://127.0.0.1:9050",
+            "explanation": "Routes scan traffic through a SOCKS5 proxy such as Tor."
+        },
+        {
+            "id": 28,
+            "category": "Proxy and Burp Integration",
+            "command": "dirsearch -u https://example.com --proxy-auth \"user:pass\"",
+            "example": "dirsearch -u https://example.com --proxy-auth \"user:pass\"",
+            "explanation": "Provides credentials for authenticating with an upstream proxy server."
+        },
+        {
+            "id": 29,
+            "category": "TLS and HTTPS Configuration",
+            "command": "dirsearch -u https://example.com --scheme https",
+            "example": "dirsearch -u example.com --scheme https",
+            "explanation": "Forces the scanner to use HTTPS if the protocol was not specified in the URL."
+        },
+        {
+            "id": 30,
+            "category": "Status Code Matching and Filtering",
+            "command": "dirsearch -u https://example.com -i 200,301",
+            "example": "dirsearch -u https://example.com -i 200,301",
+            "explanation": "Includes only specific status codes (e.g., 200 OK and 301 Redirect) in the output."
+        },
+        {
+            "id": 31,
+            "category": "Status Code Matching and Filtering",
+            "command": "dirsearch -u https://example.com -x 404,500",
+            "example": "dirsearch -u https://example.com -x 404,500",
+            "explanation": "Excludes specific status codes (e.g., 404 Not Found) from the results."
+        },
+        {
+            "id": 32,
+            "category": "Status Code Matching and Filtering",
+            "command": "dirsearch -u https://example.com --exclude-status 403,401",
+            "example": "dirsearch -u https://example.com --exclude-status 403,401",
+            "explanation": "An alternative long-form flag to hide Forbidden and Unauthorized responses."
+        },
+        {
+            "id": 33,
+            "category": "Response Size and Line Filtering",
+            "command": "dirsearch -u https://example.com --exclude-sizes 0B,123B",
+            "example": "dirsearch -u https://example.com --exclude-sizes 0B,123B",
+            "explanation": "Filters out responses based on specific content lengths in bytes."
+        },
+        {
+            "id": 34,
+            "category": "Response Size and Line Filtering",
+            "command": "dirsearch -u https://example.com --exclude-text \"Not Found\"",
+            "example": "dirsearch -u https://example.com --exclude-text \"Not Found\"",
+            "explanation": "Excludes responses containing a specific text string in the body."
+        },
+        {
+            "id": 35,
+            "category": "Response Size and Line Filtering",
+            "command": "dirsearch -u https://example.com --minimal 200",
+            "example": "dirsearch -u https://example.com --minimal 200",
+            "explanation": "Only reports responses that are larger than the specified size in bytes."
+        },
+        {
+            "id": 36,
+            "category": "Response Size and Line Filtering",
+            "command": "dirsearch -u https://example.com --maximal 5000",
+            "example": "dirsearch -u https://example.com --maximal 5000",
+            "explanation": "Only reports responses that are smaller than the specified size in bytes."
+        },
+        {
+            "id": 37,
+            "category": "Regex Based Filtering",
+            "command": "dirsearch -u https://example.com --exclude-regex \"^Error.*$\"",
+            "example": "dirsearch -u https://example.com --exclude-regex \"^Error.*$\"",
+            "explanation": "Uses a regular expression to filter out responses matching a specific pattern."
+        },
+        {
+            "id": 38,
+            "category": "Regex Based Filtering",
+            "command": "dirsearch -u https://example.com --exclude-redirect \"google.com\"",
+            "example": "dirsearch -u https://example.com --exclude-redirect \"google.com\"",
+            "explanation": "Excludes redirects that point to a specific URL or domain pattern."
+        },
+        {
+            "id": 39,
+            "category": "Threading and Performance Tuning",
+            "command": "dirsearch -u https://example.com -t 50",
+            "example": "dirsearch -u https://example.com -t 50",
+            "explanation": "Increases the number of concurrent threads to 50 to speed up the scan."
+        },
+        {
+            "id": 40,
+            "category": "Threading and Performance Tuning",
+            "command": "dirsearch -u https://example.com --max-rate 10",
+            "example": "dirsearch -u https://example.com --max-rate 10",
+            "explanation": "Limits the scan speed to a maximum of 10 requests per second to avoid rate limiting."
+        },
+        {
+            "id": 41,
+            "category": "Timeout, Delay, and Retry Control",
+            "command": "dirsearch -u https://example.com --delay 0.5",
+            "example": "dirsearch -u https://example.com --delay 0.5",
+            "explanation": "Adds a half-second delay between requests to be stealthier."
+        },
+        {
+            "id": 42,
+            "category": "Timeout, Delay, and Retry Control",
+            "command": "dirsearch -u https://example.com --timeout 10",
+            "example": "dirsearch -u https://example.com --timeout 10",
+            "explanation": "Sets the maximum time to wait for a server response to 10 seconds."
+        },
+        {
+            "id": 43,
+            "category": "Timeout, Delay, and Retry Control",
+            "command": "dirsearch -u https://example.com --retries 3",
+            "example": "dirsearch -u https://example.com --retries 3",
+            "explanation": "Retries failed requests up to 3 times before giving up on a path."
+        },
+        {
+            "id": 44,
+            "category": "Output Formats",
+            "command": "dirsearch -u https://example.com --format json -o report.json",
+            "example": "dirsearch -u https://example.com --format json -o report.json",
+            "explanation": "Saves the scan results in a structured JSON file for parsing."
+        },
+        {
+            "id": 45,
+            "category": "Output Formats",
+            "command": "dirsearch -u https://example.com --format csv -o report.csv",
+            "example": "dirsearch -u https://example.com --format csv -o report.csv",
+            "explanation": "Exports the findings to a CSV file for spreadsheet analysis."
+        },
+        {
+            "id": 46,
+            "category": "Output Formats",
+            "command": "dirsearch -u https://example.com --format simple -o report.txt",
+            "example": "dirsearch -u https://example.com --format simple -o report.txt",
+            "explanation": "Saves results in a simple, human-readable text format."
+        },
+        {
+            "id": 47,
+            "category": "Verbose and Debug Modes",
+            "command": "dirsearch -u https://example.com --quiet",
+            "example": "dirsearch -u https://example.com -q",
+            "explanation": "Suppresses the banner and standard output, showing only successful findings."
+        },
+        {
+            "id": 48,
+            "category": "Verbose and Debug Modes",
+            "command": "dirsearch -u https://example.com --full-url",
+            "example": "dirsearch -u https://example.com --full-url",
+            "explanation": "Displays the full URL in the output instead of just the path."
+        },
+        {
+            "id": 49,
+            "category": "Verbose and Debug Modes",
+            "command": "dirsearch -u https://example.com --no-color",
+            "example": "dirsearch -u https://example.com --no-color",
+            "explanation": "Disables colored output, useful for logging to files or terminals without color support."
+        },
+        {
+            "id": 50,
+            "category": "Automation and Pipeline Usage",
+            "command": "dirsearch -u https://example.com --exit-on-error",
+            "example": "dirsearch -u https://example.com --exit-on-error",
+            "explanation": "Forces the tool to exit immediately if an error occurs, useful in automated scripts."
+        },
+        {
+            "id": 51,
+            "category": "Web Application Reconnaissance",
+            "command": "dirsearch -u https://example.com --subdirs admin/,backup/,test/",
+            "example": "dirsearch -u https://example.com --subdirs admin/,backup/,test/",
+            "explanation": "Scans the target wordlist against specific provided subdirectories."
+        },
+        {
+            "id": 52,
+            "category": "Web Application Reconnaissance",
+            "command": "dirsearch -u https://example.com --skip-on-status 429",
+            "example": "dirsearch -u https://example.com --skip-on-status 429",
+            "explanation": "Skips the current target if a 'Too Many Requests' (429) status is received."
+        },
+        {
+            "id": 53,
+            "category": "Red Team Web Enumeration",
+            "command": "dirsearch -u https://example.com -r -e php,aspx,jsp --exclude-status 404 --random-agent",
+            "example": "dirsearch -u https://example.com -r -e php,aspx,jsp --exclude-status 404 --random-agent",
+            "explanation": "A combined command for stealthy, recursive discovery of dynamic application files."
+        },
+        {
+            "id": 54,
+            "category": "Red Team Web Enumeration",
+            "command": "dirsearch -u https://example.com --header \"X-Forwarded-For: 127.0.0.1\" -e conf,config,bak",
+            "example": "dirsearch -u https://example.com --header \"X-Forwarded-For: 127.0.0.1\" -e conf,config,bak",
+            "explanation": "Attempts to bypass access controls while hunting for sensitive configuration backups."
+        },
+        {
+            "id": 55,
+            "category": "Red Team Web Enumeration",
+            "command": "dirsearch -u https://example.com -m POST --data \"debug=true\"",
+            "example": "dirsearch -u https://example.com -m POST --data \"debug=true\"",
+            "explanation": "Sends POST requests with specific data payload to trigger debug responses."
+        },
+        {
+            "id": 56,
+            "category": "Blue Team Exposure Validation",
+            "command": "dirsearch -u https://example.com -w sensitive_files.txt --include-status 200",
+            "example": "dirsearch -u https://example.com -w sensitive_files.txt --include-status 200",
+            "explanation": "Validates if a specific list of sensitive files is publicly accessible (Status 200)."
+        },
+        {
+            "id": 57,
+            "category": "Blue Team Exposure Validation",
+            "command": "dirsearch -u https://example.com --exclude-sizes 0-500 --format json -o internal_audit.json",
+            "example": "dirsearch -u https://example.com --exclude-sizes 0-500 --format json -o internal_audit.json",
+            "explanation": "Generates an audit report of potentially non-empty exposed endpoints."
+        },
+        {
+            "id": 58,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com -t 100 --random-agent -e php --exclude-status 403,404,500",
+            "example": "dirsearch -u https://example.com -t 100 --random-agent -e php --exclude-status 403,404,500",
+            "explanation": "Aggressive, high-thread php file discovery filtering out common error codes."
+        },
+        {
+            "id": 59,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --crawl",
+            "example": "dirsearch -u https://example.com --crawl",
+            "explanation": "Enables the experimental crawling mode to discover paths via links in responses."
+        },
+        {
+            "id": 60,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --remove-extensions",
+            "example": "dirsearch -u https://example.com --remove-extensions",
+            "explanation": "Removes extensions from wordlist entries, useful for modern REST API endpoint discovery."
+        },
+        {
+            "id": 61,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --overwrite-extensions",
+            "example": "dirsearch -u https://example.com -e php --overwrite-extensions",
+            "explanation": "Replaces any extensions in the wordlist with the one specified in the -e flag."
+        },
+        {
+            "id": 62,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --force-extensions",
+            "example": "dirsearch -u https://example.com -e php --force-extensions",
+            "explanation": "Forces the appending of extensions to every wordlist entry, even if one exists."
+        },
+        {
+            "id": 63,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --suppress-empty",
+            "example": "dirsearch -u https://example.com --suppress-empty",
+            "explanation": "Hides results that return an empty response body."
+        },
+        {
+            "id": 64,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --calibration",
+            "example": "dirsearch -u https://example.com --calibration",
+            "explanation": "Performs calibration on non-existent paths to automatically determine filters."
+        },
+        {
+            "id": 65,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --min-response-size 1000",
+            "example": "dirsearch -u https://example.com --min-response-size 1000",
+            "explanation": "Filters out any responses smaller than 1KB, often removing default error pages."
+        },
+        {
+            "id": 66,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --max-response-size 100000",
+            "example": "dirsearch -u https://example.com --max-response-size 100000",
+            "explanation": "Filters out large responses, useful for skipping large media files."
+        },
+        {
+            "id": 67,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --request-by-hostname",
+            "example": "dirsearch -u https://example.com --request-by-hostname",
+            "explanation": "Forces the tool to request by hostname rather than IP, critical for virtual hosts."
+        },
+        {
+            "id": 68,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --ip 192.168.1.1",
+            "example": "dirsearch -u https://example.com --ip 192.168.1.1",
+            "explanation": "Resolves the target domain to a specific IP address manually."
+        },
+        {
+            "id": 69,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --exclude-content /error.html",
+            "example": "dirsearch -u https://example.com --exclude-content /error.html",
+            "explanation": "Excludes pages that look like the content of the specified file path."
+        },
+        {
+            "id": 70,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "dirsearch -u https://example.com --raw-http-request /path/to/req.txt",
+            "example": "dirsearch -u https://example.com --raw-http-request /tmp/request.txt",
+            "explanation": "Loads a raw HTTP request from a file to perform scanning with exact headers."
+        }
+    ]
+}

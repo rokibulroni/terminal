@@ -1,0 +1,427 @@
+{
+    "tool": "zeek",
+    "description": "Complete Zeek command and workflow reference from basic to advanced network monitoring and traffic analysis",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Help",
+            "command": "zeek -h",
+            "example": "zeek -h",
+            "explanation": "Displays the command line help summary and available options."
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax & Help",
+            "command": "zeek -v",
+            "example": "zeek -v",
+            "explanation": "Prints the current Zeek version number to verify installation."
+        },
+        {
+            "id": 3,
+            "category": "Interface Selection",
+            "command": "zeek -i <interface>",
+            "example": "zeek -i eth0",
+            "explanation": "Starts Zeek in live capture mode listening on the specified network interface."
+        },
+        {
+            "id": 4,
+            "category": "Offline Analysis",
+            "command": "zeek -r <pcap_file>",
+            "example": "zeek -r traffic.pcap",
+            "explanation": "Processes a PCAP file offline to generate logs without live capture."
+        },
+        {
+            "id": 5,
+            "category": "Offline Analysis",
+            "command": "zeek -C -r <pcap_file>",
+            "example": "zeek -C -r trace.pcap",
+            "explanation": "Analyzes a PCAP file while ignoring invalid IP checksums to prevent dropped packets."
+        },
+        {
+            "id": 6,
+            "category": "Configuration",
+            "command": "zeek -N",
+            "example": "zeek -N",
+            "explanation": "Lists all loaded scripts, plugins, and protocol analyzers."
+        },
+        {
+            "id": 7,
+            "category": "Policy Management",
+            "command": "zeek -i <interface> local",
+            "example": "zeek -i eth0 local",
+            "explanation": "Runs Zeek on an interface loading the 'local' policy script set for standard monitoring."
+        },
+        {
+            "id": 8,
+            "category": "Filtering",
+            "command": "zeek -f <bpf_filter> -i <interface>",
+            "example": "zeek -f \"tcp port 80\" -i eth0",
+            "explanation": "Applies a BPF packet filter to limit analysis to specific traffic only."
+        },
+        {
+            "id": 9,
+            "category": "Logging Formats",
+            "command": "zeek -r <pcap> LogAscii::use_json=T",
+            "example": "zeek -r test.pcap LogAscii::use_json=T",
+            "explanation": "Forces all log files to be generated in JSON format instead of TSV."
+        },
+        {
+            "id": 10,
+            "category": "File Analysis",
+            "command": "zeek -r <pcap> frameworks/files/extract-all-files",
+            "example": "zeek -r malware.pcap frameworks/files/extract-all-files",
+            "explanation": "Automatically extracts all files seen in the traffic to the disk."
+        },
+        {
+            "id": 11,
+            "category": "File Analysis",
+            "command": "zeek -r <pcap> frameworks/files/hash-all-files",
+            "example": "zeek -r transfer.pcap frameworks/files/hash-all-files",
+            "explanation": "Calculates MD5 and SHA1 hashes for all transferred files and adds them to files.log."
+        },
+        {
+            "id": 12,
+            "category": "Signature Matching",
+            "command": "zeek -s <signature_file> -r <pcap>",
+            "example": "zeek -s malware.sig -r traffic.pcap",
+            "explanation": "Loads a custom signature file to detect specific payload patterns."
+        },
+        {
+            "id": 13,
+            "category": "Script Debugging",
+            "command": "zeek -B <level> -r <pcap>",
+            "example": "zeek -B scripts -r loop.pcap",
+            "explanation": "Enables verbose debugging output for a specific subsystem like scripts."
+        },
+        {
+            "id": 14,
+            "category": "Performance Tuning",
+            "command": "zeek -Q -r <pcap>",
+            "example": "zeek -Q -r massive.pcap",
+            "explanation": "Runs in quiet mode and disables the watchdog timer for processing large files."
+        },
+        {
+            "id": 15,
+            "category": "Event Handling",
+            "command": "zeek -r <pcap> misc/dump-events",
+            "example": "zeek -r sample.pcap misc/dump-events",
+            "explanation": "Prints every event raised during processing to stdout for script development."
+        },
+        {
+            "id": 16,
+            "category": "Protocol Analysis",
+            "command": "zeek -r <pcap> protocols/ssl/validate-certs",
+            "example": "zeek -r https.pcap protocols/ssl/validate-certs",
+            "explanation": "Performs strict validation of SSL/TLS certificates and logs errors."
+        },
+        {
+            "id": 17,
+            "category": "Protocol Analysis",
+            "command": "zeek -r <pcap> protocols/ssh/detect-bruteforce",
+            "example": "zeek -r ssh_attack.pcap protocols/ssh/detect-bruteforce",
+            "explanation": "Enables logic to detect and log SSH brute force login attempts."
+        },
+        {
+            "id": 18,
+            "category": "Incident Response",
+            "command": "zeek -r <pcap> misc/scan",
+            "example": "zeek -r portscan.pcap misc/scan",
+            "explanation": "Detects various types of port scans and address scans."
+        },
+        {
+            "id": 19,
+            "category": "Incident Response",
+            "command": "zeek -r <pcap> misc/detect-traceroute",
+            "example": "zeek -r trace.pcap misc/detect-traceroute",
+            "explanation": "Identifies traceroute traffic and logs the detecting hosts."
+        },
+        {
+            "id": 20,
+            "category": "Protocol Analysis",
+            "command": "zeek -r <pcap> protocols/smb",
+            "example": "zeek -r smb_traffic.pcap protocols/smb",
+            "explanation": "Loads detailed SMB analyzers for parsing Windows file sharing traffic."
+        },
+        {
+            "id": 21,
+            "category": "Monitoring Statistics",
+            "command": "zeek -r <pcap> misc/capture-loss",
+            "example": "zeek -r live_capture.pcap misc/capture-loss",
+            "explanation": "Estimates and logs packet loss percentage during the capture."
+        },
+        {
+            "id": 22,
+            "category": "Script Management",
+            "command": "zeek -r <pcap> misc/loaded-scripts",
+            "example": "zeek -r test.pcap misc/loaded-scripts",
+            "explanation": "Logs the names of all scripts that were loaded during the session."
+        },
+        {
+            "id": 23,
+            "category": "Log Analysis Tool",
+            "command": "zeek-cut <column_names>",
+            "example": "cat conn.log | zeek-cut id.orig_h id.resp_h",
+            "explanation": "Extracts specific columns from Zeek TSV logs for easy reading."
+        },
+        {
+            "id": 24,
+            "category": "Log Analysis Tool",
+            "command": "zeek-cut -d <timestamp_column>",
+            "example": "cat conn.log | zeek-cut -d ts",
+            "explanation": "Converts epoch timestamps in logs to human-readable date formats."
+        },
+        {
+            "id": 25,
+            "category": "Package Management",
+            "command": "zkg list",
+            "example": "zkg list",
+            "explanation": "Lists all currently installed Zeek packages."
+        },
+        {
+            "id": 26,
+            "category": "Package Management",
+            "command": "zkg install <package_source>",
+            "example": "zkg install zeek/salesforce/ja3",
+            "explanation": "Downloads and installs a Zeek package from a git repository."
+        },
+        {
+            "id": 27,
+            "category": "Package Management",
+            "command": "zkg load <package_name>",
+            "example": "zkg load zeek/salesforce/ja3",
+            "explanation": "Configures a package to be loaded automatically by Zeek."
+        },
+        {
+            "id": 28,
+            "category": "Cluster Control",
+            "command": "zeekctl deploy",
+            "example": "zeekctl deploy",
+            "explanation": "Refreshes policy, installs scripts, and restarts the Zeek cluster."
+        },
+        {
+            "id": 29,
+            "category": "Cluster Control",
+            "command": "zeekctl status",
+            "example": "zeekctl status",
+            "explanation": "Shows the operational status of all Zeek manager, logger, and worker nodes."
+        },
+        {
+            "id": 30,
+            "category": "Cluster Control",
+            "command": "zeekctl stop",
+            "example": "zeekctl stop",
+            "explanation": "Gracefully stops all running Zeek processes in the cluster."
+        },
+        {
+            "id": 31,
+            "category": "Cluster Control",
+            "command": "zeekctl diag",
+            "example": "zeekctl diag",
+            "explanation": "Collects debugging information and crash dumps from nodes."
+        },
+        {
+            "id": 32,
+            "category": "Custom Scripting",
+            "command": "zeek -r <pcap> -e <event_handler>",
+            "example": "zeek -r test.pcap -e 'event zeek_init() { print \"Starting\"; }'",
+            "explanation": "Executes a one-line script handler directly from the command line."
+        },
+        {
+            "id": 33,
+            "category": "Log Customization",
+            "command": "zeek -r <pcap> Log::default_logdir=<dir>",
+            "example": "zeek -r test.pcap Log::default_logdir=logs/",
+            "explanation": "Changes the output directory for all generated log files."
+        },
+        {
+            "id": 34,
+            "category": "Log Customization",
+            "command": "zeek -r <pcap> LogAscii::log_extension=<ext>",
+            "example": "zeek -r test.pcap LogAscii::log_extension=.txt",
+            "explanation": "Changes the default file extension for generated log files."
+        },
+        {
+            "id": 35,
+            "category": "Log Customization",
+            "command": "zeek -r <pcap> LogAscii::separator=<char>",
+            "example": "zeek -r test.pcap LogAscii::separator=\",\"",
+            "explanation": "Changes the field separator in TSV logs (e.g., to comma)."
+        },
+        {
+            "id": 36,
+            "category": "Performance Tuning",
+            "command": "zeek -r <pcap> PacketFilter::default_capture_filter=<bpf>",
+            "example": "zeek -r test.pcap PacketFilter::default_capture_filter=\"net 10.0.0.0/8\"",
+            "explanation": "Sets the default BPF filter via script variable."
+        },
+        {
+            "id": 37,
+            "category": "Advanced Protocol",
+            "command": "zeek -r <pcap> protocols/conn/known-services",
+            "example": "zeek -r test.pcap protocols/conn/known-services",
+            "explanation": "Detects and logs services running on non-standard ports."
+        },
+        {
+            "id": 38,
+            "category": "Advanced Protocol",
+            "command": "zeek -r <pcap> protocols/conn/known-hosts",
+            "example": "zeek -r test.pcap protocols/conn/known-hosts",
+            "explanation": "Tracks and logs all unique IP addresses observed on the network."
+        },
+        {
+            "id": 39,
+            "category": "SOC Workflow",
+            "command": "zeek -r <pcap> frameworks/software/vulnerable",
+            "example": "zeek -r test.pcap frameworks/software/vulnerable",
+            "explanation": "Detects outdated software versions if a version database is provided."
+        },
+        {
+            "id": 40,
+            "category": "SOC Workflow",
+            "command": "zeek -r <pcap> frameworks/intel/seen",
+            "example": "zeek -r test.pcap frameworks/intel/seen",
+            "explanation": "Enables the Intelligence framework to track seen indicators."
+        },
+        {
+            "id": 41,
+            "category": "SOC Workflow",
+            "command": "zeek -r <pcap> frameworks/intel/do_notice",
+            "example": "zeek -r test.pcap frameworks/intel/do_notice",
+            "explanation": "Configures the Intel framework to generate notices for matches."
+        },
+        {
+            "id": 42,
+            "category": "Blue Team Validation",
+            "command": "zeek -r <pcap> protocols/dhcp/software",
+            "example": "zeek -r dhcp.pcap protocols/dhcp/software",
+            "explanation": "Extracts software and OS information from DHCP requests."
+        },
+        {
+            "id": 43,
+            "category": "Blue Team Validation",
+            "command": "zeek -r <pcap> protocols/dns/detect-external-names",
+            "example": "zeek -r dns.pcap protocols/dns/detect-external-names",
+            "explanation": "Detects when local clients query external DNS names."
+        },
+        {
+            "id": 44,
+            "category": "Purple Team Sim",
+            "command": "zeek -r <pcap> protocols/ftp/detect",
+            "example": "zeek -r ftp.pcap protocols/ftp/detect",
+            "explanation": "Detects FTP server activity and potentially brute force attempts."
+        },
+        {
+            "id": 45,
+            "category": "Purple Team Sim",
+            "command": "zeek -r <pcap> protocols/http/detect-sqli",
+            "example": "zeek -r http.pcap protocols/http/detect-sqli",
+            "explanation": "Analyzes HTTP URI and body for SQL injection patterns."
+        },
+        {
+            "id": 46,
+            "category": "Forensics",
+            "command": "zeek -r <pcap> protocols/rdp",
+            "example": "zeek -r rdp.pcap protocols/rdp",
+            "explanation": "Parses RDP connection details for forensic investigation."
+        },
+        {
+            "id": 47,
+            "category": "Forensics",
+            "command": "zeek -r <pcap> protocols/smtp/software",
+            "example": "zeek -r email.pcap protocols/smtp/software",
+            "explanation": "Identifies mail server and client software from SMTP banners."
+        },
+        {
+            "id": 48,
+            "category": "Output Rotation",
+            "command": "zeek -r <pcap> Log::default_rotation_interval=1hr",
+            "example": "zeek -r long.pcap Log::default_rotation_interval=1hr",
+            "explanation": "Sets the interval for rotating log files during long runs."
+        },
+        {
+            "id": 49,
+            "category": "Automation",
+            "command": "zeek -r <pcap> Input::add_event",
+            "example": "zeek -r test.pcap Input::add_event=\"...\"",
+            "explanation": "Injects input events dynamically for testing logic scripts."
+        },
+        {
+            "id": 50,
+            "category": "Automation",
+            "command": "zeek -D <pcap>",
+            "example": "zeek -D test.pcap",
+            "explanation": " Runs Zeek in deterministic mode for debugging consistency."
+        },
+        {
+            "id": 51,
+            "category": "Advanced Analysis",
+            "command": "zeek -r <pcap> frameworks/packet-filter/utils",
+            "example": "zeek -r test.pcap frameworks/packet-filter/utils",
+            "explanation": "Loads utilities for compiling and installing BPF filters dynamically."
+        },
+        {
+            "id": 52,
+            "category": "Advanced Analysis",
+            "command": "zeek -r <pcap> base/protocols/conn/polling",
+            "example": "zeek -r test.pcap base/protocols/conn/polling",
+            "explanation": "Enables polling of the connection analyzer for long-running connections."
+        },
+        {
+            "id": 53,
+            "category": "Performance Tuning",
+            "command": "zeek -r <pcap> --report-coverage",
+            "example": "zeek -r test.pcap --report-coverage",
+            "explanation": "Reports script coverage statistics after execution."
+        },
+        {
+            "id": 54,
+            "category": "Advanced Logging",
+            "command": "zeek -r <pcap> Log::enable_local_logging=F",
+            "example": "zeek -r test.pcap Log::enable_local_logging=F",
+            "explanation": "Disables local disk logging, often used when shipping logs remotely."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Logging",
+            "command": "zeek -r <pcap> Log::enable_remote_logging=T",
+            "example": "zeek -r test.pcap Log::enable_remote_logging=T",
+            "explanation": "Enables sending logs to a remote logger node."
+        },
+        {
+            "id": 56,
+            "category": "Cluster Config",
+            "command": "zeekctl config",
+            "example": "zeekctl config",
+            "explanation": "Prints the current cluster configuration values."
+        },
+        {
+            "id": 57,
+            "category": "Cluster Config",
+            "command": "zeekctl check",
+            "example": "zeekctl check",
+            "explanation": "Verifies the configuration files for errors before deploying."
+        },
+        {
+            "id": 58,
+            "category": "Cluster Config",
+            "command": "zeekctl cleanup",
+            "example": "zeekctl cleanup",
+            "explanation": "Clears state from previous runs and resets the cluster nodes."
+        },
+        {
+            "id": 59,
+            "category": "Advanced Debugging",
+            "command": "zeek -r <pcap> -g",
+            "example": "zeek -r test.pcap -g",
+            "explanation": "Dumps the internal state of the script engine for debugging."
+        },
+        {
+            "id": 60,
+            "category": "Safe Termination",
+            "command": "kill -TERM <pid>",
+            "example": "kill -TERM 1234",
+            "explanation": "Sends a termination signal to Zeek to ensure logs are flushed properly."
+        }
+    ]
+}

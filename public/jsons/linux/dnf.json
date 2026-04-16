@@ -1,0 +1,77 @@
+{
+  "tool": "dnf",
+  "description": "Dandified YUM (DNF): The modern package manager used by RPM-based Linux distributions like RedHat, CentOS, Fedora, and AlmaLinux, fully replacing the legacy 'yum'.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Update",
+      "command": "dnf check-update",
+      "example": "dnf check-update",
+      "explanation": "Checks if there are package upgrades available for your system without actually installing them."
+    },
+    {
+      "id": 2,
+      "category": "Update",
+      "command": "dnf upgrade -y",
+      "example": "dnf upgrade -y",
+      "explanation": "Installs the latest versions of all packages currently installed on the system, auto-confirming."
+    },
+    {
+      "id": 3,
+      "category": "Installation",
+      "command": "dnf install <package_name>",
+      "example": "dnf install httpd",
+      "explanation": "Retrieves and installs the target package along with needed dependencies from enabled repositories."
+    },
+    {
+      "id": 4,
+      "category": "Removal",
+      "command": "dnf remove <package_name>",
+      "example": "dnf remove httpd",
+      "explanation": "Removes the specified package. Unlike dpkg/apt, DNF also removes previously installed unused dependencies triggered by this package."
+    },
+    {
+      "id": 5,
+      "category": "Modules",
+      "command": "dnf module list",
+      "example": "dnf module list",
+      "explanation": "Lists AppStream modules. This displays multiple versions of software (like Node.js or PostgreSQL) available to be switched into streams."
+    },
+    {
+      "id": 6,
+      "category": "Modules",
+      "command": "dnf module install <module>:<stream>",
+      "example": "dnf module install nodejs:18",
+      "explanation": "Installs a specific stream/version of a package from the AppStream repository."
+    },
+    {
+      "id": 7,
+      "category": "History",
+      "command": "dnf history",
+      "example": "dnf history",
+      "explanation": "Shows the transaction history of installing, upgrading, or removing packages."
+    },
+    {
+      "id": 8,
+      "category": "History",
+      "command": "dnf history undo <transaction_id>",
+      "example": "dnf history undo 14",
+      "explanation": "Rolls back a specific previous DNF transaction (e.g., completely reversing a package installation)."
+    },
+    {
+      "id": 9,
+      "category": "Searching",
+      "command": "dnf provides <file_path>",
+      "example": "dnf provides */semanage",
+      "explanation": "Finds out which specific package provides a particular file or command executable on the system."
+    },
+    {
+      "id": 10,
+      "category": "Maintenance",
+      "command": "dnf clean all",
+      "example": "dnf clean all",
+      "explanation": "Cleans out cached package data, metadata, and expired headers to force a fresh repository resync."
+    }
+  ]
+}

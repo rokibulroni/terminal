@@ -1,0 +1,707 @@
+{
+  "tool": "hping3",
+  "description": "Complete hping3 command reference covering all options from basic to advanced",
+  "total_commands": 100,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Connectivity",
+      "command": "hping3 192.168.1.1",
+      "example": "hping3 192.168.1.1",
+      "explanation": "Sends TCP NULL packets to target port 0.\nTests reachability without setting specific flags (default tool behavior)."
+    },
+    {
+      "id": 2,
+      "category": "Basic ICMP",
+      "command": "hping3 -1 192.168.1.1",
+      "example": "hping3 -1 192.168.1.1",
+      "explanation": "Sends ICMP Echo Request packets (-1).\nFunctions like a standard ping to verify host availability."
+    },
+    {
+      "id": 3,
+      "category": "Basic ICMP",
+      "command": "hping3 --icmp 192.168.1.1",
+      "example": "hping3 --icmp 192.168.1.1",
+      "explanation": "Alternative alias for sending ICMP Echo Requests.\nProvides a human-readable way to specify the ICMP protocol."
+    },
+    {
+      "id": 4,
+      "category": "Basic UDP",
+      "command": "hping3 -2 192.168.1.1",
+      "example": "hping3 -2 192.168.1.1",
+      "explanation": "Sends UDP packets to the target (-2).\nUseful for testing network reachability over connectionless protocols."
+    },
+    {
+      "id": 5,
+      "category": "Basic UDP",
+      "command": "hping3 --udp 192.168.1.1",
+      "example": "hping3 --udp 192.168.1.1",
+      "explanation": "Alternative alias for sending UDP packets.\nIdentifies the transport protocol as UDP using verbose syntax."
+    },
+    {
+      "id": 6,
+      "category": "Port Selection",
+      "command": "hping3 -p 80 192.168.1.1",
+      "example": "hping3 -p 80 192.168.1.1",
+      "explanation": "Sends TCP packets to a specific port (-p).\nUsed to probe specialized services or common ports like 80."
+    },
+    {
+      "id": 7,
+      "category": "Port Selection",
+      "command": "hping3 -p ++80 192.168.1.1",
+      "example": "hping3 -p ++80 192.168.1.1",
+      "explanation": "Increments the destination port by 1 for each packet (++80).\nIterates through a sequence of ports starting from the specified base."
+    },
+    {
+      "id": 8,
+      "category": "Port Selection",
+      "command": "hping3 -p 80++ 192.168.1.1",
+      "example": "hping3 -p 80++ 192.168.1.1",
+      "explanation": "Increments the port after every received response (80++).\nAutomatically traverses ports until a successful interaction occurs."
+    },
+    {
+      "id": 9,
+      "category": "Scanning Mode",
+      "command": "hping3 -8 1-1000 192.168.1.1",
+      "example": "hping3 -8 1-1000 192.168.1.1",
+      "explanation": "Scans a range of ports using TCP SYN mode (-8).\nIdentifies open ports by attempting half-open connections."
+    },
+    {
+      "id": 10,
+      "category": "Scanning Mode",
+      "command": "hping3 --scan 80,443,8080 192.168.1.1",
+      "example": "hping3 --scan 80,443,8080 192.168.1.1",
+      "explanation": "Scans specifically listed ports in SYN mode.\nAllows granular targeting of specific services on the host."
+    },
+    {
+      "id": 11,
+      "category": "Scanning Mode",
+      "command": "hping3 -8 known 192.168.1.1",
+      "example": "hping3 -8 known 192.168.1.1",
+      "explanation": "Scans a predefined list of common ports.\nQuickly checks for the most frequently used network services."
+    },
+    {
+      "id": 12,
+      "category": "TCP Flags",
+      "command": "hping3 -S -p 80 192.168.1.1",
+      "example": "hping3 -S -p 80 192.168.1.1",
+      "explanation": "Sends TCP SYN packets for half-open scanning (-S).\nProbes a port to see if it responds with SYN-ACK without completing the handshake."
+    },
+    {
+      "id": 13,
+      "category": "TCP Flags",
+      "command": "hping3 -A -p 80 192.168.1.1",
+      "example": "hping3 -A -p 80 192.168.1.1",
+      "explanation": "Sends TCP ACK packets (-A).\nUsed to map firewall rules and determine if ports are filtered or unfiltered."
+    },
+    {
+      "id": 14,
+      "category": "TCP Flags",
+      "command": "hping3 -F -p 80 192.168.1.1",
+      "example": "hping3 -F -p 80 192.168.1.1",
+      "explanation": "Sends TCP FIN packets (-F).\nTests firewall filtering behavior or cleanly requests connection termination."
+    },
+    {
+      "id": 15,
+      "category": "TCP Flags",
+      "command": "hping3 -R -p 80 192.168.1.1",
+      "example": "hping3 -R -p 80 192.168.1.1",
+      "explanation": "Sends TCP RST (Reset) packets (-R).\nForcefully terminates a connection or tests the target's reset logic."
+    },
+    {
+      "id": 16,
+      "category": "TCP Flags",
+      "command": "hping3 -P -p 80 192.168.1.1",
+      "example": "hping3 -P -p 80 192.168.1.1",
+      "explanation": "Sends TCP PSH (Push) packets (-P).\nInstructs the receiver to pass data directly to the application without buffering."
+    },
+    {
+      "id": 17,
+      "category": "TCP Flags",
+      "command": "hping3 -U -p 80 192.168.1.1",
+      "example": "hping3 -U -p 80 192.168.1.1",
+      "explanation": "Sends TCP URG (Urgent) packets (-U).\nSignals that the packet contains data that should be processed immediately."
+    },
+    {
+      "id": 18,
+      "category": "TCP Flags",
+      "command": "hping3 -X -p 80 192.168.1.1",
+      "example": "hping3 -X -p 80 192.168.1.1",
+      "explanation": "Sends TCP Xmas scan packets (-X).\nSets FIN, URG, and PSH flags to elicit specific stack responses for OS detection."
+    },
+    {
+      "id": 19,
+      "category": "TCP Flags",
+      "command": "hping3 -Y -p 80 192.168.1.1",
+      "example": "hping3 -Y -p 80 192.168.1.1",
+      "explanation": "Sends TCP Ymas scan packets (-Y).\nSets FIN, URG, PSH, and ACK flags to probe advanced filtering responses."
+    },
+    {
+      "id": 20,
+      "category": "TCP Flags",
+      "command": "hping3 -S -A -p 80 192.168.1.1",
+      "example": "hping3 -S -A -p 80 192.168.1.1",
+      "explanation": "Sends TCP SYN-ACK packets (-S -A).\nCrafts a response typically sent by a server to a client SYN request."
+    },
+    {
+      "id": 21,
+      "category": "Packet Counting",
+      "command": "hping3 -c 3 192.168.1.1",
+      "example": "hping3 -c 3 192.168.1.1",
+      "explanation": "Sends exactly 3 packets and stops (-c 3).\nUseful for controlled connectivity checks without infinite looping."
+    },
+    {
+      "id": 22,
+      "category": "Timing and Interval",
+      "command": "hping3 -i 5 192.168.1.1",
+      "example": "hping3 -i 5 192.168.1.1",
+      "explanation": "Sets a 5-second interval between packets (-i 5).\nSlows down the probe rate to reduce network load or avoid detection."
+    },
+    {
+      "id": 23,
+      "category": "Timing and Interval",
+      "command": "hping3 -i u1000 192.168.1.1",
+      "example": "hping3 -i u1000 192.168.1.1",
+      "explanation": "Sets a 1-millisecond interval between packets (-i u1000).\nIncreases the scanning speed for high-performance network testing."
+    },
+    {
+      "id": 24,
+      "category": "Timing and Interval",
+      "command": "hping3 --fast 192.168.1.1",
+      "example": "hping3 --fast 192.168.1.1",
+      "explanation": "Sends 10 packets per second (--fast).\nBalances speed and network stability for general discovery."
+    },
+    {
+      "id": 25,
+      "category": "Timing and Interval",
+      "command": "hping3 --faster 192.168.1.1",
+      "example": "hping3 --faster 192.168.1.1",
+      "explanation": "Sends 100 packets per second (--faster).\nHigh-speed mode for rapid port scanning and network stress analysis."
+    },
+    {
+      "id": 26,
+      "category": "Stress Testing",
+      "command": "hping3 --flood -c 1000 192.168.1.1",
+      "example": "hping3 --flood -c 1000 192.168.1.1",
+      "explanation": "Sends packets as fast as possible (--flood).\nGenerates massive traffic for saturation testing and firewall stress analysis."
+    },
+    {
+      "id": 27,
+      "category": "IP Spoofing",
+      "command": "hping3 -a 10.0.0.5 192.168.1.1",
+      "example": "hping3 -a 10.0.0.5 192.168.1.1",
+      "explanation": "Spoofs the source IP address (-a).\nMakes outgoing packets appear to originate from another host."
+    },
+    {
+      "id": 28,
+      "category": "IP Spoofing",
+      "command": "hping3 --rand-source 192.168.1.1",
+      "example": "hping3 --rand-source 192.168.1.1",
+      "explanation": "Uses a random source IP for every packet (--rand-source).\nObfuscates the source of the scan across a wide range of addresses."
+    },
+    {
+      "id": 29,
+      "category": "Source Port Control",
+      "command": "hping3 -s 5050 -p 80 192.168.1.1",
+      "example": "hping3 -s 5050 -p 80 192.168.1.1",
+      "explanation": "Sets the source port explicitly (-s).\nUseful for testing policies that depend on specific originating ports."
+    },
+    {
+      "id": 30,
+      "category": "Source Port Control",
+      "command": "hping3 -s 5050 -k -p 80 192.168.1.1",
+      "example": "hping3 -s 5050 -k -p 80 192.168.1.1",
+      "explanation": "Keeps the source port constant (-k).\nPrevents the tool from incrementing the originating port for subsequent packets."
+    },
+    {
+      "id": 31,
+      "category": "Data Size",
+      "command": "hping3 -d 120 192.168.1.1",
+      "example": "hping3 -d 120 192.168.1.1",
+      "explanation": "Sets the packet data payload size (-d 120).\nAdds arbitrary data to the packet to test MTU or application handling."
+    },
+    {
+      "id": 32,
+      "category": "Data Content",
+      "command": "hping3 -E /etc/issue -d 100 192.168.1.1",
+      "example": "hping3 -E /etc/issue -d 100 192.168.1.1",
+      "explanation": "Loads data from a file into the payload (-E).\nSends specific binary or text content from local storage within the packets."
+    },
+    {
+      "id": 33,
+      "category": "Data Content",
+      "command": "hping3 -e 'signature' 192.168.1.1",
+      "example": "hping3 -e 'signature' 192.168.1.1",
+      "explanation": "Fills the payload with a specific string (-e).\nCustomizes the data section to include signatures or identifying markers."
+    },
+    {
+      "id": 34,
+      "category": "Fragmentation",
+      "command": "hping3 -f -d 1000 192.168.1.1",
+      "example": "hping3 -f -d 1000 192.168.1.1",
+      "explanation": "Splits packets into fragments (-f).\nTests how target stacks and firewalls handle fragmented IP traffic."
+    },
+    {
+      "id": 35,
+      "category": "Fragmentation",
+      "command": "hping3 -x -d 1000 192.168.1.1",
+      "example": "hping3 -x -d 1000 192.168.1.1",
+      "explanation": "Sets the 'More Fragments' (MF) IP flag (-x).\nIndicates that subsequent fragments follow, part of fragmentation testing."
+    },
+    {
+      "id": 36,
+      "category": "Fragmentation",
+      "command": "hping3 -y -d 1000 192.168.1.1",
+      "example": "hping3 -y -d 1000 192.168.1.1",
+      "explanation": "Sets the 'Don't Fragment' (DF) IP flag (-y).\nPrevents intermediate routers from fragmenting the packet, used for MTU discovery."
+    },
+    {
+      "id": 37,
+      "category": "Fragmentation",
+      "command": "hping3 -g 8 192.168.1.1",
+      "example": "hping3 -g 8 192.168.1.1",
+      "explanation": "Sets the fragment offset value (-g 8).\nManually controls the placement of data within the fragmented sequence."
+    },
+    {
+      "id": 38,
+      "category": "TTL Manipulation",
+      "command": "hping3 -t 64 192.168.1.1",
+      "example": "hping3 -t 64 192.168.1.1",
+      "explanation": "Sets the IP Time To Live (TTL) value (-t 64).\nControls how many hops a packet can take before being discarded."
+    },
+    {
+      "id": 39,
+      "category": "TTL Manipulation",
+      "command": "hping3 --ttl 128 192.168.1.1",
+      "example": "hping3 --ttl 128 192.168.1.1",
+      "explanation": "Alias for setting the TTL value (--ttl).\nDetermines the lifespan of the packet across the network path."
+    },
+    {
+      "id": 40,
+      "category": "Traceroute",
+      "command": "hping3 --traceroute 192.168.1.1",
+      "example": "hping3 --traceroute 192.168.1.1",
+      "explanation": "Runs in traceroute mode (--traceroute).\nMaps the network path to the target by incrementing TTL values."
+    },
+    {
+      "id": 41,
+      "category": "Traceroute",
+      "command": "hping3 --traceroute -S -p 80 192.168.1.1",
+      "example": "hping3 --traceroute -S -p 80 192.168.1.1",
+      "explanation": "Performs a TCP SYN traceroute to port 80.\nCombines SYN scanning with traceroute to map hop-by-hop filtered paths."
+    },
+    {
+      "id": 42,
+      "category": "Sequence Numbers",
+      "command": "hping3 -M 1000 192.168.1.1",
+      "example": "hping3 -M 1000 192.168.1.1",
+      "explanation": "Sets the TCP Sequence Number explicitly (-M 1000).\nManually specifies the packet's identification in a TCP stream."
+    },
+    {
+      "id": 43,
+      "category": "Sequence Numbers",
+      "command": "hping3 -L 2000 192.168.1.1",
+      "example": "hping3 -L 2000 192.168.1.1",
+      "explanation": "Sets the TCP Acknowledgement (ACK) Number (-L 2000).\nUsed to craft specific responses for stream analysis or session hijacking tests."
+    },
+    {
+      "id": 44,
+      "category": "Window Size",
+      "command": "hping3 -w 64 192.168.1.1",
+      "example": "hping3 -w 64 192.168.1.1",
+      "explanation": "Sets the TCP Window size (-w 64).\nControls the amount of data the sender is willing to receive without acknowledgement."
+    },
+    {
+      "id": 45,
+      "category": "IP ID",
+      "command": "hping3 -N 5555 192.168.1.1",
+      "example": "hping3 -N 5555 192.168.1.1",
+      "explanation": "Sets the IP Identification field (-N 5555).\nProvides a unique ID for the packet, useful for tracking fragments or OS fingerprinting."
+    },
+    {
+      "id": 46,
+      "category": "Output Control",
+      "command": "hping3 -q 192.168.1.1",
+      "example": "hping3 -q 192.168.1.1",
+      "explanation": "Runs in quiet mode (-q).\nSuppresses standard packet summary output for cleaner results."
+    },
+    {
+      "id": 47,
+      "category": "Output Control",
+      "command": "hping3 -V 192.168.1.1",
+      "example": "hping3 -V 192.168.1.1",
+      "explanation": "Runs in verbose mode (-V).\nShows detailed packet fields and headers for in-depth analysis."
+    },
+    {
+      "id": 48,
+      "category": "Output Control",
+      "command": "hping3 -D 192.168.1.1",
+      "example": "hping3 -D 192.168.1.1",
+      "explanation": "Runs in debug mode (-D).\nDisplays internal debugging information sent by the hping3 process."
+    },
+    {
+      "id": 49,
+      "category": "Interface",
+      "command": "hping3 -I eth0 192.168.1.1",
+      "example": "hping3 -I eth0 192.168.1.1",
+      "explanation": "Sends packets via a specific interface (-I eth0).\nEnsures traffic exits through the correct network adapter."
+    },
+    {
+      "id": 50,
+      "category": "Raw IP",
+      "command": "hping3 -0 192.168.1.1",
+      "example": "hping3 -0 192.168.1.1",
+      "explanation": "Sends RAW IP packets (-0).\nTransmits data at the network layer without a transport header by default."
+    },
+    {
+      "id": 51,
+      "category": "Raw IP",
+      "command": "hping3 --rawip 192.168.1.1",
+      "example": "hping3 --rawip 192.168.1.1",
+      "explanation": "Alias for RAW IP mode (--rawip).\nOperates purely at the IP layer for custom protocol testing."
+    },
+    {
+      "id": 52,
+      "category": "ICMP Customization",
+      "command": "hping3 -1 -C 13 192.168.1.1",
+      "example": "hping3 -1 -C 13 192.168.1.1",
+      "explanation": "Sends ICMP Timestamp Request packets (-C 13).\nUsed to query the target host's current system time."
+    },
+    {
+      "id": 53,
+      "category": "ICMP Customization",
+      "command": "hping3 -1 -K 0 192.168.1.1",
+      "example": "hping3 -1 -K 0 192.168.1.1",
+      "explanation": "Sets the ICMP Code field (-K 0).\nGranularly controls the sub-type of the ICMP message being sent."
+    },
+    {
+      "id": 54,
+      "category": "ICMP Customization",
+      "command": "hping3 --icmp-ts 192.168.1.1",
+      "example": "hping3 --icmp-ts 192.168.1.1",
+      "explanation": "Alias for sending ICMP Timestamp requests (--icmp-ts).\nSpecifically probes for time synchronization data."
+    },
+    {
+      "id": 55,
+      "category": "ICMP Customization",
+      "command": "hping3 --icmp-addr 192.168.1.1",
+      "example": "hping3 --icmp-addr 192.168.1.1",
+      "explanation": "Sends ICMP Address Mask Request packets (--icmp-addr).\nAttempts to discover the subnet mask used by the target host."
+    },
+    {
+      "id": 56,
+      "category": "Routing",
+      "command": "hping3 -r 192.168.1.1",
+      "example": "hping3 -r 192.168.1.1",
+      "explanation": "Displays incremental ID field relativity (-r).\nEstimates target host traffic levels based on IP ID field progression."
+    },
+    {
+      "id": 57,
+      "category": "Checksum",
+      "command": "hping3 -b 192.168.1.1",
+      "example": "hping3 -b 192.168.1.1",
+      "explanation": "Sends packets with invalid checksums (-b).\nTests whether the target stack correctly drops corrupted traffic."
+    },
+    {
+      "id": 58,
+      "category": "Hex Output",
+      "command": "hping3 -J 192.168.1.1",
+      "example": "hping3 -J 192.168.1.1",
+      "explanation": "Dumps received packets in printable hex format (-J).\nAllows human readers to inspect the raw data of incoming responses."
+    },
+    {
+      "id": 59,
+      "category": "Hex Output",
+      "command": "hping3 -j 192.168.1.1",
+      "example": "hping3 -j 192.168.1.1",
+      "explanation": "Dumps received packets in raw hexadecimal format (-j).\nProvides exact binary representation of the collected responses."
+    },
+    {
+      "id": 60,
+      "category": "Listening Mode",
+      "command": "hping3 -9 signature",
+      "example": "hping3 -9 signature",
+      "explanation": "Listens for packets containing a specific signature (-9).\nActs like a specialized sniffer that triggers on particular data patterns."
+    },
+    {
+      "id": 61,
+      "category": "Listening Mode",
+      "command": "hping3 --listen signature",
+      "example": "hping3 --listen signature",
+      "explanation": "Alias for signature listening mode (--listen).\nUsed for detecting specific trigger strings in network traffic."
+    },
+    {
+      "id": 62,
+      "category": "TCP Options",
+      "command": "hping3 -O 192.168.1.1",
+      "example": "hping3 -O 192.168.1.1",
+      "explanation": "Sends packets with a fake TCP Timestamp option (-O).\nProbes how the target handles modern TCP extensions."
+    },
+    {
+      "id": 63,
+      "category": "TCP Options",
+      "command": "hping3 --tcpoff 192.168.1.1",
+      "example": "hping3 --tcpoff 192.168.1.1",
+      "explanation": "Sets the TCP data offset manually (--tcpoff).\nUsed in advanced packet crafting to test stack boundary conditions."
+    },
+    {
+      "id": 64,
+      "category": "TCP Options",
+      "command": "hping3 --tcpseq 123456789 192.168.1.1",
+      "example": "hping3 --tcpseq 123456789 192.168.1.1",
+      "explanation": "Sets a specific 32-bit TCP sequence number (--tcpseq).\nForces a particular stream position for traffic analysis."
+    },
+    {
+      "id": 65,
+      "category": "Interactive",
+      "command": "hping3 -z 192.168.1.1",
+      "example": "hping3 -z 192.168.1.1",
+      "explanation": "Binds CTRL+Z to increment the TTL of outgoing packets (-z).\nAllows interactive Path MTU discovery during an active session."
+    },
+    {
+      "id": 66,
+      "category": "Interactive",
+      "command": "hping3 -Z 192.168.1.1",
+      "example": "hping3 -Z 192.168.1.1",
+      "explanation": "Unbinds the CTRL+Z shortcut (-Z).\nRestores CTRL+Z to the standard system backgrounding behavior."
+    },
+    {
+      "id": 67,
+      "category": "MTU Discovery",
+      "command": "hping3 -V -p 80 -S -y -d 1472 192.168.1.1",
+      "example": "hping3 -V -p 80 -S -y -d 1472 192.168.1.1",
+      "explanation": "Tests for MTU issues on port 80.\nSends max-sized frames with SYN and Don't Fragment set for path testing."
+    },
+    {
+      "id": 68,
+      "category": "Timestamp",
+      "command": "hping3 --ts 192.168.1.1",
+      "example": "hping3 --ts 192.168.1.1",
+      "explanation": "Adds a timestamp to the packet log (--ts).\nProvides exact timing for each packet event in the output stream."
+    },
+    {
+      "id": 69,
+      "category": "Help",
+      "command": "hping3 --help",
+      "example": "hping3 --help",
+      "explanation": "Displays the help menu (--help).\nProvides a quick reference for hping3 usage and flags."
+    },
+    {
+      "id": 70,
+      "category": "Version",
+      "command": "hping3 --version",
+      "example": "hping3 --version",
+      "explanation": "Displays the hping3 version info (--version).\nIdentifies the current software build and capabilities."
+    },
+    {
+      "id": 71,
+      "category": "Safe Flood",
+      "command": "hping3 -S -p 80 --flood -c 100 192.168.1.1",
+      "example": "hping3 -S -p 80 --flood -c 100 192.168.1.1",
+      "explanation": "Performs a limited TCP SYN flood on port 80.\nSends 100 packets quickly to validate firewall rate limiting rules."
+    },
+    {
+      "id": 72,
+      "category": "Advanced Crafting",
+      "command": "hping3 -S -P -U -p 80 192.168.1.1",
+      "example": "hping3 -S -P -U -p 80 192.168.1.1",
+      "explanation": "Sends packets with multiple TCP flags set simultaneously.\nCrafts complex combinations of SYN, PUSH, and URG to probe stack handling."
+    },
+    {
+      "id": 73,
+      "category": "Advanced Crafting",
+      "command": "hping3 -F -R -p 80 192.168.1.1",
+      "example": "hping3 -F -R -p 80 192.168.1.1",
+      "explanation": "Sends packets with FIN and RST flags set.\nUsed to test stateless filters that may allow illegal combined flags."
+    },
+    {
+      "id": 74,
+      "category": "Audible",
+      "command": "hping3 --beep 192.168.1.1",
+      "example": "hping3 --beep 192.168.1.1",
+      "explanation": "Plays an audible alert for every response (--beep).\nProvides a sound-based indicator of host connectivity during testing."
+    },
+    {
+      "id": 75,
+      "category": "Loose Source Routing",
+      "command": "hping3 --lsrr 10.0.0.1 192.168.1.1",
+      "example": "hping3 --lsrr 10.0.0.1 192.168.1.1",
+      "explanation": "Uses Loose Source Record Route option (--lsrr).\nAttempts to route packets through specific intermediate hop addresses."
+    },
+    {
+      "id": 76,
+      "category": "Strict Source Routing",
+      "command": "hping3 --ssrr 10.0.0.1 192.168.1.1",
+      "example": "hping3 --ssrr 10.0.0.1 192.168.1.1",
+      "explanation": "Uses Strict Source Record Route option (--ssrr).\nForces packets to take an exact, predefined path through the network."
+    },
+    {
+      "id": 77,
+      "category": "Route Recording",
+      "command": "hping3 --rroute 192.168.1.1",
+      "example": "hping3 --rroute 192.168.1.1",
+      "explanation": "Uses Record Route option (--rroute).\nTraces the route by having hops add their IPs to the packet header."
+    },
+    {
+      "id": 78,
+      "category": "Spoofing",
+      "command": "hping3 -a 192.168.1.254 -S 192.168.1.1",
+      "example": "hping3 -a 192.168.1.254 -S 192.168.1.1",
+      "explanation": "Spoofs traffic from the gateway IP address.\nSimulates incoming traffic originating from the local network exit point."
+    },
+    {
+      "id": 79,
+      "category": "WinID",
+      "command": "hping3 -W 192.168.1.1",
+      "example": "hping3 -W 192.168.1.1",
+      "explanation": "Uses sliding window ID analysis (-W).\nAnalyzes flow control mechanisms and window scaling on the target host."
+    },
+    {
+      "id": 80,
+      "category": "Keep",
+      "command": "hping3 -k -s 3000 -p 80 192.168.1.1",
+      "example": "hping3 -k -s 3000 -p 80 192.168.1.1",
+      "explanation": "Forces source port to remain constant (-k).\nEnsures all probes originate from exactly the same port for policy testing."
+    },
+    {
+      "id": 81,
+      "category": "Numeric Output",
+      "command": "hping3 -n 192.168.1.1",
+      "example": "hping3 -n 192.168.1.1",
+      "explanation": "Displays numeric IP addresses (-n).\nPrevents time-consuming DNS reverse lookups during scanning."
+    },
+    {
+      "id": 82,
+      "category": "Microsecond Timing",
+      "command": "hping3 --u1000 192.168.1.1",
+      "example": "hping3 --u1000 192.168.1.1",
+      "explanation": "Sets timing in microseconds (--u1000).\nLegacy alias for nanosecond-precision interval configuration."
+    },
+    {
+      "id": 83,
+      "category": "End Indicator",
+      "command": "hping3 --end 192.168.1.1",
+      "example": "hping3 --end 192.168.1.1",
+      "explanation": "Indicates end of file transfer (--end).\nSignals that the packet stream for a file transmission is complete."
+    },
+    {
+      "id": 84,
+      "category": "Safe Scan",
+      "command": "hping3 --scan 1-1024 -S 192.168.1.1",
+      "example": "hping3 --scan 1-1024 -S 192.168.1.1",
+      "explanation": "Standard SYN scan of privileged ports.\nProbes ports 1-1024 to identify foundational network services."
+    },
+    {
+      "id": 85,
+      "category": "Safe Scan",
+      "command": "hping3 --scan 1-1024 -A 192.168.1.1",
+      "example": "hping3 --scan 1-1024 -A 192.168.1.1",
+      "explanation": "ACK scan of privileged ports.\nUsed specifically for determining firewall filtering status on standard ports."
+    },
+    {
+      "id": 86,
+      "category": "IP Protocol",
+      "command": "hping3 -H 47 192.168.1.1",
+      "example": "hping3 -H 47 192.168.1.1",
+      "explanation": "Sets the IP protocol field manually (-H).\nTests transport protocols like GRE (47) directly at the IP layer."
+    },
+    {
+      "id": 87,
+      "category": "IP Protocol",
+      "command": "hping3 -H 50 192.168.1.1",
+      "example": "hping3 -H 50 192.168.1.1",
+      "explanation": "Probes IP protocol 50 (IPSec ESP).\nUsed to verify connectivity and reachability of VPN services."
+    },
+    {
+      "id": 88,
+      "category": "Combined Flags",
+      "command": "hping3 -S -F -p 80 192.168.1.1",
+      "example": "hping3 -S -F -p 80 192.168.1.1",
+      "explanation": "Sets illegal SYN and FIN flags simultaneously.\nTests if the target stack follows RFCs or exhibits anomalous behavior."
+    },
+    {
+      "id": 89,
+      "category": "Combined Flags",
+      "command": "hping3 -S -R -p 80 192.168.1.1",
+      "example": "hping3 -S -R -p 80 192.168.1.1",
+      "explanation": "Sets illegal SYN and RST flags.\nProbes for specific OS responses to contradictory TCP flag combinations."
+    },
+    {
+      "id": 90,
+      "category": "Signaturizing",
+      "command": "hping3 -e 'TEST' -p 80 192.168.1.1",
+      "example": "hping3 -e 'TEST' -p 80 192.168.1.1",
+      "explanation": "Adds custom signature to the payload (-e).\nChecks if Deep Packet Inspection (DPI) or IDS triggers on specific content."
+    },
+    {
+      "id": 91,
+      "category": "TOS Field",
+      "command": "hping3 --tos 0x10 192.168.1.1",
+      "example": "hping3 --tos 0x10 192.168.1.1",
+      "explanation": "Sets IP Type of Service field to Minimize Delay.\nTests QoS prioritization for real-time traffic handling."
+    },
+    {
+      "id": 92,
+      "category": "TOS Field",
+      "command": "hping3 --tos 0x04 192.168.1.1",
+      "example": "hping3 --tos 0x04 192.168.1.1",
+      "explanation": "Sets TOS field to Maximize Reliability.\nTests network handling for traffic requiring high data integrity."
+    },
+    {
+      "id": 93,
+      "category": "Null Scan",
+      "command": "hping3 -p 80 192.168.1.1",
+      "example": "hping3 -p 80 192.168.1.1",
+      "explanation": "Sends a TCP packet with no flags set (Null Scan).\nProbes ports to elicit a response according to standard stack behavior."
+    },
+    {
+      "id": 94,
+      "category": "Interface Promiscuous",
+      "command": "hping3 -I eth0 -9 signature",
+      "example": "hping3 -I eth0 -9 signature",
+      "explanation": "Listens in promiscuous mode for signature on eth0.\nCaptures matching packets passing through the interface, regardless of destination."
+    },
+    {
+      "id": 95,
+      "category": "File Transfer",
+      "command": "hping3 -f -p 53 -d 100 -E payload.bin 192.168.1.1",
+      "example": "hping3 -f -p 53 -d 100 -E payload.bin 192.168.1.1",
+      "explanation": "Transfers file data via DNS tunnel simulation.\nSends fragmented packets to port 53 to test exfiltration detection."
+    },
+    {
+      "id": 96,
+      "category": "IPv6",
+      "command": "hping3 -6 2001:db8::1",
+      "example": "hping3 -6 2001:db8::1",
+      "explanation": "Enables IPv6 mode (-6).\nAllows testing reachability and protocol interactions on IPv6 addresses."
+    },
+    {
+      "id": 97,
+      "category": "UDP Scan",
+      "command": "hping3 -2 -p 53 192.168.1.1",
+      "example": "hping3 -2 -p 53 192.168.1.1",
+      "explanation": "Sends UDP packets to DNS port 53.\nVerifies if UDP services are responding on the target host."
+    },
+    {
+      "id": 98,
+      "category": "Force Fragmentation",
+      "command": "hping3 -f -m 24 192.168.1.1",
+      "example": "hping3 -f -m 24 192.168.1.1",
+      "explanation": "Forces extreme fragmentation with 24-byte MTU.\nAggressively tests stack fragmentation reassembly and IDS evasion."
+    },
+    {
+      "id": 99,
+      "category": "Advanced Flood",
+      "command": "hping3 --rand-source -S -p 80 --flood 192.168.1.1",
+      "example": "hping3 --rand-source -S -p 80 --flood 192.168.1.1",
+      "explanation": "Simulates a DDoS flood with random sources.\nAggressive stress test for network infrastructure and security controls."
+    },
+    {
+      "id": 100,
+      "category": "Full Evasion",
+      "command": "hping3 -f -t 24 -P -p 80 192.168.1.1",
+      "example": "hping3 -f -t 24 -P -p 80 192.168.1.1",
+      "explanation": "Combines fragmentation, evasion TTL, and PUSH flags.\nA sophisticated probe designed to bypass simple security monitoring."
+    }
+  ]
+}

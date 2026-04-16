@@ -1,0 +1,1127 @@
+{
+    "tool": "gcloud",
+    "description": "Complete gcloud CLI command and workflow reference from basic to advanced cloud operations and security auditing",
+    "total_commands": 160,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Setup",
+            "command": "gcloud version",
+            "example": "gcloud version",
+            "explanation": "Displays the installed Google Cloud SDK version and component information."
+        },
+        {
+            "id": 2,
+            "category": "Basic Setup",
+            "command": "gcloud components list",
+            "example": "gcloud components list",
+            "explanation": "Lists all available SDK components and their current installation status."
+        },
+        {
+            "id": 3,
+            "category": "Basic Setup",
+            "command": "gcloud components update",
+            "example": "gcloud components update",
+            "explanation": "Updates all installed SDK components to the latest available version."
+        },
+        {
+            "id": 4,
+            "category": "Basic Setup",
+            "command": "gcloud help",
+            "example": "gcloud help compute instances create",
+            "explanation": "Displays detailed help documentation for a specific command group or subcommand."
+        },
+        {
+            "id": 5,
+            "category": "Authentication",
+            "command": "gcloud auth login",
+            "example": "gcloud auth login",
+            "explanation": "Initiates the browser-based authentication flow to log in with a user account."
+        },
+        {
+            "id": 6,
+            "category": "Authentication",
+            "command": "gcloud auth list",
+            "example": "gcloud auth list",
+            "explanation": "Lists all credentialed accounts currently active in the gcloud environment."
+        },
+        {
+            "id": 7,
+            "category": "Authentication",
+            "command": "gcloud auth application-default login",
+            "example": "gcloud auth application-default login",
+            "explanation": "Acquires credentials for Application Default Credentials (ADC) used by client libraries."
+        },
+        {
+            "id": 8,
+            "category": "Authentication",
+            "command": "gcloud auth revoke",
+            "example": "gcloud auth revoke user@example.com",
+            "explanation": "Revokes credentials for a specific account, logging them out of the CLI."
+        },
+        {
+            "id": 9,
+            "category": "Configuration",
+            "command": "gcloud config list",
+            "example": "gcloud config list",
+            "explanation": "Displays the active configuration properties for the current environment."
+        },
+        {
+            "id": 10,
+            "category": "Configuration",
+            "command": "gcloud config set project",
+            "example": "gcloud config set project my-project-id",
+            "explanation": "Sets the default project ID for subsequent commands to target."
+        },
+        {
+            "id": 11,
+            "category": "Configuration",
+            "command": "gcloud config configurations create",
+            "example": "gcloud config configurations create my-lab-config",
+            "explanation": "Creates a new named configuration profile to isolate settings between environments."
+        },
+        {
+            "id": 12,
+            "category": "Configuration",
+            "command": "gcloud config configurations activate",
+            "example": "gcloud config configurations activate my-lab-config",
+            "explanation": "Switches the active CLI context to a specific named configuration."
+        },
+        {
+            "id": 13,
+            "category": "Project Management",
+            "command": "gcloud projects list",
+            "example": "gcloud projects list",
+            "explanation": "Lists all Google Cloud projects visible to the currently authenticated user."
+        },
+        {
+            "id": 14,
+            "category": "Project Management",
+            "command": "gcloud projects describe",
+            "example": "gcloud projects describe my-project-id",
+            "explanation": "Shows metadata and lifecycle state for a specific project."
+        },
+        {
+            "id": 15,
+            "category": "Project Management",
+            "command": "gcloud projects create",
+            "example": "gcloud projects create my-new-project-id --name='My New Project'",
+            "explanation": "Creates a new Google Cloud project with the specified ID and display name."
+        },
+        {
+            "id": 16,
+            "category": "Identity & Access (IAM)",
+            "command": "gcloud iam roles list",
+            "example": "gcloud iam roles list",
+            "explanation": "Lists the standard curated IAM roles available in the project."
+        },
+        {
+            "id": 17,
+            "category": "Identity & Access (IAM)",
+            "command": "gcloud iam service-accounts list",
+            "example": "gcloud iam service-accounts list",
+            "explanation": "Lists all service accounts residing within the current project."
+        },
+        {
+            "id": 18,
+            "category": "Identity & Access (IAM)",
+            "command": "gcloud iam service-accounts create",
+            "example": "gcloud iam service-accounts create my-sa --display-name='My Service Account'",
+            "explanation": "Creates a new service account within the current project."
+        },
+        {
+            "id": 19,
+            "category": "Identity & Access (IAM)",
+            "command": "gcloud projects get-iam-policy",
+            "example": "gcloud projects get-iam-policy my-project-id",
+            "explanation": "Retrieves the IAM policy (permissions bindings) attached to the specified project."
+        },
+        {
+            "id": 20,
+            "category": "Identity & Access (IAM)",
+            "command": "gcloud projects add-iam-policy-binding",
+            "example": "gcloud projects add-iam-policy-binding my-project-id --member='user:alice@example.com' --role='roles/viewer'",
+            "explanation": "Adds an IAM policy binding to grant a specific role to a user or principal."
+        },
+        {
+            "id": 21,
+            "category": "Compute Engine",
+            "command": "gcloud compute zones list",
+            "example": "gcloud compute zones list",
+            "explanation": "Lists all available Compute Engine zones and their status."
+        },
+        {
+            "id": 22,
+            "category": "Compute Engine",
+            "command": "gcloud compute instances list",
+            "example": "gcloud compute instances list",
+            "explanation": "Lists all virtual machine instances in the project across all zones."
+        },
+        {
+            "id": 23,
+            "category": "Compute Engine",
+            "command": "gcloud compute instances describe",
+            "example": "gcloud compute instances describe my-instance --zone=us-central1-a",
+            "explanation": "Displays detailed configuration and status of a specific VM instance."
+        },
+        {
+            "id": 24,
+            "category": "Compute Engine",
+            "command": "gcloud compute instances create",
+            "example": "gcloud compute instances create my-vm --zone=us-central1-a --machine-type=e2-micro",
+            "explanation": "Creates and starts a new VM instance with specified parameters."
+        },
+        {
+            "id": 25,
+            "category": "Compute Engine",
+            "command": "gcloud compute instances start",
+            "example": "gcloud compute instances start my-vm --zone=us-central1-a",
+            "explanation": "Starts a currently stopped virtual machine instance."
+        },
+        {
+            "id": 26,
+            "category": "Compute Engine",
+            "command": "gcloud compute instances stop",
+            "example": "gcloud compute instances stop my-vm --zone=us-central1-a",
+            "explanation": "Stops a running virtual machine instance."
+        },
+        {
+            "id": 27,
+            "category": "Compute Engine",
+            "command": "gcloud compute ssh",
+            "example": "gcloud compute ssh my-vm --zone=us-central1-a",
+            "explanation": "Establishes an SSH connection to the instance using automatically managed keys."
+        },
+        {
+            "id": 28,
+            "category": "Networking",
+            "command": "gcloud compute networks list",
+            "example": "gcloud compute networks list",
+            "explanation": "Lists all VPC networks defined in the project."
+        },
+        {
+            "id": 29,
+            "category": "Networking",
+            "command": "gcloud compute networks subnets list",
+            "example": "gcloud compute networks subnets list",
+            "explanation": "Lists all subnets associated with VPC networks in the project."
+        },
+        {
+            "id": 30,
+            "category": "Networking",
+            "command": "gcloud compute firewall-rules list",
+            "example": "gcloud compute firewall-rules list",
+            "explanation": "Lists all firewall rules configured for the project's networks."
+        },
+        {
+            "id": 31,
+            "category": "Networking",
+            "command": "gcloud compute firewall-rules describe",
+            "example": "gcloud compute firewall-rules describe allow-ssh",
+            "explanation": "Shows detailed configuration of a specific firewall rule."
+        },
+        {
+            "id": 32,
+            "category": "Networking",
+            "command": "gcloud compute firewall-rules create",
+            "example": "gcloud compute firewall-rules create allow-http --allow tcp:80 --network default",
+            "explanation": "Creates a new firewall rule allowing incoming TCP traffic on port 80."
+        },
+        {
+            "id": 33,
+            "category": "Cloud Storage",
+            "command": "gcloud storage ls",
+            "example": "gcloud storage ls",
+            "explanation": "Lists all Cloud Storage buckets in the project."
+        },
+        {
+            "id": 34,
+            "category": "Cloud Storage",
+            "command": "gcloud storage buckets create",
+            "example": "gcloud storage buckets create gs://my-unique-bucket-name",
+            "explanation": "Creates a new Cloud Storage bucket."
+        },
+        {
+            "id": 35,
+            "category": "Cloud Storage",
+            "command": "gcloud storage buckets describe",
+            "example": "gcloud storage buckets describe gs://my-unique-bucket-name",
+            "explanation": "Displays metadata and settings for a specific bucket."
+        },
+        {
+            "id": 36,
+            "category": "Cloud Storage",
+            "command": "gcloud storage cp",
+            "example": "gcloud storage cp local-file.txt gs://my-bucket/remote-file.txt",
+            "explanation": "Copies a file from the local filesystem to a Cloud Storage bucket."
+        },
+        {
+            "id": 37,
+            "category": "Kubernetes Engine (GKE)",
+            "command": "gcloud container clusters list",
+            "example": "gcloud container clusters list",
+            "explanation": "Lists all GKE clusters in the project."
+        },
+        {
+            "id": 38,
+            "category": "Kubernetes Engine (GKE)",
+            "command": "gcloud container clusters get-credentials",
+            "example": "gcloud container clusters get-credentials my-cluster --zone=us-central1-a",
+            "explanation": "Configures kubectl to authenticate with the specified GKE cluster."
+        },
+        {
+            "id": 39,
+            "category": "Cloud Run",
+            "command": "gcloud run services list",
+            "example": "gcloud run services list",
+            "explanation": "Lists all Cloud Run services deployed in the project."
+        },
+        {
+            "id": 40,
+            "category": "Cloud Run",
+            "command": "gcloud run services describe",
+            "example": "gcloud run services describe my-service --region=us-central1",
+            "explanation": "Displays details about a specific Cloud Run service configuration."
+        },
+        {
+            "id": 41,
+            "category": "Cloud Functions",
+            "command": "gcloud functions list",
+            "example": "gcloud functions list",
+            "explanation": "Lists all Cloud Functions deployed in the project."
+        },
+        {
+            "id": 42,
+            "category": "Cloud SQL",
+            "command": "gcloud sql instances list",
+            "example": "gcloud sql instances list",
+            "explanation": "Lists all Cloud SQL database instances."
+        },
+        {
+            "id": 43,
+            "category": "Pub/Sub",
+            "command": "gcloud pubsub topics list",
+            "example": "gcloud pubsub topics list",
+            "explanation": "Lists all Pub/Sub topics in the project."
+        },
+        {
+            "id": 44,
+            "category": "Pub/Sub",
+            "command": "gcloud pubsub subscriptions list",
+            "example": "gcloud pubsub subscriptions list",
+            "explanation": "Lists all Pub/Sub subscriptions in the project."
+        },
+        {
+            "id": 45,
+            "category": "Logging",
+            "command": "gcloud logging read",
+            "example": "gcloud logging read 'severity>=ERROR' --limit=10",
+            "explanation": "Reads the latest log entries matching a specific filter."
+        },
+        {
+            "id": 46,
+            "category": "Logging",
+            "command": "gcloud logging logs list",
+            "example": "gcloud logging logs list",
+            "explanation": "Lists all log names present in the project."
+        },
+        {
+            "id": 47,
+            "category": "Output Formatting",
+            "command": "gcloud projects list --format=json",
+            "example": "gcloud projects list --format=json",
+            "explanation": "Outputs the list of projects in full JSON format."
+        },
+        {
+            "id": 48,
+            "category": "Output Formatting",
+            "command": "gcloud compute instances list --format='table(name, zone, status)'",
+            "example": "gcloud compute instances list --format='table(name, zone, status)'",
+            "explanation": "Displays instance data in a tabular format with specific columns."
+        },
+        {
+            "id": 49,
+            "category": "Output Filtering",
+            "command": "gcloud compute instances list --filter='status=RUNNING'",
+            "example": "gcloud compute instances list --filter='status=RUNNING'",
+            "explanation": "Lists only the compute instances that are currently running."
+        },
+        {
+            "id": 50,
+            "category": "Output Filtering",
+            "command": "gcloud compute instances list --filter='name:test-*'",
+            "example": "gcloud compute instances list --filter='name:test-*'",
+            "explanation": "Lists instances where the name starts with 'test-'."
+        },
+        {
+            "id": 51,
+            "category": "Advanced IAM",
+            "command": "gcloud iam service-accounts keys list",
+            "example": "gcloud iam service-accounts keys list --iam-account=sa@project.iam.gserviceaccount.com",
+            "explanation": "Lists the keys associated with a specific service account."
+        },
+        {
+            "id": 52,
+            "category": "Advanced IAM",
+            "command": "gcloud iam service-accounts keys create",
+            "example": "gcloud iam service-accounts keys create key.json --iam-account=sa@project.iam.gserviceaccount.com",
+            "explanation": "Creates and downloads a new JSON key file for a service account."
+        },
+        {
+            "id": 53,
+            "category": "Advanced IAM",
+            "command": "gcloud iam roles describe",
+            "example": "gcloud iam roles describe roles/editor",
+            "explanation": "Shows the permissions included in a specific IAM role."
+        },
+        {
+            "id": 54,
+            "category": "Advanced IAM",
+            "command": "gcloud iam roles create",
+            "example": "gcloud iam roles create MyCustomRole --project=my-project --permissions=compute.instances.get,compute.instances.list",
+            "explanation": "Creates a custom IAM role with a defined set of permissions."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Compute",
+            "command": "gcloud compute instance-templates list",
+            "example": "gcloud compute instance-templates list",
+            "explanation": "Lists available instance templates used for creating instance groups."
+        },
+        {
+            "id": 56,
+            "category": "Advanced Compute",
+            "command": "gcloud compute instance-groups managed list",
+            "example": "gcloud compute instance-groups managed list",
+            "explanation": "Lists managed instance groups (MIGs) for autoscaling configurations."
+        },
+        {
+            "id": 57,
+            "category": "Advanced Networking",
+            "command": "gcloud compute routers list",
+            "example": "gcloud compute routers list",
+            "explanation": "Lists Cloud Routers used for dynamic routing and NAT."
+        },
+        {
+            "id": 58,
+            "category": "Advanced Networking",
+            "command": "gcloud compute addresses list",
+            "example": "gcloud compute addresses list",
+            "explanation": "Lists static external and internal IP addresses reserved in the project."
+        },
+        {
+            "id": 59,
+            "category": "Advanced Networking",
+            "command": "gcloud compute ssl-certificates list",
+            "example": "gcloud compute ssl-certificates list",
+            "explanation": "Lists SSL certificates managed by Compute Engine for load balancers."
+        },
+        {
+            "id": 60,
+            "category": "Security & Audit",
+            "command": "gcloud services list",
+            "example": "gcloud services list --enabled",
+            "explanation": "Lists all APIs and services that are currently enabled in the project."
+        },
+        {
+            "id": 61,
+            "category": "Security & Audit",
+            "command": "gcloud services enable",
+            "example": "gcloud services enable cloudasset.googleapis.com",
+            "explanation": "Enables a specific Google Cloud API for the project."
+        },
+        {
+            "id": 62,
+            "category": "Security & Audit",
+            "command": "gcloud asset search-all-resources",
+            "example": "gcloud asset search-all-resources --scope=projects/my-project --query='name:production'",
+            "explanation": "Searches all resources in the project matching a specific query using Cloud Asset Inventory."
+        },
+        {
+            "id": 63,
+            "category": "Security & Audit",
+            "command": "gcloud asset search-all-iam-policies",
+            "example": "gcloud asset search-all-iam-policies --scope=projects/my-project --query='policy:roles/owner'",
+            "explanation": "Finds all IAM policies in the project that grant the Owner role."
+        },
+        {
+            "id": 64,
+            "category": "Secret Manager",
+            "command": "gcloud secrets list",
+            "example": "gcloud secrets list",
+            "explanation": "Lists all secrets stored in Secret Manager."
+        },
+        {
+            "id": 65,
+            "category": "Secret Manager",
+            "command": "gcloud secrets versions access",
+            "example": "gcloud secrets versions access latest --secret=my-secret",
+            "explanation": "Accesses and prints the payload of the latest version of a secret."
+        },
+        {
+            "id": 66,
+            "category": "KMS (Key Management)",
+            "command": "gcloud kms keyrings list",
+            "example": "gcloud kms keyrings list --location=global",
+            "explanation": "Lists all Key Management Service key rings in a specific location."
+        },
+        {
+            "id": 67,
+            "category": "KMS (Key Management)",
+            "command": "gcloud kms keys list",
+            "example": "gcloud kms keys list --keyring=my-keyring --location=global",
+            "explanation": "Lists cryptographic keys within a specified KMS key ring."
+        },
+        {
+            "id": 68,
+            "category": "Blue Team Defensive",
+            "command": "gcloud compute firewall-rules list --filter='sourceRanges:(0.0.0.0/0)'",
+            "example": "gcloud compute firewall-rules list --filter='sourceRanges:(0.0.0.0/0)'",
+            "explanation": "Identifies firewall rules that allow traffic from the entire internet."
+        },
+        {
+            "id": 69,
+            "category": "Blue Team Defensive",
+            "command": "gcloud compute instances list --filter='networkInterfaces.accessConfigs.natIP:*'",
+            "example": "gcloud compute instances list --filter='networkInterfaces.accessConfigs.natIP:*'",
+            "explanation": "Lists all VM instances that have an external public IP address assigned."
+        },
+        {
+            "id": 70,
+            "category": "Blue Team Defensive",
+            "command": "gcloud projects get-iam-policy my-project --flatten='bindings[].members' --filter='bindings.members:allUsers'",
+            "example": "gcloud projects get-iam-policy my-project --flatten='bindings[].members' --filter='bindings.members:allUsers'",
+            "explanation": "Checks if any project-level IAM policies grant access to 'allUsers' (public access)."
+        },
+        {
+            "id": 71,
+            "category": "Blue Team Defensive",
+            "command": "gcloud storage buckets list --format='value(name, public_access_prevention)'",
+            "example": "gcloud storage buckets list --format='value(name, public_access_prevention)'",
+            "explanation": "Lists buckets and checks their Public Access Prevention status."
+        },
+        {
+            "id": 72,
+            "category": "Blue Team Defensive",
+            "command": "gcloud logging sinks list",
+            "example": "gcloud logging sinks list",
+            "explanation": "Lists log router sinks to verify where logs are being exported."
+        },
+        {
+            "id": 73,
+            "category": "Container Security",
+            "command": "gcloud container clusters list --filter='addonsConfig.kubernetesDashboard.disabled=false'",
+            "example": "gcloud container clusters list --filter='addonsConfig.kubernetesDashboard.disabled=false'",
+            "explanation": "Checks for GKE clusters that have the legacy Kubernetes Dashboard enabled."
+        },
+        {
+            "id": 74,
+            "category": "Container Security",
+            "command": "gcloud artifacts repositories list",
+            "example": "gcloud artifacts repositories list",
+            "explanation": "Lists Artifact Registry repositories to audit container image storage locations."
+        },
+        {
+            "id": 75,
+            "category": "Automation Workflow",
+            "command": "gcloud compute snapshots list",
+            "example": "gcloud compute snapshots list --filter='creationTimestamp < -P30D'",
+            "explanation": "Lists compute disk snapshots created more than 30 days ago."
+        },
+        {
+            "id": 76,
+            "category": "Automation Workflow",
+            "command": "gcloud compute disks list",
+            "example": "gcloud compute disks list --filter='users:*'",
+            "explanation": "Lists only disks that are currently attached to a VM instance."
+        },
+        {
+            "id": 77,
+            "category": "Automation Workflow",
+            "command": "gcloud compute disks list --filter='-users:*'",
+            "example": "gcloud compute disks list --filter='-users:*'",
+            "explanation": "Lists orphaned disks that are not attached to any VM instance."
+        },
+        {
+            "id": 78,
+            "category": "Automation Workflow",
+            "command": "gcloud builds list",
+            "example": "gcloud builds list --ongoing",
+            "explanation": "Lists currently running Cloud Build operations."
+        },
+        {
+            "id": 79,
+            "category": "Advanced Formatting",
+            "command": "gcloud projects list --format='csv(projectId, projectNumber)'",
+            "example": "gcloud projects list --format='csv(projectId, projectNumber)' > projects.csv",
+            "explanation": "Exports a list of project IDs and numbers to a CSV format."
+        },
+        {
+            "id": 80,
+            "category": "Advanced Formatting",
+            "command": "gcloud iam service-accounts list --format='value(email)'",
+            "example": "gcloud iam service-accounts list --format='value(email)'",
+            "explanation": "Extracts and lists only the email addresses of service accounts."
+        },
+        {
+            "id": 81,
+            "category": "Organization Policy",
+            "command": "gcloud resource-manager org-policies list",
+            "example": "gcloud resource-manager org-policies list --project=my-project",
+            "explanation": "Lists organization policies currently applied to the project."
+        },
+        {
+            "id": 82,
+            "category": "Organization Policy",
+            "command": "gcloud resource-manager org-policies describe",
+            "example": "gcloud resource-manager org-policies describe compute.disableSerialPortAccess --project=my-project",
+            "explanation": "Describes the configuration of a specific organization policy constraint."
+        },
+        {
+            "id": 83,
+            "category": "Billing",
+            "command": "gcloud beta billing accounts list",
+            "example": "gcloud beta billing accounts list",
+            "explanation": "Lists all billing accounts accessible to the user."
+        },
+        {
+            "id": 84,
+            "category": "Billing",
+            "command": "gcloud beta billing projects describe",
+            "example": "gcloud beta billing projects describe my-project",
+            "explanation": "Checks which billing account is linked to a specific project."
+        },
+        {
+            "id": 85,
+            "category": "Incident Response",
+            "command": "gcloud logging read 'protoPayload.methodName=\"beta.compute.firewalls.insert\"' --limit=5",
+            "example": "gcloud logging read 'protoPayload.methodName=\"beta.compute.firewalls.insert\"' --limit=5",
+            "explanation": "Searches logs for recent firewall rule creation events."
+        },
+        {
+            "id": 86,
+            "category": "Incident Response",
+            "command": "gcloud logging read 'resource.type=\"gce_instance\" AND protoPayload.methodName=\"v1.compute.instances.delete\"'",
+            "example": "gcloud logging read 'resource.type=\"gce_instance\" AND protoPayload.methodName=\"v1.compute.instances.delete\"'",
+            "explanation": "Searches logs for VM instance deletion events."
+        },
+        {
+            "id": 87,
+            "category": "Incident Response",
+            "command": "gcloud compute instances add-metadata",
+            "example": "gcloud compute instances add-metadata my-compromised-vm --metadata=forensics-status=investigating",
+            "explanation": "Tags a compromised instance with metadata to signal an active investigation."
+        },
+        {
+            "id": 88,
+            "category": "Incident Response",
+            "command": "gcloud compute instances stop --async",
+            "example": "gcloud compute instances stop my-compromised-vm --async",
+            "explanation": "Immediately sends a stop signal to a VM without waiting for the operation to complete."
+        },
+        {
+            "id": 89,
+            "category": "Incident Response",
+            "command": "gcloud compute firewall-rules update",
+            "example": "gcloud compute firewall-rules update default-allow-ssh --disabled",
+            "explanation": "Disables a specific firewall rule to immediately cut off access."
+        },
+        {
+            "id": 90,
+            "category": "Impersonation",
+            "command": "gcloud config set auth/impersonate_service_account",
+            "example": "gcloud config set auth/impersonate_service_account sa@project.iam.gserviceaccount.com",
+            "explanation": "Configures the CLI to impersonate a service account for all subsequent commands."
+        },
+        {
+            "id": 91,
+            "category": "Impersonation",
+            "command": "gcloud config unset auth/impersonate_service_account",
+            "example": "gcloud config unset auth/impersonate_service_account",
+            "explanation": "Stops service account impersonation and reverts to the original user credentials."
+        },
+        {
+            "id": 92,
+            "category": "Impersonation",
+            "command": "gcloud compute instances list --impersonate-service-account",
+            "example": "gcloud compute instances list --impersonate-service-account=sa@project.iam.gserviceaccount.com",
+            "explanation": "Runs a single command impersonating a service account without changing global config."
+        },
+        {
+            "id": 93,
+            "category": "Cloud DNS",
+            "command": "gcloud dns managed-zones list",
+            "example": "gcloud dns managed-zones list",
+            "explanation": "Lists managed DNS zones in Cloud DNS."
+        },
+        {
+            "id": 94,
+            "category": "Cloud DNS",
+            "command": "gcloud dns record-sets list",
+            "example": "gcloud dns record-sets list --zone=my-zone",
+            "explanation": "Lists DNS records within a specific managed zone."
+        },
+        {
+            "id": 95,
+            "category": "App Engine",
+            "command": "gcloud app services list",
+            "example": "gcloud app services list",
+            "explanation": "Lists App Engine services deployed in the standard or flexible environment."
+        },
+        {
+            "id": 96,
+            "category": "App Engine",
+            "command": "gcloud app versions list",
+            "example": "gcloud app versions list",
+            "explanation": "Lists the deployed versions of App Engine services."
+        },
+        {
+            "id": 97,
+            "category": "BigQuery",
+            "command": "gcloud alpha bq datasets list",
+            "example": "gcloud alpha bq datasets list",
+            "explanation": "Lists BigQuery datasets (note: usually done via 'bq' tool, but gcloud has alpha support)."
+        },
+        {
+            "id": 98,
+            "category": "Deployment Manager",
+            "command": "gcloud deployment-manager deployments list",
+            "example": "gcloud deployment-manager deployments list",
+            "explanation": "Lists infrastructure deployments managed by Cloud Deployment Manager."
+        },
+        {
+            "id": 99,
+            "category": "Advanced Config",
+            "command": "gcloud config set compute/region",
+            "example": "gcloud config set compute/region us-central1",
+            "explanation": "Sets the default compute region to avoid specifying the flag in every command."
+        },
+        {
+            "id": 100,
+            "category": "Advanced Config",
+            "command": "gcloud config set compute/zone",
+            "example": "gcloud config set compute/zone us-central1-a",
+            "explanation": "Sets the default compute zone to avoid specifying the flag in every command."
+        },
+        {
+            "id": 101,
+            "category": "Advanced Config",
+            "command": "gcloud config set core/disable_usage_reporting",
+            "example": "gcloud config set core/disable_usage_reporting true",
+            "explanation": "Disables the anonymous usage reporting sent to Google."
+        },
+        {
+            "id": 102,
+            "category": "VPC Peering",
+            "command": "gcloud compute networks peerings list",
+            "example": "gcloud compute networks peerings list --network=default",
+            "explanation": "Lists VPC peerings connected to a specific network."
+        },
+        {
+            "id": 103,
+            "category": "Interconnect",
+            "command": "gcloud compute interconnects list",
+            "example": "gcloud compute interconnects list",
+            "explanation": "Lists dedicated physical interconnect connections."
+        },
+        {
+            "id": 104,
+            "category": "VPN",
+            "command": "gcloud compute vpn-gateways list",
+            "example": "gcloud compute vpn-gateways list",
+            "explanation": "Lists Cloud HA VPN gateways."
+        },
+        {
+            "id": 105,
+            "category": "VPN",
+            "command": "gcloud compute vpn-tunnels list",
+            "example": "gcloud compute vpn-tunnels list",
+            "explanation": "Lists VPN tunnels connecting to peer gateways."
+        },
+        {
+            "id": 106,
+            "category": "Load Balancing",
+            "command": "gcloud compute backend-services list",
+            "example": "gcloud compute backend-services list",
+            "explanation": "Lists backend services which process traffic for load balancers."
+        },
+        {
+            "id": 107,
+            "category": "Load Balancing",
+            "command": "gcloud compute url-maps list",
+            "example": "gcloud compute url-maps list",
+            "explanation": "Lists URL maps used by HTTP(S) load balancers to route requests."
+        },
+        {
+            "id": 108,
+            "category": "Load Balancing",
+            "command": "gcloud compute target-http-proxies list",
+            "example": "gcloud compute target-http-proxies list",
+            "explanation": "Lists target HTTP proxies used by load balancers."
+        },
+        {
+            "id": 109,
+            "category": "Advanced IAM",
+            "command": "gcloud iam workload-identity-pools list",
+            "example": "gcloud iam workload-identity-pools list --location=global",
+            "explanation": "Lists Workload Identity Pools for federated authentication."
+        },
+        {
+            "id": 110,
+            "category": "Advanced IAM",
+            "command": "gcloud iam workload-identity-pools providers list",
+            "example": "gcloud iam workload-identity-pools providers list --workload-identity-pool=my-pool --location=global",
+            "explanation": "Lists identity providers configured within a Workload Identity Pool."
+        },
+        {
+            "id": 111,
+            "category": "Filestore",
+            "command": "gcloud filestore instances list",
+            "example": "gcloud filestore instances list",
+            "explanation": "Lists fully managed NFS file servers (Filestore instances)."
+        },
+        {
+            "id": 112,
+            "category": "Memorystore",
+            "command": "gcloud redis instances list",
+            "example": "gcloud redis instances list --region=us-central1",
+            "explanation": "Lists Memorystore for Redis instances."
+        },
+        {
+            "id": 113,
+            "category": "Cloud Spanner",
+            "command": "gcloud spanner instances list",
+            "example": "gcloud spanner instances list",
+            "explanation": "Lists Cloud Spanner instances."
+        },
+        {
+            "id": 114,
+            "category": "Cloud Spanner",
+            "command": "gcloud spanner databases list",
+            "example": "gcloud spanner databases list --instance=my-instance",
+            "explanation": "Lists databases within a specific Spanner instance."
+        },
+        {
+            "id": 115,
+            "category": "Compliance",
+            "command": "gcloud compute project-info describe",
+            "example": "gcloud compute project-info describe",
+            "explanation": "Displays project-wide metadata including default network tiers and usage export buckets."
+        },
+        {
+            "id": 116,
+            "category": "Compliance",
+            "command": "gcloud compute shared-vpc get-host-project",
+            "example": "gcloud compute shared-vpc get-host-project my-project",
+            "explanation": "Checks if the current project is attached to a Shared VPC Host project."
+        },
+        {
+            "id": 117,
+            "category": "Compliance",
+            "command": "gcloud access-context-manager policies list",
+            "example": "gcloud access-context-manager policies list --organization=123456789",
+            "explanation": "Lists VPC Service Controls access policies for an organization."
+        },
+        {
+            "id": 118,
+            "category": "Compliance",
+            "command": "gcloud access-context-manager perimeters list",
+            "example": "gcloud access-context-manager perimeters list --policy=123456789",
+            "explanation": "Lists service perimeters defined in VPC Service Controls."
+        },
+        {
+            "id": 119,
+            "category": "Advanced Security",
+            "command": "gcloud compute os-login describe-profile",
+            "example": "gcloud compute os-login describe-profile",
+            "explanation": "Describes the OS Login profile for the current user, used for SSH access management."
+        },
+        {
+            "id": 120,
+            "category": "Advanced Security",
+            "command": "gcloud alpha scc assets list",
+            "example": "gcloud alpha scc assets list --organization=123456789",
+            "explanation": "Lists assets monitored by Security Command Center (SCC)."
+        },
+        {
+            "id": 121,
+            "category": "Advanced Security",
+            "command": "gcloud alpha scc findings list",
+            "example": "gcloud alpha scc findings list --organization=123456789 --filter='state=\"ACTIVE\"'",
+            "explanation": "Lists active security findings detected by Security Command Center."
+        },
+        {
+            "id": 122,
+            "category": "Cloud Scheduler",
+            "command": "gcloud scheduler jobs list",
+            "example": "gcloud scheduler jobs list",
+            "explanation": "Lists scheduled cron jobs."
+        },
+        {
+            "id": 123,
+            "category": "Cloud Scheduler",
+            "command": "gcloud scheduler jobs run",
+            "example": "gcloud scheduler jobs run my-job",
+            "explanation": "Forces a Cloud Scheduler job to run immediately."
+        },
+        {
+            "id": 124,
+            "category": "Cloud Tasks",
+            "command": "gcloud tasks queues list",
+            "example": "gcloud tasks queues list",
+            "explanation": "Lists queues used for asynchronous task execution."
+        },
+        {
+            "id": 125,
+            "category": "Dataproc",
+            "command": "gcloud dataproc clusters list",
+            "example": "gcloud dataproc clusters list --region=us-central1",
+            "explanation": "Lists Hadoop/Spark clusters managed by Dataproc."
+        },
+        {
+            "id": 126,
+            "category": "Dataflow",
+            "command": "gcloud dataflow jobs list",
+            "example": "gcloud dataflow jobs list",
+            "explanation": "Lists Dataflow streaming and batch jobs."
+        },
+        {
+            "id": 127,
+            "category": "Operations Suite",
+            "command": "gcloud monitoring dashboards list",
+            "example": "gcloud monitoring dashboards list",
+            "explanation": "Lists custom monitoring dashboards created in Cloud Monitoring."
+        },
+        {
+            "id": 128,
+            "category": "Operations Suite",
+            "command": "gcloud monitoring policies list",
+            "example": "gcloud monitoring policies list",
+            "explanation": "Lists alerting policies defined in Cloud Monitoring."
+        },
+        {
+            "id": 129,
+            "category": "Identity Aware Proxy (IAP)",
+            "command": "gcloud compute start-iap-tunnel",
+            "example": "gcloud compute start-iap-tunnel my-instance 22 --zone=us-central1-a",
+            "explanation": "Starts an IAP tunnel to forward a local port to the instance's SSH port."
+        },
+        {
+            "id": 130,
+            "category": "Advanced Storage",
+            "command": "gcloud storage buckets update",
+            "example": "gcloud storage buckets update gs://my-bucket --uniform-bucket-level-access",
+            "explanation": "Updates a bucket to enforce uniform bucket-level access (disabling object ACLs)."
+        },
+        {
+            "id": 131,
+            "category": "Advanced Storage",
+            "command": "gcloud storage objects update",
+            "example": "gcloud storage objects update gs://my-bucket/file.txt --add-acl-grant=entity=AllUsers,role=READER",
+            "explanation": "Modifies object ACLs (caution: creates public objects)."
+        },
+        {
+            "id": 132,
+            "category": "Advanced Storage",
+            "command": "gcloud storage hmac list",
+            "example": "gcloud storage hmac list",
+            "explanation": "Lists HMAC keys used for S3-interoperable storage access."
+        },
+        {
+            "id": 133,
+            "category": "Service Directory",
+            "command": "gcloud service-directory namespaces list",
+            "example": "gcloud service-directory namespaces list",
+            "explanation": "Lists namespaces in Service Directory."
+        },
+        {
+            "id": 134,
+            "category": "Recaptcha Enterprise",
+            "command": "gcloud recaptcha keys list",
+            "example": "gcloud recaptcha keys list",
+            "explanation": "Lists reCAPTCHA Enterprise keys."
+        },
+        {
+            "id": 135,
+            "category": "Health Checks",
+            "command": "gcloud compute health-checks list",
+            "example": "gcloud compute health-checks list",
+            "explanation": "Lists health checks used by load balancers and managed instance groups."
+        },
+        {
+            "id": 136,
+            "category": "Instance Groups",
+            "command": "gcloud compute instance-groups unmanaged list",
+            "example": "gcloud compute instance-groups unmanaged list",
+            "explanation": "Lists unmanaged instance groups (often used for legacy setups)."
+        },
+        {
+            "id": 137,
+            "category": "Complex Filtering",
+            "command": "gcloud compute instances list --filter='tags.items:web-server AND machineType:e2-micro'",
+            "example": "gcloud compute instances list --filter='tags.items:web-server AND machineType:e2-micro'",
+            "explanation": "Filters instances that have the 'web-server' network tag AND are e2-micro."
+        },
+        {
+            "id": 138,
+            "category": "Complex Filtering",
+            "command": "gcloud projects list --filter='createTime < 2023-01-01'",
+            "example": "gcloud projects list --filter='createTime < 2023-01-01'",
+            "explanation": "Filters projects created before a specific date."
+        },
+        {
+            "id": 139,
+            "category": "Cleanup",
+            "command": "gcloud compute instances delete",
+            "example": "gcloud compute instances delete my-vm --zone=us-central1-a --quiet",
+            "explanation": "Deletes a VM instance without interactive confirmation."
+        },
+        {
+            "id": 140,
+            "category": "Cleanup",
+            "command": "gcloud storage rm",
+            "example": "gcloud storage rm gs://my-bucket/file.txt",
+            "explanation": "Deletes a specific object from a Cloud Storage bucket."
+        },
+        {
+            "id": 141,
+            "category": "Cleanup",
+            "command": "gcloud storage rm -r",
+            "example": "gcloud storage rm -r gs://my-bucket",
+            "explanation": "Recursively deletes a bucket and all objects contained within it."
+        },
+        {
+            "id": 142,
+            "category": "Cleanup",
+            "command": "gcloud projects delete",
+            "example": "gcloud projects delete my-project-id",
+            "explanation": "Shuts down a project and schedules it for deletion."
+        },
+        {
+            "id": 143,
+            "category": "Cleanup",
+            "command": "gcloud compute firewall-rules delete",
+            "example": "gcloud compute firewall-rules delete allow-http",
+            "explanation": "Deletes a specific firewall rule."
+        },
+        {
+            "id": 144,
+            "category": "Cleanup",
+            "command": "gcloud container clusters delete",
+            "example": "gcloud container clusters delete my-cluster --zone=us-central1-a",
+            "explanation": "Deletes a GKE cluster and its associated resources."
+        },
+        {
+            "id": 145,
+            "category": "Cleanup",
+            "command": "gcloud iam service-accounts delete",
+            "example": "gcloud iam service-accounts delete my-sa@my-project.iam.gserviceaccount.com",
+            "explanation": "Deletes a service account identity."
+        },
+        {
+            "id": 146,
+            "category": "Endpoints",
+            "command": "gcloud endpoints services list",
+            "example": "gcloud endpoints services list",
+            "explanation": "Lists Cloud Endpoints services."
+        },
+        {
+            "id": 147,
+            "category": "Source Repositories",
+            "command": "gcloud source repos list",
+            "example": "gcloud source repos list",
+            "explanation": "Lists Cloud Source Repositories hosted in the project."
+        },
+        {
+            "id": 148,
+            "category": "Policy Troubleshooting",
+            "command": "gcloud policy-intelligence troubleshoot",
+            "example": "gcloud policy-intelligence troubleshoot --principal-email=user@example.com --permission=compute.instances.start --resource=//compute.googleapis.com/projects/my-proj/zones/us-central1-a/instances/my-vm",
+            "explanation": "Troubleshoots why a principal has or lacks a specific permission on a resource."
+        },
+        {
+            "id": 149,
+            "category": "Cloud Shell",
+            "command": "gcloud alpha cloud-shell ssh",
+            "example": "gcloud alpha cloud-shell ssh",
+            "explanation": "Connects to the interactive Cloud Shell environment via SSH."
+        },
+        {
+            "id": 150,
+            "category": "Feedback",
+            "command": "gcloud feedback",
+            "example": "gcloud feedback",
+            "explanation": "Submits feedback about the gcloud CLI to the Google team."
+        },
+        {
+            "category": "Cloud Run (Serverless Conatiners)",
+            "command": "gcloud run deploy",
+            "example": "gcloud run deploy my-app --image gcr.io/my-proj/my-app --allow-unauthenticated",
+            "explanation": "Instantly compiles a standard Docker container straight into a fully load-balanced, auto-scaling web application.",
+            "id": 151
+        },
+        {
+            "category": "Cloud Run (Serverless Conatiners)",
+            "command": "gcloud run services list",
+            "example": "gcloud run services list --platform managed",
+            "explanation": "Maps all live auto-scaling container configurations, resolving direct HTTPs public invocation endpoints.",
+            "id": 152
+        },
+        {
+            "category": "Pub/Sub Messaging",
+            "command": "gcloud pubsub topics create",
+            "example": "gcloud pubsub topics create my-notification-topic",
+            "explanation": "Establishes a highly decoupled message ingestion point capable of receiving millions of asynchronous API payloads.",
+            "id": 153
+        },
+        {
+            "category": "Pub/Sub Messaging",
+            "command": "gcloud pubsub subscriptions pull",
+            "example": "gcloud pubsub subscriptions pull my-sub --auto-ack",
+            "explanation": "Manually interrogates a subscription queue, extracting pending messages natively and systematically acknowledging them via CLI.",
+            "id": 154
+        },
+        {
+            "category": "Spanner (Global Database)",
+            "command": "gcloud spanner instances list",
+            "example": "gcloud spanner instances list",
+            "explanation": "Inventories globally distributed strictly-consistent NoSQL relational nodes detailing structural allocation.",
+            "id": 155
+        },
+        {
+            "category": "Cloud Functions",
+            "command": "gcloud functions deploy",
+            "example": "gcloud functions deploy log_parser --runtime python39 --trigger-topic system_logs",
+            "explanation": "Directly injects Python/Node code bridging it natively into GCP's ecosystem without requiring Dockerfile architectures.",
+            "id": 156
+        },
+        {
+            "category": "Cloud Build (CI/CD)",
+            "command": "gcloud builds submit",
+            "example": "gcloud builds submit --tag gcr.io/my-proj/hello-world .",
+            "explanation": "Uploads the entire localized CWD to Google's build arrays, executing the Docker build remotely to circumvent local compute limitations.",
+            "id": 157
+        },
+        {
+            "category": "IAM Service Accounts",
+            "command": "gcloud iam service-accounts keys create",
+            "example": "gcloud iam service-accounts keys create ./key.json --iam-account sa@proj.gserviceaccount.com",
+            "explanation": "Extracts absolute God-Mode local authentication architectures bypassing MFA to programmatically impersonate cloud environments.",
+            "id": 158
+        },
+        {
+            "category": "Source Repositories",
+            "command": "gcloud source repos clone",
+            "example": "gcloud source repos clone my-secure-repo",
+            "explanation": "Leverages internal encrypted GCP authentication schemas to clone inherently private VPC-locked Git repositories.",
+            "id": 159
+        },
+        {
+            "category": "Artifact Registry",
+            "command": "gcloud artifacts docker tags add",
+            "example": "gcloud artifacts docker tags add us-east1-docker.pkg.dev/.../image:v1 .../image:latest",
+            "explanation": "Manipulates strictly-defined OCI metadata remapping canonical latest pointers onto explicitly secured hash versions.",
+            "id": 160
+        }
+    ]
+}

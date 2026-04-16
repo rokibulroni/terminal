@@ -1,0 +1,77 @@
+{
+  "tool": "find",
+  "description": "The find utility fundamentally parses directory trees and file parameters locating complex items matching precise criteria patterns and running automated execution loops against them.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Searching",
+      "command": "find <directory> -name \"<pattern>\"",
+      "example": "find / -name \"shadow\"",
+      "explanation": "Parses standard directories specifically hunting for files structurally matching the precise given name."
+    },
+    {
+      "id": 2,
+      "category": "Basic Searching",
+      "command": "find <directory> -iname \"<pattern>\"",
+      "example": "find . -iname \"readme.txt\"",
+      "explanation": "Executes a case-insensitive name correlation. Finds (README.txt, readme.txt, Readme.Txt)."
+    },
+    {
+      "id": 3,
+      "category": "Type Filtering",
+      "command": "find <directory> -type <f/d/l>",
+      "example": "find /var/log -type d",
+      "explanation": "Isolates strictly configured data typings. Specifically limits matching results to standard files (f), directories (d), or symbolic links (l)."
+    },
+    {
+      "id": 4,
+      "category": "Size Logic",
+      "command": "find <directory> -size <size>",
+      "example": "find / -size +500M",
+      "explanation": "Scans memory allocations strictly routing for objects larger than (+), smaller than (-), or exactly equal to the memory value assigned."
+    },
+    {
+      "id": 5,
+      "category": "Permissions",
+      "command": "find <directory> -perm <permissions>",
+      "example": "find /etc -perm 777",
+      "explanation": "Hunts file indexes comparing numeric structural signatures strictly locating files exhibiting specific octal modes."
+    },
+    {
+      "id": 6,
+      "category": "Timestamps",
+      "command": "find <directory> -mtime <days>",
+      "example": "find /var/log -mtime -7",
+      "explanation": "Analyzes internal system clocks returning core references manipulated or explicitly historically modified under (-7) or exactly matching days."
+    },
+    {
+      "id": 7,
+      "category": "Ownership",
+      "command": "find <directory> -user <username>",
+      "example": "find /home -user www-data",
+      "explanation": "Renders out lists tracking items distinctly owned strictly by particular authorized internal logic accounts."
+    },
+    {
+      "id": 8,
+      "category": "Execution Loop",
+      "command": "find <directory> -name \"<pattern>\" -exec <command> {} \\;",
+      "example": "find . -name \"*.tmp\" -exec rm -f {} \\;",
+      "explanation": "The ultimate automation bridge: Executes a defined command string instantly upon resolving any specific matching system object."
+    },
+    {
+      "id": 9,
+      "category": "Deep Limits",
+      "command": "find <directory> -maxdepth <levels> -name \"<pattern>\"",
+      "example": "find /var/ -maxdepth 2 -name \"*.log\"",
+      "explanation": "Hard limits search engines preventing them from bleeding deeper than specified directory tree sub-levels."
+    },
+    {
+      "id": 10,
+      "category": "Empty Elements",
+      "command": "find <directory> -empty",
+      "example": "find /tmp -empty",
+      "explanation": "Easily tracks objects fundamentally representing 0 active bytes natively allowing clean up of blank or corrupted files."
+    }
+  ]
+}

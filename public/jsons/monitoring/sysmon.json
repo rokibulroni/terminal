@@ -1,0 +1,532 @@
+{
+    "tool": "sysmon",
+    "description": "Complete Sysmon command and workflow reference from basic to advanced Windows endpoint monitoring",
+    "total_commands": 75,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Help",
+            "command": "sysmon -?",
+            "example": "sysmon -?",
+            "explanation": "Displays the basic usage help menu and command line switches for the Sysmon utility."
+        },
+        {
+            "id": 2,
+            "category": "Basic Help",
+            "command": "sysmon -? config",
+            "example": "sysmon -? config",
+            "explanation": "Shows help specifically related to configuration file structure and XML schema options."
+        },
+        {
+            "id": 3,
+            "category": "Schema Information",
+            "command": "sysmon -s",
+            "example": "sysmon -s",
+            "explanation": "Prints the full supported configuration XML schema for the installed version of Sysmon."
+        },
+        {
+            "id": 4,
+            "category": "Sysmon Installation",
+            "command": "sysmon -i",
+            "example": "sysmon -i",
+            "explanation": "Installs the Sysmon driver and service with default settings (Process Create and Process Terminate only)."
+        },
+        {
+            "id": 5,
+            "category": "Sysmon Installation",
+            "command": "sysmon -i -n",
+            "example": "sysmon -i -n",
+            "explanation": "Installs Sysmon with default settings plus Network Connection monitoring enabled."
+        },
+        {
+            "id": 6,
+            "category": "Sysmon Installation",
+            "command": "sysmon -i -h sha256",
+            "example": "sysmon -i -h sha256",
+            "explanation": "Installs Sysmon and configures the hashing algorithm to use SHA256 for image identification."
+        },
+        {
+            "id": 7,
+            "category": "Sysmon Installation",
+            "command": "sysmon -i -h md5,sha256,imphash",
+            "example": "sysmon -i -h md5,sha256,imphash",
+            "explanation": "Installs Sysmon configured to calculate MD5, SHA256, and IMPHASH for all process images."
+        },
+        {
+            "id": 8,
+            "category": "Sysmon Installation",
+            "command": "sysmon -i config.xml",
+            "example": "sysmon -i config.xml",
+            "explanation": "Installs Sysmon using a specific XML configuration file to define rules and filters."
+        },
+        {
+            "id": 9,
+            "category": "Configuration Management",
+            "command": "sysmon -c",
+            "example": "sysmon -c",
+            "explanation": "Dumps the currently active Sysmon configuration and rules to the console output."
+        },
+        {
+            "id": 10,
+            "category": "Configuration Management",
+            "command": "sysmon -c new-config.xml",
+            "example": "sysmon -c new-config.xml",
+            "explanation": "Updates the active Sysmon configuration using a new XML file without reinstalling the service."
+        },
+        {
+            "id": 11,
+            "category": "Driver Management",
+            "command": "sysmon -d",
+            "example": "sysmon -d",
+            "explanation": "Sets the name of the Sysmon driver during installation (requires uninstall/reinstall to change)."
+        },
+        {
+            "id": 12,
+            "category": "Advanced Installation",
+            "command": "sysmon -i -l -n",
+            "example": "sysmon -i -l -n",
+            "explanation": "Installs Sysmon with Image Loading (-l) and Network Connection (-n) monitoring enabled."
+        },
+        {
+            "id": 13,
+            "category": "Service Management",
+            "command": "sc query sysmon",
+            "example": "sc query sysmon",
+            "explanation": "Queries the Windows Service Control Manager to check the running status of the Sysmon service."
+        },
+        {
+            "id": 14,
+            "category": "Service Management",
+            "command": "sc query sysmon64",
+            "example": "sc query sysmon64",
+            "explanation": "Queries the status of the 64-bit Sysmon service explicitly."
+        },
+        {
+            "id": 15,
+            "category": "Driver Verification",
+            "command": "fltmc instances",
+            "example": "fltmc instances",
+            "explanation": "Lists loaded filesystem filter drivers to verify the Sysmon driver is attached to volumes."
+        },
+        {
+            "id": 16,
+            "category": "Log Management",
+            "command": "wevtutil gl Microsoft-Windows-Sysmon/Operational",
+            "example": "wevtutil gl Microsoft-Windows-Sysmon/Operational",
+            "explanation": "Gets the configuration details of the Sysmon Operational event log, including size and path."
+        },
+        {
+            "id": 17,
+            "category": "Log Management",
+            "command": "wevtutil sl Microsoft-Windows-Sysmon/Operational /ms:209715200",
+            "example": "wevtutil sl Microsoft-Windows-Sysmon/Operational /ms:209715200",
+            "explanation": "Sets the maximum size of the Sysmon Operational log to approximately 200MB."
+        },
+        {
+            "id": 18,
+            "category": "Event Monitoring (General)",
+            "command": "Get-WinEvent -LogName \"Microsoft-Windows-Sysmon/Operational\" -MaxEvents 10",
+            "example": "Get-WinEvent -LogName \"Microsoft-Windows-Sysmon/Operational\" -MaxEvents 10",
+            "explanation": "Retrieves the 10 most recent events from the Sysmon Operational log using PowerShell."
+        },
+        {
+            "id": 19,
+            "category": "Process Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=1}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=1}",
+            "explanation": "Queries the Sysmon log specifically for Process Creation events (Event ID 1)."
+        },
+        {
+            "id": 20,
+            "category": "Process Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=5}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=5}",
+            "explanation": "Queries for Process Termination events (Event ID 5) to track stopped processes."
+        },
+        {
+            "id": 21,
+            "category": "File Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=11}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=11}",
+            "explanation": "Queries for File Create events (Event ID 11) to detect dropped files."
+        },
+        {
+            "id": 22,
+            "category": "File Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=23}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=23}",
+            "explanation": "Queries for File Delete events (Event ID 23), often used for detecting wiping activity."
+        },
+        {
+            "id": 23,
+            "category": "File Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=26}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=26}",
+            "explanation": "Queries for File Delete Detected events (Event ID 26) similar to ID 23 but logged via redirect."
+        },
+        {
+            "id": 24,
+            "category": "Registry Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=12}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=12}",
+            "explanation": "Queries for Registry Event Object Create/Delete (Event ID 12)."
+        },
+        {
+            "id": 25,
+            "category": "Registry Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=13}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=13}",
+            "explanation": "Queries for Registry Value Set events (Event ID 13) to detect persistence changes."
+        },
+        {
+            "id": 26,
+            "category": "Registry Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=14}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=14}",
+            "explanation": "Queries for Registry Key and Value Rename events (Event ID 14)."
+        },
+        {
+            "id": 27,
+            "category": "Network Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=3}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=3}",
+            "explanation": "Queries for Network Connection events (Event ID 3) to trace C2 or lateral movement."
+        },
+        {
+            "id": 28,
+            "category": "Driver Loading",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=6}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=6}",
+            "explanation": "Queries for Driver Loaded events (Event ID 6) to detect rootkit or BYOVD attacks."
+        },
+        {
+            "id": 29,
+            "category": "Image Loading",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=7}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=7}",
+            "explanation": "Queries for Image Loaded events (Event ID 7) to see DLLs loaded by processes."
+        },
+        {
+            "id": 30,
+            "category": "Remote Thread Creation",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=8}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=8}",
+            "explanation": "Queries for CreateRemoteThread events (Event ID 8) to detect code injection."
+        },
+        {
+            "id": 31,
+            "category": "Raw Access Read",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=9}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=9}",
+            "explanation": "Queries for RawAccessRead events (Event ID 9) often associated with credential dumping."
+        },
+        {
+            "id": 32,
+            "category": "Process Access",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=10}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=10}",
+            "explanation": "Queries for ProcessAccess events (Event ID 10) to view handle requests like LSASS access."
+        },
+        {
+            "id": 33,
+            "category": "File Stream",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=15}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=15}",
+            "explanation": "Queries for FileCreateStreamHash events (Event ID 15) to detect Alternate Data Streams (ADS)."
+        },
+        {
+            "id": 34,
+            "category": "Sysmon Configuration Change",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=16}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=16}",
+            "explanation": "Queries for ServiceConfigurationChange events (Event ID 16) to audit Sysmon rule updates."
+        },
+        {
+            "id": 35,
+            "category": "Named Pipe",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=17}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=17}",
+            "explanation": "Queries for PipeCreated events (Event ID 17) used in Cobalt Strike or lateral movement."
+        },
+        {
+            "id": 36,
+            "category": "Named Pipe",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=18}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=18}",
+            "explanation": "Queries for PipeConnected events (Event ID 18) to trace client connections to pipes."
+        },
+        {
+            "id": 37,
+            "category": "WMI Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=19}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=19}",
+            "explanation": "Queries for WmiEventFilter activity (Event ID 19) to detect WMI persistence."
+        },
+        {
+            "id": 38,
+            "category": "WMI Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=20}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=20}",
+            "explanation": "Queries for WmiEventConsumer activity (Event ID 20) often paired with filters for attacks."
+        },
+        {
+            "id": 39,
+            "category": "WMI Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=21}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=21}",
+            "explanation": "Queries for WmiEventConsumerToFilter activity (Event ID 21) which binds consumer to filter."
+        },
+        {
+            "id": 40,
+            "category": "DNS Logging",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=22}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=22}",
+            "explanation": "Queries for DNS Query events (Event ID 22) to detect beaconing or malicious domains."
+        },
+        {
+            "id": 41,
+            "category": "Clipboard Monitoring",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=24}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=24}",
+            "explanation": "Queries for ClipboardChange events (Event ID 24) to see process clipboard capture activity."
+        },
+        {
+            "id": 42,
+            "category": "Process Tampering",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=25}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=25}",
+            "explanation": "Queries for ProcessTampering events (Event ID 25) identifying 'hollow' or 'herpaderp' images."
+        },
+        {
+            "id": 43,
+            "category": "File Block",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=27}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=27}",
+            "explanation": "Queries for FileBlockExecutable events (Event ID 27) where Sysmon blocked a file write."
+        },
+        {
+            "id": 44,
+            "category": "File Shredding",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=28}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=28}",
+            "explanation": "Queries for FileBlockShredding events (Event ID 28) typically related to SDelete activity."
+        },
+        {
+            "id": 45,
+            "category": "Advanced SOC Workflow",
+            "command": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object {$_.Id -eq 1 -and $_.Message -like \"*powershell*\"}",
+            "example": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object {$_.Id -eq 1 -and $_.Message -like \"*powershell*\"}",
+            "explanation": "Filters recent logs for Process Creation events involving PowerShell to detect script execution."
+        },
+        {
+            "id": 46,
+            "category": "Advanced SOC Workflow",
+            "command": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Group-Object Id -NoElement",
+            "example": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Group-Object Id -NoElement",
+            "explanation": "Provides a summary count of all Sysmon events grouped by Event ID to spot anomalies."
+        },
+        {
+            "id": 47,
+            "category": "Investigation Workflow",
+            "command": "$Events = Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational; $Events | Where-Object {$_.Id -eq 3 -and $_.Message -match \"DestinationPort: 443\"}",
+            "example": "$Events = Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational; $Events | Where-Object {$_.Id -eq 3 -and $_.Message -match \"DestinationPort: 443\"}",
+            "explanation": "Searches for Network Connections over port 443 to correlate HTTPS traffic."
+        },
+        {
+            "id": 48,
+            "category": "Investigation Workflow",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=1} | Select-Object -First 5 | Format-List",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=1} | Select-Object -First 5 | Format-List",
+            "explanation": "Displays full details of the last 5 process creation events in a readable list format."
+        },
+        {
+            "id": 49,
+            "category": "Debug & Troubleshooting",
+            "command": "fltmc",
+            "example": "fltmc",
+            "explanation": "Checks the Filter Manager Control to ensure SysmonDrv is properly registered."
+        },
+        {
+            "id": 50,
+            "category": "Debug & Troubleshooting",
+            "command": "reg query HKLM\\SYSTEM\\CurrentControlSet\\Services\\SysmonDrv",
+            "example": "reg query HKLM\\SYSTEM\\CurrentControlSet\\Services\\SysmonDrv",
+            "explanation": "Inspects the Registry to verify the Sysmon Driver service configuration."
+        },
+        {
+            "id": 51,
+            "category": "Debug & Troubleshooting",
+            "command": "reg query HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WINEVT\\Channels\\Microsoft-Windows-Sysmon/Operational",
+            "example": "reg query HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WINEVT\\Channels\\Microsoft-Windows-Sysmon/Operational",
+            "explanation": "Inspects the Registry settings for the Sysmon Event Log channel."
+        },
+        {
+            "id": 52,
+            "category": "Cleanup",
+            "command": "wevtutil cl Microsoft-Windows-Sysmon/Operational",
+            "example": "wevtutil cl Microsoft-Windows-Sysmon/Operational",
+            "explanation": "Clears the Sysmon Operational event log, useful when resetting a lab environment."
+        },
+        {
+            "id": 53,
+            "category": "Uninstallation",
+            "command": "sysmon -u",
+            "example": "sysmon -u",
+            "explanation": "Uninstalls the Sysmon driver and service cleanly from the system."
+        },
+        {
+            "id": 54,
+            "category": "Uninstallation",
+            "command": "sysmon -u force",
+            "example": "sysmon -u force",
+            "explanation": "Forces the uninstallation of Sysmon even if the service is hanging or unresponsive."
+        },
+        {
+            "id": 55,
+            "category": "Purple Team Validation",
+            "command": "Copy-Item C:\\Windows\\System32\\cmd.exe C:\\Temp\\mimikatz.exe; Start-Process C:\\Temp\\mimikatz.exe",
+            "example": "Copy-Item C:\\Windows\\System32\\cmd.exe C:\\Temp\\mimikatz.exe; Start-Process C:\\Temp\\mimikatz.exe",
+            "explanation": "Simulates a masquerading attack (renaming cmd.exe) to test OriginalFileName detection in Event ID 1."
+        },
+        {
+            "id": 56,
+            "category": "Purple Team Validation",
+            "command": "nslookup malicious-test-domain.com",
+            "example": "nslookup malicious-test-domain.com",
+            "explanation": "Generates a DNS query to validate if Event ID 22 is correctly capturing domain lookups."
+        },
+        {
+            "id": 57,
+            "category": "Purple Team Validation",
+            "command": "New-Item -Path \"HKCU:\\Software\\TestKey\" -Value \"MaliciousValue\"",
+            "example": "New-Item -Path \"HKCU:\\Software\\TestKey\" -Value \"MaliciousValue\"",
+            "explanation": "Creates a registry key to validate if Event ID 12 or 13 is capturing registry modifications."
+        },
+        {
+            "id": 58,
+            "category": "Detection Logic",
+            "command": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object { $_.Id -eq 1 -and $_.Properties[13].Value -ne $_.Properties[20].Value }",
+            "example": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object { $_.Id -eq 1 -and $_.Properties[13].Value -ne $_.Properties[20].Value }",
+            "explanation": "Compares OriginalFileName and current filename in Event ID 1 to detect masquerading programmatically."
+        },
+        {
+            "id": 59,
+            "category": "Performance Tuning",
+            "command": "Measure-Command { Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational -MaxEvents 1000 }",
+            "example": "Measure-Command { Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational -MaxEvents 1000 }",
+            "explanation": "Measures the time taken to query Sysmon logs to assess log volume impact on performance."
+        },
+        {
+            "id": 60,
+            "category": "Manifest Installation",
+            "command": "sysmon -m",
+            "example": "sysmon -m",
+            "explanation": "Installs the event manifest manually, which can be useful if event logs are not rendering text descriptions."
+        },
+        {
+            "id": 61,
+            "category": "Advanced Config Export",
+            "command": "sysmon -c > C:\\current_sysmon_config.xml",
+            "example": "sysmon -c > C:\\current_sysmon_config.xml",
+            "explanation": "Exports the active configuration to a file for audit or backup purposes."
+        },
+        {
+            "id": 62,
+            "category": "Parent Process Hunt",
+            "command": "$p = Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=1} -MaxEvents 1; Get-Process -Id $p.Properties[4].Value",
+            "example": "$p = Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=1} -MaxEvents 1; Get-Process -Id $p.Properties[4].Value",
+            "explanation": "Retrieves the ParentProcessId from the latest Sysmon event and looks up the running parent process."
+        },
+        {
+            "id": 63,
+            "category": "Alternate Stream Hunt",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=15} | Select-Object -ExpandProperty Message",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=15} | Select-Object -ExpandProperty Message",
+            "explanation": "Reads the message content of FileCreateStreamHash events to identify hidden data streams."
+        },
+        {
+            "id": 64,
+            "category": "WMI Persistence Hunt",
+            "command": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object { $_.Id -in 19,20,21 } | Format-Table TimeCreated,Id,Message -AutoSize",
+            "example": "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object { $_.Id -in 19,20,21 } | Format-Table TimeCreated,Id,Message -AutoSize",
+            "explanation": "Aggregates all WMI-related Sysmon events to visualize complete WMI persistence mechanisms."
+        },
+        {
+            "id": 65,
+            "category": "Obfuscated Install",
+            "command": "sysmon -i config.xml -d mydriver -n",
+            "example": "sysmon -i config.xml -d mydriver -n",
+            "explanation": "Installs Sysmon with a custom driver name 'mydriver' to obscure its presence from basic checks."
+        },
+        {
+            "id": 66,
+            "category": "Log Search by Hash",
+            "command": "$hash = 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855'; Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object {$_.Message -match $hash}",
+            "example": "$hash = 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855'; Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational | Where-Object {$_.Message -match $hash}",
+            "explanation": "Searches the entire Sysmon log history for a specific SHA256 file hash."
+        },
+        {
+            "id": 67,
+            "category": "Credential Dump Detection",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=10} | Where-Object {$_.Message -match 'lsass.exe'}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=10} | Where-Object {$_.Message -match 'lsass.exe'}",
+            "explanation": "Filters Process Access events specifically targeting lsass.exe, a key indicator of credential dumping."
+        },
+        {
+            "id": 68,
+            "category": "Archive Log",
+            "command": "wevtutil epl Microsoft-Windows-Sysmon/Operational C:\\Evidence\\sysmon_backup.evtx",
+            "example": "wevtutil epl Microsoft-Windows-Sysmon/Operational C:\\Evidence\\sysmon_backup.evtx",
+            "explanation": "Exports the current Sysmon log to an external EVTX file for offline analysis or evidence preservation."
+        },
+        {
+            "id": 69,
+            "category": "Automated Config Update",
+            "command": "Invoke-WebRequest -Uri 'https://internal.repo/sysmonconfig.xml' -OutFile 'C:\\sysmon.xml'; sysmon -c C:\\sysmon.xml",
+            "example": "Invoke-WebRequest -Uri 'https://internal.repo/sysmonconfig.xml' -OutFile 'C:\\sysmon.xml'; sysmon -c C:\\sysmon.xml",
+            "explanation": "Downloads a remote configuration file and immediately updates the Sysmon configuration."
+        },
+        {
+            "id": 70,
+            "category": "Sysmon Error Checking",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=255}",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=255}",
+            "explanation": "Checks for Sysmon Error events (Event ID 255) which indicate internal Sysmon failures."
+        },
+        {
+            "id": 71,
+            "category": "Legacy Install Mode",
+            "command": "sysmon -i -accepteula",
+            "example": "sysmon -i -accepteula",
+            "explanation": "Installs Sysmon explicitly accepting the EULA (often required in automated non-interactive scripts)."
+        },
+        {
+            "id": 72,
+            "category": "Configuration Validation",
+            "command": "sysmon -t config.xml",
+            "example": "sysmon -t config.xml",
+            "explanation": "Tests a configuration file for syntax errors without loading it (syntax depends on version, often requires dummy load)."
+        },
+        {
+            "id": 73,
+            "category": "Pipe Connection Hunt",
+            "command": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=18} | Group-Object -Property Properties -NoElement",
+            "example": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; Id=18} | Group-Object -Property Properties -NoElement",
+            "explanation": "Groups pipe connection events to identify high-frequency pipe access which may indicate C2 beacons."
+        },
+        {
+            "id": 74,
+            "category": "Sysmon Service Restart",
+            "command": "net stop sysmon; net start sysmon",
+            "example": "net stop sysmon; net start sysmon",
+            "explanation": "Manually restarts the Sysmon service to clear temporary states or force a reload if hung."
+        },
+        {
+            "id": 75,
+            "category": "Full Removal",
+            "command": "sysmon -u; sc delete sysmon; del C:\\Windows\\Sysmon.exe",
+            "example": "sysmon -u; sc delete sysmon; del C:\\Windows\\Sysmon.exe",
+            "explanation": "Performs a manual deep clean of Sysmon artifacts if the uninstaller fails."
+        }
+    ]
+}

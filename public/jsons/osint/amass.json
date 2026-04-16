@@ -1,0 +1,77 @@
+{
+    "tool": "amass",
+    "description": "OWASP Amass: Industry-standard command line utility enabling automated, massive-scale organizational sub-domain enumeration traversing hundreds of unique passive and active data sources.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Passive Collection",
+            "command": "amass enum -passive -d <domain>",
+            "example": "amass enum -passive -d example.com",
+            "explanation": "Analyzes the target solely using external non-interactive OSINT APIs guaranteeing zero traffic touches the absolute target architecture."
+        },
+        {
+            "id": 2,
+            "category": "Active Subdomains",
+            "command": "amass enum -active -d <domain>",
+            "example": "amass enum -active -d example.com -p 80,443,8080",
+            "explanation": "Augments passive sweeps by actively pinging and brute-forcing discovered subdomains pulling TLS certificates directly from root servers."
+        },
+        {
+            "id": 3,
+            "category": "Target Grids",
+            "command": "amass enum -asn <number>",
+            "example": "amass enum -asn 133742",
+            "explanation": "Enumerates vast attack planes deriving entirely from every routable explicit IP block attributed to a specific global ASN."
+        },
+        {
+            "id": 4,
+            "category": "CIDR Mapping",
+            "command": "amass intel -cidr <range>",
+            "example": "amass intel -cidr 104.154.0.0/15",
+            "explanation": "Extracts hidden or unlinked top-level domains natively hosted across a targeted IP subnet."
+        },
+        {
+            "id": 5,
+            "category": "Reverse WHOIS",
+            "command": "amass intel -whois -d <domain>",
+            "example": "amass intel -whois -d example.com",
+            "explanation": "Sweeps global ICANN data tables attempting to match domain structures directly to correlated business emails or registration strings."
+        },
+        {
+            "id": 6,
+            "category": "Visualizations",
+            "command": "amass viz -d3",
+            "example": "amass viz -d3",
+            "explanation": "Parses the generated local graph database natively outputting absolute HTML spatial data-charts for reporting."
+        },
+        {
+            "id": 7,
+            "category": "Config Management",
+            "command": "amass enum -config <file>",
+            "example": "amass enum -config config.ini -d example.com",
+            "explanation": "Bridges custom structural intelligence APIs by explicitly feeding an authenticated configuration matrix."
+        },
+        {
+            "id": 8,
+            "category": "Network Discovery",
+            "command": "amass intel -org <name>",
+            "example": "amass intel -org Google",
+            "explanation": "Performs deep-string pattern tracking aggressively attempting to resolve absolute ASN blocks registered to a target enterprise."
+        },
+        {
+            "id": 9,
+            "category": "Tracking Changes",
+            "command": "amass track -d <domain>",
+            "example": "amass track -d example.com",
+            "explanation": "Automatically highlights differential alterations directly showcasing specifically which new subdomains appeared since the last executed scan."
+        },
+        {
+            "id": 10,
+            "category": "Database Execution",
+            "command": "amass db -show",
+            "example": "amass db -show -d example.com",
+            "explanation": "Dumps all previously harvested and categorized intelligence strings mapped to the requested domain natively from the local graph file."
+        }
+    ]
+}

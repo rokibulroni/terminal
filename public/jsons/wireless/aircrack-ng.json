@@ -1,0 +1,567 @@
+{
+    "tool": "aircrack-ng",
+    "description": "Complete Aircrack-ng command and workflow reference from basic to advanced wireless key cracking",
+    "total_commands": 80,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Suite Setup & Management",
+            "command": "airmon-ng",
+            "example": "airmon-ng",
+            "explanation": "Displays the status of wireless interfaces and their current modes."
+        },
+        {
+            "id": 2,
+            "category": "Suite Setup & Management",
+            "command": "airmon-ng check",
+            "example": "airmon-ng check",
+            "explanation": "Identifies processes that might interfere with the wireless card's operation."
+        },
+        {
+            "id": 3,
+            "category": "Suite Setup & Management",
+            "command": "airmon-ng check kill",
+            "example": "airmon-ng check kill",
+            "explanation": "Terminates conflicting processes to ensure stability during capture and injection."
+        },
+        {
+            "id": 4,
+            "category": "Suite Setup & Management",
+            "command": "airmon-ng start <interface>",
+            "example": "airmon-ng start wlan0",
+            "explanation": "Enables monitor mode on the specified wireless interface."
+        },
+        {
+            "id": 5,
+            "category": "Suite Setup & Management",
+            "command": "airmon-ng start <interface> <channel>",
+            "example": "airmon-ng start wlan0 6",
+            "explanation": "Enables monitor mode strictly on a specific channel to prevent hopping."
+        },
+        {
+            "id": 6,
+            "category": "Suite Setup & Management",
+            "command": "airmon-ng stop <interface>",
+            "example": "airmon-ng stop wlan0mon",
+            "explanation": "Disables monitor mode and returns the interface to managed mode."
+        },
+        {
+            "id": 7,
+            "category": "Network Discovery",
+            "command": "airodump-ng <interface>",
+            "example": "airodump-ng wlan0mon",
+            "explanation": "Starts a basic capture to scan for all nearby access points and clients."
+        },
+        {
+            "id": 8,
+            "category": "Network Discovery",
+            "command": "airodump-ng --encrypt WPA <interface>",
+            "example": "airodump-ng --encrypt WPA wlan0mon",
+            "explanation": "Filters the visual display to show only WPA/WPA2 encrypted networks."
+        },
+        {
+            "id": 9,
+            "category": "Network Discovery",
+            "command": "airodump-ng --encrypt WEP <interface>",
+            "example": "airodump-ng --encrypt WEP wlan0mon",
+            "explanation": "Filters the visual display to show only WEP encrypted networks."
+        },
+        {
+            "id": 10,
+            "category": "Network Discovery",
+            "command": "airodump-ng --netmask <mask_int> <interface>",
+            "example": "airodump-ng --netmask 255.255.255.0 wlan0mon",
+            "explanation": "Filters access points based on a specific subnet mask."
+        },
+        {
+            "id": 11,
+            "category": "Capture File Handling",
+            "command": "airodump-ng -c <channel> --bssid <mac> -w <prefix> <interface>",
+            "example": "airodump-ng -c 6 --bssid 00:11:22:33:44:55 -w capture wlan0mon",
+            "explanation": "Targets a specific AP on a specific channel and writes the capture to a file."
+        },
+        {
+            "id": 12,
+            "category": "Capture File Handling",
+            "command": "airodump-ng --output-format pcap,csv -w <prefix> <interface>",
+            "example": "airodump-ng --output-format pcap,csv -w output wlan0mon",
+            "explanation": "Saves the capture data specifically in PCAP and CSV formats only."
+        },
+        {
+            "id": 13,
+            "category": "Injection Testing",
+            "command": "aireplay-ng --test <interface>",
+            "example": "aireplay-ng --test wlan0mon",
+            "explanation": "Tests if the wireless card supports packet injection and assesses link quality."
+        },
+        {
+            "id": 14,
+            "category": "Injection Testing",
+            "command": "aireplay-ng --test -e <essid> -a <bssid> <interface>",
+            "example": "aireplay-ng --test -e MyWiFi -a 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Tests injection capabilities against a specific target access point."
+        },
+        {
+            "id": 15,
+            "category": "Red Team Attack Simulation",
+            "command": "aireplay-ng --deauth <count> -a <bssid> -c <client> <interface>",
+            "example": "aireplay-ng --deauth 10 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Sends deauthentication packets to disconnect a specific client to force a handshake."
+        },
+        {
+            "id": 16,
+            "category": "Red Team Attack Simulation",
+            "command": "aireplay-ng --fakeauth 0 -a <bssid> -h <my_mac> <interface>",
+            "example": "aireplay-ng --fakeauth 0 -a 00:11:22:33:44:55 -h 11:22:33:44:55:66 wlan0mon",
+            "explanation": "Performs a fake authentication attack to associate with an AP for further injection."
+        },
+        {
+            "id": 17,
+            "category": "Red Team Attack Simulation",
+            "command": "aireplay-ng --arpreplay -b <bssid> -h <my_mac> <interface>",
+            "example": "aireplay-ng --arpreplay -b 00:11:22:33:44:55 -h 11:22:33:44:55:66 wlan0mon",
+            "explanation": "Listens for ARP packets and replays them to generate new IVs for WEP cracking."
+        },
+        {
+            "id": 18,
+            "category": "Red Team Attack Simulation",
+            "command": "aireplay-ng --chopchop -b <bssid> -h <my_mac> <interface>",
+            "example": "aireplay-ng --chopchop -b 00:11:22:33:44:55 -h 11:22:33:44:55:66 wlan0mon",
+            "explanation": "Executes the KoreK chopchop attack to decrypt a WEP packet without the key."
+        },
+        {
+            "id": 19,
+            "category": "Red Team Attack Simulation",
+            "command": "aireplay-ng --fragment -b <bssid> -h <my_mac> <interface>",
+            "example": "aireplay-ng --fragment -b 00:11:22:33:44:55 -h 11:22:33:44:55:66 wlan0mon",
+            "explanation": "Attempts the fragmentation attack to obtain a keystream specifically for WEP."
+        },
+        {
+            "id": 20,
+            "category": "Basic Aircrack-ng Syntax",
+            "command": "aircrack-ng --help",
+            "example": "aircrack-ng --help",
+            "explanation": "Displays the manual page with all available flags and options."
+        },
+        {
+            "id": 21,
+            "category": "Basic Aircrack-ng Syntax",
+            "command": "aircrack-ng -u",
+            "example": "aircrack-ng -u",
+            "explanation": "Displays CPU information and supported hardware instructions like SSE2."
+        },
+        {
+            "id": 22,
+            "category": "Basic Aircrack-ng Syntax",
+            "command": "aircrack-ng <capture_file>",
+            "example": "aircrack-ng capture-01.cap",
+            "explanation": "Loads a capture file and attempts to auto-detect the encryption type and target."
+        },
+        {
+            "id": 23,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -a 1 <capture_file>",
+            "example": "aircrack-ng -a 1 capture-01.cap",
+            "explanation": "Forces the tool to operate in WEP cracking mode regardless of auto-detection."
+        },
+        {
+            "id": 24,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -n 64 <capture_file>",
+            "example": "aircrack-ng -n 64 capture-01.cap",
+            "explanation": "Restricts the cracking attempt to 64-bit WEP keys only."
+        },
+        {
+            "id": 25,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -n 128 <capture_file>",
+            "example": "aircrack-ng -n 128 capture-01.cap",
+            "explanation": "Restricts the cracking attempt to 128-bit WEP keys only."
+        },
+        {
+            "id": 26,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -b <bssid> <capture_file>",
+            "example": "aircrack-ng -b 00:11:22:33:44:55 capture-01.cap",
+            "explanation": "Filters the capture file to crack only the network matching the specified BSSID."
+        },
+        {
+            "id": 27,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -f <factor> <capture_file>",
+            "example": "aircrack-ng -f 4 capture-01.cap",
+            "explanation": "Adjusts the brute-force fudge factor to try lower probability keys."
+        },
+        {
+            "id": 28,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -k <int> <capture_file>",
+            "example": "aircrack-ng -k 1 capture-01.cap",
+            "explanation": "Disables one of the 17 KoreK attacks to troubleshoot false positives."
+        },
+        {
+            "id": 29,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -x <capture_file>",
+            "example": "aircrack-ng -x capture-01.cap",
+            "explanation": "Disables the last two keybytes bruteforce to speed up the process."
+        },
+        {
+            "id": 30,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -y <capture_file>",
+            "example": "aircrack-ng -y capture-01.cap",
+            "explanation": "Enables the experimental single-threaded brute-force mode for WEP."
+        },
+        {
+            "id": 31,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -K <capture_file>",
+            "example": "aircrack-ng -K capture-01.cap",
+            "explanation": "Invokes the KoreK attack mode specifically (usually default for WEP)."
+        },
+        {
+            "id": 32,
+            "category": "WEP Attack Workflows",
+            "command": "aircrack-ng -z <capture_file>",
+            "example": "aircrack-ng -z capture-01.cap",
+            "explanation": "Invokes the PTW (Pyshkin-Tews-Weinmann) attack method which requires fewer IVs."
+        },
+        {
+            "id": 33,
+            "category": "WPA Cracking Basics",
+            "command": "aircrack-ng -a 2 -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -a 2 -w rockyou.txt capture-01.cap",
+            "explanation": "Initiates a WPA/WPA2 dictionary attack using a provided wordlist."
+        },
+        {
+            "id": 34,
+            "category": "WPA Cracking Basics",
+            "command": "aircrack-ng -e <essid> -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -e MyWiFi -w rockyou.txt capture-01.cap",
+            "explanation": "Filters the capture file to target a specific network name (ESSID)."
+        },
+        {
+            "id": 35,
+            "category": "WPA Cracking Basics",
+            "command": "aircrack-ng -b <bssid> -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -b 00:11:22:33:44:55 -w rockyou.txt capture-01.cap",
+            "explanation": "Filters the capture file to target a specific MAC address (BSSID)."
+        },
+        {
+            "id": 36,
+            "category": "Performance Tuning",
+            "command": "aircrack-ng -S <capture_file>",
+            "example": "aircrack-ng -S capture-01.cap",
+            "explanation": "Shows the cracking speed in keys per second without actually cracking."
+        },
+        {
+            "id": 37,
+            "category": "Performance Tuning",
+            "command": "aircrack-ng -p <cores> -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -p 4 -w rockyou.txt capture-01.cap",
+            "explanation": "Explicitly sets the number of CPU threads/cores to use for the attack."
+        },
+        {
+            "id": 38,
+            "category": "Advanced Cracking",
+            "command": "aircrack-ng -E <file> -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -E project_elcomsoft.ewsa -w rockyou.txt capture-01.cap",
+            "explanation": "Creates an Elcomsoft Wireless Security Auditor (EWSA) project file."
+        },
+        {
+            "id": 39,
+            "category": "Advanced Cracking",
+            "command": "aircrack-ng -J <file> <capture_file>",
+            "example": "aircrack-ng -J clean_capture capture-01.cap",
+            "explanation": "Extracts the handshake and saves it to a new, smaller .hccap file."
+        },
+        {
+            "id": 40,
+            "category": "Advanced Cracking",
+            "command": "aircrack-ng -j <file> <capture_file>",
+            "example": "aircrack-ng -j clean_capture capture-01.cap",
+            "explanation": "Extracts the handshake and saves it to a new .hccapx file for Hashcat."
+        },
+        {
+            "id": 41,
+            "category": "Output and Logging",
+            "command": "aircrack-ng -l <file> -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -l cracked_key.txt -w rockyou.txt capture-01.cap",
+            "explanation": "Writes the successfully cracked key to a specified text file."
+        },
+        {
+            "id": 42,
+            "category": "Output and Logging",
+            "command": "aircrack-ng -q -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -q -w rockyou.txt capture-01.cap",
+            "explanation": "Runs in quiet mode, suppressing status output until a key is found."
+        },
+        {
+            "id": 43,
+            "category": "Database Workflows",
+            "command": "airolib-ng <db_file> --import cowpatty <file>",
+            "example": "airolib-ng hashes.db --import cowpatty rainbow_table",
+            "explanation": "Imports a Cowpatty rainbow table into an Aircrack-ng database file."
+        },
+        {
+            "id": 44,
+            "category": "Database Workflows",
+            "command": "airolib-ng <db_file> --import passwd <file>",
+            "example": "airolib-ng hashes.db --import passwd rockyou.txt",
+            "explanation": "Imports a text wordlist into an Aircrack-ng database file for pre-computation."
+        },
+        {
+            "id": 45,
+            "category": "Database Workflows",
+            "command": "airolib-ng <db_file> --import essid <file>",
+            "example": "airolib-ng hashes.db --import essid essid_list.txt",
+            "explanation": "Imports a list of ESSIDs into the database for PMK calculation."
+        },
+        {
+            "id": 46,
+            "category": "Database Workflows",
+            "command": "airolib-ng <db_file> --batch",
+            "example": "airolib-ng hashes.db --batch",
+            "explanation": "Calculates the PMKs (Pairwise Master Keys) for the loaded ESSIDs and passwords."
+        },
+        {
+            "id": 47,
+            "category": "Database Workflows",
+            "command": "aircrack-ng -r <db_file> <capture_file>",
+            "example": "aircrack-ng -r hashes.db capture-01.cap",
+            "explanation": "Uses a pre-computed airolib-ng database for faster WPA cracking."
+        },
+        {
+            "id": 48,
+            "category": "Blue Team Defensive Validation",
+            "command": "aircrack-ng --simd-list",
+            "example": "aircrack-ng --simd-list",
+            "explanation": "Lists the available SIMD architectures to verify optimization support on the host."
+        },
+        {
+            "id": 49,
+            "category": "Blue Team Defensive Validation",
+            "command": "airdecap-ng -l",
+            "example": "airdecap-ng -l",
+            "explanation": "Lists the supported encryption types for decryption validation."
+        },
+        {
+            "id": 50,
+            "category": "Blue Team Defensive Validation",
+            "command": "airdecap-ng -b <bssid> <capture_file>",
+            "example": "airdecap-ng -b 00:11:22:33:44:55 capture-01.cap",
+            "explanation": "Attempts to decrypt the capture file using only the BSSID (validates unencrypted data)."
+        },
+        {
+            "id": 51,
+            "category": "Blue Team Defensive Validation",
+            "command": "airdecap-ng -e <essid> -p <password> <capture_file>",
+            "example": "airdecap-ng -e MyWiFi -p SuperSecret capture-01.cap",
+            "explanation": "Decrypts a WPA capture file using the known valid password to verify traffic visibility."
+        },
+        {
+            "id": 52,
+            "category": "Blue Team Defensive Validation",
+            "command": "airdecap-ng -w <hex_key> <capture_file>",
+            "example": "airdecap-ng -w 1A2B3C4D5E capture-01.cap",
+            "explanation": "Decrypts a WEP capture file using the known hexadecimal key."
+        },
+        {
+            "id": 53,
+            "category": "Purple Team Detection Testing",
+            "command": "aircrack-ng -C <mac> -w <wordlist> <capture_file>",
+            "example": "aircrack-ng -C 00:11:22:33:44:55 -w rockyou.txt capture-01.cap",
+            "explanation": "Merges two or more APs into a virtual one (useful for testing roaming handshakes)."
+        },
+        {
+            "id": 54,
+            "category": "Purple Team Detection Testing",
+            "command": "aireplay-ng --deauth 1 -a <bssid> <interface>",
+            "example": "aireplay-ng --deauth 1 -a 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Sends a single deauth frame to test if the IDS/IPS logs the specific anomaly."
+        },
+        {
+            "id": 55,
+            "category": "Purple Team Detection Testing",
+            "command": "aireplay-ng --fakeauth 6000 -o 1 -q 10 <interface>",
+            "example": "aireplay-ng --fakeauth 6000 -o 1 -q 10 wlan0mon",
+            "explanation": "Sends keep-alive packets to test how the infrastructure handles prolonged fake sessions."
+        },
+        {
+            "id": 56,
+            "category": "Forensic Analysis",
+            "command": "ivstools --convert <capture_file> <output_ivs>",
+            "example": "ivstools --convert capture-01.cap capture.ivs",
+            "explanation": "Converts a standard capture file to the IVS format to reduce file size."
+        },
+        {
+            "id": 57,
+            "category": "Forensic Analysis",
+            "command": "ivstools --merge <ivs_file1> <ivs_file2> <output_ivs>",
+            "example": "ivstools --merge capture1.ivs capture2.ivs full_capture.ivs",
+            "explanation": "Merges multiple IVS files into a single file for a consolidated cracking attempt."
+        },
+        {
+            "id": 58,
+            "category": "Advanced Workflow Integration",
+            "command": "airbase-ng -e <essid> -c <channel> <interface>",
+            "example": "airbase-ng -e 'Free WiFi' -c 6 wlan0mon",
+            "explanation": "Creates a soft access point to lure clients for a rogue AP attack workflow."
+        },
+        {
+            "id": 59,
+            "category": "Advanced Workflow Integration",
+            "command": "airbase-ng -P -C 30 <interface>",
+            "example": "airbase-ng -P -C 30 wlan0mon",
+            "explanation": "Configures the soft AP to respond to all probe requests (Karma attack behavior)."
+        },
+        {
+            "id": 60,
+            "category": "Advanced Workflow Integration",
+            "command": "wpaclean <out_file> <in_file>",
+            "example": "wpaclean clean.cap dirty.cap",
+            "explanation": "Cleans the capture file by removing beacons and management frames, keeping only the 4-way handshake."
+        },
+        {
+            "id": 61,
+            "category": "Automation & Pipelines",
+            "command": "aircrack-ng -w - <capture_file>",
+            "example": "john --stdout --wordlist=passwords.txt | aircrack-ng -w - capture-01.cap",
+            "explanation": "Reads passwords from standard input (stdin), allowing piping from other tools like John the Ripper."
+        },
+        {
+            "id": 62,
+            "category": "Automation & Pipelines",
+            "command": "airodump-ng --beacons --gpsd -w <prefix> <interface>",
+            "example": "airodump-ng --beacons --gpsd -w map_data wlan0mon",
+            "explanation": "Records GPS coordinates for every packet (requires GPSD) for wardriving maps."
+        },
+        {
+            "id": 63,
+            "category": "Automation & Pipelines",
+            "command": "aircrack-ng -s <capture_file>",
+            "example": "aircrack-ng -s capture-01.cap",
+            "explanation": "Shows the ASCII version of the key alongside the hex version."
+        },
+        {
+            "id": 64,
+            "category": "Incident Response Simulation",
+            "command": "airtun-ng -a <bssid> -t 1 <interface>",
+            "example": "airtun-ng -a 00:11:22:33:44:55 -t 1 wlan0mon",
+            "explanation": "Creates a virtual tunnel interface to monitor encrypted traffic in real-time (requires key)."
+        },
+        {
+            "id": 65,
+            "category": "Incident Response Simulation",
+            "command": "packetforge-ng -0 -a <bssid> -h <source_mac> -k <ip> -l <ip> -w <file>",
+            "example": "packetforge-ng -0 -a 00:11:22:33:44:55 -h 11:22:33:44:55:66 -k 192.168.1.1 -l 192.168.1.100 -w arp_req",
+            "explanation": "Forges an ARP request packet for injection validation during an incident investigation."
+        },
+        {
+            "id": 66,
+            "category": "Cracking Optimization",
+            "command": "aircrack-ng -D <capture_file>",
+            "example": "aircrack-ng -D capture-01.cap",
+            "explanation": "Disables the complex WEP masking (experimental optimization)."
+        },
+        {
+            "id": 67,
+            "category": "Cracking Optimization",
+            "command": "aircrack-ng -M <int> <capture_file>",
+            "example": "aircrack-ng -M 2 capture-01.cap",
+            "explanation": "Specifies the maximum number of IVs to use for the attack."
+        },
+        {
+            "id": 68,
+            "category": "Cracking Optimization",
+            "command": "aircrack-ng -t <mac> <capture_file>",
+            "example": "aircrack-ng -t 00:11:22:33:44:55 capture-01.cap",
+            "explanation": "Filters traffic by the destination MAC address for specific client targeting."
+        },
+        {
+            "id": 69,
+            "category": "Cracking Optimization",
+            "command": "aircrack-ng -m <mac> <capture_file>",
+            "example": "aircrack-ng -m 00:11:22:33:44:55 capture-01.cap",
+            "explanation": "Matches packets specifically by the BSSID mac address filter."
+        },
+        {
+            "id": 70,
+            "category": "Legacy WEP Specifics",
+            "command": "aircrack-ng -1 <capture_file>",
+            "example": "aircrack-ng -1 capture-01.cap",
+            "explanation": "Runs the attack once and exits if the key is not found immediately."
+        },
+        {
+            "id": 71,
+            "category": "Legacy WEP Specifics",
+            "command": "aircrack-ng -6 <capture_file>",
+            "example": "aircrack-ng -6 capture-01.cap",
+            "explanation": "Enables the semi-passive attack mode (rarely used)."
+        },
+        {
+            "id": 72,
+            "category": "Clean Up",
+            "command": "airmon-ng stop <interface>mon",
+            "example": "airmon-ng stop wlan0mon",
+            "explanation": "Properly destroys the monitor mode interface created earlier."
+        },
+        {
+            "id": 73,
+            "category": "Clean Up",
+            "command": "rm <prefix>-*.cap <prefix>-*.csv",
+            "example": "rm capture-01.cap capture-01.csv",
+            "explanation": "Removes the raw capture files and logs to sanitize the workspace."
+        },
+        {
+            "id": 74,
+            "category": "Advanced Combined Workflow",
+            "command": "airodump-ng -c 1 --bssid <mac> -w capture wlan0mon & aireplay-ng --deauth 5 -a <mac> wlan0mon",
+            "example": "airodump-ng -c 1 --bssid 00:11:22:33:44:55 -w capture wlan0mon & aireplay-ng --deauth 5 -a 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Simultaneously starts a capture and sends deauth packets in a single command line."
+        },
+        {
+            "id": 75,
+            "category": "Advanced Combined Workflow",
+            "command": "aircrack-ng -w wordlist.txt -l key.txt *.cap",
+            "example": "aircrack-ng -w wordlist.txt -l key.txt *.cap",
+            "explanation": "Attempts to crack using all capture files in the current directory and logs the key."
+        },
+        {
+            "id": 76,
+            "category": "Advanced Combined Workflow",
+            "command": "aircrack-ng -K -b <bssid> *.ivs",
+            "example": "aircrack-ng -K -b 00:11:22:33:44:55 *.ivs",
+            "explanation": "Uses the KoreK method on all IVS files in the directory for a WEP attack."
+        },
+        {
+            "id": 77,
+            "category": "Advanced Combined Workflow",
+            "command": "airbase-ng -a <bssid> --essid <essid> -W 1 wlan0mon",
+            "example": "airbase-ng -a 00:11:22:33:44:55 --essid 'Office WiFi' -W 1 wlan0mon",
+            "explanation": "Sets up a Rogue AP with WEP encryption enabled (-W 1) for a specific target."
+        },
+        {
+            "id": 78,
+            "category": "Advanced Combined Workflow",
+            "command": "airbase-ng -a <bssid> --essid <essid> -Z 2 wlan0mon",
+            "example": "airbase-ng -a 00:11:22:33:44:55 --essid 'Office WiFi' -Z 2 wlan0mon",
+            "explanation": "Sets up a Rogue AP with WPA2 encryption enabled (-Z 2)."
+        },
+        {
+            "id": 79,
+            "category": "System Maintenance",
+            "command": "aircrack-ng --check",
+            "example": "aircrack-ng --check",
+            "explanation": "Checks if the aircrack-ng binary is patched or original (useful for distribution verification)."
+        },
+        {
+            "id": 80,
+            "category": "Help and Documentation",
+            "command": "man aircrack-ng",
+            "example": "man aircrack-ng",
+            "explanation": "Opens the full system manual for the most detailed documentation available."
+        }
+    ]
+}

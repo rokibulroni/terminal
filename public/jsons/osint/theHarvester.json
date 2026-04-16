@@ -1,0 +1,77 @@
+{
+    "tool": "theHarvester",
+    "description": "theHarvester: The quintessential tool designed for gathering e-mail accounts, subdomain names, virtual hosts, open ports, and employee names from an organization.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Scan",
+            "command": "theHarvester -d <domain> -b <source>",
+            "example": "theHarvester -d target.com -b google",
+            "explanation": "Executes an immediate baseline scraping query targeting a specific external search engine to yield exposed emails/subdomains."
+        },
+        {
+            "id": 2,
+            "category": "Broad Targeting",
+            "command": "theHarvester -d <domain> -b all",
+            "example": "theHarvester -d target.com -b all",
+            "explanation": "A highly noisy extraction method instructing the tool to aggressively query every single supported index (LinkedIn, Bing, Google, DuckDuckGo) simultaneously."
+        },
+        {
+            "id": 3,
+            "category": "Limits",
+            "command": "theHarvester -d <domain> -l <limit>",
+            "example": "theHarvester -d target.com -l 500 -b bing",
+            "explanation": "Restricts parsing arrays exactly to the indicated numerical depth limit of Search Engine results (e.g. Top 500 pages) to prevent aggressive IP blocking."
+        },
+        {
+            "id": 4,
+            "category": "DNS Brute-forcing",
+            "command": "theHarvester -d <domain> -c",
+            "example": "theHarvester -d target.com -c -b all",
+            "explanation": "Augments passive scraping explicitly executing a highly aggressive active dictionary brute-force attacking the Target's primary DNS tables."
+        },
+        {
+            "id": 5,
+            "category": "Takeover Validations",
+            "command": "theHarvester -d <domain> -t",
+            "example": "theHarvester -d target.com -t -b all",
+            "explanation": "Forces the resolution arrays to continuously ping subdomains verifying explicitly if a DNS CNAME point exists allowing for Subdomain Takeovers."
+        },
+        {
+            "id": 6,
+            "category": "Output File",
+            "command": "theHarvester -f <filename>",
+            "example": "theHarvester -d corp.net -b all -f intel_dump",
+            "explanation": "Automates standard text dumping explicitly writing both highly structured JSON files and HTML tables concurrently directly into the current directory."
+        },
+        {
+            "id": 7,
+            "category": "Virtual Hosts",
+            "command": "theHarvester -v",
+            "example": "theHarvester -d company.com -v -b bing",
+            "explanation": "Leverages Microsoft Bing reverse-indexing attempting to unmask distinct auxiliary Virtual Hosts sharing the exact same IP stack."
+        },
+        {
+            "id": 8,
+            "category": "Shodan Pipeline",
+            "command": "theHarvester -d <domain> -s",
+            "example": "theHarvester -d target.com -b all -s",
+            "explanation": "Integrates natively directly into the Shodan infrastructure verifying all located host architectures against known open ports instantly."
+        },
+        {
+            "id": 9,
+            "category": "Proxy Logic",
+            "command": "theHarvester -p <proxy>",
+            "example": "theHarvester -d target.com -b google -p http://127.0.0.1:8080",
+            "explanation": "Channels the Python processing HTTP streams seamlessly overriding outbound tracking connecting through defined Proxy architectures."
+        },
+        {
+            "id": 10,
+            "category": "Custom Resolvers",
+            "command": "theHarvester -r <server>",
+            "example": "theHarvester -d test.com -b all -r 8.8.8.8",
+            "explanation": "Modifies the inherent socket stack forcing all explicit active DNS interrogations directly out through the specified custom recursive DNS server."
+        }
+    ]
+}

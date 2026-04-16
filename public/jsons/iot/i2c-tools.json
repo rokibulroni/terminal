@@ -1,0 +1,77 @@
+{
+  "tool": "i2c-tools",
+  "description": "I2C Tools is the primary suite for scanning, probing, and pushing explicit byte transmissions natively over the Inter-Integrated Circuit embedded components hardware bus.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Interrogation",
+      "command": "i2cdetect -y <bus>",
+      "example": "i2cdetect -y 1",
+      "explanation": "Brute-force probes the designated I2C master bus (-y to bypass warnings) returning a grid establishing the explicit hexadecimal addresses of all physically wired responsive slave sensors."
+    },
+    {
+      "id": 2,
+      "category": "Interrogation",
+      "command": "i2cdetect -l",
+      "example": "i2cdetect -l",
+      "explanation": "Prints out the absolute system list of all installed operational I2C buses (e.g., i2c-1, i2c-0) inherently available on the SoC."
+    },
+    {
+      "id": 3,
+      "category": "Reading Actions",
+      "command": "i2cget -y <bus> <chip_address>",
+      "example": "i2cget -y 1 0x27",
+      "explanation": "Taps into a defined slave chip address on a specified bus attempting to extract and display its immediate default resting value state."
+    },
+    {
+      "id": 4,
+      "category": "Reading Actions",
+      "command": "i2cget -y <bus> <chip_address> <data_address>",
+      "example": "i2cget -y 1 0x77 0xF6",
+      "explanation": "Extracts explicitly targeted byte responses natively from a strict memory data register physically embedded inside the slave IC."
+    },
+    {
+      "id": 5,
+      "category": "Reading Actions",
+      "command": "i2cdump -y <bus> <chip_address>",
+      "example": "i2cdump -y 1 0x68",
+      "explanation": "Forces an absolute mass readout visually dumping every single stored byte value mapped across every single register array inside the target peripheral."
+    },
+    {
+      "id": 6,
+      "category": "Writing Actions",
+      "command": "i2cset -y <bus> <chip_address> <data_address> <value>",
+      "example": "i2cset -y 1 0x27 0x00 0xFF",
+      "explanation": "Hardwrites a specific absolute numerical value natively directly into a unique designated structural register embedded inside the IC."
+    },
+    {
+      "id": 7,
+      "category": "Writing Actions",
+      "command": "i2ctransfer -y <bus> w<count>@<chip_address> <value...>",
+      "example": "i2ctransfer -y 1 w3@0x27 0x00 0xFF 0x01",
+      "explanation": "Fires contiguous high-speed multi-byte transaction arrays forcefully feeding sequence logics across the bridge to initialize complex displays or EEPROMs."
+    },
+    {
+      "id": 8,
+      "category": "Bus Configuration",
+      "command": "lsmod | grep i2c",
+      "example": "lsmod | grep i2c",
+      "explanation": "Analyzes the deeply loaded kernel structures explicitly verifying that the `i2c_bcm2835` and `i2c_dev` master controller drivers are actually actively bridged."
+    },
+    {
+      "id": 9,
+      "category": "Advanced",
+      "command": "i2cdetect -F <bus>",
+      "example": "i2cdetect -F 1",
+      "explanation": "Queries a specific hardware bus printing an absolute list detailing precisely which complex I2C algorithms and SMBus transaction variants it formally supports."
+    },
+    {
+      "id": 10,
+      "category": "SMBus Integration",
+      "command": "i2cget -y <bus> <chip_address> <data_address> w",
+      "example": "i2cget -y 1 0x48 0x00 w",
+      "explanation": "Modifies data retrieval logic forcing the controller to fetch an entire absolute 16-bit word length (w) instead of stopping natively after a single standard 8-bit byte."
+    }
+  ]
+}

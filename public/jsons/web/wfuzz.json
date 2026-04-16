@@ -1,0 +1,427 @@
+{
+    "tool": "wfuzz",
+    "description": "Complete wfuzz command reference covering all options from basic to advanced",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Directory Fuzzing",
+            "command": "wfuzz -c -z file,wordlist.txt https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt https://example.com/FUZZ",
+            "explanation": "Scans for directories using a wordlist and displays colored output."
+        },
+        {
+            "id": 2,
+            "category": "Basic Directory Fuzzing",
+            "command": "wfuzz -c -z file,wordlist.txt --hc 404 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --hc 404 https://example.com/FUZZ",
+            "explanation": "Scans for directories while hiding all responses with a 404 status code."
+        },
+        {
+            "id": 3,
+            "category": "Status Code Matching",
+            "command": "wfuzz -c -z file,wordlist.txt --sc 200,301 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --sc 200,301 https://example.com/FUZZ",
+            "explanation": "Filters the output to show only responses with 200 OK or 301 Redirect status codes."
+        },
+        {
+            "id": 4,
+            "category": "Extension Fuzzing",
+            "command": "wfuzz -c -z file,wordlist.txt https://example.com/FUZZ.php",
+            "example": "wfuzz -c -z file,wordlist.txt https://example.com/FUZZ.php",
+            "explanation": "Fuzzes for files with a specific extension by appending it to the FUZZ keyword."
+        },
+        {
+            "id": 5,
+            "category": "Word Count Filtering",
+            "command": "wfuzz -c -z file,wordlist.txt --hw 50 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --hw 50 https://example.com/FUZZ",
+            "explanation": "Hides responses that contain exactly 50 words to filter out custom error pages."
+        },
+        {
+            "id": 6,
+            "category": "Character Count Filtering",
+            "command": "wfuzz -c -z file,wordlist.txt --hh 1250 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --hh 1250 https://example.com/FUZZ",
+            "explanation": "Hides responses that contain exactly 1250 characters to reduce false positives."
+        },
+        {
+            "id": 7,
+            "category": "Line Count Filtering",
+            "command": "wfuzz -c -z file,wordlist.txt --hl 15 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --hl 15 https://example.com/FUZZ",
+            "explanation": "Hides responses that contain exactly 15 lines of text in the body."
+        },
+        {
+            "id": 8,
+            "category": "GET Parameter Fuzzing",
+            "command": "wfuzz -c -z file,params.txt https://example.com/page.php?FUZZ=test",
+            "example": "wfuzz -c -z file,params.txt https://example.com/page.php?FUZZ=test",
+            "explanation": "Identifies valid GET parameters by fuzzing the parameter name."
+        },
+        {
+            "id": 9,
+            "category": "GET Parameter Value Fuzzing",
+            "command": "wfuzz -c -z file,ids.txt https://example.com/items?id=FUZZ",
+            "example": "wfuzz -c -z file,ids.txt https://example.com/items?id=FUZZ",
+            "explanation": "Tests different values for a known parameter ID to find accessible objects."
+        },
+        {
+            "id": 10,
+            "category": "POST Body Fuzzing",
+            "command": "wfuzz -c -z file,passwords.txt -d \"user=admin&pass=FUZZ\" https://example.com/login",
+            "example": "wfuzz -c -z file,passwords.txt -d \"user=admin&pass=FUZZ\" https://example.com/login",
+            "explanation": "Performs a dictionary attack on a login form using POST data."
+        },
+        {
+            "id": 11,
+            "category": "HTTP Header Fuzzing",
+            "command": "wfuzz -c -z file,headers.txt -H \"FUZZ: 127.0.0.1\" https://example.com/",
+            "example": "wfuzz -c -z file,headers.txt -H \"FUZZ: 127.0.0.1\" https://example.com/",
+            "explanation": "Injects payloads into HTTP header names to test for proxy misconfigurations."
+        },
+        {
+            "id": 12,
+            "category": "User-Agent Fuzzing",
+            "command": "wfuzz -c -z file,user_agents.txt -H \"User-Agent: FUZZ\" https://example.com/",
+            "example": "wfuzz -c -z file,user_agents.txt -H \"User-Agent: FUZZ\" https://example.com/",
+            "explanation": "Rotates User-Agent strings to bypass restrictions or identify device-specific content."
+        },
+        {
+            "id": 13,
+            "category": "Cookie Fuzzing",
+            "command": "wfuzz -c -z range,1-100 -b \"session_id=FUZZ\" https://example.com/profile",
+            "example": "wfuzz -c -z range,1-100 -b \"session_id=FUZZ\" https://example.com/profile",
+            "explanation": "Iterates through a numeric range in the Cookie header to test for session predictability."
+        },
+        {
+            "id": 14,
+            "category": "HTTP Method Fuzzing",
+            "command": "wfuzz -c -z list,GET-POST-PUT-DELETE -X FUZZ https://example.com/resource",
+            "example": "wfuzz -c -z list,GET-POST-PUT-DELETE -X FUZZ https://example.com/resource",
+            "explanation": "Tests which HTTP verbs are accepted by the target endpoint."
+        },
+        {
+            "id": 15,
+            "category": "Payload Generator: Range",
+            "command": "wfuzz -c -z range,0-50 https://example.com/id/FUZZ",
+            "example": "wfuzz -c -z range,0-50 https://example.com/id/FUZZ",
+            "explanation": "Generates a sequence of integers from 0 to 50 for ID enumeration."
+        },
+        {
+            "id": 16,
+            "category": "Payload Generator: List",
+            "command": "wfuzz -c -z list,admin-guest-test https://example.com/FUZZ",
+            "example": "wfuzz -c -z list,admin-guest-test https://example.com/FUZZ",
+            "explanation": "Uses a comma-separated list of strings directly from the command line."
+        },
+        {
+            "id": 17,
+            "category": "Multiple Payloads",
+            "command": "wfuzz -c -z list,admin-user -z file,passwords.txt https://example.com/login?u=FUZZ&p=FUZ2Z",
+            "example": "wfuzz -c -z list,admin-user -z file,passwords.txt https://example.com/login?u=FUZZ&p=FUZ2Z",
+            "explanation": "Uses two distinct injection points mapped to FUZZ and FUZ2Z respectively."
+        },
+        {
+            "id": 18,
+            "category": "Clusterbomb Attack",
+            "command": "wfuzz -c -z list,user1-user2 -z file,pass.txt -m product -d \"u=FUZZ&p=FUZ2Z\" https://example.com/auth",
+            "example": "wfuzz -c -z list,user1-user2 -z file,pass.txt -m product -d \"u=FUZZ&p=FUZ2Z\" https://example.com/auth",
+            "explanation": "Tests every combination of usernames and passwords using the product iterator."
+        },
+        {
+            "id": 19,
+            "category": "Zip Iterator (Default)",
+            "command": "wfuzz -c -z file,users.txt -z file,pass.txt -m zip -d \"u=FUZZ&p=FUZ2Z\" https://example.com/auth",
+            "example": "wfuzz -c -z file,users.txt -z file,pass.txt -m zip -d \"u=FUZZ&p=FUZ2Z\" https://example.com/auth",
+            "explanation": "Pairs payloads line-by-line (line 1 with line 1) rather than mixing all combinations."
+        },
+        {
+            "id": 20,
+            "category": "Encoders: Base64",
+            "command": "wfuzz -c -z file,wordlist.txt,base64 https://example.com/api/token/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt,base64 https://example.com/api/token/FUZZ",
+            "explanation": "Encodes the payload from the wordlist into Base64 before sending the request."
+        },
+        {
+            "id": 21,
+            "category": "Encoders: MD5",
+            "command": "wfuzz -c -z file,wordlist.txt,md5 https://example.com/verify?hash=FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt,md5 https://example.com/verify?hash=FUZZ",
+            "explanation": "Computes the MD5 hash of each payload string before injection."
+        },
+        {
+            "id": 22,
+            "category": "Encoders: URL Encoding",
+            "command": "wfuzz -c -z file,sqli.txt,urlencode -d \"search=FUZZ\" https://example.com/query",
+            "example": "wfuzz -c -z file,sqli.txt,urlencode -d \"search=FUZZ\" https://example.com/query",
+            "explanation": "URL-encodes special characters in the payload to ensure valid HTTP transmission."
+        },
+        {
+            "id": 23,
+            "category": "Basic Authentication",
+            "command": "wfuzz -c -z file,dirs.txt --basic \"admin:secret\" https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,dirs.txt --basic \"admin:secret\" https://example.com/FUZZ",
+            "explanation": "Adds an HTTP Basic Authentication header with the specified credentials to every request."
+        },
+        {
+            "id": 24,
+            "category": "Recursive Fuzzing",
+            "command": "wfuzz -c -z file,wordlist.txt -R 2 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -R 2 https://example.com/FUZZ",
+            "explanation": "Recursively scans discovered directories up to a depth of 2 levels."
+        },
+        {
+            "id": 25,
+            "category": "Dry Run",
+            "command": "wfuzz -c -z file,wordlist.txt --dry-run https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --dry-run https://example.com/FUZZ",
+            "explanation": "Simulates the operation showing generated requests without sending traffic to the target."
+        },
+        {
+            "id": 26,
+            "category": "Auto-Calibration",
+            "command": "wfuzz -c -z file,wordlist.txt --ac https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --ac https://example.com/FUZZ",
+            "explanation": "Automatically analyzes the baseline response to calibrate filters and reduce noise."
+        },
+        {
+            "id": 27,
+            "category": "Regex Matching",
+            "command": "wfuzz -c -z file,wordlist.txt --ss \"Password incorrect\" https://example.com/login?p=FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --ss \"Password incorrect\" https://example.com/login?p=FUZZ",
+            "explanation": "Shows only responses where the response body contains the specified string regex."
+        },
+        {
+            "id": 28,
+            "category": "Regex Filtering",
+            "command": "wfuzz -c -z file,wordlist.txt --hs \"Forbidden\" https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --hs \"Forbidden\" https://example.com/FUZZ",
+            "explanation": "Hides responses where the response body contains the specified string regex."
+        },
+        {
+            "id": 29,
+            "category": "Follow Redirects",
+            "command": "wfuzz -c -z file,wordlist.txt -L https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -L https://example.com/FUZZ",
+            "explanation": "Instructs wfuzz to follow HTTP 3xx redirects to the final destination."
+        },
+        {
+            "id": 30,
+            "category": "HEAD Requests",
+            "command": "wfuzz -c -z file,wordlist.txt -I https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -I https://example.com/FUZZ",
+            "explanation": "Uses the HTTP HEAD method to fetch only headers, saving bandwidth and time."
+        },
+        {
+            "id": 31,
+            "category": "Proxy Configuration",
+            "command": "wfuzz -c -z file,wordlist.txt -p 127.0.0.1:8080 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -p 127.0.0.1:8080 https://example.com/FUZZ",
+            "explanation": "Routes all traffic through a specified proxy, such as Burp Suite or ZAP."
+        },
+        {
+            "id": 32,
+            "category": "Multiple Proxies",
+            "command": "wfuzz -c -z file,wordlist.txt -p 127.0.0.1:8080 -p 127.0.0.1:9090 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -p 127.0.0.1:8080 -p 127.0.0.1:9090 https://example.com/FUZZ",
+            "explanation": "Distributes requests across multiple proxies to balance load or evade IP bans."
+        },
+        {
+            "id": 33,
+            "category": "SOCKS Proxy",
+            "command": "wfuzz -c -z file,wordlist.txt -p 127.0.0.1:9050:SOCKS5 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -p 127.0.0.1:9050:SOCKS5 https://example.com/FUZZ",
+            "explanation": "Routes traffic through a SOCKS5 proxy, commonly used with Tor."
+        },
+        {
+            "id": 34,
+            "category": "Time Delay",
+            "command": "wfuzz -c -z file,wordlist.txt -s 2 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -s 2 https://example.com/FUZZ",
+            "explanation": "Adds a delay of 2 seconds between each request to avoid rate limiting."
+        },
+        {
+            "id": 35,
+            "category": "Request Delay",
+            "command": "wfuzz -c -z file,wordlist.txt --req-delay 500 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --req-delay 500 https://example.com/FUZZ",
+            "explanation": "Sets a precise delay of 500 milliseconds between requests."
+        },
+        {
+            "id": 36,
+            "category": "Threading",
+            "command": "wfuzz -c -z file,wordlist.txt -t 50 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -t 50 https://example.com/FUZZ",
+            "explanation": "Increases the number of concurrent threads to 50 for faster scanning."
+        },
+        {
+            "id": 37,
+            "category": "Disable Keep-Alive",
+            "command": "wfuzz -c -z file,wordlist.txt --no-keepalive https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --no-keepalive https://example.com/FUZZ",
+            "explanation": "Forces a new TCP connection for every request by disabling HTTP Keep-Alive."
+        },
+        {
+            "id": 38,
+            "category": "JSON Output",
+            "command": "wfuzz -c -z file,wordlist.txt -f results.json,json https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -f results.json,json https://example.com/FUZZ",
+            "explanation": "Saves the fuzzing results to a file named results.json in JSON format."
+        },
+        {
+            "id": 39,
+            "category": "CSV Output",
+            "command": "wfuzz -c -z file,wordlist.txt -f results.csv,csv https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -f results.csv,csv https://example.com/FUZZ",
+            "explanation": "Exports the scan data to a CSV file for easy analysis in spreadsheet software."
+        },
+        {
+            "id": 40,
+            "category": "HTML Output",
+            "command": "wfuzz -c -z file,wordlist.txt -f report.html,html https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -f report.html,html https://example.com/FUZZ",
+            "explanation": "Generates a human-readable HTML report of the findings."
+        },
+        {
+            "id": 41,
+            "category": "Verbose Mode",
+            "command": "wfuzz -c -z file,wordlist.txt -v https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -v https://example.com/FUZZ",
+            "explanation": "Enables verbose output to display additional details about every request."
+        },
+        {
+            "id": 42,
+            "category": "Subdomain Fuzzing",
+            "command": "wfuzz -c -z file,subdomains.txt -H \"Host: FUZZ.example.com\" https://example.com",
+            "example": "wfuzz -c -z file,subdomains.txt -H \"Host: FUZZ.example.com\" https://example.com",
+            "explanation": "Fuzzes the Host header to discover virtual host subdomains on the target IP."
+        },
+        {
+            "id": 43,
+            "category": "JSON POST Data",
+            "command": "wfuzz -c -z file,values.txt -d \"{\\\"id\\\": \\\"FUZZ\\\"}\" -H \"Content-Type: application/json\" https://api.example.com/data",
+            "example": "wfuzz -c -z file,values.txt -d \"{\\\"id\\\": \\\"FUZZ\\\"}\" -H \"Content-Type: application/json\" https://api.example.com/data",
+            "explanation": "Injects payloads into a JSON structure within the POST body, requiring escaped quotes."
+        },
+        {
+            "id": 44,
+            "category": "API Version Fuzzing",
+            "command": "wfuzz -c -z list,v1-v2-v3-beta https://api.example.com/FUZZ/users",
+            "example": "wfuzz -c -z list,v1-v2-v3-beta https://api.example.com/FUZZ/users",
+            "explanation": "Tests different API version segments to find older, potentially vulnerable endpoints."
+        },
+        {
+            "id": 45,
+            "category": "Baseline Comparison",
+            "command": "wfuzz -c -z file,wordlist.txt --aa https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --aa https://example.com/FUZZ",
+            "explanation": "Enables auto-audit mode which compares responses against a baseline to flag anomalies."
+        },
+        {
+            "id": 46,
+            "category": "Prev Filter (Advanced)",
+            "command": "wfuzz -c -z file,wordlist.txt --prev https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --prev https://example.com/FUZZ",
+            "explanation": "Shows response only if it is different from the previous response."
+        },
+        {
+            "id": 47,
+            "category": "Color Output Control",
+            "command": "wfuzz -z file,wordlist.txt --efield url https://example.com/FUZZ",
+            "example": "wfuzz -z file,wordlist.txt --efield url https://example.com/FUZZ",
+            "explanation": "Uses specific field printing to display only the URL without default formatting."
+        },
+        {
+            "id": 48,
+            "category": "Stdin Payload",
+            "command": "cat wordlist.txt | wfuzz -c -z stdin https://example.com/FUZZ",
+            "example": "cat wordlist.txt | wfuzz -c -z stdin https://example.com/FUZZ",
+            "explanation": "Reads the payload list directly from standard input (pipeline)."
+        },
+        {
+            "id": 49,
+            "category": "NTLM Authentication",
+            "command": "wfuzz -c -z file,wordlist.txt --ntlm \"user:pass\" https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --ntlm \"user:pass\" https://example.com/FUZZ",
+            "explanation": "Uses NTLM authentication, commonly required for internal corporate Windows environments."
+        },
+        {
+            "id": 50,
+            "category": "Digest Authentication",
+            "command": "wfuzz -c -z file,wordlist.txt --digest \"user:pass\" https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --digest \"user:pass\" https://example.com/FUZZ",
+            "explanation": "Uses HTTP Digest authentication to authenticate against protected resources."
+        },
+        {
+            "id": 51,
+            "category": "Combination of Encoders",
+            "command": "wfuzz -c -z file,wordlist.txt,base64-md5 https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt,base64-md5 https://example.com/FUZZ",
+            "explanation": "Chains encoders to first Base64 encode and then MD5 hash the payload."
+        },
+        {
+            "id": 52,
+            "category": "Ignored Parameters",
+            "command": "wfuzz -c -z file,params.txt --filter \"params.count > 0\" https://example.com/?FUZZ=1",
+            "example": "wfuzz -c -z file,params.txt --filter \"params.count > 0\" https://example.com/?FUZZ=1",
+            "explanation": "Uses the filter language to only show results meeting complex logical conditions."
+        },
+        {
+            "id": 53,
+            "category": "Save Recipe",
+            "command": "wfuzz -c -z file,wordlist.txt --dump-recipe recipe.txt https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --dump-recipe recipe.txt https://example.com/FUZZ",
+            "explanation": "Saves the current configuration and arguments into a recipe file for later reuse."
+        },
+        {
+            "id": 54,
+            "category": "Load Recipe",
+            "command": "wfuzz -c --recipe recipe.txt",
+            "example": "wfuzz -c --recipe recipe.txt",
+            "explanation": "Loads and executes a scan from a previously saved recipe file."
+        },
+        {
+            "id": 55,
+            "category": "Script: Robots.txt",
+            "command": "wfuzz -c -z list,1 --script=robots https://example.com",
+            "example": "wfuzz -c -z list,1 --script=robots https://example.com",
+            "explanation": "Runs the built-in robots.txt parser script against the target."
+        },
+        {
+            "id": 56,
+            "category": "Custom Headers Repeated",
+            "command": "wfuzz -c -z file,wordlist.txt -H \"X-Forwarded-For: 127.0.0.1\" -H \"X-Origin: 127.0.0.1\" https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt -H \"X-Forwarded-For: 127.0.0.1\" -H \"X-Origin: 127.0.0.1\" https://example.com/FUZZ",
+            "explanation": "Sends multiple custom headers in a single request to spoof internal access."
+        },
+        {
+            "id": 57,
+            "category": "Payload Slicing",
+            "command": "wfuzz -c -z slice,0-3,file,wordlist.txt https://example.com/FUZZ",
+            "example": "wfuzz -c -z slice,0-3,file,wordlist.txt https://example.com/FUZZ",
+            "explanation": "Takes a slice of the wordlist (items 0 to 3) effectively acting as a head command for payloads."
+        },
+        {
+            "id": 58,
+            "category": "Scan Mode (Iterate Cookies)",
+            "command": "wfuzz -c -z file,users.txt -b \"user=FUZZ\" --scan-mode https://example.com/",
+            "example": "wfuzz -c -z file,users.txt -b \"user=FUZZ\" --scan-mode https://example.com/",
+            "explanation": "Enables scan mode which ignores the standard payload iteration logic for specific plugin testing."
+        },
+        {
+            "id": 59,
+            "category": "Advanced Response Filtering",
+            "command": "wfuzz -c -z file,wordlist.txt --filter \"c=200 and l>10\" https://example.com/FUZZ",
+            "example": "wfuzz -c -z file,wordlist.txt --filter \"c=200 and l>10\" https://example.com/FUZZ",
+            "explanation": "Uses logic to show only responses with code 200 AND line count greater than 10."
+        },
+        {
+            "id": 60,
+            "category": "IP Range Fuzzing",
+            "command": "wfuzz -c -z ip,192.168.1.0-192.168.1.255 https://FUZZ/admin",
+            "example": "wfuzz -c -z ip,192.168.1.0-192.168.1.255 https://FUZZ/admin",
+            "explanation": "Generates IP addresses within the specified range to scan a local subnet."
+        }
+    ]
+}

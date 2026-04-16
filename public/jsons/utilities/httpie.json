@@ -1,0 +1,707 @@
+{
+    "tool": "httpie",
+    "description": "Complete HTTPie command and workflow reference from basic to advanced HTTP and API interactions",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic HTTP Request",
+            "command": "http https://api.example.com/health",
+            "example": "http https://api.example.com/health",
+            "explanation": "Sends a basic GET request to the specified URL using default settings."
+        },
+        {
+            "id": 2,
+            "category": "Basic HTTP Request",
+            "command": "http GET https://api.example.com/users",
+            "example": "http GET https://api.example.com/users",
+            "explanation": "Explicitly specifies the GET method for clarity when fetching resources."
+        },
+        {
+            "id": 3,
+            "category": "Basic HTTP Request",
+            "command": "http POST https://api.example.com/users name=\"John Doe\"",
+            "example": "http POST https://api.example.com/users name=\"John Doe\"",
+            "explanation": "Sends a POST request with a JSON body containing a string field."
+        },
+        {
+            "id": 4,
+            "category": "Basic HTTP Request",
+            "command": "http PUT https://api.example.com/users/1 active:=true",
+            "example": "http PUT https://api.example.com/users/1 active:=true",
+            "explanation": "Sends a PUT request using non-string JSON data types like booleans."
+        },
+        {
+            "id": 5,
+            "category": "Basic HTTP Request",
+            "command": "http DELETE https://api.example.com/users/1",
+            "example": "http DELETE https://api.example.com/users/1",
+            "explanation": "Sends a DELETE request to remove a resource."
+        },
+        {
+            "id": 6,
+            "category": "Basic HTTP Request",
+            "command": "http PATCH https://api.example.com/users/1 email=\"new@example.com\"",
+            "example": "http PATCH https://api.example.com/users/1 email=\"new@example.com\"",
+            "explanation": "Sends a PATCH request to partially update a resource."
+        },
+        {
+            "id": 7,
+            "category": "Basic HTTP Request",
+            "command": "http HEAD https://api.example.com/large-file.zip",
+            "example": "http HEAD https://api.example.com/large-file.zip",
+            "explanation": "Retrieves only the headers of a resource without downloading the body."
+        },
+        {
+            "id": 8,
+            "category": "Basic HTTP Request",
+            "command": "http OPTIONS https://api.example.com/users",
+            "example": "http OPTIONS https://api.example.com/users",
+            "explanation": "Queries the supported HTTP methods for a specific endpoint."
+        },
+        {
+            "id": 9,
+            "category": "URL Parameters",
+            "command": "http https://api.example.com/search q==httpie page==1",
+            "example": "http https://api.example.com/search q==httpie page==1",
+            "explanation": "Appends URL query parameters automatically using the double equals syntax."
+        },
+        {
+            "id": 10,
+            "category": "URL Parameters",
+            "command": "http https://api.example.com/filter tags==api tags==testing",
+            "example": "http https://api.example.com/filter tags==api tags==testing",
+            "explanation": "Sends multiple values for the same query parameter key."
+        },
+        {
+            "id": 11,
+            "category": "Data Submission (JSON)",
+            "command": "http POST https://api.example.com/orders id:=42 price:=19.99",
+            "example": "http POST https://api.example.com/orders id:=42 price:=19.99",
+            "explanation": "Constructs a JSON body with integer and float values using the colon-equals syntax."
+        },
+        {
+            "id": 12,
+            "category": "Data Submission (JSON)",
+            "command": "http POST https://api.example.com/config settings:='{\"theme\": \"dark\"}'",
+            "example": "http POST https://api.example.com/config settings:='{\"theme\": \"dark\"}'",
+            "explanation": "Embeds a raw JSON object inside a specific field of the request payload."
+        },
+        {
+            "id": 13,
+            "category": "Data Submission (JSON)",
+            "command": "http POST https://api.example.com/data items:='[1, 2, 3]'",
+            "example": "http POST https://api.example.com/data items:='[1, 2, 3]'",
+            "explanation": "Sends a JSON array within a specific field of the request body."
+        },
+        {
+            "id": 14,
+            "category": "Data Submission (Form)",
+            "command": "http -f POST https://api.example.com/login username=admin password=secret",
+            "example": "http -f POST https://api.example.com/login username=admin password=secret",
+            "explanation": "Submits data as 'application/x-www-form-urlencoded' instead of JSON."
+        },
+        {
+            "id": 15,
+            "category": "Headers",
+            "command": "http https://api.example.com/secure X-API-Key:123456",
+            "example": "http https://api.example.com/secure X-API-Key:123456",
+            "explanation": "Adds a custom HTTP header to the request using the colon syntax."
+        },
+        {
+            "id": 16,
+            "category": "Headers",
+            "command": "http https://api.example.com/mobile User-Agent:iOS/15.0",
+            "example": "http https://api.example.com/mobile User-Agent:iOS/15.0",
+            "explanation": "Overrides the default User-Agent header to simulate a different client."
+        },
+        {
+            "id": 17,
+            "category": "Headers",
+            "command": "http https://api.example.com/resource If-None-Match:\"etag_value\"",
+            "example": "http https://api.example.com/resource If-None-Match:\"etag_value\"",
+            "explanation": "Sends conditional headers to check for resource updates."
+        },
+        {
+            "id": 18,
+            "category": "Headers",
+            "command": "http https://api.example.com/protected Authorization:\"Bearer mytoken\"",
+            "example": "http https://api.example.com/protected Authorization:\"Bearer mytoken\"",
+            "explanation": "Manually sets the Authorization header for token-based access."
+        },
+        {
+            "id": 19,
+            "category": "Data Submission (Files)",
+            "command": "http POST https://api.example.com/upload @/path/to/data.json",
+            "example": "http POST https://api.example.com/upload @/path/to/data.json",
+            "explanation": "Uploads the contents of a file as the raw request body."
+        },
+        {
+            "id": 20,
+            "category": "Data Submission (Files)",
+            "command": "http -f POST https://api.example.com/upload profile_pic@/path/to/image.png",
+            "example": "http -f POST https://api.example.com/upload profile_pic@/path/to/image.png",
+            "explanation": "Uploads a file as a field in a Multipart-Encoded form."
+        },
+        {
+            "id": 21,
+            "category": "Authentication",
+            "command": "http -a user:password https://api.example.com/protected",
+            "example": "http -a user:password https://api.example.com/protected",
+            "explanation": "Performs Basic Authentication with the provided username and password."
+        },
+        {
+            "id": 22,
+            "category": "Authentication",
+            "command": "http -a user https://api.example.com/protected",
+            "example": "http -a user https://api.example.com/protected",
+            "explanation": "Prompts interactively for the password for Basic Authentication."
+        },
+        {
+            "id": 23,
+            "category": "Authentication",
+            "command": "http -A digest -a user:pass https://api.example.com/digest-auth",
+            "example": "http -A digest -a user:pass https://api.example.com/digest-auth",
+            "explanation": "Uses Digest Authentication instead of the default Basic Auth."
+        },
+        {
+            "id": 24,
+            "category": "Authentication",
+            "command": "http -A bearer -a 'token_string' https://api.example.com/api",
+            "example": "http -A bearer -a 'token_string' https://api.example.com/api",
+            "explanation": "Simplifies Bearer Token authentication syntax."
+        },
+        {
+            "id": 25,
+            "category": "Session Management",
+            "command": "http --session=logged-in -a user:pass https://api.example.com/login",
+            "example": "http --session=logged-in -a user:pass https://api.example.com/login",
+            "explanation": "Creates a named session that persists cookies and auth headers."
+        },
+        {
+            "id": 26,
+            "category": "Session Management",
+            "command": "http --session=logged-in https://api.example.com/dashboard",
+            "example": "http --session=logged-in https://api.example.com/dashboard",
+            "explanation": "Reuses an existing session to maintain state across requests."
+        },
+        {
+            "id": 27,
+            "category": "Session Management",
+            "command": "http --session-read-only=logged-in https://api.example.com/view",
+            "example": "http --session-read-only=logged-in https://api.example.com/view",
+            "explanation": "Uses a session's cookies but does not save any new cookies received."
+        },
+        {
+            "id": 28,
+            "category": "Output Control",
+            "command": "http -v https://api.example.com/debug",
+            "example": "http -v https://api.example.com/debug",
+            "explanation": "Prints the whole HTTP exchange (request and response) for debugging."
+        },
+        {
+            "id": 29,
+            "category": "Output Control",
+            "command": "http -h https://api.example.com/headers",
+            "example": "http -h https://api.example.com/headers",
+            "explanation": "Prints only the response headers, suppressing the body."
+        },
+        {
+            "id": 30,
+            "category": "Output Control",
+            "command": "http -b https://api.example.com/json",
+            "example": "http -b https://api.example.com/json",
+            "explanation": "Prints only the response body, suppressing the headers."
+        },
+        {
+            "id": 31,
+            "category": "Output Control",
+            "command": "http -p Hh https://api.example.com/trace",
+            "example": "http -p Hh https://api.example.com/trace",
+            "explanation": "Prints request headers (H) and response headers (h) only."
+        },
+        {
+            "id": 32,
+            "category": "Output Control",
+            "command": "http --style=solarized https://api.example.com/color",
+            "example": "http --style=solarized https://api.example.com/color",
+            "explanation": "Changes the syntax highlighting color scheme of the output."
+        },
+        {
+            "id": 33,
+            "category": "Output Control",
+            "command": "http --pretty=none https://api.example.com/raw",
+            "example": "http --pretty=none https://api.example.com/raw",
+            "explanation": "Disables all formatting and colors for raw output."
+        },
+        {
+            "id": 34,
+            "category": "Output Control",
+            "command": "http --pretty=format https://api.example.com/data",
+            "example": "http --pretty=format https://api.example.com/data",
+            "explanation": "Applies formatting to the JSON output but disables colors."
+        },
+        {
+            "id": 35,
+            "category": "Downloads",
+            "command": "http -d https://api.example.com/files/report.pdf",
+            "example": "http -d https://api.example.com/files/report.pdf",
+            "explanation": "Downloads the file and saves it with the filename from the Content-Disposition header."
+        },
+        {
+            "id": 36,
+            "category": "Downloads",
+            "command": "http -o my_report.pdf https://api.example.com/files/report.pdf",
+            "example": "http -o my_report.pdf https://api.example.com/files/report.pdf",
+            "explanation": "Downloads the file and saves it with a custom filename."
+        },
+        {
+            "id": 37,
+            "category": "Downloads",
+            "command": "http --download --output report.pdf https://api.example.com/report",
+            "example": "http --download --output report.pdf https://api.example.com/report",
+            "explanation": "Explicit long-form command to download a resource to a file."
+        },
+        {
+            "id": 38,
+            "category": "SSL & Security",
+            "command": "http --verify=no https://self-signed.local/admin",
+            "example": "http --verify=no https://self-signed.local/admin",
+            "explanation": "Skips SSL certificate verification (insecure) for testing self-signed certs."
+        },
+        {
+            "id": 39,
+            "category": "SSL & Security",
+            "command": "http --verify=/path/to/ca.pem https://internal.api.com",
+            "example": "http --verify=/path/to/ca.pem https://internal.api.com",
+            "explanation": "Verifies the SSL certificate using a custom CA bundle."
+        },
+        {
+            "id": 40,
+            "category": "SSL & Security",
+            "command": "http --cert=client.pem --cert-key=key.pem https://mtls.example.com",
+            "example": "http --cert=client.pem --cert-key=key.pem https://mtls.example.com",
+            "explanation": "Uses a client certificate and private key for Mutual TLS (mTLS) authentication."
+        },
+        {
+            "id": 41,
+            "category": "SSL & Security",
+            "command": "http --ssl=tls1.2 https://legacy.example.com",
+            "example": "http --ssl=tls1.2 https://legacy.example.com",
+            "explanation": "Forces a specific SSL/TLS version for the connection."
+        },
+        {
+            "id": 42,
+            "category": "Proxy Usage",
+            "command": "http --proxy=http:http://10.0.0.1:8080 https://api.example.com",
+            "example": "http --proxy=http:http://10.0.0.1:8080 https://api.example.com",
+            "explanation": "Routes HTTP traffic through a specific proxy server."
+        },
+        {
+            "id": 43,
+            "category": "Proxy Usage",
+            "command": "http --proxy=https:socks5://127.0.0.1:9050 https://onion.example.com",
+            "example": "http --proxy=https:socks5://127.0.0.1:9050 https://onion.example.com",
+            "explanation": "Routes HTTPS traffic through a SOCKS5 proxy."
+        },
+        {
+            "id": 44,
+            "category": "Proxy Usage",
+            "command": "http --proxy-auth=user:pass --proxy=http:10.0.0.1:8080 https://api.example.com",
+            "example": "http --proxy-auth=user:pass --proxy=http:10.0.0.1:8080 https://api.example.com",
+            "explanation": "Authenticates with the proxy server using Basic Auth."
+        },
+        {
+            "id": 45,
+            "category": "Networking",
+            "command": "http --timeout=5 https://slow.example.com",
+            "example": "http --timeout=5 https://slow.example.com",
+            "explanation": "Sets a connection and read timeout in seconds."
+        },
+        {
+            "id": 46,
+            "category": "Networking",
+            "command": "http --follow https://redirect.example.com",
+            "example": "http --follow https://redirect.example.com",
+            "explanation": "Automatically follows 30x redirects."
+        },
+        {
+            "id": 47,
+            "category": "Networking",
+            "command": "http --max-redirects=3 --follow https://loop.example.com",
+            "example": "http --max-redirects=3 --follow https://loop.example.com",
+            "explanation": "Limits the number of redirects followed to prevent infinite loops."
+        },
+        {
+            "id": 48,
+            "category": "Networking",
+            "command": "http --ipv4 https://api.example.com",
+            "example": "http --ipv4 https://api.example.com",
+            "explanation": "Forces the connection to use IPv4 only."
+        },
+        {
+            "id": 49,
+            "category": "Networking",
+            "command": "http --ipv6 https://api.example.com",
+            "example": "http --ipv6 https://api.example.com",
+            "explanation": "Forces the connection to use IPv6 only."
+        },
+        {
+            "id": 50,
+            "category": "Advanced Workflow",
+            "command": "http --chunked POST https://api.example.com/stream @large_file.txt",
+            "example": "http --chunked POST https://api.example.com/stream @large_file.txt",
+            "explanation": "Forces chunked transfer encoding for uploading large files."
+        },
+        {
+            "id": 51,
+            "category": "Offline & Debug",
+            "command": "http --offline https://api.example.com/test",
+            "example": "http --offline https://api.example.com/test",
+            "explanation": "Prints the request that would be sent without actually sending it."
+        },
+        {
+            "id": 52,
+            "category": "Offline & Debug",
+            "command": "http --debug https://api.example.com",
+            "example": "http --debug https://api.example.com",
+            "explanation": "Prints detailed exception tracebacks for troubleshooting HTTPie errors."
+        },
+        {
+            "id": 53,
+            "category": "Scripting & Automation",
+            "command": "http --check-status https://api.example.com/health",
+            "example": "http --check-status https://api.example.com/health",
+            "explanation": "Exits with an error code if the HTTP status is not 2xx, useful for scripts."
+        },
+        {
+            "id": 54,
+            "category": "Scripting & Automation",
+            "command": "http --ignore-stdin https://api.example.com/test",
+            "example": "http --ignore-stdin https://api.example.com/test",
+            "explanation": "Prevents HTTPie from reading data piped to stdin."
+        },
+        {
+            "id": 55,
+            "category": "Scripting & Automation",
+            "command": "echo '{\"foo\": \"bar\"}' | http POST https://api.example.com/pipe",
+            "example": "echo '{\"foo\": \"bar\"}' | http POST https://api.example.com/pipe",
+            "explanation": "Pipes JSON from the shell directly into the request body."
+        },
+        {
+            "id": 56,
+            "category": "Red Team / Testing",
+            "command": "http POST https://api.example.com/login username=' admin'--'",
+            "example": "http POST https://api.example.com/login username=' admin'--'",
+            "explanation": "Injects SQL payloads into JSON fields for vulnerability testing."
+        },
+        {
+            "id": 57,
+            "category": "Red Team / Testing",
+            "command": "http https://api.example.com/admin Cookie:session_id=admin_cookie",
+            "example": "http https://api.example.com/admin Cookie:session_id=admin_cookie",
+            "explanation": "Manually injects a session cookie to test session hijacking scenarios."
+        },
+        {
+            "id": 58,
+            "category": "Red Team / Testing",
+            "command": "http -v PUT https://api.example.com/profile Host:internal-admin.local",
+            "example": "http -v PUT https://api.example.com/profile Host:internal-admin.local",
+            "explanation": "Spoofs the Host header to test for Host Header Injection vulnerabilities."
+        },
+        {
+            "id": 59,
+            "category": "Red Team / Testing",
+            "command": "http DELETE https://api.example.com/users/1 X-HTTP-Method-Override:PUT",
+            "example": "http DELETE https://api.example.com/users/1 X-HTTP-Method-Override:PUT",
+            "explanation": "Tests for HTTP method override vulnerabilities in APIs."
+        },
+        {
+            "id": 60,
+            "category": "Blue Team / Validation",
+            "command": "http --print=h https://api.example.com | grep 'Strict-Transport-Security'",
+            "example": "http --print=h https://api.example.com | grep 'Strict-Transport-Security'",
+            "explanation": "Validates the presence of security headers in the response."
+        },
+        {
+            "id": 61,
+            "category": "Blue Team / Validation",
+            "command": "http --max-headers=1024 https://api.example.com",
+            "example": "http --max-headers=1024 https://api.example.com",
+            "explanation": "Adjusts the maximum allowed header size to test boundary conditions."
+        },
+        {
+            "id": 62,
+            "category": "Incident Response",
+            "command": "http -v --all https://api.example.com/suspicious-endpoint",
+            "example": "http -v --all https://api.example.com/suspicious-endpoint",
+            "explanation": "Captures the entire redirect chain and all headers for forensic analysis."
+        },
+        {
+            "id": 63,
+            "category": "Advanced Workflow",
+            "command": "http -f POST https://api.example.com/search query='test' filters:='{\"active\":true}'",
+            "example": "http -f POST https://api.example.com/search query='test' filters:='{\"active\":true}'",
+            "explanation": "Mixes form fields and JSON strings in a single form-encoded request."
+        },
+        {
+            "id": 64,
+            "category": "Advanced Workflow",
+            "command": "cat config.json | http POST https://api.example.com/setup env==production",
+            "example": "cat config.json | http POST https://api.example.com/setup env==production",
+            "explanation": "Uploads a file via piping while simultaneously adding URL query parameters."
+        },
+        {
+            "id": 65,
+            "category": "Advanced Workflow",
+            "command": "http --compress POST https://api.example.com/logs @large_log.txt",
+            "example": "http --compress POST https://api.example.com/logs @large_log.txt",
+            "explanation": "Compresses the request body using gzip before sending."
+        },
+        {
+            "id": 66,
+            "category": "API Testing",
+            "command": "http https://api.example.com/users | http POST https://api.backup.com/users",
+            "example": "http https://api.example.com/users | http POST https://api.backup.com/users",
+            "explanation": "Downloads data from one API and immediately pipes it as a POST body to another."
+        },
+        {
+            "id": 67,
+            "category": "API Testing",
+            "command": "http --session=test https://api.example.com/token && http --session=test https://api.example.com/data",
+            "example": "http --session=test https://api.example.com/token && http --session=test https://api.example.com/data",
+            "explanation": "Chains commands in shell using the same session for sequential testing."
+        },
+        {
+            "id": 68,
+            "category": "Output Control",
+            "command": "http --print=b --pretty=format https://api.example.com/data > output.json",
+            "example": "http --print=b --pretty=format https://api.example.com/data > output.json",
+            "explanation": "Saves only the formatted response body to a file for later inspection."
+        },
+        {
+            "id": 69,
+            "category": "Configuration",
+            "command": "http --default-scheme=https example.com",
+            "example": "http --default-scheme=https example.com",
+            "explanation": "Sets the default protocol scheme to HTTPS for the request."
+        },
+        {
+            "id": 70,
+            "category": "Advanced Auth",
+            "command": "http --auth-type=digest -a user:pass POST https://api.example.com/upload @file.bin",
+            "example": "http --auth-type=digest -a user:pass POST https://api.example.com/upload @file.bin",
+            "explanation": "Combines Digest Auth with binary file uploading."
+        },
+        {
+            "id": 71,
+            "category": "Data Submission (JSON)",
+            "command": "http POST https://api.example.com/users null:=null empty:=\"\"",
+            "example": "http POST https://api.example.com/users null:=null empty:=\"\"",
+            "explanation": "Sends explicit null values and empty strings in a JSON payload."
+        },
+        {
+            "id": 72,
+            "category": "Data Submission (JSON)",
+            "command": "http POST https://api.example.com/math pi:=3.14159",
+            "example": "http POST https://api.example.com/math pi:=3.14159",
+            "explanation": "Sends floating point numbers directly in the JSON body."
+        },
+        {
+            "id": 73,
+            "category": "Advanced Workflow",
+            "command": "http --quiet POST https://api.example.com/ping",
+            "example": "http --quiet POST https://api.example.com/ping",
+            "explanation": "Suppresses all output entirely, useful for silent heartbeat scripts."
+        },
+        {
+            "id": 74,
+            "category": "Headers",
+            "command": "http https://api.example.com header-with-empty-value:",
+            "example": "http https://api.example.com header-with-empty-value:",
+            "explanation": "Sends a header with an empty value."
+        },
+        {
+            "id": 75,
+            "category": "Headers",
+            "command": "http https://api.example.com header-to-remove:",
+            "example": "http https://api.example.com header-to-remove:",
+            "explanation": "Removes a default header (like Accept-Encoding) by setting it to empty."
+        },
+        {
+            "id": 76,
+            "category": "Output Control",
+            "command": "http --print=HB https://api.example.com",
+            "example": "http --print=HB https://api.example.com",
+            "explanation": "Prints the request headers (H) and request body (B) only."
+        },
+        {
+            "id": 77,
+            "category": "Scripting & Automation",
+            "command": "http --timeout=0.1 https://local.test",
+            "example": "http --timeout=0.1 https://local.test",
+            "explanation": "Sets a very short timeout to test latency handling."
+        },
+        {
+            "id": 78,
+            "category": "Red Team / Testing",
+            "command": "http POST https://api.example.com/xml Content-Type:application/xml @payload.xml",
+            "example": "http POST https://api.example.com/xml Content-Type:application/xml @payload.xml",
+            "explanation": "Manually sets Content-Type to send XXE payloads via raw XML files."
+        },
+        {
+            "id": 79,
+            "category": "Session Management",
+            "command": "http --session=secure_user --ssl=tls1.3 https://api.example.com/profile",
+            "example": "http --session=secure_user --ssl=tls1.3 https://api.example.com/profile",
+            "explanation": "Saves a session that forces TLS 1.3 for future requests."
+        },
+        {
+            "id": 80,
+            "category": "Red Team / Testing",
+            "command": "http POST https://api.example.com/login 'username=admin'' OR ''1''=''1'",
+            "example": "http POST https://api.example.com/login 'username=admin'' OR ''1''=''1'",
+            "explanation": "Tests SQL injection vulnerabilities using form fields."
+        },
+        {
+            "id": 81,
+            "category": "Data Submission (JSON)",
+            "command": "http POST https://api.example.com/array list:='[{\"id\":1}, {\"id\":2}]'",
+            "example": "http POST https://api.example.com/array list:='[{\"id\":1}, {\"id\":2}]'",
+            "explanation": "Sends a list of objects within a JSON field."
+        },
+        {
+            "id": 82,
+            "category": "Proxy Usage",
+            "command": "http --proxy=http:http://user:pass@10.10.1.1:8080 https://api.example.com",
+            "example": "http --proxy=http:http://user:pass@10.10.1.1:8080 https://api.example.com",
+            "explanation": "Inline proxy authentication syntax within the proxy URL."
+        },
+        {
+            "id": 83,
+            "category": "Output Control",
+            "command": "http --stream https://api.example.com/events",
+            "example": "http --stream https://api.example.com/events",
+            "explanation": "Streams the response output line-by-line, ideal for Server-Sent Events (SSE)."
+        },
+        {
+            "id": 84,
+            "category": "Downloads",
+            "command": "http -d -o archive.zip https://api.example.com/generate-zip",
+            "example": "http -d -o archive.zip https://api.example.com/generate-zip",
+            "explanation": "Combines download flag with output filename for clear intent."
+        },
+        {
+            "id": 85,
+            "category": "Red Team / Testing",
+            "command": "http GET https://api.example.com/admin 'X-Original-URL:/admin'",
+            "example": "http GET https://api.example.com/admin 'X-Original-URL:/admin'",
+            "explanation": "Tests for access control bypass using framework-specific override headers."
+        },
+        {
+            "id": 86,
+            "category": "Advanced Workflow",
+            "command": "http --session=temp https://api.example.com/1 && http --session=temp https://api.example.com/2",
+            "example": "http --session=temp https://api.example.com/1 && http --session=temp https://api.example.com/2",
+            "explanation": "Uses a temporary named session for a quick multi-step workflow."
+        },
+        {
+            "id": 87,
+            "category": "Blue Team / Validation",
+            "command": "http HEAD https://api.example.com | grep -i \"server\"",
+            "example": "http HEAD https://api.example.com | grep -i \"server\"",
+            "explanation": "Inspects the Server header to identify backend technology."
+        },
+        {
+            "id": 88,
+            "category": "Scripting & Automation",
+            "command": "http --check-status --ignore-stdin GET https://healthcheck.local",
+            "example": "http --check-status --ignore-stdin GET https://healthcheck.local",
+            "explanation": "Robust health check command for cron jobs."
+        },
+        {
+            "id": 89,
+            "category": "Data Submission (Files)",
+            "command": "http --form POST https://api.example.com/upload file@/dev/null",
+            "example": "http --form POST https://api.example.com/upload file@/dev/null",
+            "explanation": "Simulates a file upload with an empty file."
+        },
+        {
+            "id": 90,
+            "category": "Output Control",
+            "command": "http --style=monokai https://api.example.com/code",
+            "example": "http --style=monokai https://api.example.com/code",
+            "explanation": "Uses the Monokai color scheme for better visibility of code responses."
+        },
+        {
+            "id": 91,
+            "category": "Networking",
+            "command": "http --max-redirects=0 https://api.example.com/redirect",
+            "example": "http --max-redirects=0 https://api.example.com/redirect",
+            "explanation": "Prevents following any redirects to inspect the 3xx response directly."
+        },
+        {
+            "id": 92,
+            "category": "Advanced Auth",
+            "command": "http -a user:pass --auth-type=basic https://api.example.com",
+            "example": "http -a user:pass --auth-type=basic https://api.example.com",
+            "explanation": "Explicitly sets auth type to Basic (redundant but explicit for scripts)."
+        },
+        {
+            "id": 93,
+            "category": "Data Submission (JSON)",
+            "command": "http POST https://api.example.com/hook payload:='{\"a\": [1,2], \"b\": {\"c\": 3}}'",
+            "example": "http POST https://api.example.com/hook payload:='{\"a\": [1,2], \"b\": {\"c\": 3}}'",
+            "explanation": "Sends complex nested JSON structures in a single command."
+        },
+        {
+            "id": 94,
+            "category": "API Testing",
+            "command": "http PUT https://api.example.com/items/1 updated_at:=`date +%s`",
+            "example": "http PUT https://api.example.com/items/1 updated_at:=`date +%s`",
+            "explanation": "Uses shell command substitution to send a current timestamp."
+        },
+        {
+            "id": 95,
+            "category": "Red Team / Testing",
+            "command": "http -v OPTIONS https://api.example.com",
+            "example": "http -v OPTIONS https://api.example.com",
+            "explanation": "Checks for CORS misconfigurations and allowed methods verbally."
+        },
+        {
+            "id": 96,
+            "category": "Blue Team / Validation",
+            "command": "http --verify=no HEAD https://expired.example.com",
+            "example": "http --verify=no HEAD https://expired.example.com",
+            "explanation": "Checks connectivity to a host with an expired certificate without failing."
+        },
+        {
+            "id": 97,
+            "category": "Advanced Workflow",
+            "command": "http --print=b https://api.example.com/ip | http POST https://api.tracker.com/log ip=@-",
+            "example": "http --print=b https://api.example.com/ip | http POST https://api.tracker.com/log ip=@-",
+            "explanation": "Pipes the body of one response into a field of the next request."
+        },
+        {
+            "id": 98,
+            "category": "Output Control",
+            "command": "http --pretty=all --style=fruity https://api.example.com",
+            "example": "http --pretty=all --style=fruity https://api.example.com",
+            "explanation": "Maximizes readability with pretty printing and a vibrant color style."
+        },
+        {
+            "id": 99,
+            "category": "Scripting & Automation",
+            "command": "http --check-status --timeout=2 HEAD https://critical.service.local",
+            "example": "http --check-status --timeout=2 HEAD https://critical.service.local",
+            "explanation": "A fast, strict availability check for monitoring systems."
+        },
+        {
+            "id": 100,
+            "category": "Cleanup",
+            "command": "http --session=logged-in DELETE https://api.example.com/logout",
+            "example": "http --session=logged-in DELETE https://api.example.com/logout",
+            "explanation": "Uses the session to call the logout endpoint before discarding the session file."
+        }
+    ]
+}

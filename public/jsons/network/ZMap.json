@@ -1,0 +1,511 @@
+{
+  "tool": "zmap",
+  "description": "Complete ZMap command reference covering all options from basic to advanced",
+  "total_commands": 72,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Scan",
+      "command": "zmap -p 80 192.168.1.0/24",
+      "example": "zmap -p 80 192.168.1.0/24",
+      "explanation": "Scans a specific CIDR block for open TCP port 80.\nZMap's unique architecture scans such ranges in seconds."
+    },
+    {
+      "id": 2,
+      "category": "Basic Scan",
+      "command": "zmap -p 443 10.0.0.0/8",
+      "example": "zmap -p 443 10.0.0.0/8",
+      "explanation": "Scans a large private network range (Class A) for HTTPS.\nIdeal for large-scale internal audits or discovery."
+    },
+    {
+      "id": 3,
+      "category": "Basic Scan",
+      "command": "zmap -p 80 0.0.0.0/0",
+      "example": "zmap -p 80 0.0.0.0/0",
+      "explanation": "Initiates a scan of the entire IPv4 Internet for port 80.\nZMap's primary use case; capable of scanning the whole internet in under 45 minutes."
+    },
+    {
+      "id": 4,
+      "category": "Scan Rate and Bandwidth Control",
+      "command": "zmap -p 80 -r 1000 192.168.1.0/24",
+      "example": "zmap -p 80 -r 1000 192.168.1.0/24",
+      "explanation": "Limits the scan rate to 1000 packets per second.\nCrucial for being a good network citizen and not flooding upstream providers."
+    },
+    {
+      "id": 5,
+      "category": "Scan Rate and Bandwidth Control",
+      "command": "zmap -p 80 -B 10M 0.0.0.0/0",
+      "example": "zmap -p 80 -B 10M 0.0.0.0/0",
+      "explanation": "Limits the scan bandwidth usage to 10 Mbps.\nEnsures the scan adds only a negligible load to the network connection."
+    },
+    {
+      "id": 6,
+      "category": "Scan Rate and Bandwidth Control",
+      "command": "zmap -p 80 -B 1G 0.0.0.0/0",
+      "example": "zmap -p 80 -B 1G 0.0.0.0/0",
+      "explanation": "Sets the bandwidth limit to 1 Gbps.\nDesigned for high-speed datacenter connections to maximize scan throughput."
+    },
+    {
+      "id": 7,
+      "category": "Scan Rate and Bandwidth Control",
+      "command": "zmap -p 80 --max-runtime=300 0.0.0.0/0",
+      "example": "zmap -p 80 --max-runtime=300 0.0.0.0/0",
+      "explanation": "Forces the scan to abort after 5 minutes.\nUseful for time-boxed experiments or ensuring scans don't run indefinitely."
+    },
+    {
+      "id": 8,
+      "category": "Scan Rate and Bandwidth Control",
+      "command": "zmap -p 80 --max-results=1000 0.0.0.0/0",
+      "example": "zmap -p 80 --max-results=1000 0.0.0.0/0",
+      "explanation": "Stops the scan once 1000 open ports are found.\nGreat for sampling the network or verifying if a vulnerability exists widely."
+    },
+    {
+      "id": 9,
+      "category": "Network Interface Configuration",
+      "command": "zmap -p 80 -i eth0 192.168.1.0/24",
+      "example": "zmap -p 80 -i eth0 192.168.1.0/24",
+      "explanation": "Specifies the network interface for the scan.\nRequired when multiple interfaces exist or when ignoring the default route."
+    },
+    {
+      "id": 10,
+      "category": "Source IP, MAC, and Gateway Configuration",
+      "command": "zmap -p 80 -S 1.2.3.4 0.0.0.0/0",
+      "example": "zmap -p 80 -S 1.2.3.4 0.0.0.0/0",
+      "explanation": "Spoofs the source IP address of the scan packets.\nAdvanced usage for testing firewall rules or response routing."
+    },
+    {
+      "id": 11,
+      "category": "Source IP, MAC, and Gateway Configuration",
+      "command": "zmap -p 80 -G 00:11:22:33:44:55 0.0.0.0/0",
+      "example": "zmap -p 80 -G 00:11:22:33:44:55 0.0.0.0/0",
+      "explanation": "Specify a custom gateway MAC address.\nBypasses ARP lookup, useful for scanning on strange network topologies."
+    },
+    {
+      "id": 12,
+      "category": "Source IP, MAC, and Gateway Configuration",
+      "command": "zmap -p 80 --source-port=12345-12350 0.0.0.0/0",
+      "example": "zmap -p 80 --source-port=12345-12350 0.0.0.0/0",
+      "explanation": "Restricts the source port range for outgoing packets.\nUseful if firewalls only permit traffic from specific source ports."
+    },
+    {
+      "id": 13,
+      "category": "Probe Modules",
+      "command": "zmap -M icmp_echoscan 192.168.1.0/24",
+      "example": "zmap -M icmp_echoscan 192.168.1.0/24",
+      "explanation": "Uses ICMP Echo Requests (Ping) instead of TCP.\nMaps active hosts regardless of open ports."
+    },
+    {
+      "id": 14,
+      "category": "Probe Modules",
+      "command": "zmap -M udp 192.168.1.0/24",
+      "example": "zmap -M udp 192.168.1.0/24",
+      "explanation": "Uses UDP probes for identifying UDP services.\nConnectionless scanning requires specific payloads for best results."
+    },
+    {
+      "id": 15,
+      "category": "Probe Modules",
+      "command": "zmap -M tcp_synscan -p 443 0.0.0.0/0",
+      "example": "zmap -M tcp_synscan -p 443 0.0.0.0/0",
+      "explanation": "Explicitly selects the TCP SYN scan module.\nThis is the default and most efficient method for finding open TCP ports."
+    },
+    {
+      "id": 16,
+      "category": "Probe Modules",
+      "command": "zmap -M udp --probe-args=text:hello 192.168.1.0/24",
+      "example": "zmap -M udp --probe-args=text:hello 192.168.1.0/24",
+      "explanation": "Sends UDP packets with an ASCII 'hello' payload.\nSome simple UDP services will respond to any data."
+    },
+    {
+      "id": 17,
+      "category": "Probe Modules",
+      "command": "zmap -M udp --probe-args=file:payload.pkt 192.168.1.0/24",
+      "example": "zmap -M udp --probe-args=file:payload.pkt 192.168.1.0/24",
+      "explanation": "Sends a custom binary payload from a file.\nEssential for scanning complex UDP protocols like DNS or NTP."
+    },
+    {
+      "id": 18,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 -o results.csv 0.0.0.0/0",
+      "example": "zmap -p 80 -o results.csv 0.0.0.0/0",
+      "explanation": "Saves scan results to a CSV file.\nStandard format for easy import into spreadsheets or databases."
+    },
+    {
+      "id": 19,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 -o - 0.0.0.0/0",
+      "example": "zmap -p 80 -o - 0.0.0.0/0",
+      "explanation": "Prints results to standard output.\nAllows piping results directly into other tools for real-time processing."
+    },
+    {
+      "id": 20,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 --output-module=csv 0.0.0.0/0",
+      "example": "zmap -p 80 --output-module=csv 0.0.0.0/0",
+      "explanation": "Formats the output as Comma-Separated Values.\nThe default and most compact text format for ZMap results."
+    },
+    {
+      "id": 21,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 --output-module=json 0.0.0.0/0",
+      "example": "zmap -p 80 --output-module=json 0.0.0.0/0",
+      "explanation": "Formats output as JSON objects.\nIdeal for programmatic ingestion by log collectors like Elasticsearch."
+    },
+    {
+      "id": 22,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 -f saddr,daddr,sport,dport 0.0.0.0/0",
+      "example": "zmap -p 80 -f saddr,daddr,sport,dport 0.0.0.0/0",
+      "explanation": "Customizes which fields to include in the output.\nAdds source/dest IP and ports for detailed connection tracking."
+    },
+    {
+      "id": 23,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 -f saddr,timestamp_str,cooldown 0.0.0.0/0",
+      "example": "zmap -p 80 -f saddr,timestamp_str,cooldown 0.0.0.0/0",
+      "explanation": "Includes timestamp and cooldown info in results.\nUseful for analyzing scan timing and network response latency."
+    },
+    {
+      "id": 24,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 --output-filter=\"success = 1\" 0.0.0.0/0",
+      "example": "zmap -p 80 --output-filter=\"success = 1\" 0.0.0.0/0",
+      "explanation": "Records only successful responses (open ports).\nReduces log size by ignoring failure states."
+    },
+    {
+      "id": 25,
+      "category": "Allowlist and Blocklist Usage",
+      "command": "zmap -p 80 -w targets.txt",
+      "example": "zmap -p 80 -w targets.txt",
+      "explanation": "Limits the scan to IP ranges in the whitelist file.\nEnsures you only scan authorized targets."
+    },
+    {
+      "id": 26,
+      "category": "Allowlist and Blocklist Usage",
+      "command": "zmap -p 80 -b blacklist.conf 0.0.0.0/0",
+      "example": "zmap -p 80 -b blacklist.conf 0.0.0.0/0",
+      "explanation": "Excludes specific subnets in the blacklist file.\nCritical for avoiding sensitive networks like military or government ranges."
+    },
+    {
+      "id": 27,
+      "category": "Allowlist and Blocklist Usage",
+      "command": "zmap -p 80 --whitelist-file=targets.txt",
+      "example": "zmap -p 80 --whitelist-file=targets.txt",
+      "explanation": "Specifies the whitelist file using the long flag.\nRestricts scanning effectively to a predefined valid scope."
+    },
+    {
+      "id": 28,
+      "category": "Allowlist and Blocklist Usage",
+      "command": "zmap -p 80 --blacklist-file=blacklist.conf 0.0.0.0/0",
+      "example": "zmap -p 80 --blacklist-file=blacklist.conf 0.0.0.0/0",
+      "explanation": "Specifies the blacklist file using the long flag.\nA mandatory best practice for internet-wide scanning."
+    },
+    {
+      "id": 29,
+      "category": "Scan Duration and Cooldown Control",
+      "command": "zmap -p 80 --cooldown-time=10 0.0.0.0/0",
+      "example": "zmap -p 80 --cooldown-time=10 0.0.0.0/0",
+      "explanation": "Waits 10 seconds after scanning to catch stragglers.\nEnsures late responses from slow links are still recorded."
+    },
+    {
+      "id": 30,
+      "category": "Sharding and Distributed Scanning",
+      "command": "zmap -p 80 --shards=10 --shard=0 0.0.0.0/0",
+      "example": "zmap -p 80 --shards=10 --shard=0 0.0.0.0/0",
+      "explanation": "Runs shard 0 of a 10-shard scan.\nEnables distributed scanning across multiple machines to speed up the job."
+    },
+    {
+      "id": 31,
+      "category": "Sharding and Distributed Scanning",
+      "command": "zmap -p 80 --shards=4 --shard=3 0.0.0.0/0",
+      "example": "zmap -p 80 --shards=4 --shard=3 0.0.0.0/0",
+      "explanation": "Executes shard 3 of a 4-shard scan.\nPart of a coordinated distributed scan strategy."
+    },
+    {
+      "id": 32,
+      "category": "Seed and Randomization Control",
+      "command": "zmap -p 80 --seed=12345 0.0.0.0/0",
+      "example": "zmap -p 80 --seed=12345 0.0.0.0/0",
+      "explanation": "Sets the random seed for address generation.\nEnsures scan reproducibility by determining the exact scan order."
+    },
+    {
+      "id": 33,
+      "category": "Retry and Failure Handling",
+      "command": "zmap -p 80 --probes=3 0.0.0.0/0",
+      "example": "zmap -p 80 --probes=3 0.0.0.0/0",
+      "explanation": "Sends 3 probes per IP to increase reliability.\nHelps overcome random packet loss on the internet."
+    },
+    {
+      "id": 34,
+      "category": "Logging and Verbosity",
+      "command": "zmap -p 80 -q 0.0.0.0/0",
+      "example": "zmap -p 80 -q 0.0.0.0/0",
+      "explanation": "Runs in quiet mode, suppressing status updates.\nUseful when running in scripts or background jobs."
+    },
+    {
+      "id": 35,
+      "category": "Logging and Verbosity",
+      "command": "zmap -p 80 -v 5 0.0.0.0/0",
+      "example": "zmap -p 80 -v 5 0.0.0.0/0",
+      "explanation": "Sets verbosity to debug level.\nMaximum detail for troubleshooting internal ZMap errors."
+    },
+    {
+      "id": 36,
+      "category": "Logging and Verbosity",
+      "command": "zmap -p 80 --log-file=zmap.log 0.0.0.0/0",
+      "example": "zmap -p 80 --log-file=zmap.log 0.0.0.0/0",
+      "explanation": "Redirects log output to a file.\nKeeps standard error clean and persists logs for audit."
+    },
+    {
+      "id": 37,
+      "category": "Logging and Verbosity",
+      "command": "zmap -p 80 --status-updates-file=status.txt 0.0.0.0/0",
+      "example": "zmap -p 80 --status-updates-file=status.txt 0.0.0.0/0",
+      "explanation": "Writes status updates to a file.\nAllows monitoring of scan progress by reading a file."
+    },
+    {
+      "id": 38,
+      "category": "Logging and Verbosity",
+      "command": "zmap -p 80 --disable-syslog 0.0.0.0/0",
+      "example": "zmap -p 80 --disable-syslog 0.0.0.0/0",
+      "explanation": "Disables syslog logging.\nPrevents ZMap from flooding the local system logs with scan messages."
+    },
+    {
+      "id": 39,
+      "category": "Metadata and Result Enrichment",
+      "command": "zmap -p 80 --metadata-file=meta.json 0.0.0.0/0",
+      "example": "zmap -p 80 --metadata-file=meta.json 0.0.0.0/0",
+      "explanation": "Saves scan configuration metadata to a file.\nImportant for record-keeping and reproducing the scan later."
+    },
+    {
+      "id": 40,
+      "category": "Metadata and Result Enrichment",
+      "command": "zmap -p 80 --user-metadata=\"project:research\" 0.0.0.0/0",
+      "example": "zmap -p 80 --user-metadata=\"project:research\" 0.0.0.0/0",
+      "explanation": "Injects custom metadata fields into the output.\nuseful for tagging results with a project name or scan ID."
+    },
+    {
+      "id": 41,
+      "category": "Configuration File Usage",
+      "command": "zmap --config=my_scan.conf",
+      "example": "zmap --config=my_scan.conf",
+      "explanation": "Loads configuration from a specific file.\nAllows managing complex scan setups via config files instead of flags."
+    },
+    {
+      "id": 42,
+      "category": "Configuration File Usage",
+      "command": "zmap -C /etc/zmap/zmap.conf",
+      "example": "zmap -C /etc/zmap/zmap.conf",
+      "explanation": "Alternate flag for specifying config file.\nPoints ZMap to a configuration file for default settings."
+    },
+    {
+      "id": 43,
+      "category": "Dry Run and Testing Modes",
+      "command": "zmap -p 80 --dryrun 0.0.0.0/0",
+      "example": "zmap -p 80 --dryrun 0.0.0.0/0",
+      "explanation": "Simulates the scan without sending packets.\nVerifies command syntax and resource availability safely."
+    },
+    {
+      "id": 44,
+      "category": "Dry Run and Testing Modes",
+      "command": "zmap -p 80 --dryrun --max-results=10 0.0.0.0/0",
+      "example": "zmap -p 80 --dryrun --max-results=10 0.0.0.0/0",
+      "explanation": "Performs a limited 10-packet dry run.\nUseful for checking output formatting before a full scan."
+    },
+    {
+      "id": 45,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 80 -B 50M -o - | ztee results.csv",
+      "example": "zmap -p 80 -B 50M -o - | ztee results.csv",
+      "explanation": "Pipes results to 'ztee' for splitting output.\nSaves results to a file while also piping them to another tool."
+    },
+    {
+      "id": 46,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 80 -N 1000 -B 10M -o results.txt 0.0.0.0/0",
+      "example": "zmap -p 80 -N 1000 -B 10M -o results.txt 0.0.0.0/0",
+      "explanation": "Sampling scan for 1000 random hosts at 10M bandwidth.\nEfficient way to get a statistical snapshot of the internet."
+    },
+    {
+      "id": 47,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 443 -f saddr,sport,seq,ack,window -o extended_results.csv 0.0.0.0/0",
+      "example": "zmap -p 443 -f saddr,sport,seq,ack,window -o extended_results.csv 0.0.0.0/0",
+      "explanation": "Captures detailed TCP header fields.\nUsed for fingerprinting operating systems or analyzing network stack behaviors."
+    },
+    {
+      "id": 48,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 123 -M udp --probe-args=file:ntp_monlist.pkt -o ntp_open.txt 0.0.0.0/0",
+      "example": "zmap -p 123 -M udp --probe-args=file:ntp_monlist.pkt -o ntp_open.txt 0.0.0.0/0",
+      "explanation": "Scans for open NTP servers using a probe file.\nIdentifies NTP servers that may be vulnerable to amplification attacks."
+    },
+    {
+      "id": 49,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 80 --list-output-modules",
+      "example": "zmap -p 80 --list-output-modules",
+      "explanation": "Lists all available output modules.\nHelps you discover what output formats (csv, json, redis) are installed."
+    },
+    {
+      "id": 50,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 80 --list-probe-modules",
+      "example": "zmap -p 80 --list-probe-modules",
+      "explanation": "Lists all available probe modules.\nShows which scan types (TCP SYN, UDP, ICMP, etc.) are supported."
+    },
+    {
+      "id": 51,
+      "category": "Research Safe Internet Wide Scanning",
+      "command": "zmap -p 80 -b /etc/zmap/blacklist.conf -w my_scope.txt",
+      "example": "zmap -p 80 -b /etc/zmap/blacklist.conf -w my_scope.txt",
+      "explanation": "Combines a safety blacklist with a target whitelist.\nEnsures strict adherence to scope for research or authorized scanning."
+    },
+    {
+      "id": 52,
+      "category": "Research Safe Internet Wide Scanning",
+      "command": "zmap -p 80 -r 5000 --max-results=50000 0.0.0.0/0",
+      "example": "zmap -p 80 -r 5000 --max-results=50000 0.0.0.0/0",
+      "explanation": "Performs a large sampling scan.\nScans randomly until 50,000 results are found, then stops."
+    },
+    {
+      "id": 53,
+      "category": "Research Safe Internet Wide Scanning",
+      "command": "zmap -p 80 --notes=\"Authorized Scan ID 101\" 0.0.0.0/0",
+      "example": "zmap -p 80 --notes=\"Authorized Scan ID 101\" 0.0.0.0/0",
+      "explanation": "Embeds a contact note in scan metadata.\nGood practice for internet-wide scans to allow abuse reporting."
+    },
+    {
+      "id": 54,
+      "category": "Defensive and Blue Team Use Cases",
+      "command": "zmap -p 3389 -w internal_subnets.txt -o rdp_exposure.csv",
+      "example": "zmap -p 3389 -w internal_subnets.txt -o rdp_exposure.csv",
+      "explanation": "Rapidly checks internal subnets for exposed RDP.\nCritical for securing internal networks against ransomware vectors."
+    },
+    {
+      "id": 55,
+      "category": "Defensive and Blue Team Use Cases",
+      "command": "zmap -M icmp_echoscan -w critical_assets.txt -r 100",
+      "example": "zmap -M icmp_echoscan -w critical_assets.txt -r 100",
+      "explanation": "Monitors uptime of assets using ICMP.\nUses ZMap's speed for high-frequency availability checks."
+    },
+    {
+      "id": 56,
+      "category": "IPv6 Scanning (if supported by module)",
+      "command": "zmap -M ipv6_tcp_synscan -p 80 2001:db8::/32",
+      "example": "zmap -M ipv6_tcp_synscan -p 80 2001:db8::/32",
+      "explanation": "Initiates an IPv6 TCP SYN scan.\nTargets IPv6 addresses (requires ZMap to be built with IPv6 support)."
+    },
+    {
+      "id": 57,
+      "category": "High Speed Measurement Scenarios",
+      "command": "zmap -p 80 --output-module=redis --output-args=\"tcp://127.0.0.1:6379/zmap\" 0.0.0.0/0",
+      "example": "zmap -p 80 --output-module=redis --output-args=\"tcp://127.0.0.1:6379/zmap\" 0.0.0.0/0",
+      "explanation": "Sends results directly to Redis.\nEnables high-throughput real-time processing pipelines."
+    },
+    {
+      "id": 58,
+      "category": "Sender and Receiver Configuration",
+      "command": "zmap --sender-threads=3 -p 80 0.0.0.0/0",
+      "example": "zmap --sender-threads=3 -p 80 0.0.0.0/0",
+      "explanation": "Uses 3 sender threads for packet injection.\nIncreases send rate on multi-core systems by parallelizing packet creation."
+    },
+    {
+      "id": 59,
+      "category": "Sender and Receiver Configuration",
+      "command": "zmap --cores=0,1,2 -p 80 0.0.0.0/0",
+      "example": "zmap --cores=0,1,2 -p 80 0.0.0.0/0",
+      "explanation": "Pins ZMap to specific CPU cores.\nOptimizes cache usage and performance on high-speed scanning rigs."
+    },
+    {
+      "id": 60,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 --output-fields=* 0.0.0.0/0",
+      "example": "zmap -p 80 --output-fields=* 0.0.0.0/0",
+      "explanation": "Outputs every available field for the probe.\nProvides the maximum amount of information possible for each response."
+    },
+    {
+      "id": 61,
+      "category": "Target Specification and CIDR Ranges",
+      "command": "zmap -p 80 10.0.0.0/8 192.168.0.0/16",
+      "example": "zmap -p 80 10.0.0.0/8 192.168.0.0/16",
+      "explanation": "Scans multiple disconnected CIDR ranges.\nAllows targeting specific disparate networks in a single job."
+    },
+    {
+      "id": 62,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 80 -G 00:11:22:33:44:55 --source-ip=192.168.1.50 0.0.0.0/0",
+      "example": "zmap -p 80 -G 00:11:22:33:44:55 --source-ip=192.168.1.50 0.0.0.0/0",
+      "explanation": "Combines gateway spoofing with source IP spoofing.\nComplete control over packet headers for advanced network testing."
+    },
+    {
+      "id": 63,
+      "category": "Logging and Verbosity",
+      "command": "zmap --quiet -p 80 0.0.0.0/0",
+      "example": "zmap --quiet -p 80 0.0.0.0/0",
+      "explanation": "Runs in quiet mode (long flag).\nIdentical to -q, keeps the terminal output clean."
+    },
+    {
+      "id": 64,
+      "category": "Retry and Failure Handling",
+      "command": "zmap -p 80 --ignore-blacklist-errors 0.0.0.0/0",
+      "example": "zmap -p 80 --ignore-blacklist-errors 0.0.0.0/0",
+      "explanation": "Ignores errors in the blacklist file.\nRisky, but allows the scan to proceed even if the blacklist is malformed."
+    },
+    {
+      "id": 65,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 --no-header -o results.csv 0.0.0.0/0",
+      "example": "zmap -p 80 --no-header -o results.csv 0.0.0.0/0",
+      "explanation": "Outputs CSV without a header row.\nUseful for appending results to an existing file or piping to tools that expect raw data."
+    },
+    {
+      "id": 66,
+      "category": "High Speed Measurement Scenarios",
+      "command": "zmap -p 80 --monitor 0.0.0.0/0",
+      "example": "zmap -p 80 --monitor 0.0.0.0/0",
+      "explanation": "Enables monitor mode (dashboard style).\nVisualizes scan rates and completion status in real-time."
+    },
+    {
+      "id": 67,
+      "category": "Probe Modules",
+      "command": "zmap -M udp --probe-args=hex:41424344 192.168.1.0/24",
+      "example": "zmap -M udp --probe-args=hex:41424344 192.168.1.0/24",
+      "explanation": "Sends UDP packets with a hex-defined payload.\nAllows sending precise byte sequences to test protocol responses."
+    },
+    {
+      "id": 68,
+      "category": "Advanced and Combined Real World Scans",
+      "command": "zmap -p 80 -S 1.2.3.4 -B 100M --seed=5555 --shards=2 --shard=1 0.0.0.0/0",
+      "example": "zmap -p 80 -S 1.2.3.4 -B 100M --seed=5555 --shards=2 --shard=1 0.0.0.0/0",
+      "explanation": "Runs a complex, fully specified distributed scan.\nCombines fixed seed, sharding, and spoofing for a rigorous measurement experiment."
+    },
+    {
+      "id": 69,
+      "category": "Research Safe Internet Wide Scanning",
+      "command": "zmap -p 80 --block-file=/etc/zmap/blacklist.conf 0.0.0.0/0",
+      "example": "zmap -p 80 --block-file=/etc/zmap/blacklist.conf 0.0.0.0/0",
+      "explanation": "Uses the alternate syntax for blocking networks.\nExplicitly points to the blacklist configuration file."
+    },
+    {
+      "id": 70,
+      "category": "Configuration File Usage",
+      "command": "zmap --help",
+      "example": "zmap --help",
+      "explanation": "Displays the help screen.\nLists all command-line arguments and their usage."
+    },
+    {
+      "id": 71,
+      "category": "Configuration File Usage",
+      "command": "zmap --version",
+      "example": "zmap --version",
+      "explanation": "Prints the version information.\nUseful for verifying the installed build and supported features."
+    },
+    {
+      "id": 72,
+      "category": "Output Modules and Output Fields",
+      "command": "zmap -p 80 -f ipid,ttl,classification 0.0.0.0/0",
+      "example": "zmap -p 80 -f ipid,ttl,classification 0.0.0.0/0",
+      "explanation": "Outputs IPID, TTL, and Classification.\nKey metrics for understanding network topology and behavior."
+    }
+  ]
+}

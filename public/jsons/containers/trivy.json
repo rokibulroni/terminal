@@ -1,0 +1,112 @@
+{
+    "tool": "trivy",
+    "description": "Trivy: A comprehensive and versatile security scanner natively traversing deep underlying infrastructural variables explicitly mitigating container, cloud, and filesystem CVE bounds.",
+    "total_commands": 15,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Image Triage",
+            "command": "trivy image <image>",
+            "example": "trivy image target:latest",
+            "explanation": "Processes explicit multi-layered localized dependencies systematically executing heavily updated internal algorithms checking actively vulnerable libraries physically inside the OCI map."
+        },
+        {
+            "id": 2,
+            "category": "Security Checks",
+            "command": "trivy image --security-checks vuln,secret,config <image>",
+            "example": "trivy image --security-checks vuln,secret,config app:v1",
+            "explanation": "Broadens aggressively limited explicit arrays completely indexing deeply integrated logic actively unmasking hardcoded passwords locally bridging systemic Dockerfile misconfigurations."
+        },
+        {
+            "id": 3,
+            "category": "High Priority",
+            "command": "trivy image --severity HIGH,CRITICAL <image>",
+            "example": "trivy image --severity HIGH,CRITICAL app",
+            "explanation": "Replaces standard tracking output inherently silencing unmitigated non-patchable trivial bugs strictly inherently exposing completely unmitigated massively destructive unpatched flaws."
+        },
+        {
+            "id": 4,
+            "category": "Filesystem Scan",
+            "command": "trivy fs <path>",
+            "example": "trivy fs /opt/project",
+            "explanation": "Modifies scanning target bounds extracting explicit Docker contexts analyzing completely raw explicit standard system source files mapped entirely cleanly across any Linux environment."
+        },
+        {
+            "id": 5,
+            "category": "AWS Bridging",
+            "command": "trivy aws --region <region>",
+            "example": "trivy aws --region us-east-1",
+            "explanation": "Alters API integration natively hooking directly entirely across localized authenticated extremely explicit inherent AWS architecture environments exposing highly misconfigured resources globally."
+        },
+        {
+            "id": 6,
+            "category": "Kubernetes Scan",
+            "command": "trivy k8s --report summary <type>",
+            "example": "trivy k8s --report summary cluster",
+            "explanation": "Navigates entirely across inherently deeply massive internal native K8S clusters completely profiling absolutely explicit running pods mapping heavily integrated inherent system failures."
+        },
+        {
+            "id": 7,
+            "category": "SBOM Output",
+            "command": "trivy image --format spdx-json -o <file> <image>",
+            "example": "trivy image --format spdx-json -o sbom.json app:v1",
+            "explanation": "Aggregates massive deep software package matrices perfectly encoding entirely locally natively to strict absolute SPDX specifications fundamentally tracking explicitly supply chain integrations."
+        },
+        {
+            "id": 8,
+            "category": "Ignore Logic",
+            "command": "trivy image --ignore-unfixed <image>",
+            "example": "trivy image --ignore-unfixed target:latest",
+            "explanation": "Suppresses inherently incredibly aggressive matching loops actively disabling heavily documented explicit bugs cleanly validating natively exactly instances where patches formally physically exist."
+        },
+        {
+            "id": 9,
+            "category": "Caching Logic",
+            "command": "trivy image --clear-cache",
+            "example": "trivy image --clear-cache",
+            "explanation": "Obiterates deeply compiled immensely massive local historic configuration states manually fundamentally overriding natively deeply corrupted extraction database arrays."
+        },
+        {
+            "id": 10,
+            "category": "Remote Server",
+            "command": "trivy client --remote <url> <image>",
+            "example": "trivy client --remote http://trivy-server:4954 app",
+            "explanation": "Bridges unauthenticated explicitly limited inherent container operations effectively entirely deferring complex parsing actively targeting centralized massive extremely high-power analytical infrastructures."
+        },
+        {
+            "category": "Config Auditing",
+            "command": "trivy config <path>",
+            "example": "trivy config ./terraform-infrastructure",
+            "explanation": "Unlinks CVE dependencies completely tracking entirely explicit misconfigurations deeply hardcoded internally strictly inside Terraform, CloudFormation, or Dockerfile manifest bounds.",
+            "id": 11
+        },
+        {
+            "category": "Repository Traversal",
+            "command": "trivy repository <url>",
+            "example": "trivy repository https://github.com/org/vulnerable-repo",
+            "explanation": "Fundamentally clones extremely massive completely remote public organizational git mappings dynamically executing exhaustive pipeline scanning locally devoid entirely of containers.",
+            "id": 12
+        },
+        {
+            "category": "Air-Gapped Scans",
+            "command": "trivy image --offline-scan",
+            "example": "trivy image --offline-scan myapp:v1",
+            "explanation": "Aggressively restricts all outgoing network loops systematically enforcing internal offline validations perfectly resolving issues entirely isolating tracking algorithms dynamically.",
+            "id": 13
+        },
+        {
+            "category": "Plugin Integrations",
+            "command": "trivy plugin install <plugin>",
+            "example": "trivy plugin install github.com/aquasecurity/trivy-plugin-aqua",
+            "explanation": "Modifies internal functionality extending systemic analysis bridges strictly loading dynamic external plugins expanding Trivy's innate explicit runtime reporting modules natively.",
+            "id": 14
+        },
+        {
+            "category": "Advanced Exporting",
+            "command": "trivy image -o <file.html> --template <path>",
+            "example": "trivy image -f template --template \"@contrib/html.tpl\" -o report.html app",
+            "explanation": "Bridges fundamental GO templating logic explicitly tracking incredibly massive native CVE responses and perfectly generating absolutely clean heavily styled HTML reports.",
+            "id": 15
+        }
+    ]
+}

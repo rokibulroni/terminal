@@ -1,0 +1,1057 @@
+{
+    "tool": "curl",
+    "description": "Complete curl command and workflow reference from basic to advanced network and web interactions",
+    "total_commands": 150,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax",
+            "command": "curl https://example.com",
+            "example": "curl https://example.com",
+            "explanation": "Performs a standard GET request to the specified URL and prints the response to stdout."
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax",
+            "command": "curl -v https://example.com",
+            "example": "curl -v https://example.com",
+            "explanation": "Enables verbose mode to display request and response headers along with the handshake."
+        },
+        {
+            "id": 3,
+            "category": "Basic Syntax",
+            "command": "curl -I https://example.com",
+            "example": "curl -I https://example.com",
+            "explanation": "Fetches only the HTTP headers using a HEAD request."
+        },
+        {
+            "id": 4,
+            "category": "Basic Syntax",
+            "command": "curl -i https://example.com",
+            "example": "curl -i https://example.com",
+            "explanation": "Includes the HTTP response headers in the output before the response body."
+        },
+        {
+            "id": 5,
+            "category": "Basic Syntax",
+            "command": "curl --help",
+            "example": "curl --help",
+            "explanation": "Displays the summary of curl options and usage categories."
+        },
+        {
+            "id": 6,
+            "category": "Redirect Handling",
+            "command": "curl -L https://example.com",
+            "example": "curl -L https://example.com",
+            "explanation": "Follows HTTP 3xx redirects to the final destination URL."
+        },
+        {
+            "id": 7,
+            "category": "Redirect Handling",
+            "command": "curl -L --max-redirs 5 https://example.com",
+            "example": "curl -L --max-redirs 5 https://example.com",
+            "explanation": "Follows redirects but limits the maximum number of hops to prevent infinite loops."
+        },
+        {
+            "id": 8,
+            "category": "File Handling",
+            "command": "curl -O https://example.com/file.zip",
+            "example": "curl -O https://example.com/file.zip",
+            "explanation": "Downloads the file and saves it using the remote filename."
+        },
+        {
+            "id": 9,
+            "category": "File Handling",
+            "command": "curl -o output.html https://example.com",
+            "example": "curl -o output.html https://example.com",
+            "explanation": "Saves the response output to a specifically named local file."
+        },
+        {
+            "id": 10,
+            "category": "File Handling",
+            "command": "curl -C - -O https://example.com/large.iso",
+            "example": "curl -C - -O https://example.com/large.iso",
+            "explanation": "Resumes a specific file download from where it was interrupted."
+        },
+        {
+            "id": 11,
+            "category": "HTTP Methods",
+            "command": "curl -X POST https://api.local/resource",
+            "example": "curl -X POST https://api.local/resource",
+            "explanation": "Sends an HTTP POST request with no data payload."
+        },
+        {
+            "id": 12,
+            "category": "HTTP Methods",
+            "command": "curl -X DELETE https://api.local/resource/1",
+            "example": "curl -X DELETE https://api.local/resource/1",
+            "explanation": "Sends an HTTP DELETE request to remove a resource."
+        },
+        {
+            "id": 13,
+            "category": "HTTP Methods",
+            "command": "curl -X PUT -d \"new data\" https://api.local/resource/1",
+            "example": "curl -X PUT -d \"new data\" https://api.local/resource/1",
+            "explanation": "Sends an HTTP PUT request to update or create a resource with data."
+        },
+        {
+            "id": 14,
+            "category": "HTTP Methods",
+            "command": "curl -X PATCH -d \"update\" https://api.local/resource/1",
+            "example": "curl -X PATCH -d \"update\" https://api.local/resource/1",
+            "explanation": "Sends an HTTP PATCH request to partially update a resource."
+        },
+        {
+            "id": 15,
+            "category": "HTTP Methods",
+            "command": "curl -X OPTIONS https://api.local/resource",
+            "example": "curl -X OPTIONS https://api.local/resource",
+            "explanation": "Sends an OPTIONS request to determine allowed methods on the server."
+        },
+        {
+            "id": 16,
+            "category": "Data Submission",
+            "command": "curl -d \"param1=value1&param2=value2\" https://example.com/login",
+            "example": "curl -d \"param1=value1&param2=value2\" https://example.com/login",
+            "explanation": "Sends data as application/x-www-form-urlencoded in a POST request."
+        },
+        {
+            "id": 17,
+            "category": "Data Submission",
+            "command": "curl --data-urlencode \"name=John Doe\" https://example.com/submit",
+            "example": "curl --data-urlencode \"name=John Doe\" https://example.com/submit",
+            "explanation": "Automatically URL-encodes the provided data field before sending."
+        },
+        {
+            "id": 18,
+            "category": "Data Submission",
+            "command": "curl -H \"Content-Type: application/json\" -d '{\"key\":\"value\"}' https://api.local",
+            "example": "curl -H \"Content-Type: application/json\" -d '{\"key\":\"value\"}' https://api.local",
+            "explanation": "Sends a raw JSON payload with the correct Content-Type header."
+        },
+        {
+            "id": 19,
+            "category": "Data Submission",
+            "command": "curl --data-binary @filename.bin https://example.com/upload",
+            "example": "curl --data-binary @filename.bin https://example.com/upload",
+            "explanation": "Posts the exact binary content of a file without processing."
+        },
+        {
+            "id": 20,
+            "category": "Data Submission",
+            "command": "curl -F \"profile=@portrait.jpg\" -F \"name=User\" https://example.com/upload",
+            "example": "curl -F \"profile=@portrait.jpg\" -F \"name=User\" https://example.com/upload",
+            "explanation": "Submits a multipart/form-data request simulating a file upload form."
+        },
+        {
+            "id": 21,
+            "category": "Data Submission",
+            "command": "curl -F \"file=@local.txt;filename=remote.txt\" https://example.com",
+            "example": "curl -F \"file=@local.txt;filename=remote.txt\" https://example.com",
+            "explanation": "Uploads a file via multipart form but renames it for the server."
+        },
+        {
+            "id": 22,
+            "category": "Query Parameters",
+            "command": "curl -G -d \"q=search\" -d \"page=1\" https://example.com/api",
+            "example": "curl -G -d \"q=search\" -d \"page=1\" https://example.com/api",
+            "explanation": "Forces a GET request and appends data parameters to the URL query string."
+        },
+        {
+            "id": 23,
+            "category": "Headers",
+            "command": "curl -H \"X-Custom-Header: value\" https://example.com",
+            "example": "curl -H \"X-Custom-Header: value\" https://example.com",
+            "explanation": "Sends a custom HTTP header with the request."
+        },
+        {
+            "id": 24,
+            "category": "Headers",
+            "command": "curl -A \"Mozilla/5.0\" https://example.com",
+            "example": "curl -A \"Mozilla/5.0\" https://example.com",
+            "explanation": "Spoofs the User-Agent string to identify as a web browser."
+        },
+        {
+            "id": 25,
+            "category": "Headers",
+            "command": "curl -e \"https://google.com\" https://example.com",
+            "example": "curl -e \"https://google.com\" https://example.com",
+            "explanation": "Sets the Referer header to simulate navigation from another site."
+        },
+        {
+            "id": 26,
+            "category": "Headers",
+            "command": "curl -H \"Host: internal.local\" https://192.168.1.10",
+            "example": "curl -H \"Host: internal.local\" https://192.168.1.10",
+            "explanation": "Manually sets the Host header, useful for virtual host discovery."
+        },
+        {
+            "id": 27,
+            "category": "Authentication",
+            "command": "curl -u username:password https://example.com",
+            "example": "curl -u username:password https://example.com",
+            "explanation": "Performs Basic Authentication using a username and password."
+        },
+        {
+            "id": 28,
+            "category": "Authentication",
+            "command": "curl -u username https://example.com",
+            "example": "curl -u username https://example.com",
+            "explanation": "Prompts the user interactively for the password for Basic Auth."
+        },
+        {
+            "id": 29,
+            "category": "Authentication",
+            "command": "curl -H \"Authorization: Bearer <token>\" https://api.local",
+            "example": "curl -H \"Authorization: Bearer <token>\" https://api.local",
+            "explanation": "Authenticates using a Bearer token in the header."
+        },
+        {
+            "id": 30,
+            "category": "Authentication",
+            "command": "curl --digest -u user:pass https://example.com",
+            "example": "curl --digest -u user:pass https://example.com",
+            "explanation": "Uses Digest authentication instead of Basic."
+        },
+        {
+            "id": 31,
+            "category": "Authentication",
+            "command": "curl --ntlm -u user:pass https://example.com",
+            "example": "curl --ntlm -u user:pass https://example.com",
+            "explanation": "Uses NTLM authentication, common in Windows environments."
+        },
+        {
+            "id": 32,
+            "category": "Authentication",
+            "command": "curl --negotiate -u : https://example.com",
+            "example": "curl --negotiate -u : https://example.com",
+            "explanation": "Uses GSS-API/SPNEGO Negotiate auth, often for Kerberos."
+        },
+        {
+            "id": 33,
+            "category": "Authentication",
+            "command": "curl --aws-sigv4 \"aws:amz:region:service\" --user \"key:secret\" https://api.amazonaws.com",
+            "example": "curl --aws-sigv4 \"aws:amz:region:service\" --user \"key:secret\" https://api.amazonaws.com",
+            "explanation": "Signs the request using AWS Signature Version 4."
+        },
+        {
+            "id": 34,
+            "category": "Cookies",
+            "command": "curl -c cookies.txt https://example.com/login",
+            "example": "curl -c cookies.txt https://example.com/login",
+            "explanation": "Saves received cookies from the server to a text file (cookie jar)."
+        },
+        {
+            "id": 35,
+            "category": "Cookies",
+            "command": "curl -b cookies.txt https://example.com/dashboard",
+            "example": "curl -b cookies.txt https://example.com/dashboard",
+            "explanation": "Sends cookies from a previously saved file to the server."
+        },
+        {
+            "id": 36,
+            "category": "Cookies",
+            "command": "curl -b \"session_id=12345; user=admin\" https://example.com",
+            "example": "curl -b \"session_id=12345; user=admin\" https://example.com",
+            "explanation": "Manually passes cookie data in the request headers."
+        },
+        {
+            "id": 37,
+            "category": "Cookies",
+            "command": "curl -b cookies.txt -c cookies.txt https://example.com",
+            "example": "curl -b cookies.txt -c cookies.txt https://example.com",
+            "explanation": "Reads cookies from a file and writes updates back to the same file."
+        },
+        {
+            "id": 38,
+            "category": "Cookies",
+            "command": "curl -j -b cookies.txt https://example.com",
+            "example": "curl -j -b cookies.txt https://example.com",
+            "explanation": "Ignores session cookies (junk) from the file and reads only persistent ones."
+        },
+        {
+            "id": 39,
+            "category": "Proxy Usage",
+            "command": "curl -x http://proxy.local:8080 https://example.com",
+            "example": "curl -x http://proxy.local:8080 https://example.com",
+            "explanation": "Routes the request through an HTTP proxy."
+        },
+        {
+            "id": 40,
+            "category": "Proxy Usage",
+            "command": "curl -x socks5://proxy.local:1080 https://example.com",
+            "example": "curl -x socks5://proxy.local:1080 https://example.com",
+            "explanation": "Routes the request through a SOCKS5 proxy."
+        },
+        {
+            "id": 41,
+            "category": "Proxy Usage",
+            "command": "curl --proxy-user user:pass -x http://proxy.local:8080 https://example.com",
+            "example": "curl --proxy-user user:pass -x http://proxy.local:8080 https://example.com",
+            "explanation": "Authenticates to the proxy server using Basic auth."
+        },
+        {
+            "id": 42,
+            "category": "Proxy Usage",
+            "command": "curl --noproxy \"*\" https://internal.local",
+            "example": "curl --noproxy \"*\" https://internal.local",
+            "explanation": "Bypasses configured proxies for specific hosts or all hosts."
+        },
+        {
+            "id": 43,
+            "category": "Proxy Usage",
+            "command": "curl --proxytunnel -x http://proxy.local:8080 https://example.com",
+            "example": "curl --proxytunnel -x http://proxy.local:8080 https://example.com",
+            "explanation": "Uses the CONNECT method to tunnel SSL through an HTTP proxy."
+        },
+        {
+            "id": 44,
+            "category": "SSL/TLS Security",
+            "command": "curl -k https://self-signed.local",
+            "example": "curl -k https://self-signed.local",
+            "explanation": "Allows insecure connections to sites with invalid or self-signed SSL certificates."
+        },
+        {
+            "id": 45,
+            "category": "SSL/TLS Security",
+            "command": "curl --cert client.pem --key key.pem https://secure.local",
+            "example": "curl --cert client.pem --key key.pem https://secure.local",
+            "explanation": "Authenticates using a client-side certificate and private key."
+        },
+        {
+            "id": 46,
+            "category": "SSL/TLS Security",
+            "command": "curl --cacert ca-bundle.crt https://example.com",
+            "example": "curl --cacert ca-bundle.crt https://example.com",
+            "explanation": "Verifies the server using a specific CA certificate bundle."
+        },
+        {
+            "id": 47,
+            "category": "SSL/TLS Security",
+            "command": "curl --tlsv1.2 https://example.com",
+            "example": "curl --tlsv1.2 https://example.com",
+            "explanation": "Forces the connection to use TLS version 1.2."
+        },
+        {
+            "id": 48,
+            "category": "SSL/TLS Security",
+            "command": "curl --tlsv1.3 https://example.com",
+            "example": "curl --tlsv1.3 https://example.com",
+            "explanation": "Forces the connection to use TLS version 1.3."
+        },
+        {
+            "id": 49,
+            "category": "SSL/TLS Security",
+            "command": "curl --ciphers ECDHE-RSA-AES256-GCM-SHA384 https://example.com",
+            "example": "curl --ciphers ECDHE-RSA-AES256-GCM-SHA384 https://example.com",
+            "explanation": "Specifies exactly which cipher suite to use for the TLS handshake."
+        },
+        {
+            "id": 50,
+            "category": "SSL/TLS Security",
+            "command": "curl --pinnedpubkey sha256//hashvalue https://example.com",
+            "example": "curl --pinnedpubkey sha256//hashvalue https://example.com",
+            "explanation": "Enforces SSL pinning by requiring the server key to match the provided hash."
+        },
+        {
+            "id": 51,
+            "category": "Performance Tuning",
+            "command": "curl --compressed https://example.com",
+            "example": "curl --compressed https://example.com",
+            "explanation": "Requests a compressed response (gzip/brotli) and decompresses it automatically."
+        },
+        {
+            "id": 52,
+            "category": "Performance Tuning",
+            "command": "curl --no-keepalive https://example.com",
+            "example": "curl --no-keepalive https://example.com",
+            "explanation": "Disables TCP keep-alive to force a new connection for the request."
+        },
+        {
+            "id": 53,
+            "category": "Performance Tuning",
+            "command": "curl --limit-rate 100k https://example.com/largefile",
+            "example": "curl --limit-rate 100k https://example.com/largefile",
+            "explanation": "Throttles the download speed to 100 kilobytes per second."
+        },
+        {
+            "id": 54,
+            "category": "Network Control",
+            "command": "curl --connect-timeout 5 https://example.com",
+            "example": "curl --connect-timeout 5 https://example.com",
+            "explanation": "Aborts if the connection to the server takes longer than 5 seconds."
+        },
+        {
+            "id": 55,
+            "category": "Network Control",
+            "command": "curl -m 20 https://example.com",
+            "example": "curl -m 20 https://example.com",
+            "explanation": "Sets the maximum total time allowed for the entire operation to 20 seconds."
+        },
+        {
+            "id": 56,
+            "category": "Network Control",
+            "command": "curl --retry 3 --retry-delay 5 https://unstable.local",
+            "example": "curl --retry 3 --retry-delay 5 https://unstable.local",
+            "explanation": "Retries the request up to 3 times with a 5-second delay on transient errors."
+        },
+        {
+            "id": 57,
+            "category": "Network Control",
+            "command": "curl --ipv4 https://example.com",
+            "example": "curl --ipv4 https://example.com",
+            "explanation": "Forces curl to resolve the name to an IPv4 address only."
+        },
+        {
+            "id": 58,
+            "category": "Network Control",
+            "command": "curl --ipv6 https://example.com",
+            "example": "curl --ipv6 https://example.com",
+            "explanation": "Forces curl to resolve the name to an IPv6 address only."
+        },
+        {
+            "id": 59,
+            "category": "Network Control",
+            "command": "curl --interface eth0 https://example.com",
+            "example": "curl --interface eth0 https://example.com",
+            "explanation": "Binds the connection to a specific network interface."
+        },
+        {
+            "id": 60,
+            "category": "Network Control",
+            "command": "curl --resolve example.com:443:127.0.0.1 https://example.com",
+            "example": "curl --resolve example.com:443:127.0.0.1 https://example.com",
+            "explanation": "Manually forces the domain to resolve to a specific IP address for testing."
+        },
+        {
+            "id": 61,
+            "category": "Advanced HTTP",
+            "command": "curl --http2 https://example.com",
+            "example": "curl --http2 https://example.com",
+            "explanation": "Forces the client to attempt an HTTP/2 connection."
+        },
+        {
+            "id": 62,
+            "category": "Advanced HTTP",
+            "command": "curl --http2-prior-knowledge https://example.com",
+            "example": "curl --http2-prior-knowledge https://example.com",
+            "explanation": "Issues HTTP/2 requests immediately without an HTTP/1.1 upgrade handshake."
+        },
+        {
+            "id": 63,
+            "category": "Advanced HTTP",
+            "command": "curl --http3 https://example.com",
+            "example": "curl --http3 https://example.com",
+            "explanation": "Forces the client to use HTTP/3 (QUIC) if supported by the build."
+        },
+        {
+            "id": 64,
+            "category": "Output Formatting",
+            "command": "curl -s https://example.com",
+            "example": "curl -s https://example.com",
+            "explanation": "Enables silent mode, suppressing the progress meter and error messages."
+        },
+        {
+            "id": 65,
+            "category": "Output Formatting",
+            "command": "curl -sS https://example.com",
+            "example": "curl -sS https://example.com",
+            "explanation": "Enables silent mode but still outputs errors if they occur."
+        },
+        {
+            "id": 66,
+            "category": "Output Formatting",
+            "command": "curl -w \"Status: %{http_code}\\n\" https://example.com",
+            "example": "curl -w \"Status: %{http_code}\\n\" https://example.com",
+            "explanation": "Writes a custom output format displaying the HTTP status code after completion."
+        },
+        {
+            "id": 67,
+            "category": "Output Formatting",
+            "command": "curl -w \"Time: %{time_total}\\n\" -o /dev/null -s https://example.com",
+            "example": "curl -w \"Time: %{time_total}\\n\" -o /dev/null -s https://example.com",
+            "explanation": "Measures total request time while discarding the response body."
+        },
+        {
+            "id": 68,
+            "category": "Output Formatting",
+            "command": "curl -w \"DNS: %{time_namelookup} Connect: %{time_connect}\\n\" https://example.com",
+            "example": "curl -w \"DNS: %{time_namelookup} Connect: %{time_connect}\\n\" https://example.com",
+            "explanation": "Provides a breakdown of DNS resolution and TCP connection timing."
+        },
+        {
+            "id": 69,
+            "category": "Output Formatting",
+            "command": "curl --dump-header headers.txt https://example.com",
+            "example": "curl --dump-header headers.txt https://example.com",
+            "explanation": "Saves the HTTP response headers into a separate file."
+        },
+        {
+            "id": 70,
+            "category": "Debugging",
+            "command": "curl --trace dump.txt https://example.com",
+            "example": "curl --trace dump.txt https://example.com",
+            "explanation": "Performs a full hex dump of incoming and outgoing data for debugging."
+        },
+        {
+            "id": 71,
+            "category": "Debugging",
+            "command": "curl --trace-ascii dump.txt https://example.com",
+            "example": "curl --trace-ascii dump.txt https://example.com",
+            "explanation": "Performs an ASCII dump of data traffic, easier to read than hex."
+        },
+        {
+            "id": 72,
+            "category": "Debugging",
+            "command": "curl --trace-time -v https://example.com",
+            "example": "curl --trace-time -v https://example.com",
+            "explanation": "Prepends a timestamp to every line of verbose output."
+        },
+        {
+            "id": 73,
+            "category": "Debugging",
+            "command": "curl --libcurl code.c https://example.com",
+            "example": "curl --libcurl code.c https://example.com",
+            "explanation": "Generates C source code equivalent to the command line usage."
+        },
+        {
+            "id": 74,
+            "category": "Debugging",
+            "command": "curl --no-buffer https://example.com",
+            "example": "curl --no-buffer https://example.com",
+            "explanation": "Disables output buffering to display data as fast as it arrives."
+        },
+        {
+            "id": 75,
+            "category": "Red Team / Security",
+            "command": "curl --path-as-is https://example.com/../../etc/passwd",
+            "example": "curl --path-as-is https://example.com/../../etc/passwd",
+            "explanation": "Sends the path exactly as provided without dot-segment removal, for traversal testing."
+        },
+        {
+            "id": 76,
+            "category": "Red Team / Security",
+            "command": "curl -X PUT --upload-file shell.php https://vuln.local/uploads/",
+            "example": "curl -X PUT --upload-file shell.php https://vuln.local/uploads/",
+            "explanation": "Attempts to upload a file using the PUT method for vulnerability testing."
+        },
+        {
+            "id": 77,
+            "category": "Red Team / Security",
+            "command": "curl --request-target \"*\" -X OPTIONS https://example.com",
+            "example": "curl --request-target \"*\" -X OPTIONS https://example.com",
+            "explanation": "Sends an OPTIONS request to the server root to check global supported methods."
+        },
+        {
+            "id": 78,
+            "category": "Red Team / Security",
+            "command": "curl -H \"Host: malicious.com\" -k https://target.com",
+            "example": "curl -H \"Host: malicious.com\" -k https://target.com",
+            "explanation": "Tests for Host Header Injection vulnerabilities."
+        },
+        {
+            "id": 79,
+            "category": "Red Team / Security",
+            "command": "curl -H \"User-Agent: () { :;}; echo CVE-2014-6271\" https://example.com/cgi-bin/test",
+            "example": "curl -H \"User-Agent: () { :;}; echo CVE-2014-6271\" https://example.com/cgi-bin/test",
+            "explanation": "Sends a Shellshock payload in the User-Agent header."
+        },
+        {
+            "id": 80,
+            "category": "Blue Team / Validation",
+            "command": "curl -I -s https://example.com | grep -i \"Content-Security-Policy\"",
+            "example": "curl -I -s https://example.com | grep -i \"Content-Security-Policy\"",
+            "explanation": "Checks for the presence of the CSP security header."
+        },
+        {
+            "id": 81,
+            "category": "Blue Team / Validation",
+            "command": "curl -I -s https://example.com | grep -i \"Strict-Transport-Security\"",
+            "example": "curl -I -s https://example.com | grep -i \"Strict-Transport-Security\"",
+            "explanation": "Verifies that HSTS is enabled on the server."
+        },
+        {
+            "id": 82,
+            "category": "Blue Team / Validation",
+            "command": "curl -s -o /dev/null -w \"%{ssl_verify_result}\\n\" https://example.com",
+            "example": "curl -s -o /dev/null -w \"%{ssl_verify_result}\\n\" https://example.com",
+            "explanation": "Checks the SSL verification result code (0 means success)."
+        },
+        {
+            "id": 83,
+            "category": "Blue Team / Validation",
+            "command": "curl --doh-url https://cloudflare-dns.com/dns-query https://example.com",
+            "example": "curl --doh-url https://cloudflare-dns.com/dns-query https://example.com",
+            "explanation": "Uses DNS-over-HTTPS (DoH) to bypass local DNS filters or logging."
+        },
+        {
+            "id": 84,
+            "category": "Protocol Fuzzing",
+            "command": "curl -v --header \"Transfer-Encoding: chunked\" --header \"Content-Length: 10\" https://example.com",
+            "example": "curl -v --header \"Transfer-Encoding: chunked\" --header \"Content-Length: 10\" https://example.com",
+            "explanation": "Sends conflicting headers to test for Request Smuggling vulnerabilities."
+        },
+        {
+            "id": 85,
+            "category": "Other Protocols",
+            "command": "curl ftp://user:pass@ftp.example.com/file.txt",
+            "example": "curl ftp://user:pass@ftp.example.com/file.txt",
+            "explanation": "Downloads a file using the FTP protocol."
+        },
+        {
+            "id": 86,
+            "category": "Other Protocols",
+            "command": "curl -T local.txt ftp://user:pass@ftp.example.com/upload/",
+            "example": "curl -T local.txt ftp://user:pass@ftp.example.com/upload/",
+            "explanation": "Uploads a file using FTP."
+        },
+        {
+            "id": 87,
+            "category": "Other Protocols",
+            "command": "curl telnet://example.com:23",
+            "example": "curl telnet://example.com:23",
+            "explanation": "Initiates a raw Telnet connection to the host."
+        },
+        {
+            "id": 88,
+            "category": "Other Protocols",
+            "command": "curl smtp://mail.example.com --mail-from me@example.com --mail-rcpt you@example.com --upload-file mail.txt",
+            "example": "curl smtp://mail.example.com --mail-from me@example.com --mail-rcpt you@example.com --upload-file mail.txt",
+            "explanation": "Sends an email using the SMTP protocol."
+        },
+        {
+            "id": 89,
+            "category": "Other Protocols",
+            "command": "curl ldap://ldap.example.com/dc=example,dc=com",
+            "example": "curl ldap://ldap.example.com/dc=example,dc=com",
+            "explanation": "Queries an LDAP server."
+        },
+        {
+            "id": 90,
+            "category": "Other Protocols",
+            "command": "curl pop3://pop.example.com -u user:password",
+            "example": "curl pop3://pop.example.com -u user:password",
+            "explanation": "Connects to a POP3 server to check mail."
+        },
+        {
+            "id": 91,
+            "category": "Other Protocols",
+            "command": "curl dict://dict.org/d:curl",
+            "example": "curl dict://dict.org/d:curl",
+            "explanation": "Uses the DICT protocol to look up a word definition."
+        },
+        {
+            "id": 92,
+            "category": "Other Protocols",
+            "command": "curl tftp://192.168.1.1/file.txt",
+            "example": "curl tftp://192.168.1.1/file.txt",
+            "explanation": "Downloads a file using TFTP (Trivial File Transfer Protocol)."
+        },
+        {
+            "id": 93,
+            "category": "Other Protocols",
+            "command": "curl -u user:key sftp://example.com/file.txt",
+            "example": "curl -u user:key sftp://example.com/file.txt",
+            "explanation": "Downloads a file using SFTP (SSH File Transfer Protocol)."
+        },
+        {
+            "id": 94,
+            "category": "Other Protocols",
+            "command": "curl gopher://example.com/",
+            "example": "curl gopher://example.com/",
+            "explanation": "Connects to a server using the legacy Gopher protocol."
+        },
+        {
+            "id": 95,
+            "category": "Automation / CI",
+            "command": "curl -s -f https://example.com/health || exit 1",
+            "example": "curl -s -f https://example.com/health || exit 1",
+            "explanation": "Fails silently (exit code 22) if the HTTP response is an error (4xx/5xx), suitable for pipelines."
+        },
+        {
+            "id": 96,
+            "category": "Automation / CI",
+            "command": "curl --create-dirs -o /tmp/folder/file.txt https://example.com",
+            "example": "curl --create-dirs -o /tmp/folder/file.txt https://example.com",
+            "explanation": "Automatically creates the local directory structure if it does not exist."
+        },
+        {
+            "id": 97,
+            "category": "Automation / CI",
+            "command": "curl -R -O https://example.com/file.zip",
+            "example": "curl -R -O https://example.com/file.zip",
+            "explanation": "Sets the timestamp of the local file to match the remote file time."
+        },
+        {
+            "id": 98,
+            "category": "Advanced Config",
+            "command": "curl -K config.txt",
+            "example": "curl -K config.txt",
+            "explanation": "Reads arguments and URLs from a configuration file."
+        },
+        {
+            "id": 99,
+            "category": "Advanced Config",
+            "command": "curl --url-query \"name=val\" https://example.com",
+            "example": "curl --url-query \"name=val\" https://example.com",
+            "explanation": "Appends a query parameter to the URL, handling encoding automatically (newer curl versions)."
+        },
+        {
+            "id": 100,
+            "category": "Advanced Config",
+            "command": "curl --haproxy-protocol https://example.com",
+            "example": "curl --haproxy-protocol https://example.com",
+            "explanation": "Sends the HAProxy PROXY protocol header at the start of the connection."
+        },
+        {
+            "id": 101,
+            "category": "Cookie Manipulation",
+            "command": "curl --junk-session-cookies -c newjars.txt https://example.com",
+            "example": "curl --junk-session-cookies -c newjars.txt https://example.com",
+            "explanation": "Ignores session cookies from previous runs when creating a new jar."
+        },
+        {
+            "id": 102,
+            "category": "Header Manipulation",
+            "command": "curl -H \"Accept:\" https://example.com",
+            "example": "curl -H \"Accept:\" https://example.com",
+            "explanation": "Removes the default Accept header by sending it empty."
+        },
+        {
+            "id": 103,
+            "category": "Header Manipulation",
+            "command": "curl -H \"Expect:\" -F \"file=@large.iso\" https://example.com",
+            "example": "curl -H \"Expect:\" -F \"file=@large.iso\" https://example.com",
+            "explanation": "Disables the Expect: 100-continue header to reduce latency on large posts."
+        },
+        {
+            "id": 104,
+            "category": "DNS Control",
+            "command": "curl --dns-servers 1.1.1.1 https://example.com",
+            "example": "curl --dns-servers 1.1.1.1 https://example.com",
+            "explanation": "Forces curl to use a specific DNS server for resolution."
+        },
+        {
+            "id": 105,
+            "category": "DNS Control",
+            "command": "curl --dns-interface eth1 https://example.com",
+            "example": "curl --dns-interface eth1 https://example.com",
+            "explanation": "Forces DNS requests to go out through a specific network interface."
+        },
+        {
+            "id": 106,
+            "category": "Connection Control",
+            "command": "curl --keepalive-time 10 https://example.com",
+            "example": "curl --keepalive-time 10 https://example.com",
+            "explanation": "Sets the interval for TCP keep-alive probes to 10 seconds."
+        },
+        {
+            "id": 107,
+            "category": "Rate Limiting Simulation",
+            "command": "curl --limit-rate 500B https://example.com",
+            "example": "curl --limit-rate 500B https://example.com",
+            "explanation": "Simulates extremely slow network conditions (500 bytes/sec)."
+        },
+        {
+            "id": 108,
+            "category": "Security Testing",
+            "command": "curl -v --tls-max 1.1 https://example.com",
+            "example": "curl -v --tls-max 1.1 https://example.com",
+            "explanation": "Forces the connection to use no higher than TLS 1.1 to test legacy support."
+        },
+        {
+            "id": 109,
+            "category": "Security Testing",
+            "command": "curl --crlfile revoked.crl https://example.com",
+            "example": "curl --crlfile revoked.crl https://example.com",
+            "explanation": "Provides a Certificate Revocation List to check if the server cert is revoked."
+        },
+        {
+            "id": 110,
+            "category": "File Upload",
+            "command": "curl -T file.txt https://example.com/put",
+            "example": "curl -T file.txt https://example.com/put",
+            "explanation": "Short-hand for PUT file upload."
+        },
+        {
+            "id": 111,
+            "category": "File Upload",
+            "command": "curl -T \"{file1,file2}.txt\" https://example.com/",
+            "example": "curl -T \"{file1,file2}.txt\" https://example.com/",
+            "explanation": "Uploads multiple files using globbing support."
+        },
+        {
+            "id": 112,
+            "category": "Globbing",
+            "command": "curl -O \"https://example.com/img[001-100].jpg\"",
+            "example": "curl -O \"https://example.com/img[001-100].jpg\"",
+            "explanation": "Downloads a sequence of files numbered 001 to 100."
+        },
+        {
+            "id": 113,
+            "category": "Globbing",
+            "command": "curl -O \"https://example.com/{frontend,backend,db}.log\"",
+            "example": "curl -O \"https://example.com/{frontend,backend,db}.log\"",
+            "explanation": "Downloads multiple specific files using brace expansion."
+        },
+        {
+            "id": 114,
+            "category": "Unix Socket",
+            "command": "curl --unix-socket /var/run/docker.sock http://localhost/info",
+            "example": "curl --unix-socket /var/run/docker.sock http://localhost/info",
+            "explanation": "Connects to an HTTP server listening on a Unix Domain Socket (e.g., Docker)."
+        },
+        {
+            "id": 115,
+            "category": "Output Handling",
+            "command": "curl --stderr output.log https://example.com",
+            "example": "curl --stderr output.log https://example.com",
+            "explanation": "Redirects stderr (progress/errors) to a file instead of the terminal."
+        },
+        {
+            "id": 116,
+            "category": "Advanced Post",
+            "command": "curl -d @data.json -H \"Content-Type: application/json\" https://example.com",
+            "example": "curl -d @data.json -H \"Content-Type: application/json\" https://example.com",
+            "explanation": "Reads POST data directly from a local file."
+        },
+        {
+            "id": 117,
+            "category": "Advanced Post",
+            "command": "curl --data-raw \"@literal\" https://example.com",
+            "example": "curl --data-raw \"@literal\" https://example.com",
+            "explanation": "Sends data containing an '@' symbol literally, without treating it as a filename."
+        },
+        {
+            "id": 118,
+            "category": "Advanced Auth",
+            "command": "curl --oauth2-bearer \"TOKEN\" https://example.com",
+            "example": "curl --oauth2-bearer \"TOKEN\" https://example.com",
+            "explanation": "Specific flag for providing an OAuth 2.0 bearer token."
+        },
+        {
+            "id": 119,
+            "category": "TLS 1.3 Features",
+            "command": "curl --tls13-ciphers TLS_AES_256_GCM_SHA384 https://example.com",
+            "example": "curl --tls13-ciphers TLS_AES_256_GCM_SHA384 https://example.com",
+            "explanation": "Specifies cipher suites specifically for TLS 1.3 connections."
+        },
+        {
+            "id": 120,
+            "category": "Connection Debugging",
+            "command": "curl -v --trace-ids https://example.com",
+            "example": "curl -v --trace-ids https://example.com",
+            "explanation": "Adds connection and transfer IDs to verbose output for tracking multiplexed streams."
+        },
+        {
+            "id": 121,
+            "category": "Metalink",
+            "command": "curl --metalink file.meta",
+            "example": "curl --metalink file.meta",
+            "explanation": "Downloads files listed in a Metalink XML file (if supported)."
+        },
+        {
+            "id": 122,
+            "category": "URL Handling",
+            "command": "curl --location-trusted -u user:pass https://example.com",
+            "example": "curl --location-trusted -u user:pass https://example.com",
+            "explanation": "Follows redirects and forwards authentication credentials to the new host."
+        },
+        {
+            "id": 123,
+            "category": "Parallel Downloads",
+            "command": "curl -Z -O https://example.com/file1 -O https://example.com/file2",
+            "example": "curl -Z -O https://example.com/file1 -O https://example.com/file2",
+            "explanation": "Performs parallel downloads of multiple URLs (requires libcurl with parallel support)."
+        },
+        {
+            "id": 124,
+            "category": "Time Conditions",
+            "command": "curl -z \"21 Dec 2023\" https://example.com/file.txt",
+            "example": "curl -z \"21 Dec 2023\" https://example.com/file.txt",
+            "explanation": "Downloads the file only if it was modified later than the specified date."
+        },
+        {
+            "id": 125,
+            "category": "Time Conditions",
+            "command": "curl -z -file.txt -O https://example.com/file.txt",
+            "example": "curl -z -file.txt -O https://example.com/file.txt",
+            "explanation": "Downloads the file only if the remote file is newer than the local file."
+        },
+        {
+            "id": 126,
+            "category": "Incident Response",
+            "command": "curl -s -I -X GET https://compromised.local",
+            "example": "curl -s -I -X GET https://compromised.local",
+            "explanation": "Safely retrieves headers from a potentially compromised host without executing content."
+        },
+        {
+            "id": 127,
+            "category": "Incident Response",
+            "command": "curl --max-time 2 https://suspicious-ip.local",
+            "example": "curl --max-time 2 https://suspicious-ip.local",
+            "explanation": "Probes a suspicious IP with a hard timeout to avoid hanging on tar-pits."
+        },
+        {
+            "id": 128,
+            "category": "Incident Response",
+            "command": "curl -A \"IncidentResponseBot/1.0\" https://internal.log",
+            "example": "curl -A \"IncidentResponseBot/1.0\" https://internal.log",
+            "explanation": "Uses a specific User-Agent to tag traffic during an investigation."
+        },
+        {
+            "id": 129,
+            "category": "Tor / Anonymity",
+            "command": "curl --socks5-hostname localhost:9050 https://check.torproject.org",
+            "example": "curl --socks5-hostname localhost:9050 https://check.torproject.org",
+            "explanation": "Routes traffic through Tor, resolving DNS remotely via the SOCKS proxy."
+        },
+        {
+            "id": 130,
+            "category": "HTTP/3",
+            "command": "curl --alt-svc altsvc.cache https://example.com",
+            "example": "curl --alt-svc altsvc.cache https://example.com",
+            "explanation": "Uses the Alt-Svc cache to upgrade connections to HTTP/3 or HTTP/2."
+        },
+        {
+            "id": 131,
+            "category": "Cookies",
+            "command": "curl --cookie-jar - https://example.com",
+            "example": "curl --cookie-jar - https://example.com",
+            "explanation": "Writes the cookie jar to stdout after the operation."
+        },
+        {
+            "id": 132,
+            "category": "Data Submission",
+            "command": "curl --json '{\"key\": \"value\"}' https://example.com",
+            "example": "curl --json '{\"key\": \"value\"}' https://example.com",
+            "explanation": "Shortcut (curl 7.82+) that sets Content-Type: application/json and Accept: application/json."
+        },
+        {
+            "id": 133,
+            "category": "Debugging",
+            "command": "curl --fail-with-body https://example.com/api",
+            "example": "curl --fail-with-body https://example.com/api",
+            "explanation": "Returns an error code on 400+ status but still saves the response body."
+        },
+        {
+            "id": 134,
+            "category": "Network",
+            "command": "curl --local-port 10000-11000 https://example.com",
+            "example": "curl --local-port 10000-11000 https://example.com",
+            "explanation": "Forces the client to use a source port within a specific range."
+        },
+        {
+            "id": 135,
+            "category": "SSH",
+            "command": "curl -u user:pass scp://example.com/~/file.txt",
+            "example": "curl -u user:pass scp://example.com/~/file.txt",
+            "explanation": "Downloads a file via SCP (Secure Copy Protocol)."
+        },
+        {
+            "id": 136,
+            "category": "Output Formatting",
+            "command": "curl -w \"Type: %{content_type} Size: %{size_download}\\n\" https://example.com",
+            "example": "curl -w \"Type: %{content_type} Size: %{size_download}\\n\" https://example.com",
+            "explanation": "Reports the content type and downloaded size after completion."
+        },
+        {
+            "id": 137,
+            "category": "Proxy Usage",
+            "command": "curl --proxy-insecure -x https://proxy.local https://example.com",
+            "example": "curl --proxy-insecure -x https://proxy.local https://example.com",
+            "explanation": "Connects to an HTTPS proxy ignoring its certificate errors."
+        },
+        {
+            "id": 138,
+            "category": "TLS Security",
+            "command": "curl --tlsuser user --tlspassword pass https://example.com",
+            "example": "curl --tlsuser user --tlspassword pass https://example.com",
+            "explanation": "Provides username/password for TLS-SRP authentication."
+        },
+        {
+            "id": 139,
+            "category": "Headers",
+            "command": "curl --header \"X-Header:@file.txt\" https://example.com",
+            "example": "curl --header \"X-Header:@file.txt\" https://example.com",
+            "explanation": "Reads the header value from a file (stripping newlines)."
+        },
+        {
+            "id": 140,
+            "category": "Rate Limiting",
+            "command": "curl --speed-limit 1000 --speed-time 10 https://example.com",
+            "example": "curl --speed-limit 1000 --speed-time 10 https://example.com",
+            "explanation": "Aborts the download if speed drops below 1000 bytes/sec for 10 seconds."
+        },
+        {
+            "id": 141,
+            "category": "Output",
+            "command": "curl --progress-bar -O https://example.com/large.zip",
+            "example": "curl --progress-bar -O https://example.com/large.zip",
+            "explanation": "Displays a simple progress bar instead of the standard meter."
+        },
+        {
+            "id": 142,
+            "category": "Red Team / Recon",
+            "command": "curl -I -X DELETE https://example.com/admin",
+            "example": "curl -I -X DELETE https://example.com/admin",
+            "explanation": "Checks if the DELETE method is enabled on a sensitive endpoint without executing it completely."
+        },
+        {
+            "id": 143,
+            "category": "FTP",
+            "command": "curl --ftp-create-dirs -T local.txt ftp://example.com/new/path/",
+            "example": "curl --ftp-create-dirs -T local.txt ftp://example.com/new/path/",
+            "explanation": "Uploads a file via FTP and creates the remote directory structure if missing."
+        },
+        {
+            "id": 144,
+            "category": "FTP",
+            "command": "curl --ftp-ssl -u user:pass ftp://example.com",
+            "example": "curl --ftp-ssl -u user:pass ftp://example.com",
+            "explanation": "Forces FTPS (FTP over SSL) for secure transfer."
+        },
+        {
+            "id": 145,
+            "category": "Cleanup",
+            "command": "curl -K cleanup_config.txt",
+            "example": "curl -K cleanup_config.txt",
+            "explanation": "Runs a batch of delete/logout commands defined in a config file."
+        },
+        {
+            "id": 146,
+            "category": "API Testing",
+            "command": "curl -X POST -H \"Content-Type: application/xml\" -d \"<xml>data</xml>\" https://api.local",
+            "example": "curl -X POST -H \"Content-Type: application/xml\" -d \"<xml>data</xml>\" https://api.local",
+            "explanation": "Submits an XML payload to a SOAP or XML-RPC endpoint."
+        },
+        {
+            "id": 147,
+            "category": "Red Team / Fuzzing",
+            "command": "curl -H \"Range: bytes=0-18446744073709551615\" https://example.com",
+            "example": "curl -H \"Range: bytes=0-18446744073709551615\" https://example.com",
+            "explanation": "Sends a malformed Range header to test for integer overflow vulnerabilities."
+        },
+        {
+            "id": 148,
+            "category": "Blue Team / Monitoring",
+            "command": "curl -s -w \"%{remote_ip}\" https://example.com",
+            "example": "curl -s -w \"%{remote_ip}\" https://example.com",
+            "explanation": "Outputs only the remote IP address of the server connected to."
+        },
+        {
+            "id": 149,
+            "category": "Proxy",
+            "command": "curl --proxy-header \"Custom: Header\" -x http://proxy.local https://example.com",
+            "example": "curl --proxy-header \"Custom: Header\" -x http://proxy.local https://example.com",
+            "explanation": "Sends a custom header to the proxy server itself, not the destination."
+        },
+        {
+            "id": 150,
+            "category": "Advanced",
+            "command": "curl --engine list",
+            "example": "curl --engine list",
+            "explanation": "Lists available OpenSSL crypto engines supported by the build."
+        }
+    ]
+}

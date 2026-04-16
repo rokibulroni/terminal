@@ -1,0 +1,112 @@
+{
+    "tool": "radare2",
+    "description": "Radare2 (r2): A highly advanced multi-architectural command-line framework built intrinsically mapping massive disassembly, native raw exploitation, and deep logic analysis tools.",
+    "total_commands": 15,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Initialization",
+            "command": "r2 <binary>",
+            "example": "r2 ./target_binary",
+            "explanation": "Launches the underlying terminal interface natively mapping the local binary precisely into dynamic memory structures inherently preparing fundamental exploitation vectors."
+        },
+        {
+            "id": 2,
+            "category": "Automated Analysis",
+            "command": "r2 -A <binary>",
+            "example": "r2 -A ./target_binary",
+            "explanation": "Boots the explicit tracking arrays forcefully attempting entirely mapping the binary comprehensively automatically evaluating references natively decoding all structural function linkages."
+        },
+        {
+            "id": 3,
+            "category": "Debug Attaching",
+            "command": "r2 -d <binary>",
+            "example": "r2 -d ./target_binary",
+            "explanation": "Transforms foundational static analysis logic enabling dynamic interaction fully instantiating a completely live functional debug runtime execution matrix locally."
+        },
+        {
+            "id": 4,
+            "category": "PID Overriding",
+            "command": "r2 -d <pid>",
+            "example": "r2 -d 1234",
+            "explanation": "Hijacks completely decoupled actively running independent background processes exposing raw executable internal loops enabling explicit runtime system manipulations."
+        },
+        {
+            "id": 5,
+            "category": "Function Listing",
+            "command": "afl",
+            "example": "afl",
+            "explanation": "Initiates structural queries executing deeply against the analytical matrix explicitly dumping formatted columns matching newly localized absolute function memory pointers."
+        },
+        {
+            "id": 6,
+            "category": "Visual Graphing",
+            "command": "VV",
+            "example": "VV",
+            "explanation": "Bridges standard CLI inputs actively shifting terminal perspectives inherently drawing absolutely stunning interactive colored Assembly basic-block directional control-flow-graphs (CFGs)."
+        },
+        {
+            "id": 7,
+            "category": "Seek Pointers",
+            "command": "s <address/function>",
+            "example": "s main",
+            "explanation": "Relocates foundational analysis processing variables dynamically manipulating local tracking systems physically targeting precisely into designated absolute hexadecimal address spaces."
+        },
+        {
+            "id": 8,
+            "category": "Disassembly Dumps",
+            "command": "pdf",
+            "example": "pdf",
+            "explanation": "Extracts complex internal execution structures mapping exact parameters formatting explicit Assembly instruction cascades exactly originating around the active target function bounds."
+        },
+        {
+            "id": 9,
+            "category": "Memory Modification",
+            "command": "wx <hex> @ <address>",
+            "example": "wx 9090 @ 0x4000",
+            "explanation": "Forces absolute deep physical binary manipulations natively replacing active bytecode logic forcefully injecting standard NOP sleds physically bypassing internal validation conditionals."
+        },
+        {
+            "id": 10,
+            "category": "Text Querying",
+            "command": "/ <string>",
+            "example": "/ \"password\"",
+            "explanation": "Scans extremely massive internal contiguous memory layouts blindly aggressively tracing deep bytes searching for unique static localized unencrypted explicitly defined specific ASCII text boundaries."
+        },
+        {
+            "category": "Visual Modes",
+            "command": "v",
+            "example": "v",
+            "explanation": "Completely completely drops standard explicit CLI logic inherently injecting completely into a deeply optimized natively hex-navigable Visual cursor mapping mode.",
+            "id": 11
+        },
+        {
+            "category": "Crypto Scanning",
+            "command": "zc",
+            "example": "zc",
+            "explanation": "Invokes extremely specific specialized internal analysis libraries completely searching heavily compiled bytecode exclusively attempting tracking standardized cryptologic constants inherently identifying AES/RSA blocks.",
+            "id": 12
+        },
+        {
+            "category": "String Dumping",
+            "command": "iz",
+            "example": "iz",
+            "explanation": "Circumvents deep execution mapping blindly dumping all strictly recognized localized data arrays inherently resolving cleanly translated unencrypted ASCII string values globally.",
+            "id": 13
+        },
+        {
+            "category": "Patch Generation",
+            "command": "wc <file>",
+            "example": "wc payload.bin",
+            "explanation": "Exports heavily modified dynamically updated specific memory ranges intrinsically pushing exactly completely altered explicit hexadecimal strings definitively into static patched files.",
+            "id": 14
+        },
+        {
+            "category": "Memory Emulation",
+            "command": "aei",
+            "example": "aei",
+            "explanation": "Initializes natively deeply complex ESIL (Evaluable Strings Intermediate Language) engines dynamically tracking absolutely strict execution states synthetically exactly without natively firing actual processor bridges.",
+            "id": 15
+        }
+    ]
+}

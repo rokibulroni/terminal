@@ -1,0 +1,77 @@
+{
+  "tool": "gpio",
+  "description": "WiringPi GPIO: The industry standard command-line utility for manipulating, evaluating, and controlling General Purpose Input/Output header pins at the system level.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Information",
+      "command": "gpio readall",
+      "example": "gpio readall",
+      "explanation": "Overlays a complete visualization grid mapping every physical Board Pin, its matching BCM/wiringPi ID, its Mode (IN/OUT/ALT), and its exact live current Value (0/1)."
+    },
+    {
+      "id": 2,
+      "category": "Mode Declaration",
+      "command": "gpio -g mode <pin> out",
+      "example": "gpio -g mode 17 out",
+      "explanation": "Forces a designated BCM pin (-g) into an OUTPUT state, structurally preparing it to deliver external electrical logic."
+    },
+    {
+      "id": 3,
+      "category": "Mode Declaration",
+      "command": "gpio -g mode <pin> in",
+      "example": "gpio -g mode 17 in",
+      "explanation": "Configures a pin to an INPUT state, structuring it to passively read external voltages supplied by physical sensors/buttons."
+    },
+    {
+      "id": 4,
+      "category": "Logic State",
+      "command": "gpio -g write <pin> 1",
+      "example": "gpio -g write 17 1",
+      "explanation": "Drives the designated output pin HIGH, supplying exactly 3.3 volts of electrical current directly to the header."
+    },
+    {
+      "id": 5,
+      "category": "Logic State",
+      "command": "gpio -g write <pin> 0",
+      "example": "gpio -g write 17 0",
+      "explanation": "Drives the designated output pin LOW, sinking the voltage back to a theoretical absolute 0v grounded state."
+    },
+    {
+      "id": 6,
+      "category": "Logic State",
+      "command": "gpio -g read <pin>",
+      "example": "gpio -g read 17",
+      "explanation": "Returns the explicit active state integer (0 or 1) presently being perceived on the targeted INPUT physical pin."
+    },
+    {
+      "id": 7,
+      "category": "Internal Resistors",
+      "command": "gpio -g mode <pin> up",
+      "example": "gpio -g mode 17 up",
+      "explanation": "Engages the CPU's internal microscopic Pull-Up resistor circuit natively anchoring a floating pin logic to a consistent HIGH state."
+    },
+    {
+      "id": 8,
+      "category": "Internal Resistors",
+      "command": "gpio -g mode <pin> down",
+      "example": "gpio -g mode 17 down",
+      "explanation": "Engages the internal Pull-Down resistor effectively draining ungrounded chaotic noise establishing a solid resting LOW state."
+    },
+    {
+      "id": 9,
+      "category": "PWM Controls",
+      "command": "gpio -g mode <pin> pwm",
+      "example": "gpio -g mode 18 pwm",
+      "explanation": "Sets specifically supported output pins into Pulse Width Modulation mode enabling analogue-like operations (fading LEDs, running servo motors)."
+    },
+    {
+      "id": 10,
+      "category": "PWM Controls",
+      "command": "gpio -g pwm <pin> <value>",
+      "example": "gpio -g pwm 18 512",
+      "explanation": "Drives a precise numerical duty cycle down the PWM active pin. Standard ranges fall dynamically from 0 to 1023."
+    }
+  ]
+}

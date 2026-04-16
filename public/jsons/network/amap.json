@@ -1,0 +1,322 @@
+{
+    "tool": "amap",
+    "description": "Complete amap command reference covering all options from basic to advanced for service fingerprinting and application mapping.",
+    "total_commands": 45,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Service Fingerprinting",
+            "command": "amap 192.168.1.1 80",
+            "example": "amap 192.168.1.1 80",
+            "explanation": "Performs default application fingerprinting on a single target and port.\nIdentifies the service running on the port even if it's on a non-standard port."
+        },
+        {
+            "id": 2,
+            "category": "Basic Service Fingerprinting",
+            "command": "amap 192.168.1.1 21 22 80",
+            "example": "amap 192.168.1.1 21 22 80",
+            "explanation": "Scans multiple specific ports on a single target.\nUseful for checking a set of known services simultaneously."
+        },
+        {
+            "id": 3,
+            "category": "Target and Port Specification",
+            "command": "amap 192.168.1.1 1-100",
+            "example": "amap 192.168.1.1 1-100",
+            "explanation": "Scans a sequential range of ports on the specified IP.\nDetects applications running on standard and non-standard ports within the range."
+        },
+        {
+            "id": 4,
+            "category": "Target and Port Specification",
+            "command": "amap 192.168.1.1 80 8080 443",
+            "example": "amap 192.168.1.1 80 8080 443",
+            "explanation": "Fingerprints common web ports to identify server software.\nHelps determine if the web server is Apache, IIS, Nginx, or something else."
+        },
+        {
+            "id": 5,
+            "category": "Banner Grabbing",
+            "command": "amap -B 192.168.1.1 21",
+            "example": "amap -B 192.168.1.1 21",
+            "explanation": "Runs in banner mode to collect service banners (-B).\nRetrieves the raw banner without sending active application triggers."
+        },
+        {
+            "id": 6,
+            "category": "Banner Grabbing",
+            "command": "amap -b 192.168.1.1 80",
+            "example": "amap -b 192.168.1.1 80",
+            "explanation": "Fetches ASCII banners in addition to fingerprinting responses.\nProvides extra context about the service version and configuration."
+        },
+        {
+            "id": 7,
+            "category": "UDP Scanning",
+            "command": "amap -u 192.168.1.1 53",
+            "example": "amap -u 192.168.1.1 53",
+            "explanation": "Switches to UDP mode for scanning connectionless services.\nEssential for mapping DNS, SNMP, and other UDP-based protocols."
+        },
+        {
+            "id": 8,
+            "category": "UDP Scanning",
+            "command": "amap -u 192.168.1.1 161 162",
+            "example": "amap -u 192.168.1.1 161 162",
+            "explanation": "Identifies SNMP services by sending specific UDP triggers.\nCan reveal device information if default community strings are used."
+        },
+        {
+            "id": 9,
+            "category": "Protocol Specification",
+            "command": "amap -P tcp 192.168.1.1 80",
+            "example": "amap -P tcp 192.168.1.1 80",
+            "explanation": "Explicitly specifies simple TCP scan mode.\nEnsures the scanner uses TCP connect calls for the investigation."
+        },
+        {
+            "id": 10,
+            "category": "Protocol Specification",
+            "command": "amap -P udp 192.168.1.1 53",
+            "example": "amap -P udp 192.168.1.1 53",
+            "explanation": "Explicitly specifies the UDP protocol for the scan.\nForces UDP usage even if the tool defaults to TCP."
+        },
+        {
+            "id": 11,
+            "category": "IPv6 Scanning",
+            "command": "amap -6 ::1 80",
+            "example": "amap -6 ::1 80",
+            "explanation": "Performs application fingerprinting on an IPv6 address.\nValidates services running on the IPv6 stack."
+        },
+        {
+            "id": 12,
+            "category": "IPv6 Scanning",
+            "command": "amap -6 fe80::1 22",
+            "example": "amap -6 fe80::1 22",
+            "explanation": "Scans an IPv6 link-local address for SSH.\nUseful for local network discovery where global IPv6 addresses aren't configured."
+        },
+        {
+            "id": 13,
+            "category": "Scan Optimization",
+            "command": "amap -1 192.168.1.1 80",
+            "example": "amap -1 192.168.1.1 80",
+            "explanation": "Sends only triggers defined for the specific port (-1).\nOptimizes speed by skipping heuristic checks for other protocols."
+        },
+        {
+            "id": 14,
+            "category": "Scan Optimization",
+            "command": "amap -H 192.168.1.1 80",
+            "example": "amap -H 192.168.1.1 80",
+            "explanation": "Disables heuristic triggers (-H).\nPrevents the scanner from guessing protocols, reducing noise and scan time."
+        },
+        {
+            "id": 15,
+            "category": "Scan Optimization",
+            "command": "amap -U 192.168.1.1 80",
+            "example": "amap -U 192.168.1.1 80",
+            "explanation": "Disables unidentified triggers (-U).\nFocuses output only on successfully identified services, reducing clutter."
+        },
+        {
+            "id": 16,
+            "category": "Verbose and Debug Modes",
+            "command": "amap -v 192.168.1.1 80",
+            "example": "amap -v 192.168.1.1 80",
+            "explanation": "Enables verbose output (-v).\nDisplays details about the connection process and triggers being sent."
+        },
+        {
+            "id": 17,
+            "category": "Verbose and Debug Modes",
+            "command": "amap -vv 192.168.1.1 80",
+            "example": "amap -vv 192.168.1.1 80",
+            "explanation": "Enables double verbosity (-vv) for deep inspection.\nShows extensive details, useful for troubleshooting incorrect identifications."
+        },
+        {
+            "id": 18,
+            "category": "Verbose and Debug Modes",
+            "command": "amap -d 192.168.1.1 80",
+            "example": "amap -d 192.168.1.1 80",
+            "explanation": "Activates debug mode (-d).\nDumps all packet data sent and received for protocol analysis."
+        },
+        {
+            "id": 19,
+            "category": "Output Formatting",
+            "command": "amap -q 192.168.1.1 80",
+            "example": "amap -q 192.168.1.1 80",
+            "explanation": "Runs in quiet mode (-q).\nSuppresses non-essential output, printing only finding summaries."
+        },
+        {
+            "id": 20,
+            "category": "Output Formatting",
+            "command": "amap -o results.txt 192.168.1.1 80",
+            "example": "amap -o results.txt 192.168.1.1 80",
+            "explanation": "Saves scan results to a file.\nPersists the output for later review or documentation."
+        },
+        {
+            "id": 21,
+            "category": "Output Formatting",
+            "command": "amap -m 192.168.1.1 80",
+            "example": "amap -m 192.168.1.1 80",
+            "explanation": "Generates machine-readable output (-m).\nFormats the data for easy parsing by scripts or other security tools."
+        },
+        {
+            "id": 22,
+            "category": "Output Formatting",
+            "command": "amap -m -o parse_me.log 192.168.1.1 80",
+            "example": "amap -m -o parse_me.log 192.168.1.1 80",
+            "explanation": "Writes machine-readable output directly to a file.\nIdeal for automated logging pipelines or SIEM ingestion."
+        },
+        {
+            "id": 23,
+            "category": "Integration with Port Scanners",
+            "command": "amap -i scan.gnmap",
+            "example": "amap -i scan.gnmap",
+            "explanation": "Imports targets from an Nmap grepable file (-i).\nSeamlessly integrates into a workflow starting with Nmap port discovery."
+        },
+        {
+            "id": 24,
+            "category": "Timeout and Performance",
+            "command": "amap -t 2 192.168.1.1 80",
+            "example": "amap -t 2 192.168.1.1 80",
+            "explanation": "Sets connection timeout to 2 seconds.\nSpeeds up scanning on low-latency local networks by failing faster."
+        },
+        {
+            "id": 25,
+            "category": "Timeout and Performance",
+            "command": "amap -T 10 192.168.1.1 80",
+            "example": "amap -T 10 192.168.1.1 80",
+            "explanation": "Sets read timeout to 10 seconds (-T).\nAllows more time for slow services or heavily loaded servers to respond."
+        },
+        {
+            "id": 26,
+            "category": "Timeout and Performance",
+            "command": "amap -C 5 192.168.1.1 80",
+            "example": "amap -C 5 192.168.1.1 80",
+            "explanation": "Configures retry count to 5 on timeout.\nIncreases reliability on unstable or congested networks."
+        },
+        {
+            "id": 27,
+            "category": "Timeout and Performance",
+            "command": "amap -c 16 192.168.1.1 1-1000",
+            "example": "amap -c 16 192.168.1.1 1-1000",
+            "explanation": "Sets parallel connections to 16 (-c).\nIncreases scan throughput by processing multiple tasks simultaneously."
+        },
+        {
+            "id": 28,
+            "category": "Custom Probe Control",
+            "command": "amap -R 192.168.1.1 111",
+            "example": "amap -R 192.168.1.1 111",
+            "explanation": "Skips RPC service identification steps (-R).\nAvoids sending RPC specific probes if RPC services are not of interest."
+        },
+        {
+            "id": 29,
+            "category": "SSL and Encrypted Service Detection",
+            "command": "amap -S 192.168.1.1 443",
+            "example": "amap -S 192.168.1.1 443",
+            "explanation": "Forces SSL mode for the scan (-S).\nAssumes the target port is using SSL/TLS, skipping the plaintext handshake attempt."
+        },
+        {
+            "id": 30,
+            "category": "Advanced Combined Scans",
+            "command": "amap -b -v 192.168.1.1 21",
+            "example": "amap -b -v 192.168.1.1 21",
+            "explanation": "Combines banner grabbing with verbose output.\nProvides a detailed look at the service banner and the handshake process."
+        },
+        {
+            "id": 31,
+            "category": "Advanced Combined Scans",
+            "command": "amap -u -b 192.168.1.1 161",
+            "example": "amap -u -b 192.168.1.1 161",
+            "explanation": "Performs UDP banner grabbing (-u -b).\nAttempts to retrieve text banners from UDP services like TFTP or legacy protocols."
+        },
+        {
+            "id": 32,
+            "category": "Red Team Service Enumeration",
+            "command": "amap -A -b -q 192.168.1.1 1-65535",
+            "example": "amap -A -b -q 192.168.1.1 1-65535",
+            "explanation": "Quietly maps applications on all ports (-A -b -q).\nA comprehensive enumeration strategy for red team engagements."
+        },
+        {
+            "id": 33,
+            "category": "Blue Team Exposure Validation",
+            "command": "amap -1 -b 192.168.1.1 80 443 8080",
+            "example": "amap -1 -b 192.168.1.1 80 443 8080",
+            "explanation": "Checks common ports with specific triggers only (-1).\nUsed to validate standard service configurations without generating excess noise."
+        },
+        {
+            "id": 34,
+            "category": "Incident Response Support",
+            "command": "amap -d -o forensic_log.txt 192.168.1.100 6667",
+            "example": "amap -d -o forensic_log.txt 192.168.1.100 6667",
+            "explanation": "Captures a full packet dump for forensics (-d).\nDocuments the exact interaction with a suspicious service for later analysis."
+        },
+        {
+            "id": 35,
+            "category": "False Positive Reduction",
+            "command": "amap -H -U 192.168.1.1 80",
+            "example": "amap -H -U 192.168.1.1 80",
+            "explanation": "Disables heuristic and unidentified triggers.\nA strict scanning mode that reports only high-confidence identifications."
+        },
+        {
+            "id": 36,
+            "category": "Automation and Pipeline Usage",
+            "command": "amap -m -q 192.168.1.1 22 >> scan_results.log",
+            "example": "amap -m -q 192.168.1.1 22 >> scan_results.log",
+            "explanation": "Appends machine-readable output to a log file.\nDesigned for scheduled tasks or continuous monitoring scripts."
+        },
+        {
+            "id": 37,
+            "category": "Rate and Performance Control",
+            "command": "amap -t 1 -T 1 -c 32 192.168.1.1 80",
+            "example": "amap -t 1 -T 1 -c 32 192.168.1.1 80",
+            "explanation": "Maximizes scanning speed with aggressive timeouts and parallelism.\nUse with caution as it generates significant network noise and load."
+        },
+        {
+            "id": 38,
+            "category": "Advanced Combined Scans",
+            "command": "amap -1 -u -b 192.168.1.1 123",
+            "example": "amap -1 -u -b 192.168.1.1 123",
+            "explanation": "Targets UDP port 123 (NTP) with specific checks.\nEffectively identifies NTP servers and grabs version banners."
+        },
+        {
+            "id": 39,
+            "category": "Input from File",
+            "command": "amap -i targets.gnmap -o scan_report.txt",
+            "example": "amap -i targets.gnmap -o scan_report.txt",
+            "explanation": "Reads targets from Nmap (-i) and writes a report (-o).\nStreamlines the process of verifying Nmap discovery results."
+        },
+        {
+            "id": 40,
+            "category": "Legacy Support Mode",
+            "command": "amap -W 192.168.1.1 80",
+            "example": "amap -W 192.168.1.1 80",
+            "explanation": "Activates legacy web application fingerprinting (-W).\nCompatibility mode for identifying older web architectures."
+        },
+        {
+            "id": 41,
+            "category": "Advanced Combined Scans",
+            "command": "amap -P tcp -b -v 192.168.1.1 25",
+            "example": "amap -P tcp -b -v 192.168.1.1 25",
+            "explanation": "Explicitly scans TCP port 25 for SMTP banners.\nVerifies mail server configuration and identifying banners."
+        },
+        {
+            "id": 42,
+            "category": "Advanced Combined Scans",
+            "command": "amap -6 -u -v ::1 5353",
+            "example": "amap -6 -u -v ::1 5353",
+            "explanation": "Scans mDNS over UDP on IPv6 localhost.\nChecks for multicast DNS services running on the local system."
+        },
+        {
+            "id": 43,
+            "category": "Custom Probe Control",
+            "command": "amap -H -1 10.0.0.5 8080",
+            "example": "amap -H -1 10.0.0.5 8080",
+            "explanation": "Strict signature match on port 8080.\nCombines specific triggers with disabled heuristics for precise identification."
+        },
+        {
+            "id": 44,
+            "category": "Red Team Service Enumeration",
+            "command": "amap -i targets.gnmap -m -b",
+            "example": "amap -i targets.gnmap -m -b",
+            "explanation": "Batch processes targets for machine-readable output.\nEfficient for large-scale service auditing across a network."
+        },
+        {
+            "id": 45,
+            "category": "Full Comprehensive Scan",
+            "command": "amap -A -b -v -t 3 -T 5 192.168.1.1 1-1024",
+            "example": "amap -A -b -v -t 3 -T 5 192.168.1.1 1-1024",
+            "explanation": "Executes a comprehensive, verbose scan on privileged ports.\nA thorough audit command for mapping all services on a host."
+        }
+    ]
+}

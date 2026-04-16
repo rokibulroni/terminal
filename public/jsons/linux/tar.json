@@ -1,0 +1,77 @@
+{
+  "tool": "tar",
+  "description": "Tape Archive (tar) is an incredibly versatile utility used to securely package, compress, and extract multiple files and directories into a single archive.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Archiving",
+      "command": "tar -cvf <archive.tar> <directory>",
+      "example": "tar -cvf backup.tar /var/www/",
+      "explanation": "Creates (c) an uncompressed archive file containing the specified directory, verbose (v)."
+    },
+    {
+      "id": 2,
+      "category": "Extraction",
+      "command": "tar -xvf <archive.tar>",
+      "example": "tar -xvf backup.tar",
+      "explanation": "Extracts (x) the exact contents of an uncompressed .tar file into the current working directory."
+    },
+    {
+      "id": 3,
+      "category": "Compression",
+      "command": "tar -czvf <archive.tar.gz> <directory>",
+      "example": "tar -czvf backup.tar.gz /var/www/",
+      "explanation": "Creates an archive compressed via gzip (z). Fastest compression standard."
+    },
+    {
+      "id": 4,
+      "category": "Extraction",
+      "command": "tar -xzvf <archive.tar.gz>",
+      "example": "tar -xzvf backup.tar.gz",
+      "explanation": "Expands and extracts a gzip-compressed (.gz) tar archive."
+    },
+    {
+      "id": 5,
+      "category": "Compression",
+      "command": "tar -cjvf <archive.tar.bz2> <directory>",
+      "example": "tar -cjvf backup.tar.bz2 /var/www/",
+      "explanation": "Creates an archive compressed via bzip2 (j), which yields smaller file sizes than gzip but takes longer."
+    },
+    {
+      "id": 6,
+      "category": "Compression",
+      "command": "tar -cJvf <archive.tar.xz> <directory>",
+      "example": "tar -cJvf backup.tar.xz /var/www/",
+      "explanation": "Creates an archive exclusively compressed via xz (J). Extreme compression ratios for maximum space savings."
+    },
+    {
+      "id": 7,
+      "category": "Extraction",
+      "command": "tar -xvf <archive.extension> -C <target_directory>",
+      "example": "tar -xzvf backup.tar.gz -C /opt/",
+      "explanation": "Extracts the payload directly into a specified target directory instead of the current working directory."
+    },
+    {
+      "id": 8,
+      "category": "Inspection",
+      "command": "tar -tvf <archive.tar>",
+      "example": "tar -tvf backup.tar",
+      "explanation": "Lists (t) the strict internal contents of the archive structure without fully extracting the files to disk."
+    },
+    {
+      "id": 9,
+      "category": "Extraction",
+      "command": "tar -xvf <archive.tar> <specific_file>",
+      "example": "tar -xzvf backup.tar.gz var/www/index.html",
+      "explanation": "Extracts exclusively one specified matching file out of an entire immense archive."
+    },
+    {
+      "id": 10,
+      "category": "Archiving",
+      "command": "tar -cvzf <archive.tar.gz> --exclude=<pattern> <directory>",
+      "example": "tar -cvzf site.tar.gz --exclude='*.log' /var/www/",
+      "explanation": "Packages a directory while explicitly forcing it to ignore/exclude specific files matching a defined pattern."
+    }
+  ]
+}

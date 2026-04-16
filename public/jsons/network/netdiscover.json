@@ -1,0 +1,203 @@
+{
+    "tool": "netdiscover",
+    "description": "Complete netdiscover command reference covering all options from basic to advanced",
+    "total_commands": 28,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Network Discovery",
+            "command": "netdiscover",
+            "example": "netdiscover",
+            "explanation": "Starts an automated interactive scan on the default network interface.\nIdentifies live hosts on common private segments through ARP discovery."
+        },
+        {
+            "id": 2,
+            "category": "Interface Selection",
+            "command": "netdiscover -i eth0",
+            "example": "netdiscover -i eth0",
+            "explanation": "Runs an automated discovery scan on a specific interface (-i).\nRequired for targeting networks connected via secondary or virtual adapters."
+        },
+        {
+            "id": 3,
+            "category": "Target Range and CIDR Specification",
+            "command": "netdiscover -r 192.168.1.0/24",
+            "example": "netdiscover -r 192.168.1.0/24",
+            "explanation": "Actively scans a specified Class C subnet for live hosts (-r).\nProbes every address in the range to map active local devices."
+        },
+        {
+            "id": 4,
+            "category": "Target Range and CIDR Specification",
+            "command": "netdiscover -r 10.0.0.0/16",
+            "example": "netdiscover -r 10.0.0.0/16",
+            "explanation": "Enables ARP discovery on a broad Class B network range.\nUsed to identify hosts across a medium-sized infrastructure segment."
+        },
+        {
+            "id": 5,
+            "category": "Target Range and CIDR Specification",
+            "command": "netdiscover -r 172.16.0.0/12",
+            "example": "netdiscover -r 172.16.0.0/12",
+            "explanation": "Performs reconnaissance on a large /12 private network block.\nDiscovers hosts across the entire 172.16.0.0 private range."
+        },
+        {
+            "id": 6,
+            "category": "Passive Scanning Mode",
+            "command": "netdiscover -p",
+            "example": "netdiscover -p",
+            "explanation": "Listens for ARP traffic in passive mode (-p).\nIdentifies live hosts without sending any packets to avoid detection."
+        },
+        {
+            "id": 7,
+            "category": "Passive Scanning Mode",
+            "command": "netdiscover -i wlan0 -p",
+            "example": "netdiscover -i wlan0 -p",
+            "explanation": "Sniffs ARP packets passively on a wireless interface.\nMaps active WiFi clients and devices without generating network noise."
+        },
+        {
+            "id": 8,
+            "category": "Target Range and CIDR Specification",
+            "command": "netdiscover -l ranges.txt",
+            "example": "netdiscover -l ranges.txt",
+            "explanation": "Scans multiple network ranges defined in a text file (-l).\nAutomates discovery across varied disconnected infrastructure segments."
+        },
+        {
+            "id": 9,
+            "category": "Timing and Scan Speed Control",
+            "command": "netdiscover -r 192.168.1.0/24 -f",
+            "example": "netdiscover -r 192.168.1.0/24 -f",
+            "explanation": "Enables fast mode for accelerated ARP discovery (-f).\nReduces inter-packet wait times to speed up the network audit."
+        },
+        {
+            "id": 10,
+            "category": "Timing and Scan Speed Control",
+            "command": "netdiscover -r 192.168.1.0/24 -s 500",
+            "example": "netdiscover -r 192.168.1.0/24 -s 500",
+            "explanation": "Sets a 500ms delay between individual ARP probes (-s).\nSlows down the scan to minimize network congestion and footprint."
+        },
+        {
+            "id": 11,
+            "category": "Timing and Scan Speed Control",
+            "command": "netdiscover -r 192.168.1.0/24 -S",
+            "example": "netdiscover -r 192.168.1.0/24 -S",
+            "explanation": "Disables all inter-probe sleep intervals (-S).\nForces the tool to transmit discovery packets as fast as possible."
+        },
+        {
+            "id": 12,
+            "category": "Active Scanning Mode",
+            "command": "netdiscover -r 192.168.1.0/24 -c 3",
+            "example": "netdiscover -r 192.168.1.0/24 -c 3",
+            "explanation": "Probes each host with 3 consecutive ARP requests (-c).\nIncreases discovery reliability on unstable or lossy network links."
+        },
+        {
+            "id": 13,
+            "category": "Output Display and Logging",
+            "command": "netdiscover -r 192.168.1.0/24 -P",
+            "example": "netdiscover -r 192.168.1.0/24 -P",
+            "explanation": "Prints discovered hosts to the terminal stdout (-P).\nIdeal for logging results directly without the interactive UI."
+        },
+        {
+            "id": 14,
+            "category": "Quiet and Non Interactive Modes",
+            "command": "netdiscover -P -r 192.168.1.0/24 > results.txt",
+            "example": "netdiscover -P -r 192.168.1.0/24 > results.txt",
+            "explanation": "Executes a non-interactive scan and saves to a file.\nStandardizes capture for post-processing and reporting tasks."
+        },
+        {
+            "id": 15,
+            "category": "MAC Address and Vendor Identification",
+            "command": "netdiscover -m macs.txt",
+            "example": "netdiscover -m macs.txt",
+            "explanation": "Uses a custom MAC-to-vendor mapping file (-m).\nEnables granular identification of specialized or proprietary hardware."
+        },
+        {
+            "id": 16,
+            "category": "Custom Source and Network Configuration",
+            "command": "netdiscover -r 192.168.1.0/24 -d",
+            "example": "netdiscover -r 192.168.1.0/24 -d",
+            "explanation": "Bypasses local configuration files for discovery (-d).\nEnsures a clean, default-parameter scan regardless of local settings."
+        },
+        {
+            "id": 17,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "netdiscover -r 192.168.1.0/24 -n 100",
+            "example": "netdiscover -r 192.168.1.0/24 -n 100",
+            "explanation": "Narrows the scan range to the first 100 hosts in the subnet.\nOptimizes reconnaissance when targeting specific address pools."
+        },
+        {
+            "id": 18,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "netdiscover -i eth0 -r 192.168.1.0/24 -F \"arp\"",
+            "example": "netdiscover -i eth0 -r 192.168.1.0/24 -F \"arp\"",
+            "explanation": "Applies a custom PCAP filter to the discovery session (-F).\nGranularly controls which background traffic is captured and processed."
+        },
+        {
+            "id": 19,
+            "category": "Red Team Internal Reconnaissance",
+            "command": "netdiscover -i eth0 -p -s 1000",
+            "example": "netdiscover -i eth0 -p -s 1000",
+            "explanation": "Performs stealthy passive reconnaissance on a specific adapter.\nQuietly maps assets by monitoring existing ARP traffic in the background."
+        },
+        {
+            "id": 20,
+            "category": "Red Team Internal Reconnaissance",
+            "command": "netdiscover -P -l targets.txt",
+            "example": "netdiscover -P -l targets.txt",
+            "explanation": "Scans a batch list of targets for direct script processing.\nProvides clean output for integration into larger reconnaissance pipelines."
+        },
+        {
+            "id": 21,
+            "category": "Blue Team Network Visibility Validation",
+            "command": "netdiscover -r 192.168.10.0/24 -c 5 -s 100",
+            "example": "netdiscover -r 192.168.10.0/24 -c 5 -s 100",
+            "explanation": "Aggressively audits a subnet with high retry counts.\nEnsures that every active device on the segment is identified and mapped."
+        },
+        {
+            "id": 22,
+            "category": "Asset Inventory and Network Mapping",
+            "command": "netdiscover -r 192.168.1.0/24 -P -N",
+            "example": "netdiscover -r 192.168.1.0/24 -P -N",
+            "explanation": "Outputs raw discovery data without resolving table headers.\nIdeal for automated data collection and machine-parsing tasks."
+        },
+        {
+            "id": 23,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "netdiscover -i eth0 -r 192.168.1.0/24 -f -P",
+            "example": "netdiscover -i eth0 -r 192.168.1.0/24 -f -P",
+            "explanation": "Fast active scan on eth0 with direct terminal output.\nProvides a rapid, console-friendly overview of current network occupancy."
+        },
+        {
+            "id": 24,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "netdiscover -r 192.168.1.0/24 -F \"arp and ether src 00:11:22:33:44:55\"",
+            "example": "netdiscover -r 192.168.1.0/24 -F \"arp and ether src 00:11:22:33:44:55\"",
+            "explanation": "Filters discovery traffic to a specific source MAC address.\nTracks movement or activity of a particular network device in real-time."
+        },
+        {
+            "id": 25,
+            "category": "Timing and Scan Speed Control",
+            "command": "netdiscover -r 192.168.1.0/24 -s 2000 -c 1",
+            "example": "netdiscover -r 192.168.1.0/24 -s 2000 -c 1",
+            "explanation": "Performs a low-profile scan with 2s inter-packet delays.\nMinimizes detection risk while identifying live systems on the segment."
+        },
+        {
+            "id": 26,
+            "category": "Output Display and Logging",
+            "command": "netdiscover -P -r 192.168.1.0/24 -L",
+            "example": "netdiscover -P -r 192.168.1.0/24 -L",
+            "explanation": "Prints discovered data in a structured tool-friendly format (-L).\nEnables seamless handoff of host lists to other security tools."
+        },
+        {
+            "id": 27,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "netdiscover -S -f -r 192.168.1.0/24",
+            "example": "netdiscover -S -f -r 192.168.1.0/24",
+            "explanation": "Combines fast mode with no-sleep settings for maximum velocity.\nRapidly enumerates large subnet ranges in time-sensitive scenarios."
+        },
+        {
+            "id": 28,
+            "category": "Blue Team Network Visibility Validation",
+            "command": "netdiscover -p -f",
+            "example": "netdiscover -p -f",
+            "explanation": "Uses fast passive mode to quickly identify subnet occupancy.\nPopulates the local ARP cache silently by monitoring existing traffic."
+        }
+    ]
+}

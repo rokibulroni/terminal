@@ -1,0 +1,1127 @@
+{
+    "tool": "az-cli",
+    "description": "Complete Azure CLI command and workflow reference from basic to advanced cloud operations and security auditing",
+    "total_commands": 160,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax and Help",
+            "command": "az --help",
+            "example": "az --help",
+            "explanation": "Displays the global help menu and available command groups."
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax and Help",
+            "command": "az version",
+            "example": "az version",
+            "explanation": "Shows the installed Azure CLI version and dependent libraries."
+        },
+        {
+            "id": 3,
+            "category": "Basic Syntax and Help",
+            "command": "az upgrade",
+            "example": "az upgrade --yes",
+            "explanation": "Updates the Azure CLI to the latest available version automatically."
+        },
+        {
+            "id": 4,
+            "category": "Configuration",
+            "command": "az configure",
+            "example": "az configure",
+            "explanation": "Interactively manages default settings such as output format and logging."
+        },
+        {
+            "id": 5,
+            "category": "Extensions",
+            "command": "az extension add",
+            "example": "az extension add --name bastion",
+            "explanation": "Installs a specific Azure CLI extension to add functionality."
+        },
+        {
+            "id": 6,
+            "category": "Authentication",
+            "command": "az login",
+            "example": "az login",
+            "explanation": "Initiates the interactive login process via the default web browser."
+        },
+        {
+            "id": 7,
+            "category": "Authentication",
+            "command": "az login --use-device-code",
+            "example": "az login --use-device-code",
+            "explanation": "Logs in using a device code, suitable for terminals without browsers."
+        },
+        {
+            "id": 8,
+            "category": "Authentication",
+            "command": "az login --service-principal",
+            "example": "az login --service-principal -u <app-id> -p <password> --tenant <tenant-id>",
+            "explanation": "Authenticates using a service principal for automation workflows."
+        },
+        {
+            "id": 9,
+            "category": "Subscription Management",
+            "command": "az account list",
+            "example": "az account list --output table",
+            "explanation": "Lists all subscriptions available to the logged-in account."
+        },
+        {
+            "id": 10,
+            "category": "Subscription Management",
+            "command": "az account set",
+            "example": "az account set --subscription <subscription-id>",
+            "explanation": "Sets the active subscription for subsequent commands."
+        },
+        {
+            "id": 11,
+            "category": "Subscription Management",
+            "command": "az account show",
+            "example": "az account show",
+            "explanation": "Displays details of the currently active subscription."
+        },
+        {
+            "id": 12,
+            "category": "Resource Group Management",
+            "command": "az group create",
+            "example": "az group create --name MyResourceGroup --location eastus",
+            "explanation": "Creates a new resource group in a specific region."
+        },
+        {
+            "id": 13,
+            "category": "Resource Group Management",
+            "command": "az group list",
+            "example": "az group list --output table",
+            "explanation": "Lists all resource groups in the current subscription."
+        },
+        {
+            "id": 14,
+            "category": "Resource Group Management",
+            "command": "az group show",
+            "example": "az group show --name MyResourceGroup",
+            "explanation": "Gets the metadata and properties of a specific resource group."
+        },
+        {
+            "id": 15,
+            "category": "Resource Group Management",
+            "command": "az resource list",
+            "example": "az resource list --resource-group MyResourceGroup",
+            "explanation": "Lists all resources contained within a specific resource group."
+        },
+        {
+            "id": 16,
+            "category": "Resource Group Management",
+            "command": "az group lock create",
+            "example": "az group lock create --lock-type CanNotDelete --name LockGroup --resource-group MyResourceGroup",
+            "explanation": "Applies a management lock to prevent accidental deletion of the group."
+        },
+        {
+            "id": 17,
+            "category": "Compute Operations",
+            "command": "az vm list-skus",
+            "example": "az vm list-skus --location eastus --output table",
+            "explanation": "Lists available virtual machine sizes and SKUs in a region."
+        },
+        {
+            "id": 18,
+            "category": "Compute Operations",
+            "command": "az vm create",
+            "example": "az vm create --resource-group MyRG --name MyVM --image Ubuntu2204 --admin-username azureuser --generate-ssh-keys",
+            "explanation": "Creates a Linux virtual machine with SSH key authentication."
+        },
+        {
+            "id": 19,
+            "category": "Compute Operations",
+            "command": "az vm list",
+            "example": "az vm list --show-details --output table",
+            "explanation": "Lists all VMs with their power state and IP details."
+        },
+        {
+            "id": 20,
+            "category": "Compute Operations",
+            "command": "az vm show",
+            "example": "az vm show --resource-group MyRG --name MyVM",
+            "explanation": "Retrieves detailed configuration information for a specific VM."
+        },
+        {
+            "id": 21,
+            "category": "Compute Operations",
+            "command": "az vm open-port",
+            "example": "az vm open-port --resource-group MyRG --name MyVM --port 80",
+            "explanation": "Opens a network port on the VM's associated network security group."
+        },
+        {
+            "id": 22,
+            "category": "Compute Operations",
+            "command": "az vm stop",
+            "example": "az vm stop --resource-group MyRG --name MyVM",
+            "explanation": "Power off a virtual machine (deallocates compute resources)."
+        },
+        {
+            "id": 23,
+            "category": "Compute Operations",
+            "command": "az vm start",
+            "example": "az vm start --resource-group MyRG --name MyVM",
+            "explanation": "Starts a stopped virtual machine."
+        },
+        {
+            "id": 24,
+            "category": "Compute Operations",
+            "command": "az vm run-command invoke",
+            "example": "az vm run-command invoke --command-id RunShellScript --name MyVM --resource-group MyRG --scripts \"uname -a\"",
+            "explanation": "Executes a shell script inside the VM using the VM Agent."
+        },
+        {
+            "id": 25,
+            "category": "Compute Operations",
+            "command": "az disk list",
+            "example": "az disk list --resource-group MyRG",
+            "explanation": "Lists managed disks associated with a resource group."
+        },
+        {
+            "id": 26,
+            "category": "Compute Operations",
+            "command": "az snapshot create",
+            "example": "az snapshot create --name MySnapshot --resource-group MyRG --source MyDisk",
+            "explanation": "Creates a point-in-time snapshot of a managed disk."
+        },
+        {
+            "id": 27,
+            "category": "Network Management",
+            "command": "az network vnet create",
+            "example": "az network vnet create --resource-group MyRG --name MyVNet --address-prefix 10.0.0.0/16",
+            "explanation": "Creates a virtual network with a specified address space."
+        },
+        {
+            "id": 28,
+            "category": "Network Management",
+            "command": "az network vnet subnet create",
+            "example": "az network vnet subnet create --resource-group MyRG --vnet-name MyVNet --name MySubnet --address-prefixes 10.0.1.0/24",
+            "explanation": "Adds a subnet to an existing virtual network."
+        },
+        {
+            "id": 29,
+            "category": "Network Management",
+            "command": "az network public-ip create",
+            "example": "az network public-ip create --resource-group MyRG --name MyPublicIP --sku Standard",
+            "explanation": "Creates a public IP address resource."
+        },
+        {
+            "id": 30,
+            "category": "Network Management",
+            "command": "az network nsg create",
+            "example": "az network nsg create --resource-group MyRG --name MyNSG",
+            "explanation": "Creates a Network Security Group for traffic filtering."
+        },
+        {
+            "id": 31,
+            "category": "Network Management",
+            "command": "az network nsg rule create",
+            "example": "az network nsg rule create --resource-group MyRG --nsg-name MyNSG --name AllowSSH --priority 1000 --destination-port-ranges 22 --access Allow --protocol Tcp",
+            "explanation": "Adds an inbound security rule to an NSG."
+        },
+        {
+            "id": 32,
+            "category": "Network Management",
+            "command": "az network nsg rule list",
+            "example": "az network nsg rule list --resource-group MyRG --nsg-name MyNSG",
+            "explanation": "Lists all rules defined in a Network Security Group."
+        },
+        {
+            "id": 33,
+            "category": "Network Management",
+            "command": "az network nic create",
+            "example": "az network nic create --resource-group MyRG --name MyNIC --vnet-name MyVNet --subnet MySubnet --network-security-group MyNSG",
+            "explanation": "Creates a network interface card and attaches it to a subnet and NSG."
+        },
+        {
+            "id": 34,
+            "category": "Storage Management",
+            "command": "az storage account create",
+            "example": "az storage account create --name mystorageacct --resource-group MyRG --location eastus --sku Standard_LRS",
+            "explanation": "Creates a general-purpose storage account."
+        },
+        {
+            "id": 35,
+            "category": "Storage Management",
+            "command": "az storage account keys list",
+            "example": "az storage account keys list --resource-group MyRG --account-name mystorageacct",
+            "explanation": "Lists the access keys for a storage account (Handle with care)."
+        },
+        {
+            "id": 36,
+            "category": "Storage Management",
+            "command": "az storage container create",
+            "example": "az storage container create --name mycontainer --account-name mystorageacct",
+            "explanation": "Creates a blob container within a storage account."
+        },
+        {
+            "id": 37,
+            "category": "Storage Management",
+            "command": "az storage blob upload",
+            "example": "az storage blob upload --container-name mycontainer --file /path/to/file --name myblob --account-name mystorageacct",
+            "explanation": "Uploads a local file to a storage container as a blob."
+        },
+        {
+            "id": 38,
+            "category": "Storage Management",
+            "command": "az storage blob list",
+            "example": "az storage blob list --container-name mycontainer --account-name mystorageacct --output table",
+            "explanation": "Lists all blobs contained in a specific container."
+        },
+        {
+            "id": 39,
+            "category": "Identity and Access",
+            "command": "az ad user list",
+            "example": "az ad user list --output table",
+            "explanation": "Lists all users in the Azure Active Directory tenant."
+        },
+        {
+            "id": 40,
+            "category": "Identity and Access",
+            "command": "az ad user show",
+            "example": "az ad user show --id user@example.com",
+            "explanation": "Gets specific details about an Azure AD user."
+        },
+        {
+            "id": 41,
+            "category": "Identity and Access",
+            "command": "az ad group create",
+            "example": "az ad group create --display-name MyGroup --mail-nickname MyGroup",
+            "explanation": "Creates a new security group in Azure AD."
+        },
+        {
+            "id": 42,
+            "category": "Identity and Access",
+            "command": "az ad group member add",
+            "example": "az ad group member add --group MyGroup --member-id <object-id>",
+            "explanation": "Adds a user or service principal to a group."
+        },
+        {
+            "id": 43,
+            "category": "Identity and Access",
+            "command": "az ad sp create-for-rbac",
+            "example": "az ad sp create-for-rbac --name MyServicePrincipal",
+            "explanation": "Creates a service principal and assigns it a role."
+        },
+        {
+            "id": 44,
+            "category": "Role-Based Access Control",
+            "command": "az role definition list",
+            "example": "az role definition list --name \"Contributor\"",
+            "explanation": "Lists details of a specific role definition."
+        },
+        {
+            "id": 45,
+            "category": "Role-Based Access Control",
+            "command": "az role assignment create",
+            "example": "az role assignment create --assignee <user-email> --role Reader --scope /subscriptions/<sub-id>",
+            "explanation": "Assigns a role to a user or principal at a specific scope."
+        },
+        {
+            "id": 46,
+            "category": "Role-Based Access Control",
+            "command": "az role assignment list",
+            "example": "az role assignment list --assignee <user-email> --all",
+            "explanation": "Lists all roles assigned to a specific user."
+        },
+        {
+            "id": 47,
+            "category": "Key Vault",
+            "command": "az keyvault create",
+            "example": "az keyvault create --name MyKeyVault --resource-group MyRG --location eastus",
+            "explanation": "Creates an Azure Key Vault for managing secrets and keys."
+        },
+        {
+            "id": 48,
+            "category": "Key Vault",
+            "command": "az keyvault secret set",
+            "example": "az keyvault secret set --vault-name MyKeyVault --name MySecret --value \"Sup3rS3cur3\"",
+            "explanation": "Stores a secret value in the Key Vault."
+        },
+        {
+            "id": 49,
+            "category": "Key Vault",
+            "command": "az keyvault secret show",
+            "example": "az keyvault secret show --vault-name MyKeyVault --name MySecret",
+            "explanation": "Retrieves the value of a secret from the Key Vault."
+        },
+        {
+            "id": 50,
+            "category": "App Service",
+            "command": "az webapp list",
+            "example": "az webapp list --resource-group MyRG",
+            "explanation": "Lists all web applications in a resource group."
+        },
+        {
+            "id": 51,
+            "category": "App Service",
+            "command": "az appservice plan create",
+            "example": "az appservice plan create --name MyPlan --resource-group MyRG --sku B1",
+            "explanation": "Creates an App Service plan to host web apps."
+        },
+        {
+            "id": 52,
+            "category": "App Service",
+            "command": "az webapp create",
+            "example": "az webapp create --resource-group MyRG --plan MyPlan --name MyUniqueAppName --runtime \"NODE|18-lts\"",
+            "explanation": "Creates a web application running a specific runtime."
+        },
+        {
+            "id": 53,
+            "category": "Containers (AKS)",
+            "command": "az aks create",
+            "example": "az aks create --resource-group MyRG --name MyCluster --node-count 1 --generate-ssh-keys",
+            "explanation": "Creates a managed Kubernetes cluster."
+        },
+        {
+            "id": 54,
+            "category": "Containers (AKS)",
+            "command": "az aks get-credentials",
+            "example": "az aks get-credentials --resource-group MyRG --name MyCluster",
+            "explanation": "Configures the local kubectl to connect to the AKS cluster."
+        },
+        {
+            "id": 55,
+            "category": "Container Registry",
+            "command": "az acr create",
+            "example": "az acr create --resource-group MyRG --name MyRegistry --sku Basic",
+            "explanation": "Creates an Azure Container Registry."
+        },
+        {
+            "id": 56,
+            "category": "Container Registry",
+            "command": "az acr login",
+            "example": "az acr login --name MyRegistry",
+            "explanation": "Logs in to the container registry via the Docker CLI."
+        },
+        {
+            "id": 57,
+            "category": "Databases (SQL)",
+            "command": "az sql server create",
+            "example": "az sql server create --name myserver --resource-group MyRG --location eastus --admin-user myadmin --admin-password <password>",
+            "explanation": "Creates a logical SQL server."
+        },
+        {
+            "id": 58,
+            "category": "Databases (SQL)",
+            "command": "az sql db create",
+            "example": "az sql db create --resource-group MyRG --server myserver --name mydb --service-objective S0",
+            "explanation": "Creates a SQL database within a logical server."
+        },
+        {
+            "id": 59,
+            "category": "Databases (SQL)",
+            "command": "az sql server firewall-rule create",
+            "example": "az sql server firewall-rule create --resource-group MyRG --server myserver --name AllowMyIP --start-ip-address <ip> --end-ip-address <ip>",
+            "explanation": "Allows access to the SQL server from a specific IP address."
+        },
+        {
+            "id": 60,
+            "category": "Monitoring",
+            "command": "az monitor activity-log list",
+            "example": "az monitor activity-log list --offset 1h",
+            "explanation": "Lists activity log events for the subscription from the last hour."
+        },
+        {
+            "id": 61,
+            "category": "Monitoring",
+            "command": "az monitor metrics list",
+            "example": "az monitor metrics list --resource <resource-id> --metric \"Percentage CPU\"",
+            "explanation": "Retrieves metric definitions and values for a resource."
+        },
+        {
+            "id": 62,
+            "category": "Monitoring",
+            "command": "az monitor diagnostic-settings create",
+            "example": "az monitor diagnostic-settings create --name MyDiag --resource <resource-id> --logs '[{\"category\": \"Write\", \"enabled\": true}]' --workspace <workspace-id>",
+            "explanation": "Configures streaming of logs to a Log Analytics workspace."
+        },
+        {
+            "id": 63,
+            "category": "Output Formatting",
+            "command": "az group list --output json",
+            "example": "az group list --output json",
+            "explanation": "Outputs command results in JSON format."
+        },
+        {
+            "id": 64,
+            "category": "Output Formatting",
+            "command": "az group list --output table",
+            "example": "az group list --output table",
+            "explanation": "Outputs command results in a human-readable ASCII table."
+        },
+        {
+            "id": 65,
+            "category": "Output Formatting",
+            "command": "az group list --output tsv",
+            "example": "az group list --output tsv",
+            "explanation": "Outputs results in Tab-Separated Values, useful for scripting variables."
+        },
+        {
+            "id": 66,
+            "category": "JMESPath Querying",
+            "command": "az vm list --query",
+            "example": "az vm list --query \"[].{Name:name, OS:storageProfile.osDisk.osType}\"",
+            "explanation": "Filters and projects specific fields from the output using JMESPath."
+        },
+        {
+            "id": 67,
+            "category": "JMESPath Querying",
+            "command": "az vm list --query (Filter)",
+            "example": "az vm list --query \"[?location=='eastus']\"",
+            "explanation": "Filters the list to show only resources in a specific location."
+        },
+        {
+            "id": 68,
+            "category": "Resource Tagging",
+            "command": "az tag update",
+            "example": "az tag update --resource-id <id> --operation Merge --tags Dept=IT",
+            "explanation": "Updates tags on a resource without replacing existing tags."
+        },
+        {
+            "id": 69,
+            "category": "Resource Tagging",
+            "command": "az resource list --tag",
+            "example": "az resource list --tag Dept=IT",
+            "explanation": "Lists all resources that have a specific tag key and value."
+        },
+        {
+            "id": 70,
+            "category": "Policy and Compliance",
+            "command": "az policy definition list",
+            "example": "az policy definition list --query \"[?policyType=='BuiltIn']\"",
+            "explanation": "Lists built-in Azure policy definitions."
+        },
+        {
+            "id": 71,
+            "category": "Policy and Compliance",
+            "command": "az policy assignment create",
+            "example": "az policy assignment create --name 'audit-vm-managed-disks' --policy <policy-id> --scope <scope-id>",
+            "explanation": "Assigns a policy to a scope to enforce compliance."
+        },
+        {
+            "id": 72,
+            "category": "Blue Team Validation (Network)",
+            "command": "az network nsg rule list (Audit)",
+            "example": "az network nsg rule list --query \"[?access=='Allow' && direction=='Inbound' && destinationPortRange=='*']\"",
+            "explanation": "Audits NSGs to find rules that allow all inbound traffic."
+        },
+        {
+            "id": 73,
+            "category": "Blue Team Validation (Network)",
+            "command": "az network public-ip list",
+            "example": "az network public-ip list --query \"[].{Name:name, IP:ipAddress, Associated:ipConfiguration.id}\"",
+            "explanation": "Lists all public IP addresses and shows what they are attached to."
+        },
+        {
+            "id": 74,
+            "category": "Blue Team Validation (Network)",
+            "command": "az network watcher test-ip-flow",
+            "example": "az network watcher test-ip-flow --vm <vm> --direction Inbound --protocol TCP --local-port 80 --remote-ip <ip>",
+            "explanation": "Verifies if traffic is allowed or denied to a VM based on effective security rules."
+        },
+        {
+            "id": 75,
+            "category": "Blue Team Validation (Identity)",
+            "command": "az role assignment list (Privileged)",
+            "example": "az role assignment list --role \"Owner\" --include-inherited",
+            "explanation": "Audits all users who have the Owner role on the subscription."
+        },
+        {
+            "id": 76,
+            "category": "Blue Team Validation (Identity)",
+            "command": "az ad user list (Guest)",
+            "example": "az ad user list --filter \"userType eq 'Guest'\"",
+            "explanation": "Identifies all guest users existing in the Azure Active Directory."
+        },
+        {
+            "id": 77,
+            "category": "Blue Team Validation (Storage)",
+            "command": "az storage account list (Public Access)",
+            "example": "az storage account list --query \"[?allowBlobPublicAccess==`true`].{Name:name}\"",
+            "explanation": "Finds storage accounts that allow public access to blobs."
+        },
+        {
+            "id": 78,
+            "category": "Blue Team Validation (KeyVault)",
+            "command": "az keyvault list (Deleted)",
+            "example": "az keyvault list-deleted",
+            "explanation": "Lists soft-deleted Key Vaults to detect potential data loss or recovery needs."
+        },
+        {
+            "id": 79,
+            "category": "Security Posture",
+            "command": "az security alert list",
+            "example": "az security alert list --status Active",
+            "explanation": "Lists active security alerts from Microsoft Defender for Cloud."
+        },
+        {
+            "id": 80,
+            "category": "Security Posture",
+            "command": "az security score list",
+            "example": "az security score list",
+            "explanation": "Retrieves the current Secure Score for the subscription."
+        },
+        {
+            "id": 81,
+            "category": "Security Posture",
+            "command": "az security jit-policy list",
+            "example": "az security jit-policy list",
+            "explanation": "Lists Just-In-Time access policies configured for VMs."
+        },
+        {
+            "id": 82,
+            "category": "Incident Response (Logs)",
+            "command": "az monitor activity-log list (Filter)",
+            "example": "az monitor activity-log list --caller <suspect-email> --start-time <iso-timestamp>",
+            "explanation": "Investigates all actions performed by a specific user since a given time."
+        },
+        {
+            "id": 83,
+            "category": "Incident Response (Compute)",
+            "command": "az vm run-command invoke (Forensics)",
+            "example": "az vm run-command invoke --command-id RunShellScript --name <vm> --resource-group <rg> --scripts \"netstat -anp\"",
+            "explanation": "Remotely executes netstat on a compromised VM to identify active connections."
+        },
+        {
+            "id": 84,
+            "category": "Incident Response (Compute)",
+            "command": "az snapshot create (Forensics)",
+            "example": "az snapshot create --name ForensicSnap --resource-group <rg> --source <compromised-disk-id>",
+            "explanation": "Creates a forensic copy of a disk for offline analysis."
+        },
+        {
+            "id": 85,
+            "category": "Incident Response (Network)",
+            "command": "az network watcher packet-capture create",
+            "example": "az network watcher packet-capture create --vm <vm> --resource-group <rg> --name Capture1",
+            "explanation": "Starts a packet capture on a VM to analyze network traffic patterns."
+        },
+        {
+            "id": 86,
+            "category": "Automation",
+            "command": "az deployment group create",
+            "example": "az deployment group create --resource-group MyRG --template-file main.bicep",
+            "explanation": "Deploys infrastructure as code using an ARM template or Bicep file."
+        },
+        {
+            "id": 87,
+            "category": "Automation",
+            "command": "az deployment group validate",
+            "example": "az deployment group validate --resource-group MyRG --template-file main.bicep",
+            "explanation": "Validates a template syntax and configuration without deploying it."
+        },
+        {
+            "id": 88,
+            "category": "Automation",
+            "command": "az deployment operation list",
+            "example": "az deployment operation list --name <deployment-name> --resource-group MyRG",
+            "explanation": "Lists the individual operations within a deployment for debugging."
+        },
+        {
+            "id": 89,
+            "category": "Managed Identity",
+            "command": "az identity create",
+            "example": "az identity create --resource-group MyRG --name MyUserAssignedID",
+            "explanation": "Creates a User-Assigned Managed Identity."
+        },
+        {
+            "id": 90,
+            "category": "Managed Identity",
+            "command": "az vm identity assign",
+            "example": "az vm identity assign --resource-group MyRG --name MyVM --identities <identity-id>",
+            "explanation": "Assigns a managed identity to a virtual machine."
+        },
+        {
+            "id": 91,
+            "category": "Advanced Networking",
+            "command": "az network lb create",
+            "example": "az network lb create --resource-group MyRG --name MyLB --sku Standard",
+            "explanation": "Creates a standard Layer 4 Load Balancer."
+        },
+        {
+            "id": 92,
+            "category": "Advanced Networking",
+            "command": "az network lb probe create",
+            "example": "az network lb probe create --lb-name MyLB --resource-group MyRG --name HealthProbe --protocol Tcp --port 80",
+            "explanation": "Creates a health probe to monitor backend instances."
+        },
+        {
+            "id": 93,
+            "category": "Advanced Networking",
+            "command": "az network lb rule create",
+            "example": "az network lb rule create --lb-name MyLB --resource-group MyRG --name Rule1 --protocol Tcp --frontend-port 80 --backend-port 80 --probe-name HealthProbe",
+            "explanation": "Creates a load balancing rule forwarding traffic from frontend to backend."
+        },
+        {
+            "id": 94,
+            "category": "Advanced Networking",
+            "command": "az network application-gateway create",
+            "example": "az network application-gateway create --resource-group MyRG --name MyAppGW --sku Standard_v2",
+            "explanation": "Creates a Layer 7 Application Gateway for web traffic management."
+        },
+        {
+            "id": 95,
+            "category": "Advanced Storage",
+            "command": "az storage share create",
+            "example": "az storage share create --name myshare --account-name mystorageacct",
+            "explanation": "Creates an Azure File Share."
+        },
+        {
+            "id": 96,
+            "category": "Advanced Storage",
+            "command": "az storage message put",
+            "example": "az storage message put --queue-name myqueue --content \"Hello World\" --account-name mystorageacct",
+            "explanation": "Adds a message to an Azure Storage Queue."
+        },
+        {
+            "id": 97,
+            "category": "Advanced Compute",
+            "command": "az vm image list",
+            "example": "az vm image list --offer Ubuntu --all --output table",
+            "explanation": "Lists all available VM images for a specific offer."
+        },
+        {
+            "id": 98,
+            "category": "Advanced Compute",
+            "command": "az vm availability-set create",
+            "example": "az vm availability-set create --resource-group MyRG --name MyAvSet",
+            "explanation": "Creates an availability set to ensure high availability of VMs."
+        },
+        {
+            "id": 99,
+            "category": "Cost Management",
+            "command": "az consumption usage list",
+            "example": "az consumption usage list --start-date 2023-01-01 --end-date 2023-01-31",
+            "explanation": "Lists usage details for billing analysis."
+        },
+        {
+            "id": 100,
+            "category": "Cost Management",
+            "command": "az consumption budget create",
+            "example": "az consumption budget create --amount 100 --budget-name MyBudget --category cost --start-date 2023-01-01 --time-grain Monthly",
+            "explanation": "Creates a budget to monitor spending."
+        },
+        {
+            "id": 101,
+            "category": "DevSecOps",
+            "command": "az pipelines list",
+            "example": "az pipelines list --organization https://dev.azure.com/myorg --project myproject",
+            "explanation": "Lists Azure DevOps pipelines (requires azure-devops extension)."
+        },
+        {
+            "id": 102,
+            "category": "DevSecOps",
+            "command": "az repos list",
+            "example": "az repos list --organization https://dev.azure.com/myorg --project myproject",
+            "explanation": "Lists Git repositories in Azure DevOps."
+        },
+        {
+            "id": 103,
+            "category": "Function Apps",
+            "command": "az functionapp create",
+            "example": "az functionapp create --resource-group MyRG --consumption-plan-location eastus --runtime python --runtime-version 3.9 --functions-version 4 --name MyFuncApp --storage-account mystorageacct",
+            "explanation": "Creates a serverless Function App."
+        },
+        {
+            "id": 104,
+            "category": "Function Apps",
+            "command": "az functionapp deployment source config-zip",
+            "example": "az functionapp deployment source config-zip --resource-group MyRG --name MyFuncApp --src app.zip",
+            "explanation": "Deploys code to a Function App from a zip file."
+        },
+        {
+            "id": 105,
+            "category": "Data & Analytics",
+            "command": "az cosmosdb create",
+            "example": "az cosmosdb create --name mycosmos --resource-group MyRG",
+            "explanation": "Creates a Cosmos DB account."
+        },
+        {
+            "id": 106,
+            "category": "Data & Analytics",
+            "command": "az eventhubs namespace create",
+            "example": "az eventhubs namespace create --resource-group MyRG --name MyEventHubNS",
+            "explanation": "Creates an Event Hubs namespace for data ingestion."
+        },
+        {
+            "id": 107,
+            "category": "Security Auditing (Disk)",
+            "command": "az disk list (Encryption)",
+            "example": "az disk list --query \"[?encryptionSettingsCollection.enabled!=`true`].{Name:name, Encrypted:encryptionSettingsCollection.enabled}\"",
+            "explanation": "Audits managed disks to find those without encryption enabled."
+        },
+        {
+            "id": 108,
+            "category": "Security Auditing (SQL)",
+            "command": "az sql server audit-policy show",
+            "example": "az sql server audit-policy show --resource-group MyRG --server myserver",
+            "explanation": "Checks the auditing policy of a SQL server."
+        },
+        {
+            "id": 109,
+            "category": "Advanced Security",
+            "command": "az keyvault certificate create",
+            "example": "az keyvault certificate create --vault-name MyKeyVault --name MyCert --policy \"$(az keyvault certificate get-default-policy)\"",
+            "explanation": "Creates a self-signed certificate inside Key Vault."
+        },
+        {
+            "id": 110,
+            "category": "Advanced Security",
+            "command": "az keyvault key create",
+            "example": "az keyvault key create --vault-name MyKeyVault --name MyKey --kty RSA",
+            "explanation": "Creates a cryptographic key in Key Vault."
+        },
+        {
+            "id": 111,
+            "category": "Advanced Security",
+            "command": "az network firewall create",
+            "example": "az network firewall create --name MyFirewall --resource-group MyRG --location eastus",
+            "explanation": "Creates an Azure Firewall resource."
+        },
+        {
+            "id": 112,
+            "category": "Advanced Security",
+            "command": "az network firewall network-rule create",
+            "example": "az network firewall network-rule create --firewall-name MyFirewall --collection-name MyRuleCollection --name AllowDNS --protocols UDP --source-addresses * --destination-addresses * --destination-ports 53 --action Allow --priority 100 --resource-group MyRG",
+            "explanation": "Adds a network rule to the Azure Firewall."
+        },
+        {
+            "id": 113,
+            "category": "Hybrid Management",
+            "command": "az arcappliance list",
+            "example": "az arcappliance list --resource-group MyRG",
+            "explanation": "Lists Azure Arc appliances for hybrid cloud management."
+        },
+        {
+            "id": 114,
+            "category": "IoT",
+            "command": "az iot hub create",
+            "example": "az iot hub create --resource-group MyRG --name MyIoTHub --sku S1",
+            "explanation": "Creates an IoT Hub for device management."
+        },
+        {
+            "id": 115,
+            "category": "IoT",
+            "command": "az iot hub device-identity list",
+            "example": "az iot hub device-identity list --hub-name MyIoTHub",
+            "explanation": "Lists devices registered to an IoT Hub."
+        },
+        {
+            "id": 116,
+            "category": "Logic Apps",
+            "command": "az logic workflow create",
+            "example": "az logic workflow create --resource-group MyRG --location eastus --name MyWorkflow --definition definition.json",
+            "explanation": "Creates a Logic App workflow from a JSON definition."
+        },
+        {
+            "id": 117,
+            "category": "Container Instances",
+            "command": "az container create",
+            "example": "az container create --resource-group MyRG --name MyContainer --image nginx --dns-name-label mynginx --ports 80",
+            "explanation": "Creates a single container instance (ACI) accessible via a public IP."
+        },
+        {
+            "id": 118,
+            "category": "Container Instances",
+            "command": "az container logs",
+            "example": "az container logs --resource-group MyRG --name MyContainer",
+            "explanation": "Retrieves logs from a container instance."
+        },
+        {
+            "id": 119,
+            "category": "Global Traffic",
+            "command": "az network traffic-manager profile create",
+            "example": "az network traffic-manager profile create --resource-group MyRG --name MyTMProfile --routing-method Priority --unique-dns-name myapp-tm",
+            "explanation": "Creates a Traffic Manager profile for global DNS load balancing."
+        },
+        {
+            "id": 120,
+            "category": "Global Traffic",
+            "command": "az network front-door create",
+            "example": "az network front-door create --resource-group MyRG --name MyFrontDoor --backend-address www.example.com",
+            "explanation": "Creates an Azure Front Door for global web traffic acceleration."
+        },
+        {
+            "id": 121,
+            "category": "Operational Hygiene",
+            "command": "az resource list (Orphans)",
+            "example": "az resource list --query \"[?managedBy==null]\"",
+            "explanation": "Lists resources that are not managed by another resource (potential orphans)."
+        },
+        {
+            "id": 122,
+            "category": "Operational Hygiene",
+            "command": "az monitor log-analytics workspace list",
+            "example": "az monitor log-analytics workspace list",
+            "explanation": "Lists Log Analytics workspaces used for log aggregation."
+        },
+        {
+            "id": 123,
+            "category": "Operational Hygiene",
+            "command": "az monitor autoscale setting list",
+            "example": "az monitor autoscale setting list --resource-group MyRG",
+            "explanation": "Lists autoscale settings configured for resources."
+        },
+        {
+            "id": 124,
+            "category": "Advanced Identity",
+            "command": "az ad sp credential list",
+            "example": "az ad sp credential list --id <app-id>",
+            "explanation": "Lists the credentials (passwords/certs) associated with a service principal."
+        },
+        {
+            "id": 125,
+            "category": "Advanced Identity",
+            "command": "az ad app list",
+            "example": "az ad app list --display-name MyApp",
+            "explanation": "Lists App Registrations in Azure AD."
+        },
+        {
+            "id": 126,
+            "category": "Diagnostics",
+            "command": "az network watcher troubleshooting start",
+            "example": "az network watcher troubleshooting start --resource-group MyRG --resource <vpn-gateway-id> --storage-account <storage-id> --storage-path <url>",
+            "explanation": "Starts a troubleshooting session on a VPN Gateway or Connection."
+        },
+        {
+            "id": 127,
+            "category": "Diagnostics",
+            "command": "az webapp log tail",
+            "example": "az webapp log tail --resource-group MyRG --name MyWebApp",
+            "explanation": "Streams live logs from a Web App to the console."
+        },
+        {
+            "id": 128,
+            "category": "Batch Processing",
+            "command": "az batch account create",
+            "example": "az batch account create --resource-group MyRG --name mybatch --location eastus",
+            "explanation": "Creates an Azure Batch account for large-scale parallel computing."
+        },
+        {
+            "id": 129,
+            "category": "Cognitive Services",
+            "command": "az cognitiveservices account create",
+            "example": "az cognitiveservices account create --name MyCognitive --resource-group MyRG --kind Face --sku S0 --location eastus",
+            "explanation": "Creates a Cognitive Services account."
+        },
+        {
+            "id": 130,
+            "category": "SignalR",
+            "command": "az signalr create",
+            "example": "az signalr create --name MySignalR --resource-group MyRG --sku Standard_S1",
+            "explanation": "Creates a SignalR Service for real-time web functionality."
+        },
+        {
+            "id": 131,
+            "category": "Redis Cache",
+            "command": "az redis create",
+            "example": "az redis create --name MyRedis --resource-group MyRG --location eastus --sku Basic --vm-size c0",
+            "explanation": "Creates a Redis Cache instance."
+        },
+        {
+            "id": 132,
+            "category": "Private Networking",
+            "command": "az network private-endpoint create",
+            "example": "az network private-endpoint create --name MyPE --resource-group MyRG --vnet-name MyVNet --subnet MySubnet --private-connection-resource-id <id> --group-id blob --connection-name MyConnection",
+            "explanation": "Creates a private endpoint to securely connect to PaaS services."
+        },
+        {
+            "id": 133,
+            "category": "Private Networking",
+            "command": "az network private-dns zone create",
+            "example": "az network private-dns zone create --resource-group MyRG --name privatelink.blob.core.windows.net",
+            "explanation": "Creates a private DNS zone for resolving private endpoint IPs."
+        },
+        {
+            "id": 134,
+            "category": "Private Networking",
+            "command": "az network private-dns link vnet create",
+            "example": "az network private-dns link vnet create --resource-group MyRG --zone-name privatelink.blob.core.windows.net --name MyLink --virtual-network MyVNet --registration-enabled false",
+            "explanation": "Links a private DNS zone to a virtual network."
+        },
+        {
+            "id": 135,
+            "category": "CDN",
+            "command": "az cdn profile create",
+            "example": "az cdn profile create --resource-group MyRG --name MyCDNProfile --sku Standard_Akamai",
+            "explanation": "Creates a Content Delivery Network profile."
+        },
+        {
+            "id": 136,
+            "category": "Service Bus",
+            "command": "az servicebus namespace create",
+            "example": "az servicebus namespace create --resource-group MyRG --name MySBNamespace --sku Standard",
+            "explanation": "Creates a Service Bus namespace for enterprise messaging."
+        },
+        {
+            "id": 137,
+            "category": "Service Bus",
+            "command": "az servicebus queue create",
+            "example": "az servicebus queue create --resource-group MyRG --namespace-name MySBNamespace --name MyQueue",
+            "explanation": "Creates a queue within a Service Bus namespace."
+        },
+        {
+            "id": 138,
+            "category": "Kusto (Data Explorer)",
+            "command": "az kusto cluster create",
+            "example": "az kusto cluster create --resource-group MyRG --name MyKustoCluster --sku name=Standard_D13_v2 tier=Standard",
+            "explanation": "Creates an Azure Data Explorer cluster."
+        },
+        {
+            "id": 139,
+            "category": "Bot Service",
+            "command": "az bot create",
+            "example": "az bot create --resource-group MyRG --name MyBot --kind WebApp --appid <appid> --password <password>",
+            "explanation": "Creates a Bot Service registration."
+        },
+        {
+            "id": 140,
+            "category": "Blueprint",
+            "command": "az blueprint create",
+            "example": "az blueprint create --name MyBlueprint --target-scope subscription",
+            "explanation": "Creates a blueprint definition for governance."
+        },
+        {
+            "id": 141,
+            "category": "Synapse Analytics",
+            "command": "az synapse workspace create",
+            "example": "az synapse workspace create --name MySynapse --resource-group MyRG --storage-account mystorageacct --file-system myfilesystem --sql-admin-login-user adminuser",
+            "explanation": "Creates a Synapse Analytics workspace."
+        },
+        {
+            "id": 142,
+            "category": "Advanced Security (Defender)",
+            "command": "az security pricing list",
+            "example": "az security pricing list",
+            "explanation": "Lists the pricing tiers for Microsoft Defender for Cloud bundles."
+        },
+        {
+            "id": 143,
+            "category": "Recovery Services",
+            "command": "az backup vault create",
+            "example": "az backup vault create --resource-group MyRG --name MyRecoveryVault --location eastus",
+            "explanation": "Creates a Recovery Services vault for backups."
+        },
+        {
+            "id": 144,
+            "category": "Recovery Services",
+            "command": "az backup protection enable-for-vm",
+            "example": "az backup protection enable-for-vm --resource-group MyRG --vault-name MyRecoveryVault --vm <vm-id> --policy-name DefaultPolicy",
+            "explanation": "Enables backup for a virtual machine."
+        },
+        {
+            "id": 145,
+            "category": "Blue Team (Subscriptions)",
+            "command": "az account management-group list",
+            "example": "az account management-group list",
+            "explanation": "Lists management groups to understand the organization hierarchy."
+        },
+        {
+            "id": 146,
+            "category": "Cleanup",
+            "command": "az resource delete",
+            "example": "az resource delete --ids <resource-id>",
+            "explanation": "Deletes a specific resource by its ID."
+        },
+        {
+            "id": 147,
+            "category": "Cleanup",
+            "command": "az group delete",
+            "example": "az group delete --name MyResourceGroup --yes --no-wait",
+            "explanation": "Deletes a resource group and all contained resources asynchronously."
+        },
+        {
+            "id": 148,
+            "category": "Cleanup",
+            "command": "az ad app delete",
+            "example": "az ad app delete --id <app-id>",
+            "explanation": "Deletes an application registration from Azure AD."
+        },
+        {
+            "id": 149,
+            "category": "Cleanup",
+            "command": "az keyvault delete",
+            "example": "az keyvault delete --name MyKeyVault",
+            "explanation": "Deletes a Key Vault (moves to soft-deleted state)."
+        },
+        {
+            "id": 150,
+            "category": "Cleanup",
+            "command": "az keyvault purge",
+            "example": "az keyvault purge --name MyKeyVault",
+            "explanation": "Permanently purges a soft-deleted Key Vault."
+        },
+        {
+            "category": "Azure Functions (Serverless)",
+            "command": "az functionapp create",
+            "example": "az functionapp create --resource-group myRG --consumption-plan-location westus --runtime node",
+            "explanation": "Boots dynamic isolated serverless algorithmic workers bridging AppService endpoints natively.",
+            "id": 151
+        },
+        {
+            "category": "Azure Functions (Serverless)",
+            "command": "az functionapp keys list",
+            "example": "az functionapp keys list --name myFunc --resource-group myRG",
+            "explanation": "Exfiltrates the mandatory authorization connection strings fundamentally required to execute an HTTP-bound function.",
+            "id": 152
+        },
+        {
+            "category": "Cosmos DB",
+            "command": "az cosmosdb database create",
+            "example": "az cosmosdb database create --account-name myCosmos --name coreDB --resource-group myRG",
+            "explanation": "Instantiates globally replicated logic cores strictly optimized for massive globally asynchronous operations.",
+            "id": 153
+        },
+        {
+            "category": "Cosmos DB",
+            "command": "az cosmosdb keys list",
+            "example": "az cosmosdb keys list --name myCosmos --resource-group myRG",
+            "explanation": "Decrypts and reveals the raw Read/Write master cryptographic passcodes governing universal database interconnectivity.",
+            "id": 154
+        },
+        {
+            "category": "Container Registry (ACR)",
+            "command": "az acr login",
+            "example": "az acr login --name myAcrRegistry",
+            "explanation": "Injects native Azure AAD authentication logic directly into your local Docker daemon enabling immediate secure push/pull workflows.",
+            "id": 155
+        },
+        {
+            "category": "Container Registry (ACR)",
+            "command": "az acr repository delete",
+            "example": "az acr repository delete --name myAcr --image myApp:v1",
+            "explanation": "Surgically excises compromised or bloated legacy Docker blobs natively restoring Azure bandwidth limits.",
+            "id": 156
+        },
+        {
+            "category": "Key Vault (Security)",
+            "command": "az keyvault secret set",
+            "example": "az keyvault secret set --vault-name myKeys --name 'db-password' --value 'SuperSecret123!'",
+            "explanation": "Ingests raw unencrypted values encrypting them irreversibly within Azure's HSM arrays locking them onto specific app configurations.",
+            "id": 157
+        },
+        {
+            "category": "Key Vault (Security)",
+            "command": "az keyvault secret show",
+            "example": "az keyvault secret show --vault-name myKeys --name 'db-password' --query value",
+            "explanation": "Decrypts explicitly requested secured strings into plaintext, dropping outputs strictly to the local CLI.",
+            "id": 158
+        },
+        {
+            "category": "Logic Apps",
+            "command": "az logic workflow show",
+            "example": "az logic workflow show --resource-group rg --name myWorkflow",
+            "explanation": "Extrapolates full automation configuration trees evaluating structural pipeline integrations.",
+            "id": 159
+        },
+        {
+            "category": "Cost Management",
+            "command": "az consumption usage list",
+            "example": "az consumption usage list --start-date 2023-01-01 --end-date 2023-01-31",
+            "explanation": "Forces Microsoft billing API extractions bypassing graphical dashboards delivering raw transactional utilization metrics.",
+            "id": 160
+        }
+    ]
+}

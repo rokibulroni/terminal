@@ -1,0 +1,742 @@
+{
+    "tool": "nikto",
+    "description": "Complete Nikto command reference covering all options from basic to advanced",
+    "total_commands": 105,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Web Scan",
+            "command": "nikto -h http://example.com",
+            "example": "nikto -h http://example.com",
+            "explanation": "Performs a standard comprehensive scan against a target web server."
+        },
+        {
+            "id": 2,
+            "category": "Basic Web Scan",
+            "command": "nikto -h 192.168.1.10",
+            "example": "nikto -h 192.168.1.10",
+            "explanation": "Scans a target server specified by its IP address."
+        },
+        {
+            "id": 3,
+            "category": "Target Specification",
+            "command": "nikto -h http://example.com -p 8080",
+            "example": "nikto -h http://example.com -p 8080",
+            "explanation": "Scans the target on a specific non-standard port."
+        },
+        {
+            "id": 4,
+            "category": "Target Specification",
+            "command": "nikto -h https://example.com -p 443,8443",
+            "example": "nikto -h https://example.com -p 443,8443",
+            "explanation": "Scans multiple specified ports on the same target host."
+        },
+        {
+            "id": 5,
+            "category": "Target Specification",
+            "command": "nikto -h http://example.com -p 80-90",
+            "example": "nikto -h http://example.com -p 80-90",
+            "explanation": "Scans a range of ports on the target host."
+        },
+        {
+            "id": 6,
+            "category": "SSL and HTTPS Scanning",
+            "command": "nikto -h example.com -ssl",
+            "example": "nikto -h example.com -ssl",
+            "explanation": "Forces SSL/HTTPS mode for the scan regardless of port detection."
+        },
+        {
+            "id": 7,
+            "category": "SSL and HTTPS Scanning",
+            "command": "nikto -h http://example.com -nossl",
+            "example": "nikto -h http://example.com -nossl",
+            "explanation": "Disables SSL usage even if scanning port 443."
+        },
+        {
+            "id": 8,
+            "category": "General Info",
+            "command": "nikto -Version",
+            "example": "nikto -Version",
+            "explanation": "Displays the Nikto software version and plugin versions."
+        },
+        {
+            "id": 9,
+            "category": "General Info",
+            "command": "nikto -list-plugins",
+            "example": "nikto -list-plugins",
+            "explanation": "Lists all available plugins that can be run against a target."
+        },
+        {
+            "id": 10,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 1",
+            "example": "nikto -h http://example.com -Tuning 1",
+            "explanation": "Scans only for 'Interesting File' vulnerabilities like logs or backups."
+        },
+        {
+            "id": 11,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 2",
+            "example": "nikto -h http://example.com -Tuning 2",
+            "explanation": "Scans strictly for server misconfigurations."
+        },
+        {
+            "id": 12,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 3",
+            "example": "nikto -h http://example.com -Tuning 3",
+            "explanation": "Checks for information disclosure vulnerabilities."
+        },
+        {
+            "id": 13,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 4",
+            "example": "nikto -h http://example.com -Tuning 4",
+            "explanation": "Focuses the scan on injection vulnerabilities like XSS and HTML injection."
+        },
+        {
+            "id": 14,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 5",
+            "example": "nikto -h http://example.com -Tuning 5",
+            "explanation": "Scans for remote file retrieval vulnerabilities."
+        },
+        {
+            "id": 15,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 6",
+            "example": "nikto -h http://example.com -Tuning 6",
+            "explanation": "Checks for denial of service conditions."
+        },
+        {
+            "id": 16,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 7",
+            "example": "nikto -h http://example.com -Tuning 7",
+            "explanation": "Scans specifically for remote file inclusion vulnerabilities."
+        },
+        {
+            "id": 17,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 8",
+            "example": "nikto -h http://example.com -Tuning 8",
+            "explanation": "Focuses on command execution vulnerabilities."
+        },
+        {
+            "id": 18,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 9",
+            "example": "nikto -h http://example.com -Tuning 9",
+            "explanation": "Scans specifically for SQL injection vulnerabilities."
+        },
+        {
+            "id": 19,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 0",
+            "example": "nikto -h http://example.com -Tuning 0",
+            "explanation": "Checks for file upload vulnerabilities."
+        },
+        {
+            "id": 20,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning a",
+            "example": "nikto -h http://example.com -Tuning a",
+            "explanation": "Scans for authentication bypass vulnerabilities."
+        },
+        {
+            "id": 21,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning b",
+            "example": "nikto -h http://example.com -Tuning b",
+            "explanation": "Identifies installed software banners."
+        },
+        {
+            "id": 22,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning c",
+            "example": "nikto -h http://example.com -Tuning c",
+            "explanation": "Checks for remote source inclusion vulnerabilities."
+        },
+        {
+            "id": 23,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning x",
+            "example": "nikto -h http://example.com -Tuning x",
+            "explanation": "Runs reverse tuning options to exclude specific checks."
+        },
+        {
+            "id": 24,
+            "category": "Tuning and Scan Category",
+            "command": "nikto -h http://example.com -Tuning 123",
+            "example": "nikto -h http://example.com -Tuning 123",
+            "explanation": "Combines tuning types to scan for Interesting Files, Misconfigurations, and Info Disclosure."
+        },
+        {
+            "id": 25,
+            "category": "Output Formats",
+            "command": "nikto -h http://example.com -o scan_result.txt",
+            "example": "nikto -h http://example.com -o scan_result.txt",
+            "explanation": "Saves the scan output to a plain text file."
+        },
+        {
+            "id": 26,
+            "category": "Output Formats",
+            "command": "nikto -h http://example.com -o scan_result.html -Format html",
+            "example": "nikto -h http://example.com -o scan_result.html -Format html",
+            "explanation": "Generates a readable HTML report of the scan findings."
+        },
+        {
+            "id": 27,
+            "category": "Output Formats",
+            "command": "nikto -h http://example.com -o scan_result.xml -Format xml",
+            "example": "nikto -h http://example.com -o scan_result.xml -Format xml",
+            "explanation": "Saves output in XML format for integration with other tools."
+        },
+        {
+            "id": 28,
+            "category": "Output Formats",
+            "command": "nikto -h http://example.com -o scan_result.csv -Format csv",
+            "example": "nikto -h http://example.com -o scan_result.csv -Format csv",
+            "explanation": "Exports scan results to a CSV file for spreadsheet analysis."
+        },
+        {
+            "id": 29,
+            "category": "Output Formats",
+            "command": "nikto -h http://example.com -o scan_result.json -Format json",
+            "example": "nikto -h http://example.com -o scan_result.json -Format json",
+            "explanation": "Outputs the results in JSON format for programmatic parsing."
+        },
+        {
+            "id": 30,
+            "category": "Output Formats",
+            "command": "nikto -h http://example.com -o scan.nbe -Format nbe",
+            "example": "nikto -h http://example.com -o scan.nbe -Format nbe",
+            "explanation": "Saves results in Nessus NBE format."
+        },
+        {
+            "id": 31,
+            "category": "Output Formats",
+            "command": "nikto -h http://example.com -o .",
+            "example": "nikto -h http://example.com -o .",
+            "explanation": "Saves output to a file with an auto-generated name in the current directory."
+        },
+        {
+            "id": 32,
+            "category": "Verbose and Debug",
+            "command": "nikto -h http://example.com -Display 1",
+            "example": "nikto -h http://example.com -Display 1",
+            "explanation": "Shows redirects received from the web server during the scan."
+        },
+        {
+            "id": 33,
+            "category": "Verbose and Debug",
+            "command": "nikto -h http://example.com -Display 2",
+            "example": "nikto -h http://example.com -Display 2",
+            "explanation": "Displays cookies received during the scan."
+        },
+        {
+            "id": 34,
+            "category": "Verbose and Debug",
+            "command": "nikto -h http://example.com -Display 3",
+            "example": "nikto -h http://example.com -Display 3",
+            "explanation": "Prints all 200 OK responses to the screen."
+        },
+        {
+            "id": 35,
+            "category": "Verbose and Debug",
+            "command": "nikto -h http://example.com -Display 4",
+            "example": "nikto -h http://example.com -Display 4",
+            "explanation": "Shows URLs that require authentication."
+        },
+        {
+            "id": 36,
+            "category": "Verbose and Debug",
+            "command": "nikto -h http://example.com -Display D",
+            "example": "nikto -h http://example.com -Display D",
+            "explanation": "Enables debug output for troubleshooting."
+        },
+        {
+            "id": 37,
+            "category": "Verbose and Debug",
+            "command": "nikto -h http://example.com -Display V",
+            "example": "nikto -h http://example.com -Display V",
+            "explanation": "Enables verbose mode to see detailed progress."
+        },
+        {
+            "id": 38,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 1",
+            "example": "nikto -h http://example.com -evasion 1",
+            "explanation": "Encodes the URI using random URI encoding to bypass IDS."
+        },
+        {
+            "id": 39,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 2",
+            "example": "nikto -h http://example.com -evasion 2",
+            "explanation": "Adds a self-reference directory (/./) to the request URI."
+        },
+        {
+            "id": 40,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 3",
+            "example": "nikto -h http://example.com -evasion 3",
+            "explanation": "Ends the URL prematurely to confuse certain filters."
+        },
+        {
+            "id": 41,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 4",
+            "example": "nikto -h http://example.com -evasion 4",
+            "explanation": "Prepends a long random string to the request URI."
+        },
+        {
+            "id": 42,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 5",
+            "example": "nikto -h http://example.com -evasion 5",
+            "explanation": "Appends a fake parameter to the file request."
+        },
+        {
+            "id": 43,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 6",
+            "example": "nikto -h http://example.com -evasion 6",
+            "explanation": "Uses TAB as a request spacer instead of spaces."
+        },
+        {
+            "id": 44,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 7",
+            "example": "nikto -h http://example.com -evasion 7",
+            "explanation": "Randomly changes the case of the URL characters."
+        },
+        {
+            "id": 45,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 8",
+            "example": "nikto -h http://example.com -evasion 8",
+            "explanation": "Uses Windows-style directory separators (\\) instead of forward slashes."
+        },
+        {
+            "id": 46,
+            "category": "Evasion and IDS Bypass",
+            "command": "nikto -h http://example.com -evasion 17",
+            "example": "nikto -h http://example.com -evasion 17",
+            "explanation": "Combines Random URI encoding and Case changing for stronger evasion."
+        },
+        {
+            "id": 47,
+            "category": "User Agent Customization",
+            "command": "nikto -h http://example.com -useragent \"MyCustomAgent/1.0\"",
+            "example": "nikto -h http://example.com -useragent \"MyCustomAgent/1.0\"",
+            "explanation": "Sets a custom User-Agent string to identify or hide the scanner."
+        },
+        {
+            "id": 48,
+            "category": "Authentication",
+            "command": "nikto -h http://example.com -id admin:password",
+            "example": "nikto -h http://example.com -id admin:password",
+            "explanation": "Uses Basic Authentication with the provided username and password."
+        },
+        {
+            "id": 49,
+            "category": "Authentication",
+            "command": "nikto -h http://example.com -id \"realm:admin:password\"",
+            "example": "nikto -h http://example.com -id \"realm:admin:password\"",
+            "explanation": "Uses Basic Authentication for a specific realm."
+        },
+        {
+            "id": 50,
+            "category": "Proxy Integration",
+            "command": "nikto -h http://example.com -useproxy http://127.0.0.1:8080",
+            "example": "nikto -h http://example.com -useproxy http://127.0.0.1:8080",
+            "explanation": "Routes the scan traffic through an HTTP proxy."
+        },
+        {
+            "id": 51,
+            "category": "Proxy Integration",
+            "command": "nikto -h http://example.com -useproxy http://user:pass@127.0.0.1:8080",
+            "example": "nikto -h http://example.com -useproxy http://user:pass@127.0.0.1:8080",
+            "explanation": "Routes traffic through an authenticated HTTP proxy."
+        },
+        {
+            "id": 52,
+            "category": "Timeout and Throttling",
+            "command": "nikto -h http://example.com -timeout 10",
+            "example": "nikto -h http://example.com -timeout 10",
+            "explanation": "Sets the connection timeout to 10 seconds."
+        },
+        {
+            "id": 53,
+            "category": "Timeout and Throttling",
+            "command": "nikto -h http://example.com -maxtime 60s",
+            "example": "nikto -h http://example.com -maxtime 60s",
+            "explanation": "Stops the scan entirely after 60 seconds."
+        },
+        {
+            "id": 54,
+            "category": "Timeout and Throttling",
+            "command": "nikto -h http://example.com -pause 2",
+            "example": "nikto -h http://example.com -pause 2",
+            "explanation": "Waits 2 seconds between every request to reduce load."
+        },
+        {
+            "id": 55,
+            "category": "CGI and Specific Tests",
+            "command": "nikto -h http://example.com -Cgidirs /cgi-bin/",
+            "example": "nikto -h http://example.com -Cgidirs /cgi-bin/",
+            "explanation": "Forces scanning of a specific CGI directory."
+        },
+        {
+            "id": 56,
+            "category": "CGI and Specific Tests",
+            "command": "nikto -h http://example.com -Cgidirs none",
+            "example": "nikto -h http://example.com -Cgidirs none",
+            "explanation": "Disables scanning of any CGI directories."
+        },
+        {
+            "id": 57,
+            "category": "CGI and Specific Tests",
+            "command": "nikto -h http://example.com -Cgidirs all",
+            "example": "nikto -h http://example.com -Cgidirs all",
+            "explanation": "Forces scanning of all discovered directories as CGI directories."
+        },
+        {
+            "id": 58,
+            "category": "CGI and Specific Tests",
+            "command": "nikto -h http://example.com -root /app",
+            "example": "nikto -h http://example.com -root /app",
+            "explanation": "Sets the root directory for the scan to a subdirectory."
+        },
+        {
+            "id": 59,
+            "category": "Mutation Techniques",
+            "command": "nikto -h http://example.com -mutate 1",
+            "example": "nikto -h http://example.com -mutate 1",
+            "explanation": "Tests all files within all root directories."
+        },
+        {
+            "id": 60,
+            "category": "Mutation Techniques",
+            "command": "nikto -h http://example.com -mutate 2",
+            "example": "nikto -h http://example.com -mutate 2",
+            "explanation": "Guesses password file names."
+        },
+        {
+            "id": 61,
+            "category": "Mutation Techniques",
+            "command": "nikto -h http://example.com -mutate 3",
+            "example": "nikto -h http://example.com -mutate 3",
+            "explanation": "Enumerates user names using Apache home directory syntax (~user)."
+        },
+        {
+            "id": 62,
+            "category": "Mutation Techniques",
+            "command": "nikto -h http://example.com -mutate 4",
+            "example": "nikto -h http://example.com -mutate 4",
+            "explanation": "Guesses parameter values for common files."
+        },
+        {
+            "id": 63,
+            "category": "Mutation Techniques",
+            "command": "nikto -h http://example.com -mutate 5",
+            "example": "nikto -h http://example.com -mutate 5",
+            "explanation": "Brute forces subdomains (requires the host to be an IP or name)."
+        },
+        {
+            "id": 64,
+            "category": "Mutation Techniques",
+            "command": "nikto -h http://example.com -mutate 6",
+            "example": "nikto -h http://example.com -mutate 6",
+            "explanation": "Guesses directory names using a dictionary."
+        },
+        {
+            "id": 65,
+            "category": "Advanced Configuration",
+            "command": "nikto -h http://example.com -config /path/to/nikto.conf",
+            "example": "nikto -h http://example.com -config /path/to/nikto.conf",
+            "explanation": "Uses a custom configuration file for the scan."
+        },
+        {
+            "id": 66,
+            "category": "Advanced Configuration",
+            "command": "nikto -h http://example.com -nolookup",
+            "example": "nikto -h http://example.com -nolookup",
+            "explanation": "Disables DNS name lookups."
+        },
+        {
+            "id": 67,
+            "category": "Advanced Configuration",
+            "command": "nikto -h http://example.com -nossl",
+            "example": "nikto -h http://example.com -nossl",
+            "explanation": "Disables SSL completely."
+        },
+        {
+            "id": 68,
+            "category": "Advanced Configuration",
+            "command": "nikto -h http://example.com -no404",
+            "example": "nikto -h http://example.com -no404",
+            "explanation": "Disables 404 (Not Found) detection logic."
+        },
+        {
+            "id": 69,
+            "category": "Advanced Configuration",
+            "command": "nikto -h http://example.com -ignorecode 302",
+            "example": "nikto -h http://example.com -ignorecode 302",
+            "explanation": "Ignores specific HTTP status codes during the scan."
+        },
+        {
+            "id": 70,
+            "category": "Advanced Configuration",
+            "command": "nikto -h http://example.com -404code 404",
+            "example": "nikto -h http://example.com -404code 404",
+            "explanation": "Ignores a specific HTTP code when determining 404 responses."
+        },
+        {
+            "id": 71,
+            "category": "Advanced Configuration",
+            "command": "nikto -h http://example.com -404string \"Not Found\"",
+            "example": "nikto -h http://example.com -404string \"Not Found\"",
+            "explanation": "Uses a custom string to identify 404 error pages."
+        },
+        {
+            "id": 72,
+            "category": "Plugin Control",
+            "command": "nikto -h http://example.com -Plugins apache_expect_xss",
+            "example": "nikto -h http://example.com -Plugins apache_expect_xss",
+            "explanation": "Runs only the specified plugin."
+        },
+        {
+            "id": 73,
+            "category": "Plugin Control",
+            "command": "nikto -h http://example.com -Plugins \"@@NONE\"",
+            "example": "nikto -h http://example.com -Plugins \"@@NONE\"",
+            "explanation": "Runs no plugins (useful for just header checks or port verification)."
+        },
+        {
+            "id": 74,
+            "category": "Plugin Control",
+            "command": "nikto -h http://example.com -dbcheck",
+            "example": "nikto -h http://example.com -dbcheck",
+            "explanation": "Checks the syntax of the scan databases."
+        },
+        {
+            "id": 75,
+            "category": "Combined Real World",
+            "command": "nikto -h http://example.com -ssl -Cgidirs none -Tuning 9",
+            "example": "nikto -h http://example.com -ssl -Cgidirs none -Tuning 9",
+            "explanation": "Quick SQL injection scan over SSL ignoring CGI directories."
+        },
+        {
+            "id": 76,
+            "category": "Combined Real World",
+            "command": "nikto -h http://example.com -Tuning x 6",
+            "example": "nikto -h http://example.com -Tuning x 6",
+            "explanation": "Scans for everything EXCEPT Denial of Service tests."
+        },
+        {
+            "id": 77,
+            "category": "Combined Real World",
+            "command": "nikto -h http://example.com -useragent \"Mozilla/5.0\" -evasion 1 -timeout 5",
+            "example": "nikto -h http://example.com -useragent \"Mozilla/5.0\" -evasion 1 -timeout 5",
+            "explanation": "Stealthy scan with browser UA, URI encoding evasion, and short timeouts."
+        },
+        {
+            "id": 78,
+            "category": "Combined Real World",
+            "command": "nikto -h http://example.com -output scan.xml -Format xml -maxtime 300",
+            "example": "nikto -h http://example.com -output scan.xml -Format xml -maxtime 300",
+            "explanation": "Time-boxed 5-minute scan exporting directly to XML."
+        },
+        {
+            "id": 79,
+            "category": "Interactive",
+            "command": "nikto -h http://example.com -nointeractive",
+            "example": "nikto -h http://example.com -nointeractive",
+            "explanation": "Disables interactive features (like pressing space for status) for background jobs."
+        },
+        {
+            "id": 80,
+            "category": "Update",
+            "command": "nikto -update",
+            "example": "nikto -update",
+            "explanation": "Updates the Nikto plugins and databases (may require root)."
+        },
+        {
+            "id": 81,
+            "category": "Multiple Targets",
+            "command": "nikto -h targets.txt",
+            "example": "nikto -h targets.txt",
+            "explanation": "Scans multiple hosts listed in a text file."
+        },
+        {
+            "id": 82,
+            "category": "Multiple Targets",
+            "command": "nmap -p80 192.168.1.0/24 -oG - | nikto -h -",
+            "example": "nmap -p80 192.168.1.0/24 -oG - | nikto -h -",
+            "explanation": "Pipes Nmap grepable output directly into Nikto for scanning."
+        },
+        {
+            "id": 83,
+            "category": "Advanced Auth",
+            "command": "nikto -h http://example.com -id user:pass -realm \"Restricted Area\"",
+            "example": "nikto -h http://example.com -id user:pass -realm \"Restricted Area\"",
+            "explanation": "Authenticates to a specific realm using Basic Auth."
+        },
+        {
+            "id": 84,
+            "category": "Tuning Exclusion",
+            "command": "nikto -h http://example.com -Tuning x 6",
+            "example": "nikto -h http://example.com -Tuning x 6",
+            "explanation": "Runs all tests except Denial of Service checks to prevent crashing the server."
+        },
+        {
+            "id": 85,
+            "category": "Header Customization",
+            "command": "nikto -h http://example.com -useragent \"Googlebot/2.1\"",
+            "example": "nikto -h http://example.com -useragent \"Googlebot/2.1\"",
+            "explanation": "Spoofs the User-Agent to appear as a Google crawler."
+        },
+        {
+            "id": 86,
+            "category": "Client Certificate",
+            "command": "nikto -h https://example.com -clientcert /path/cert.pem",
+            "example": "nikto -h https://example.com -clientcert /path/cert.pem",
+            "explanation": "Uses a client-side certificate for mutual TLS authentication."
+        },
+        {
+            "id": 87,
+            "category": "Client Certificate",
+            "command": "nikto -h https://example.com -clientkey /path/key.pem",
+            "example": "nikto -h https://example.com -clientkey /path/key.pem",
+            "explanation": "Specifies the private key file for the client certificate."
+        },
+        {
+            "id": 88,
+            "category": "IPv6 Scanning",
+            "command": "nikto -h [dead:beef::1]",
+            "example": "nikto -h [dead:beef::1]",
+            "explanation": "Scans a target specified by an IPv6 address."
+        },
+        {
+            "id": 89,
+            "category": "Host Header",
+            "command": "nikto -h 192.168.1.10 -vhost example.com",
+            "example": "nikto -h 192.168.1.10 -vhost example.com",
+            "explanation": "Scans an IP but sends a specific Host header for virtual host routing."
+        },
+        {
+            "id": 90,
+            "category": "Report Generation",
+            "command": "nikto -h http://example.com -o results.html -F html -o results.xml -F xml",
+            "example": "nikto -h http://example.com -o results.html -F html -o results.xml -F xml",
+            "explanation": "Saves the report in both HTML and XML formats simultaneously."
+        },
+        {
+            "id": 91,
+            "category": "Red Team",
+            "command": "nikto -h http://example.com -evasion 1234 -pause 10",
+            "example": "nikto -h http://example.com -evasion 1234 -pause 10",
+            "explanation": "Highly evasive scan with multiple encoding methods and slow request delay."
+        },
+        {
+            "id": 92,
+            "category": "Blue Team Validation",
+            "command": "nikto -h http://example.com -Tuning 02 -Display V",
+            "example": "nikto -h http://example.com -Tuning 02 -Display V",
+            "explanation": "Verbose scan focusing on uploads and misconfigurations for verification."
+        },
+        {
+            "id": 93,
+            "category": "Automated Pipeline",
+            "command": "nikto -h http://example.com -nointeractive -o scan.json -Format json",
+            "example": "nikto -h http://example.com -nointeractive -o scan.json -Format json",
+            "explanation": "Non-interactive scan suitable for CI/CD pipelines producing JSON output."
+        },
+        {
+            "id": 94,
+            "category": "Port Definition",
+            "command": "nikto -h https://example.com -p 443 -ssl",
+            "example": "nikto -h https://example.com -p 443 -ssl",
+            "explanation": "Explicitly defines port 443 and forces SSL mode."
+        },
+        {
+            "id": 95,
+            "category": "Cookie Manipulation",
+            "command": "nikto -h http://example.com -Display 2",
+            "example": "nikto -h http://example.com -Display 2",
+            "explanation": "Displays all cookies set by the server during the scan."
+        },
+        {
+            "id": 96,
+            "category": "Plugin Tuning",
+            "command": "nikto -h http://example.com -Plugins tests(report:500)",
+            "example": "nikto -h http://example.com -Plugins tests(report:500)",
+            "explanation": "Passes specific arguments to plugins (e.g., reporting 500 errors)."
+        },
+        {
+            "id": 97,
+            "category": "Quiet Scan",
+            "command": "nikto -h http://example.com -Display V -o /dev/null",
+            "example": "nikto -h http://example.com -Display V -o /dev/null",
+            "explanation": "Runs scan displaying verbose output to screen but discarding file output."
+        },
+        {
+            "id": 98,
+            "category": "Resume Scan",
+            "command": "nikto -h http://example.com -until 12:00",
+            "example": "nikto -h http://example.com -until 12:00",
+            "explanation": "Runs the scan until a specified time."
+        },
+        {
+            "id": 99,
+            "category": "Force IP",
+            "command": "nikto -h example.com -force-ip",
+            "example": "nikto -h example.com -force-ip",
+            "explanation": "Forces Nikto to resolve the IP and scan the IP instead of hostname."
+        },
+        {
+            "id": 100,
+            "category": "Ignore Cookies",
+            "command": "nikto -h http://example.com -nocache",
+            "example": "nikto -h http://example.com -nocache",
+            "explanation": "Disables response caching to ensure fresh results."
+        },
+        {
+            "id": 101,
+            "category": "Metasploit Format",
+            "command": "nikto -h http://example.com -Format msf+",
+            "example": "nikto -h http://example.com -Format msf+",
+            "explanation": "Outputs logs in a format compatible with Metasploit."
+        },
+        {
+            "id": 102,
+            "category": "Environment Variable",
+            "command": "NIKTO_IGNORE_CODE=404 nikto -h http://example.com",
+            "example": "NIKTO_IGNORE_CODE=404 nikto -h http://example.com",
+            "explanation": "Uses environment variables to control configuration."
+        },
+        {
+            "id": 103,
+            "category": "Single Plugin Test",
+            "command": "nikto -h http://example.com -Plugins sitefiles",
+            "example": "nikto -h http://example.com -Plugins sitefiles",
+            "explanation": "Runs only the sitefiles plugin to find backup files and zip archives."
+        },
+        {
+            "id": 104,
+            "category": "Advanced",
+            "command": "nikto -h http://example.com -mutate 3 -mutate-options user_list.txt",
+            "example": "nikto -h http://example.com -mutate 3 -mutate-options user_list.txt",
+            "explanation": "Enumerates users providing a custom user list for mutation."
+        },
+        {
+            "id": 105,
+            "category": "Full Comprehensive",
+            "command": "nikto -h http://example.com -Cgidirs all -Tuning 1234567890abc -format txt -output full_scan.txt",
+            "example": "nikto -h http://example.com -Cgidirs all -Tuning 1234567890abc -format txt -output full_scan.txt",
+            "explanation": "Runs every possible tuning category on all CGI directories saving to text."
+        }
+    ]
+}

@@ -1,0 +1,707 @@
+{
+    "tool": "ngrep",
+    "description": "Complete ngrep command reference covering all options from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Pattern Matching",
+            "command": "ngrep .",
+            "example": "ngrep .",
+            "explanation": "Captures and displays all traffic on the default interface by matching any character."
+        },
+        {
+            "id": 2,
+            "category": "Basic Pattern Matching",
+            "command": "ngrep error",
+            "example": "ngrep error",
+            "explanation": "Searches for the string 'error' in all network packets on the default interface."
+        },
+        {
+            "id": 3,
+            "category": "Interface Selection",
+            "command": "ngrep -d eth0 .",
+            "example": "ngrep -d eth0 .",
+            "explanation": "Listens for traffic specifically on the 'eth0' network interface."
+        },
+        {
+            "id": 4,
+            "category": "Interface Selection",
+            "command": "ngrep -d any .",
+            "example": "ngrep -d any .",
+            "explanation": "Listens for traffic on all available network interfaces simultaneously."
+        },
+        {
+            "id": 5,
+            "category": "Interface Selection",
+            "command": "ngrep -d lo0 .",
+            "example": "ngrep -d lo0 .",
+            "explanation": "Listens for localhost loopback traffic specifically."
+        },
+        {
+            "id": 6,
+            "category": "Quiet Mode",
+            "command": "ngrep -q GET",
+            "example": "ngrep -q GET",
+            "explanation": "Runs in quiet mode, suppressing the '#' hash marks for non-matching packets."
+        },
+        {
+            "id": 7,
+            "category": "Case Insensitive Matching",
+            "command": "ngrep -i pass",
+            "example": "ngrep -i pass",
+            "explanation": "Searches for 'pass' regardless of case (e.g., matching PASS, Pass, or pass)."
+        },
+        {
+            "id": 8,
+            "category": "Invert Matching",
+            "command": "ngrep -v HTTP",
+            "example": "ngrep -v HTTP",
+            "explanation": "Displays only packets that do NOT contain the pattern 'HTTP'."
+        },
+        {
+            "id": 9,
+            "category": "Word Boundary Matching",
+            "command": "ngrep -w user",
+            "example": "ngrep -w user",
+            "explanation": "Matches 'user' as a whole word, ignoring substrings like 'username'."
+        },
+        {
+            "id": 10,
+            "category": "Port Filtering",
+            "command": "ngrep . port 80",
+            "example": "ngrep . port 80",
+            "explanation": "Captures all traffic destined for or originating from port 80."
+        },
+        {
+            "id": 11,
+            "category": "Port Filtering",
+            "command": "ngrep . port 443",
+            "example": "ngrep . port 443",
+            "explanation": "Captures all traffic associated with HTTPS port 443."
+        },
+        {
+            "id": 12,
+            "category": "Host Filtering",
+            "command": "ngrep . host 192.168.1.5",
+            "example": "ngrep . host 192.168.1.5",
+            "explanation": "Filters traffic to show only packets sent to or from host 192.168.1.5."
+        },
+        {
+            "id": 13,
+            "category": "Host Filtering",
+            "command": "ngrep . dst host 10.0.0.1",
+            "example": "ngrep . dst host 10.0.0.1",
+            "explanation": "Captures only packets where the destination IP is 10.0.0.1."
+        },
+        {
+            "id": 14,
+            "category": "Host Filtering",
+            "command": "ngrep . src host 10.0.0.1",
+            "example": "ngrep . src host 10.0.0.1",
+            "explanation": "Captures only packets where the source IP is 10.0.0.1."
+        },
+        {
+            "id": 15,
+            "category": "Network Filtering",
+            "command": "ngrep . net 192.168.1.0/24",
+            "example": "ngrep . net 192.168.1.0/24",
+            "explanation": "Captures traffic for the entire 192.168.1.0/24 subnet."
+        },
+        {
+            "id": 16,
+            "category": "Output Formatting",
+            "command": "ngrep -W byline GET port 80",
+            "example": "ngrep -W byline GET port 80",
+            "explanation": "Formats the payload output with line breaks, making HTTP headers readable."
+        },
+        {
+            "id": 17,
+            "category": "Output Formatting",
+            "command": "ngrep -W single GET port 80",
+            "example": "ngrep -W single GET port 80",
+            "explanation": "Forces the output of the matching packet payload onto a single line."
+        },
+        {
+            "id": 18,
+            "category": "Output Formatting",
+            "command": "ngrep -W none GET",
+            "example": "ngrep -W none GET",
+            "explanation": "Displays payload without any special formatting (raw wrapping)."
+        },
+        {
+            "id": 19,
+            "category": "Timestamping",
+            "command": "ngrep -t .",
+            "example": "ngrep -t .",
+            "explanation": "Prints a timestamp in YYYY/MM/DD HH:MM:SS.UUUUUU format for every match."
+        },
+        {
+            "id": 20,
+            "category": "Timestamping",
+            "command": "ngrep -T .",
+            "example": "ngrep -T .",
+            "explanation": "Prints the time delta (elapsed time) between matched packets."
+        },
+        {
+            "id": 21,
+            "category": "Packet Count Control",
+            "command": "ngrep -n 5 .",
+            "example": "ngrep -n 5 .",
+            "explanation": "Captures exactly 5 matching packets and then exits."
+        },
+        {
+            "id": 22,
+            "category": "Packet Count Control",
+            "command": "ngrep -n 1 GET",
+            "example": "ngrep -n 1 GET",
+            "explanation": "Finds the first packet containing 'GET' and immediately exits."
+        },
+        {
+            "id": 23,
+            "category": "Protocol Filtering",
+            "command": "ngrep . tcp port 22",
+            "example": "ngrep . tcp port 22",
+            "explanation": "Restricts inspection to TCP traffic on port 22 (SSH)."
+        },
+        {
+            "id": 24,
+            "category": "Protocol Filtering",
+            "command": "ngrep . udp port 53",
+            "example": "ngrep . udp port 53",
+            "explanation": "Restricts inspection to UDP traffic on port 53 (DNS)."
+        },
+        {
+            "id": 25,
+            "category": "Protocol Filtering",
+            "command": "ngrep . icmp",
+            "example": "ngrep . icmp",
+            "explanation": "Captures only ICMP traffic (ping, traceroute)."
+        },
+        {
+            "id": 26,
+            "category": "Hex Output",
+            "command": "ngrep -x .",
+            "example": "ngrep -x .",
+            "explanation": "Displays the packet payload in both hexadecimal and ASCII format."
+        },
+        {
+            "id": 27,
+            "category": "Hex Output",
+            "command": "ngrep -x GET port 80",
+            "example": "ngrep -x GET port 80",
+            "explanation": "Matches 'GET' and shows the full packet in hex dump format."
+        },
+        {
+            "id": 28,
+            "category": "Hex Pattern Matching",
+            "command": "ngrep -X 0x474554",
+            "example": "ngrep -X 0x474554",
+            "explanation": "Searches traffic for the hex signature 474554 (which is 'GET' in ASCII)."
+        },
+        {
+            "id": 29,
+            "category": "Hex Pattern Matching",
+            "command": "ngrep -X 0xDEADBEEF",
+            "example": "ngrep -X 0xDEADBEEF",
+            "explanation": "Searches for the specific binary magic bytes 0xDEADBEEF in the payload."
+        },
+        {
+            "id": 30,
+            "category": "Saving to File",
+            "command": "ngrep -O capture.pcap .",
+            "example": "ngrep -O capture.pcap .",
+            "explanation": "Saves all matched packets to a file named 'capture.pcap' in pcap format."
+        },
+        {
+            "id": 31,
+            "category": "Saving to File",
+            "command": "ngrep -O suspicious.pcap -q evil",
+            "example": "ngrep -O suspicious.pcap -q evil",
+            "explanation": "Saves only packets containing 'evil' to a pcap file without printing hash marks."
+        },
+        {
+            "id": 32,
+            "category": "Reading from File",
+            "command": "ngrep -I capture.pcap .",
+            "example": "ngrep -I capture.pcap .",
+            "explanation": "Reads and analyzes packets from an existing 'capture.pcap' file instead of live traffic."
+        },
+        {
+            "id": 33,
+            "category": "Reading from File",
+            "command": "ngrep -I capture.pcap -W byline HTTP",
+            "example": "ngrep -I capture.pcap -W byline HTTP",
+            "explanation": "Searches for 'HTTP' within a pcap file and displays output in readable line format."
+        },
+        {
+            "id": 34,
+            "category": "Complex Filters",
+            "command": "ngrep . 'src host 1.1.1.1 and dst port 80'",
+            "example": "ngrep . 'src host 1.1.1.1 and dst port 80'",
+            "explanation": "Combines host and port filters to see web traffic originating from 1.1.1.1."
+        },
+        {
+            "id": 35,
+            "category": "Complex Filters",
+            "command": "ngrep . 'tcp and not port 22'",
+            "example": "ngrep . 'tcp and not port 22'",
+            "explanation": "Captures all TCP traffic excluding traffic on port 22 (SSH)."
+        },
+        {
+            "id": 36,
+            "category": "Complex Filters",
+            "command": "ngrep . 'host 10.0.0.1 or host 10.0.0.2'",
+            "example": "ngrep . 'host 10.0.0.1 or host 10.0.0.2'",
+            "explanation": "Captures traffic involving either 10.0.0.1 or 10.0.0.2."
+        },
+        {
+            "id": 37,
+            "category": "HTTP Analysis",
+            "command": "ngrep -W byline \"^GET\" port 80",
+            "example": "ngrep -W byline \"^GET\" port 80",
+            "explanation": "Captures HTTP GET requests, formatting headers cleanly."
+        },
+        {
+            "id": 38,
+            "category": "HTTP Analysis",
+            "command": "ngrep -W byline \"^POST\" port 80",
+            "example": "ngrep -W byline \"^POST\" port 80",
+            "explanation": "Captures HTTP POST requests to analyze submitted form data."
+        },
+        {
+            "id": 39,
+            "category": "HTTP Analysis",
+            "command": "ngrep -W byline \"User-Agent:\" port 80",
+            "example": "ngrep -W byline \"User-Agent:\" port 80",
+            "explanation": "Inspects HTTP traffic specifically to see User-Agent strings."
+        },
+        {
+            "id": 40,
+            "category": "HTTP Analysis",
+            "command": "ngrep -W byline \"Cookie:\" port 80",
+            "example": "ngrep -W byline \"Cookie:\" port 80",
+            "explanation": "Extracts Cookie headers from HTTP traffic for session analysis."
+        },
+        {
+            "id": 41,
+            "category": "DNS Analysis",
+            "command": "ngrep -d any . port 53",
+            "example": "ngrep -d any . port 53",
+            "explanation": "Monitors all DNS queries and responses on all interfaces."
+        },
+        {
+            "id": 42,
+            "category": "DNS Analysis",
+            "command": "ngrep -i \"google\" udp port 53",
+            "example": "ngrep -i \"google\" udp port 53",
+            "explanation": "Filters DNS traffic specifically for queries related to 'google'."
+        },
+        {
+            "id": 43,
+            "category": "FTP Analysis",
+            "command": "ngrep -W byline \"USER|PASS\" port 21",
+            "example": "ngrep -W byline \"USER|PASS\" port 21",
+            "explanation": "Watches FTP control traffic for login attempts (username and password)."
+        },
+        {
+            "id": 44,
+            "category": "SMTP Analysis",
+            "command": "ngrep -W byline \"MAIL FROM\" port 25",
+            "example": "ngrep -W byline \"MAIL FROM\" port 25",
+            "explanation": "Monitors outgoing emails by filtering for the SMTP MAIL FROM command."
+        },
+        {
+            "id": 45,
+            "category": "SMTP Analysis",
+            "command": "ngrep -W byline \"RCPT TO\" port 25",
+            "example": "ngrep -W byline \"RCPT TO\" port 25",
+            "explanation": "Monitors incoming email destinations via the SMTP RCPT TO command."
+        },
+        {
+            "id": 46,
+            "category": "Telnet Analysis",
+            "command": "ngrep -q . port 23",
+            "example": "ngrep -q . port 23",
+            "explanation": "Captures cleartext Telnet traffic."
+        },
+        {
+            "id": 47,
+            "category": "Snapshot Length",
+            "command": "ngrep -s 1500 .",
+            "example": "ngrep -s 1500 .",
+            "explanation": "Sets the snaplen (capture size) to 1500 bytes to capture full Ethernet frames."
+        },
+        {
+            "id": 48,
+            "category": "Snapshot Length",
+            "command": "ngrep -s 60 .",
+            "example": "ngrep -s 60 .",
+            "explanation": "Sets a small snaplen to capture only packet headers, saving performance."
+        },
+        {
+            "id": 49,
+            "category": "Regular Expressions",
+            "command": "ngrep \"^G.+HTTP\" port 80",
+            "example": "ngrep \"^G.+HTTP\" port 80",
+            "explanation": "Uses regex to match packets starting with G, followed by chars, ending with HTTP."
+        },
+        {
+            "id": 50,
+            "category": "Regular Expressions",
+            "command": "ngrep \"[0-9]{3}-[0-9]{2}-[0-9]{4}\" .",
+            "example": "ngrep \"[0-9]{3}-[0-9]{2}-[0-9]{4}\" .",
+            "explanation": "Searches traffic for patterns resembling Social Security Numbers (regex)."
+        },
+        {
+            "id": 51,
+            "category": "Regular Expressions",
+            "command": "ngrep \"admin|root\" port 22",
+            "example": "ngrep \"admin|root\" port 22",
+            "explanation": "Looks for 'admin' OR 'root' in SSH traffic (note: SSH is encrypted, usually yields no match unless re-keying)."
+        },
+        {
+            "id": 52,
+            "category": "SQL Injection Monitoring",
+            "command": "ngrep -i \"UNION SELECT\" port 80",
+            "example": "ngrep -i \"UNION SELECT\" port 80",
+            "explanation": "Detects potential SQL Injection attempts containing 'UNION SELECT'."
+        },
+        {
+            "id": 53,
+            "category": "SQL Injection Monitoring",
+            "command": "ngrep -i \"' OR '1'='1\" port 80",
+            "example": "ngrep -i \"' OR '1'='1\" port 80",
+            "explanation": "Detects classic tautology based SQL Injection patterns."
+        },
+        {
+            "id": 54,
+            "category": "XSS Monitoring",
+            "command": "ngrep -i \"<script>\" port 80",
+            "example": "ngrep -i \"<script>\" port 80",
+            "explanation": "Detects Cross-Site Scripting (XSS) payloads in cleartext HTTP."
+        },
+        {
+            "id": 55,
+            "category": "Shellshock Detection",
+            "command": "ngrep -d any \"() { :;};\" port 80",
+            "example": "ngrep -d any \"() { :;};\" port 80",
+            "explanation": "Monitors for the specific signature of the Shellshock vulnerability."
+        },
+        {
+            "id": 56,
+            "category": "Credit Card Hunting",
+            "command": "ngrep \"[0-9]{4}.[0-9]{4}.[0-9]{4}.[0-9]{4}\" port 80",
+            "example": "ngrep \"[0-9]{4}.[0-9]{4}.[0-9]{4}.[0-9]{4}\" port 80",
+            "explanation": "Uses regex to hunt for cleartext credit card number patterns."
+        },
+        {
+            "id": 57,
+            "category": "SSH Version Scan",
+            "command": "ngrep -P \"SSH-\" port 22",
+            "example": "ngrep -P \"SSH-\" port 22",
+            "explanation": "Identifies the SSH version string during the initial handshake."
+        },
+        {
+            "id": 58,
+            "category": "Empty Pattern Filter",
+            "command": "ngrep \"\" port 80",
+            "example": "ngrep \"\" port 80",
+            "explanation": "Matches ALL packets on port 80 without searching for a specific string."
+        },
+        {
+            "id": 59,
+            "category": "IPv6 Analysis",
+            "command": "ngrep . ip6",
+            "example": "ngrep . ip6",
+            "explanation": "Filters and captures only IPv6 protocol traffic."
+        },
+        {
+            "id": 60,
+            "category": "IPv6 Analysis",
+            "command": "ngrep . ip6 and port 80",
+            "example": "ngrep . ip6 and port 80",
+            "explanation": "Captures web traffic specifically over IPv6 networks."
+        },
+        {
+            "id": 61,
+            "category": "VLAN Tagged Traffic",
+            "command": "ngrep . vlan",
+            "example": "ngrep . vlan",
+            "explanation": "Captures traffic that contains 802.1Q VLAN tags."
+        },
+        {
+            "id": 62,
+            "category": "Broadcast Traffic",
+            "command": "ngrep . broadcast",
+            "example": "ngrep . broadcast",
+            "explanation": "Monitors network broadcast traffic."
+        },
+        {
+            "id": 63,
+            "category": "Multicast Traffic",
+            "command": "ngrep . multicast",
+            "example": "ngrep . multicast",
+            "explanation": "Monitors network multicast traffic."
+        },
+        {
+            "id": 64,
+            "category": "TCP Flags",
+            "command": "ngrep . 'tcp[tcpflags] & tcp-syn != 0'",
+            "example": "ngrep . 'tcp[tcpflags] & tcp-syn != 0'",
+            "explanation": "Captures only TCP packets with the SYN flag set (connection initiation)."
+        },
+        {
+            "id": 65,
+            "category": "TCP Flags",
+            "command": "ngrep . 'tcp[tcpflags] & (tcp-syn|tcp-ack) == (tcp-syn|tcp-ack)'",
+            "example": "ngrep . 'tcp[tcpflags] & (tcp-syn|tcp-ack) == (tcp-syn|tcp-ack)'",
+            "explanation": "Captures TCP SYN-ACK packets (handshake response)."
+        },
+        {
+            "id": 66,
+            "category": "TCP Flags",
+            "command": "ngrep . 'tcp[tcpflags] & tcp-rst != 0'",
+            "example": "ngrep . 'tcp[tcpflags] & tcp-rst != 0'",
+            "explanation": "Captures TCP Reset (RST) packets, useful for debugging connection drops."
+        },
+        {
+            "id": 67,
+            "category": "Hex with Formatting",
+            "command": "ngrep -x -W byline GET port 80",
+            "example": "ngrep -x -W byline GET port 80",
+            "explanation": "Combines hex dump and byline formatting for detailed HTTP inspection."
+        },
+        {
+            "id": 68,
+            "category": "Combined Filters",
+            "command": "ngrep -d eth0 -q -W byline \"POST\" port 80 and host 10.10.10.5",
+            "example": "ngrep -d eth0 -q -W byline \"POST\" port 80 and host 10.10.10.5",
+            "explanation": "Quietly monitors POST requests on eth0 specifically involving host 10.10.10.5."
+        },
+        {
+            "id": 69,
+            "category": "User/Pass Pattern",
+            "command": "ngrep -i \"user|pass|login\" port 80",
+            "example": "ngrep -i \"user|pass|login\" port 80",
+            "explanation": "Generic search for login-related terms in cleartext web traffic."
+        },
+        {
+            "id": 70,
+            "category": "Range of Ports",
+            "command": "ngrep . portrange 8000-8080",
+            "example": "ngrep . portrange 8000-8080",
+            "explanation": "Captures traffic spanning a range of ports from 8000 to 8080."
+        },
+        {
+            "id": 71,
+            "category": "Exclude Source",
+            "command": "ngrep . not src host 192.168.1.1",
+            "example": "ngrep . not src host 192.168.1.1",
+            "explanation": "Captures everything EXCEPT traffic coming from 192.168.1.1."
+        },
+        {
+            "id": 72,
+            "category": "Timestamp Delta Debug",
+            "command": "ngrep -T -q . icmp",
+            "example": "ngrep -T -q . icmp",
+            "explanation": "Quietly pings with delta timestamps to measure network latency jitter."
+        },
+        {
+            "id": 73,
+            "category": "Non-Printable Char",
+            "command": "ngrep -X \"00\" port 80",
+            "example": "ngrep -X \"00\" port 80",
+            "explanation": "Searches for null bytes (0x00) which might indicate binary data or overflow attempts."
+        },
+        {
+            "id": 74,
+            "category": "IRC Traffic",
+            "command": "ngrep -i \"JOIN\" port 6667",
+            "example": "ngrep -i \"JOIN\" port 6667",
+            "explanation": "Monitors IRC channel joins on the standard IRC port."
+        },
+        {
+            "id": 75,
+            "category": "IRC Traffic",
+            "command": "ngrep -i \"PRIVMSG\" port 6667",
+            "example": "ngrep -i \"PRIVMSG\" port 6667",
+            "explanation": "Monitors private messages in IRC traffic."
+        },
+        {
+            "id": 76,
+            "category": "Database Traffic",
+            "command": "ngrep . port 3306",
+            "example": "ngrep . port 3306",
+            "explanation": "Monitors generic MySQL database traffic."
+        },
+        {
+            "id": 77,
+            "category": "Database Traffic",
+            "command": "ngrep . port 5432",
+            "example": "ngrep . port 5432",
+            "explanation": "Monitors generic PostgreSQL database traffic."
+        },
+        {
+            "id": 78,
+            "category": "Kill TCP Connection",
+            "command": "ngrep -K 1 pattern",
+            "example": "ngrep -K 1 pattern",
+            "explanation": "Attempts to send TCP RST to kill connections matching the pattern (works on some systems)."
+        },
+        {
+            "id": 79,
+            "category": "Limit Context",
+            "command": "ngrep -n 3 -W byline . host 1.2.3.4",
+            "example": "ngrep -n 3 -W byline . host 1.2.3.4",
+            "explanation": "Debugging a specific host with formatting, stopping after 3 packets."
+        },
+        {
+            "id": 80,
+            "category": "ARP Traffic",
+            "command": "ngrep . arp",
+            "example": "ngrep . arp",
+            "explanation": "Monitors Address Resolution Protocol packets for ARP spoofing detection."
+        },
+        {
+            "id": 81,
+            "category": "RARP Traffic",
+            "command": "ngrep . rarp",
+            "example": "ngrep . rarp",
+            "explanation": "Monitors Reverse ARP traffic."
+        },
+        {
+            "id": 82,
+            "category": "Packet Size Filter",
+            "command": "ngrep . 'greater 100'",
+            "example": "ngrep . 'greater 100'",
+            "explanation": "Captures only packets larger than 100 bytes."
+        },
+        {
+            "id": 83,
+            "category": "Packet Size Filter",
+            "command": "ngrep . 'less 64'",
+            "example": "ngrep . 'less 64'",
+            "explanation": "Captures only packets smaller than 64 bytes (runts/control frames)."
+        },
+        {
+            "id": 84,
+            "category": "DHCP Discovery",
+            "command": "ngrep . port 67 or port 68",
+            "example": "ngrep . port 67 or port 68",
+            "explanation": "Monitors DHCP requests and responses."
+        },
+        {
+            "id": 85,
+            "category": "NTP Analysis",
+            "command": "ngrep . port 123",
+            "example": "ngrep . port 123",
+            "explanation": "Monitors Network Time Protocol traffic."
+        },
+        {
+            "id": 86,
+            "category": "SNMP Analysis",
+            "command": "ngrep . port 161",
+            "example": "ngrep . port 161",
+            "explanation": "Monitors Simple Network Management Protocol traffic."
+        },
+        {
+            "id": 87,
+            "category": "Wildcard Interface",
+            "command": "ngrep -d any -q .",
+            "example": "ngrep -d any -q .",
+            "explanation": "Quietly captures everything on every interface."
+        },
+        {
+            "id": 88,
+            "category": "High Speed Capture",
+            "command": "ngrep -d eth0 -n 1000 -q .",
+            "example": "ngrep -d eth0 -n 1000 -q .",
+            "explanation": "Rapidly grabs a 1000 packet sample from eth0 without screen output overhead."
+        },
+        {
+            "id": 89,
+            "category": "SIP/VoIP Analysis",
+            "command": "ngrep -W byline \"INVITE\" port 5060",
+            "example": "ngrep -W byline \"INVITE\" port 5060",
+            "explanation": "Detects SIP VoIP call initiation packets."
+        },
+        {
+            "id": 90,
+            "category": "SIP/VoIP Analysis",
+            "command": "ngrep -W byline \"REGISTER\" port 5060",
+            "example": "ngrep -W byline \"REGISTER\" port 5060",
+            "explanation": "Detects SIP phone registration attempts."
+        },
+        {
+            "id": 91,
+            "category": "JSON API Debugging",
+            "command": "ngrep -W byline \"application/json\" port 80",
+            "example": "ngrep -W byline \"application/json\" port 80",
+            "explanation": "Filters for HTTP packets indicating JSON content type."
+        },
+        {
+            "id": 92,
+            "category": "Basic Auth Discovery",
+            "command": "ngrep -W byline \"Authorization: Basic\" port 80",
+            "example": "ngrep -W byline \"Authorization: Basic\" port 80",
+            "explanation": "Finds HTTP headers using Basic Authentication (Base64 encoded creds)."
+        },
+        {
+            "id": 93,
+            "category": "PCAP Replay Analysis",
+            "command": "ngrep -I traffic.pcap -O filtered.pcap \"GET\"",
+            "example": "ngrep -I traffic.pcap -O filtered.pcap \"GET\"",
+            "explanation": "Reads traffic.pcap, finds packets with 'GET', and saves them to filtered.pcap."
+        },
+        {
+            "id": 94,
+            "category": "Configuration Files",
+            "command": "ngrep -F patterns.txt .",
+            "example": "ngrep -F patterns.txt .",
+            "explanation": "Reads search patterns from a file named 'patterns.txt' instead of command line."
+        },
+        {
+            "id": 95,
+            "category": "Ignore Case Regex",
+            "command": "ngrep -i \"^error|^fail\" .",
+            "example": "ngrep -i \"^error|^fail\" .",
+            "explanation": "Case-insensitive regex search for error or failure at line start."
+        },
+        {
+            "id": 96,
+            "category": "IMAP Traffic",
+            "command": "ngrep . port 143",
+            "example": "ngrep . port 143",
+            "explanation": "Monitors unencrypted IMAP email traffic."
+        },
+        {
+            "id": 97,
+            "category": "POP3 Traffic",
+            "command": "ngrep . port 110",
+            "example": "ngrep . port 110",
+            "explanation": "Monitors unencrypted POP3 email traffic."
+        },
+        {
+            "id": 98,
+            "category": "LDAP Traffic",
+            "command": "ngrep . port 389",
+            "example": "ngrep . port 389",
+            "explanation": "Monitors Lightweight Directory Access Protocol queries."
+        },
+        {
+            "id": 99,
+            "category": "Forensic Hex Search",
+            "command": "ngrep -X \"4d 5a\" port 80",
+            "example": "ngrep -X \"4d 5a\" port 80",
+            "explanation": "Searches for 'MZ' header (4D 5A) indicating Windows executable downloads."
+        },
+        {
+            "id": 100,
+            "category": "Advanced Troubleshooting",
+            "command": "ngrep -d any -t -T -W byline \"Error\" port 80",
+            "example": "ngrep -d any -t -T -W byline \"Error\" port 80",
+            "explanation": "Combines interface, timestamp, delta, formatting, and pattern for deep analysis."
+        }
+    ]
+}

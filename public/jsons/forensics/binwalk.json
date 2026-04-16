@@ -1,0 +1,462 @@
+{
+    "tool": "binwalk",
+    "description": "Complete Binwalk command and workflow reference from basic to advanced firmware and binary analysis",
+    "total_commands": 65,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax",
+            "command": "binwalk --help",
+            "example": "binwalk --help",
+            "explanation": "Displays the main help menu listing all available options and flags"
+        },
+        {
+            "id": 2,
+            "category": "Basic Firmware Analysis",
+            "command": "binwalk firmware.bin",
+            "example": "binwalk firmware.bin",
+            "explanation": "Performs a default signature scan to identify embedded file types and offsets"
+        },
+        {
+            "id": 3,
+            "category": "Basic Firmware Analysis",
+            "command": "binwalk -B firmware.bin",
+            "example": "binwalk -B firmware.bin",
+            "explanation": "Explicitly enables the standard signature analysis scan mode"
+        },
+        {
+            "id": 4,
+            "category": "Signature Scanning",
+            "command": "binwalk -b firmware.bin",
+            "example": "binwalk -b firmware.bin",
+            "explanation": "Runs a dumb scan that ignores smart signature keywords for broader matching"
+        },
+        {
+            "id": 5,
+            "category": "Signature Scanning",
+            "command": "binwalk -I firmware.bin",
+            "example": "binwalk -I firmware.bin",
+            "explanation": "Shows all scan results including those marked as invalid by the magic definitions"
+        },
+        {
+            "id": 6,
+            "category": "Signature Scanning",
+            "command": "binwalk -m ./magic.mgc firmware.bin",
+            "example": "binwalk -m ./custom_magic.mgc firmware.bin",
+            "explanation": "Uses a custom magic signature file instead of the default system signatures"
+        },
+        {
+            "id": 7,
+            "category": "Signature Scanning",
+            "command": "binwalk -R \"\\x1f\\x8b\\x08\" firmware.bin",
+            "example": "binwalk -R \"\\x1f\\x8b\\x08\" firmware.bin",
+            "explanation": "Scans the file for a specific raw byte sequence"
+        },
+        {
+            "id": 8,
+            "category": "Signature Scanning",
+            "command": "binwalk -R \"Copyright\" firmware.bin",
+            "example": "binwalk -R \"Copyright\" firmware.bin",
+            "explanation": "Scans the file for a specific ASCII string occurrence"
+        },
+        {
+            "id": 9,
+            "category": "Entropy Analysis",
+            "command": "binwalk -E firmware.bin",
+            "example": "binwalk -E firmware.bin",
+            "explanation": "Calculates and displays the entropy of the file to identify compressed or encrypted data"
+        },
+        {
+            "id": 10,
+            "category": "Entropy Analysis",
+            "command": "binwalk -E -N firmware.bin",
+            "example": "binwalk -E -N firmware.bin",
+            "explanation": "Calculates entropy but suppresses the generation of the entropy graph plot"
+        },
+        {
+            "id": 11,
+            "category": "Entropy Analysis",
+            "command": "binwalk -E -J firmware.bin",
+            "example": "binwalk -E -J firmware.bin",
+            "explanation": "Calculates entropy and saves the resulting graph as a PNG image"
+        },
+        {
+            "id": 12,
+            "category": "Entropy Analysis",
+            "command": "binwalk -E -Q firmware.bin",
+            "example": "binwalk -E -Q firmware.bin",
+            "explanation": "Calculates entropy and omits the legend from the generated graph"
+        },
+        {
+            "id": 13,
+            "category": "Filtering Results",
+            "command": "binwalk -y \"filesystem\" firmware.bin",
+            "example": "binwalk -y \"filesystem\" firmware.bin",
+            "explanation": "Filters output to only show results containing the string filesystem"
+        },
+        {
+            "id": 14,
+            "category": "Filtering Results",
+            "command": "binwalk -y \"filesystem\" -y \"copyright\" firmware.bin",
+            "example": "binwalk -y \"filesystem\" -y \"copyright\" firmware.bin",
+            "explanation": "Filters output to show results matching either filesystem or copyright"
+        },
+        {
+            "id": 15,
+            "category": "Filtering Results",
+            "command": "binwalk -x \"invalid\" firmware.bin",
+            "example": "binwalk -x \"invalid\" firmware.bin",
+            "explanation": "Filters output to exclude any results containing the string invalid"
+        },
+        {
+            "id": 16,
+            "category": "Extraction Workflows",
+            "command": "binwalk -e firmware.bin",
+            "example": "binwalk -e firmware.bin",
+            "explanation": "Automatically extracts known file types found during the signature scan"
+        },
+        {
+            "id": 17,
+            "category": "Extraction Workflows",
+            "command": "binwalk -D \"png image:png\" firmware.bin",
+            "example": "binwalk -D \"png image:png\" firmware.bin",
+            "explanation": "Extracts files matching the png image signature and saves them with a png extension"
+        },
+        {
+            "id": 18,
+            "category": "Extraction Workflows",
+            "command": "binwalk -D \"gzip compressed data:gz:gunzip %e\" firmware.bin",
+            "example": "binwalk -D \"gzip compressed data:gz:gunzip %e\" firmware.bin",
+            "explanation": "Extracts gzip data, saves with gz extension, and runs gunzip on the extracted file"
+        },
+        {
+            "id": 19,
+            "category": "Extraction Workflows",
+            "command": "binwalk -e -r firmware.bin",
+            "example": "binwalk -e -r firmware.bin",
+            "explanation": "Extracts known files and deletes the carved files after successful extraction"
+        },
+        {
+            "id": 20,
+            "category": "Extraction Workflows",
+            "command": "binwalk -e -z firmware.bin",
+            "example": "binwalk -e -z firmware.bin",
+            "explanation": "Carves data based on signatures but does not execute external extraction utilities"
+        },
+        {
+            "id": 21,
+            "category": "Recursive Analysis",
+            "command": "binwalk -M -e firmware.bin",
+            "example": "binwalk -M -e firmware.bin",
+            "explanation": "Recursively scans and extracts contents (Matryoshka mode) from extracted files"
+        },
+        {
+            "id": 22,
+            "category": "Recursive Analysis",
+            "command": "binwalk -M -e -d 4 firmware.bin",
+            "example": "binwalk -M -e -d 4 firmware.bin",
+            "explanation": "Recursively extracts files but limits the recursion depth to 4 levels"
+        },
+        {
+            "id": 23,
+            "category": "Recursive Analysis",
+            "command": "binwalk -M -e -C ./output_dir firmware.bin",
+            "example": "binwalk -M -e -C ./output_dir firmware.bin",
+            "explanation": "Recursively extracts contents into a specific custom directory"
+        },
+        {
+            "id": 24,
+            "category": "Extraction Limits",
+            "command": "binwalk -e -j 1048576 firmware.bin",
+            "example": "binwalk -e -j 1048576 firmware.bin",
+            "explanation": "Extracts files but limits the size of each extracted file to 1MB"
+        },
+        {
+            "id": 25,
+            "category": "Extraction Limits",
+            "command": "binwalk -e -n 50 firmware.bin",
+            "example": "binwalk -e -n 50 firmware.bin",
+            "explanation": "Extracts files but stops after extracting 50 files"
+        },
+        {
+            "id": 26,
+            "category": "Opcode Analysis",
+            "command": "binwalk -A firmware.bin",
+            "example": "binwalk -A firmware.bin",
+            "explanation": "Scans the file for common executable opcode signatures to identify CPU architecture"
+        },
+        {
+            "id": 27,
+            "category": "Opcode Analysis",
+            "command": "binwalk -A -y \"MIPS\" firmware.bin",
+            "example": "binwalk -A -y \"MIPS\" firmware.bin",
+            "explanation": "Scans for opcodes and filters results to only show MIPS architecture matches"
+        },
+        {
+            "id": 28,
+            "category": "Output & Logging",
+            "command": "binwalk -f scan.log firmware.bin",
+            "example": "binwalk -f scan.log firmware.bin",
+            "explanation": "Logs the scan results to a specified text file"
+        },
+        {
+            "id": 29,
+            "category": "Output & Logging",
+            "command": "binwalk --csv firmware.bin",
+            "example": "binwalk --csv firmware.bin",
+            "explanation": "Formats the scan output as CSV for easy importing into spreadsheets"
+        },
+        {
+            "id": 30,
+            "category": "Output & Logging",
+            "command": "binwalk --csv -f results.csv firmware.bin",
+            "example": "binwalk --csv -f results.csv firmware.bin",
+            "explanation": "Generates CSV formatted output and saves it directly to a file"
+        },
+        {
+            "id": 31,
+            "category": "Output & Logging",
+            "command": "binwalk -t firmware.bin",
+            "example": "binwalk -t firmware.bin",
+            "explanation": "Formats the output nicely to fit the current terminal window width"
+        },
+        {
+            "id": 32,
+            "category": "Output & Logging",
+            "command": "binwalk -q firmware.bin",
+            "example": "binwalk -q firmware.bin",
+            "explanation": "Runs the scan quietly, suppressing standard output unless errors occur"
+        },
+        {
+            "id": 33,
+            "category": "Output & Logging",
+            "command": "binwalk -v firmware.bin",
+            "example": "binwalk -v firmware.bin",
+            "explanation": "Enables verbose logging to display internal tool processing details"
+        },
+        {
+            "id": 34,
+            "category": "Data Manipulation",
+            "command": "binwalk -l 1024 firmware.bin",
+            "example": "binwalk -l 1024 firmware.bin",
+            "explanation": "Scans only the first 1024 bytes of the input file"
+        },
+        {
+            "id": 35,
+            "category": "Data Manipulation",
+            "command": "binwalk -o 4096 firmware.bin",
+            "example": "binwalk -o 4096 firmware.bin",
+            "explanation": "Starts the scan at offset 4096, skipping the beginning of the file"
+        },
+        {
+            "id": 36,
+            "category": "Data Manipulation",
+            "command": "binwalk -O 0x800000 firmware.bin",
+            "example": "binwalk -O 0x800000 firmware.bin",
+            "explanation": "Sets a custom base address for the scan, useful for memory dumps"
+        },
+        {
+            "id": 37,
+            "category": "Data Manipulation",
+            "command": "binwalk -g 2 firmware.bin",
+            "example": "binwalk -g 2 firmware.bin",
+            "explanation": "Reverses every 2 bytes before scanning, useful for endianness swaps"
+        },
+        {
+            "id": 38,
+            "category": "Binary Diffing",
+            "command": "binwalk -W firmware1.bin firmware2.bin",
+            "example": "binwalk -W firmware1.bin firmware2.bin",
+            "explanation": "Performs a hexdump comparison between two or more files"
+        },
+        {
+            "id": 39,
+            "category": "Binary Diffing",
+            "command": "binwalk -W -G firmware1.bin firmware2.bin",
+            "example": "binwalk -W -G firmware1.bin firmware2.bin",
+            "explanation": "Diffs files and only shows lines where bytes are identical (Green mode)"
+        },
+        {
+            "id": 40,
+            "category": "Binary Diffing",
+            "command": "binwalk -W -i firmware1.bin firmware2.bin",
+            "example": "binwalk -W -i firmware1.bin firmware2.bin",
+            "explanation": "Diffs files and only shows lines where bytes differ among all files (Red mode)"
+        },
+        {
+            "id": 41,
+            "category": "Binary Diffing",
+            "command": "binwalk -W -U firmware1.bin firmware2.bin",
+            "example": "binwalk -W -U firmware1.bin firmware2.bin",
+            "explanation": "Diffs files and only shows lines where bytes differ among some files (Blue mode)"
+        },
+        {
+            "id": 42,
+            "category": "Incident Response",
+            "command": "binwalk -E -B firmware.bin",
+            "example": "binwalk -E -B firmware.bin",
+            "explanation": "Combines entropy analysis with signature scanning to correlate high entropy areas"
+        },
+        {
+            "id": 43,
+            "category": "Incident Response",
+            "command": "binwalk -e --disable-plugin=lzma firmware.bin",
+            "example": "binwalk -e --disable-plugin=lzma firmware.bin",
+            "explanation": "Extracts firmware while disabling the LZMA plugin to prevent false positives"
+        },
+        {
+            "id": 44,
+            "category": "Malware Detection",
+            "command": "binwalk -A -l 5000 firmware.bin",
+            "example": "binwalk -A -l 5000 firmware.bin",
+            "explanation": "Checks the bootloader area (first 5000 bytes) for executable code signatures"
+        },
+        {
+            "id": 45,
+            "category": "Blue Team Validation",
+            "command": "binwalk -y \"private key\" firmware.bin",
+            "example": "binwalk -y \"private key\" firmware.bin",
+            "explanation": "Specifically scans for potential embedded private key certificates"
+        },
+        {
+            "id": 46,
+            "category": "Blue Team Validation",
+            "command": "binwalk -R \"\\x7fELF\" firmware.bin",
+            "example": "binwalk -R \"\\x7fELF\" firmware.bin",
+            "explanation": "Validates the presence of ELF binaries using raw hex signatures"
+        },
+        {
+            "id": 47,
+            "category": "Forensics Reporting",
+            "command": "binwalk -B -f report.txt --csv firmware.bin",
+            "example": "binwalk -B -f report.txt --csv firmware.bin",
+            "explanation": "Generates a standard signature scan report in CSV format for external processing"
+        },
+        {
+            "id": 48,
+            "category": "Advanced Workflow",
+            "command": "binwalk -Me -f analysis.log firmware.bin",
+            "example": "binwalk -Me -f analysis.log firmware.bin",
+            "explanation": "Performs full recursive extraction and logs all findings to a file"
+        },
+        {
+            "id": 49,
+            "category": "Advanced Workflow",
+            "command": "binwalk -B -e -p firmware.bin",
+            "example": "binwalk -B -e -p firmware.bin",
+            "explanation": "Scans and extracts files while explicitly disabling plugins for raw handling"
+        },
+        {
+            "id": 50,
+            "category": "Advanced Workflow",
+            "command": "binwalk -y \"filesystem\" -e firmware.bin",
+            "example": "binwalk -y \"filesystem\" -e firmware.bin",
+            "explanation": "Extracts only the identified filesystem components, ignoring other artifacts"
+        },
+        {
+            "id": 51,
+            "category": "Advanced Workflow",
+            "command": "binwalk -E -o 1000 -l 2000 firmware.bin",
+            "example": "binwalk -E -o 1000 -l 2000 firmware.bin",
+            "explanation": "Analyzes entropy for a specific middle chunk of the firmware image"
+        },
+        {
+            "id": 52,
+            "category": "Advanced Workflow",
+            "command": "binwalk -M -e -r --directory=investigation firmware.bin",
+            "example": "binwalk -M -e -r --directory=investigation firmware.bin",
+            "explanation": "Clean recursive extraction into a named folder, deleting carved archives after expansion"
+        },
+        {
+            "id": 53,
+            "category": "Defensive Validation",
+            "command": "binwalk --status firmware.bin",
+            "example": "binwalk --status firmware.bin",
+            "explanation": "Shows the memory usage and running status of the scan (if supported by version)"
+        },
+        {
+            "id": 54,
+            "category": "Advanced Carving",
+            "command": "binwalk -D \"jpeg:jpg\" firmware.bin",
+            "example": "binwalk -D \"jpeg:jpg\" firmware.bin",
+            "explanation": "Carves all JPEG files found in the binary without executing any helper scripts"
+        },
+        {
+            "id": 55,
+            "category": "Automation",
+            "command": "binwalk -q -e firmware.bin",
+            "example": "binwalk -q -e firmware.bin",
+            "explanation": "Runs extraction in quiet mode for use in automated pipelines or scripts"
+        },
+        {
+            "id": 56,
+            "category": "Plugin Management",
+            "command": "binwalk --enable-plugin=zlib firmware.bin",
+            "example": "binwalk --enable-plugin=zlib firmware.bin",
+            "explanation": "Explicitly enables the zlib scanning plugin"
+        },
+        {
+            "id": 57,
+            "category": "Plugin Management",
+            "command": "binwalk --list-plugins",
+            "example": "binwalk --list-plugins",
+            "explanation": "Lists all available binwalk scan plugins"
+        },
+        {
+            "id": 58,
+            "category": "Visual Analysis",
+            "command": "binwalk -3 firmware.bin",
+            "example": "binwalk -3 firmware.bin",
+            "explanation": "Enables 3D visualization of the entropy plot (requires pyqtgraph)"
+        },
+        {
+            "id": 59,
+            "category": "Signature Debugging",
+            "command": "binwalk -B -v firmware.bin",
+            "example": "binwalk -B -v firmware.bin",
+            "explanation": "Runs a signature scan with verbose output to debug false positive signatures"
+        },
+        {
+            "id": 60,
+            "category": "Complex Extraction",
+            "command": "binwalk -D \"uimage header:uimage\" -D \"gzip:gz:gunzip %e\" firmware.bin",
+            "example": "binwalk -D \"uimage header:uimage\" -D \"gzip:gz:gunzip %e\" firmware.bin",
+            "explanation": "Defines multiple custom extraction rules for uImage headers and gzip data simultaneously"
+        },
+        {
+            "id": 61,
+            "category": "Offset Analysis",
+            "command": "binwalk -y \"squashfs\" -t firmware.bin",
+            "example": "binwalk -y \"squashfs\" -t firmware.bin",
+            "explanation": "Locates SquashFS offsets and formats the output for easy reading"
+        },
+        {
+            "id": 62,
+            "category": "Reverse Engineering",
+            "command": "binwalk -A -O 0x400000 firmware.bin",
+            "example": "binwalk -A -O 0x400000 firmware.bin",
+            "explanation": "Scans for opcodes assuming the firmware is loaded at memory address 0x400000"
+        },
+        {
+            "id": 63,
+            "category": "Forensics cleanup",
+            "command": "binwalk --rm firmware.bin",
+            "example": "binwalk --rm firmware.bin",
+            "explanation": "Scans and cleans up zero-size files generated during extraction attempts"
+        },
+        {
+            "id": 64,
+            "category": "Math Analysis",
+            "command": "binwalk -E -K 1024 firmware.bin",
+            "example": "binwalk -E -K 1024 firmware.bin",
+            "explanation": "Performs entropy analysis using a custom block size of 1024 bytes"
+        },
+        {
+            "id": 65,
+            "category": "System Info",
+            "command": "binwalk --examples",
+            "example": "binwalk --examples",
+            "explanation": "Displays built-in usage examples and common command patterns"
+        }
+    ]
+}

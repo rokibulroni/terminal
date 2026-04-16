@@ -1,0 +1,427 @@
+{
+    "tool": "sniffit",
+    "description": "Complete sniffit command reference covering all options from basic to advanced",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Capture",
+            "command": "sniffit -v",
+            "example": "sniffit -v",
+            "explanation": "Displays the current version number of the sniffit tool."
+        },
+        {
+            "id": 2,
+            "category": "Basic Capture",
+            "command": "sniffit -i",
+            "example": "sniffit -i",
+            "explanation": "Launches sniffit in interactive ncurses mode for real-time monitoring."
+        },
+        {
+            "id": 3,
+            "category": "Interface Selection",
+            "command": "sniffit -F eth0",
+            "example": "sniffit -F eth0",
+            "explanation": "Forces the tool to listen on the eth0 network interface."
+        },
+        {
+            "id": 4,
+            "category": "Interface Selection",
+            "command": "sniffit -F wlan0 -i",
+            "example": "sniffit -F wlan0 -i",
+            "explanation": "Starts interactive mode specifically on the wireless interface wlan0."
+        },
+        {
+            "id": 5,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -t 192.168.1.10",
+            "example": "sniffit -t 192.168.1.10",
+            "explanation": "Captures only traffic destined for the target IP address 192.168.1.10."
+        },
+        {
+            "id": 6,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -s 192.168.1.50",
+            "example": "sniffit -s 192.168.1.50",
+            "explanation": "Captures only traffic originating from the source IP address 192.168.1.50."
+        },
+        {
+            "id": 7,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -b 192.168.1.20",
+            "example": "sniffit -b 192.168.1.20",
+            "explanation": "Captures bidirectional traffic (incoming and outgoing) for the specified host."
+        },
+        {
+            "id": 8,
+            "category": "Protocol Selection",
+            "command": "sniffit -P tcp",
+            "example": "sniffit -P tcp",
+            "explanation": "Filters the capture to include only TCP protocol packets."
+        },
+        {
+            "id": 9,
+            "category": "Protocol Selection",
+            "command": "sniffit -P udp",
+            "example": "sniffit -P udp",
+            "explanation": "Filters the capture to include only UDP protocol packets."
+        },
+        {
+            "id": 10,
+            "category": "Protocol Selection",
+            "command": "sniffit -P icmp",
+            "example": "sniffit -P icmp",
+            "explanation": "Filters the capture to include only ICMP control packets like ping."
+        },
+        {
+            "id": 11,
+            "category": "Protocol Selection",
+            "command": "sniffit -P ip",
+            "example": "sniffit -P ip",
+            "explanation": "Captures raw IP packets regardless of the underlying transport protocol."
+        },
+        {
+            "id": 12,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -p 80",
+            "example": "sniffit -p 80",
+            "explanation": "Captures traffic on port 80 for web traffic analysis."
+        },
+        {
+            "id": 13,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -p 22",
+            "example": "sniffit -p 22",
+            "explanation": "Monitors traffic on port 22 to observe SSH connection attempts."
+        },
+        {
+            "id": 14,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -p 53 -P udp",
+            "example": "sniffit -p 53 -P udp",
+            "explanation": "Captures UDP traffic on port 53 for DNS query analysis."
+        },
+        {
+            "id": 15,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -p 21 -t 192.168.1.10",
+            "example": "sniffit -p 21 -t 192.168.1.10",
+            "explanation": "Captures FTP command traffic destined for the specific target IP."
+        },
+        {
+            "id": 16,
+            "category": "ASCII and Hex Output",
+            "command": "sniffit -a -p 80",
+            "example": "sniffit -a -p 80",
+            "explanation": "Displays captured web traffic on port 80 in human-readable ASCII format."
+        },
+        {
+            "id": 17,
+            "category": "ASCII and Hex Output",
+            "command": "sniffit -x -p 80",
+            "example": "sniffit -x -p 80",
+            "explanation": "Displays captured web traffic on port 80 in hexadecimal format."
+        },
+        {
+            "id": 18,
+            "category": "ASCII and Hex Output",
+            "command": "sniffit -d -p 80",
+            "example": "sniffit -d -p 80",
+            "explanation": "Dumps the raw packet content of web traffic to the console."
+        },
+        {
+            "id": 19,
+            "category": "ASCII and Hex Output",
+            "command": "sniffit -a -p 23 -b 192.168.1.1",
+            "example": "sniffit -a -p 23 -b 192.168.1.1",
+            "explanation": "Captures Telnet traffic for the host in ASCII to view cleartext commands."
+        },
+        {
+            "id": 20,
+            "category": "Output Formatting",
+            "command": "sniffit -7 -a -p 80",
+            "example": "sniffit -7 -a -p 80",
+            "explanation": "Forces 7-bit ASCII mode output for compatibility with older terminals."
+        },
+        {
+            "id": 21,
+            "category": "Performance and Buffer Control",
+            "command": "sniffit -l 0 -p 80",
+            "example": "sniffit -l 0 -p 80",
+            "explanation": "Sets snaplength to 0 to capture the entire packet regardless of size."
+        },
+        {
+            "id": 22,
+            "category": "Performance and Buffer Control",
+            "command": "sniffit -l 200 -p 80",
+            "example": "sniffit -l 200 -p 80",
+            "explanation": "Limits capture to the first 200 bytes of data per packet."
+        },
+        {
+            "id": 23,
+            "category": "Logging and File Output",
+            "command": "sniffit -L 500 -t 192.168.1.10",
+            "example": "sniffit -L 500 -t 192.168.1.10",
+            "explanation": "Sets the log depth to 500 bytes when logging plugin activity."
+        },
+        {
+            "id": 24,
+            "category": "Configuration",
+            "command": "sniffit -c config_file",
+            "example": "sniffit -c /etc/sniffit.conf",
+            "explanation": "Loads capture settings and filtering rules from a specified configuration file."
+        },
+        {
+            "id": 25,
+            "category": "Legacy Network Troubleshooting",
+            "command": "sniffit -P icmp -b 192.168.1.1",
+            "example": "sniffit -P icmp -b 192.168.1.1",
+            "explanation": "Monitors bidirectional ICMP traffic to troubleshoot connectivity with the gateway."
+        },
+        {
+            "id": 26,
+            "category": "Red Team Traffic Validation",
+            "command": "sniffit -a -p 21 -t 10.0.0.5",
+            "example": "sniffit -a -p 21 -t 10.0.0.5",
+            "explanation": "Inspects FTP traffic in ASCII to validate cleartext credential transmission."
+        },
+        {
+            "id": 27,
+            "category": "Red Team Traffic Validation",
+            "command": "sniffit -a -p 110 -t 10.0.0.5",
+            "example": "sniffit -a -p 110 -t 10.0.0.5",
+            "explanation": "Monitors POP3 email traffic in ASCII to demonstrate insecure login mechanisms."
+        },
+        {
+            "id": 28,
+            "category": "Blue Team Monitoring Scenarios",
+            "command": "sniffit -x -p 443 -t 192.168.1.10",
+            "example": "sniffit -x -p 443 -t 192.168.1.10",
+            "explanation": "Inspects the hex dump of HTTPS handshake headers to verify TLS versions."
+        },
+        {
+            "id": 29,
+            "category": "Blue Team Monitoring Scenarios",
+            "command": "sniffit -P tcp -b 192.168.1.100 -l 64",
+            "example": "sniffit -P tcp -b 192.168.1.100 -l 64",
+            "explanation": "Captures only headers (first 64 bytes) of TCP traffic for traffic flow analysis."
+        },
+        {
+            "id": 30,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "sniffit -F eth0 -a -p 80 -b 192.168.1.5",
+            "example": "sniffit -F eth0 -a -p 80 -b 192.168.1.5",
+            "explanation": "Captures ASCII web traffic on eth0 specifically for the target host 192.168.1.5."
+        },
+        {
+            "id": 31,
+            "category": "Educational and Learning Use Cases",
+            "command": "sniffit -d -p 25",
+            "example": "sniffit -d -p 25",
+            "explanation": "Dumps SMTP email traffic to help students understand email protocol commands."
+        },
+        {
+            "id": 32,
+            "category": "Educational and Learning Use Cases",
+            "command": "sniffit -x -P icmp",
+            "example": "sniffit -x -P icmp",
+            "explanation": "Displays ICMP packets in hex to teach packet structure and header fields."
+        },
+        {
+            "id": 33,
+            "category": "TCP Session Monitoring",
+            "command": "sniffit -a -p 6667",
+            "example": "sniffit -a -p 6667",
+            "explanation": "Captures IRC chat traffic in ASCII to monitor channel conversations."
+        },
+        {
+            "id": 34,
+            "category": "UDP Traffic Inspection",
+            "command": "sniffit -d -p 161 -P udp",
+            "example": "sniffit -d -p 161 -P udp",
+            "explanation": "Dumps SNMP traffic on port 161 to inspect management strings."
+        },
+        {
+            "id": 35,
+            "category": "Output Formatting",
+            "command": "sniffit -A . -a -p 80",
+            "example": "sniffit -A . -a -p 80",
+            "explanation": "Replaces non-printable characters with a dot while dumping ASCII web traffic."
+        },
+        {
+            "id": 36,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "sniffit -F eth0 -x -t 192.168.1.1 -p 22",
+            "example": "sniffit -F eth0 -x -t 192.168.1.1 -p 22",
+            "explanation": "Analyzes the SSH handshake in hex on eth0 specifically for the gateway IP."
+        },
+        {
+            "id": 37,
+            "category": "Incident Response Demonstrations",
+            "command": "sniffit -s 203.0.113.5 -P tcp",
+            "example": "sniffit -s 203.0.113.5 -P tcp",
+            "explanation": "Isolates all TCP traffic originating from a known malicious external IP."
+        },
+        {
+            "id": 38,
+            "category": "Incident Response Demonstrations",
+            "command": "sniffit -b 192.168.1.200 -P udp",
+            "example": "sniffit -b 192.168.1.200 -P udp",
+            "explanation": "Investigates UDP beaconing behavior coming from a compromised internal host."
+        },
+        {
+            "id": 39,
+            "category": "Session Reassembly",
+            "command": "sniffit -a -t 192.168.1.10 -p 80 -l 0",
+            "example": "sniffit -a -t 192.168.1.10 -p 80 -l 0",
+            "explanation": "Captures full-length packets in ASCII to assist in manual HTTP session reconstruction."
+        },
+        {
+            "id": 40,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "sniffit -n -i",
+            "example": "sniffit -n -i",
+            "explanation": "Starts interactive mode with IP address generation turned off for speed or compatibility."
+        },
+        {
+            "id": 41,
+            "category": "Legacy Network Troubleshooting",
+            "command": "sniffit -d -s 0.0.0.0",
+            "example": "sniffit -d -s 0.0.0.0",
+            "explanation": "Captures DHCP discovery packets which often originate from source 0.0.0.0."
+        },
+        {
+            "id": 42,
+            "category": "Output Formatting",
+            "command": "sniffit -d -p 80 > dump.txt",
+            "example": "sniffit -d -p 80 > dump.txt",
+            "explanation": "Redirects the raw packet dump output to a file for later analysis."
+        },
+        {
+            "id": 43,
+            "category": "Quiet and Verbose Modes",
+            "command": "sniffit -v -i",
+            "example": "sniffit -v -i",
+            "explanation": "Starts interactive mode while displaying version or verbose information on startup."
+        },
+        {
+            "id": 44,
+            "category": "IPv4 Traffic Analysis",
+            "command": "sniffit -P ip -t 224.0.0.1",
+            "example": "sniffit -P ip -t 224.0.0.1",
+            "explanation": "Monitors raw IP traffic destined for the multicast all-hosts address."
+        },
+        {
+            "id": 45,
+            "category": "Protocol Selection",
+            "command": "sniffit -P tcp -p 445",
+            "example": "sniffit -P tcp -p 445",
+            "explanation": "Filters for SMB traffic over TCP to analyze Windows file sharing activity."
+        },
+        {
+            "id": 46,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -b 192.168.1.1 -p 123 -P udp",
+            "example": "sniffit -b 192.168.1.1 -p 123 -P udp",
+            "explanation": "Monitors bidirectional NTP time synchronization traffic on UDP port 123."
+        },
+        {
+            "id": 47,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "sniffit -F eth0 -a -s 10.0.0.1 -p 23",
+            "example": "sniffit -F eth0 -a -s 10.0.0.1 -p 23",
+            "explanation": "Captures Telnet output from a router on eth0 to view configuration changes."
+        },
+        {
+            "id": 48,
+            "category": "Traffic Direction Control",
+            "command": "sniffit -t 192.168.1.255",
+            "example": "sniffit -t 192.168.1.255",
+            "explanation": "Captures traffic destined for the broadcast address of the local subnet."
+        },
+        {
+            "id": 49,
+            "category": "Educational and Learning Use Cases",
+            "command": "sniffit -x -p 21",
+            "example": "sniffit -x -p 21",
+            "explanation": "Shows the hexadecimal representation of FTP control commands for protocol study."
+        },
+        {
+            "id": 50,
+            "category": "Blue Team Monitoring Scenarios",
+            "command": "sniffit -P tcp -p 3389 -t 192.168.1.50",
+            "example": "sniffit -P tcp -p 3389 -t 192.168.1.50",
+            "explanation": "Monitors RDP connection attempts to a critical server for unauthorized access."
+        },
+        {
+            "id": 51,
+            "category": "Performance and Buffer Control",
+            "command": "sniffit -l 1500 -p 80",
+            "example": "sniffit -l 1500 -p 80",
+            "explanation": "Ensures capture of full Ethernet frames by setting snaplength to the standard MTU."
+        },
+        {
+            "id": 52,
+            "category": "Logging and File Output",
+            "command": "sniffit -L 1000 -a -p 80",
+            "example": "sniffit -L 1000 -a -p 80",
+            "explanation": "Logs up to 1000 bytes of ASCII web data per packet for deep inspection."
+        },
+        {
+            "id": 53,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "sniffit -F eth1 -d -P icmp",
+            "example": "sniffit -F eth1 -d -P icmp",
+            "explanation": "Dumps raw ICMP traffic on a secondary interface to troubleshoot routing loops."
+        },
+        {
+            "id": 54,
+            "category": "Red Team Traffic Validation",
+            "command": "sniffit -a -p 8080 -t 10.0.0.2",
+            "example": "sniffit -a -p 8080 -t 10.0.0.2",
+            "explanation": "Inspects traffic to an alternative web port to find unencrypted administration panels."
+        },
+        {
+            "id": 55,
+            "category": "Legacy Network Troubleshooting",
+            "command": "sniffit -x -p 67 -P udp",
+            "example": "sniffit -x -p 67 -P udp",
+            "explanation": "Inspects DHCP server traffic in hex to debug address assignment issues."
+        },
+        {
+            "id": 56,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "sniffit -d -p 514 -P udp",
+            "example": "sniffit -d -p 514 -P udp",
+            "explanation": "Dumps Syslog traffic to verify that logs are being transmitted correctly."
+        },
+        {
+            "id": 57,
+            "category": "Output Formatting",
+            "command": "sniffit -A ? -a -t 192.168.1.1",
+            "example": "sniffit -A ? -a -t 192.168.1.1",
+            "explanation": "Replaces non-printable characters with a question mark in ASCII output."
+        },
+        {
+            "id": 58,
+            "category": "Host and Port Filtering",
+            "command": "sniffit -p 143 -t 192.168.1.5",
+            "example": "sniffit -p 143 -t 192.168.1.5",
+            "explanation": "Monitors IMAP traffic to the target server for email retrieval activity."
+        },
+        {
+            "id": 59,
+            "category": "Interface Selection",
+            "command": "sniffit -F lo -i",
+            "example": "sniffit -F lo -i",
+            "explanation": "Starts interactive monitoring on the loopback interface for local traffic analysis."
+        },
+        {
+            "id": 60,
+            "category": "Advanced and Combined Real World Usage",
+            "command": "sniffit -7 -a -p 23 -b 192.168.1.254",
+            "example": "sniffit -7 -a -p 23 -b 192.168.1.254",
+            "explanation": "Uses 7-bit ASCII mode to monitor legacy Telnet connections to a core switch."
+        }
+    ]
+}

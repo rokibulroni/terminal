@@ -1,0 +1,462 @@
+{
+    "tool": "suricata",
+    "description": "Complete Suricata command and workflow reference from basic to advanced network intrusion detection and monitoring",
+    "total_commands": 65,
+    "commands": [
+        {
+            "id": 1,
+            "category": "General Information",
+            "command": "suricata -V",
+            "example": "suricata -V",
+            "explanation": "Displays the currently installed Suricata version"
+        },
+        {
+            "id": 2,
+            "category": "General Information",
+            "command": "suricata --build-info",
+            "example": "suricata --build-info",
+            "explanation": "Prints detailed build information including enabled features and libraries"
+        },
+        {
+            "id": 3,
+            "category": "General Information",
+            "command": "suricata --list-app-layer-protos",
+            "example": "suricata --list-app-layer-protos",
+            "explanation": "Lists all supported application layer protocols available for detection"
+        },
+        {
+            "id": 4,
+            "category": "General Information",
+            "command": "suricata --list-keywords",
+            "example": "suricata --list-keywords",
+            "explanation": "Lists all supported rule keywords that can be used in signatures"
+        },
+        {
+            "id": 5,
+            "category": "Configuration Testing",
+            "command": "suricata -T",
+            "example": "suricata -T -c /etc/suricata/suricata.yaml",
+            "explanation": "Tests the configuration file for errors without starting the engine"
+        },
+        {
+            "id": 6,
+            "category": "Configuration Testing",
+            "command": "suricata -T -v",
+            "example": "suricata -T -c /etc/suricata/suricata.yaml -v",
+            "explanation": "Tests the configuration file and provides verbose output regarding parsing"
+        },
+        {
+            "id": 7,
+            "category": "Configuration Testing",
+            "command": "suricata --dump-config",
+            "example": "suricata --dump-config",
+            "explanation": "Dumps the effective configuration to the console for verification"
+        },
+        {
+            "id": 8,
+            "category": "Basic Packet Capture",
+            "command": "suricata -i <interface>",
+            "example": "suricata -i eth0",
+            "explanation": "Starts Suricata in IDS mode monitoring live traffic on a specific interface"
+        },
+        {
+            "id": 9,
+            "category": "Basic Packet Capture",
+            "command": "suricata --af-packet",
+            "example": "suricata --af-packet=eth0",
+            "explanation": "Uses AF_PACKET mode for high-performance packet capture on Linux"
+        },
+        {
+            "id": 10,
+            "category": "Basic Packet Capture",
+            "command": "suricata --pcap",
+            "example": "suricata --pcap=eth0",
+            "explanation": "Uses standard libpcap mode for packet capture which is more portable but slower"
+        },
+        {
+            "id": 11,
+            "category": "Offline Analysis",
+            "command": "suricata -r <file>",
+            "example": "suricata -r capture.pcap",
+            "explanation": "Processes a single offline PCAP file for intrusion detection analysis"
+        },
+        {
+            "id": 12,
+            "category": "Offline Analysis",
+            "command": "suricata -r <directory>",
+            "example": "suricata -r /home/analyst/pcaps/",
+            "explanation": "Processes all PCAP files found within a specific directory sequentially"
+        },
+        {
+            "id": 13,
+            "category": "Offline Analysis",
+            "command": "suricata -r <file> -k none",
+            "example": "suricata -r malicious.pcap -k none",
+            "explanation": "Replays a PCAP while disabling checksum validation to force processing of offloaded packets"
+        },
+        {
+            "id": 14,
+            "category": "Configuration Management",
+            "command": "suricata -c <config>",
+            "example": "suricata -c /etc/suricata/suricata.yaml -i eth0",
+            "explanation": "Specifies a custom configuration file path instead of the default location"
+        },
+        {
+            "id": 15,
+            "category": "Logging & Output",
+            "command": "suricata -l <directory>",
+            "example": "suricata -l /var/log/suricata/case_101/ -r trace.pcap",
+            "explanation": "Directs all log output including EVE JSON to a custom directory"
+        },
+        {
+            "id": 16,
+            "category": "Rule Management",
+            "command": "suricata -s <file>",
+            "example": "suricata -c suricata.yaml -s /tmp/test_rules.rules -i eth0",
+            "explanation": "Loads an additional rule file on top of those defined in the configuration"
+        },
+        {
+            "id": 17,
+            "category": "Rule Management",
+            "command": "suricata -S <file>",
+            "example": "suricata -c suricata.yaml -S /tmp/exclusive.rules -i eth0",
+            "explanation": "Loads ONLY the specified rule file ignoring rules in the configuration"
+        },
+        {
+            "id": 18,
+            "category": "Filtering & BPF",
+            "command": "suricata <filter>",
+            "example": "suricata -i eth0 'tcp port 80 or tcp port 443'",
+            "explanation": "Applies a BPF filter to limit the traffic Suricata inspects"
+        },
+        {
+            "id": 19,
+            "category": "Performance Tuning",
+            "command": "suricata --runmode <mode>",
+            "example": "suricata --runmode workers -i eth0",
+            "explanation": "Sets the processing runmode to 'workers' for better multicore scaling"
+        },
+        {
+            "id": 20,
+            "category": "Performance Tuning",
+            "command": "suricata --cpu-affinity",
+            "example": "suricata --cpu-affinity -i eth0",
+            "explanation": "Enables CPU pinning to bind threads to specific cores for performance stability"
+        },
+        {
+            "id": 21,
+            "category": "Daemon Mode",
+            "command": "suricata -D",
+            "example": "suricata -D -c suricata.yaml -i eth0",
+            "explanation": "Runs Suricata in the background as a daemon process"
+        },
+        {
+            "id": 22,
+            "category": "Daemon Mode",
+            "command": "suricata --pidfile <file>",
+            "example": "suricata -D --pidfile /var/run/suricata.pid -c suricata.yaml -i eth0",
+            "explanation": "Writes the process ID to a specific file when running in daemon mode"
+        },
+        {
+            "id": 23,
+            "category": "Security & Permissions",
+            "command": "suricata -u <user>",
+            "example": "suricata -u suricata -g suricata -i eth0",
+            "explanation": "Drops privileges to run as a specific user after initialization"
+        },
+        {
+            "id": 24,
+            "category": "IPS Mode",
+            "command": "suricata -q <queue>",
+            "example": "suricata -q 0",
+            "explanation": "Starts Suricata in inline IPS mode using NFQUEUE id 0"
+        },
+        {
+            "id": 25,
+            "category": "IPS Mode",
+            "command": "suricata -q <queue> --runmode autofp",
+            "example": "suricata -q 0 --runmode autofp",
+            "explanation": "Runs IPS mode with autofp runmode which is often default for NFQUEUE"
+        },
+        {
+            "id": 26,
+            "category": "Debug & Analysis",
+            "command": "suricata --engine-analysis",
+            "example": "suricata --engine-analysis -c suricata.yaml",
+            "explanation": "Prints a report on rule grouping and engine configuration for tuning"
+        },
+        {
+            "id": 27,
+            "category": "Socket Control",
+            "command": "suricata --unix-socket",
+            "example": "suricata --unix-socket=/var/run/suricata/suricata-command.socket -D -i eth0",
+            "explanation": "Enables the Unix control socket for runtime interaction"
+        },
+        {
+            "id": 28,
+            "category": "Socket Client",
+            "command": "suricatasc",
+            "example": "suricatasc",
+            "explanation": "Connects to the default Suricata control socket for interactive commands"
+        },
+        {
+            "id": 29,
+            "category": "Socket Client",
+            "command": "suricatasc -c version",
+            "example": "suricatasc -c version",
+            "explanation": "Queries the running Suricata instance for its version via socket"
+        },
+        {
+            "id": 30,
+            "category": "Socket Client",
+            "command": "suricatasc -c uptime",
+            "example": "suricatasc -c uptime",
+            "explanation": "Queries the running instance for its current uptime"
+        },
+        {
+            "id": 31,
+            "category": "Socket Client",
+            "command": "suricatasc -c reload-rules",
+            "example": "suricatasc -c reload-rules",
+            "explanation": "Triggers a live reload of the ruleset without restarting the daemon"
+        },
+        {
+            "id": 32,
+            "category": "Socket Client",
+            "command": "suricatasc -c shutdown",
+            "example": "suricatasc -c shutdown",
+            "explanation": "Sends a command to gracefully shut down the Suricata instance"
+        },
+        {
+            "id": 33,
+            "category": "Socket Client",
+            "command": "suricatasc -c capture-mode",
+            "example": "suricatasc -c capture-mode",
+            "explanation": "Displays the current capture mode such as AF_PACKET or PCAP"
+        },
+        {
+            "id": 34,
+            "category": "Socket Client",
+            "command": "suricatasc -c iface-stat",
+            "example": "suricatasc -c iface-stat eth0",
+            "explanation": "Retrieves statistics for a specific interface via the control socket"
+        },
+        {
+            "id": 35,
+            "category": "Socket Client",
+            "command": "suricatasc -c dump-counters",
+            "example": "suricatasc -c dump-counters",
+            "explanation": "Dumps all internal performance counters for monitoring health"
+        },
+        {
+            "id": 36,
+            "category": "SOC Workflow",
+            "command": "suricata -r <pcap> -l <dir>",
+            "example": "suricata -r attack_simulation.pcap -l logs/analysis_01/",
+            "explanation": "Standard SOC workflow to analyze a suspicious PCAP and isolate logs"
+        },
+        {
+            "id": 37,
+            "category": "SOC Workflow",
+            "command": "grep",
+            "example": "grep '\"event_type\":\"alert\"' logs/eve.json",
+            "explanation": "Filters the EVE JSON output to show only alert events"
+        },
+        {
+            "id": 38,
+            "category": "SOC Workflow",
+            "command": "jq",
+            "example": "cat eve.json | jq 'select(.event_type==\"alert\") | .alert.signature'",
+            "explanation": "Uses jq to parse EVE JSON and extract specific signature names from alerts"
+        },
+        {
+            "id": 39,
+            "category": "SOC Workflow",
+            "command": "suricata --set <key>=<value>",
+            "example": "suricata --set outputs.1.fast.enabled=yes -i eth0",
+            "explanation": "Overrides a configuration value from the command line for ad-hoc testing"
+        },
+        {
+            "id": 40,
+            "category": "Blue Team Validation",
+            "command": "suricata -S <rule> -r <pcap>",
+            "example": "suricata -S specific_cve.rules -r exploit_traffic.pcap -l ./test_out",
+            "explanation": "Validates a specific new signature against known exploit traffic"
+        },
+        {
+            "id": 41,
+            "category": "Blue Team Validation",
+            "command": "suricata --simulate-ips",
+            "example": "suricata -r traffic.pcap --simulate-ips",
+            "explanation": "Simulates IPS blocking behavior on a PCAP file to see what would drop"
+        },
+        {
+            "id": 42,
+            "category": "Purple Team",
+            "command": "suricata -k none",
+            "example": "suricata -r raw_scapy_packets.pcap -k none",
+            "explanation": "Analyzes generated traffic with invalid checksums typical of attack tools"
+        },
+        {
+            "id": 43,
+            "category": "Purple Team",
+            "command": "suricata -v",
+            "example": "suricata -r test.pcap -v",
+            "explanation": "Runs analysis with verbose logging to debug why a signature might not fire"
+        },
+        {
+            "id": 44,
+            "category": "Advanced Networking",
+            "command": "suricata --netmap",
+            "example": "suricata --netmap=em0",
+            "explanation": "Uses NETMAP mode for high-speed packet capture on supported systems"
+        },
+        {
+            "id": 45,
+            "category": "Advanced Networking",
+            "command": "suricata --pfring",
+            "example": "suricata --pfring=eth0",
+            "explanation": "Uses PF_RING for high-speed capture if the library is linked"
+        },
+        {
+            "id": 46,
+            "category": "Automated Testing",
+            "command": "suricata -U",
+            "example": "suricata -U",
+            "explanation": "Runs the built-in unit tests to verify internal engine integrity"
+        },
+        {
+            "id": 47,
+            "category": "Automated Testing",
+            "command": "suricata -u <test_regex>",
+            "example": "suricata -u http",
+            "explanation": "Runs only unit tests matching the specified regex pattern"
+        },
+        {
+            "id": 48,
+            "category": "Troubleshooting",
+            "command": "suricata --init-errors-fatal",
+            "example": "suricata -c suricata.yaml -i eth0 --init-errors-fatal",
+            "explanation": "Forces Suricata to exit immediately if any rule fails to load at startup"
+        },
+        {
+            "id": 49,
+            "category": "Troubleshooting",
+            "command": "suricata --reject-dev",
+            "example": "suricata --reject-dev=eth1 -i eth0",
+            "explanation": "Specifies the interface used to send TCP resets or ICMP unreachables"
+        },
+        {
+            "id": 50,
+            "category": "Advanced Configuration",
+            "command": "suricata --dag",
+            "example": "suricata --dag=0:0",
+            "explanation": "Enables hardware capture support for Endace DAG cards"
+        },
+        {
+            "id": 51,
+            "category": "Advanced Configuration",
+            "command": "suricata --napatech",
+            "example": "suricata --napatech",
+            "explanation": "Enables support for Napatech capture streams"
+        },
+        {
+            "id": 52,
+            "category": "Log Management",
+            "command": "suricatasc -c reopen-log-files",
+            "example": "suricatasc -c reopen-log-files",
+            "explanation": "Instructs Suricata to close and reopen log files for log rotation"
+        },
+        {
+            "id": 53,
+            "category": "Incident Response",
+            "command": "suricata -r <pcap> --set outputs.1.eve-log.types.0=flow",
+            "example": "suricata -r unknown.pcap --set outputs.1.eve-log.types.0=flow",
+            "explanation": "Rapidly generates only flow records from a PCAP to trace connections"
+        },
+        {
+            "id": 54,
+            "category": "Incident Response",
+            "command": "suricata -r <pcap> --set outputs.1.eve-log.types.0=fileinfo",
+            "example": "suricata -r download.pcap --set outputs.1.eve-log.types.0=fileinfo",
+            "explanation": "Analyzes a PCAP specifically to extract file metadata and hashes"
+        },
+        {
+            "id": 55,
+            "category": "Signature Dev",
+            "command": "suricata --conf-test",
+            "example": "suricata -c suricata.yaml --conf-test",
+            "explanation": "Strictly validates the configuration and rules ensuring no warnings exist"
+        },
+        {
+            "id": 56,
+            "category": "Performance Profiling",
+            "command": "suricatasc -c memcap-list",
+            "example": "suricatasc -c memcap-list",
+            "explanation": "Lists the memory cap settings for various internal buffers"
+        },
+        {
+            "id": 57,
+            "category": "Performance Profiling",
+            "command": "suricatasc -c memcap-set",
+            "example": "suricatasc -c memcap-set flow 512mb",
+            "explanation": "Dynamically adjusts the memory cap for the flow engine at runtime"
+        },
+        {
+            "id": 58,
+            "category": "Detection Tuning",
+            "command": "suricatasc -c dataset-add",
+            "example": "suricatasc -c dataset-add my-list \"192.168.1.1\"",
+            "explanation": "Adds data to a running dataset for dynamic sticky buffer matching"
+        },
+        {
+            "id": 59,
+            "category": "Detection Tuning",
+            "command": "suricatasc -c dataset-remove",
+            "example": "suricatasc -c dataset-remove my-list \"192.168.1.1\"",
+            "explanation": "Removes data from a dynamic dataset during runtime"
+        },
+        {
+            "id": 60,
+            "category": "Cleanup",
+            "command": "rm",
+            "example": "rm -rf /var/run/suricata/",
+            "explanation": "Manually cleans up socket directories if a clean shutdown fails"
+        },
+        {
+            "id": 61,
+            "category": "Advanced Capture",
+            "command": "suricata --dpdk",
+            "example": "suricata --dpdk",
+            "explanation": "Enables DPDK support for ultra high-speed packet processing"
+        },
+        {
+            "id": 62,
+            "category": "Rule Development",
+            "command": "suricata -T -S <file>",
+            "example": "suricata -T -S experimental.rules",
+            "explanation": "Tests a specific rule file for syntax errors without loading the main config"
+        },
+        {
+            "id": 63,
+            "category": "Metadata Extraction",
+            "command": "suricata -r <pcap> --set app-layer.protocols.tls.enabled=yes",
+            "example": "suricata -r encrypted.pcap --set app-layer.protocols.tls.enabled=yes",
+            "explanation": "Forces TLS metadata extraction even if disabled in default config"
+        },
+        {
+            "id": 64,
+            "category": "Live Debugging",
+            "command": "suricatasc -c version-json",
+            "example": "suricatasc -c version-json",
+            "explanation": "Returns the version and build info in JSON format for automation"
+        },
+        {
+            "id": 65,
+            "category": "Process Control",
+            "command": "kill -USR2",
+            "example": "kill -USR2 $(pidof suricata)",
+            "explanation": "Sends a USR2 signal to the process to trigger a rule reload manually"
+        }
+    ]
+}

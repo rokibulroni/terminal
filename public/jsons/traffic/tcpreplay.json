@@ -1,0 +1,357 @@
+{
+    "tool": "tcpreplay",
+    "description": "Complete tcpreplay command reference covering all options from basic to advanced",
+    "total_commands": 50,
+    "commands": [
+        {
+            "id": 1,
+            "category": "General Information",
+            "command": "tcpreplay -V",
+            "example": "tcpreplay -V",
+            "explanation": "Displays the version of tcpreplay installed and the compilation options used."
+        },
+        {
+            "id": 2,
+            "category": "General Information",
+            "command": "tcpreplay -h",
+            "example": "tcpreplay -h",
+            "explanation": "Prints the help screen with a summary of available commands and flags."
+        },
+        {
+            "id": 3,
+            "category": "Interface Selection",
+            "command": "tcpreplay --list-nics",
+            "example": "tcpreplay --list-nics",
+            "explanation": "Lists available network interfaces and their capture methods to verify hardware visibility."
+        },
+        {
+            "id": 4,
+            "category": "Basic Replay",
+            "command": "tcpreplay -i eth0 capture.pcap",
+            "example": "tcpreplay -i eth0 capture.pcap",
+            "explanation": "Replays packets from the specified pcap file onto the interface eth0 at the speed recorded in the file."
+        },
+        {
+            "id": 5,
+            "category": "Basic Replay",
+            "command": "tcpreplay --intf1=wlan0 capture.pcap",
+            "example": "tcpreplay --intf1=wlan0 capture.pcap",
+            "explanation": "Replays traffic onto a wireless interface using the long-form flag for clarity."
+        },
+        {
+            "id": 6,
+            "category": "Replay Speed Control",
+            "command": "tcpreplay -i eth0 -t capture.pcap",
+            "example": "tcpreplay -i eth0 -t capture.pcap",
+            "explanation": "Replays traffic at 'topspeed', ignoring packet timing to send as fast as the hardware allows."
+        },
+        {
+            "id": 7,
+            "category": "Packet Rate Limiting",
+            "command": "tcpreplay -i eth0 -p 50 capture.pcap",
+            "example": "tcpreplay -i eth0 -p 50 capture.pcap",
+            "explanation": "Replays traffic at a constant rate of 50 packets per second, overriding original timing."
+        },
+        {
+            "id": 8,
+            "category": "Bandwidth Limiting",
+            "command": "tcpreplay -i eth0 -M 10.0 capture.pcap",
+            "example": "tcpreplay -i eth0 -M 10.0 capture.pcap",
+            "explanation": "Limits the replay traffic throughput to 10.0 Megabits per second."
+        },
+        {
+            "id": 9,
+            "category": "Replay Speed Control",
+            "command": "tcpreplay -i eth0 -x 2.0 capture.pcap",
+            "example": "tcpreplay -i eth0 -x 2.0 capture.pcap",
+            "explanation": "Replays traffic at exactly 2.0 times the speed of the original capture speed."
+        },
+        {
+            "id": 10,
+            "category": "Replay Speed Control",
+            "command": "tcpreplay -i eth0 -x 0.5 capture.pcap",
+            "example": "tcpreplay -i eth0 -x 0.5 capture.pcap",
+            "explanation": "Replays traffic in slow motion at half the original capture speed."
+        },
+        {
+            "id": 11,
+            "category": "Preload and Caching",
+            "command": "tcpreplay -i eth0 -K capture.pcap",
+            "example": "tcpreplay -i eth0 -K capture.pcap",
+            "explanation": "Preloads the entire pcap file into RAM before sending to improve performance and reduce disk I/O."
+        },
+        {
+            "id": 12,
+            "category": "Preload and Caching",
+            "command": "tcpreplay -i eth0 --preload-pcap capture.pcap",
+            "example": "tcpreplay -i eth0 --preload-pcap capture.pcap",
+            "explanation": "Long-form command to load the file into memory before starting the replay."
+        },
+        {
+            "id": 13,
+            "category": "Looping and Continuous",
+            "command": "tcpreplay -i eth0 -l 0 capture.pcap",
+            "example": "tcpreplay -i eth0 -l 0 capture.pcap",
+            "explanation": "Replays the capture file in an infinite loop until manually stopped."
+        },
+        {
+            "id": 14,
+            "category": "Looping and Continuous",
+            "command": "tcpreplay -i eth0 --loop=5 capture.pcap",
+            "example": "tcpreplay -i eth0 --loop=5 capture.pcap",
+            "explanation": "Replays the capture file exactly 5 times and then exits."
+        },
+        {
+            "id": 15,
+            "category": "Looping and Continuous",
+            "command": "tcpreplay -i eth0 -l 0 --loopdelay-ms=1000 capture.pcap",
+            "example": "tcpreplay -i eth0 -l 0 --loopdelay-ms=1000 capture.pcap",
+            "explanation": "Loops infinitely with a 1000 millisecond (1 second) pause between each iteration."
+        },
+        {
+            "id": 16,
+            "category": "Stats and Reporting",
+            "command": "tcpreplay -i eth0 --stats=1 capture.pcap",
+            "example": "tcpreplay -i eth0 --stats=1 capture.pcap",
+            "explanation": "Prints replay statistics to the console every 1 second during execution."
+        },
+        {
+            "id": 17,
+            "category": "Stats and Reporting",
+            "command": "tcpreplay -i eth0 -S capture.pcap",
+            "example": "tcpreplay -i eth0 -S capture.pcap",
+            "explanation": "Wait for enter key before starting, then print statistics during replay."
+        },
+        {
+            "id": 18,
+            "category": "Packet Count Limiting",
+            "command": "tcpreplay -i eth0 -L 100 capture.pcap",
+            "example": "tcpreplay -i eth0 -L 100 capture.pcap",
+            "explanation": "Stops the replay immediately after sending the first 100 packets."
+        },
+        {
+            "id": 19,
+            "category": "Timing Preservation",
+            "command": "tcpreplay -i eth0 --duration=10 capture.pcap",
+            "example": "tcpreplay -i eth0 --duration=10 capture.pcap",
+            "explanation": "Limits the total execution time to 10 seconds, regardless of how many packets are sent."
+        },
+        {
+            "id": 20,
+            "category": "Verbose and Debug",
+            "command": "tcpreplay -i eth0 -v capture.pcap",
+            "example": "tcpreplay -i eth0 -v capture.pcap",
+            "explanation": "Enables verbose mode, printing decoded packet headers to STDOUT (similar to tcpdump) while replaying."
+        },
+        {
+            "id": 21,
+            "category": "Verbose and Debug",
+            "command": "tcpreplay -i eth0 -A \"n,v,x\" -v capture.pcap",
+            "example": "tcpreplay -i eth0 -A \"n,v,x\" -v capture.pcap",
+            "explanation": "Enables verbose mode using specific tcpdump args (numeric, verbose, hex) for the decoder."
+        },
+        {
+            "id": 22,
+            "category": "Quiet Output",
+            "command": "tcpreplay -i eth0 -q capture.pcap",
+            "example": "tcpreplay -i eth0 -q capture.pcap",
+            "explanation": "Runs in quiet mode, suppressing non-error output (useful for scripts)."
+        },
+        {
+            "id": 23,
+            "category": "Flow Modification",
+            "command": "tcpreplay -i eth0 --unique-ip capture.pcap",
+            "example": "tcpreplay -i eth0 --unique-ip capture.pcap",
+            "explanation": "Modifies IP addresses per loop iteration to ensure each flow appears unique to network devices."
+        },
+        {
+            "id": 24,
+            "category": "Flow Modification",
+            "command": "tcpreplay -i eth0 --unique-ip-loops=5 capture.pcap",
+            "example": "tcpreplay -i eth0 --unique-ip-loops=5 capture.pcap",
+            "explanation": "Loops traffic, modifying IP addresses to create unique flows for 5 iterations."
+        },
+        {
+            "id": 25,
+            "category": "Dual Interface Replay",
+            "command": "tcpreplay -i eth0 -I eth1 --cachefile=split.cache capture.pcap",
+            "example": "tcpreplay -i eth0 -I eth1 --cachefile=split.cache capture.pcap",
+            "explanation": "Splits traffic between two interfaces (client/server) based on a tcpprep cache file."
+        },
+        {
+            "id": 26,
+            "category": "Dual Interface Replay",
+            "command": "tcpreplay --intf1=eth0 --intf2=eth1 --cachefile=split.cache capture.pcap",
+            "example": "tcpreplay --intf1=eth0 --intf2=eth1 --cachefile=split.cache capture.pcap",
+            "explanation": "Long-form command to split traffic bi-directionally between eth0 and eth1 using a cache."
+        },
+        {
+            "id": 27,
+            "category": "Advanced Timing",
+            "command": "tcpreplay -i eth0 -1 capture.pcap",
+            "example": "tcpreplay -i eth0 -1 capture.pcap",
+            "explanation": "Sends one packet at a time, waiting for a user keypress before sending the next."
+        },
+        {
+            "id": 28,
+            "category": "Advanced Timing",
+            "command": "tcpreplay -i eth0 --timer=gtod capture.pcap",
+            "example": "tcpreplay -i eth0 --timer=gtod capture.pcap",
+            "explanation": "Uses the 'gettimeofday' system call for packet timing, which provides microsecond compatibility."
+        },
+        {
+            "id": 29,
+            "category": "Advanced Timing",
+            "command": "tcpreplay -i eth0 --timer=nano capture.pcap",
+            "example": "tcpreplay -i eth0 --timer=nano capture.pcap",
+            "explanation": "Uses the 'nanosleep' API for high-precision packet timing delays."
+        },
+        {
+            "id": 30,
+            "category": "Advanced Timing",
+            "command": "tcpreplay -i eth0 --maxsleep=500 capture.pcap",
+            "example": "tcpreplay -i eth0 --maxsleep=500 capture.pcap",
+            "explanation": "Forces pauses between packets to never exceed 500 milliseconds, effectively compressing long idle gaps."
+        },
+        {
+            "id": 31,
+            "category": "Advanced Timing",
+            "command": "tcpreplay -i eth0 --sleep-accel=2 capture.pcap",
+            "example": "tcpreplay -i eth0 --sleep-accel=2 capture.pcap",
+            "explanation": "Reduces the amount of time slept by 2 microseconds per packet to compensate for system latency."
+        },
+        {
+            "id": 32,
+            "category": "IDS and IPS Testing",
+            "command": "tcpreplay -i eth0 -t -K --loop=0 capture.pcap",
+            "example": "tcpreplay -i eth0 -t -K --loop=0 capture.pcap",
+            "explanation": "Stress tests an IDS by preloading the pcap and looping at maximum hardware speed."
+        },
+        {
+            "id": 33,
+            "category": "Red Team Simulation",
+            "command": "tcpreplay -i eth0 -p 1 -l 0 capture.pcap",
+            "example": "tcpreplay -i eth0 -p 1 -l 0 capture.pcap",
+            "explanation": "Sends a 'Low and Slow' attack simulation by sending only 1 packet per second continuously."
+        },
+        {
+            "id": 34,
+            "category": "Red Team Simulation",
+            "command": "tcpreplay -i eth0 --unique-ip --mbps=500 capture.pcap",
+            "example": "tcpreplay -i eth0 --unique-ip --mbps=500 capture.pcap",
+            "explanation": "Simulates a DDoS attack or botnet by generating high bandwidth traffic with constantly changing IP addresses."
+        },
+        {
+            "id": 35,
+            "category": "Blue Team Detection",
+            "command": "tcpreplay -i eth0 -x 1.0 capture.pcap",
+            "example": "tcpreplay -i eth0 -x 1.0 capture.pcap",
+            "explanation": "Replays an attack capture at exactly real-time speed to verify if the SIEM/IDS triggers correctly."
+        },
+        {
+            "id": 36,
+            "category": "Network Troubleshooting",
+            "command": "tcpreplay -i eth0 -M 1000.0 -l 60 capture.pcap",
+            "example": "tcpreplay -i eth0 -M 1000.0 -l 60 capture.pcap",
+            "explanation": "Loads the link with 1Gbps of traffic for 60 loops to test throughput stability."
+        },
+        {
+            "id": 37,
+            "category": "MTU Handling",
+            "command": "tcpreplay -i eth0 --mtu=1500 capture.pcap",
+            "example": "tcpreplay -i eth0 --mtu=1500 capture.pcap",
+            "explanation": "Specifies the Maximum Transmission Unit size to 1500 bytes for the replay interface."
+        },
+        {
+            "id": 38,
+            "category": "MTU Handling",
+            "command": "tcpreplay -i eth0 --mtu-trunc capture.pcap",
+            "example": "tcpreplay -i eth0 --mtu-trunc capture.pcap",
+            "explanation": "Truncates packets that exceed the specified MTU size rather than skipping them."
+        },
+        {
+            "id": 39,
+            "category": "Error Handling",
+            "command": "tcpreplay -i eth0 --no-arg-check capture.pcap",
+            "example": "tcpreplay -i eth0 --no-arg-check capture.pcap",
+            "explanation": "Disables the validation of arguments, allowing execution even if settings seem conflicting."
+        },
+        {
+            "id": 40,
+            "category": "Error Handling",
+            "command": "tcpreplay -i eth0 --skip-soft-errors capture.pcap",
+            "example": "tcpreplay -i eth0 --skip-soft-errors capture.pcap",
+            "explanation": "Continues replaying packets even if minor errors occur (e.g., failed to send a specific packet)."
+        },
+        {
+            "id": 41,
+            "category": "Netmap/AF_XDP High Speed",
+            "command": "tcpreplay -i netmap:eth0 -t -K capture.pcap",
+            "example": "tcpreplay -i netmap:eth0 -t -K capture.pcap",
+            "explanation": "Uses the netmap driver (if supported) for ultra-high-speed packet injection."
+        },
+        {
+            "id": 42,
+            "category": "Verbosity",
+            "command": "tcpreplay -i eth0 --verbose --decode=\"len=10\" capture.pcap",
+            "example": "tcpreplay -i eth0 --verbose --decode=\"len=10\" capture.pcap",
+            "explanation": "Replays with verbose output but passes arguments to the decoder to limit length."
+        },
+        {
+            "id": 43,
+            "category": "Looping",
+            "command": "tcpreplay -i eth0 --loop=100 --loopdelay-ms=10 capture.pcap",
+            "example": "tcpreplay -i eth0 --loop=100 --loopdelay-ms=10 capture.pcap",
+            "explanation": "Runs 100 loops with a very short 10ms gap between loops to maintain near-continuous pressure."
+        },
+        {
+            "id": 44,
+            "category": "Bandwidth",
+            "command": "tcpreplay -i eth0 --mbps=0.1 capture.pcap",
+            "example": "tcpreplay -i eth0 --mbps=0.1 capture.pcap",
+            "explanation": "Replays traffic at a very low rate of 100Kbps (0.1 Mbps) to test timeouts."
+        },
+        {
+            "id": 45,
+            "category": "PPS Control",
+            "command": "tcpreplay -i eth0 --pps=20000 capture.pcap",
+            "example": "tcpreplay -i eth0 --pps=20000 capture.pcap",
+            "explanation": "Injects packets at a high rate of 20,000 packets per second regardless of packet size."
+        },
+        {
+            "id": 46,
+            "category": "Flow Modification",
+            "command": "tcpreplay -i eth0 --unique-ip --netmap capture.pcap",
+            "example": "tcpreplay -i eth0 --unique-ip --netmap capture.pcap",
+            "explanation": "Combines unique IP generation with netmap detection for high-performance unique flow generation."
+        },
+        {
+            "id": 47,
+            "category": "Timing",
+            "command": "tcpreplay -i eth0 --timer=rdtsc capture.pcap",
+            "example": "tcpreplay -i eth0 --timer=rdtsc capture.pcap",
+            "explanation": "Uses the CPU cycle counter (RDTSC) for the highest possible timing precision on supported CPUs."
+        },
+        {
+            "id": 48,
+            "category": "Packet Selection",
+            "command": "tcpreplay -i eth0 --limit=1 capture.pcap",
+            "example": "tcpreplay -i eth0 --limit=1 capture.pcap",
+            "explanation": "Sends strictly the first packet of the capture file and then exits immediately."
+        },
+        {
+            "id": 49,
+            "category": "Performance Tuning",
+            "command": "tcpreplay -i eth0 --preload-pcap --quiet capture.pcap",
+            "example": "tcpreplay -i eth0 --preload-pcap --quiet capture.pcap",
+            "explanation": "A high-performance script-friendly mode that preloads data and suppresses output."
+        },
+        {
+            "id": 50,
+            "category": "Advanced Combined",
+            "command": "tcpreplay -i eth0 --mbps=100 --loop=0 --unique-ip --stats=5 capture.pcap",
+            "example": "tcpreplay -i eth0 --mbps=100 --loop=0 --unique-ip --stats=5 capture.pcap",
+            "explanation": "A complex scenario: infinite loop, unique IPs, 100Mbps limit, with stats printed every 5 seconds."
+        }
+    ]
+}

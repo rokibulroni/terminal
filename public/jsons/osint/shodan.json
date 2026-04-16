@@ -1,0 +1,112 @@
+{
+    "tool": "shodan",
+    "description": "Shodan: The world's primary search engine for Internet-connected devices, exploiting exposed IoT, databases, and infrastructural services.",
+    "total_commands": 15,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Initialization",
+            "command": "shodan init <api_key>",
+            "example": "shodan init ABCDEF1234567890",
+            "explanation": "Initializes the CLI client natively linking it to your authenticated Shodan account."
+        },
+        {
+            "id": 2,
+            "category": "Basic Queries",
+            "command": "shodan search <query>",
+            "example": "shodan search apache",
+            "explanation": "Retrieves a vast listing of all IP addresses and banners globally matching the specified search string."
+        },
+        {
+            "id": 3,
+            "category": "Network Specifics",
+            "command": "shodan host <ip>",
+            "example": "shodan host 8.8.8.8",
+            "explanation": "Queries the main historical database directly dumping all accumulated intelligence associated with a singular IPv4 address."
+        },
+        {
+            "id": 4,
+            "category": "Vulnerability Tracking",
+            "command": "shodan search vuln:<cve>",
+            "example": "shodan search vuln:cve-2019-0708",
+            "explanation": "Isolates and extracts absolute active targets known to be visibly vulnerable to a specific CVE identifier."
+        },
+        {
+            "id": 5,
+            "category": "Real-Time",
+            "command": "shodan stream",
+            "example": "shodan stream --ports 80,443",
+            "explanation": "Taps directly into the Shodan firehose rendering an infinite real-time stream of all incoming global port discovery scans."
+        },
+        {
+            "id": 6,
+            "category": "Filtering",
+            "command": "shodan search org:<name>",
+            "example": "shodan search org:Amazon",
+            "explanation": "Explicitly limits query matching constraining the global search strictly to ASN architectures owned by the target Organization."
+        },
+        {
+            "id": 7,
+            "category": "Metadata Analytics",
+            "command": "shodan stats <query>",
+            "example": "shodan stats port:22",
+            "explanation": "Generates categorical algorithmic overviews charting the geographical and volumetric distributions of the requested search."
+        },
+        {
+            "id": 8,
+            "category": "Alert Handling",
+            "command": "shodan alert create <name> <netblock>",
+            "example": "shodan alert create 'My Network' 10.0.0.0/24",
+            "explanation": "Forces Shodan's backend to actively monitor specific CIDR blocks and ping you upon newly exposed port surface areas."
+        },
+        {
+            "id": 9,
+            "category": "Honeypot Logic",
+            "command": "shodan honeyscore <ip>",
+            "example": "shodan honeyscore 1.2.3.4",
+            "explanation": "Calculates a strict mathematical probability determining whether the target IP is an actual physical machine or an emulated Honeypot trap."
+        },
+        {
+            "id": 10,
+            "category": "Downloads",
+            "command": "shodan download <filename> <query>",
+            "example": "shodan download sql_servers port:3306",
+            "explanation": "Safely downloads massive bulk JSON/JSONL querying arrays for offline local intelligence processing and parsing."
+        },
+        {
+            "category": "Industrial Control Systems",
+            "command": "shodan search tag:ics",
+            "example": "shodan search tag:ics",
+            "explanation": "Massively filters searches querying the highly sensitive and deeply isolated Industrial Control Systems (SCADA) tag across the globe.",
+            "id": 11
+        },
+        {
+            "category": "Facets & Filtering",
+            "command": "shodan stats --facets <facet> <query>",
+            "example": "shodan stats --facets os:10 apache",
+            "explanation": "Summarizes the absolute entire dataset breaking returns strictly into distinct statistical groupings explicitly displaying the top 10 operating systems natively running Apache.",
+            "id": 12
+        },
+        {
+            "category": "API Management",
+            "command": "shodan info",
+            "example": "shodan info",
+            "explanation": "Extracts systemic account states detailing explicit query credits, active scan credits, and your fundamental API authentication tier natively.",
+            "id": 13
+        },
+        {
+            "category": "Exploit Framework",
+            "command": "shodan exploit <query>",
+            "example": "shodan exploit type:remote AND platform:linux",
+            "explanation": "Accesses Shodan's integrated global exploit database actively correlating raw public Proof-Of-Concept deployment code specifically mapped to active platform parameters.",
+            "id": 14
+        },
+        {
+            "category": "Network Routing",
+            "command": "shodan myip",
+            "example": "shodan myip",
+            "explanation": "Echoes back the absolute external public IP address intrinsically perceived by Shodan's deep internet tracing indexers bypassing local NAT.",
+            "id": 15
+        }
+    ]
+}

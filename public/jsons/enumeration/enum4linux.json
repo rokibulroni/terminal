@@ -1,0 +1,322 @@
+{
+    "tool": "enum4linux",
+    "description": "Complete enum4linux command reference covering all options from basic to advanced",
+    "total_commands": 45,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Enumeration",
+            "command": "enum4linux 192.168.1.10",
+            "example": "enum4linux 192.168.1.10",
+            "explanation": "Performs a standard enumeration scan with default settings against the target IP"
+        },
+        {
+            "id": 2,
+            "category": "Verbose Mode",
+            "command": "enum4linux -v 192.168.1.10",
+            "example": "enum4linux -v 192.168.1.10",
+            "explanation": "Runs the scan in verbose mode to show all underlying commands and detailed output"
+        },
+        {
+            "id": 3,
+            "category": "Complete Enumeration",
+            "command": "enum4linux -a 192.168.1.10",
+            "example": "enum4linux -a 192.168.1.10",
+            "explanation": "Executes 'Do Everything' mode, running all standard enumeration options (-U -S -G -P -r -o -n -i)"
+        },
+        {
+            "id": 4,
+            "category": "NetBIOS Name Enumeration",
+            "command": "enum4linux -n 192.168.1.10",
+            "example": "enum4linux -n 192.168.1.10",
+            "explanation": "Queries NetBIOS names using nmblookup to identify the hostname and workgroup"
+        },
+        {
+            "id": 5,
+            "category": "OS Information",
+            "command": "enum4linux -o 192.168.1.10",
+            "example": "enum4linux -o 192.168.1.10",
+            "explanation": "Fetches operating system information using smbclient"
+        },
+        {
+            "id": 6,
+            "category": "User Enumeration",
+            "command": "enum4linux -U 192.168.1.10",
+            "example": "enum4linux -U 192.168.1.10",
+            "explanation": "Enumerates the userlist from the target system using MSRPC or RAP"
+        },
+        {
+            "id": 7,
+            "category": "Machine Enumeration",
+            "command": "enum4linux -M 192.168.1.10",
+            "example": "enum4linux -M 192.168.1.10",
+            "explanation": "Enumerates the machine list (computer accounts) from the target domain controller"
+        },
+        {
+            "id": 8,
+            "category": "Share Enumeration",
+            "command": "enum4linux -S 192.168.1.10",
+            "example": "enum4linux -S 192.168.1.10",
+            "explanation": "Lists available SMB shares and attempts to check access permissions"
+        },
+        {
+            "id": 9,
+            "category": "Group Enumeration",
+            "command": "enum4linux -G 192.168.1.10",
+            "example": "enum4linux -G 192.168.1.10",
+            "explanation": "Enumerates groups and their member lists from the target system"
+        },
+        {
+            "id": 10,
+            "category": "Password Policy Enumeration",
+            "command": "enum4linux -P 192.168.1.10",
+            "example": "enum4linux -P 192.168.1.10",
+            "explanation": "Retrieves the password policy information such as minimum length and lockout thresholds"
+        },
+        {
+            "id": 11,
+            "category": "Printer Enumeration",
+            "command": "enum4linux -i 192.168.1.10",
+            "example": "enum4linux -i 192.168.1.10",
+            "explanation": "Checks for attached printers and print spooler services"
+        },
+        {
+            "id": 12,
+            "category": "Detailed Enumeration",
+            "command": "enum4linux -d 192.168.1.10",
+            "example": "enum4linux -d 192.168.1.10",
+            "explanation": "Performs a detailed enumeration, often useful for retrieving auto-logon information"
+        },
+        {
+            "id": 13,
+            "category": "LDAP Enumeration",
+            "command": "enum4linux -l 192.168.1.10",
+            "example": "enum4linux -l 192.168.1.10",
+            "explanation": "Attempts to retrieve information via LDAP if the target is a Domain Controller"
+        },
+        {
+            "id": 14,
+            "category": "RID Cycling",
+            "command": "enum4linux -r 192.168.1.10",
+            "example": "enum4linux -r 192.168.1.10",
+            "explanation": "Performs RID cycling to find users by iterating through Relative IDs"
+        },
+        {
+            "id": 15,
+            "category": "Advanced RID Cycling",
+            "command": "enum4linux -R 500-2000 192.168.1.10",
+            "example": "enum4linux -R 500-2000 192.168.1.10",
+            "explanation": "Performs RID cycling using a custom range of IDs from 500 to 2000"
+        },
+        {
+            "id": 16,
+            "category": "RID Cycling with Known User",
+            "command": "enum4linux -k administrator 192.168.1.10",
+            "example": "enum4linux -k administrator 192.168.1.10",
+            "explanation": "Optimizes RID cycling by starting checks relative to a known valid username"
+        },
+        {
+            "id": 17,
+            "category": "Workgroup Specification",
+            "command": "enum4linux -w CORP 192.168.1.10",
+            "example": "enum4linux -w CORP 192.168.1.10",
+            "explanation": "Manually specifies the workgroup or domain name 'CORP' for the connection attempt"
+        },
+        {
+            "id": 18,
+            "category": "Authenticated Enumeration",
+            "command": "enum4linux -u admin -p password123 192.168.1.10",
+            "example": "enum4linux -u admin -p password123 192.168.1.10",
+            "explanation": "Performs enumeration using valid credentials for a specific user"
+        },
+        {
+            "id": 19,
+            "category": "Authenticated Complete Scan",
+            "command": "enum4linux -a -u admin -p password123 192.168.1.10",
+            "example": "enum4linux -a -u admin -p password123 192.168.1.10",
+            "explanation": "Runs a full 'Do Everything' scan authenticated as a valid user"
+        },
+        {
+            "id": 20,
+            "category": "Authenticated Share Enumeration",
+            "command": "enum4linux -S -u admin -p password123 192.168.1.10",
+            "example": "enum4linux -S -u admin -p password123 192.168.1.10",
+            "explanation": "Lists shares that are visible or accessible to the specified authenticated user"
+        },
+        {
+            "id": 21,
+            "category": "Authenticated User List",
+            "command": "enum4linux -U -u guest -p \"\" 192.168.1.10",
+            "example": "enum4linux -U -u guest -p \"\" 192.168.1.10",
+            "explanation": "Attempts to list users authenticating as the guest account with an empty password"
+        },
+        {
+            "id": 22,
+            "category": "Explicit Null Session",
+            "command": "enum4linux -u \"\" -p \"\" 192.168.1.10",
+            "example": "enum4linux -u \"\" -p \"\" 192.168.1.10",
+            "explanation": "Forces an explicit null session attempt with empty username and password"
+        },
+        {
+            "id": 23,
+            "category": "Target Domain Controller",
+            "command": "enum4linux -a dc.example.local",
+            "example": "enum4linux -a dc.example.local",
+            "explanation": "Runs a full scan against a Domain Controller using its DNS hostname"
+        },
+        {
+            "id": 24,
+            "category": "Quiet Mode",
+            "command": "enum4linux 192.168.1.10 | grep \"+\"",
+            "example": "enum4linux 192.168.1.10 | grep \"+\"",
+            "explanation": "Runs the tool and filters output to show only section headers and findings"
+        },
+        {
+            "id": 25,
+            "category": "OS and NetBIOS Only",
+            "command": "enum4linux -o -n 192.168.1.10",
+            "example": "enum4linux -o -n 192.168.1.10",
+            "explanation": "Performs a lightweight scan checking only OS version and NetBIOS information"
+        },
+        {
+            "id": 26,
+            "category": "Users and Groups Only",
+            "command": "enum4linux -U -G 192.168.1.10",
+            "example": "enum4linux -U -G 192.168.1.10",
+            "explanation": "Focuses enumeration solely on discovering users and group memberships"
+        },
+        {
+            "id": 27,
+            "category": "Shares and Policy Only",
+            "command": "enum4linux -S -P 192.168.1.10",
+            "example": "enum4linux -S -P 192.168.1.10",
+            "explanation": "Targeted scan to find file shares and password policies without aggressive user cycling"
+        },
+        {
+            "id": 28,
+            "category": "Authenticated RID Cycling",
+            "command": "enum4linux -r -u user -p pass 192.168.1.10",
+            "example": "enum4linux -r -u user -p pass 192.168.1.10",
+            "explanation": "Uses valid credentials to perform RID cycling, often revealing more than null sessions"
+        },
+        {
+            "id": 29,
+            "category": "Large Range RID Cycling",
+            "command": "enum4linux -R 500-10000 192.168.1.10",
+            "example": "enum4linux -R 500-10000 192.168.1.10",
+            "explanation": "Aggressive RID cycling over a large range to find hidden accounts on older systems"
+        },
+        {
+            "id": 30,
+            "category": "SMB Version Detection (Implicit)",
+            "command": "enum4linux -o 10.10.10.5",
+            "example": "enum4linux -o 10.10.10.5",
+            "explanation": "Uses the OS check to infer the SMB version based on the reported operating system"
+        },
+        {
+            "id": 31,
+            "category": "Service Identification",
+            "command": "enum4linux -S 10.10.10.5",
+            "example": "enum4linux -S 10.10.10.5",
+            "explanation": "Identifies roles like IPC$ (Inter-Process Communication) during share enumeration"
+        },
+        {
+            "id": 32,
+            "category": "Red Team Initial Recon",
+            "command": "enum4linux -a -u \"\" -p \"\" 192.168.1.10",
+            "example": "enum4linux -a -u \"\" -p \"\" 192.168.1.10",
+            "explanation": "Quickly checks if a target allows full enumeration via anonymous null sessions"
+        },
+        {
+            "id": 33,
+            "category": "Blue Team Exposure Validation",
+            "command": "enum4linux -a 10.0.0.5",
+            "example": "enum4linux -a 10.0.0.5",
+            "explanation": "Used by defenders to verify if a server is leaking sensitive data to unauthenticated users"
+        },
+        {
+            "id": 34,
+            "category": "Logging Output",
+            "command": "enum4linux -a 192.168.1.10 > enum_results.txt",
+            "example": "enum4linux -a 192.168.1.10 > enum_results.txt",
+            "explanation": "Saves the full enumeration output to a text file for reporting"
+        },
+        {
+            "id": 35,
+            "category": "Verbose Authenticated Scan",
+            "command": "enum4linux -v -u admin -p pass 192.168.1.10",
+            "example": "enum4linux -v -u admin -p pass 192.168.1.10",
+            "explanation": "Debug mode with authentication to troubleshoot why specific checks might be failing"
+        },
+        {
+            "id": 36,
+            "category": "Workgroup and Users",
+            "command": "enum4linux -w WORKGROUP -U 192.168.1.10",
+            "example": "enum4linux -w WORKGROUP -U 192.168.1.10",
+            "explanation": "Targets a specific workgroup context while enumerating the user list"
+        },
+        {
+            "id": 37,
+            "category": "Check Default Admin",
+            "command": "enum4linux -k Administrator -r 192.168.1.10",
+            "example": "enum4linux -k Administrator -r 192.168.1.10",
+            "explanation": "Specifically checks the Administrator account status via RID cycling logic"
+        },
+        {
+            "id": 38,
+            "category": "Legacy Mode RID",
+            "command": "enum4linux -K 500 -L 1000 192.168.1.10",
+            "example": "enum4linux -K 500 -L 1000 192.168.1.10",
+            "explanation": "Uses legacy flags K (start) and L (last) for RID cycling on older script versions"
+        },
+        {
+            "id": 39,
+            "category": "Incident Response Check",
+            "command": "enum4linux -S -u compromised_user -p pass 192.168.1.10",
+            "example": "enum4linux -S -u compromised_user -p pass 192.168.1.10",
+            "explanation": "Simulates what a compromised user account can access on the file shares"
+        },
+        {
+            "id": 40,
+            "category": "Domain Info Only",
+            "command": "enum4linux -w DOMAIN -o 192.168.1.10",
+            "example": "enum4linux -w DOMAIN -o 192.168.1.10",
+            "explanation": "Retrieves OS and domain controller information for a specific domain target"
+        },
+        {
+            "id": 41,
+            "category": "Share List with Workgroup",
+            "command": "enum4linux -w WORKGROUP -S 192.168.1.10",
+            "example": "enum4linux -w WORKGROUP -S 192.168.1.10",
+            "explanation": "Lists shares available to the specific workgroup context"
+        },
+        {
+            "id": 42,
+            "category": "Printers and OS",
+            "command": "enum4linux -i -o 192.168.1.10",
+            "example": "enum4linux -i -o 192.168.1.10",
+            "explanation": "Identifies printer services and the underlying OS version simultaneously"
+        },
+        {
+            "id": 43,
+            "category": "Groups and Password Policy",
+            "command": "enum4linux -G -P 192.168.1.10",
+            "example": "enum4linux -G -P 192.168.1.10",
+            "explanation": "Maps out security groups and the governing password complexity rules"
+        },
+        {
+            "id": 44,
+            "category": "Authenticated Detailed View",
+            "command": "enum4linux -d -u admin -p pass 192.168.1.10",
+            "example": "enum4linux -d -u admin -p pass 192.168.1.10",
+            "explanation": "Gets detailed configuration info including auto-logon registry keys using credentials"
+        },
+        {
+            "id": 45,
+            "category": "Automation Friendly",
+            "command": "enum4linux -a 192.168.1.10 2>&1 | tee scan.log",
+            "example": "enum4linux -a 192.168.1.10 2>&1 | tee scan.log",
+            "explanation": "Runs a full scan and pipes both stdout and stderr to a file for automated processing"
+        }
+    ]
+}

@@ -1,0 +1,532 @@
+{
+    "tool": "volatility3",
+    "description": "Complete Volatility 3 command and workflow reference from basic to advanced memory forensics",
+    "total_commands": 75,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Usage & Setup",
+            "command": "vol -h",
+            "example": "vol -h",
+            "explanation": "Displays the main help menu, available flags, and configured plugin list."
+        },
+        {
+            "id": 2,
+            "category": "Basic Usage & Setup",
+            "command": "vol -f memory.img windows.info",
+            "example": "vol -f win10.mem windows.info",
+            "explanation": "Identifies the Windows operating system version, build number, and architecture from the memory image."
+        },
+        {
+            "id": 3,
+            "category": "Basic Usage & Setup",
+            "command": "vol -f memory.img -v windows.info",
+            "example": "vol -f win10.mem -v windows.info",
+            "explanation": "Runs the info plugin with verbose output to show detailed layer information and symbol table loading."
+        },
+        {
+            "id": 4,
+            "category": "Basic Usage & Setup",
+            "command": "vol -f memory.img -s /path/to/symbols windows.info",
+            "example": "vol -f win10.mem -s ./symbols windows.info",
+            "explanation": "Specifies a custom path for symbol tables to aid in offline analysis or air-gapped investigations."
+        },
+        {
+            "id": 5,
+            "category": "Process Enumeration",
+            "command": "vol -f memory.img windows.pslist",
+            "example": "vol -f win10.mem windows.pslist",
+            "explanation": "Lists high-level running processes by walking the doubly-linked list of ActiveProcessLinks in the kernel."
+        },
+        {
+            "id": 6,
+            "category": "Process Enumeration",
+            "command": "vol -f memory.img windows.pslist --pid <PID>",
+            "example": "vol -f win10.mem windows.pslist --pid 4520",
+            "explanation": "Filters the process list to display details for a specific Process ID only."
+        },
+        {
+            "id": 7,
+            "category": "Process Enumeration",
+            "command": "vol -f memory.img windows.psscan",
+            "example": "vol -f win10.mem windows.psscan",
+            "explanation": "Scans physical memory for EPROCESS pool allocations to find unlinked, hidden, or terminated processes."
+        },
+        {
+            "id": 8,
+            "category": "Process Enumeration",
+            "command": "vol -f memory.img windows.pstree",
+            "example": "vol -f win10.mem windows.pstree",
+            "explanation": "Visualizes the process hierarchy and parent-child relationships using indentation."
+        },
+        {
+            "id": 9,
+            "category": "Process Enumeration",
+            "command": "vol -f memory.img windows.cmdline",
+            "example": "vol -f win10.mem windows.cmdline",
+            "explanation": "Extracts the command line arguments used to launch processes, useful for detecting malicious parameters."
+        },
+        {
+            "id": 10,
+            "category": "Process Enumeration",
+            "command": "vol -f memory.img windows.envars",
+            "example": "vol -f win10.mem windows.envars",
+            "explanation": "Displays environment variables for processes, revealing paths, user profiles, and session information."
+        },
+        {
+            "id": 11,
+            "category": "Deep Process Analysis",
+            "command": "vol -f memory.img windows.dlllist",
+            "example": "vol -f win10.mem windows.dlllist",
+            "explanation": "Lists dynamic link libraries (DLLs) loaded by processes to identify injected modules or unexpected dependencies."
+        },
+        {
+            "id": 12,
+            "category": "Deep Process Analysis",
+            "command": "vol -f memory.img windows.dlllist --pid <PID>",
+            "example": "vol -f win10.mem windows.dlllist --pid 1024",
+            "explanation": "Isolates loaded modules for a single suspicious process to reduce noise during analysis."
+        },
+        {
+            "id": 13,
+            "category": "Deep Process Analysis",
+            "command": "vol -f memory.img windows.ldrmodules",
+            "example": "vol -f win10.mem windows.ldrmodules",
+            "explanation": "Compares the VAD tree, PEB list, and module list to detect unlinked or hidden DLLs used by rootkits."
+        },
+        {
+            "id": 14,
+            "category": "Deep Process Analysis",
+            "command": "vol -f memory.img windows.handles",
+            "example": "vol -f win10.mem windows.handles",
+            "explanation": "Lists open handles (files, registry keys, mutexes, threads) for all processes."
+        },
+        {
+            "id": 15,
+            "category": "Deep Process Analysis",
+            "command": "vol -f memory.img windows.handles --pid <PID>",
+            "example": "vol -f win10.mem windows.handles --pid 4520",
+            "explanation": "Inspects open resources for a specific process to identify locked files or synchronization markers."
+        },
+        {
+            "id": 16,
+            "category": "Deep Process Analysis",
+            "command": "vol -f memory.img windows.privileges",
+            "example": "vol -f win10.mem windows.privileges",
+            "explanation": "Enumerates process tokens and privileges to detect privilege escalation or system-level access."
+        },
+        {
+            "id": 17,
+            "category": "Network Analysis",
+            "command": "vol -f memory.img windows.netscan",
+            "example": "vol -f win10.mem windows.netscan",
+            "explanation": "Scans for network artifacts (TCP endpoints, UDP listeners) including closed or terminated connections."
+        },
+        {
+            "id": 18,
+            "category": "Network Analysis",
+            "command": "vol -f memory.img windows.netstat",
+            "example": "vol -f win10.mem windows.netstat",
+            "explanation": "Lists active network connections derived from the system's network stack structures."
+        },
+        {
+            "id": 19,
+            "category": "Kernel & Driver Analysis",
+            "command": "vol -f memory.img windows.driverscan",
+            "example": "vol -f win10.mem windows.driverscan",
+            "explanation": "Scans physical memory for DRIVER_OBJECT structures to identify loaded kernel drivers."
+        },
+        {
+            "id": 20,
+            "category": "Kernel & Driver Analysis",
+            "command": "vol -f memory.img windows.modules",
+            "example": "vol -f win10.mem windows.modules",
+            "explanation": "Lists loaded kernel modules and their base addresses, similar to the lsmod command in Linux."
+        },
+        {
+            "id": 21,
+            "category": "Kernel & Driver Analysis",
+            "command": "vol -f memory.img windows.ssdt",
+            "example": "vol -f win10.mem windows.ssdt",
+            "explanation": "Enumerates the System Service Descriptor Table to detect kernel-level API hooking."
+        },
+        {
+            "id": 22,
+            "category": "Kernel & Driver Analysis",
+            "command": "vol -f memory.img windows.callbacks",
+            "example": "vol -f win10.mem windows.callbacks",
+            "explanation": "Lists kernel callback routines often used by malware for persistence or AV evasion."
+        },
+        {
+            "id": 23,
+            "category": "File System Forensics",
+            "command": "vol -f memory.img windows.filescan",
+            "example": "vol -f win10.mem windows.filescan",
+            "explanation": "Scans memory for FILE_OBJECT structures to find open files, even those without active handles."
+        },
+        {
+            "id": 24,
+            "category": "File System Forensics",
+            "command": "vol -f memory.img windows.mftscan",
+            "example": "vol -f win10.mem windows.mftscan",
+            "explanation": "Scans for Master File Table (MFT) record segments resident in memory to recover deleted file metadata."
+        },
+        {
+            "id": 25,
+            "category": "Malware Analysis",
+            "command": "vol -f memory.img windows.malfind",
+            "example": "vol -f win10.mem windows.malfind",
+            "explanation": "Scans for code injection by looking for executable memory pages that are not backed by a file on disk."
+        },
+        {
+            "id": 26,
+            "category": "Malware Analysis",
+            "command": "vol -f memory.img windows.malfind --pid <PID> --dump",
+            "example": "vol -f win10.mem windows.malfind --pid 4520 --dump",
+            "explanation": "Detects injected code in a specific process and extracts the memory segments to disk for analysis."
+        },
+        {
+            "id": 27,
+            "category": "Malware Analysis",
+            "command": "vol -f memory.img windows.vadinfo",
+            "example": "vol -f win10.mem windows.vadinfo",
+            "explanation": "Inspects the Virtual Address Descriptor (VAD) tree to analyze memory protection and mapping attributes."
+        },
+        {
+            "id": 28,
+            "category": "Malware Analysis",
+            "command": "vol -f memory.img windows.vadinfo --pid <PID>",
+            "example": "vol -f win10.mem windows.vadinfo --pid 4520",
+            "explanation": "Details the memory regions of a specific process to identify shellcode or unpacked malware segments."
+        },
+        {
+            "id": 29,
+            "category": "Registry Forensics",
+            "command": "vol -f memory.img windows.registry.hivelist",
+            "example": "vol -f win10.mem windows.registry.hivelist",
+            "explanation": "Lists the physical addresses of available registry hives (SAM, SYSTEM, SOFTWARE, NTUSER.DAT)."
+        },
+        {
+            "id": 30,
+            "category": "Registry Forensics",
+            "command": "vol -f memory.img windows.registry.hivescan",
+            "example": "vol -f win10.mem windows.registry.hivescan",
+            "explanation": "Scans memory for pool tags associated with registry hives to recover unloaded or partial hives."
+        },
+        {
+            "id": 31,
+            "category": "Registry Forensics",
+            "command": "vol -f memory.img windows.registry.printkey --key <Path>",
+            "example": "vol -f win10.mem windows.registry.printkey --key \"Software\\Microsoft\\Windows\\CurrentVersion\\Run\"",
+            "explanation": "Prints the subkeys and values of a specific registry path to check for persistence mechanisms."
+        },
+        {
+            "id": 32,
+            "category": "Registry Forensics",
+            "command": "vol -f memory.img windows.registry.userassist",
+            "example": "vol -f win10.mem windows.registry.userassist",
+            "explanation": "Parses UserAssist keys to determine which programs were executed via the GUI and their run counts."
+        },
+        {
+            "id": 33,
+            "category": "Searching & YARA",
+            "command": "vol -f memory.img windows.yarascan --yara-string \"<String>\"",
+            "example": "vol -f win10.mem windows.yarascan --yara-string \"evil_domain.com\"",
+            "explanation": "Scans process memory and kernel space for a specific text string using YARA logic."
+        },
+        {
+            "id": 34,
+            "category": "Searching & YARA",
+            "command": "vol -f memory.img windows.yarascan --yara-file rules.yar",
+            "example": "vol -f win10.mem windows.yarascan --yara-file malware_rules.yar",
+            "explanation": "Applies a file containing compiled YARA rules to the entire memory image to detect malware signatures."
+        },
+        {
+            "id": 35,
+            "category": "Searching & YARA",
+            "command": "vol -f memory.img windows.yarascan --pid <PID> --yara-string \"<Hex>\"",
+            "example": "vol -f win10.mem windows.yarascan --pid 4520 --yara-string \"{ 4D 5A 90 00 }\"",
+            "explanation": "Searches for a hex byte sequence (like a PE header) strictly within the memory space of a specific process."
+        },
+        {
+            "id": 36,
+            "category": "Extraction & Dumping",
+            "command": "vol -f memory.img windows.pslist --pid <PID> --dump",
+            "example": "vol -f win10.mem windows.pslist --pid 4520 --dump",
+            "explanation": "Extracts the executable image of a running process from memory to disk for static analysis."
+        },
+        {
+            "id": 37,
+            "category": "Extraction & Dumping",
+            "command": "vol -f memory.img windows.dumpfiles --pid <PID>",
+            "example": "vol -f win10.mem windows.dumpfiles --pid 4520",
+            "explanation": "Dumps all file objects associated with a specific process, recovering open documents or logs."
+        },
+        {
+            "id": 38,
+            "category": "Extraction & Dumping",
+            "command": "vol -f memory.img windows.moddump --pid <PID> --base <Address>",
+            "example": "vol -f win10.mem windows.moddump --pid 4520 --base 0x7ff8f000",
+            "explanation": "Extracts a specific loaded module or DLL from a process's memory space based on its base address."
+        },
+        {
+            "id": 39,
+            "category": "Extraction & Dumping",
+            "command": "vol -f memory.img windows.memmap --pid <PID> --dump",
+            "example": "vol -f win10.mem windows.memmap --pid 4520 --dump",
+            "explanation": "Dumps the memory map of a process, preserving the layout of code, data, and heap sections."
+        },
+        {
+            "id": 40,
+            "category": "Linux Forensics",
+            "command": "vol -f linux.mem linux.info",
+            "example": "vol -f linux.mem linux.info",
+            "explanation": "Displays the Linux kernel version and banner from a Linux memory artifact."
+        },
+        {
+            "id": 41,
+            "category": "Linux Forensics",
+            "command": "vol -f linux.mem linux.pslist",
+            "example": "vol -f linux.mem linux.pslist",
+            "explanation": "Walks the task_struct list in Linux kernel memory to identify running processes."
+        },
+        {
+            "id": 42,
+            "category": "Linux Forensics",
+            "command": "vol -f linux.mem linux.bash",
+            "example": "vol -f linux.mem linux.bash",
+            "explanation": "Recovers command history from bash processes, providing visibility into attacker activity."
+        },
+        {
+            "id": 43,
+            "category": "Linux Forensics",
+            "command": "vol -f linux.mem linux.check_syscall",
+            "example": "vol -f linux.mem linux.check_syscall",
+            "explanation": "Checks the system call table for hooks, a common technique for Linux rootkits."
+        },
+        {
+            "id": 44,
+            "category": "Linux Forensics",
+            "command": "vol -f linux.mem linux.elfs",
+            "example": "vol -f linux.mem linux.elfs",
+            "explanation": "Lists Executable and Linkable Format (ELF) binaries loaded in memory."
+        },
+        {
+            "id": 45,
+            "category": "Linux Forensics",
+            "command": "vol -f linux.mem linux.lsmod",
+            "example": "vol -f linux.mem linux.lsmod",
+            "explanation": "Lists loaded kernel modules to identify malicious drivers or unauthorized kernel extensions."
+        },
+        {
+            "id": 46,
+            "category": "Linux Forensics",
+            "command": "vol -f linux.mem linux.mount",
+            "example": "vol -f linux.mem linux.mount",
+            "explanation": "Displays mounted filesystems within the Linux memory image."
+        },
+        {
+            "id": 47,
+            "category": "Mac Forensics",
+            "command": "vol -f mac.mem mac.info",
+            "example": "vol -f mac.mem mac.info",
+            "explanation": "Identifies the macOS kernel version and architecture."
+        },
+        {
+            "id": 48,
+            "category": "Mac Forensics",
+            "command": "vol -f mac.mem mac.pslist",
+            "example": "vol -f mac.mem mac.pslist",
+            "explanation": "Lists running processes on a macOS system by analyzing the proc structures."
+        },
+        {
+            "id": 49,
+            "category": "Mac Forensics",
+            "command": "vol -f mac.mem mac.check_syscalls",
+            "example": "vol -f mac.mem mac.check_syscalls",
+            "explanation": "Validates the system call table on macOS to detect rootkit hooking."
+        },
+        {
+            "id": 50,
+            "category": "Mac Forensics",
+            "command": "vol -f mac.mem mac.ifconfig",
+            "example": "vol -f mac.mem mac.ifconfig",
+            "explanation": "Recovers network interface configurations and status from macOS memory."
+        },
+        {
+            "id": 51,
+            "category": "Advanced Filtering",
+            "command": "vol -f memory.img windows.pslist --dump --pid <PID>",
+            "example": "vol -f win10.mem windows.pslist --dump --pid 1024",
+            "explanation": "Combines filtering by PID and dumping to extract a specific suspicious process immediately."
+        },
+        {
+            "id": 52,
+            "category": "Advanced Filtering",
+            "command": "vol -f memory.img windows.netscan --pid <PID>",
+            "example": "vol -f win10.mem windows.netscan --pid 4520",
+            "explanation": "Filters network artifacts to show only connections belonging to a specific compromised process."
+        },
+        {
+            "id": 53,
+            "category": "Output & Reporting",
+            "command": "vol -r json -f memory.img windows.pslist",
+            "example": "vol -r json -f win10.mem windows.pslist > pslist.json",
+            "explanation": "Outputs the process list in JSON format for ingestion into other analysis tools or SIEMs."
+        },
+        {
+            "id": 54,
+            "category": "Output & Reporting",
+            "command": "vol -r csv -f memory.img windows.filescan",
+            "example": "vol -r csv -f win10.mem windows.filescan > files.csv",
+            "explanation": "Exports the file scan results to CSV format for easy filtering and sorting in spreadsheet software."
+        },
+        {
+            "id": 55,
+            "category": "Output & Reporting",
+            "command": "vol -r pretty -f memory.img windows.info",
+            "example": "vol -r pretty -f win10.mem windows.info",
+            "explanation": "Forces the standard 'pretty' human-readable table output, useful when overriding defaults."
+        },
+        {
+            "id": 56,
+            "category": "Timeline Analysis",
+            "command": "vol -f memory.img timeliner.Timeliner",
+            "example": "vol -f win10.mem timeliner.Timeliner",
+            "explanation": "Aggregates timestamps from all available plugins (process creation, file modification) into a master timeline."
+        },
+        {
+            "id": 57,
+            "category": "Timeline Analysis",
+            "command": "vol -r csv -f memory.img timeliner.Timeliner",
+            "example": "vol -r csv -f win10.mem timeliner.Timeliner > timeline.csv",
+            "explanation": "Exports the master timeline to CSV for analysis in timeline visualization tools."
+        },
+        {
+            "id": 58,
+            "category": "Credential Hunting",
+            "command": "vol -f memory.img windows.hashdump",
+            "example": "vol -f win10.mem windows.hashdump",
+            "explanation": "extracts NTLM hashes from the registry hives loaded in memory (requires SAM and SYSTEM hives)."
+        },
+        {
+            "id": 59,
+            "category": "Credential Hunting",
+            "command": "vol -f memory.img windows.lmadump",
+            "example": "vol -f win10.mem windows.lmadump",
+            "explanation": "Attempts to extract LowerCase LSA secrets/hashes, though less common on modern Windows."
+        },
+        {
+            "id": 60,
+            "category": "Credential Hunting",
+            "command": "vol -f memory.img windows.cachedump",
+            "example": "vol -f win10.mem windows.cachedump",
+            "explanation": "Extracts cached domain credentials (MSCache) from the registry."
+        },
+        {
+            "id": 61,
+            "category": "Threat Hunting",
+            "command": "vol -f memory.img windows.thrdscan",
+            "example": "vol -f win10.mem windows.thrdscan",
+            "explanation": "Scans for ETHREAD structures to find hidden threads or threads detached from their parent processes."
+        },
+        {
+            "id": 62,
+            "category": "Threat Hunting",
+            "command": "vol -f memory.img windows.joblinks",
+            "example": "vol -f win10.mem windows.joblinks",
+            "explanation": "Enumerates job objects to see if processes are grouped or managed together, common in malware families."
+        },
+        {
+            "id": 63,
+            "category": "Threat Hunting",
+            "command": "vol -f memory.img windows.mutantscan",
+            "example": "vol -f win10.mem windows.mutantscan",
+            "explanation": "Scans for mutexes, which are often used by malware to ensure only one instance runs at a time."
+        },
+        {
+            "id": 64,
+            "category": "Threat Hunting",
+            "command": "vol -f memory.img windows.symlinkscan",
+            "example": "vol -f win10.mem windows.symlinkscan",
+            "explanation": "Scans for symbolic links in kernel memory which can reveal redirected file paths or device names."
+        },
+        {
+            "id": 65,
+            "category": "Memory Forensics Configuration",
+            "command": "vol -c config.json -f memory.img windows.info",
+            "example": "vol -c config.json -f win10.mem windows.info",
+            "explanation": "Runs volatility using a pre-defined JSON configuration file to standardize analysis across a team."
+        },
+        {
+            "id": 66,
+            "category": "Advanced Debugging",
+            "command": "vol -f memory.img layerwriter.LayerWriter --output-dir ./out",
+            "example": "vol -f win10.mem layerwriter.LayerWriter",
+            "explanation": " writes out the underlying raw memory layer, useful for converting format specific images to raw."
+        },
+        {
+            "id": 67,
+            "category": "Memory Mapping",
+            "command": "vol -f memory.img windows.memmap",
+            "example": "vol -f win10.mem windows.memmap",
+            "explanation": "Provides a detailed map of virtual memory pages for processes."
+        },
+        {
+            "id": 68,
+            "category": "Command History",
+            "command": "vol -f memory.img windows.cmdline --pid <PID>",
+            "example": "vol -f win10.mem windows.cmdline --pid 1024",
+            "explanation": "Retrieves the command line arguments for a specific process ID."
+        },
+        {
+            "id": 69,
+            "category": "Interactive Console",
+            "command": "vol -f memory.img shell",
+            "example": "vol -f win10.mem shell",
+            "explanation": "Drops into an interactive python shell with the configuration context loaded (if plugin available)."
+        },
+        {
+            "id": 70,
+            "category": "Process Services",
+            "command": "vol -f memory.img windows.get_services",
+            "example": "vol -f win10.mem windows.get_services",
+            "explanation": " enumerates services registered on the system by parsing the service record database."
+        },
+        {
+            "id": 71,
+            "category": "Kernel Objects",
+            "command": "vol -f memory.img windows.objecttypes",
+            "example": "vol -f win10.mem windows.objecttypes",
+            "explanation": "Lists the object types defined in the kernel to understand available structures."
+        },
+        {
+            "id": 72,
+            "category": "Memory Integrity",
+            "command": "vol -f memory.img windows.bigpools",
+            "example": "vol -f win10.mem windows.bigpools",
+            "explanation": "Enumerates big pool allocations which can sometimes hide injected code or artifacts."
+        },
+        {
+            "id": 73,
+            "category": "Filesystem Metadata",
+            "command": "vol -f memory.img windows.mftscan --dump",
+            "example": "vol -f win10.mem windows.mftscan --dump",
+            "explanation": "Scans for and dumps resident MFT records for external parsing."
+        },
+        {
+            "id": 74,
+            "category": "Malware Hunting",
+            "command": "vol -f memory.img windows.virtmap",
+            "example": "vol -f win10.mem windows.virtmap",
+            "explanation": "Shows the mapping between virtual and physical addresses, useful for identifying remapped pages."
+        },
+        {
+            "id": 75,
+            "category": "System Info",
+            "command": "vol -f memory.img windows.verinfo",
+            "example": "vol -f win10.mem windows.verinfo",
+            "explanation": "Extracts version information from PE files found in memory."
+        }
+    ]
+}

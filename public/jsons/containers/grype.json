@@ -1,0 +1,77 @@
+{
+    "tool": "grype",
+    "description": "Grype: An extremely fast and wildly robust localized vulnerability scanner designed primarily fundamentally mapping Docker containers resolving extremely specific active CVE dependencies locally.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Systemic Scanning",
+            "command": "grype <image>",
+            "example": "grype ubuntu:latest",
+            "explanation": "Parses complex inherent localized container image structures referencing underlying internal local packages against extremely aggressive continuously synchronized global CVE databases."
+        },
+        {
+            "id": 2,
+            "category": "Output Serialization",
+            "command": "grype <image> -o json",
+            "example": "grype vuln_app:latest -o json",
+            "explanation": "Mitigates standard tabular responses forcing raw highly-structured JSON outputs explicitly standardizing integration compatibility seamlessly interfacing into Enterprise SIEM tools."
+        },
+        {
+            "id": 3,
+            "category": "Fail Constraints",
+            "command": "grype <image> --fail-on <severity>",
+            "example": "grype app:latest --fail-on critical",
+            "explanation": "Leverages standard pipeline gating fundamentally forcing the internal Unix exit code actively to 1 strictly only if high-level unmitigated vulnerabilities literally exist."
+        },
+        {
+            "id": 4,
+            "category": "Directory Analysis",
+            "command": "grype dir:<path>",
+            "example": "grype dir:/var/www/html",
+            "explanation": "Overrides baseline Docker execution parameters forcefully ripping directly into unprotected raw local explicitly mapped traditional code repositories eliminating the Docker reliance."
+        },
+        {
+            "id": 5,
+            "category": "SBOM Integration",
+            "command": "grype sbom:<file>",
+            "example": "grype sbom:target.json",
+            "explanation": "Validates pre-computed exact mathematical application constraints locally directly scanning heavily unencrypted Software Bill Of Materials without inherently possessing localized underlying binaries."
+        },
+        {
+            "id": 6,
+            "category": "Database Upgrades",
+            "command": "grype db update",
+            "example": "grype db update",
+            "explanation": "Forces explicit system network outbound executions manually verifying heavily synchronized localized CVE validation matrices securely caching updated Enterprise intelligence loops."
+        },
+        {
+            "id": 7,
+            "category": "Offline Operations",
+            "command": "grype <image> --offline",
+            "example": "grype app:latest --offline",
+            "explanation": "Truncates outbound tracking logics guaranteeing systemic mapping executes inherently utilizing strictly outdated localized databases aggressively blocking unauthenticated network leakage."
+        },
+        {
+            "id": 8,
+            "category": "Vulnerability Ignore",
+            "command": "grype <image> --ignore-states <state>",
+            "example": "grype app:v1 --ignore-states wont-fix",
+            "explanation": "Streamlines deeply localized output logic inherently filtering inherently noisy low-priority global vendor decisions resolving strictly critical explicitly-patchable dependencies."
+        },
+        {
+            "id": 9,
+            "category": "Explicit Arch",
+            "command": "grype <image> --platform <arch>",
+            "example": "grype app:latest --platform linux/arm64 -o table",
+            "explanation": "Modifies inherently aggressive manifest routing specifically pulling cross-architecture images tracking multi-device compatibility natively executing Apple Silicon scans cleanly."
+        },
+        {
+            "id": 10,
+            "category": "Template Overrides",
+            "command": "grype <image> -t <template>",
+            "example": "grype app:latest -t ./custom.tmpl",
+            "explanation": "Directs systemic log integrations forcefully matching local GO-templates cleanly establishing absolute customized explicit dynamic enterprise formatting layouts."
+        }
+    ]
+}

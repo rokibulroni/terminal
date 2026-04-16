@@ -1,0 +1,511 @@
+{
+    "tool": "iwconfig",
+    "description": "Complete iwconfig command and workflow reference from basic to advanced wireless interface configuration",
+    "total_commands": 72,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax",
+            "command": "iwconfig --help",
+            "example": "iwconfig --help",
+            "explanation": "Displays the help message listing all available command line parameters and arguments"
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax",
+            "command": "iwconfig --version",
+            "example": "iwconfig --version",
+            "explanation": "Outputs the version of the wireless tools and the recommended kernel configuration"
+        },
+        {
+            "id": 3,
+            "category": "Interface Status",
+            "command": "iwconfig",
+            "example": "iwconfig",
+            "explanation": "Lists all network interfaces and displays wireless extension information for those that support it"
+        },
+        {
+            "id": 4,
+            "category": "Interface Status",
+            "command": "iwconfig wlan0",
+            "example": "iwconfig wlan0",
+            "explanation": "Displays detailed wireless configuration and current status specifically for interface wlan0"
+        },
+        {
+            "id": 5,
+            "category": "ESSID Configuration",
+            "command": "iwconfig wlan0 essid \"LabNetwork\"",
+            "example": "iwconfig wlan0 essid \"LabNetwork\"",
+            "explanation": "Configures the interface to connect to a network with the specific name LabNetwork"
+        },
+        {
+            "id": 6,
+            "category": "ESSID Configuration",
+            "command": "iwconfig wlan0 essid off",
+            "example": "iwconfig wlan0 essid off",
+            "explanation": "Disables the ESSID configuration allowing the driver to attempt association with any available network"
+        },
+        {
+            "id": 7,
+            "category": "ESSID Configuration",
+            "command": "iwconfig wlan0 essid any",
+            "example": "iwconfig wlan0 essid any",
+            "explanation": "Configures the interface to accept any ESSID which is useful for roaming or initial site surveys"
+        },
+        {
+            "id": 8,
+            "category": "Mode Management",
+            "command": "iwconfig wlan0 mode managed",
+            "example": "iwconfig wlan0 mode managed",
+            "explanation": "Sets the interface to managed mode for standard client connection to an Access Point"
+        },
+        {
+            "id": 9,
+            "category": "Mode Management",
+            "command": "iwconfig wlan0 mode monitor",
+            "example": "iwconfig wlan0 mode monitor",
+            "explanation": "Sets the interface to monitor mode for passive packet capture and security assessment"
+        },
+        {
+            "id": 10,
+            "category": "Mode Management",
+            "command": "iwconfig wlan0 mode ad-hoc",
+            "example": "iwconfig wlan0 mode ad-hoc",
+            "explanation": "Configures the interface for peer-to-peer communication without a central Access Point"
+        },
+        {
+            "id": 11,
+            "category": "Mode Management",
+            "command": "iwconfig wlan0 mode master",
+            "example": "iwconfig wlan0 mode master",
+            "explanation": "Attempts to set the interface to Master mode to act as an Access Point (driver dependent)"
+        },
+        {
+            "id": 12,
+            "category": "Mode Management",
+            "command": "iwconfig wlan0 mode repeater",
+            "example": "iwconfig wlan0 mode repeater",
+            "explanation": "Sets the interface to repeater mode to forward packets between other wireless nodes"
+        },
+        {
+            "id": 13,
+            "category": "Mode Management",
+            "command": "iwconfig wlan0 mode secondary",
+            "example": "iwconfig wlan0 mode secondary",
+            "explanation": "Configures the interface as a secondary backup master/repeater if supported by hardware"
+        },
+        {
+            "id": 14,
+            "category": "Frequency Management",
+            "command": "iwconfig wlan0 channel 6",
+            "example": "iwconfig wlan0 channel 6",
+            "explanation": "Forces the wireless interface to operate specifically on channel 6"
+        },
+        {
+            "id": 15,
+            "category": "Frequency Management",
+            "command": "iwconfig wlan0 channel auto",
+            "example": "iwconfig wlan0 channel auto",
+            "explanation": "Allows the driver to automatically select the best available channel"
+        },
+        {
+            "id": 16,
+            "category": "Frequency Management",
+            "command": "iwconfig wlan0 freq 2.412G",
+            "example": "iwconfig wlan0 freq 2.412G",
+            "explanation": "Sets the operating frequency explicitly to 2.412 GHz (Channel 1)"
+        },
+        {
+            "id": 17,
+            "category": "Frequency Management",
+            "command": "iwconfig wlan0 freq 5.220G",
+            "example": "iwconfig wlan0 freq 5.220G",
+            "explanation": "Sets the operating frequency explicitly to 5.220 GHz for 5GHz band operation"
+        },
+        {
+            "id": 18,
+            "category": "Access Point Targeting",
+            "command": "iwconfig wlan0 ap 00:11:22:33:44:55",
+            "example": "iwconfig wlan0 ap 00:11:22:33:44:55",
+            "explanation": "Forces the client to associate only with the Access Point matching the specified MAC address"
+        },
+        {
+            "id": 19,
+            "category": "Access Point Targeting",
+            "command": "iwconfig wlan0 ap any",
+            "example": "iwconfig wlan0 ap any",
+            "explanation": "Removes specific AP locks and allows association with any AP responding to the ESSID"
+        },
+        {
+            "id": 20,
+            "category": "Access Point Targeting",
+            "command": "iwconfig wlan0 ap off",
+            "example": "iwconfig wlan0 ap off",
+            "explanation": "Prevents the interface from associating with any Access Point"
+        },
+        {
+            "id": 21,
+            "category": "Bitrate Configuration",
+            "command": "iwconfig wlan0 rate 54M",
+            "example": "iwconfig wlan0 rate 54M",
+            "explanation": "Sets the transmission bitrate to a fixed speed of 54 Megabits per second"
+        },
+        {
+            "id": 22,
+            "category": "Bitrate Configuration",
+            "command": "iwconfig wlan0 rate auto",
+            "example": "iwconfig wlan0 rate auto",
+            "explanation": "Enables automatic rate scaling to adjust speed based on signal quality"
+        },
+        {
+            "id": 23,
+            "category": "Bitrate Configuration",
+            "command": "iwconfig wlan0 rate 11M fixed",
+            "example": "iwconfig wlan0 rate 11M fixed",
+            "explanation": "Forces the card to use 11Mbps and prevents it from dropping to lower speeds"
+        },
+        {
+            "id": 24,
+            "category": "Bitrate Configuration",
+            "command": "iwconfig wlan0 rate 5.5M auto",
+            "example": "iwconfig wlan0 rate 5.5M auto",
+            "explanation": "Sets the maximum bitrate to 5.5Mbps but allows the driver to lower it if interference occurs"
+        },
+        {
+            "id": 25,
+            "category": "Power Control",
+            "command": "iwconfig wlan0 txpower 30mW",
+            "example": "iwconfig wlan0 txpower 30mW",
+            "explanation": "Sets the transmission power output to exactly 30 milliwatts"
+        },
+        {
+            "id": 26,
+            "category": "Power Control",
+            "command": "iwconfig wlan0 txpower 15",
+            "example": "iwconfig wlan0 txpower 15",
+            "explanation": "Sets the transmission power output to 15 dBm"
+        },
+        {
+            "id": 27,
+            "category": "Power Control",
+            "command": "iwconfig wlan0 txpower auto",
+            "example": "iwconfig wlan0 txpower auto",
+            "explanation": "Allows the radio hardware to manage its own power output levels"
+        },
+        {
+            "id": 28,
+            "category": "Power Control",
+            "command": "iwconfig wlan0 txpower off",
+            "example": "iwconfig wlan0 txpower off",
+            "explanation": "Disables the radio transmitter completely effectively turning on airplane mode for that interface"
+        },
+        {
+            "id": 29,
+            "category": "Power Management",
+            "command": "iwconfig wlan0 power on",
+            "example": "iwconfig wlan0 power on",
+            "explanation": "Enables power management features allowing the card to sleep when idle to save battery"
+        },
+        {
+            "id": 30,
+            "category": "Power Management",
+            "command": "iwconfig wlan0 power off",
+            "example": "iwconfig wlan0 power off",
+            "explanation": "Disables power management forcing the card to stay awake for maximum performance"
+        },
+        {
+            "id": 31,
+            "category": "Power Management",
+            "command": "iwconfig wlan0 power timeout 500ms",
+            "example": "iwconfig wlan0 power timeout 500ms",
+            "explanation": "Sets the time the card waits before entering sleep mode to 500 milliseconds"
+        },
+        {
+            "id": 32,
+            "category": "Power Management",
+            "command": "iwconfig wlan0 power period 2s",
+            "example": "iwconfig wlan0 power period 2s",
+            "explanation": "Sets the cycle period between wake-ups to 2 seconds"
+        },
+        {
+            "id": 33,
+            "category": "Packet Handling",
+            "command": "iwconfig wlan0 rts 250",
+            "example": "iwconfig wlan0 rts 250",
+            "explanation": "Sets the RTS/CTS handshake threshold to 250 bytes to reduce collisions in hidden node scenarios"
+        },
+        {
+            "id": 34,
+            "category": "Packet Handling",
+            "command": "iwconfig wlan0 rts off",
+            "example": "iwconfig wlan0 rts off",
+            "explanation": "Disables the RTS/CTS mechanism entirely"
+        },
+        {
+            "id": 35,
+            "category": "Packet Handling",
+            "command": "iwconfig wlan0 frag 512",
+            "example": "iwconfig wlan0 frag 512",
+            "explanation": "Sets the fragmentation threshold to 512 bytes causing larger packets to be split"
+        },
+        {
+            "id": 36,
+            "category": "Packet Handling",
+            "command": "iwconfig wlan0 frag off",
+            "example": "iwconfig wlan0 frag off",
+            "explanation": "Disables packet fragmentation ensuring packets are sent whole regardless of size"
+        },
+        {
+            "id": 37,
+            "category": "Encryption Setup",
+            "command": "iwconfig wlan0 key off",
+            "example": "iwconfig wlan0 key off",
+            "explanation": "Disables all WEP encryption keys on the interface"
+        },
+        {
+            "id": 38,
+            "category": "Encryption Setup",
+            "command": "iwconfig wlan0 key 0123-4567-89",
+            "example": "iwconfig wlan0 key 0123-4567-89",
+            "explanation": "Sets the WEP encryption key using hex digits"
+        },
+        {
+            "id": 39,
+            "category": "Encryption Setup",
+            "command": "iwconfig wlan0 key s:password",
+            "example": "iwconfig wlan0 key s:password",
+            "explanation": "Sets the WEP encryption key using an ASCII string"
+        },
+        {
+            "id": 40,
+            "category": "Encryption Setup",
+            "command": "iwconfig wlan0 key open",
+            "example": "iwconfig wlan0 key open",
+            "explanation": "Sets the authentication mode to Open System"
+        },
+        {
+            "id": 41,
+            "category": "Encryption Setup",
+            "command": "iwconfig wlan0 key restricted",
+            "example": "iwconfig wlan0 key restricted",
+            "explanation": "Sets the authentication mode to Restricted (Shared Key) requiring a valid key to associate"
+        },
+        {
+            "id": 42,
+            "category": "Encryption Setup",
+            "command": "iwconfig wlan0 key [1] 0123456789",
+            "example": "iwconfig wlan0 key [1] 0123456789",
+            "explanation": "Sets the WEP key specifically for index slot 1"
+        },
+        {
+            "id": 43,
+            "category": "Identity Configuration",
+            "command": "iwconfig wlan0 nick \"MyNode\"",
+            "example": "iwconfig wlan0 nick \"MyNode\"",
+            "explanation": "Sets the station nickname used in some legacy diagnostics and protocols"
+        },
+        {
+            "id": 44,
+            "category": "Retry Configuration",
+            "command": "iwconfig wlan0 retry 7",
+            "example": "iwconfig wlan0 retry 7",
+            "explanation": "Sets the maximum number of retransmissions for a failed packet to 7"
+        },
+        {
+            "id": 45,
+            "category": "Retry Configuration",
+            "command": "iwconfig wlan0 retry short 4",
+            "example": "iwconfig wlan0 retry short 4",
+            "explanation": "Sets the retry limit specifically for packets smaller than the RTS threshold"
+        },
+        {
+            "id": 46,
+            "category": "Retry Configuration",
+            "command": "iwconfig wlan0 retry long 7",
+            "example": "iwconfig wlan0 retry long 7",
+            "explanation": "Sets the retry limit specifically for packets larger than the RTS threshold"
+        },
+        {
+            "id": 47,
+            "category": "Sensitivity Tuning",
+            "command": "iwconfig wlan0 sens -80",
+            "example": "iwconfig wlan0 sens -80",
+            "explanation": "Sets the signal sensitivity threshold to -80 dBm so signals weaker than this are ignored"
+        },
+        {
+            "id": 48,
+            "category": "Sensitivity Tuning",
+            "command": "iwconfig wlan0 sens 2",
+            "example": "iwconfig wlan0 sens 2",
+            "explanation": "Sets the sensitivity range to 2 which usually correlates to a percentage or hardware specific scale"
+        },
+        {
+            "id": 49,
+            "category": "Modulation Control",
+            "command": "iwconfig wlan0 modu 11g",
+            "example": "iwconfig wlan0 modu 11g",
+            "explanation": "Forces the interface to use 802.11g modulation schemes"
+        },
+        {
+            "id": 50,
+            "category": "Modulation Control",
+            "command": "iwconfig wlan0 modu auto",
+            "example": "iwconfig wlan0 modu auto",
+            "explanation": "Allows the hardware to automatically select the best modulation modulation scheme"
+        },
+        {
+            "id": 51,
+            "category": "Commit Changes",
+            "command": "iwconfig wlan0 commit",
+            "example": "iwconfig wlan0 commit",
+            "explanation": "Forces the driver to apply pending configuration changes immediately"
+        },
+        {
+            "id": 52,
+            "category": "Legacy NWID",
+            "command": "iwconfig wlan0 nwid 100",
+            "example": "iwconfig wlan0 nwid 100",
+            "explanation": "Sets the Network ID (Domain ID) for legacy pre-802.11 hardware grouping"
+        },
+        {
+            "id": 53,
+            "category": "Legacy NWID",
+            "command": "iwconfig wlan0 nwid off",
+            "example": "iwconfig wlan0 nwid off",
+            "explanation": "Disables NWID checking allowing reception of packets from any domain"
+        },
+        {
+            "id": 54,
+            "category": "Red Team Workflow",
+            "command": "iwconfig wlan0 mode monitor channel 6",
+            "example": "iwconfig wlan0 mode monitor channel 6",
+            "explanation": "Quickly sets the interface to monitor mode on a specific channel for targeted sniffing"
+        },
+        {
+            "id": 55,
+            "category": "Red Team Workflow",
+            "command": "iwconfig wlan0 txpower 30mW key off",
+            "example": "iwconfig wlan0 txpower 30mW key off",
+            "explanation": "Boosts transmission power and clears encryption keys to prepare for injection attacks"
+        },
+        {
+            "id": 56,
+            "category": "Red Team Workflow",
+            "command": "iwconfig wlan0 essid \"FakeAP\" mode master",
+            "example": "iwconfig wlan0 essid \"FakeAP\" mode master",
+            "explanation": "Configures the interface to act as a rogue Access Point with a specific ESSID"
+        },
+        {
+            "id": 57,
+            "category": "Blue Team Defense",
+            "command": "iwconfig wlan0 mode managed ap 00:11:22:33:44:55",
+            "example": "iwconfig wlan0 mode managed ap 00:11:22:33:44:55",
+            "explanation": "Locks the defensive sensor to a specific AP BSSID to prevent unauthorized roaming"
+        },
+        {
+            "id": 58,
+            "category": "Blue Team Defense",
+            "command": "iwconfig wlan0 rate 1M fixed",
+            "example": "iwconfig wlan0 rate 1M fixed",
+            "explanation": "Forces a low fixed bitrate to maintain connectivity in high interference environments"
+        },
+        {
+            "id": 59,
+            "category": "Purple Team Validation",
+            "command": "iwconfig wlan0 txpower 1mW",
+            "example": "iwconfig wlan0 txpower 1mW",
+            "explanation": "Lowers transmission power to the minimum to simulate a weak signal client at the edge of the cell"
+        },
+        {
+            "id": 60,
+            "category": "Purple Team Validation",
+            "command": "iwconfig wlan0 rts 100 frag 256",
+            "example": "iwconfig wlan0 rts 100 frag 256",
+            "explanation": "Sets aggressive fragmentation thresholds to test how the AP handles fragmented packet reassembly"
+        },
+        {
+            "id": 61,
+            "category": "Incident Response",
+            "command": "iwconfig wlan0 essid off key off mode managed",
+            "example": "iwconfig wlan0 essid off key off mode managed",
+            "explanation": "Rapidly neutralizes the interface configuration to disconnect from any potentially compromised network"
+        },
+        {
+            "id": 62,
+            "category": "Automation Workflow",
+            "command": "iwconfig wlan0 channel 1 && iwconfig wlan0 channel 6",
+            "example": "iwconfig wlan0 channel 1 && iwconfig wlan0 channel 6",
+            "explanation": "Chains commands to hop channels sequentially for manual coverage testing"
+        },
+        {
+            "id": 63,
+            "category": "Troubleshooting",
+            "command": "iwconfig wlan0 power off retry 10",
+            "example": "iwconfig wlan0 power off retry 10",
+            "explanation": "Disables power saving and increases retries to troubleshoot intermittent connection drops"
+        },
+        {
+            "id": 64,
+            "category": "Diagnostics",
+            "command": "iwconfig wlan0 | grep \"Link Quality\"",
+            "example": "iwconfig wlan0 | grep \"Link Quality\"",
+            "explanation": "Extracts just the link quality and signal level statistics from the status output"
+        },
+        {
+            "id": 65,
+            "category": "Advanced Config",
+            "command": "iwconfig wlan0 enc 0123456789 [2]",
+            "example": "iwconfig wlan0 enc 0123456789 [2]",
+            "explanation": "Sets a WEP key specifically in slot 2 using the enc alias for key"
+        },
+        {
+            "id": 66,
+            "category": "Advanced Config",
+            "command": "iwconfig wlan0 sens -60 retry short 2",
+            "example": "iwconfig wlan0 sens -60 retry short 2",
+            "explanation": "Configures strict sensitivity and low retry counts for high-speed low-latency environment tuning"
+        },
+        {
+            "id": 67,
+            "category": "Clean Up",
+            "command": "iwconfig wlan0 txpower auto rate auto",
+            "example": "iwconfig wlan0 txpower auto rate auto",
+            "explanation": "Resets power and rate settings to hardware defaults after testing"
+        },
+        {
+            "id": 68,
+            "category": "Red Team Prep",
+            "command": "iwconfig wlan0 mode monitor frag off rts off",
+            "example": "iwconfig wlan0 mode monitor frag off rts off",
+            "explanation": "Prepares interface for raw packet injection by disabling packet modifying thresholds"
+        },
+        {
+            "id": 69,
+            "category": "Ad-Hoc Setup",
+            "command": "iwconfig wlan0 mode ad-hoc essid \"Mesh\" channel 11",
+            "example": "iwconfig wlan0 mode ad-hoc essid \"Mesh\" channel 11",
+            "explanation": "One-line configuration to establish a specific Ad-Hoc mesh cell on channel 11"
+        },
+        {
+            "id": 70,
+            "category": "Signal Testing",
+            "command": "watch -n 1 iwconfig wlan0",
+            "example": "watch -n 1 iwconfig wlan0",
+            "explanation": "Continuously updates the iwconfig status to monitor signal strength changes in real time"
+        },
+        {
+            "id": 71,
+            "category": "Driver Reset",
+            "command": "iwconfig wlan0 essid \"\"",
+            "example": "iwconfig wlan0 essid \"\"",
+            "explanation": "Clears the ESSID string to blank which forces some drivers to reset their association state"
+        },
+        {
+            "id": 72,
+            "category": "Encryption Security",
+            "command": "iwconfig wlan0 key off enc off",
+            "example": "iwconfig wlan0 key off enc off",
+            "explanation": "Explicitly disables encryption using both key and enc aliases to ensure open mode"
+        }
+    ]
+}

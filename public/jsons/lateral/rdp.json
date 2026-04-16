@@ -1,0 +1,427 @@
+{
+    "tool": "rdp",
+    "description": "Complete RDP command and workflow reference from basic to advanced remote desktop access and lateral movement",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic RDP Syntax",
+            "command": "xfreerdp /v:192.168.1.10",
+            "example": "xfreerdp /v:192.168.1.10",
+            "explanation": "Initiates a standard RDP connection to the target IP address using default settings."
+        },
+        {
+            "id": 2,
+            "category": "Basic RDP Syntax",
+            "command": "xfreerdp /v:win-server.example.com",
+            "example": "xfreerdp /v:win-server.example.com",
+            "explanation": "Connects to a target server using its DNS hostname."
+        },
+        {
+            "id": 3,
+            "category": "Authentication Handling",
+            "command": "xfreerdp /u:administrator /v:192.168.1.10",
+            "example": "xfreerdp /u:administrator /v:192.168.1.10",
+            "explanation": "Specifies the username to use for the connection attempt."
+        },
+        {
+            "id": 4,
+            "category": "Authentication Handling",
+            "command": "xfreerdp /u:user /p:password123 /v:192.168.1.10",
+            "example": "xfreerdp /u:user /p:password123 /v:192.168.1.10",
+            "explanation": "Provides both username and password directly in the command line for automated login."
+        },
+        {
+            "id": 5,
+            "category": "Authentication Handling",
+            "command": "xfreerdp /u:user /d:CORP /v:192.168.1.10",
+            "example": "xfreerdp /u:user /d:CORP /v:192.168.1.10",
+            "explanation": "Specifies the Active Directory domain for the user account."
+        },
+        {
+            "id": 6,
+            "category": "Target and Port Specification",
+            "command": "xfreerdp /v:192.168.1.10 /port:3389",
+            "example": "xfreerdp /v:192.168.1.10 /port:3389",
+            "explanation": "Explicitly sets the destination port, useful if RDP is listening on a non-standard port."
+        },
+        {
+            "id": 7,
+            "category": "Display Configuration",
+            "command": "xfreerdp /v:192.168.1.10 /f",
+            "example": "xfreerdp /v:192.168.1.10 /f",
+            "explanation": "Launches the RDP session in full-screen mode."
+        },
+        {
+            "id": 8,
+            "category": "Display Configuration",
+            "command": "xfreerdp /v:192.168.1.10 /size:1280x720",
+            "example": "xfreerdp /v:192.168.1.10 /size:1280x720",
+            "explanation": "Sets a specific window resolution for the remote desktop session."
+        },
+        {
+            "id": 9,
+            "category": "Display Configuration",
+            "command": "xfreerdp /v:192.168.1.10 /size:80%",
+            "example": "xfreerdp /v:192.168.1.10 /size:80%",
+            "explanation": "Sets the RDP window size to a percentage of the local screen size."
+        },
+        {
+            "id": 10,
+            "category": "Display Configuration",
+            "command": "xfreerdp /v:192.168.1.10 /multimon",
+            "example": "xfreerdp /v:192.168.1.10 /multimon",
+            "explanation": "Enables multiple monitor support, spanning the session across all local screens."
+        },
+        {
+            "id": 11,
+            "category": "Resource Redirection",
+            "command": "xfreerdp /u:user /v:192.168.1.10 +clipboard",
+            "example": "xfreerdp /u:user /v:192.168.1.10 +clipboard",
+            "explanation": "Enables clipboard sharing between the local host and the remote RDP session."
+        },
+        {
+            "id": 12,
+            "category": "Resource Redirection",
+            "command": "xfreerdp /u:user /v:192.168.1.10 /drive:share,/home/user/files",
+            "example": "xfreerdp /u:user /v:192.168.1.10 /drive:share,/home/user/files",
+            "explanation": "Mounts a local directory as a mapped drive inside the remote Windows session."
+        },
+        {
+            "id": 13,
+            "category": "Resource Redirection",
+            "command": "xfreerdp /v:192.168.1.10 /sound:sys:alsa",
+            "example": "xfreerdp /v:192.168.1.10 /sound:sys:alsa",
+            "explanation": "Redirects remote audio output to the local machine using the ALSA backend."
+        },
+        {
+            "id": 14,
+            "category": "Resource Redirection",
+            "command": "xfreerdp /v:192.168.1.10 /microphone:sys:alsa",
+            "example": "xfreerdp /v:192.168.1.10 /microphone:sys:alsa",
+            "explanation": "Redirects local microphone input to the remote session."
+        },
+        {
+            "id": 15,
+            "category": "Resource Redirection",
+            "command": "xfreerdp /v:192.168.1.10 +printing",
+            "example": "xfreerdp /v:192.168.1.10 +printing",
+            "explanation": "Enables local printer redirection to the remote host."
+        },
+        {
+            "id": 16,
+            "category": "Security and Certificate Options",
+            "command": "xfreerdp /v:192.168.1.10 /cert-ignore",
+            "example": "xfreerdp /v:192.168.1.10 /cert-ignore",
+            "explanation": "Ignores any invalid or self-signed certificate errors from the target."
+        },
+        {
+            "id": 17,
+            "category": "Security and Certificate Options",
+            "command": "xfreerdp /v:192.168.1.10 /cert-tofu",
+            "example": "xfreerdp /v:192.168.1.10 /cert-tofu",
+            "explanation": "Uses Trust on First Use policy to accept the certificate once and warn on changes."
+        },
+        {
+            "id": 18,
+            "category": "Security and Certificate Options",
+            "command": "xfreerdp /v:192.168.1.10 /sec:nla",
+            "example": "xfreerdp /v:192.168.1.10 /sec:nla",
+            "explanation": "Forces the usage of Network Level Authentication (NLA) protocol."
+        },
+        {
+            "id": 19,
+            "category": "Security and Certificate Options",
+            "command": "xfreerdp /v:192.168.1.10 /sec:tls",
+            "example": "xfreerdp /v:192.168.1.10 /sec:tls",
+            "explanation": "Forces the usage of TLS encryption for the connection."
+        },
+        {
+            "id": 20,
+            "category": "Security and Certificate Options",
+            "command": "xfreerdp /v:192.168.1.10 /sec:rdp",
+            "example": "xfreerdp /v:192.168.1.10 /sec:rdp",
+            "explanation": "Falls back to standard RDP security (often less secure) if other methods fail."
+        },
+        {
+            "id": 21,
+            "category": "Performance Tuning",
+            "command": "xfreerdp /v:192.168.1.10 /network:lan",
+            "example": "xfreerdp /v:192.168.1.10 /network:lan",
+            "explanation": "Optimizes connection settings for a high-speed Local Area Network."
+        },
+        {
+            "id": 22,
+            "category": "Performance Tuning",
+            "command": "xfreerdp /v:192.168.1.10 /network:modem",
+            "example": "xfreerdp /v:192.168.1.10 /network:modem",
+            "explanation": "Optimizes connection settings for low-bandwidth connections by disabling wallpapers and themes."
+        },
+        {
+            "id": 23,
+            "category": "Performance Tuning",
+            "command": "xfreerdp /v:192.168.1.10 /bpp:16",
+            "example": "xfreerdp /v:192.168.1.10 /bpp:16",
+            "explanation": "Reduces color depth to 16-bit to save bandwidth."
+        },
+        {
+            "id": 24,
+            "category": "Performance Tuning",
+            "command": "xfreerdp /v:192.168.1.10 +compression",
+            "example": "xfreerdp /v:192.168.1.10 +compression",
+            "explanation": "Enables bulk compression to reduce data transfer size."
+        },
+        {
+            "id": 25,
+            "category": "Proxy and Gateway Usage",
+            "command": "xfreerdp /v:internal-pc /g:gateway.example.com",
+            "example": "xfreerdp /v:internal-pc /g:gateway.example.com",
+            "explanation": "Connects to an internal target via an RD Gateway server."
+        },
+        {
+            "id": 26,
+            "category": "Proxy and Gateway Usage",
+            "command": "xfreerdp /v:internal-pc /g:gateway.example.com /gu:gatewayuser /gp:gatewaypass",
+            "example": "xfreerdp /v:internal-pc /g:gateway.example.com /gu:gatewayuser /gp:gatewaypass",
+            "explanation": "Authenticates to the RD Gateway with specific credentials different from the target host."
+        },
+        {
+            "id": 27,
+            "category": "Lateral Movement Simulation",
+            "command": "xfreerdp /v:192.168.1.10 /u:admin /pth:E52CAC67419A9A224A3B108F3FA6CB6D",
+            "example": "xfreerdp /v:192.168.1.10 /u:admin /pth:E52CAC67419A9A224A3B108F3FA6CB6D",
+            "explanation": "Performs a Pass-the-Hash attack to authenticate using an NTLM hash instead of a password."
+        },
+        {
+            "id": 28,
+            "category": "Lateral Movement Simulation",
+            "command": "xfreerdp /v:192.168.1.10 /restricted-admin",
+            "example": "xfreerdp /v:192.168.1.10 /restricted-admin",
+            "explanation": "Connects in Restricted Admin mode, preventing credential exposure to the target machine."
+        },
+        {
+            "id": 29,
+            "category": "Lateral Movement Simulation",
+            "command": "xfreerdp /v:192.168.1.10 /client-hostname:spoofed-host",
+            "example": "xfreerdp /v:192.168.1.10 /client-hostname:spoofed-host",
+            "explanation": "Spoofs the client hostname sent to the server during the connection sequence."
+        },
+        {
+            "id": 30,
+            "category": "Automation and Scripting",
+            "command": "xfreerdp /v:192.168.1.10 +auto-reconnect",
+            "example": "xfreerdp /v:192.168.1.10 +auto-reconnect",
+            "explanation": "Automatically attempts to reconnect if the session drops."
+        },
+        {
+            "id": 31,
+            "category": "Automation and Scripting",
+            "command": "xfreerdp /v:192.168.1.10 /auto-reconnect-max-retries:10",
+            "example": "xfreerdp /v:192.168.1.10 /auto-reconnect-max-retries:10",
+            "explanation": "Limits the number of automatic reconnection attempts to 10."
+        },
+        {
+            "id": 32,
+            "category": "Automation and Scripting",
+            "command": "xfreerdp /v:192.168.1.10 /app:\"||cmd\"",
+            "example": "xfreerdp /v:192.168.1.10 /app:\"||cmd\"",
+            "explanation": "Uses RemoteApp feature to launch a single application (cmd) instead of a full desktop."
+        },
+        {
+            "id": 33,
+            "category": "Tunneling and Port Forwarding",
+            "command": "ssh -L 33389:192.168.1.10:3389 user@jumpbox -f -N && xfreerdp /v:127.0.0.1 /port:33389",
+            "example": "ssh -L 33389:192.168.1.10:3389 user@jumpbox -f -N && xfreerdp /v:127.0.0.1 /port:33389",
+            "explanation": "Tunnels RDP traffic through an SSH jumpbox via local port forwarding."
+        },
+        {
+            "id": 34,
+            "category": "Advanced RDP Configuration",
+            "command": "xfreerdp /v:192.168.1.10 /kbd:0x00000409",
+            "example": "xfreerdp /v:192.168.1.10 /kbd:0x00000409",
+            "explanation": "Forces the keyboard layout to US English to prevent mapping issues."
+        },
+        {
+            "id": 35,
+            "category": "Advanced RDP Configuration",
+            "command": "xfreerdp /v:192.168.1.10 +fonts",
+            "example": "xfreerdp /v:192.168.1.10 +fonts",
+            "explanation": "Enables font smoothing (ClearType) for better text readability."
+        },
+        {
+            "id": 36,
+            "category": "Advanced RDP Configuration",
+            "command": "xfreerdp /v:192.168.1.10 -wallpaper",
+            "example": "xfreerdp /v:192.168.1.10 -wallpaper",
+            "explanation": "Explicitly disables the desktop wallpaper to improve responsiveness."
+        },
+        {
+            "id": 37,
+            "category": "Red Team Operational Use",
+            "command": "xfreerdp /v:192.168.1.10 /drive:c,/ /drive:etc,/etc",
+            "example": "xfreerdp /v:192.168.1.10 /drive:c,/ /drive:etc,/etc",
+            "explanation": "Exposes the entire local root filesystem to the remote compromised host for exfiltration."
+        },
+        {
+            "id": 38,
+            "category": "Red Team Operational Use",
+            "command": "xfreerdp /v:192.168.1.10 /log-level:DEBUG",
+            "example": "xfreerdp /v:192.168.1.10 /log-level:DEBUG",
+            "explanation": "Runs the client with verbose logging to debug authentication failures or protocol errors."
+        },
+        {
+            "id": 39,
+            "category": "Native Windows Client (mstsc)",
+            "command": "mstsc /v:192.168.1.10",
+            "example": "mstsc /v:192.168.1.10",
+            "explanation": "Basic command line execution for the native Windows Remote Desktop Connection client."
+        },
+        {
+            "id": 40,
+            "category": "Native Windows Client (mstsc)",
+            "command": "mstsc /v:192.168.1.10 /admin",
+            "example": "mstsc /v:192.168.1.10 /admin",
+            "explanation": "Connects to the console session (Session 0) or the administrative session of the server."
+        },
+        {
+            "id": 41,
+            "category": "Native Windows Client (mstsc)",
+            "command": "mstsc /v:192.168.1.10 /f",
+            "example": "mstsc /v:192.168.1.10 /f",
+            "explanation": "Starts the native Windows RDP client immediately in full-screen mode."
+        },
+        {
+            "id": 42,
+            "category": "Native Windows Client (mstsc)",
+            "command": "mstsc /v:192.168.1.10 /w:1024 /h:768",
+            "example": "mstsc /v:192.168.1.10 /w:1024 /h:768",
+            "explanation": "Launches the native client with specific width and height dimensions."
+        },
+        {
+            "id": 43,
+            "category": "Native Windows Client (mstsc)",
+            "command": "mstsc /edit connection.rdp",
+            "example": "mstsc /edit connection.rdp",
+            "explanation": "Opens an existing RDP configuration file for editing without connecting."
+        },
+        {
+            "id": 44,
+            "category": "Native Windows Client (mstsc)",
+            "command": "mstsc /shadow:1 /v:192.168.1.10 /control",
+            "example": "mstsc /shadow:1 /v:192.168.1.10 /control",
+            "explanation": "Shadows (views) session ID 1 on the target server with control privileges."
+        },
+        {
+            "id": 45,
+            "category": "Native Windows Client (mstsc)",
+            "command": "mstsc /shadow:1 /v:192.168.1.10 /noConsentPrompt",
+            "example": "mstsc /shadow:1 /v:192.168.1.10 /noConsentPrompt",
+            "explanation": "Shadows a session attempting to bypass the user consent prompt (requires policy configuration)."
+        },
+        {
+            "id": 46,
+            "category": "Purple Team Detection Testing",
+            "command": "xfreerdp /v:192.168.1.10 /sec:rdp /cert-ignore",
+            "example": "xfreerdp /v:192.168.1.10 /sec:rdp /cert-ignore",
+            "explanation": "Deliberately downgrades security to test if the target alerts on weak encryption protocols."
+        },
+        {
+            "id": 47,
+            "category": "Purple Team Detection Testing",
+            "command": "xfreerdp /u:baduser /p:wrongpass /v:192.168.1.10",
+            "example": "xfreerdp /u:baduser /p:wrongpass /v:192.168.1.10",
+            "explanation": "Generates a failed login event (Event ID 4625) to test SIEM alerting rules."
+        },
+        {
+            "id": 48,
+            "category": "Purple Team Detection Testing",
+            "command": "xfreerdp /v:192.168.1.10 /drive:*,/tmp",
+            "example": "xfreerdp /v:192.168.1.10 /drive:*,/tmp",
+            "explanation": "Mounts all available local drives to test DLP controls or monitoring of drive redirection."
+        },
+        {
+            "id": 49,
+            "category": "Blue Team Defensive Validation",
+            "command": "nmap -p 3389 --script rdp-enum-encryption 192.168.1.10",
+            "example": "nmap -p 3389 --script rdp-enum-encryption 192.168.1.10",
+            "explanation": "Checks which encryption levels and security protocols are enforced by the RDP service."
+        },
+        {
+            "id": 50,
+            "category": "Blue Team Defensive Validation",
+            "command": "nmap -p 3389 --script rdp-ntlm-info 192.168.1.10",
+            "example": "nmap -p 3389 --script rdp-ntlm-info 192.168.1.10",
+            "explanation": "Extracts domain and server information from the RDP service without full authentication."
+        },
+        {
+            "id": 51,
+            "category": "Combined Real World Workflow",
+            "command": "xfreerdp /v:192.168.1.10 /u:admin /p:pass /size:90% +clipboard /drive:share,./payloads /cert-ignore",
+            "example": "xfreerdp /v:192.168.1.10 /u:admin /p:pass /size:90% +clipboard /drive:share,./payloads /cert-ignore",
+            "explanation": "A typical admin workflow connecting with credentials, sharing payloads, and ignoring cert warnings."
+        },
+        {
+            "id": 52,
+            "category": "Incident Response Simulation",
+            "command": "xfreerdp /v:192.168.1.10 +bitmap-cache-persist",
+            "example": "xfreerdp /v:192.168.1.10 +bitmap-cache-persist",
+            "explanation": "Enables persistent bitmap caching to generate cache files for forensic artifact testing."
+        },
+        {
+            "id": 53,
+            "category": "Incident Response Simulation",
+            "command": "xfreerdp /v:192.168.1.10 /timeout:60000",
+            "example": "xfreerdp /v:192.168.1.10 /timeout:60000",
+            "explanation": "Sets a connection timeout to test how the server logs incomplete or timed-out handshake attempts."
+        },
+        {
+            "id": 54,
+            "category": "Advanced Auth",
+            "command": "xfreerdp /v:192.168.1.10 /smartcard:soft:pfx:/path/to/cert.pfx",
+            "example": "xfreerdp /v:192.168.1.10 /smartcard:soft:pfx:/path/to/cert.pfx",
+            "explanation": "Emulates a smart card authentication using a software PFX certificate file."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Auth",
+            "command": "xfreerdp /v:192.168.1.10 /kerberos:auto",
+            "example": "xfreerdp /v:192.168.1.10 /kerberos:auto",
+            "explanation": "Attempts to authenticate using a Kerberos ticket granting ticket (TGT) from the current cache."
+        },
+        {
+            "id": 56,
+            "category": "Legacy/Alternative Client",
+            "command": "rdesktop -u user -p password -g 1024x768 192.168.1.10",
+            "example": "rdesktop -u user -p password -g 1024x768 192.168.1.10",
+            "explanation": "Connects using the legacy rdesktop client with geometry settings."
+        },
+        {
+            "id": 57,
+            "category": "Legacy/Alternative Client",
+            "command": "rdesktop -r disk:local=/home/user 192.168.1.10",
+            "example": "rdesktop -r disk:local=/home/user 192.168.1.10",
+            "explanation": "Connects with rdesktop and redirects a local disk."
+        },
+        {
+            "id": 58,
+            "category": "Tunneling and Port Forwarding",
+            "command": "socat TCP4-LISTEN:3389,fork TCP4:192.168.1.10:3389",
+            "example": "socat TCP4-LISTEN:3389,fork TCP4:192.168.1.10:3389",
+            "explanation": "Creates a simple port forwarder using socat to expose an internal RDP host."
+        },
+        {
+            "id": 59,
+            "category": "Security Protocol Selection",
+            "command": "xfreerdp /v:192.168.1.10 /ssl-protocol:TLSv1.2",
+            "example": "xfreerdp /v:192.168.1.10 /ssl-protocol:TLSv1.2",
+            "explanation": "Strictly enforces the use of TLS version 1.2 for the connection."
+        },
+        {
+            "id": 60,
+            "category": "Cleanup and Termination",
+            "command": "pkill -f xfreerdp",
+            "example": "pkill -f xfreerdp",
+            "explanation": "Forcefully terminates all running xfreerdp processes."
+        }
+    ]
+}

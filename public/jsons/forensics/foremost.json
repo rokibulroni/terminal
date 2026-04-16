@@ -1,0 +1,427 @@
+{
+    "tool": "foremost",
+    "description": "Complete Foremost command and workflow reference from basic to advanced file carving and data recovery",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Usage",
+            "command": "foremost -h",
+            "example": "foremost -h",
+            "explanation": "Displays the help screen with a summary of available command line options"
+        },
+        {
+            "id": 2,
+            "category": "Basic Usage",
+            "command": "foremost -V",
+            "example": "foremost -V",
+            "explanation": "Displays the current version information and copyright details of the tool"
+        },
+        {
+            "id": 3,
+            "category": "Basic Usage",
+            "command": "foremost [image_file]",
+            "example": "foremost image.dd",
+            "explanation": "Carves recoverable files from a disk image using default settings and signatures"
+        },
+        {
+            "id": 4,
+            "category": "Input Handling",
+            "command": "foremost -i [input_file]",
+            "example": "foremost -i memory_dump.mem",
+            "explanation": "Explicitly specifies the input file or image to be processed for file carving"
+        },
+        {
+            "id": 5,
+            "category": "Output Control",
+            "command": "foremost -o [output_dir] -i [image_file]",
+            "example": "foremost -o recovered_data -i drive.img",
+            "explanation": "Specifies a custom output directory to store the recovered files and report"
+        },
+        {
+            "id": 6,
+            "category": "Output Control",
+            "command": "foremost -T -i [image_file]",
+            "example": "foremost -T -i suspect_disk.dd",
+            "explanation": "Appends a timestamp to the output directory name to prevent overwriting previous results"
+        },
+        {
+            "id": 7,
+            "category": "Output Control",
+            "command": "foremost -v -i [image_file]",
+            "example": "foremost -v -i evidence.img",
+            "explanation": "Enables verbose mode to display detailed processing information to the screen"
+        },
+        {
+            "id": 8,
+            "category": "Output Control",
+            "command": "foremost -Q -i [image_file]",
+            "example": "foremost -Q -i sensitive.dd",
+            "explanation": "Enables quiet mode to suppress output messages and protect privacy during processing"
+        },
+        {
+            "id": 9,
+            "category": "File Type Carving",
+            "command": "foremost -t all -i [image_file]",
+            "example": "foremost -t all -i usb_dump.img",
+            "explanation": "Attempts to carve all supported file types defined in the configuration"
+        },
+        {
+            "id": 10,
+            "category": "File Type Carving",
+            "command": "foremost -t jpg -i [image_file]",
+            "example": "foremost -t jpg -i camera_card.dd",
+            "explanation": "Restricts file carving specifically to JPEG image files"
+        },
+        {
+            "id": 11,
+            "category": "File Type Carving",
+            "command": "foremost -t png -i [image_file]",
+            "example": "foremost -t png -i screenshot_dump.raw",
+            "explanation": "Restricts file carving specifically to PNG image files"
+        },
+        {
+            "id": 12,
+            "category": "File Type Carving",
+            "command": "foremost -t gif -i [image_file]",
+            "example": "foremost -t gif -i web_cache.dd",
+            "explanation": "Restricts file carving specifically to GIF image files"
+        },
+        {
+            "id": 13,
+            "category": "File Type Carving",
+            "command": "foremost -t pdf -i [image_file]",
+            "example": "foremost -t pdf -i documents.img",
+            "explanation": "Restricts file carving specifically to PDF documents"
+        },
+        {
+            "id": 14,
+            "category": "File Type Carving",
+            "command": "foremost -t doc -i [image_file]",
+            "example": "foremost -t doc -i legacy_files.dd",
+            "explanation": "Restricts file carving specifically to legacy Microsoft Word documents"
+        },
+        {
+            "id": 15,
+            "category": "File Type Carving",
+            "command": "foremost -t ole -i [image_file]",
+            "example": "foremost -t ole -i corporate_disk.img",
+            "explanation": "Carves OLE compound files like PowerPoint, Word, Excel, and MSI installers"
+        },
+        {
+            "id": 16,
+            "category": "File Type Carving",
+            "command": "foremost -t zip -i [image_file]",
+            "example": "foremost -t zip -i backup.dd",
+            "explanation": "Carves ZIP archives and formats based on ZIP containers like Jar and Office XML"
+        },
+        {
+            "id": 17,
+            "category": "File Type Carving",
+            "command": "foremost -t html -i [image_file]",
+            "example": "foremost -t html -i browser_cache.img",
+            "explanation": "Carves HTML files which is useful for reconstructing web browsing history"
+        },
+        {
+            "id": 18,
+            "category": "File Type Carving",
+            "command": "foremost -t exe -i [image_file]",
+            "example": "foremost -t exe -i malware_sample.mem",
+            "explanation": "Carves Windows PE executables which is critical for malware analysis"
+        },
+        {
+            "id": 19,
+            "category": "File Type Carving",
+            "command": "foremost -t jpg,pdf -i [image_file]",
+            "example": "foremost -t jpg,pdf -i mixed_evidence.dd",
+            "explanation": "Carves only JPEG images and PDF documents simultaneously"
+        },
+        {
+            "id": 20,
+            "category": "Configuration & Tuning",
+            "command": "foremost -c [config_file] -i [image_file]",
+            "example": "foremost -c custom.conf -i device.img",
+            "explanation": "Uses a specific configuration file with custom headers and footers"
+        },
+        {
+            "id": 21,
+            "category": "Configuration & Tuning",
+            "command": "foremost -b [size] -i [image_file]",
+            "example": "foremost -b 1024 -i data.img",
+            "explanation": "Sets the block size used for reading the input file to optimize performance"
+        },
+        {
+            "id": 22,
+            "category": "Configuration & Tuning",
+            "command": "foremost -k [size] -i [image_file]",
+            "example": "foremost -k 512 -i memory.dump",
+            "explanation": "Sets the chunk size for checking headers which helps with alignment"
+        },
+        {
+            "id": 23,
+            "category": "Configuration & Tuning",
+            "command": "foremost -s [sectors] -i [image_file]",
+            "example": "foremost -s 2048 -i partition.img",
+            "explanation": "Skips the specified number of blocks before starting the extraction process"
+        },
+        {
+            "id": 24,
+            "category": "Audit & Logging",
+            "command": "foremost -w -i [image_file]",
+            "example": "foremost -w -i drive_clone.dd",
+            "explanation": "Writes an audit file only without actually extracting any files to disk"
+        },
+        {
+            "id": 25,
+            "category": "Audit & Logging",
+            "command": "foremost -q -i [image_file]",
+            "example": "foremost -q -i large_drive.img",
+            "explanation": "Enables Quick mode to search only at sector boundaries for faster processing"
+        },
+        {
+            "id": 26,
+            "category": "Advanced Options",
+            "command": "foremost -d -i [image_file]",
+            "example": "foremost -d -i unix_disk.dd",
+            "explanation": "Enables indirect block detection for Unix file systems to handle fragmentation"
+        },
+        {
+            "id": 27,
+            "category": "Advanced Options",
+            "command": "foremost -a -i [image_file]",
+            "example": "foremost -a -i corrupted.img",
+            "explanation": "Writes all headers found even if no footer is detected which allows partial recovery"
+        },
+        {
+            "id": 28,
+            "category": "Combined Workflows",
+            "command": "foremost -v -T -t all -i [image_file]",
+            "example": "foremost -v -T -t all -i investigation.dd",
+            "explanation": "Carves all files with verbose logging and timestamped output for case management"
+        },
+        {
+            "id": 29,
+            "category": "Combined Workflows",
+            "command": "foremost -Q -o [dir] -t jpg,png -i [image_file]",
+            "example": "foremost -Q -o images_only -t jpg,png -i server.img",
+            "explanation": "Quietly extracts only common image formats to a specific directory"
+        },
+        {
+            "id": 30,
+            "category": "Incident Response",
+            "command": "foremost -t exe,elf -o [dir] -i [image_file]",
+            "example": "foremost -t exe,elf -o binaries -i infected_host.img",
+            "explanation": "Targets executable binaries for Windows and Linux to isolate potential malware"
+        },
+        {
+            "id": 31,
+            "category": "Incident Response",
+            "command": "foremost -t rar,zip,7z -i [image_file]",
+            "example": "foremost -t rar,zip,7z -i exfil_data.dd",
+            "explanation": "Focuses on archive formats often used by attackers for data exfiltration"
+        },
+        {
+            "id": 32,
+            "category": "Digital Forensics",
+            "command": "foremost -s 63 -t all -i [image_file]",
+            "example": "foremost -s 63 -t all -i full_disk.img",
+            "explanation": "Skips the standard track 0 area to start carving at the first partition start"
+        },
+        {
+            "id": 33,
+            "category": "Digital Forensics",
+            "command": "foremost -c foremost.conf -v -w -i [image_file]",
+            "example": "foremost -c cases/case1.conf -v -w -i drive.dd",
+            "explanation": "Validates a custom config file against an image with verbose audit logging"
+        },
+        {
+            "id": 34,
+            "category": "Blue Team Validation",
+            "command": "foremost -t log -i [image_file]",
+            "example": "foremost -t log -i var_log.img",
+            "explanation": "Attempts to recover deleted log files to reconstruct event timelines"
+        },
+        {
+            "id": 35,
+            "category": "Data Recovery",
+            "command": "foremost -a -t mpg,avi,mov -i [image_file]",
+            "example": "foremost -a -t mpg,avi,mov -i dvr_disk.dd",
+            "explanation": "Forcefully recovers video fragments without footers from DVR systems"
+        },
+        {
+            "id": 36,
+            "category": "Data Recovery",
+            "command": "foremost -b 4096 -t all -i [image_file]",
+            "example": "foremost -b 4096 -t all -i 4k_sector_disk.dd",
+            "explanation": "Adjusts block size to 4096 bytes for modern advanced format drives"
+        },
+        {
+            "id": 37,
+            "category": "Advanced Carving",
+            "command": "foremost -k 1024 -q -i [image_file]",
+            "example": "foremost -k 1024 -q -i ram_dump.mem",
+            "explanation": "Uses a larger chunk size with quick mode for rapid memory artifact assessment"
+        },
+        {
+            "id": 38,
+            "category": "Configuration",
+            "command": "foremost -c /etc/foremost.conf -t all -i [image_file]",
+            "example": "foremost -c /etc/foremost.conf -t all -i evidence.dd",
+            "explanation": "Explicitly calls the system-wide configuration file for standard processing"
+        },
+        {
+            "id": 39,
+            "category": "File Type Carving",
+            "command": "foremost -t wav,rif -i [image_file]",
+            "example": "foremost -t wav,rif -i audio_recorder.img",
+            "explanation": "Targets audio files specifically for voice recorder forensics"
+        },
+        {
+            "id": 40,
+            "category": "File Type Carving",
+            "command": "foremost -t bmp -i [image_file]",
+            "example": "foremost -t bmp -i old_windows.img",
+            "explanation": "Recovers uncompressed bitmap images often found in older systems or steganography"
+        },
+        {
+            "id": 41,
+            "category": "Advanced Workflows",
+            "command": "foremost -o ./audit_run -w -t all -i [image_file]",
+            "example": "foremost -o ./audit_run -w -t all -i unknown_fs.dd",
+            "explanation": "Performs a dry run to estimate recoverable data types without writing files"
+        },
+        {
+            "id": 42,
+            "category": "Incident Response",
+            "command": "foremost -t sxw,sxc,sxi -i [image_file]",
+            "example": "foremost -t sxw,sxc,sxi -i linux_desktop.dd",
+            "explanation": "Targets OpenOffice documents useful for Linux desktop investigations"
+        },
+        {
+            "id": 43,
+            "category": "Incident Response",
+            "command": "foremost -t wmv,wma -i [image_file]",
+            "example": "foremost -t wmv,wma -i media_server.dd",
+            "explanation": "Recovers Windows Media formats to identify unauthorized media usage"
+        },
+        {
+            "id": 44,
+            "category": "Advanced Options",
+            "command": "foremost -T -v -q -i [image_file]",
+            "example": "foremost -T -v -q -i triage_image.dd",
+            "explanation": "Combines timestamp, verbose, and quick mode for rapid on-site triage"
+        },
+        {
+            "id": 45,
+            "category": "Configuration",
+            "command": "foremost -c local.conf -o specialized -i [image_file]",
+            "example": "foremost -c local.conf -o specialized -i proprietary.dd",
+            "explanation": "Uses a local config for proprietary file headers outputting to a named folder"
+        },
+        {
+            "id": 46,
+            "category": "File Type Carving",
+            "command": "foremost -t htm -i [image_file]",
+            "example": "foremost -t htm -i web_server_logs.img",
+            "explanation": "Separately targets HTM extensions if distinguished from HTML in config"
+        },
+        {
+            "id": 47,
+            "category": "File Type Carving",
+            "command": "foremost -t cpp,c,h -i [image_file]",
+            "example": "foremost -t cpp,c,h -i developer_disk.dd",
+            "explanation": "Attempts to recover C/C++ source code files based on headers if configured"
+        },
+        {
+            "id": 48,
+            "category": "Pipeline Workflow",
+            "command": "foremost -o raw_carve -i [image_file] && zip -r case.zip raw_carve",
+            "example": "foremost -o raw_carve -i disk.img && zip -r case.zip raw_carve",
+            "explanation": "Chains foremost execution with zip to immediately archive the recovered evidence"
+        },
+        {
+            "id": 49,
+            "category": "Digital Forensics",
+            "command": "foremost -s 100 -b 512 -i [image_file]",
+            "example": "foremost -s 100 -b 512 -i floppy.img",
+            "explanation": "Skips the first 100 blocks on a legacy media with small block size"
+        },
+        {
+            "id": 50,
+            "category": "Blue Team Validation",
+            "command": "foremost -v -i [image_file] > carving.log 2>&1",
+            "example": "foremost -v -i server.dd > carving.log 2>&1",
+            "explanation": "Redirects verbose output to a log file for post-incident documentation"
+        },
+        {
+            "id": 51,
+            "category": "File Type Carving",
+            "command": "foremost -t gz,tgz -i [image_file]",
+            "example": "foremost -t gz,tgz -i linux_backup.dd",
+            "explanation": "Recovers GZIP compressed files common in Unix/Linux environments"
+        },
+        {
+            "id": 52,
+            "category": "Advanced Options",
+            "command": "foremost -d -T -i [image_file]",
+            "example": "foremost -d -T -i ext4_partition.dd",
+            "explanation": "Uses indirect block detection with timestamped output for Linux partitions"
+        },
+        {
+            "id": 53,
+            "category": "Output Control",
+            "command": "foremost -o /tmp/recovery -i [image_file]",
+            "example": "foremost -o /tmp/recovery -i usb.img",
+            "explanation": "Directs output to a temporary filesystem to avoid writing to evidence handling drives"
+        },
+        {
+            "id": 54,
+            "category": "Advanced Workflows",
+            "command": "foremost -t all -i - < [image_file]",
+            "example": "cat image.dd | foremost -t all -i -",
+            "explanation": "Accepts input from stdin allowing for piping from other tools like netcat or dd"
+        },
+        {
+            "id": 55,
+            "category": "File Type Carving",
+            "command": "foremost -t ppt,xls,doc -i [image_file]",
+            "example": "foremost -t ppt,xls,doc -i office_2003.dd",
+            "explanation": "Specifically targets pre-2007 Microsoft Office binary formats"
+        },
+        {
+            "id": 56,
+            "category": "File Type Carving",
+            "command": "foremost -t pptx,xlsx,docx -i [image_file]",
+            "example": "foremost -t pptx,xlsx,docx -i office_2019.dd",
+            "explanation": "Specifically targets modern XML-based Microsoft Office formats (requires config)"
+        },
+        {
+            "id": 57,
+            "category": "Triage",
+            "command": "foremost -q -t jpg -T -i [image_file]",
+            "example": "foremost -q -t jpg -T -i user_folder.dd",
+            "explanation": "Runs a quick mode scan for JPEGs with timestamping for rapid media triage"
+        },
+        {
+            "id": 58,
+            "category": "Validation",
+            "command": "foremost -w -c custom_headers.conf -i [image_file]",
+            "example": "foremost -w -c custom_headers.conf -i test_set.dd",
+            "explanation": "Audits a disk image against custom headers to verify signature effectiveness"
+        },
+        {
+            "id": 59,
+            "category": "Forensics",
+            "command": "foremost -o evidence/ -v -d -i [image_file]",
+            "example": "foremost -o evidence/ -v -d -i fragmented.dd",
+            "explanation": "Combines indirect block detection and verbose mode into a dedicated evidence folder"
+        },
+        {
+            "id": 60,
+            "category": "Full Recovery",
+            "command": "foremost -t all -a -v -T -i [image_file]",
+            "example": "foremost -t all -a -v -T -i final_attempt.dd",
+            "explanation": "Runs the most aggressive recovery mode with all types, header-only writing, and logs"
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+  "tool": "systemctl",
+  "description": "Systemctl is the primary command-line utility for managing systemd services, targets, and global Linux init system processes.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Status",
+      "command": "systemctl status <service_name>",
+      "example": "systemctl status sshd",
+      "explanation": "Outputs the running status, diagnostic logs, and absolute state of a specific service."
+    },
+    {
+      "id": 2,
+      "category": "State Management",
+      "command": "systemctl start <service_name>",
+      "example": "systemctl start nginx",
+      "explanation": "Immediately boots up and starts the specified service daemon for the current session."
+    },
+    {
+      "id": 3,
+      "category": "State Management",
+      "command": "systemctl stop <service_name>",
+      "example": "systemctl stop nginx",
+      "explanation": "Gracefully halts the active running service."
+    },
+    {
+      "id": 4,
+      "category": "State Management",
+      "command": "systemctl restart <service_name>",
+      "example": "systemctl restart apache2",
+      "explanation": "Stops and then restarts a service. Disconnects existing client connections."
+    },
+    {
+      "id": 5,
+      "category": "State Management",
+      "command": "systemctl reload <service_name>",
+      "example": "systemctl reload nginx",
+      "explanation": "Reloads the service's configuration files without terminating the core process or dropping active connections."
+    },
+    {
+      "id": 6,
+      "category": "Boot Management",
+      "command": "systemctl enable <service_name>",
+      "example": "systemctl enable sshd",
+      "explanation": "Configures the service to persistently automatically start every time the server boots."
+    },
+    {
+      "id": 7,
+      "category": "Boot Management",
+      "command": "systemctl disable <service_name>",
+      "example": "systemctl disable bluetooth",
+      "explanation": "Removes the symlinks, preventing the service from starting automatically upon reboot."
+    },
+    {
+      "id": 8,
+      "category": "Hardening",
+      "command": "systemctl mask <service_name>",
+      "example": "systemctl mask firewalld",
+      "explanation": "Completely prevents the service from being started on the system, manually or automatically, by mapping it to /dev/null."
+    },
+    {
+      "id": 9,
+      "category": "Analysis",
+      "command": "systemctl list-units --type=service --state=failed",
+      "example": "systemctl list-units --type=service --state=failed",
+      "explanation": "Provides a direct printout of any services that crashed or failed to load correctly."
+    },
+    {
+      "id": 10,
+      "category": "Maintenance",
+      "command": "systemctl daemon-reload",
+      "example": "systemctl daemon-reload",
+      "explanation": "Forces systemd to reload all .service unit files. Crucial after you edit a custom service configuration script."
+    }
+  ]
+}

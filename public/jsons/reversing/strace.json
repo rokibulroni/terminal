@@ -1,0 +1,77 @@
+{
+    "tool": "strace",
+    "description": "Strace: The absolute foundational process logging tool intercepting and aggressively monitoring deep root Linux System Calls (Syscalls) interfacing bridging standard programs across local Kernels.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Active Monitoring",
+            "command": "strace <binary>",
+            "example": "strace ./target_malware",
+            "explanation": "Executes explicitly bounded binaries dynamically mapping every single deeply hooked system call (like file reads, IP accesses) actively streaming it straight into live stdout logs."
+        },
+        {
+            "id": 2,
+            "category": "Filter Expressions",
+            "command": "strace -e trace=<syscall> <binary>",
+            "example": "strace -e trace=open,read ./target",
+            "explanation": "Eliminates extreme tracking noise inherently restricting the execution pipeline logic strictly trapping ONLY specified systemic interactions."
+        },
+        {
+            "id": 3,
+            "category": "Network Tracking",
+            "command": "strace -e trace=network <binary>",
+            "example": "strace -e trace=network ./target",
+            "explanation": "Forcefully isolates deeply embedded logic matrices dynamically capturing any localized raw API requests executing explicitly attempting outbound global internet connections."
+        },
+        {
+            "id": 4,
+            "category": "Process Interception",
+            "command": "strace -p <pid>",
+            "example": "strace -p 1234",
+            "explanation": "Attaches the aggressive monitoring layer onto a completely decoupled natively running background process exposing real-time explicit data-manipulations without termination loops."
+        },
+        {
+            "id": 5,
+            "category": "Fork Tracing",
+            "command": "strace -f <binary>",
+            "example": "strace -f ./target_malware",
+            "explanation": "Follows deeply obfuscated binaries recursively enabling tracking logics to completely penetrate into new explicitly spawned sub-threads natively escaping basic tracking vectors."
+        },
+        {
+            "id": 6,
+            "category": "Instruction Counting",
+            "command": "strace -c <binary>",
+            "example": "strace -c ./target",
+            "explanation": "Modifies logging fundamentally eliminating live streams instead mathematically summing exactly how many times each System Call natively executing outputting clean statistical aggregate distributions."
+        },
+        {
+            "id": 7,
+            "category": "Timing Mappings",
+            "command": "strace -t <binary>",
+            "example": "strace -t ./target",
+            "explanation": "Prepends standard system clock logic explicitly appending highly explicit live millisecond timestamps cleanly aligned vertically directly next to execution strings."
+        },
+        {
+            "id": 8,
+            "category": "Log Extraction",
+            "command": "strace -o <file> <binary>",
+            "example": "strace -o trace_logs.txt ./target",
+            "explanation": "Forcefully mitigates chaotic visual terminal overload executing massive systemic tracking outputs seamlessly redirecting raw text exclusively into localized filesystem locations."
+        },
+        {
+            "id": 9,
+            "category": "String Deep-Dives",
+            "command": "strace -s <size> <binary>",
+            "example": "strace -s 512 ./target",
+            "explanation": "Modifies standard byte limits forcefully allowing incredibly massive long unencrypted internal string arrays (like massive SQL queries) to inherently print instead of heavily truncating."
+        },
+        {
+            "id": 10,
+            "category": "Relative Timing",
+            "command": "strace -r <binary>",
+            "example": "strace -r ./target",
+            "explanation": "Injects native chronological processing logic establishing exact elapsed execution millisecond timings bridged directly between every explicit sequentially intercepted local System Call."
+        }
+    ]
+}

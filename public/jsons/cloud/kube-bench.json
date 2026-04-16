@@ -1,0 +1,427 @@
+{
+    "tool": "kube-bench",
+    "description": "Complete kube-bench command and workflow reference from basic to advanced Kubernetes security auditing",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Execution",
+            "command": "kube-bench",
+            "example": "kube-bench",
+            "explanation": "Runs the default CIS benchmark checks based on auto-detected Kubernetes version and node type."
+        },
+        {
+            "id": 2,
+            "category": "Basic Execution",
+            "command": "kube-bench run",
+            "example": "kube-bench run",
+            "explanation": "Explicitly triggers the run command to execute benchmarks using default settings."
+        },
+        {
+            "id": 3,
+            "category": "Basic Execution",
+            "command": "kube-bench version",
+            "example": "kube-bench version",
+            "explanation": "Displays the installed version of the kube-bench tool."
+        },
+        {
+            "id": 4,
+            "category": "Target Selection",
+            "command": "kube-bench run --targets master",
+            "example": "kube-bench run --targets master",
+            "explanation": "Executes security checks specifically designed for the Kubernetes master/control plane node."
+        },
+        {
+            "id": 5,
+            "category": "Target Selection",
+            "command": "kube-bench run --targets node",
+            "example": "kube-bench run --targets node",
+            "explanation": "Executes security checks specifically designed for Kubernetes worker nodes."
+        },
+        {
+            "id": 6,
+            "category": "Target Selection",
+            "command": "kube-bench run --targets etcd",
+            "example": "kube-bench run --targets etcd",
+            "explanation": "Runs checks specifically targeting the etcd data store configuration and security."
+        },
+        {
+            "id": 7,
+            "category": "Target Selection",
+            "command": "kube-bench run --targets policies",
+            "example": "kube-bench run --targets policies",
+            "explanation": "Runs checks aimed at validating Kubernetes policies and RBAC configurations."
+        },
+        {
+            "id": 8,
+            "category": "Target Selection",
+            "command": "kube-bench run --targets controlplane",
+            "example": "kube-bench run --targets controlplane",
+            "explanation": "Target alias often used interchangeably with master to check control plane components."
+        },
+        {
+            "id": 9,
+            "category": "Target Selection",
+            "command": "kube-bench run --targets master,node",
+            "example": "kube-bench run --targets master,node",
+            "explanation": "Executes benchmark checks for both master and worker node roles simultaneously."
+        },
+        {
+            "id": 10,
+            "category": "Target Selection",
+            "command": "kube-bench run --targets master,etcd",
+            "example": "kube-bench run --targets master,etcd",
+            "explanation": "Combines control plane and etcd checks in a single execution run."
+        },
+        {
+            "id": 11,
+            "category": "Output Formatting",
+            "command": "kube-bench run --json",
+            "example": "kube-bench run --json",
+            "explanation": "Outputs the audit results in structured JSON format for parsing and automation."
+        },
+        {
+            "id": 12,
+            "category": "Output Formatting",
+            "command": "kube-bench run --junit",
+            "example": "kube-bench run --junit",
+            "explanation": "Outputs the audit results in JUnit XML format for CI/CD pipeline integration."
+        },
+        {
+            "id": 13,
+            "category": "Output Formatting",
+            "command": "kube-bench run --noremediations",
+            "example": "kube-bench run --noremediations",
+            "explanation": "Runs checks but suppresses the remediation suggestions in the output to reduce clutter."
+        },
+        {
+            "id": 14,
+            "category": "Output Formatting",
+            "command": "kube-bench run --noresults",
+            "example": "kube-bench run --noresults",
+            "explanation": "Suppresses the detailed results output, useful when only interested in exit codes or logs."
+        },
+        {
+            "id": 15,
+            "category": "Specific Checks",
+            "command": "kube-bench run --check <ID>",
+            "example": "kube-bench run --check 1.1.1",
+            "explanation": "Executes only the specific benchmark check identified by the provided ID."
+        },
+        {
+            "id": 16,
+            "category": "Specific Checks",
+            "command": "kube-bench run --check <ID_LIST>",
+            "example": "kube-bench run --check 1.1.1,1.1.2,1.1.3",
+            "explanation": "Executes a comma-separated list of specific benchmark check IDs."
+        },
+        {
+            "id": 17,
+            "category": "Skipping Checks",
+            "command": "kube-bench run --skip <ID>",
+            "example": "kube-bench run --skip 1.1.1",
+            "explanation": "Runs all default checks except the specific ID provided."
+        },
+        {
+            "id": 18,
+            "category": "Skipping Checks",
+            "command": "kube-bench run --skip <ID_LIST>",
+            "example": "kube-bench run --skip 1.1.1,1.1.2",
+            "explanation": "Runs all default checks while excluding the comma-separated list of IDs."
+        },
+        {
+            "id": 19,
+            "category": "Benchmark Versions",
+            "command": "kube-bench run --benchmark cis-1.5",
+            "example": "kube-bench run --benchmark cis-1.5",
+            "explanation": "Forces the usage of the legacy CIS Kubernetes Benchmark v1.5."
+        },
+        {
+            "id": 20,
+            "category": "Benchmark Versions",
+            "command": "kube-bench run --benchmark cis-1.6",
+            "example": "kube-bench run --benchmark cis-1.6",
+            "explanation": "Forces the usage of the CIS Kubernetes Benchmark v1.6."
+        },
+        {
+            "id": 21,
+            "category": "Benchmark Versions",
+            "command": "kube-bench run --benchmark cis-1.7",
+            "example": "kube-bench run --benchmark cis-1.7",
+            "explanation": "Forces the usage of the CIS Kubernetes Benchmark v1.7."
+        },
+        {
+            "id": 22,
+            "category": "Benchmark Versions",
+            "command": "kube-bench run --benchmark cis-1.20",
+            "example": "kube-bench run --benchmark cis-1.20",
+            "explanation": "Forces the usage of the CIS Kubernetes Benchmark v1.20."
+        },
+        {
+            "id": 23,
+            "category": "Benchmark Versions",
+            "command": "kube-bench run --benchmark cis-1.23",
+            "example": "kube-bench run --benchmark cis-1.23",
+            "explanation": "Forces the usage of the CIS Kubernetes Benchmark v1.23."
+        },
+        {
+            "id": 24,
+            "category": "Cloud Specific",
+            "command": "kube-bench run --benchmark eks-1.2.0",
+            "example": "kube-bench run --benchmark eks-1.2.0",
+            "explanation": "Runs the CIS benchmark specifically tailored for Amazon EKS v1.2.0."
+        },
+        {
+            "id": 25,
+            "category": "Cloud Specific",
+            "command": "kube-bench run --benchmark gke-1.0",
+            "example": "kube-bench run --benchmark gke-1.0",
+            "explanation": "Runs the CIS benchmark specifically tailored for Google Kubernetes Engine (GKE)."
+        },
+        {
+            "id": 26,
+            "category": "Cloud Specific",
+            "command": "kube-bench run --benchmark aks-1.0",
+            "example": "kube-bench run --benchmark aks-1.0",
+            "explanation": "Runs the CIS benchmark specifically tailored for Azure Kubernetes Service (AKS)."
+        },
+        {
+            "id": 27,
+            "category": "Cloud Specific",
+            "command": "kube-bench run --benchmark rh-0.0.1",
+            "example": "kube-bench run --benchmark rh-0.0.1",
+            "explanation": "Runs the benchmark specifically tailored for Red Hat OpenShift environments."
+        },
+        {
+            "id": 28,
+            "category": "Cloud Specific",
+            "command": "kube-bench run --benchmark ack-1.0",
+            "example": "kube-bench run --benchmark ack-1.0",
+            "explanation": "Runs the CIS benchmark specifically tailored for Alibaba Cloud Container Service."
+        },
+        {
+            "id": 29,
+            "category": "Version Override",
+            "command": "kube-bench run --version <K8S_VER>",
+            "example": "kube-bench run --version 1.24",
+            "explanation": "Manually specifies the Kubernetes version to select the appropriate benchmark set."
+        },
+        {
+            "id": 30,
+            "category": "Configuration",
+            "command": "kube-bench run --config-dir <PATH>",
+            "example": "kube-bench run --config-dir /etc/kube-bench/cfg",
+            "explanation": "Specifies a custom directory path to look for benchmark configuration files."
+        },
+        {
+            "id": 31,
+            "category": "Configuration",
+            "command": "kube-bench run --config <FILE>",
+            "example": "kube-bench run --config /custom/config.yaml",
+            "explanation": "Specifies a custom configuration file instead of the default config.yaml."
+        },
+        {
+            "id": 32,
+            "category": "Logging",
+            "command": "kube-bench run --log_level 1",
+            "example": "kube-bench run --log_level 1",
+            "explanation": "Sets the logging verbosity to level 1 for basic info logging."
+        },
+        {
+            "id": 33,
+            "category": "Logging",
+            "command": "kube-bench run --log_level 2",
+            "example": "kube-bench run --log_level 2",
+            "explanation": "Sets the logging verbosity to level 2 for more detailed debug information."
+        },
+        {
+            "id": 34,
+            "category": "Advanced Workflow",
+            "command": "kube-bench run --targets master --json --noremediations",
+            "example": "kube-bench run --targets master --json --noremediations",
+            "explanation": "Runs master checks outputting pure JSON without remediation text for cleaner data ingestion."
+        },
+        {
+            "id": 35,
+            "category": "Advanced Workflow",
+            "command": "kube-bench run --targets node --junit --skip <ID>",
+            "example": "kube-bench run --targets node --junit --skip 4.1.1",
+            "explanation": "Runs node checks, skips a known false positive, and outputs JUnit XML for CI pipelines."
+        },
+        {
+            "id": 36,
+            "category": "Advanced Workflow",
+            "command": "kube-bench run --targets etcd --check <ID_LIST> --json",
+            "example": "kube-bench run --targets etcd --check 2.1,2.2 --json",
+            "explanation": "Audits specific etcd configurations and outputs the result in JSON."
+        },
+        {
+            "id": 37,
+            "category": "Advanced Workflow",
+            "command": "kube-bench run --benchmark cis-1.23 --targets master",
+            "example": "kube-bench run --benchmark cis-1.23 --targets master",
+            "explanation": "Forces a specific modern CIS benchmark version on the master node regardless of detection."
+        },
+        {
+            "id": 38,
+            "category": "Containerized Execution",
+            "command": "kube-bench run --targets node --version <VER>",
+            "example": "kube-bench run --targets node --version 1.25",
+            "explanation": "Typical command used inside a Job definition to audit the node hosting the pod."
+        },
+        {
+            "id": 39,
+            "category": "File Output",
+            "command": "kube-bench run --json > report.json",
+            "example": "kube-bench run --json > report.json",
+            "explanation": "Standard shell redirection to save JSON audit results to a file for later analysis."
+        },
+        {
+            "id": 40,
+            "category": "File Output",
+            "command": "kube-bench run --junit > junit.xml",
+            "example": "kube-bench run --junit > junit.xml",
+            "explanation": "Standard shell redirection to save JUnit XML results to a file for Jenkins/GitLab."
+        },
+        {
+            "id": 41,
+            "category": "Performance Tuning",
+            "command": "kube-bench run --v 0",
+            "example": "kube-bench run --v 0",
+            "explanation": "Runs with minimal verbosity, reducing IO overhead during execution."
+        },
+        {
+            "id": 42,
+            "category": "Blue Team Validation",
+            "command": "kube-bench run --check <CRITICAL_IDS>",
+            "example": "kube-bench run --check 1.2.1,1.2.2",
+            "explanation": "Rapidly validates the state of specific critical control plane configurations during an incident."
+        },
+        {
+            "id": 43,
+            "category": "Compliance Audit",
+            "command": "kube-bench run --targets master,node,etcd --json",
+            "example": "kube-bench run --targets master,node,etcd --json",
+            "explanation": "Full cluster compliance sweep outputting a comprehensive JSON report."
+        },
+        {
+            "id": 44,
+            "category": "Custom Config",
+            "command": "kube-bench run --config-dir cfg/ --benchmark <CUSTOM>",
+            "example": "kube-bench run --config-dir cfg/ --benchmark custom-1.0",
+            "explanation": "Runs a custom-defined benchmark suite located in a specific directory."
+        },
+        {
+            "id": 45,
+            "category": "Specific Check Group",
+            "command": "kube-bench run --check 1.1",
+            "example": "kube-bench run --check 1.1",
+            "explanation": "Runs all sub-checks under section 1.1 (e.g., API Server configuration)."
+        },
+        {
+            "id": 46,
+            "category": "Environment Override",
+            "command": "kube-bench run --version <OLD_VER>",
+            "example": "kube-bench run --version 1.15",
+            "explanation": "Simulates an audit for an older Kubernetes version to test legacy compliance rules."
+        },
+        {
+            "id": 47,
+            "category": "EKS Analysis",
+            "command": "kube-bench run --benchmark eks-1.2.0 --targets node",
+            "example": "kube-bench run --benchmark eks-1.2.0 --targets node",
+            "explanation": "Validates worker node security posture specifically against EKS standards."
+        },
+        {
+            "id": 48,
+            "category": "GKE Analysis",
+            "command": "kube-bench run --benchmark gke-1.0 --targets node",
+            "example": "kube-bench run --benchmark gke-1.0 --targets node",
+            "explanation": "Validates worker node security posture specifically against GKE standards."
+        },
+        {
+            "id": 49,
+            "category": "Combined Filter",
+            "command": "kube-bench run --targets master --skip <FAILING_IDS>",
+            "example": "kube-bench run --targets master --skip 1.1.9,1.1.10",
+            "explanation": "Runs master checks while ignoring known failing controls that are accepted risks."
+        },
+        {
+            "id": 50,
+            "category": "DevOps Pipeline",
+            "command": "kube-bench run --targets node --json --noremediations > result.json",
+            "example": "kube-bench run --targets node --json --noremediations > result.json",
+            "explanation": "Optimized command for automated pipeline jobs to capture node status silently."
+        },
+        {
+            "id": 51,
+            "category": "Interactive Debug",
+            "command": "kube-bench run --log_level 2 --check <ID>",
+            "example": "kube-bench run --log_level 2 --check 1.2.5",
+            "explanation": "High verbosity run on a single check to troubleshoot why a specific audit is failing."
+        },
+        {
+            "id": 52,
+            "category": "Post-Incident",
+            "command": "kube-bench run --targets policies --json",
+            "example": "kube-bench run --targets policies --json",
+            "explanation": "Audits RBAC and ServiceAccount policies specifically to detect permission drifts."
+        },
+        {
+            "id": 53,
+            "category": "Legacy Support",
+            "command": "kube-bench run --benchmark cis-1.4",
+            "example": "kube-bench run --benchmark cis-1.4",
+            "explanation": "Runs very old benchmark definitions for maintaining legacy system audits."
+        },
+        {
+            "id": 54,
+            "category": "Control Plane Only",
+            "command": "kube-bench run --targets controlplane --json",
+            "example": "kube-bench run --targets controlplane --json",
+            "explanation": "Focuses strictly on the control plane components for managed service validations."
+        },
+        {
+            "id": 55,
+            "category": "Automated Parsing",
+            "command": "kube-bench run --json --noresults",
+            "example": "kube-bench run --json --noresults",
+            "explanation": "Generates JSON structure without human-readable summaries, maximizing parsing speed."
+        },
+        {
+            "id": 56,
+            "category": "Full System Audit",
+            "command": "kube-bench run --targets master,node,etcd,policies",
+            "example": "kube-bench run --targets master,node,etcd,policies",
+            "explanation": "Maximum coverage command targeting every available component and policy."
+        },
+        {
+            "id": 57,
+            "category": "Specific Benchmark Path",
+            "command": "kube-bench run --config-dir /opt/kube-bench/cfg",
+            "example": "kube-bench run --config-dir /opt/kube-bench/cfg",
+            "explanation": "Directs kube-bench to load configuration from a non-standard system location."
+        },
+        {
+            "id": 58,
+            "category": "CI/CD Gate",
+            "command": "kube-bench run --junit --targets master --skip <FLAKY>",
+            "example": "kube-bench run --junit --targets master --skip 1.2.20",
+            "explanation": "Production gate check outputting JUnit, ignoring flaky tests to prevent build failures."
+        },
+        {
+            "id": 59,
+            "category": "Quick Sanity Check",
+            "command": "kube-bench run --check 1.1.1,1.1.2,1.1.3",
+            "example": "kube-bench run --check 1.1.1,1.1.2,1.1.3",
+            "explanation": "Runs only the first three API server checks as a quick health signal."
+        },
+        {
+            "id": 60,
+            "category": "Documentation Generation",
+            "command": "kube-bench run --json > current_audit.json",
+            "example": "kube-bench run --json > current_audit.json",
+            "explanation": "Snapshots the current security posture to a JSON file for documentation and comparison."
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+  "tool": "pacman",
+  "description": "Package Manager (Pacman): The elite package manager utilized natively by Arch Linux, Manjaro, and BlackArch for ultra-fast package synchronization.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Updates",
+      "command": "pacman -Syu",
+      "example": "pacman -Syu",
+      "explanation": "Synchronizes repository databases and updates all out-of-date packages on your Arch system."
+    },
+    {
+      "id": 2,
+      "category": "Installs",
+      "command": "pacman -S <package_name>",
+      "example": "pacman -S vim",
+      "explanation": "Installs a specific package from the synchronized repository."
+    },
+    {
+      "id": 3,
+      "category": "Searching",
+      "command": "pacman -Ss <keyword>",
+      "example": "pacman -Ss firefox",
+      "explanation": "Searches the repository database for a package matching the specified keyword."
+    },
+    {
+      "id": 4,
+      "category": "Information",
+      "command": "pacman -Qi <package_name>",
+      "example": "pacman -Qi bash",
+      "explanation": "Displays extensive information about a locally installed package."
+    },
+    {
+      "id": 5,
+      "category": "Removal",
+      "command": "pacman -R <package_name>",
+      "example": "pacman -R nano",
+      "explanation": "Removes a package, leaving its dependencies and its configuration files completely intact."
+    },
+    {
+      "id": 6,
+      "category": "Removal",
+      "command": "pacman -Rns <package_name>",
+      "example": "pacman -Rns nano",
+      "explanation": "The cleanest removal command. Recursively removes the package, its unused dependencies, and its global configuration files."
+    },
+    {
+      "id": 7,
+      "category": "Maintenance",
+      "command": "pacman -Qdtq",
+      "example": "pacman -Qdtq",
+      "explanation": "Lists all 'orphaned' packages—packages installed as dependencies that are no longer required by any parent package."
+    },
+    {
+      "id": 8,
+      "category": "Maintenance",
+      "command": "pacman -Rns $(pacman -Qdtq)",
+      "example": "pacman -Rns $(pacman -Qdtq)",
+      "explanation": "Automatically purges all orphaned packages from your system, reclaiming disk space."
+    },
+    {
+      "id": 9,
+      "category": "Searching",
+      "command": "pacman -F <file_path>",
+      "example": "pacman -F libcrypto.so",
+      "explanation": "Searches for which package containing a specific file (great for fixing missing libraries)."
+    },
+    {
+      "id": 10,
+      "category": "Maintenance",
+      "command": "pacman -Scc",
+      "example": "pacman -Scc",
+      "explanation": "Aggressively clears the pacman cache by removing all cached packages that aren't strictly needed."
+    }
+  ]
+}

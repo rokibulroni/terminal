@@ -1,0 +1,322 @@
+{
+  "tool": "rustscan",
+  "description": "Complete RustScan command reference from beginner to advanced",
+  "total_commands": 45,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Scan",
+      "command": "rustscan -a 192.168.1.1",
+      "example": "rustscan -a 192.168.1.1",
+      "explanation": "Executes a high-speed TCP connect scan against a single IP address.\nIdeal for rapid initial reconnaissance to quickly identify open ports."
+    },
+    {
+      "id": 2,
+      "category": "Basic Scan",
+      "command": "rustscan -a scanme.nmap.org",
+      "example": "rustscan -a scanme.nmap.org",
+      "explanation": "Resolves the hostname to an IP and performs a standard port scan.\nUseful when testing domains directly or validating DNS resolution."
+    },
+    {
+      "id": 3,
+      "category": "Target Specification",
+      "command": "rustscan -a 192.168.1.0/24",
+      "example": "rustscan -a 192.168.1.0/24",
+      "explanation": "Scans an entire /24 subnet to discover live hosts and open ports.\nEssential for mapping out network segments and identifying targets."
+    },
+    {
+      "id": 4,
+      "category": "Target Specification",
+      "command": "rustscan -a '192.168.1.1,192.168.1.5'",
+      "example": "rustscan -a '192.168.1.1,192.168.1.5'",
+      "explanation": "Targets a specific list of comma-separated IP addresses.\nAllows for focused scanning of known high-value targets without scanning the full range."
+    },
+    {
+      "id": 5,
+      "category": "Port Control",
+      "command": "rustscan -a 192.168.1.1 -p 80",
+      "example": "rustscan -a 192.168.1.1 -p 80",
+      "explanation": "Scans only a single specific port on the target host.\nBest for verifying the availability of a specific service like HTTP or SSH."
+    },
+    {
+      "id": 6,
+      "category": "Port Control",
+      "command": "rustscan -a 192.168.1.1 -p 80,443,8080",
+      "example": "rustscan -a 192.168.1.1 -p 80,443,8080",
+      "explanation": "Scans a defined list of ports to check for specific services.\nEfficient for validating compliance or checking for known services across hosts."
+    },
+    {
+      "id": 7,
+      "category": "Port Ranges",
+      "command": "rustscan -a 192.168.1.1 -r 1-1000",
+      "example": "rustscan -a 192.168.1.1 -r 1-1000",
+      "explanation": "Scans a sequential range of ports (1-1000) on the target.\nCovers most well-known ports while being faster than a full system scan."
+    },
+    {
+      "id": 8,
+      "category": "Port Ranges",
+      "command": "rustscan -a 192.168.1.1 -r 1-65535",
+      "example": "rustscan -a 192.168.1.1 -r 1-65535",
+      "explanation": "Scans every valid TCP port from 1 to 65535.\nCritical for discovering hidden services running on non-standard high ports."
+    },
+    {
+      "id": 9,
+      "category": "Performance Tuning",
+      "command": "rustscan -a 192.168.1.1 -b 1000",
+      "example": "rustscan -a 192.168.1.1 -b 1000",
+      "explanation": "Sets the batch size to 1000 to control scan concurrency.\nAdjusting this balances speed with network reliability and accuracy."
+    },
+    {
+      "id": 10,
+      "category": "Performance Tuning",
+      "command": "rustscan -a 192.168.1.1 -b 65535",
+      "example": "rustscan -a 192.168.1.1 -b 65535",
+      "explanation": "Maximizes the batch size to scan all ports in a single pass.\nUse this for extreme speed on capable networks, but risk of packet loss increases."
+    },
+    {
+      "id": 11,
+      "category": "Performance Tuning",
+      "command": "rustscan -a 192.168.1.1 -b 10",
+      "example": "rustscan -a 192.168.1.1 -b 10",
+      "explanation": "Reduces batch size to 10 for a very gentle scan.\nUseful for unstable networks or sensitive legacy devices that crash under load."
+    },
+    {
+      "id": 12,
+      "category": "Timeout Configuration",
+      "command": "rustscan -a 192.168.1.1 -t 2000",
+      "example": "rustscan -a 192.168.1.1 -t 2000",
+      "explanation": "Sets a 2-second timeout for waiting on port responses.\nHelps account for network latency or slow services without stalling the scan."
+    },
+    {
+      "id": 13,
+      "category": "Timeout Configuration",
+      "command": "rustscan -a 192.168.1.1 -t 500",
+      "example": "rustscan -a 192.168.1.1 -t 500",
+      "explanation": "Sets a short 500ms timeout for high-speed local scanning.\nBest used on low-latency LANs where responses should be immediate."
+    },
+    {
+      "id": 14,
+      "category": "System Resource Tuning",
+      "command": "rustscan -a 192.168.1.1 -u 5000",
+      "example": "rustscan -a 192.168.1.1 -u 5000",
+      "explanation": "Increases the system's open file limit (ulimit) to 5000.\nNecessary when running large batch sizes to prevent 'Too many open files' errors."
+    },
+    {
+      "id": 15,
+      "category": "Scanning Strategy",
+      "command": "rustscan -a 192.168.1.1 --tries 2",
+      "example": "rustscan -a 192.168.1.1 --tries 2",
+      "explanation": "Retries failed packets twice per port.\nImproves scan accuracy on unreliable or congested networks."
+    },
+    {
+      "id": 16,
+      "category": "Scanning Strategy",
+      "command": "rustscan -a 192.168.1.1 --scan-order random",
+      "example": "rustscan -a 192.168.1.1 --scan-order random",
+      "explanation": "Randomizes the order of port scanning.\nHelps evade some simple intrusion detection systems that look for sequential patterns."
+    },
+    {
+      "id": 17,
+      "category": "Nmap Integration",
+      "command": "rustscan -a 192.168.1.1 -- -sV",
+      "example": "rustscan -a 192.168.1.1 -- -sV",
+      "explanation": "Pipelines discovered ports directly to Nmap for Version Detection (-sV).\nCombines RustScan's speed with Nmap's deep service analysis."
+    },
+    {
+      "id": 18,
+      "category": "Nmap Integration",
+      "command": "rustscan -a 192.168.1.1 -- -O",
+      "example": "rustscan -a 192.168.1.1 -- -O",
+      "explanation": "Pipelines ports to Nmap for Operating System Detection (-O).\nCrucial for identifying the OS to tailor exploits or further attacks."
+    },
+    {
+      "id": 19,
+      "category": "Nmap Integration",
+      "command": "rustscan -a 192.168.1.1 -- -A",
+      "example": "rustscan -a 192.168.1.1 -- -A",
+      "explanation": "Pipelines ports to Nmap's Aggressive Scan (-A).\nPerforms OS detection, versioning, script scanning, and traceroute in one step."
+    },
+    {
+      "id": 20,
+      "category": "Nmap Integration",
+      "command": "rustscan -a 192.168.1.1 -- -sC",
+      "example": "rustscan -a 192.168.1.1 -- -sC",
+      "explanation": "Runs the default set of Nmap scripts (-sC) on open ports.\nAutomates the checking of common vulnerabilities and configuration issues."
+    },
+    {
+      "id": 21,
+      "category": "Advanced Nmap Integration",
+      "command": "rustscan -a 192.168.1.1 -- -sV -sC",
+      "example": "rustscan -a 192.168.1.1 -- -sV -sC",
+      "explanation": "Runs both Version Detection and Default Scripts on discovered ports.\nThe gold standard for thorough enumeration of open services."
+    },
+    {
+      "id": 22,
+      "category": "Script Execution",
+      "command": "rustscan -a 192.168.1.1 -- --script=vuln",
+      "example": "rustscan -a 192.168.1.1 -- --script=vuln",
+      "explanation": "Triggers Nmap's vulnerability scanning scripts (--script=vuln).\nRapidly checks discovered services for known CVEs and weaknesses."
+    },
+    {
+      "id": 23,
+      "category": "Script Execution",
+      "command": "rustscan -a 192.168.1.1 -- --script=http-title",
+      "example": "rustscan -a 192.168.1.1 -- --script=http-title",
+      "explanation": "Runs the http-title script to grab web page titles.\nUseful for quickly identifying web applications and their purposes."
+    },
+    {
+      "id": 24,
+      "category": "Output Handling",
+      "command": "rustscan -a 192.168.1.1 -- -oN scan_results.txt",
+      "example": "rustscan -a 192.168.1.1 -- -oN scan_results.txt",
+      "explanation": "Outputs the Nmap scan results to a standard text file.\nPreserves a human-readable record of the scan for reporting."
+    },
+    {
+      "id": 25,
+      "category": "Output Handling",
+      "command": "rustscan -a 192.168.1.1 -- -oX scan_results.xml",
+      "example": "rustscan -a 192.168.1.1 -- -oX scan_results.xml",
+      "explanation": "Saves Nmap results in XML format.\nIdeal for importing scan data into frameworks like Metasploit or Dradis."
+    },
+    {
+      "id": 26,
+      "category": "Output Handling",
+      "command": "rustscan -a 192.168.1.1 -- -oG grepable.txt",
+      "example": "rustscan -a 192.168.1.1 -- -oG grepable.txt",
+      "explanation": "Saves Nmap results in 'Grepable' format.\nFacilitates quick parsing and filtering of results using command-line tools."
+    },
+    {
+      "id": 27,
+      "category": "Stealth and Evasion",
+      "command": "rustscan -a 192.168.1.1 -b 50 -t 3000 -- -T2",
+      "example": "rustscan -a 192.168.1.1 -b 50 -t 3000 -- -T2",
+      "explanation": "Uses a lower batch size and polite Nmap timing (-T2).\nDesigned to be less aggressive and reduce the chance of detection or instability."
+    },
+    {
+      "id": 28,
+      "category": "Stealth and Evasion",
+      "command": "rustscan -a 192.168.1.1 -- -f -mtu 24",
+      "example": "rustscan -a 192.168.1.1 -- -f -mtu 24",
+      "explanation": "Passes fragmentation and MTU flags to Nmap.\nAttempts to bypass simple packet filters and firewalls by breaking up packets."
+    },
+    {
+      "id": 29,
+      "category": "Stealth and Evasion",
+      "command": "rustscan -a 192.168.1.1 -- -D RND:5",
+      "example": "rustscan -a 192.168.1.1 -- -D RND:5",
+      "explanation": "Uses 5 random decoy IPs during the Nmap phase.\nObscures the true source IP address to complicate analysis by defenders."
+    },
+    {
+      "id": 30,
+      "category": "Full Range High Performance",
+      "command": "rustscan -a 192.168.1.1 -r 1-65535 -b 3000 -t 1000",
+      "example": "rustscan -a 192.168.1.1 -r 1-65535 -b 3000 -t 1000",
+      "explanation": "Optimized parameters for maximum performance on huge ranges.\nUses high batch size and low timeout to rapidly assess full systems."
+    },
+    {
+      "id": 31,
+      "category": "Firewall Friendly",
+      "command": "rustscan -a 192.168.1.1 -p 80,443,53,8080 -t 2000 -- -Pn",
+      "example": "rustscan -a 192.168.1.1 -p 80,443,53,8080 -t 2000 -- -Pn",
+      "explanation": "Scans common ports without pinging the host (-Pn).\nNecessary when the target firewall blocks ICMP but services are likely open."
+    },
+    {
+      "id": 32,
+      "category": "IPv6 Scanning",
+      "command": "rustscan -a 2001:db8::1 -- -6",
+      "example": "rustscan -a 2001:db8::1 -- -6",
+      "explanation": "Initiates an IPv6 scan and passes the -6 flag to Nmap.\nEnsures proper protocol handling when targeting IPv6 addresses."
+    },
+    {
+      "id": 33,
+      "category": "Automation Pipelines",
+      "command": "rustscan -a 192.168.1.1 --scripts none",
+      "example": "rustscan -a 192.168.1.1 --scripts none",
+      "explanation": "Disables the Nmap scripting phase entirely.\nReturns only the raw list of open ports found by RustScan, useful for custom scripts."
+    },
+    {
+      "id": 34,
+      "category": "Automation Pipelines",
+      "command": "rustscan -a 192.168.1.1 -- -sV --version-intensity 0",
+      "example": "rustscan -a 192.168.1.1 -- -sV --version-intensity 0",
+      "explanation": "Runs a very light intensity version scan.\nSacrifices some detail for significantly faster execution speed."
+    },
+    {
+      "id": 35,
+      "category": "Automation Pipelines",
+      "command": "rustscan -a 192.168.1.1 -- -sV --version-all",
+      "example": "rustscan -a 192.168.1.1 -- -sV --version-all",
+      "explanation": "Forces Nmap to try every single version probe.\nMaximizes accuracy of service identification at the cost of scan time."
+    },
+    {
+      "id": 36,
+      "category": "Real World Scenario",
+      "command": "rustscan -a 10.10.10.0/24 -t 500 -b 2000 -- -sV -oA subnet_scan",
+      "example": "rustscan -a 10.10.10.0/24 -t 500 -b 2000 -- -sV -oA subnet_scan",
+      "explanation": "Rapidly maps a subnet and saves all formats.\nA standard efficiency workflow for internal network assessments."
+    },
+    {
+      "id": 37,
+      "category": "Real World Scenario",
+      "command": "rustscan -a 192.168.1.1 -r 1-65535 -- -sC -sV -oN nmap.txt",
+      "example": "rustscan -a 192.168.1.1 -r 1-65535 -- -sC -sV -oN nmap.txt",
+      "explanation": "Full 65k port scan followed by detailed analysis.\nThe typical 'CTF' or 'Pentest' starter command for a thorough host assessment."
+    },
+    {
+      "id": 38,
+      "category": "Real World Scenario",
+      "command": "rustscan -a 192.168.1.1 -- -sU",
+      "example": "rustscan -a 192.168.1.1 -- -sU",
+      "explanation": "Passes found TCP ports to Nmap's UDP scan (-sU).\nNote: RustScan finds TCP ports; this checks if UDP services exist on those same port numbers."
+    },
+    {
+      "id": 39,
+      "category": "Advanced Filtering",
+      "command": "rustscan -a 192.168.1.1 -- -sV --script-args http.useragent=\"Mozilla/5.0\"",
+      "example": "rustscan -a 192.168.1.1 -- -sV --script-args http.useragent=\"Mozilla/5.0\"",
+      "explanation": "Passes custom arguments to Nmap scripts.\nUseful for bypassing restrictions or blending in by changing the User-Agent."
+    },
+    {
+      "id": 40,
+      "category": "Advanced Filtering",
+      "command": "rustscan -a 192.168.1.1 -- --exclude 192.168.1.100",
+      "example": "rustscan -a 192.168.1.1 -- --exclude 192.168.1.100",
+      "explanation": "Excludes specific IPs from the Nmap phase.\nPrevents scanning of sensitive or out-of-scope hosts even if they are in the range."
+    },
+    {
+      "id": 41,
+      "category": "Shell Integration",
+      "command": "cat targets.txt | rustscan -a -",
+      "example": "cat targets.txt | rustscan -a -",
+      "explanation": "Reads IP addresses from stdin and scans them.\nAllows RustScan to be part of a larger pipeline, e.g., 'cat targets.txt | rustscan'."
+    },
+    {
+      "id": 42,
+      "category": "Shell Integration",
+      "command": "rustscan -a 192.168.1.1 | grep Open",
+      "example": "rustscan -a 192.168.1.1 | grep Open",
+      "explanation": "Pipes the raw output to grep to find open ports.\nUseful for quick CLI filtering when you don't need the full Nmap report."
+    },
+    {
+      "id": 43,
+      "category": "Container/Docker",
+      "command": "docker run -it --rm --name rustscan rustscan/rustscan:alpine -a 192.168.1.1",
+      "example": "docker run -it --rm --name rustscan rustscan/rustscan:alpine -a 192.168.1.1",
+      "explanation": "Runs RustScan from an ephemeral Docker container.\nKeeps your host system clean and ensures you are using the latest version."
+    },
+    {
+      "id": 44,
+      "category": "Aliases and Shortcuts",
+      "command": "alias fastscan='rustscan -b 2000 -t 1000 -a'",
+      "example": "alias fastscan='rustscan -b 2000 -t 1000 -a'",
+      "explanation": "Defines a shell alias for a pre-configured fast scan.\nSaves time by creating a shortcut for your preferred scanning parameters."
+    },
+    {
+      "id": 45,
+      "category": "Extreme Speed",
+      "command": "rustscan -a 192.168.1.1 -b 4000 -t 200 -- -T5",
+      "example": "rustscan -a 192.168.1.1 -b 4000 -t 200 -- -T5",
+      "explanation": "Combines maximum values for all speed parameters.\nThe 'nuclear' option for when noise is not a concern and speed is everything."
+    }
+  ]
+}

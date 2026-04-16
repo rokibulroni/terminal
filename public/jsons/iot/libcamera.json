@@ -1,0 +1,77 @@
+{
+  "tool": "libcamera",
+  "description": "libcamera is the standard next-generation suite inherently replacing legacy raspistill bridging strict multi-threaded hardware-level camera ISP handling.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Information",
+      "command": "libcamera-hello",
+      "example": "libcamera-hello",
+      "explanation": "Boots the optic sensor executing a quick 5-second graphical preview window explicitly validating that the physical ribbon connections and optics are responsive."
+    },
+    {
+      "id": 2,
+      "category": "Information",
+      "command": "libcamera-hello --list-cameras",
+      "example": "libcamera-hello --list-cameras",
+      "explanation": "Extracts systemic configurations listing the exact specific underlying camera models (imx219, imx477) currently actively recognized upon the CSI ports."
+    },
+    {
+      "id": 3,
+      "category": "Image Capture",
+      "command": "libcamera-jpeg -o <file.jpg>",
+      "example": "libcamera-jpeg -o test.jpg",
+      "explanation": "Engages the sensor focusing arrays, compiles a standard uncompressed image feed, and encodes it executing an immediate JPG save."
+    },
+    {
+      "id": 4,
+      "category": "Image Capture",
+      "command": "libcamera-still -o <file.png> --encoding png",
+      "example": "libcamera-still -o raw_test.png --encoding png",
+      "explanation": "Leverages the `still` command explicitly forcing the internal software encoder to preserve lossless clarity outputting to an absolute PNG schema."
+    },
+    {
+      "id": 5,
+      "category": "Image Capture",
+      "command": "libcamera-still -o <file.jpg> --autofocus",
+      "example": "libcamera-still -o focus_test.jpg --autofocus",
+      "explanation": "Commands advanced optical arrays (like Pi Camera Module 3) triggering internal Voice Coil Motors to dial perfect sharp programmatic physical lens focus."
+    },
+    {
+      "id": 6,
+      "category": "Video Capture",
+      "command": "libcamera-vid -t <time_ms> -o <file.h264>",
+      "example": "libcamera-vid -t 10000 -o vid.h264",
+      "explanation": "Forces the integrated system block to parse video capturing raw hardware-accelerated fluid H264 feeds for exactly the specific inputted milliseconds duration (e.g. 10s)."
+    },
+    {
+      "id": 7,
+      "category": "Video Capture",
+      "command": "libcamera-vid -t 0 --inline -o tcp://0.0.0.0:8000",
+      "example": "libcamera-vid -t 0 --inline -o tcp://0.0.0.0:8000",
+      "explanation": "Establishes a limitless TCP stream fundamentally transmitting active raw internal video frames inherently broadcasting them live across the LAN network."
+    },
+    {
+      "id": 8,
+      "category": "Automation",
+      "command": "libcamera-still -t <total_ms> --timelapse <interval_ms> -o <prefix%04d.jpg>",
+      "example": "libcamera-still -t 60000 -timelapse 2000 -o img%04d.jpg",
+      "explanation": "Initiates an automated timelapse execution shooting cyclical periodic absolute still frames precisely every targeted interval milliseconds natively scaling internal image numeration arrays."
+    },
+    {
+      "id": 9,
+      "category": "Optics Tuning",
+      "command": "libcamera-vid --exposure <mode>",
+      "example": "libcamera-vid --exposure sports -o fast.h264",
+      "explanation": "Dynamically adjusts algorithmic shutter calculations inherently limiting trailing blur explicitly tuned for specific extreme lighting situations (normal, sport, night)."
+    },
+    {
+      "id": 10,
+      "category": "Raw Sensor Bridging",
+      "command": "libcamera-raw -t 5000 -o raw_feed.raw",
+      "example": "libcamera-raw -t 5000 -o test.raw",
+      "explanation": "Absolutely circumvents all internal Post-Processing pipelines dumping pure uncompressed literal pixel Bayer arrays bypassing systemic JPG compression losses."
+    }
+  ]
+}

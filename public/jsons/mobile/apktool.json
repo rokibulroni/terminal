@@ -1,0 +1,77 @@
+{
+    "tool": "apktool",
+    "description": "Apktool: A critical Reverse Engineering utility designed natively for unpacking, decoding, modifying, and completely rebuilding 3rd party, closed, binary Android apps.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Decompilation",
+            "command": "apktool d <apk>",
+            "example": "apktool d target_app.apk",
+            "explanation": "Decodes the compressed raw Java/Smali bytecodes and unzips internal encrypted AndroidManifests leaving completely readable resources mapped natively in a new directory."
+        },
+        {
+            "id": 2,
+            "category": "No-Src Decompliation",
+            "command": "apktool d -s <apk>",
+            "example": "apktool d -s target_app.apk",
+            "explanation": "Surgically executes logic extraction completely avoiding disassembling dex files. The `.dex` files are left heavily raw avoiding enormous Smali generation times."
+        },
+        {
+            "id": 3,
+            "category": "Rebuilding Array",
+            "command": "apktool b <directory>",
+            "example": "apktool b target_app_folder",
+            "explanation": "Inverts disassembly reading all heavily modified `.smali` codes bridging them automatically recreating absolute raw unaligned `.apk` payloads."
+        },
+        {
+            "id": 4,
+            "category": "Framework Alignment",
+            "command": "apktool if <framework.apk>",
+            "example": "apktool if framework-res.apk",
+            "explanation": "Injects localized OEM-specific graphical processing libraries allowing complex hardware-proprietary apps to disassemble cleanly."
+        },
+        {
+            "id": 5,
+            "category": "Debugging Logic",
+            "command": "apktool d -d <apk>",
+            "example": "apktool d -d app.apk",
+            "explanation": "Injects deep debug-mode parameters radically generating inherently step-compatible `.java` bridges for use natively in IDE architectures."
+        },
+        {
+            "id": 6,
+            "category": "Force Overwrite",
+            "command": "apktool d -f <apk>",
+            "example": "apktool d -f app.apk",
+            "explanation": "Forcefully drops new decoded folders instantly bypassing errors by actively eradicating previous analysis folders containing matching names."
+        },
+        {
+            "id": 7,
+            "category": "Information Dump",
+            "command": "apktool empty-framework-dir",
+            "example": "apktool empty-framework-dir",
+            "explanation": "Safely unlinks all locally stored OEM mapping libraries forcing the internal system framework paths to physically factory reset."
+        },
+        {
+            "id": 8,
+            "category": "Match Original",
+            "command": "apktool d -m <apk>",
+            "example": "apktool d -m app.apk",
+            "explanation": "Directs Smali mapping exactly matching the canonical physical architecture array maintaining absolute raw 1:1 file paths during edits."
+        },
+        {
+            "id": 9,
+            "category": "AAPT Replacement",
+            "command": "apktool b -a <path> <dir>",
+            "example": "apktool b -a /usr/bin/aapt2 target_app",
+            "explanation": "Overrides inherent package packaging algorithms explicitly leveraging advanced specified customized Android Asset Packaging Tools (AAPT2)."
+        },
+        {
+            "id": 10,
+            "category": "Version Check",
+            "command": "apktool --version",
+            "example": "apktool --version",
+            "explanation": "A critical system verification ensuring the installed internal library dependencies explicitly map to the proper java environment variable matrices."
+        }
+    ]
+}

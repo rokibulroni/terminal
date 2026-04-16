@@ -1,0 +1,427 @@
+{
+    "tool": "winrm",
+    "description": "Complete WinRM command and workflow reference from basic to advanced remote management and lateral movement",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Configuration",
+            "command": "winrm quickconfig",
+            "example": "winrm quickconfig",
+            "explanation": "Configures the WinRM service with default settings and enables the firewall exception."
+        },
+        {
+            "id": 2,
+            "category": "Basic Configuration",
+            "command": "winrm quickconfig -quiet",
+            "example": "winrm quickconfig -quiet",
+            "explanation": "Configures WinRM non-interactively without prompting for confirmation."
+        },
+        {
+            "id": 3,
+            "category": "Service Status",
+            "command": "winrm get winrm/config",
+            "example": "winrm get winrm/config",
+            "explanation": "Retrieves the full current configuration state of both Client and Service components."
+        },
+        {
+            "id": 4,
+            "category": "Service Status",
+            "command": "Test-WSMan",
+            "example": "Test-WSMan",
+            "explanation": "Tests the local WinRM service to ensure it is responding to requests."
+        },
+        {
+            "id": 5,
+            "category": "Target Specification",
+            "command": "Test-WSMan -ComputerName 192.168.1.10",
+            "example": "Test-WSMan -ComputerName 192.168.1.10",
+            "explanation": "Verifies that the WinRM service is accessible and listening on a remote target."
+        },
+        {
+            "id": 6,
+            "category": "Target Specification",
+            "command": "Test-WSMan -ComputerName 192.168.1.10 -Port 5985",
+            "example": "Test-WSMan -ComputerName 192.168.1.10 -Port 5985",
+            "explanation": "Tests WinRM connectivity on a specific HTTP port."
+        },
+        {
+            "id": 7,
+            "category": "Target Specification",
+            "command": "Test-WSMan -ComputerName 192.168.1.10 -Port 5986 -UseSSL",
+            "example": "Test-WSMan -ComputerName 192.168.1.10 -Port 5986 -UseSSL",
+            "explanation": "Tests WinRM connectivity over HTTPS using the default secure port."
+        },
+        {
+            "id": 8,
+            "category": "Listener Configuration",
+            "command": "winrm enumerate winrm/config/listener",
+            "example": "winrm enumerate winrm/config/listener",
+            "explanation": "Lists all configured WinRM listeners and their specific settings."
+        },
+        {
+            "id": 9,
+            "category": "Listener Configuration",
+            "command": "winrm create winrm/config/Listener?Address=*+Transport=HTTP",
+            "example": "winrm create winrm/config/Listener?Address=*+Transport=HTTP",
+            "explanation": "Creates a new listener that accepts HTTP connections on all network interfaces."
+        },
+        {
+            "id": 10,
+            "category": "Listener Configuration",
+            "command": "winrm create winrm/config/Listener?Address=*+Transport=HTTPS @{Hostname=\"server.domain.com\";CertificateThumbprint=\"THUMBPRINT_GOES_HERE\"}",
+            "example": "winrm create winrm/config/Listener?Address=*+Transport=HTTPS @{Hostname=\"server.domain.com\";CertificateThumbprint=\"A1B2C3D4E5F6...\"}",
+            "explanation": "Creates a secure HTTPS listener bound to a specific certificate thumbprint."
+        },
+        {
+            "id": 11,
+            "category": "Client Configuration",
+            "command": "Set-Item WSMan:\\localhost\\Client\\TrustedHosts -Value \"192.168.1.10\"",
+            "example": "Set-Item WSMan:\\localhost\\Client\\TrustedHosts -Value \"192.168.1.10\"",
+            "explanation": "Adds a specific IP address to the TrustedHosts list to allow unauthenticated connection establishment."
+        },
+        {
+            "id": 12,
+            "category": "Client Configuration",
+            "command": "Set-Item WSMan:\\localhost\\Client\\TrustedHosts -Value \"*\" -Force",
+            "example": "Set-Item WSMan:\\localhost\\Client\\TrustedHosts -Value \"*\" -Force",
+            "explanation": "Configures the client to trust all hosts, often used in lab environments for testing."
+        },
+        {
+            "id": 13,
+            "category": "Client Configuration",
+            "command": "Get-Item WSMan:\\localhost\\Client\\TrustedHosts",
+            "example": "Get-Item WSMan:\\localhost\\Client\\TrustedHosts",
+            "explanation": "Displays the current list of trusted hosts configured on the client."
+        },
+        {
+            "id": 14,
+            "category": "Service Configuration",
+            "command": "winrm set winrm/config/service @{AllowUnencrypted=\"true\"}",
+            "example": "winrm set winrm/config/service @{AllowUnencrypted=\"true\"}",
+            "explanation": "Enables the service to accept unencrypted traffic, typically for debugging or legacy support."
+        },
+        {
+            "id": 15,
+            "category": "Service Configuration",
+            "command": "winrm set winrm/config/service/auth @{Basic=\"true\"}",
+            "example": "winrm set winrm/config/service/auth @{Basic=\"true\"}",
+            "explanation": "Enables Basic authentication on the service, allowing plain text credentials over the connection."
+        },
+        {
+            "id": 16,
+            "category": "Interactive Session",
+            "command": "Enter-PSSession -ComputerName 192.168.1.10 -Credential (Get-Credential)",
+            "example": "Enter-PSSession -ComputerName 192.168.1.10 -Credential (Get-Credential)",
+            "explanation": "Starts an interactive PowerShell session on the remote computer using prompted credentials."
+        },
+        {
+            "id": 17,
+            "category": "Interactive Session",
+            "command": "Enter-PSSession -ComputerName 192.168.1.10 -Authentication Negotiate",
+            "example": "Enter-PSSession -ComputerName 192.168.1.10 -Authentication Negotiate",
+            "explanation": "Connects using Negotiate authentication, which attempts Kerberos and falls back to NTLM."
+        },
+        {
+            "id": 18,
+            "category": "Interactive Session",
+            "command": "Enter-PSSession -ComputerName 192.168.1.10 -Authentication Kerberos",
+            "example": "Enter-PSSession -ComputerName 192.168.1.10 -Authentication Kerberos",
+            "explanation": "Forces Kerberos authentication, requiring correct SPNs and domain trust."
+        },
+        {
+            "id": 19,
+            "category": "Legacy Execution",
+            "command": "winrs -r:http://192.168.1.10:5985 -u:Admin -p:Pass cmd",
+            "example": "winrs -r:http://192.168.1.10:5985 -u:Admin -p:Pass cmd",
+            "explanation": "Uses the legacy WinRS tool to launch a command prompt on the remote host via HTTP."
+        },
+        {
+            "id": 20,
+            "category": "Legacy Execution",
+            "command": "winrs -r:https://192.168.1.10:5986 -u:Admin -p:Pass -ssl \"ipconfig /all\"",
+            "example": "winrs -r:https://192.168.1.10:5986 -u:Admin -p:Pass -ssl \"ipconfig /all\"",
+            "explanation": "Executes a single command remotely over HTTPS using legacy WinRS syntax."
+        },
+        {
+            "id": 21,
+            "category": "Remote Command Execution",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-Process }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-Process }",
+            "explanation": "Executes a PowerShell script block on the remote machine and returns objects to the local session."
+        },
+        {
+            "id": 22,
+            "category": "Remote Command Execution",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -FilePath .\\script.ps1",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -FilePath .\\script.ps1",
+            "explanation": "Reads a local PowerShell script file and executes its contents on the remote system."
+        },
+        {
+            "id": 23,
+            "category": "Remote Command Execution",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { param($p) Write-Host $p } -ArgumentList \"Hello\"",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { param($p) Write-Host $p } -ArgumentList \"Hello\"",
+            "explanation": "Passes local arguments into the remote script block for dynamic execution."
+        },
+        {
+            "id": 24,
+            "category": "Session Management",
+            "command": "$s = New-PSSession -ComputerName 192.168.1.10 -Credential (Get-Credential)",
+            "example": "$s = New-PSSession -ComputerName 192.168.1.10 -Credential (Get-Credential)",
+            "explanation": "Creates a persistent PowerShell session object stored in a variable for reuse."
+        },
+        {
+            "id": 25,
+            "category": "Session Management",
+            "command": "Invoke-Command -Session $s -ScriptBlock { hostname }",
+            "example": "Invoke-Command -Session $s -ScriptBlock { hostname }",
+            "explanation": "Executes a command inside an existing persistent session without re-authenticating."
+        },
+        {
+            "id": 26,
+            "category": "Session Management",
+            "command": "Get-PSSession",
+            "example": "Get-PSSession",
+            "explanation": "Lists all active PowerShell sessions maintained by the local client."
+        },
+        {
+            "id": 27,
+            "category": "Session Management",
+            "command": "Remove-PSSession -Session $s",
+            "example": "Remove-PSSession -Session $s",
+            "explanation": "Closes the specified persistent session and frees resources."
+        },
+        {
+            "id": 28,
+            "category": "Session Management",
+            "command": "Disconnect-PSSession -Id 1",
+            "example": "Disconnect-PSSession -Id 1",
+            "explanation": "Disconnects a session but leaves it running on the remote host for later reconnection."
+        },
+        {
+            "id": 29,
+            "category": "Session Management",
+            "command": "Connect-PSSession -ComputerName 192.168.1.10 -Id 1",
+            "example": "Connect-PSSession -ComputerName 192.168.1.10 -Id 1",
+            "explanation": "Reconnects to a previously disconnected session on a remote machine."
+        },
+        {
+            "id": 30,
+            "category": "File Transfer",
+            "command": "Copy-Item -Path .\\tool.exe -Destination C:\\Temp\\ -ToSession $s",
+            "example": "Copy-Item -Path .\\tool.exe -Destination C:\\Temp\\ -ToSession $s",
+            "explanation": "Uploads a local file to the remote system using an existing WinRM session."
+        },
+        {
+            "id": 31,
+            "category": "File Transfer",
+            "command": "Copy-Item -Path C:\\Logs\\remote.log -Destination .\\ -FromSession $s",
+            "example": "Copy-Item -Path C:\\Logs\\remote.log -Destination .\\ -FromSession $s",
+            "explanation": "Downloads a file from the remote system to the local machine via WinRM."
+        },
+        {
+            "id": 32,
+            "category": "Lateral Movement",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -Authentication Credssp -Credential (Get-Credential) -ScriptBlock { Get-Service }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -Authentication Credssp -Credential (Get-Credential) -ScriptBlock { Get-Service }",
+            "explanation": "Uses CredSSP authentication to allow the remote host to delegate the user's credentials to a second hop."
+        },
+        {
+            "id": 33,
+            "category": "Lateral Movement",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File C:\\payload.ps1' }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File C:\\payload.ps1' }",
+            "explanation": "Remotely triggers a payload execution using Start-Process to detach from the WinRM shell."
+        },
+        {
+            "id": 34,
+            "category": "Red Team Ops",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -AsJob -ScriptBlock { 1..100 | ForEach-Object { Start-Sleep 1; $_ } }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -AsJob -ScriptBlock { 1..100 | ForEach-Object { Start-Sleep 1; $_ } }",
+            "explanation": "Runs a long-running process as a background job on the remote host to avoid hanging the console."
+        },
+        {
+            "id": 35,
+            "category": "Red Team Ops",
+            "command": "Receive-Job -Id 1 -Keep",
+            "example": "Receive-Job -Id 1 -Keep",
+            "explanation": "Retrieves the output from a background remote job while keeping the data available for future retrieval."
+        },
+        {
+            "id": 36,
+            "category": "Advanced Configuration",
+            "command": "Set-Item WSMan:\\localhost\\Shell\\MaxMemoryPerShellMB 1024",
+            "example": "Set-Item WSMan:\\localhost\\Shell\\MaxMemoryPerShellMB 1024",
+            "explanation": "Increases the memory limit for remote shells, useful when running memory-intensive tools remotely."
+        },
+        {
+            "id": 37,
+            "category": "Advanced Configuration",
+            "command": "winrm set winrm/config/winrs @{MaxShellsPerUser=\"50\"}",
+            "example": "winrm set winrm/config/winrs @{MaxShellsPerUser=\"50\"}",
+            "explanation": "Increases the maximum number of concurrent shells allowed per user."
+        },
+        {
+            "id": 38,
+            "category": "Purple Team Validation",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { whoami /priv }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { whoami /priv }",
+            "explanation": "Checks the privilege level of the current remote session to validate successful elevation."
+        },
+        {
+            "id": 39,
+            "category": "Purple Team Validation",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-MpComputerStatus }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-MpComputerStatus }",
+            "explanation": "Remotely queries Windows Defender status to check for exclusions or real-time protection state."
+        },
+        {
+            "id": 40,
+            "category": "Blue Team Detection",
+            "command": "Get-WinEvent -LogName \"Microsoft-Windows-WinRM/Operational\" -MaxEvents 10",
+            "example": "Get-WinEvent -LogName \"Microsoft-Windows-WinRM/Operational\" -MaxEvents 10",
+            "explanation": "Queries local WinRM operational logs to detect recent incoming connections and errors."
+        },
+        {
+            "id": 41,
+            "category": "Blue Team Detection",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-WinEvent -LogName 'Security' -FilterXPath \"*[System[EventID=4624] and EventData[Data[@Name='LogonType']='3']]\" }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-WinEvent -LogName 'Security' -FilterXPath \"*[System[EventID=4624] and EventData[Data[@Name='LogonType']='3']]\" }",
+            "explanation": "Remotely searches Security logs for Network Logon (Type 3) events associated with WinRM activity."
+        },
+        {
+            "id": 42,
+            "category": "Incident Response",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-NetTCPConnection | Where-Object { $_.LocalPort -eq 5985 } }",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-NetTCPConnection | Where-Object { $_.LocalPort -eq 5985 } }",
+            "explanation": "Identifies active TCP connections on the remote host specifically on the WinRM HTTP port."
+        },
+        {
+            "id": 43,
+            "category": "Incident Response",
+            "command": "Disable-PSRemoting -Force",
+            "example": "Disable-PSRemoting -Force",
+            "explanation": "Rapidly disables PowerShell Remoting on the system to stop active lateral movement."
+        },
+        {
+            "id": 44,
+            "category": "JEA Configuration",
+            "command": "New-PSSessionConfigurationFile -Path .\\JEAConfig.pssc -SessionType RestrictedRemoteServer",
+            "example": "New-PSSessionConfigurationFile -Path .\\JEAConfig.pssc -SessionType RestrictedRemoteServer",
+            "explanation": "Creates a Just Enough Administration (JEA) configuration file to restrict remote capabilities."
+        },
+        {
+            "id": 45,
+            "category": "JEA Configuration",
+            "command": "Register-PSSessionConfiguration -Name \"Maintenance\" -Path .\\JEAConfig.pssc",
+            "example": "Register-PSSessionConfiguration -Name \"Maintenance\" -Path .\\JEAConfig.pssc",
+            "explanation": "Registers a new endpoint on the local machine using the restricted JEA configuration."
+        },
+        {
+            "id": 46,
+            "category": "JEA Usage",
+            "command": "Enter-PSSession -ComputerName 192.168.1.10 -ConfigurationName \"Maintenance\"",
+            "example": "Enter-PSSession -ComputerName 192.168.1.10 -ConfigurationName \"Maintenance\"",
+            "explanation": "Connects to a specific named endpoint (JEA) rather than the default PowerShell endpoint."
+        },
+        {
+            "id": 47,
+            "category": "Advanced Automation",
+            "command": "Invoke-Command -ComputerName (Get-Content servers.txt) -ScriptBlock { Update-Help } -ThrottleLimit 10",
+            "example": "Invoke-Command -ComputerName (Get-Content servers.txt) -ScriptBlock { Update-Help } -ThrottleLimit 10",
+            "explanation": "Runs a command against a list of servers read from a file, limiting concurrent operations to 10."
+        },
+        {
+            "id": 48,
+            "category": "Cleanup",
+            "command": "Remove-Item WSMan:\\localhost\\Listener\\* -Recurse",
+            "example": "Remove-Item WSMan:\\localhost\\Listener\\* -Recurse",
+            "explanation": "Deletes all configured WinRM listeners, effectively stopping the machine from accepting connections."
+        },
+        {
+            "id": 49,
+            "category": "Cleanup",
+            "command": "winrm invoke Restore winrm/config",
+            "example": "winrm invoke Restore winrm/config",
+            "explanation": "Resets the WinRM configuration to its default installation state."
+        },
+        {
+            "id": 50,
+            "category": "Diagnostic",
+            "command": "winrm identify -r:http://192.168.1.10:5985",
+            "example": "winrm identify -r:http://192.168.1.10:5985",
+            "explanation": "Queries the remote machine for OS version and WinRM protocol version without a full login."
+        },
+        {
+            "id": 51,
+            "category": "Proxy Configuration",
+            "command": "winrm set winrm/config/client @{NetworkDelayms=\"60000\"}",
+            "example": "winrm set winrm/config/client @{NetworkDelayms=\"60000\"}",
+            "explanation": "Adjusts the network delay timeout for the client, useful for slow or high-latency connections."
+        },
+        {
+            "id": 52,
+            "category": "Output Handling",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-Service } | Select-Object -Property PSComputerName, Name, Status",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { Get-Service } | Select-Object -Property PSComputerName, Name, Status",
+            "explanation": "Filters and formats object-based output returned from the remote session."
+        },
+        {
+            "id": 53,
+            "category": "Automation",
+            "command": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { $env:COMPUTERNAME } -HideComputerName",
+            "example": "Invoke-Command -ComputerName 192.168.1.10 -ScriptBlock { $env:COMPUTERNAME } -HideComputerName",
+            "explanation": "Executes remotely but suppresses the 'PSComputerName' property from the output display."
+        },
+        {
+            "id": 54,
+            "category": "Port Forwarding",
+            "command": "Set-Item WSMan:\\localhost\\Service\\EnableCompatibilityHttpListener -Value $true",
+            "example": "Set-Item WSMan:\\localhost\\Service\\EnableCompatibilityHttpListener -Value $true",
+            "explanation": "Enables the compatibility listener to support legacy WinRM clients or specific port forwarding scenarios."
+        },
+        {
+            "id": 55,
+            "category": "Double Hop",
+            "command": "Enable-WSManCredSSP -Role Client -DelegateComputer \"*\"",
+            "example": "Enable-WSManCredSSP -Role Client -DelegateComputer \"*\"",
+            "explanation": "Configures the client to allow credential delegation to any remote host (high security risk)."
+        },
+        {
+            "id": 56,
+            "category": "Double Hop",
+            "command": "Enable-WSManCredSSP -Role Server",
+            "example": "Enable-WSManCredSSP -Role Server",
+            "explanation": "Configures the server to accept delegated credentials from a client."
+        },
+        {
+            "id": 57,
+            "category": "Access Control",
+            "command": "Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI",
+            "example": "Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI",
+            "explanation": "Opens a GUI to interactively modify the Access Control List (ACL) for the default PowerShell endpoint."
+        },
+        {
+            "id": 58,
+            "category": "Troubleshooting",
+            "command": "Get-WSManInstance -ResourceURI wmicimv2/cim_service -SelectorSet @{Name=\"WinRM\"} -ComputerName 192.168.1.10",
+            "example": "Get-WSManInstance -ResourceURI wmicimv2/cim_service -SelectorSet @{Name=\"WinRM\"} -ComputerName 192.168.1.10",
+            "explanation": "Uses WS-Management protocol to directly query the CIM service status on a remote host."
+        },
+        {
+            "id": 59,
+            "category": "Mass Action",
+            "command": "$sessions = New-PSSession -ComputerName (Get-Content hosts.txt); Invoke-Command -Session $sessions -ScriptBlock { gpupdate /force }",
+            "example": "$sessions = New-PSSession -ComputerName (Get-Content hosts.txt); Invoke-Command -Session $sessions -ScriptBlock { gpupdate /force }",
+            "explanation": "Establishes persistent sessions to multiple hosts listed in a file and runs a group policy update on all."
+        },
+        {
+            "id": 60,
+            "category": "Cleanup",
+            "command": "Stop-Service WinRM",
+            "example": "Stop-Service WinRM",
+            "explanation": "Immediately stops the Windows Remote Management service, terminating all active connections."
+        }
+    ]
+}

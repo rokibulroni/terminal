@@ -1,0 +1,707 @@
+{
+    "tool": "tshark",
+    "description": "Complete tshark command reference covering all options from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Packet Capture",
+            "command": "tshark -D",
+            "example": "tshark -D",
+            "explanation": "Lists all network interfaces available for packet capturing"
+        },
+        {
+            "id": 2,
+            "category": "Basic Packet Capture",
+            "command": "tshark -i eth0",
+            "example": "tshark -i eth0",
+            "explanation": "Captures live traffic from a specific interface named eth0"
+        },
+        {
+            "id": 3,
+            "category": "Basic Packet Capture",
+            "command": "tshark -i any",
+            "example": "tshark -i any",
+            "explanation": "Captures traffic from all available interfaces simultaneously"
+        },
+        {
+            "id": 4,
+            "category": "Basic Packet Capture",
+            "command": "tshark -p -i eth0",
+            "example": "tshark -p -i eth0",
+            "explanation": "Captures traffic in non-promiscuous mode, seeing only traffic destined for the host"
+        },
+        {
+            "id": 5,
+            "category": "Packet Count and Duration Control",
+            "command": "tshark -c 100 -i eth0",
+            "example": "tshark -c 100 -i eth0",
+            "explanation": "Captures exactly 100 packets and then exits automatically"
+        },
+        {
+            "id": 6,
+            "category": "Packet Count and Duration Control",
+            "command": "tshark -a duration:60 -i eth0",
+            "example": "tshark -a duration:60 -i eth0",
+            "explanation": "Stops the capture automatically after 60 seconds"
+        },
+        {
+            "id": 7,
+            "category": "Packet Count and Duration Control",
+            "command": "tshark -a filesize:10000 -w capture.pcap",
+            "example": "tshark -a filesize:10000 -w capture.pcap",
+            "explanation": "Stops writing to the file after it reaches 10,000 KB in size"
+        },
+        {
+            "id": 8,
+            "category": "Writing Capture Files",
+            "command": "tshark -w capture.pcap -i eth0",
+            "example": "tshark -w capture.pcap -i eth0",
+            "explanation": "Writes captured raw packet data to a file in pcapng format"
+        },
+        {
+            "id": 9,
+            "category": "Writing Capture Files",
+            "command": "tshark -b files:5 -b filesize:10000 -w rolling.pcap",
+            "example": "tshark -b files:5 -b filesize:10000 -w rolling.pcap",
+            "explanation": "Creates a ring buffer of 5 files, rotating when each reaches 10MB"
+        },
+        {
+            "id": 10,
+            "category": "Writing Capture Files",
+            "command": "tshark -F pcap -w legacy.pcap",
+            "example": "tshark -F pcap -w legacy.pcap",
+            "explanation": "Saves the capture in the legacy pcap format instead of pcapng"
+        },
+        {
+            "id": 11,
+            "category": "Reading PCAP Files",
+            "command": "tshark -r capture.pcap",
+            "example": "tshark -r capture.pcap",
+            "explanation": "Reads and displays packets from a previously saved capture file"
+        },
+        {
+            "id": 12,
+            "category": "Capture Filters (BPF)",
+            "command": "tshark -f \"host 192.168.1.10\" -i eth0",
+            "example": "tshark -f \"host 192.168.1.10\" -i eth0",
+            "explanation": "Captures only traffic to or from a specific IP address"
+        },
+        {
+            "id": 13,
+            "category": "Capture Filters (BPF)",
+            "command": "tshark -f \"tcp port 80\" -i eth0",
+            "example": "tshark -f \"tcp port 80\" -i eth0",
+            "explanation": "Captures only TCP traffic on port 80"
+        },
+        {
+            "id": 14,
+            "category": "Capture Filters (BPF)",
+            "command": "tshark -f \"net 10.0.0.0/24\" -i eth0",
+            "example": "tshark -f \"net 10.0.0.0/24\" -i eth0",
+            "explanation": "Captures traffic belonging to the specified subnet"
+        },
+        {
+            "id": 15,
+            "category": "Capture Filters (BPF)",
+            "command": "tshark -f \"not arp and not port 53\" -i eth0",
+            "example": "tshark -f \"not arp and not port 53\" -i eth0",
+            "explanation": "Excludes ARP and DNS traffic from the capture to reduce noise"
+        },
+        {
+            "id": 16,
+            "category": "Capture Filters (BPF)",
+            "command": "tshark -s 64 -i eth0",
+            "example": "tshark -s 64 -i eth0",
+            "explanation": "Captures only the first 64 bytes of each packet (snapshot length)"
+        },
+        {
+            "id": 17,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"http.request\"",
+            "example": "tshark -r capture.pcap -Y \"http.request\"",
+            "explanation": "Displays only HTTP request packets from the loaded file"
+        },
+        {
+            "id": 18,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"ip.addr == 192.168.1.5\"",
+            "example": "tshark -r capture.pcap -Y \"ip.addr == 192.168.1.5\"",
+            "explanation": "Filters the view to show only packets involving a specific IP"
+        },
+        {
+            "id": 19,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"tcp.flags.reset == 1\"",
+            "example": "tshark -r capture.pcap -Y \"tcp.flags.reset == 1\"",
+            "explanation": "Displays only TCP packets where the RST (reset) flag is set"
+        },
+        {
+            "id": 20,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"frame.time_delta > 0.2\"",
+            "example": "tshark -r capture.pcap -Y \"frame.time_delta > 0.2\"",
+            "explanation": "Shows packets that arrived more than 200ms after the previous packet"
+        },
+        {
+            "id": 21,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -2 -R \"tcp.analysis.flags\"",
+            "example": "tshark -r capture.pcap -2 -R \"tcp.analysis.flags\"",
+            "explanation": "Performs a two-pass analysis to accurately filter TCP retransmissions and flags"
+        },
+        {
+            "id": 22,
+            "category": "Output Formats",
+            "command": "tshark -r capture.pcap -V",
+            "example": "tshark -r capture.pcap -V",
+            "explanation": "Displays the full verbose packet details tree for every packet"
+        },
+        {
+            "id": 23,
+            "category": "Output Formats",
+            "command": "tshark -r capture.pcap -x",
+            "example": "tshark -r capture.pcap -x",
+            "explanation": "Displays the packet data in both hexadecimal and ASCII formats"
+        },
+        {
+            "id": 24,
+            "category": "Output Formats",
+            "command": "tshark -r capture.pcap -O http",
+            "example": "tshark -r capture.pcap -O http",
+            "explanation": "Shows full verbose details only for the HTTP protocol layers"
+        },
+        {
+            "id": 25,
+            "category": "Timestamp and Time Format Control",
+            "command": "tshark -r capture.pcap -t ad",
+            "example": "tshark -r capture.pcap -t ad",
+            "explanation": "Displays timestamps as absolute dates with YYYY-MM-DD format"
+        },
+        {
+            "id": 26,
+            "category": "Timestamp and Time Format Control",
+            "command": "tshark -r capture.pcap -t ud",
+            "example": "tshark -r capture.pcap -t ud",
+            "explanation": "Displays timestamps in UTC date and time format"
+        },
+        {
+            "id": 27,
+            "category": "Timestamp and Time Format Control",
+            "command": "tshark -r capture.pcap -t d",
+            "example": "tshark -r capture.pcap -t d",
+            "explanation": "Displays timestamps as the delta time since the previous packet"
+        },
+        {
+            "id": 28,
+            "category": "Extracting Fields and Objects",
+            "command": "tshark -r capture.pcap -T fields -e ip.src -e ip.dst",
+            "example": "tshark -r capture.pcap -T fields -e ip.src -e ip.dst",
+            "explanation": "Extracts only the source and destination IP addresses"
+        },
+        {
+            "id": 29,
+            "category": "Extracting Fields and Objects",
+            "command": "tshark -r capture.pcap -T fields -e http.host -e http.request.uri",
+            "example": "tshark -r capture.pcap -T fields -e http.host -e http.request.uri",
+            "explanation": "Extracts the hostname and URI from HTTP requests"
+        },
+        {
+            "id": 30,
+            "category": "Extracting Fields and Objects",
+            "command": "tshark -r capture.pcap -T fields -E separator=, -e frame.number -e ip.addr",
+            "example": "tshark -r capture.pcap -T fields -E separator=, -e frame.number -e ip.addr",
+            "explanation": "Outputs extracted fields in a CSV-like format separated by commas"
+        },
+        {
+            "id": 31,
+            "category": "Extracting Fields and Objects",
+            "command": "tshark -r capture.pcap -T fields -E header=y -e ip.src -e tcp.port",
+            "example": "tshark -r capture.pcap -T fields -E header=y -e ip.src -e tcp.port",
+            "explanation": "Includes a header row with field names in the output"
+        },
+        {
+            "id": 32,
+            "category": "JSON, CSV, and Structured Output",
+            "command": "tshark -r capture.pcap -T json",
+            "example": "tshark -r capture.pcap -T json",
+            "explanation": "Outputs the packet details in a full, hierarchical JSON format"
+        },
+        {
+            "id": 33,
+            "category": "JSON, CSV, and Structured Output",
+            "command": "tshark -r capture.pcap -T ek",
+            "example": "tshark -r capture.pcap -T ek",
+            "explanation": "Outputs newline-delimited JSON compatible with Elasticsearch Bulk API"
+        },
+        {
+            "id": 34,
+            "category": "JSON, CSV, and Structured Output",
+            "command": "tshark -r capture.pcap -T pdml",
+            "example": "tshark -r capture.pcap -T pdml",
+            "explanation": "Outputs packet details in Packet Details Markup Language (XML)"
+        },
+        {
+            "id": 35,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -q -z io,phs",
+            "example": "tshark -r capture.pcap -q -z io,phs",
+            "explanation": "Displays a protocol hierarchy statistics tree without printing packets"
+        },
+        {
+            "id": 36,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -q -z conv,ip",
+            "example": "tshark -r capture.pcap -q -z conv,ip",
+            "explanation": "Shows a table of conversations between IPv4 addresses"
+        },
+        {
+            "id": 37,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -q -z conv,tcp",
+            "example": "tshark -r capture.pcap -q -z conv,tcp",
+            "explanation": "Displays TCP conversation statistics including duration and byte counts"
+        },
+        {
+            "id": 38,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -q -z endpoints,ip",
+            "example": "tshark -r capture.pcap -q -z endpoints,ip",
+            "explanation": "Lists all unique IP endpoints found in the capture file"
+        },
+        {
+            "id": 39,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -q -z http,tree",
+            "example": "tshark -r capture.pcap -q -z http,tree",
+            "explanation": "Generates a breakdown of HTTP packet counts and response codes"
+        },
+        {
+            "id": 40,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -q -z dns,tree",
+            "example": "tshark -r capture.pcap -q -z dns,tree",
+            "explanation": "Displays statistics on DNS query types and response codes"
+        },
+        {
+            "id": 41,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -z expert",
+            "example": "tshark -r capture.pcap -z expert",
+            "explanation": "Displays expert information including errors, warnings, and notes"
+        },
+        {
+            "id": 42,
+            "category": "Follow TCP and UDP Streams",
+            "command": "tshark -r capture.pcap -z follow,tcp,ascii,0",
+            "example": "tshark -r capture.pcap -z follow,tcp,ascii,0",
+            "explanation": "Follows TCP stream index 0 and outputs the content in ASCII"
+        },
+        {
+            "id": 43,
+            "category": "Follow TCP and UDP Streams",
+            "command": "tshark -r capture.pcap -z follow,udp,hex,1",
+            "example": "tshark -r capture.pcap -z follow,udp,hex,1",
+            "explanation": "Follows UDP stream index 1 and outputs the content in hexadecimal"
+        },
+        {
+            "id": 44,
+            "category": "Follow TCP and UDP Streams",
+            "command": "tshark -r capture.pcap -z follow,http,ascii,2",
+            "example": "tshark -r capture.pcap -z follow,http,ascii,2",
+            "explanation": "Follows the HTTP stream index 2 showing request and response bodies"
+        },
+        {
+            "id": 45,
+            "category": "Name Resolution",
+            "command": "tshark -r capture.pcap -n",
+            "example": "tshark -r capture.pcap -n",
+            "explanation": "Disables all name resolution (DNS, MAC, Transport) for speed"
+        },
+        {
+            "id": 46,
+            "category": "Name Resolution",
+            "command": "tshark -r capture.pcap -N n",
+            "example": "tshark -r capture.pcap -N n",
+            "explanation": "Enables only network name resolution (DNS hostnames)"
+        },
+        {
+            "id": 47,
+            "category": "Name Resolution",
+            "command": "tshark -r capture.pcap -N m",
+            "example": "tshark -r capture.pcap -N m",
+            "explanation": "Enables MAC address resolution to vendor names"
+        },
+        {
+            "id": 48,
+            "category": "Decryption and Key Usage",
+            "command": "tshark -r capture.pcap -o \"ssl.keys_list:127.0.0.1,443,http,server.pem\"",
+            "example": "tshark -r capture.pcap -o \"ssl.keys_list:127.0.0.1,443,http,server.pem\"",
+            "explanation": "Decrypts SSL/TLS traffic using the specified server private key"
+        },
+        {
+            "id": 49,
+            "category": "Decryption and Key Usage",
+            "command": "tshark -r capture.pcap -o \"tls.keylog_file:keys.log\"",
+            "example": "tshark -r capture.pcap -o \"tls.keylog_file:keys.log\"",
+            "explanation": "Decrypts TLS traffic using a browser-generated session key log file"
+        },
+        {
+            "id": 50,
+            "category": "Decryption and Key Usage",
+            "command": "tshark -r capture.pcap -U \"secrets.txt\"",
+            "example": "tshark -r capture.pcap -U \"secrets.txt\"",
+            "explanation": "Uses an IPsec ESP secret key file for decryption"
+        },
+        {
+            "id": 51,
+            "category": "VLAN, Tunnel, and Encapsulation Handling",
+            "command": "tshark -r capture.pcap -Y \"vlan.id == 10\"",
+            "example": "tshark -r capture.pcap -Y \"vlan.id == 10\"",
+            "explanation": "Filters traffic specifically tagged with VLAN ID 10"
+        },
+        {
+            "id": 52,
+            "category": "VLAN, Tunnel, and Encapsulation Handling",
+            "command": "tshark -r capture.pcap -Y \"mpls\"",
+            "example": "tshark -r capture.pcap -Y \"mpls\"",
+            "explanation": "Displays packets containing MPLS labels"
+        },
+        {
+            "id": 53,
+            "category": "VLAN, Tunnel, and Encapsulation Handling",
+            "command": "tshark -r capture.pcap -d udp.port==8472,vxlan",
+            "example": "tshark -r capture.pcap -d udp.port==8472,vxlan",
+            "explanation": "Forces decoding of UDP traffic on port 8472 as VXLAN"
+        },
+        {
+            "id": 54,
+            "category": "IPv4 and IPv6 Traffic Analysis",
+            "command": "tshark -r capture.pcap -Y \"ipv6\"",
+            "example": "tshark -r capture.pcap -Y \"ipv6\"",
+            "explanation": "Shows only IPv6 traffic"
+        },
+        {
+            "id": 55,
+            "category": "IPv4 and IPv6 Traffic Analysis",
+            "command": "tshark -r capture.pcap -z conv,ipv6",
+            "example": "tshark -r capture.pcap -z conv,ipv6",
+            "explanation": "Displays conversation statistics specifically for IPv6 endpoints"
+        },
+        {
+            "id": 56,
+            "category": "Error, Retransmission, and Latency Analysis",
+            "command": "tshark -r capture.pcap -Y \"tcp.analysis.retransmission\"",
+            "example": "tshark -r capture.pcap -Y \"tcp.analysis.retransmission\"",
+            "explanation": "Filters for packets identified as TCP retransmissions"
+        },
+        {
+            "id": 57,
+            "category": "Error, Retransmission, and Latency Analysis",
+            "command": "tshark -r capture.pcap -Y \"tcp.analysis.lost_segment\"",
+            "example": "tshark -r capture.pcap -Y \"tcp.analysis.lost_segment\"",
+            "explanation": "Identifies gaps in the sequence numbers indicating lost segments"
+        },
+        {
+            "id": 58,
+            "category": "Error, Retransmission, and Latency Analysis",
+            "command": "tshark -r capture.pcap -T fields -e tcp.analysis.ack_rtt",
+            "example": "tshark -r capture.pcap -T fields -e tcp.analysis.ack_rtt",
+            "explanation": "Extracts the Round Trip Time (RTT) calculated from ACK packets"
+        },
+        {
+            "id": 59,
+            "category": "Security Monitoring and Threat Hunting",
+            "command": "tshark -r capture.pcap -Y \"http.user_agent contains 'python'\"",
+            "example": "tshark -r capture.pcap -Y \"http.user_agent contains 'python'\"",
+            "explanation": "Detects HTTP requests made by Python scripts, often used by bots"
+        },
+        {
+            "id": 60,
+            "category": "Security Monitoring and Threat Hunting",
+            "command": "tshark -r capture.pcap -Y \"dns.qry.name.len > 50\"",
+            "example": "tshark -r capture.pcap -Y \"dns.qry.name.len > 50\"",
+            "explanation": "Identifies unusually long DNS queries potentially indicating tunneling"
+        },
+        {
+            "id": 61,
+            "category": "Security Monitoring and Threat Hunting",
+            "command": "tshark -r capture.pcap -Y \"tcp.dstport == 4444 or tcp.dstport == 1337\"",
+            "example": "tshark -r capture.pcap -Y \"tcp.dstport == 4444 or tcp.dstport == 1337\"",
+            "explanation": "Monitors ports commonly used by malware and reverse shells"
+        },
+        {
+            "id": 62,
+            "category": "Security Monitoring and Threat Hunting",
+            "command": "tshark -r capture.pcap -Y \"icmp.type == 8 and data.len > 100\"",
+            "example": "tshark -r capture.pcap -Y \"icmp.type == 8 and data.len > 100\"",
+            "explanation": "Detects large ICMP Echo Requests which may indicate data exfiltration"
+        },
+        {
+            "id": 63,
+            "category": "Incident Response and Forensics",
+            "command": "tshark -r capture.pcap --export-objects \"http,dest_dir\"",
+            "example": "tshark -r capture.pcap --export-objects \"http,dest_dir\"",
+            "explanation": "Extracts all files transferred over HTTP to a destination directory"
+        },
+        {
+            "id": 64,
+            "category": "Incident Response and Forensics",
+            "command": "tshark -r capture.pcap --export-objects \"smb,dest_dir\"",
+            "example": "tshark -r capture.pcap --export-objects \"smb,dest_dir\"",
+            "explanation": "Extracts files transferred via SMB file shares"
+        },
+        {
+            "id": 65,
+            "category": "Incident Response and Forensics",
+            "command": "tshark -r capture.pcap -Y \"ftp.request.command == 'USER' or ftp.request.command == 'PASS'\"",
+            "example": "tshark -r capture.pcap -Y \"ftp.request.command == 'USER' or ftp.request.command == 'PASS'\"",
+            "explanation": "Filters for plaintext FTP credentials found in the capture"
+        },
+        {
+            "id": 66,
+            "category": "Protocol and Field Filtering",
+            "command": "tshark -r capture.pcap -Y \"smb2.filename contains 'pass'\"",
+            "example": "tshark -r capture.pcap -Y \"smb2.filename contains 'pass'\"",
+            "explanation": "Searches for SMB2 file access requests containing 'pass' in the name"
+        },
+        {
+            "id": 67,
+            "category": "Protocol and Field Filtering",
+            "command": "tshark -r capture.pcap -Y \"mysql.query\"",
+            "example": "tshark -r capture.pcap -Y \"mysql.query\"",
+            "explanation": "Displays packets containing MySQL database queries"
+        },
+        {
+            "id": 68,
+            "category": "Protocol and Field Filtering",
+            "command": "tshark -r capture.pcap -Y \"sip.Method == 'INVITE'\"",
+            "example": "tshark -r capture.pcap -Y \"sip.Method == 'INVITE'\"",
+            "explanation": "Filters for VoIP SIP calls initiation packets"
+        },
+        {
+            "id": 69,
+            "category": "Protocol and Field Filtering",
+            "command": "tshark -r capture.pcap -Y \"wlan.fc.type_subtype == 0x08\"",
+            "example": "tshark -r capture.pcap -Y \"wlan.fc.type_subtype == 0x08\"",
+            "explanation": "Filters for 802.11 Beacon frames in WiFi traffic"
+        },
+        {
+            "id": 70,
+            "category": "Quiet and Script Friendly Output",
+            "command": "tshark -r capture.pcap -q -z hosts",
+            "example": "tshark -r capture.pcap -q -z hosts",
+            "explanation": "Quietly extracts all IPv4 and IPv6 addresses and hostnames"
+        },
+        {
+            "id": 71,
+            "category": "Quiet and Script Friendly Output",
+            "command": "tshark -r capture.pcap -T fields -e frame.time_epoch -e frame.len",
+            "example": "tshark -r capture.pcap -T fields -e frame.time_epoch -e frame.len",
+            "explanation": "Outputs only Unix timestamp and frame length for easy plotting"
+        },
+        {
+            "id": 72,
+            "category": "Automation and Pipeline Usage",
+            "command": "tshark -i eth0 -l -T json",
+            "example": "tshark -i eth0 -l -T json",
+            "explanation": "Captures live and flushes stdout immediately for piping to other tools"
+        },
+        {
+            "id": 73,
+            "category": "Automation and Pipeline Usage",
+            "command": "tshark -r capture.pcap -T fields -e ip.src | sort | uniq -c",
+            "example": "tshark -r capture.pcap -T fields -e ip.src | sort | uniq -c",
+            "explanation": "Pipes extracted IPs to shell commands to count unique sources"
+        },
+        {
+            "id": 74,
+            "category": "Red Team Traffic Validation",
+            "command": "tshark -i eth0 -Y \"icmp.code == 0\" -c 5",
+            "example": "tshark -i eth0 -Y \"icmp.code == 0\" -c 5",
+            "explanation": "Verifies that ping replies are being received during a connectivity test"
+        },
+        {
+            "id": 75,
+            "category": "Red Team Traffic Validation",
+            "command": "tshark -r capture.pcap -Y \"tcp.flags.syn==1 and tcp.flags.ack==0\"",
+            "example": "tshark -r capture.pcap -Y \"tcp.flags.syn==1 and tcp.flags.ack==0\"",
+            "explanation": "Analyzes the volume of SYN packets to validate scanning activity"
+        },
+        {
+            "id": 76,
+            "category": "Blue Team Continuous Monitoring",
+            "command": "tshark -i eth0 -Y \"tcp.flags.syn==1\" -z io,stat,1",
+            "example": "tshark -i eth0 -Y \"tcp.flags.syn==1\" -z io,stat,1",
+            "explanation": "Monitors the rate of new TCP connections per second in real-time"
+        },
+        {
+            "id": 77,
+            "category": "Blue Team Continuous Monitoring",
+            "command": "tshark -i eth0 -f \"port 22\" -T fields -e ip.src",
+            "example": "tshark -i eth0 -f \"port 22\" -T fields -e ip.src",
+            "explanation": "Continuously logs source IPs attempting SSH connections"
+        },
+        {
+            "id": 78,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -r capture.pcap -Y \"http.request.method == 'POST'\" -T fields -e http.file_data",
+            "example": "tshark -r capture.pcap -Y \"http.request.method == 'POST'\" -T fields -e http.file_data",
+            "explanation": "Extracts the actual payload data sent in HTTP POST requests"
+        },
+        {
+            "id": 79,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -r capture.pcap -o \"gui.column.format:\\\"Time\\\",\\\"%t\\\",\\\"Delta\\\",\\\"%D\\\"\"",
+            "example": "tshark -r capture.pcap -o \"gui.column.format:\\\"Time\\\",\\\"%t\\\",\\\"Delta\\\",\\\"%D\\\"\"",
+            "explanation": "Customizes the output columns to show Time and Delta columns only"
+        },
+        {
+            "id": 80,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -r capture.pcap -z io,stat,1,\"COUNT(http.request) http.request\",\"AVG(frame.len) frame.len\"",
+            "example": "tshark -r capture.pcap -z io,stat,1,\"COUNT(http.request) http.request\",\"AVG(frame.len) frame.len\"",
+            "explanation": "Calculates HTTP request count and average frame length per second"
+        },
+        {
+            "id": 81,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -r capture.pcap -Y \"tls.handshake.type == 1\" -T fields -e tls.handshake.extensions_server_name",
+            "example": "tshark -r capture.pcap -Y \"tls.handshake.type == 1\" -T fields -e tls.handshake.extensions_server_name",
+            "explanation": "Extracts the SNI (Server Name Indication) from TLS Client Hellos"
+        },
+        {
+            "id": 82,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -r capture.pcap -Y \"modbus.func_code\"",
+            "example": "tshark -r capture.pcap -Y \"modbus.func_code\"",
+            "explanation": "Filters for SCADA/ICS Modbus traffic function codes"
+        },
+        {
+            "id": 83,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -G protocols",
+            "example": "tshark -G protocols",
+            "explanation": "Lists all protocols supported by the installed version of tshark"
+        },
+        {
+            "id": 84,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -G fields | grep \"wifi\"",
+            "example": "tshark -G fields | grep \"wifi\"",
+            "explanation": "Searches the glossary of filter fields for WiFi related fields"
+        },
+        {
+            "id": 85,
+            "category": "GeoIP and Location Analysis",
+            "command": "tshark -r capture.pcap -T fields -e ip.src -e ip.geoip.country",
+            "example": "tshark -r capture.pcap -T fields -e ip.src -e ip.geoip.country",
+            "explanation": "Extracts source IPs and their associated GeoIP country code"
+        },
+        {
+            "id": 86,
+            "category": "Hex, ASCII, and Raw Output",
+            "command": "tshark -r capture.pcap -P",
+            "example": "tshark -r capture.pcap -P",
+            "explanation": "Prints the packet summary line even when writing to a file"
+        },
+        {
+            "id": 87,
+            "category": "Hex, ASCII, and Raw Output",
+            "command": "tshark -r capture.pcap -x -Y \"frame.number==1\"",
+            "example": "tshark -r capture.pcap -x -Y \"frame.number==1\"",
+            "explanation": "Dumps the full hex and ASCII representation of just the first packet"
+        },
+        {
+            "id": 88,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -z service_response_time,http",
+            "example": "tshark -r capture.pcap -z service_response_time,http",
+            "explanation": "Calculates the time between HTTP requests and their corresponding responses"
+        },
+        {
+            "id": 89,
+            "category": "Interface Selection",
+            "command": "tshark -i -",
+            "example": "tshark -i -",
+            "explanation": "Reads live capture data piped from standard input"
+        },
+        {
+            "id": 90,
+            "category": "Interface Selection",
+            "command": "tshark -i 1",
+            "example": "tshark -i 1",
+            "explanation": "Captures from the interface corresponding to index 1 in the interface list"
+        },
+        {
+            "id": 91,
+            "category": "Display Filters",
+            "command": "tshark -r capture.pcap -Y \"!(ip.addr == 192.168.1.1)\"",
+            "example": "tshark -r capture.pcap -Y \"!(ip.addr == 192.168.1.1)\"",
+            "explanation": "Displays all traffic NOT involving the specified IP address"
+        },
+        {
+            "id": 92,
+            "category": "Extracting Fields and Objects",
+            "command": "tshark -r capture.pcap -T fields -e text",
+            "example": "tshark -r capture.pcap -T fields -e text",
+            "explanation": "Extracts the top-level summary text for each packet"
+        },
+        {
+            "id": 93,
+            "category": "Protocol and Field Filtering",
+            "command": "tshark -r capture.pcap -Y \"eth.dst == ff:ff:ff:ff:ff:ff\"",
+            "example": "tshark -r capture.pcap -Y \"eth.dst == ff:ff:ff:ff:ff:ff\"",
+            "explanation": "Filters specifically for Ethernet broadcast traffic"
+        },
+        {
+            "id": 94,
+            "category": "Error, Retransmission, and Latency Analysis",
+            "command": "tshark -r capture.pcap -Y \"tcp.analysis.window_update\"",
+            "example": "tshark -r capture.pcap -Y \"tcp.analysis.window_update\"",
+            "explanation": "Shows packets that only update the TCP window size"
+        },
+        {
+            "id": 95,
+            "category": "Security Monitoring and Threat Hunting",
+            "command": "tshark -r capture.pcap -Y \"kerberos.error_code\"",
+            "example": "tshark -r capture.pcap -Y \"kerberos.error_code\"",
+            "explanation": "Displays Kerberos authentication errors useful for detecting attacks"
+        },
+        {
+            "id": 96,
+            "category": "Incident Response and Forensics",
+            "command": "tshark -r capture.pcap -Y \"usb.urb_type\"",
+            "example": "tshark -r capture.pcap -Y \"usb.urb_type\"",
+            "explanation": "Analyzes USB traffic captured via usbmon"
+        },
+        {
+            "id": 97,
+            "category": "Statistics and Conversations",
+            "command": "tshark -r capture.pcap -z expert,error",
+            "example": "tshark -r capture.pcap -z expert,error",
+            "explanation": "Displays only the error-level items from the expert information"
+        },
+        {
+            "id": 98,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -r capture.pcap -Y \"frame contains \\\"password\\\"\"",
+            "example": "tshark -r capture.pcap -Y \"frame contains \\\"password\\\"\"",
+            "explanation": "Searches the entire packet raw bytes for the string 'password'"
+        },
+        {
+            "id": 99,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -r capture.pcap -Y \"frame matches \\\"(?i)login\\\"\"",
+            "example": "tshark -r capture.pcap -Y \"frame matches \\\"(?i)login\\\"\"",
+            "explanation": "Uses case-insensitive regex to search for 'login' in the packet"
+        },
+        {
+            "id": 100,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "tshark -v",
+            "example": "tshark -v",
+            "explanation": "Displays version information, compiled libraries, and running environment"
+        }
+    ]
+}

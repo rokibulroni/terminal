@@ -1,0 +1,707 @@
+{
+    "tool": "nuclei",
+    "description": "Complete Nuclei command reference covering all options from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Template Scanning",
+            "command": "nuclei -u https://example.com",
+            "example": "nuclei -u https://example.com",
+            "explanation": "Scans a single target URL using all default Nuclei templates."
+        },
+        {
+            "id": 2,
+            "category": "Target Input Methods",
+            "command": "nuclei -l targets.txt",
+            "example": "nuclei -l targets.txt",
+            "explanation": "Scans a list of targets provided in a text file."
+        },
+        {
+            "id": 3,
+            "category": "Target Input Methods",
+            "command": "cat targets.txt | nuclei",
+            "example": "cat targets.txt | nuclei",
+            "explanation": "Accepts targets from standard input (stdin) via piping."
+        },
+        {
+            "id": 4,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -t templates/cves/",
+            "example": "nuclei -u https://example.com -t templates/cves/",
+            "explanation": "Runs only the templates located in a specific directory."
+        },
+        {
+            "id": 5,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -t cves/2023/CVE-2023-1234.yaml",
+            "example": "nuclei -u https://example.com -t cves/2023/CVE-2023-1234.yaml",
+            "explanation": "Executes a single specific template file against the target."
+        },
+        {
+            "id": 6,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -tl",
+            "example": "nuclei -u https://example.com -tl",
+            "explanation": "Lists all available templates without running a scan."
+        },
+        {
+            "id": 7,
+            "category": "Tag Filtering",
+            "command": "nuclei -u https://example.com -tags cve",
+            "example": "nuclei -u https://example.com -tags cve",
+            "explanation": "Runs all templates tagged with 'cve' against the target."
+        },
+        {
+            "id": 8,
+            "category": "Tag Filtering",
+            "command": "nuclei -u https://example.com -tags cve,misconfig",
+            "example": "nuclei -u https://example.com -tags cve,misconfig",
+            "explanation": "Runs templates that match either the 'cve' or 'misconfig' tags."
+        },
+        {
+            "id": 9,
+            "category": "Tag Filtering",
+            "command": "nuclei -u https://example.com -etags intrusive",
+            "example": "nuclei -u https://example.com -etags intrusive",
+            "explanation": "Excludes templates tagged as 'intrusive' from the scan."
+        },
+        {
+            "id": 10,
+            "category": "Severity Filtering",
+            "command": "nuclei -u https://example.com -s critical",
+            "example": "nuclei -u https://example.com -s critical",
+            "explanation": "Restricts the scan to templates with 'critical' severity only."
+        },
+        {
+            "id": 11,
+            "category": "Severity Filtering",
+            "command": "nuclei -u https://example.com -s high,critical",
+            "example": "nuclei -u https://example.com -s high,critical",
+            "explanation": "Runs templates with either 'high' or 'critical' severity levels."
+        },
+        {
+            "id": 12,
+            "category": "Severity Filtering",
+            "command": "nuclei -u https://example.com -es info,low",
+            "example": "nuclei -u https://example.com -es info,low",
+            "explanation": "Excludes templates with 'info' or 'low' severity from the scan."
+        },
+        {
+            "id": 13,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -a projectdiscovery",
+            "example": "nuclei -u https://example.com -a projectdiscovery",
+            "explanation": "Runs templates created by a specific author."
+        },
+        {
+            "id": 14,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -id git-config",
+            "example": "nuclei -u https://example.com -id git-config",
+            "explanation": "Runs specific templates matching the provided template IDs."
+        },
+        {
+            "id": 15,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -eid token-spray",
+            "example": "nuclei -u https://example.com -eid token-spray",
+            "explanation": "Excludes specific template IDs from the execution."
+        },
+        {
+            "id": 16,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -type http",
+            "example": "nuclei -u https://example.com -type http",
+            "explanation": "Runs only templates of the 'http' protocol type."
+        },
+        {
+            "id": 17,
+            "category": "Template Selection",
+            "command": "nuclei -u https://example.com -type dns",
+            "example": "nuclei -u https://example.com -type dns",
+            "explanation": "Runs only templates of the 'dns' protocol type."
+        },
+        {
+            "id": 18,
+            "category": "Workflow Execution",
+            "command": "nuclei -u https://example.com -w workflows/wordpress-workflow.yaml",
+            "example": "nuclei -u https://example.com -w workflows/wordpress-workflow.yaml",
+            "explanation": "Executes a defined workflow to run templates in a specific sequence."
+        },
+        {
+            "id": 19,
+            "category": "Workflow Execution",
+            "command": "nuclei -u https://example.com -w workflows/",
+            "example": "nuclei -u https://example.com -w workflows/",
+            "explanation": "Runs all workflows found in the specified directory."
+        },
+        {
+            "id": 20,
+            "category": "Output Formats",
+            "command": "nuclei -u https://example.com -o output.txt",
+            "example": "nuclei -u https://example.com -o output.txt",
+            "explanation": "Saves the scan results to a plain text file."
+        },
+        {
+            "id": 21,
+            "category": "Output Formats",
+            "command": "nuclei -u https://example.com -j",
+            "example": "nuclei -u https://example.com -j",
+            "explanation": "Outputs the findings in JSON format to the console."
+        },
+        {
+            "id": 22,
+            "category": "Output Formats",
+            "command": "nuclei -u https://example.com -je output.json",
+            "example": "nuclei -u https://example.com -je output.json",
+            "explanation": "Writes the findings to a JSON file."
+        },
+        {
+            "id": 23,
+            "category": "Output Formats",
+            "command": "nuclei -u https://example.com -jlr",
+            "example": "nuclei -u https://example.com -jlr",
+            "explanation": "Writes JSON output line by line for easier streaming processing."
+        },
+        {
+            "id": 24,
+            "category": "Output Formats",
+            "command": "nuclei -u https://example.com -se output.sarif",
+            "example": "nuclei -u https://example.com -se output.sarif",
+            "explanation": "Exports the findings in SARIF format for CI/CD integration."
+        },
+        {
+            "id": 25,
+            "category": "Output Formats",
+            "command": "nuclei -u https://example.com -me output.md",
+            "example": "nuclei -u https://example.com -me output.md",
+            "explanation": "Exports the findings in Markdown format."
+        },
+        {
+            "id": 26,
+            "category": "Output Customization",
+            "command": "nuclei -u https://example.com -nm",
+            "example": "nuclei -u https://example.com -nm",
+            "explanation": "Disables printing metadata in the CLI output to reduce noise."
+        },
+        {
+            "id": 27,
+            "category": "Output Customization",
+            "command": "nuclei -u https://example.com -silent",
+            "example": "nuclei -u https://example.com -silent",
+            "explanation": "Displays only the findings without any progress bars or banners."
+        },
+        {
+            "id": 28,
+            "category": "Output Customization",
+            "command": "nuclei -u https://example.com -ts",
+            "example": "nuclei -u https://example.com -ts",
+            "explanation": "Adds a timestamp to each line of the output log."
+        },
+        {
+            "id": 29,
+            "category": "Performance Tuning",
+            "command": "nuclei -u https://example.com -rl 150",
+            "example": "nuclei -u https://example.com -rl 150",
+            "explanation": "Limits the scan to a maximum of 150 requests per second."
+        },
+        {
+            "id": 30,
+            "category": "Performance Tuning",
+            "command": "nuclei -u https://example.com -rlm 60",
+            "example": "nuclei -u https://example.com -rlm 60",
+            "explanation": "Limits the scan to a maximum of 60 requests per minute."
+        },
+        {
+            "id": 31,
+            "category": "Performance Tuning",
+            "command": "nuclei -u https://example.com -c 50",
+            "example": "nuclei -u https://example.com -c 50",
+            "explanation": "Sets the concurrency level to execute 50 templates in parallel."
+        },
+        {
+            "id": 32,
+            "category": "Performance Tuning",
+            "command": "nuclei -u https://example.com -bs 25",
+            "example": "nuclei -u https://example.com -bs 25",
+            "explanation": "Sets the bulk size to 25 hosts to be analyzed in parallel per template."
+        },
+        {
+            "id": 33,
+            "category": "Performance Tuning",
+            "command": "nuclei -u https://example.com -timeout 10",
+            "example": "nuclei -u https://example.com -timeout 10",
+            "explanation": "Sets the HTTP timeout to 10 seconds before giving up on a request."
+        },
+        {
+            "id": 34,
+            "category": "Performance Tuning",
+            "command": "nuclei -u https://example.com -retries 3",
+            "example": "nuclei -u https://example.com -retries 3",
+            "explanation": "Retries failed requests up to 3 times before marking them as failed."
+        },
+        {
+            "id": 35,
+            "category": "Performance Tuning",
+            "command": "nuclei -u https://example.com -mhe 5",
+            "example": "nuclei -u https://example.com -mhe 5",
+            "explanation": "Skips the host after 5 consecutive connection errors."
+        },
+        {
+            "id": 36,
+            "category": "Rate Limiting",
+            "command": "nuclei -u https://example.com -lp",
+            "example": "nuclei -u https://example.com -lp",
+            "explanation": "Pauses the scan if the target server starts responding with errors."
+        },
+        {
+            "id": 37,
+            "category": "Network Configuration",
+            "command": "nuclei -u https://example.com -p http://127.0.0.1:8080",
+            "example": "nuclei -u https://example.com -p http://127.0.0.1:8080",
+            "explanation": "Routes all traffic through an HTTP proxy (e.g., Burp Suite)."
+        },
+        {
+            "id": 38,
+            "category": "Network Configuration",
+            "command": "nuclei -u https://example.com -proxy-socks-url socks5://127.0.0.1:9050",
+            "example": "nuclei -u https://example.com -proxy-socks-url socks5://127.0.0.1:9050",
+            "explanation": "Routes all traffic through a SOCKS5 proxy."
+        },
+        {
+            "id": 39,
+            "category": "Network Configuration",
+            "command": "nuclei -u https://example.com -ni",
+            "example": "nuclei -u https://example.com -ni",
+            "explanation": "Uses the network interface for scanning without performing DNS lookups."
+        },
+        {
+            "id": 40,
+            "category": "Network Configuration",
+            "command": "nuclei -u https://example.com -scan-all-ips",
+            "example": "nuclei -u https://example.com -scan-all-ips",
+            "explanation": "Scans all resolved IP addresses for the target domain."
+        },
+        {
+            "id": 41,
+            "category": "Network Configuration",
+            "command": "nuclei -u https://example.com -ip 192.168.1.1",
+            "example": "nuclei -u https://example.com -ip 192.168.1.1",
+            "explanation": "Forces the scan to use a specific IP address for the target domain."
+        },
+        {
+            "id": 42,
+            "category": "Network Configuration",
+            "command": "nuclei -u https://example.com -interface eth0",
+            "example": "nuclei -u https://example.com -interface eth0",
+            "explanation": "Binds the scan traffic to a specific network interface."
+        },
+        {
+            "id": 43,
+            "category": "Network Configuration",
+            "command": "nuclei -u https://example.com -source-ip 10.0.0.5",
+            "example": "nuclei -u https://example.com -source-ip 10.0.0.5",
+            "explanation": "Sets a specific source IP address for outgoing requests."
+        },
+        {
+            "id": 44,
+            "category": "Headers & Auth",
+            "command": "nuclei -u https://example.com -H \"User-Agent: BugBountyScanner\"",
+            "example": "nuclei -u https://example.com -H \"User-Agent: BugBountyScanner\"",
+            "explanation": "Adds a custom User-Agent header to all HTTP requests."
+        },
+        {
+            "id": 45,
+            "category": "Headers & Auth",
+            "command": "nuclei -u https://example.com -H \"Authorization: Bearer KEY\"",
+            "example": "nuclei -u https://example.com -H \"Authorization: Bearer KEY\"",
+            "explanation": "Adds an authorization header to authenticate requests."
+        },
+        {
+            "id": 46,
+            "category": "Headers & Auth",
+            "command": "nuclei -u https://example.com -header \"X-Bug-Bounty: true\"",
+            "example": "nuclei -u https://example.com -header \"X-Bug-Bounty: true\"",
+            "explanation": "Adds a custom header to identify scan traffic."
+        },
+        {
+            "id": 47,
+            "category": "Headers & Auth",
+            "command": "nuclei -u https://example.com -V",
+            "example": "nuclei -u https://example.com -V",
+            "explanation": "Displays the version of the installed Nuclei engine."
+        },
+        {
+            "id": 48,
+            "category": "Debugging",
+            "command": "nuclei -u https://example.com -v",
+            "example": "nuclei -u https://example.com -v",
+            "explanation": "Enables verbose mode to show executed templates and errors."
+        },
+        {
+            "id": 49,
+            "category": "Debugging",
+            "command": "nuclei -u https://example.com -vv",
+            "example": "nuclei -u https://example.com -vv",
+            "explanation": "Enables extra verbose mode to show request and response details."
+        },
+        {
+            "id": 50,
+            "category": "Debugging",
+            "command": "nuclei -u https://example.com -debug",
+            "example": "nuclei -u https://example.com -debug",
+            "explanation": "Enables debug mode showing all request/response pairs."
+        },
+        {
+            "id": 51,
+            "category": "Debugging",
+            "command": "nuclei -u https://example.com -debug-req",
+            "example": "nuclei -u https://example.com -debug-req",
+            "explanation": "Shows only the HTTP requests sent during the scan."
+        },
+        {
+            "id": 52,
+            "category": "Debugging",
+            "command": "nuclei -u https://example.com -debug-resp",
+            "example": "nuclei -u https://example.com -debug-resp",
+            "explanation": "Shows only the HTTP responses received during the scan."
+        },
+        {
+            "id": 53,
+            "category": "Advanced Interactions",
+            "command": "nuclei -u https://example.com -im interactsh",
+            "example": "nuclei -u https://example.com -im interactsh",
+            "explanation": "Uses the default interactsh server for out-of-band testing."
+        },
+        {
+            "id": 54,
+            "category": "Advanced Interactions",
+            "command": "nuclei -u https://example.com -server http://myserver.com",
+            "example": "nuclei -u https://example.com -server http://myserver.com",
+            "explanation": "Uses a self-hosted interactsh server for callbacks."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Interactions",
+            "command": "nuclei -u https://example.com -no-interactsh",
+            "example": "nuclei -u https://example.com -no-interactsh",
+            "explanation": "Disables any out-of-band interaction capability."
+        },
+        {
+            "id": 56,
+            "category": "Template Management",
+            "command": "nuclei -update",
+            "example": "nuclei -update",
+            "explanation": "Updates the Nuclei binary to the latest version."
+        },
+        {
+            "id": 57,
+            "category": "Template Management",
+            "command": "nuclei -ut",
+            "example": "nuclei -ut",
+            "explanation": "Updates the Nuclei templates to the latest version."
+        },
+        {
+            "id": 58,
+            "category": "Template Management",
+            "command": "nuclei -ud templates/custom",
+            "example": "nuclei -ud templates/custom",
+            "explanation": "Sets a custom directory for storing and reading templates."
+        },
+        {
+            "id": 59,
+            "category": "Template Management",
+            "command": "nuclei -validate",
+            "example": "nuclei -validate",
+            "explanation": "Validates the syntax of all available templates."
+        },
+        {
+            "id": 60,
+            "category": "Template Management",
+            "command": "nuclei -t custom-template.yaml -validate",
+            "example": "nuclei -t custom-template.yaml -validate",
+            "explanation": "Validates the syntax of a specific custom template file."
+        },
+        {
+            "id": 61,
+            "category": "Advanced Scanning",
+            "command": "nuclei -u https://example.com -headless",
+            "example": "nuclei -u https://example.com -headless",
+            "explanation": "Enables headless mode to scan using a browser automation engine."
+        },
+        {
+            "id": 62,
+            "category": "Advanced Scanning",
+            "command": "nuclei -u https://example.com -sb",
+            "example": "nuclei -u https://example.com -sb",
+            "explanation": "Shows the headless browser window during the scan."
+        },
+        {
+            "id": 63,
+            "category": "Advanced Scanning",
+            "command": "nuclei -u https://example.com -sc",
+            "example": "nuclei -u https://example.com -sc",
+            "explanation": "Captures and saves a screenshot on successful match in headless mode."
+        },
+        {
+            "id": 64,
+            "category": "Advanced Scanning",
+            "command": "nuclei -u https://example.com -js",
+            "example": "nuclei -u https://example.com -js",
+            "explanation": "Enables the Javascript protocol execution in templates."
+        },
+        {
+            "id": 65,
+            "category": "Advanced Scanning",
+            "command": "nuclei -u https://example.com -code",
+            "example": "nuclei -u https://example.com -code",
+            "explanation": "Enables the Code protocol execution in templates."
+        },
+        {
+            "id": 66,
+            "category": "Advanced Scanning",
+            "command": "nuclei -u https://example.com -fuzz",
+            "example": "nuclei -u https://example.com -fuzz",
+            "explanation": "Enables fuzzing mode to discover unknown vulnerabilities."
+        },
+        {
+            "id": 67,
+            "category": "Configuration",
+            "command": "nuclei -u https://example.com -config config.yaml",
+            "example": "nuclei -u https://example.com -config config.yaml",
+            "explanation": "Loads scanning configuration from a specific YAML file."
+        },
+        {
+            "id": 68,
+            "category": "Configuration",
+            "command": "nuclei -rc config.yaml",
+            "example": "nuclei -rc config.yaml",
+            "explanation": "Overwrites the default configuration file with the provided one."
+        },
+        {
+            "id": 69,
+            "category": "Environment",
+            "command": "nuclei -u https://example.com -env-vars VAR=value",
+            "example": "nuclei -u https://example.com -env-vars VAR=value",
+            "explanation": "Passes environment variables to the templates during execution."
+        },
+        {
+            "id": 70,
+            "category": "Environment",
+            "command": "nuclei -u https://example.com -var username=admin",
+            "example": "nuclei -u https://example.com -var username=admin",
+            "explanation": "Passes specific variables to replace placeholders in templates."
+        },
+        {
+            "id": 71,
+            "category": "Resume",
+            "command": "nuclei -u https://example.com -resume scan-state.json",
+            "example": "nuclei -u https://example.com -resume scan-state.json",
+            "explanation": "Resumes a previously interrupted scan from a state file."
+        },
+        {
+            "id": 72,
+            "category": "Output Reporting",
+            "command": "nuclei -u https://example.com -irr",
+            "example": "nuclei -u https://example.com -irr",
+            "explanation": "Includes the full request and response in the JSON output."
+        },
+        {
+            "id": 73,
+            "category": "Output Reporting",
+            "command": "nuclei -u https://example.com -iser",
+            "example": "nuclei -u https://example.com -iser",
+            "explanation": "Includes server error responses in the output."
+        },
+        {
+            "id": 74,
+            "category": "Cloud Integration",
+            "command": "nuclei -u https://example.com -cloud",
+            "example": "nuclei -u https://example.com -cloud",
+            "explanation": "Uses the ProjectDiscovery Cloud Platform for scanning."
+        },
+        {
+            "id": 75,
+            "category": "Cloud Integration",
+            "command": "nuclei -u https://example.com -dashboard",
+            "example": "nuclei -u https://example.com -dashboard",
+            "explanation": "Uploads the scan results to the ProjectDiscovery cloud dashboard."
+        },
+        {
+            "id": 76,
+            "category": "Offline Scanning",
+            "command": "nuclei -u https://example.com -disable-update-check",
+            "example": "nuclei -u https://example.com -disable-update-check",
+            "explanation": "Disables the automatic check for engine and template updates."
+        },
+        {
+            "id": 77,
+            "category": "Performance Stats",
+            "command": "nuclei -u https://example.com -stats",
+            "example": "nuclei -u https://example.com -stats",
+            "explanation": "Displays real-time statistics about the running scan."
+        },
+        {
+            "id": 78,
+            "category": "Performance Stats",
+            "command": "nuclei -u https://example.com -stats-interval 10",
+            "example": "nuclei -u https://example.com -stats-interval 10",
+            "explanation": "Sets the interval for displaying statistics to every 10 seconds."
+        },
+        {
+            "id": 79,
+            "category": "Performance Stats",
+            "command": "nuclei -u https://example.com -metrics 8080",
+            "example": "nuclei -u https://example.com -metrics 8080",
+            "explanation": "Exposes scan metrics on port 8080 for monitoring via Prometheus."
+        },
+        {
+            "id": 80,
+            "category": "Automated Workflows",
+            "command": "nuclei -u https://example.com -as",
+            "example": "nuclei -u https://example.com -as",
+            "explanation": "Enables automatic scan mode to deduce templates based on technology detection."
+        },
+        {
+            "id": 81,
+            "category": "Automated Workflows",
+            "command": "nuclei -u https://example.com -new-templates",
+            "example": "nuclei -u https://example.com -new-templates",
+            "explanation": "Runs only the templates added in the latest update."
+        },
+        {
+            "id": 82,
+            "category": "Advanced Filtering",
+            "command": "nuclei -u https://example.com -etags intrusive -itags cve",
+            "example": "nuclei -u https://example.com -etags intrusive -itags cve",
+            "explanation": "Includes 'cve' tags but specifically excludes 'intrusive' tags."
+        },
+        {
+            "id": 83,
+            "category": "Advanced Filtering",
+            "command": "nuclei -u https://example.com -imac",
+            "example": "nuclei -u https://example.com -imac",
+            "explanation": "Excludes templates that only match at the protocol level without a result."
+        },
+        {
+            "id": 84,
+            "category": "Input Handling",
+            "command": "nuclei -u https://example.com -input-read-timeout 5s",
+            "example": "nuclei -u https://example.com -input-read-timeout 5s",
+            "explanation": "Sets the timeout for reading input from stdin to 5 seconds."
+        },
+        {
+            "id": 85,
+            "category": "Network Tuning",
+            "command": "nuclei -u https://example.com -stream",
+            "example": "nuclei -u https://example.com -stream",
+            "explanation": "Enables stream mode for handling large inputs with low memory usage."
+        },
+        {
+            "id": 86,
+            "category": "Network Tuning",
+            "command": "nuclei -u https://example.com -skip-host 10.0.0.1",
+            "example": "nuclei -u https://example.com -skip-host 10.0.0.1",
+            "explanation": "Excludes a specific host IP from the scan list."
+        },
+        {
+            "id": 87,
+            "category": "Template Tuning",
+            "command": "nuclei -u https://example.com -tlm",
+            "example": "nuclei -u https://example.com -tlm",
+            "explanation": "Lists all matched templates from the previous run."
+        },
+        {
+            "id": 88,
+            "category": "Scanning Mode",
+            "command": "nuclei -u https://example.com -dast",
+            "example": "nuclei -u https://example.com -dast",
+            "explanation": "Runs only DAST-related templates designed for dynamic testing."
+        },
+        {
+            "id": 89,
+            "category": "Local Scanning",
+            "command": "nuclei -target /var/www/html -t file-templates/",
+            "example": "nuclei -target /var/www/html -t file-templates/",
+            "explanation": "Scans a local directory using file-based templates."
+        },
+        {
+            "id": 90,
+            "category": "Reporting",
+            "command": "nuclei -u https://example.com -mr 10",
+            "example": "nuclei -u https://example.com -mr 10",
+            "explanation": "Limits the number of results to display to a maximum of 10."
+        },
+        {
+            "id": 91,
+            "category": "Reporting",
+            "command": "nuclei -u https://example.com -omit-raw",
+            "example": "nuclei -u https://example.com -omit-raw",
+            "explanation": "Omits the raw request and response data from the JSON output."
+        },
+        {
+            "id": 92,
+            "category": "Output",
+            "command": "nuclei -u https://example.com -no-color",
+            "example": "nuclei -u https://example.com -no-color",
+            "explanation": "Disables colored output in the terminal."
+        },
+        {
+            "id": 93,
+            "category": "Customization",
+            "command": "nuclei -u https://example.com -project",
+            "example": "nuclei -u https://example.com -project",
+            "explanation": "Uses a project folder to avoid sending same requests multiple times."
+        },
+        {
+            "id": 94,
+            "category": "Customization",
+            "command": "nuclei -u https://example.com -project-path ./scan-data",
+            "example": "nuclei -u https://example.com -project-path ./scan-data",
+            "explanation": "Specifies the directory to store project-based scan data."
+        },
+        {
+            "id": 95,
+            "category": "Advanced",
+            "command": "nuclei -u https://example.com -stop-at-first-match",
+            "example": "nuclei -u https://example.com -stop-at-first-match",
+            "explanation": "Stops processing a template or host after the first valid match."
+        },
+        {
+            "id": 96,
+            "category": "Advanced",
+            "command": "nuclei -u https://example.com -max-redirects 5",
+            "example": "nuclei -u https://example.com -max-redirects 5",
+            "explanation": "Sets the maximum number of HTTP redirects to follow."
+        },
+        {
+            "id": 97,
+            "category": "Advanced",
+            "command": "nuclei -u https://example.com -disable-redirects",
+            "example": "nuclei -u https://example.com -disable-redirects",
+            "explanation": "Disables following HTTP redirects completely."
+        },
+        {
+            "id": 98,
+            "category": "Advanced",
+            "command": "nuclei -u https://example.com -sni example.com",
+            "example": "nuclei -u https://example.com -sni example.com",
+            "explanation": "Specifies the Server Name Indication (SNI) for TLS connections."
+        },
+        {
+            "id": 99,
+            "category": "CI/CD",
+            "command": "nuclei -l targets.txt -c 50 -silent -je results.json",
+            "example": "nuclei -l targets.txt -c 50 -silent -je results.json",
+            "explanation": "Optimized command for CI/CD pipelines producing silent JSON output."
+        },
+        {
+            "id": 100,
+            "category": "Full Automation",
+            "command": "nuclei -up && nuclei -u https://example.com -as -c 50 -rl 200 -je scan.json",
+            "example": "nuclei -up && nuclei -u https://example.com -as -c 50 -rl 200 -je scan.json",
+            "explanation": "Updates templates then runs an automated scan with high performance settings."
+        }
+    ]
+}

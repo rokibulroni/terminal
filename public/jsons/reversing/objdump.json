@@ -1,0 +1,77 @@
+{
+    "tool": "objdump",
+    "description": "Objdump: Native GNU binary extraction tool manipulating explicit Object files directly mapping deeply compiled strings, sections, and symbols mapped directly into Assembly layers.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Disassembly Engine",
+            "command": "objdump -d <binary>",
+            "example": "objdump -d ./target_binary",
+            "explanation": "Translates natively compiled executable binary instruction byte-codes dynamically ripping them forcefully backwards cleanly translating into heavily formatted plain Assembly languages."
+        },
+        {
+            "id": 2,
+            "category": "Absolute Disassembly",
+            "command": "objdump -D <binary>",
+            "example": "objdump -D ./target_binary",
+            "explanation": "Bypasses standard bounds logic forcing complete unmitigated extraction structurally manipulating non-executable areas isolating hidden encrypted structural payloads."
+        },
+        {
+            "id": 3,
+            "category": "Symbol Mappings",
+            "command": "objdump -t <binary>",
+            "example": "objdump -t ./library.so",
+            "explanation": "Rips dynamically linked Object symbols explicitly generating highly legible tabular views categorizing inherent internal exported functions and deeply routed absolute variable limits."
+        },
+        {
+            "id": 4,
+            "category": "Hexadecimal Views",
+            "command": "objdump -s <binary>",
+            "example": "objdump -s ./target_binary",
+            "explanation": "Dumps the explicit full content memory arrays inherently aligning all internal structural executable sections into formatted standard raw-byte hexadecimal rows."
+        },
+        {
+            "id": 5,
+            "category": "Intel Syntax Overload",
+            "command": "objdump -M intel -d <binary>",
+            "example": "objdump -M intel -d ./target_binary",
+            "explanation": "Modifies parsing algorithms entirely converting generic legacy AT&T instruction set syntax structurally outputting deeply preferred standard Intel assembly formats."
+        },
+        {
+            "id": 6,
+            "category": "Section Extraction",
+            "command": "objdump -j <section> -d <binary>",
+            "example": "objdump -j .text -d ./target_binary",
+            "explanation": "Eliminates global dumping noise explicitly restricting output strictly to explicitly isolated architectural compilation sectors natively bridging targeted disassembly focus."
+        },
+        {
+            "id": 7,
+            "category": "Header Metadata",
+            "command": "objdump -x <binary>",
+            "example": "objdump -x ./target_binary",
+            "explanation": "Pulls fundamental ELF architecture properties extracting highly contextual metadata strings like global architecture types, internal file pointers, and deep memory allocations sizes."
+        },
+        {
+            "id": 8,
+            "category": "Dynamic Symbols",
+            "command": "objdump -T <binary>",
+            "example": "objdump -T ./target_binary",
+            "explanation": "Bridges natively shared complex dependency arrays extracting absolutely essential unlinked external DLL or SO function calls structurally originating deeply out of bounds."
+        },
+        {
+            "id": 9,
+            "category": "File Extraction",
+            "command": "objdump -h <binary>",
+            "example": "objdump -h ./target_binary",
+            "explanation": "Queries deeply internal binary index charts printing absolute sector names cleanly enabling immediate targeting calculations mapping memory pointer injection locations."
+        },
+        {
+            "id": 10,
+            "category": "Source Interleaving",
+            "command": "objdump -S <binary>",
+            "example": "objdump -S ./target_binary",
+            "explanation": "If dynamically compiled deeply bridging internal debug lines (-g), seamlessly interleaves native readable C/C++ source code directly physically adjacent to its compiled Assembly output lines."
+        }
+    ]
+}

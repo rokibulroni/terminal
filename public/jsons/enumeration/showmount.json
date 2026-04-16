@@ -1,0 +1,147 @@
+{
+    "tool": "showmount",
+    "description": "Complete showmount command reference covering all options from basic to advanced",
+    "total_commands": 20,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Export Enumeration",
+            "command": "showmount -e 192.168.1.20",
+            "example": "showmount -e 192.168.1.20",
+            "explanation": "Lists exported NFS directories available on the target IP address."
+        },
+        {
+            "id": 2,
+            "category": "Basic Export Enumeration",
+            "command": "showmount --exports 192.168.1.20",
+            "example": "showmount --exports 192.168.1.20",
+            "explanation": "Uses the long-form flag to list exported directories on the target."
+        },
+        {
+            "id": 3,
+            "category": "Hostname and DNS Based Enumeration",
+            "command": "showmount -e nfs.example.local",
+            "example": "showmount -e nfs.example.local",
+            "explanation": "Queries the NFS exports of a target server defined by its hostname."
+        },
+        {
+            "id": 4,
+            "category": "Client Access and Permission Enumeration",
+            "command": "showmount -a 192.168.1.20",
+            "example": "showmount -a 192.168.1.20",
+            "explanation": "Lists all active mount points in the format host:directory."
+        },
+        {
+            "id": 5,
+            "category": "Listing Mounted Clients",
+            "command": "showmount --all 192.168.1.20",
+            "example": "showmount --all 192.168.1.20",
+            "explanation": "Uses the long-form flag to display both client IP and mounted directory."
+        },
+        {
+            "id": 6,
+            "category": "Listing Exported Directories",
+            "command": "showmount -d 192.168.1.20",
+            "example": "showmount -d 192.168.1.20",
+            "explanation": "Lists only the directories that are currently mounted by some client."
+        },
+        {
+            "id": 7,
+            "category": "Listing Exported Directories",
+            "command": "showmount --directories 192.168.1.20",
+            "example": "showmount --directories 192.168.1.20",
+            "explanation": "Uses the long-form flag to list currently mounted directories without client IPs."
+        },
+        {
+            "id": 8,
+            "category": "NFS Server Status Queries",
+            "command": "showmount 192.168.1.20",
+            "example": "showmount 192.168.1.20",
+            "explanation": "Runs with default behavior (typically equivalent to -a or list clients) against the target."
+        },
+        {
+            "id": 9,
+            "category": "Local Host Enumeration",
+            "command": "showmount -e localhost",
+            "example": "showmount -e localhost",
+            "explanation": "Checks the local machine for its own NFS exports."
+        },
+        {
+            "id": 10,
+            "category": "General Tool Information",
+            "command": "showmount --help",
+            "example": "showmount --help",
+            "explanation": "Displays the help message summarizing usage and flags."
+        },
+        {
+            "id": 11,
+            "category": "General Tool Information",
+            "command": "showmount --version",
+            "example": "showmount --version",
+            "explanation": "Outputs the version information of the installed showmount tool."
+        },
+        {
+            "id": 12,
+            "category": "IPv6 Target Enumeration",
+            "command": "showmount -e 2001:db8::1",
+            "example": "showmount -e 2001:db8::1",
+            "explanation": "Queries NFS exports from a target specified by an IPv6 address."
+        },
+        {
+            "id": 13,
+            "category": "Red Team Initial Unix Reconnaissance",
+            "command": "showmount -e 10.10.10.15",
+            "example": "showmount -e 10.10.10.15",
+            "explanation": "Identifies potential entry points by listing accessible file shares on a specific target."
+        },
+        {
+            "id": 14,
+            "category": "Blue Team Exposure Validation",
+            "command": "showmount -e internal-nfs",
+            "example": "showmount -e internal-nfs",
+            "explanation": "Verifies that sensitive exports are not inadvertently exposed to the internal network."
+        },
+        {
+            "id": 15,
+            "category": "Incident Response and Assessment",
+            "command": "showmount -a 10.10.10.15",
+            "example": "showmount -a 10.10.10.15",
+            "explanation": "Reveals which IP addresses are currently connected to the compromised NFS server."
+        },
+        {
+            "id": 16,
+            "category": "Quiet and Script Friendly Output",
+            "command": "showmount --no-headers -e 192.168.1.20",
+            "example": "showmount --no-headers -e 192.168.1.20",
+            "explanation": "Suppresses header lines for easier parsing in scripts (if supported by version)."
+        },
+        {
+            "id": 17,
+            "category": "Advanced Combined Enumeration",
+            "command": "showmount -a nfs-primary.corp",
+            "example": "showmount -a nfs-primary.corp",
+            "explanation": "Maps the full relationship of clients to mounts on the primary corporate NFS server."
+        },
+        {
+            "id": 18,
+            "category": "Specific Directory Discovery",
+            "command": "showmount -d backup-server",
+            "example": "showmount -d backup-server",
+            "explanation": "Checks specifically for directories actively in use on the backup server."
+        },
+        {
+            "id": 19,
+            "category": "Export Information with Hostnames",
+            "command": "showmount -e db-server.local",
+            "example": "showmount -e db-server.local",
+            "explanation": "Retrieves the export list to determine allowed host subnets or wildcards."
+        },
+        {
+            "id": 20,
+            "category": "All Hosts Export Visibility",
+            "command": "showmount -a localhost",
+            "example": "showmount -a localhost",
+            "explanation": "Audits the local system to see all incoming NFS connections from the network."
+        }
+    ]
+}

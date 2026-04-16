@@ -1,0 +1,427 @@
+{
+  "tool": "unicornscan",
+  "description": "Complete Unicornscan command reference covering all options from basic to advanced",
+  "total_commands": 60,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Scan",
+      "command": "unicornscan 192.168.1.1",
+      "example": "unicornscan 192.168.1.1",
+      "explanation": "Performs a basic TCP SYN scan against a single target IP.\nUnicornscan's asynchronous engine makes this extremely fast and efficient."
+    },
+    {
+      "id": 2,
+      "category": "Basic Scan",
+      "command": "unicornscan 192.168.1.1:80",
+      "example": "unicornscan 192.168.1.1:80",
+      "explanation": "Scans the target host specifically for TCP port 80.\nFocusing on a single port is ideal for checking service availability."
+    },
+    {
+      "id": 3,
+      "category": "Basic Scan",
+      "command": "unicornscan scanme.nmap.org",
+      "example": "unicornscan scanme.nmap.org",
+      "explanation": "Resolves the hostname and performs a basic scan.\nUseful for targeting web servers or domains where the IP is dynamic."
+    },
+    {
+      "id": 4,
+      "category": "Target and Port Specification",
+      "command": "unicornscan 192.168.1.0/24:80",
+      "example": "unicornscan 192.168.1.0/24:80",
+      "explanation": "Scans an entire Class C subnet for web servers (port 80).\nEfficiently identifies active http services across a network segment."
+    },
+    {
+      "id": 5,
+      "category": "Target and Port Specification",
+      "command": "unicornscan 192.168.1.1:80,443,8080",
+      "example": "unicornscan 192.168.1.1:80,443,8080",
+      "explanation": "Scans a defined list of ports on the target.\nQuickly checks for common services like HTTP, HTTPS, and Proxies simultaneously."
+    },
+    {
+      "id": 6,
+      "category": "Target and Port Specification",
+      "command": "unicornscan 192.168.1.1:1-65535",
+      "example": "unicornscan 192.168.1.1:1-65535",
+      "explanation": "Performs a full TCP port scan (1-65535).\nEssential for finding services running on non-standard or high-numbered ports."
+    },
+    {
+      "id": 7,
+      "category": "Target and Port Specification",
+      "command": "unicornscan 192.168.1.1:1-1024",
+      "example": "unicornscan 192.168.1.1:1-1024",
+      "explanation": "Scans the standard reserved ports (1-1024).\nThese ports host the most critical system services and are often the first to check."
+    },
+    {
+      "id": 8,
+      "category": "Target and Port Specification",
+      "command": "unicornscan 192.168.1.1 192.168.1.5",
+      "example": "unicornscan 192.168.1.1 192.168.1.5",
+      "explanation": "Scans multiple distinct IP addresses in one command.\nAllows processing a list of disparate targets without relaunching the tool."
+    },
+    {
+      "id": 9,
+      "category": "Verbosity and Output",
+      "command": "unicornscan -v 192.168.1.1",
+      "example": "unicornscan -v 192.168.1.1",
+      "explanation": "Enables verbose mode to show packet details.\nUseful for understanding scan progress and seeing immediate feedback."
+    },
+    {
+      "id": 10,
+      "category": "Verbosity and Output",
+      "command": "unicornscan -vv 192.168.1.1",
+      "example": "unicornscan -vv 192.168.1.1",
+      "explanation": "Enables extra verbose output for deep debugging.\nShows internal state and packet details, helpful for troubleshooting scan issues."
+    },
+    {
+      "id": 11,
+      "category": "Verbosity and Output",
+      "command": "unicornscan -I 192.168.1.1",
+      "example": "unicornscan -I 192.168.1.1",
+      "explanation": "Activates Immediate mode to report results instantly.\nCrucial for real-time monitoring as ports are discovered."
+    },
+    {
+      "id": 12,
+      "category": "Interface Control",
+      "command": "unicornscan -i eth0 192.168.1.1",
+      "example": "unicornscan -i eth0 192.168.1.1",
+      "explanation": "Forces the scanner to use a specific network interface.\nNecessary when working with multiple adapters or VPN tunnels."
+    },
+    {
+      "id": 13,
+      "category": "UDP Scanning",
+      "command": "unicornscan -m U 192.168.1.1",
+      "example": "unicornscan -m U 192.168.1.1",
+      "explanation": "Switches the scan mode to UDP protocol.\nUDP is connectionless and harder to scan, but Unicornscan is optimized for it."
+    },
+    {
+      "id": 14,
+      "category": "UDP Scanning",
+      "command": "unicornscan -m U 192.168.1.1:53",
+      "example": "unicornscan -m U 192.168.1.1:53",
+      "explanation": "Scans specifically for UDP DNS service on port 53.\nFast and effective for identifying DNS servers or open resolvers."
+    },
+    {
+      "id": 15,
+      "category": "UDP Scanning",
+      "command": "unicornscan -m U 192.168.1.1:161,162",
+      "example": "unicornscan -m U 192.168.1.1:161,162",
+      "explanation": "Scans for UDP SNMP services on standard ports.\nSNMP can reveal vast amounts of system information if exposed."
+    },
+    {
+      "id": 16,
+      "category": "Timing and Throttling",
+      "command": "unicornscan -r 300 192.168.1.1",
+      "example": "unicornscan -r 300 192.168.1.1",
+      "explanation": "Sets a conservative packet rate of 300 pps.\nBalances speed with accuracy to avoid dropping packets on standard networks."
+    },
+    {
+      "id": 17,
+      "category": "Timing and Throttling",
+      "command": "unicornscan -r 1000 192.168.1.1",
+      "example": "unicornscan -r 1000 192.168.1.1",
+      "explanation": "Increases scan speed to 1000 packets per second.\nUse this on robust networks to significantly reduce scan time."
+    },
+    {
+      "id": 18,
+      "category": "Timing and Throttling",
+      "command": "unicornscan -r 10 192.168.1.1",
+      "example": "unicornscan -r 10 192.168.1.1",
+      "explanation": "Reduces scan speed for stealth or stability.\nHelps avoid detection by IDS or overwhelming fragile legacy hardware."
+    },
+    {
+      "id": 19,
+      "category": "Packet Reliability",
+      "command": "unicornscan -R 2 192.168.1.1",
+      "example": "unicornscan -R 2 192.168.1.1",
+      "explanation": "Repeats every packet 2 times to ensure delivery.\nVital for scanning across lossy networks or unreliable wireless connections."
+    },
+    {
+      "id": 20,
+      "category": "Packet Reliability",
+      "command": "unicornscan -R 5 -r 500 192.168.1.1",
+      "example": "unicornscan -R 5 -r 500 192.168.1.1",
+      "explanation": "Sends 5 copies of every packet at 500 pps.\nMaximizes probability of detection in high-noise or packet-loss environments."
+    },
+    {
+      "id": 21,
+      "category": "Source Spoofing",
+      "command": "unicornscan -s 10.0.0.5 192.168.1.1",
+      "example": "unicornscan -s 10.0.0.5 192.168.1.1",
+      "explanation": "Spoofs the source IP address of the scan packets.\nUsed for decoy scanning or testing firewall handling of specific IPs."
+    },
+    {
+      "id": 22,
+      "category": "Source Spoofing",
+      "command": "unicornscan -B 53 192.168.1.1",
+      "example": "unicornscan -B 53 192.168.1.1",
+      "explanation": "Sets the source port to 53 (DNS).\nOften allows packets to bypass firewalls that permit traffic from DNS servers."
+    },
+    {
+      "id": 23,
+      "category": "Source Spoofing",
+      "command": "unicornscan -B 443 192.168.1.1:80",
+      "example": "unicornscan -B 443 192.168.1.1:80",
+      "explanation": "Scans with source port 443 (HTTPS).\nTechnique to bypass egress filtering by masquerading as return web traffic."
+    },
+    {
+      "id": 24,
+      "category": "TCP Scan Types",
+      "command": "unicornscan -m T -t syn 192.168.1.1",
+      "example": "unicornscan -m T -t syn 192.168.1.1",
+      "explanation": "Explicitly selects TCP SYN scan mode.\nThis is the default and most reliable method for discovering open TCP ports."
+    },
+    {
+      "id": 25,
+      "category": "TCP Scan Types",
+      "command": "unicornscan -m T -t ack 192.168.1.1",
+      "example": "unicornscan -m T -t ack 192.168.1.1",
+      "explanation": "Performs a TCP ACK scan to map firewall rules.\nHosts usually reply with RST if unfiltered, helping to identify rule sets."
+    },
+    {
+      "id": 26,
+      "category": "TCP Scan Types",
+      "command": "unicornscan -m T -t fin 192.168.1.1",
+      "example": "unicornscan -m T -t fin 192.168.1.1",
+      "explanation": "Performs a TCP FIN scan.\nCan sometimes bypass simple firewalls or identify OS behaviors based on RFC compliance."
+    },
+    {
+      "id": 27,
+      "category": "TCP Scan Types",
+      "command": "unicornscan -m T -t null 192.168.1.1",
+      "example": "unicornscan -m T -t null 192.168.1.1",
+      "explanation": "Performs a TCP Null scan (no flags).\nUseful for fingerprinting as different operating systems respond differently to invalid packets."
+    },
+    {
+      "id": 28,
+      "category": "TCP Scan Types",
+      "command": "unicornscan -m T -t xmas 192.168.1.1",
+      "example": "unicornscan -m T -t xmas 192.168.1.1",
+      "explanation": "Performs a TCP Xmas scan (FIN, URG, PUSH).\n"
+    },
+    {
+      "id": 29,
+      "category": "TCP Scan Types",
+      "command": "unicornscan -m T -t dump 192.168.1.1",
+      "example": "unicornscan -m T -t dump 192.168.1.1",
+      "explanation": "Captures and dumps packet headers during the scan.\nUseful for low-level analysis of the responses."
+    },
+    {
+      "id": 30,
+      "category": "Logging and Evidence",
+      "command": "unicornscan -l /tmp/scanlogs 192.168.1.1",
+      "example": "unicornscan -l /tmp/scanlogs 192.168.1.1",
+      "explanation": "Logs scan output to a specified directory.\nEnsures results are persisted for reporting or later analysis."
+    },
+    {
+      "id": 31,
+      "category": "Logging and Evidence",
+      "command": "unicornscan -w capture.pcap 192.168.1.1",
+      "example": "unicornscan -w capture.pcap 192.168.1.1",
+      "explanation": "Writes raw packet data to a PCAP file.\nAllows for detailed post-scan analysis in tools like Wireshark."
+    },
+    {
+      "id": 32,
+      "category": "Logging and Evidence",
+      "command": "unicornscan -W 192.168.1.1",
+      "example": "unicornscan -W 192.168.1.1",
+      "explanation": "Saves OS fingerprinting data.\nCollects specific packet signatures to help identify the remote operating system."
+    },
+    {
+      "id": 33,
+      "category": "Advanced Protocol Scanning",
+      "command": "unicornscan -m T -p 80 -G 1 192.168.1.1",
+      "example": "unicornscan -m T -p 80 -G 1 192.168.1.1",
+      "explanation": "Sends a pre-defined payload (Group 1) to port 80.\nUseful for eliciting responses from specific application protocols."
+    },
+    {
+      "id": 34,
+      "category": "Error Handling",
+      "command": "unicornscan -E 192.168.1.1",
+      "example": "unicornscan -E 192.168.1.1",
+      "explanation": "Processes ICMP 'Destination Unreachable' messages.\nHelps identify ports that are filtered by a firewall rather than just closed."
+    },
+    {
+      "id": 35,
+      "category": "Combinations (Red Team)",
+      "command": "unicornscan -i eth0 -I -r 300 192.168.1.0/24:445",
+      "example": "unicornscan -i eth0 -I -r 300 192.168.1.0/24:445",
+      "explanation": "Rapidly scans a subnet for SMB with immediate reporting.\nA common Red Team tactic to quickly find Windows hosts."
+    },
+    {
+      "id": 36,
+      "category": "Combinations (Red Team)",
+      "command": "unicornscan -m U -I -r 300 192.168.1.1:161",
+      "example": "unicornscan -m U -I -r 300 192.168.1.1:161",
+      "explanation": "Performs a fast UDP SNMP scan.\nSNMP is often overlooked and can provide a wealth of internal network data."
+    },
+    {
+      "id": 37,
+      "category": "Combinations (Stealth)",
+      "command": "unicornscan -r 5 -s 192.168.1.200 192.168.1.1:80",
+      "example": "unicornscan -r 5 -s 192.168.1.200 192.168.1.1:80",
+      "explanation": "Scanning slowly with a spoofed IP to blend in.\nDesigned to evade detection by resembling legitimate low-volume traffic."
+    },
+    {
+      "id": 38,
+      "category": "Advanced TCP Flags",
+      "command": "unicornscan -m T -t syn,ack 192.168.1.1",
+      "example": "unicornscan -m T -t syn,ack 192.168.1.1",
+      "explanation": "Sends packets with SYN and ACK flags set.\nTests how the target TCP stack handles out-of-state packets."
+    },
+    {
+      "id": 39,
+      "category": "Advanced TCP Flags",
+      "command": "unicornscan -m T -t syn,fin 192.168.1.1",
+      "example": "unicornscan -m T -t syn,fin 192.168.1.1",
+      "explanation": "Sends packets with SYN and FIN flags set.\nThis combination is illegal in TCP/IP and helps fingerprint the stack."
+    },
+    {
+      "id": 40,
+      "category": "Advanced TCP Flags",
+      "command": "unicornscan -m T -t fin,push,urg 192.168.1.1",
+      "example": "unicornscan -m T -t fin,push,urg 192.168.1.1",
+      "explanation": "Explicitly defines Xmas scan flags.\nUsed for advanced evasion or determining OS behavior."
+    },
+    {
+      "id": 41,
+      "category": "Advanced TCP Flags",
+      "command": "unicornscan -m T -t rst 192.168.1.1",
+      "example": "unicornscan -m T -t rst 192.168.1.1",
+      "explanation": "Sends RST (Reset) packets.\nCan be used to test firewall statefulness or terminate connections."
+    },
+    {
+      "id": 42,
+      "category": "Advanced Targeting",
+      "command": "unicornscan 10.0.0.0/8:80",
+      "example": "unicornscan 10.0.0.0/8:80",
+      "explanation": "Scans a massive network range for web servers.\nDemonstrates Unicornscan's ability to handle Class A sized networks efficiently."
+    },
+    {
+      "id": 43,
+      "category": "Defensive Validation",
+      "command": "unicornscan -r 1000 -R 3 192.168.1.1:1-65535",
+      "example": "unicornscan -r 1000 -R 3 192.168.1.1:1-65535",
+      "explanation": "Aggressive repeated scanning of all ports.\nUsed to test the sensitivity and triggering thresholds of IDS/IPS solutions."
+    },
+    {
+      "id": 44,
+      "category": "Packet Crafting",
+      "command": "unicornscan -m T -B 20 192.168.1.1",
+      "example": "unicornscan -m T -B 20 192.168.1.1",
+      "explanation": "Sets source port to 20 (FTP Data).\nSome legacy firewalls allow traffic from port 20 assuming it is an active FTP session."
+    },
+    {
+      "id": 45,
+      "category": "Packet Crafting",
+      "command": "unicornscan -m T -B 25 192.168.1.1",
+      "example": "unicornscan -m T -B 25 192.168.1.1",
+      "explanation": "Sets source port to 25 (SMTP).\nMay bypass firewalls that are configured to allow mail server traffic."
+    },
+    {
+      "id": 46,
+      "category": "Target List File",
+      "command": "unicornscan -L 5 192.168.1.1",
+      "example": "unicornscan -L 5 192.168.1.1",
+      "explanation": "Sets the timeout to 5 seconds.\nUseful when scanning over high-latency links like satellite or congested WANs."
+    },
+    {
+      "id": 47,
+      "category": "Database Interaction",
+      "command": "unicornscan -d 192.168.1.1",
+      "example": "unicornscan -d 192.168.1.1",
+      "explanation": "Pushes results to a PostgreSQL database.\n Enables centralized data collection for large-scale distributed scanning."
+    },
+    {
+      "id": 48,
+      "category": "Host Identification",
+      "command": "unicornscan -m A 192.168.1.1",
+      "example": "unicornscan -m A 192.168.1.1",
+      "explanation": "Uses ARP to identify active hosts on the local LAN.\nFaster and more reliable than IP scanning for local layer-2 discovery."
+    },
+    {
+      "id": 49,
+      "category": "Verbose Debugging",
+      "command": "unicornscan -vvv 192.168.1.1",
+      "example": "unicornscan -vvv 192.168.1.1",
+      "explanation": "Enables maximum verbosity.\nUsed primarily for debugging Unicornscan itself or understanding complex packet flows."
+    },
+    {
+      "id": 50,
+      "category": "Real World Scenario",
+      "command": "unicornscan -i wlan0 -I -r 200 192.168.1.1:22,23,80,443",
+      "example": "unicornscan -i wlan0 -I -r 200 192.168.1.1:22,23,80,443",
+      "explanation": "Scans a wireless interface for management ports.\nCommon scenario for assessing the security of wireless network infrastructure."
+    },
+    {
+      "id": 51,
+      "category": "Real World Scenario",
+      "command": "unicornscan -m U -r 100 -I 192.168.1.1:500,4500",
+      "example": "unicornscan -m U -r 100 -I 192.168.1.1:500,4500",
+      "explanation": "UDP scan for VPN endpoints (IKE/IPSec).\nIdentifying these services is the first step in auditing VPN security."
+    },
+    {
+      "id": 52,
+      "category": "Real World Scenario",
+      "command": "unicornscan -m U -r 100 -I 192.168.1.1:123",
+      "example": "unicornscan -m U -r 100 -I 192.168.1.1:123",
+      "explanation": "Scans for NTP servers.\nOpen NTP servers can be used for amplification attacks or information disclosure."
+    },
+    {
+      "id": 53,
+      "category": "Advanced",
+      "command": "unicornscan -m T -t 0 192.168.1.1",
+      "example": "unicornscan -m T -t 0 192.168.1.1",
+      "explanation": "Uses numeric flag syntax for a NULL scan.\nAlternative way to specify no flags (0) for stacking testing."
+    },
+    {
+      "id": 54,
+      "category": "Advanced",
+      "command": "unicornscan -m T -t 6 192.168.1.1",
+      "example": "unicornscan -m T -t 6 192.168.1.1",
+      "explanation": "Manually sets TCP flags using a numeric value.\nAllows for creating custom packet types not covered by standard names."
+    },
+    {
+      "id": 55,
+      "category": "Packet Capture",
+      "command": "unicornscan -w /tmp/evidence.pcap -r 10 192.168.1.1",
+      "example": "unicornscan -w /tmp/evidence.pcap -r 10 192.168.1.1",
+      "explanation": "Slow, logged scan saving to PCAP.\nIdeal for professional engagements where a clean chain of evidence is required."
+    },
+    {
+      "id": 56,
+      "category": "Payload Options",
+      "command": "unicornscan -G 2 192.168.1.1",
+      "example": "unicornscan -G 2 192.168.1.1",
+      "explanation": "Sends a configured payload group to test responses.\nAllows Unicornscan to perform simple protocol interaction."
+    },
+    {
+      "id": 57,
+      "category": "Evasion",
+      "command": "unicornscan -s 192.168.1.50 -B 80 192.168.1.1:80",
+      "example": "unicornscan -s 192.168.1.50 -B 80 192.168.1.1:80",
+      "explanation": "Spoofs both source IP and source port.\nAdvanced evasion technique to masquerade as established return traffic."
+    },
+    {
+      "id": 58,
+      "category": "Large Scale",
+      "command": "unicornscan -r 4000 10.0.0.0/16:80",
+      "example": "unicornscan -r 4000 10.0.0.0/16:80",
+      "explanation": "High-speed scan of a large network block.\nTests the capacity of the network infrastructure and the scanner's performance."
+    },
+    {
+      "id": 59,
+      "category": "UDP Verification",
+      "command": "unicornscan -m U -R 4 -r 200 192.168.1.1:137",
+      "example": "unicornscan -m U -R 4 -r 200 192.168.1.1:137",
+      "explanation": "Highly repetitive UDP scan for NetBIOS.\nUDP is unreliable; repeating packets ensures that open services are detected."
+    },
+    {
+      "id": 60,
+      "category": "Help",
+      "command": "unicornscan -h",
+      "example": "unicornscan -h",
+      "explanation": "Displays the help menu.\nShows all command-line flags and syntax options."
+    }
+  ]
+}

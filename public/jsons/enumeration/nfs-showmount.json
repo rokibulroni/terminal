@@ -1,0 +1,182 @@
+{
+    "tool": "nfs-showmount",
+    "description": "Complete nfs-showmount command reference covering all options from basic to advanced for NFS enumeration and reconnaissance.",
+    "total_commands": 25,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Export Enumeration",
+            "command": "showmount -e 192.168.1.20",
+            "example": "showmount -e 192.168.1.20",
+            "explanation": "Lists the NFS export list (shared directories) available on the target IPv4 address."
+        },
+        {
+            "id": 2,
+            "category": "Basic Export Enumeration",
+            "command": "showmount --exports 10.10.10.15",
+            "example": "showmount --exports 10.10.10.15",
+            "explanation": "Uses the long-form flag to request the list of exported filesystems from the target."
+        },
+        {
+            "id": 3,
+            "category": "Hostname Based Enumeration",
+            "command": "showmount -e nfs.example.local",
+            "example": "showmount -e nfs.example.local",
+            "explanation": "Queries the NFS exports from a target identified by its DNS hostname or FQDN."
+        },
+        {
+            "id": 4,
+            "category": "Local Host Enumeration",
+            "command": "showmount -e",
+            "example": "showmount -e",
+            "explanation": "Queries the local host's rpc.mountd to see what the local machine is currently exporting."
+        },
+        {
+            "id": 5,
+            "category": "Local Host Enumeration (Explicit)",
+            "command": "showmount -e localhost",
+            "example": "showmount -e localhost",
+            "explanation": "Explicitly targets the localhost loopback interface to verify local NFS export configurations."
+        },
+        {
+            "id": 6,
+            "category": "Client Access and Permission Enumeration",
+            "command": "showmount -a 192.168.1.20",
+            "example": "showmount -a 192.168.1.20",
+            "explanation": "Lists all mount points in the form 'host:dir' to see which clients are currently connected."
+        },
+        {
+            "id": 7,
+            "category": "Client Access and Permission Enumeration",
+            "command": "showmount --all 10.10.10.15",
+            "example": "showmount --all 10.10.10.15",
+            "explanation": "Uses the long-form flag to display both the client hostname and the directory they have mounted."
+        },
+        {
+            "id": 8,
+            "category": "Blue Team Exposure Validation",
+            "command": "showmount -a nfs-server.corp.internal",
+            "example": "showmount -a nfs-server.corp.internal",
+            "explanation": "Checks a specific corporate server to identify unauthorized active client connections."
+        },
+        {
+            "id": 9,
+            "category": "Listing Mounted Directories",
+            "command": "showmount -d 192.168.1.20",
+            "example": "showmount -d 192.168.1.20",
+            "explanation": "Lists only the directories that are currently mounted by remote clients, excluding client IPs."
+        },
+        {
+            "id": 10,
+            "category": "Listing Mounted Directories",
+            "command": "showmount --directories 10.10.10.15",
+            "example": "showmount --directories 10.10.10.15",
+            "explanation": "Uses the long-form flag to list only the filesystem paths currently in use by clients."
+        },
+        {
+            "id": 11,
+            "category": "Quiet and Script Friendly Output",
+            "command": "showmount -e --no-headers 192.168.1.20",
+            "example": "showmount -e --no-headers 192.168.1.20",
+            "explanation": "Lists exports without the descriptive header line, ideal for parsing in bash scripts."
+        },
+        {
+            "id": 12,
+            "category": "Quiet and Script Friendly Output",
+            "command": "showmount -a --no-headers 10.10.10.15",
+            "example": "showmount -a --no-headers 10.10.10.15",
+            "explanation": "Lists active client mounts without headers for easy text processing or piping to awk."
+        },
+        {
+            "id": 13,
+            "category": "Quiet and Script Friendly Output",
+            "command": "showmount -d --no-headers 192.168.1.50",
+            "example": "showmount -d --no-headers 192.168.1.50",
+            "explanation": "Lists actively mounted directories without headers to quickly identify hot data paths."
+        },
+        {
+            "id": 14,
+            "category": "IPv6 Target Enumeration",
+            "command": "showmount -e 2001:db8::1",
+            "example": "showmount -e 2001:db8::1",
+            "explanation": "Queries NFS exports on a target using its IPv6 address."
+        },
+        {
+            "id": 15,
+            "category": "IPv6 Client Enumeration",
+            "command": "showmount -a 2001:db8::1",
+            "example": "showmount -a 2001:db8::1",
+            "explanation": "Lists active clients and mount points on an IPv6-enabled NFS server."
+        },
+        {
+            "id": 16,
+            "category": "Red Team Initial Reconnaissance",
+            "command": "showmount -e --no-headers target-dmz.local",
+            "example": "showmount -e --no-headers target-dmz.local",
+            "explanation": "Stealthier initial check for exports on a DMZ target to feed directly into mount tools."
+        },
+        {
+            "id": 17,
+            "category": "Red Team Active User Reconnaissance",
+            "command": "showmount -a --no-headers 192.168.100.10",
+            "example": "showmount -a --no-headers 192.168.100.10",
+            "explanation": "Identifies which IP addresses are actively using the share to target specific users."
+        },
+        {
+            "id": 18,
+            "category": "Incident Response Assessment",
+            "command": "showmount -a 127.0.0.1",
+            "example": "showmount -a 127.0.0.1",
+            "explanation": "Run locally on a compromised server to identify if data is actively being exfiltrated via NFS."
+        },
+        {
+            "id": 19,
+            "category": "Tool Verification and Help",
+            "command": "showmount --help",
+            "example": "showmount --help",
+            "explanation": "Displays the help message to verify supported flags and syntax."
+        },
+        {
+            "id": 20,
+            "category": "Tool Verification and Version",
+            "command": "showmount --version",
+            "example": "showmount --version",
+            "explanation": "Checks the installed version of nfs-utils/showmount for compatibility or bug checking."
+        },
+        {
+            "id": 21,
+            "category": "Advanced Combined Enumeration (Exports)",
+            "command": "showmount --exports --no-headers 172.16.1.5",
+            "example": "showmount --exports --no-headers 172.16.1.5",
+            "explanation": "Combines long-form export flag with no-headers for clear, verbose-syntax scripting."
+        },
+        {
+            "id": 22,
+            "category": "Advanced Combined Enumeration (All)",
+            "command": "showmount --all --no-headers 172.16.1.5",
+            "example": "showmount --all --no-headers 172.16.1.5",
+            "explanation": "Combines long-form all flag with no-headers to audit connections programmatically."
+        },
+        {
+            "id": 23,
+            "category": "Advanced Combined Enumeration (Directories)",
+            "command": "showmount --directories --no-headers 172.16.1.5",
+            "example": "showmount --directories --no-headers 172.16.1.5",
+            "explanation": "Combines long-form directory flag with no-headers to map active file system usage."
+        },
+        {
+            "id": 24,
+            "category": "Blue Team Hardening Validation",
+            "command": "showmount -e 10.0.0.5",
+            "example": "showmount -e 10.0.0.5",
+            "explanation": "Verifies that sensitive directories are not being exported to the world (everyone)."
+        },
+        {
+            "id": 25,
+            "category": "Blue Team Hardening Validation",
+            "command": "showmount -a 10.0.0.5",
+            "example": "showmount -a 10.0.0.5",
+            "explanation": "Verifies that only authorized hosts are currently mounted to the NFS shares."
+        }
+    ]
+}

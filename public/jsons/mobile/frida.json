@@ -1,0 +1,112 @@
+{
+    "tool": "frida",
+    "description": "Frida: A dynamic instrumentation toolkit allowing developers and reverse engineers to inject absolutely explicit snippets of custom JavaScript directly into black-box native apps on Windows, macOS, GNU/Linux, iOS, Android.",
+    "total_commands": 15,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Process Tracing",
+            "command": "frida-trace -i <function> -U -f <package>",
+            "example": "frida-trace -i 'open' -U -f com.twitter.android",
+            "explanation": "Autogenerates JS hooks seamlessly intercepting calls to 'open' instantly detailing arguments being sent directly upon the mobile USB bridged application."
+        },
+        {
+            "id": 2,
+            "category": "Application Spawning",
+            "command": "frida -U -f <package>",
+            "example": "frida -U -f com.example.app",
+            "explanation": "Strictly suspends the OS, inherently launches the target process inside an isolated container, and drops a Python REPL console injecting directly into its memory."
+        },
+        {
+            "id": 3,
+            "category": "Interactive Process",
+            "command": "frida -U <package/process>",
+            "example": "frida -U com.example.app",
+            "explanation": "Attaches cleanly into an already executing active processor thread allowing memory manipulation without terminating the active connection."
+        },
+        {
+            "id": 4,
+            "category": "Script Injection",
+            "command": "frida -U -l <script.js> -f <package>",
+            "example": "frida -U -l bypass_ssl.js -f com.target.app",
+            "explanation": "The standard framework protocol. Evaluates a defined custom JavaScript file explicitly launching the payload directly into a mobile application."
+        },
+        {
+            "id": 5,
+            "category": "Network Bypass",
+            "command": "frida-ps -Ua",
+            "example": "frida-ps -Ua",
+            "explanation": "Rapidly maps and analyzes all active explicitly bounded GUI applications currently running natively on the USB-attached mobile device."
+        },
+        {
+            "id": 6,
+            "category": "Internal Processes",
+            "command": "frida-ps -U",
+            "example": "frida-ps -U",
+            "explanation": "Eliminates filtering entirely dumping absolute outputs documenting every single active hidden root daemon and system application processing array."
+        },
+        {
+            "id": 7,
+            "category": "Remote Execution",
+            "command": "frida -H <ip>:<port> <target>",
+            "example": "frida -H 192.168.1.50:27042 com.game.app",
+            "explanation": "Forcefully routes instrumentation mapping logic dynamically crossing traditional TCP WLAN IP arrays bypassing standard USB debugging parameters."
+        },
+        {
+            "id": 8,
+            "category": "Heap Extraction",
+            "command": "frida-discover",
+            "example": "frida-discover -U MyApp",
+            "explanation": "Injects analytical probes deeply logging the exact execution time and size variables of internally invoked backend native functions."
+        },
+        {
+            "id": 9,
+            "category": "Vulnerability Bridging",
+            "command": "frida-kill -U <pid>",
+            "example": "frida-kill -U 14452",
+            "explanation": "Infects the target PID abruptly eradicating it directly by sending a termination SIGKILL payload inherently from the active server container."
+        },
+        {
+            "id": 10,
+            "category": "Version Validation",
+            "command": "frida --version",
+            "example": "frida --version",
+            "explanation": "Verifies exact CLI compatibility. Vital since the core frida binaries must inherently map perfectly to the frida-server daemon version running natively on the phone."
+        },
+        {
+            "category": "Class Enumeration",
+            "command": "frida -U -f <package> -e '<script>'",
+            "example": "frida -U -f com.app -e 'Java.perform(function() { Java.enumerateLoadedClasses({\"onMatch\": function(className) { console.log(className); }, \"onComplete\": function() {} }); });'",
+            "explanation": "Executes fully decoupled inline scripting aggressively querying internal Java arrays forcing absolute structural mappings of every single dynamically loaded class active in memory.",
+            "id": 11
+        },
+        {
+            "category": "Heap Dumps",
+            "command": "frida-discover -U",
+            "example": "frida-discover -U -f com.bank.app",
+            "explanation": "Pushes completely unmitigated tracking layers specifically hunting entirely massive active complex execution functions identifying highly vulnerable internal cryptography routines implicitly.",
+            "id": 12
+        },
+        {
+            "category": "Module Inspection",
+            "command": "Process.enumerateModules()",
+            "example": "Process.enumerateModules()",
+            "explanation": "(Run in REPL) Maps extremely comprehensive inherent application layouts listing entirely natively linked `*.so` object files attached physically within the memory structure.",
+            "id": 13
+        },
+        {
+            "category": "Address Readouts",
+            "command": "Memory.readByteArray(ptr, length)",
+            "example": "Memory.readByteArray(ptr(\"0x7fffXXXX\"), 64)",
+            "explanation": "(Run in REPL) Traverses fundamental boundaries explicitly capturing contiguous raw memory addresses actively unearthing explicit unencrypted secret vectors directly isolated internally.",
+            "id": 14
+        },
+        {
+            "category": "Architecture Bypassing",
+            "command": "frida --no-pause -U",
+            "example": "frida --no-pause -U -l script.js -f com.app",
+            "explanation": "Overrides standard application hooking fundamentally unpausing the process instantly eliminating aggressive initial runtime hangs inherently accelerating script mappings.",
+            "id": 15
+        }
+    ]
+}

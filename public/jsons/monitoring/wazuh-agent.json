@@ -1,0 +1,427 @@
+{
+    "tool": "wazuh-agent",
+    "description": "Complete Wazuh Agent command and workflow reference from basic to advanced endpoint monitoring and detection",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Service Management",
+            "command": "systemctl start wazuh-agent",
+            "example": "systemctl start wazuh-agent",
+            "explanation": "Starts the Wazuh agent service on a Linux endpoint using systemd."
+        },
+        {
+            "id": 2,
+            "category": "Service Management",
+            "command": "systemctl stop wazuh-agent",
+            "example": "systemctl stop wazuh-agent",
+            "explanation": "Stops the Wazuh agent service on a Linux endpoint to halt monitoring."
+        },
+        {
+            "id": 3,
+            "category": "Service Management",
+            "command": "systemctl restart wazuh-agent",
+            "example": "systemctl restart wazuh-agent",
+            "explanation": "Restarts the Wazuh agent service to apply configuration changes."
+        },
+        {
+            "id": 4,
+            "category": "Service Management",
+            "command": "systemctl status wazuh-agent",
+            "example": "systemctl status wazuh-agent",
+            "explanation": "Displays the current operational status and recent logs of the Wazuh agent service."
+        },
+        {
+            "id": 5,
+            "category": "Service Management (Windows)",
+            "command": "net start WazuhSvc",
+            "example": "net start WazuhSvc",
+            "explanation": "Starts the Wazuh agent service on a Windows endpoint using the command line."
+        },
+        {
+            "id": 6,
+            "category": "Service Management (Legacy)",
+            "command": "/var/ossec/bin/wazuh-control start",
+            "example": "/var/ossec/bin/wazuh-control start",
+            "explanation": "Manually starts the agent processes using the internal control script."
+        },
+        {
+            "id": 7,
+            "category": "Service Management",
+            "command": "/var/ossec/bin/wazuh-control info",
+            "example": "/var/ossec/bin/wazuh-control info",
+            "explanation": "Provides version information and build details of the installed Wazuh agent."
+        },
+        {
+            "id": 8,
+            "category": "Agent Registration",
+            "command": "/var/ossec/bin/agent-auth -m <MANAGER_IP>",
+            "example": "/var/ossec/bin/agent-auth -m 192.168.1.100",
+            "explanation": "Registers the agent with the Wazuh manager using the manager's IP address."
+        },
+        {
+            "id": 9,
+            "category": "Agent Registration",
+            "command": "/var/ossec/bin/agent-auth -m <MANAGER_IP> -A <AGENT_NAME>",
+            "example": "/var/ossec/bin/agent-auth -m 192.168.1.100 -A WebServer01",
+            "explanation": "Registers the agent with a specific custom name instead of the hostname."
+        },
+        {
+            "id": 10,
+            "category": "Agent Registration",
+            "command": "/var/ossec/bin/agent-auth -m <MANAGER_IP> -P <PASSWORD>",
+            "example": "/var/ossec/bin/agent-auth -m 192.168.1.100 -P secretpass",
+            "explanation": "Registers the agent using a password for authentication with the manager."
+        },
+        {
+            "id": 11,
+            "category": "Agent Registration",
+            "command": "/var/ossec/bin/agent-auth -m <MANAGER_IP> -G <GROUP>",
+            "example": "/var/ossec/bin/agent-auth -m 192.168.1.100 -G web_servers",
+            "explanation": "Registers the agent and immediately assigns it to a specific configuration group."
+        },
+        {
+            "id": 12,
+            "category": "Agent Registration",
+            "command": "/var/ossec/bin/agent-auth -m <MANAGER_IP> -v <CERT_PATH> -k <KEY_PATH>",
+            "example": "/var/ossec/bin/agent-auth -m 192.168.1.100 -v agent.cert -k agent.key",
+            "explanation": "Registers the agent using SSL/TLS certificates for mutual authentication."
+        },
+        {
+            "id": 13,
+            "category": "Key Management",
+            "command": "/var/ossec/bin/manage_agents -i <KEY_STRING>",
+            "example": "/var/ossec/bin/manage_agents -i MTIzIDQ1NiA3ODkg...",
+            "explanation": "Manually imports a pre-generated authentication key on the agent."
+        },
+        {
+            "id": 14,
+            "category": "Key Management",
+            "command": "cat /var/ossec/etc/client.keys",
+            "example": "cat /var/ossec/etc/client.keys",
+            "explanation": "Displays the contents of the client keys file to verify registration status."
+        },
+        {
+            "id": 15,
+            "category": "Key Management",
+            "command": "rm /var/ossec/etc/client.keys",
+            "example": "rm /var/ossec/etc/client.keys",
+            "explanation": "Removes the client key file to force re-registration of the agent."
+        },
+        {
+            "id": 16,
+            "category": "Configuration Handling",
+            "command": "/var/ossec/bin/verify-agent-conf",
+            "example": "/var/ossec/bin/verify-agent-conf",
+            "explanation": "Checks the ossec.conf file for syntax errors before restarting the service."
+        },
+        {
+            "id": 17,
+            "category": "Configuration Handling",
+            "command": "grep '<manager_address>' /var/ossec/etc/ossec.conf",
+            "example": "grep '<manager_address>' /var/ossec/etc/ossec.conf",
+            "explanation": "Verifies the configured Wazuh manager IP address in the configuration file."
+        },
+        {
+            "id": 18,
+            "category": "Configuration Handling",
+            "command": "sed -i 's/<protocol>udp/<protocol>tcp/' /var/ossec/etc/ossec.conf",
+            "example": "sed -i 's/<protocol>udp/<protocol>tcp/' /var/ossec/etc/ossec.conf",
+            "explanation": "Switches the agent transport protocol from UDP to TCP via command line."
+        },
+        {
+            "id": 19,
+            "category": "Log Collection",
+            "command": "tail -f /var/ossec/logs/ossec.log",
+            "example": "tail -f /var/ossec/logs/ossec.log",
+            "explanation": "Monitors the Wazuh agent's internal operational log in real-time."
+        },
+        {
+            "id": 20,
+            "category": "Log Collection",
+            "command": "grep 'Error' /var/ossec/logs/ossec.log",
+            "example": "grep 'Error' /var/ossec/logs/ossec.log",
+            "explanation": "Filters the internal log file for error messages to troubleshoot issues."
+        },
+        {
+            "id": 21,
+            "category": "Log Collection",
+            "command": "tail -f /var/ossec/logs/active-responses.log",
+            "example": "tail -f /var/ossec/logs/active-responses.log",
+            "explanation": "Monitors the execution log of active response scripts on the endpoint."
+        },
+        {
+            "id": 22,
+            "category": "Network Monitoring",
+            "command": "netstat -vatn | grep 1514",
+            "example": "netstat -vatn | grep 1514",
+            "explanation": "Verifies if the agent has an established TCP connection to the manager on port 1514."
+        },
+        {
+            "id": 23,
+            "category": "Network Monitoring",
+            "command": "tcpdump -i any port 1514",
+            "example": "tcpdump -i any port 1514",
+            "explanation": "Captures network packets on port 1514 to debug connectivity issues with the manager."
+        },
+        {
+            "id": 24,
+            "category": "FIM Actions",
+            "command": "/var/ossec/bin/syscheck_update -l",
+            "example": "/var/ossec/bin/syscheck_update -l",
+            "explanation": "List synchronized files in the FIM database (if local tool is enabled)."
+        },
+        {
+            "id": 25,
+            "category": "FIM Actions",
+            "command": "touch /etc/test_fim_file",
+            "example": "touch /etc/test_fim_file",
+            "explanation": "Creates a test file to validate if File Integrity Monitoring is triggering alerts."
+        },
+        {
+            "id": 26,
+            "category": "FIM Actions",
+            "command": "echo 'modification' >> /etc/test_fim_file",
+            "example": "echo 'modification' >> /etc/test_fim_file",
+            "explanation": "Modifies a monitored file to verify FIM modification detection."
+        },
+        {
+            "id": 27,
+            "category": "Active Response",
+            "command": "ls -l /var/ossec/active-response/bin/",
+            "example": "ls -l /var/ossec/active-response/bin/",
+            "explanation": "Lists available active response scripts executable by the agent."
+        },
+        {
+            "id": 28,
+            "category": "Active Response",
+            "command": "/var/ossec/active-response/bin/host-deny.sh add - <IP_ADDRESS>",
+            "example": "/var/ossec/active-response/bin/host-deny.sh add - 192.168.1.50",
+            "explanation": "Manually triggers the host-deny active response script to test IP blocking."
+        },
+        {
+            "id": 29,
+            "category": "Active Response",
+            "command": "/var/ossec/active-response/bin/firewall-drop.sh delete - <IP_ADDRESS>",
+            "example": "/var/ossec/active-response/bin/firewall-drop.sh delete - 192.168.1.50",
+            "explanation": "Manually removes a firewall block created by the firewall-drop active response."
+        },
+        {
+            "id": 30,
+            "category": "Process Monitoring",
+            "command": "ps aux | grep wazuh-agentd",
+            "example": "ps aux | grep wazuh-agentd",
+            "explanation": "Checks if the main agent daemon process is running."
+        },
+        {
+            "id": 31,
+            "category": "Process Monitoring",
+            "command": "ps aux | grep wazuh-logcollector",
+            "example": "ps aux | grep wazuh-logcollector",
+            "explanation": "Verifies that the log collector process is active and running."
+        },
+        {
+            "id": 32,
+            "category": "Process Monitoring",
+            "command": "ps aux | grep wazuh-syscheckd",
+            "example": "ps aux | grep wazuh-syscheckd",
+            "explanation": "Verifies that the FIM (syscheck) daemon is active and running."
+        },
+        {
+            "id": 33,
+            "category": "Troubleshooting (Debug)",
+            "command": "echo 'wazuh_modules.debug=2' >> /var/ossec/etc/local_internal_options.conf",
+            "example": "echo 'wazuh_modules.debug=2' >> /var/ossec/etc/local_internal_options.conf",
+            "explanation": "Enables verbose debug logging for Wazuh modules in the internal options file."
+        },
+        {
+            "id": 34,
+            "category": "Troubleshooting (Debug)",
+            "command": "echo 'agent.debug=2' >> /var/ossec/etc/local_internal_options.conf",
+            "example": "echo 'agent.debug=2' >> /var/ossec/etc/local_internal_options.conf",
+            "explanation": "Enables verbose debug logging specifically for the agent communication process."
+        },
+        {
+            "id": 35,
+            "category": "Validation & Testing",
+            "command": "logger 'Test Wazuh Alert'",
+            "example": "logger 'Test Wazuh Alert'",
+            "explanation": "Generates a syslog message to test if the log collector is reading syslog."
+        },
+        {
+            "id": 36,
+            "category": "Validation & Testing",
+            "command": "cat /etc/shadow",
+            "example": "cat /etc/shadow",
+            "explanation": "Simulates a read of a sensitive file to test access monitoring rules."
+        },
+        {
+            "id": 37,
+            "category": "Validation & Testing (Windows)",
+            "command": "eventcreate /ID 1 /L Application /T INFORMATION /SO 'WazuhTest' /D 'Test Log'",
+            "example": "eventcreate /ID 1 /L Application /T INFORMATION /SO 'WazuhTest' /D 'Test Log'",
+            "explanation": "Creates a dummy Windows Event Log entry to verify Windows log collection."
+        },
+        {
+            "id": 38,
+            "category": "Advanced Config",
+            "command": "sed -i 's/<disabled>yes/<disabled>no/' /var/ossec/etc/ossec.conf",
+            "example": "sed -i 's/<disabled>yes/<disabled>no/' /var/ossec/etc/ossec.conf",
+            "explanation": "Enables a disabled module (like SCA or Syscollector) via command line stream editor."
+        },
+        {
+            "id": 39,
+            "category": "Rootcheck",
+            "command": "/var/ossec/bin/wazuh-control restart",
+            "example": "/var/ossec/bin/wazuh-control restart",
+            "explanation": "Restarts the agent, which forces a rootcheck and syscheck scan based on default frequency."
+        },
+        {
+            "id": 40,
+            "category": "Queue Management",
+            "command": "ls -lh /var/ossec/queue/rids/",
+            "example": "ls -lh /var/ossec/queue/rids/",
+            "explanation": "Checks the size of the request ID queue files to monitor for queue corruption."
+        },
+        {
+            "id": 41,
+            "category": "Queue Management",
+            "command": "rm /var/ossec/queue/rids/sender_counter",
+            "example": "rm /var/ossec/queue/rids/sender_counter",
+            "explanation": "Resets the sender counter if the agent falls out of sync with the manager (use caution)."
+        },
+        {
+            "id": 42,
+            "category": "Performance Tuning",
+            "command": "echo 'syscheck.sleep=2' >> /var/ossec/etc/local_internal_options.conf",
+            "example": "echo 'syscheck.sleep=2' >> /var/ossec/etc/local_internal_options.conf",
+            "explanation": "Adjusts the sleep time between FIM file checks to reduce CPU usage."
+        },
+        {
+            "id": 43,
+            "category": "Performance Tuning",
+            "command": "echo 'logcollector.queue_size=1024' >> /var/ossec/etc/local_internal_options.conf",
+            "example": "echo 'logcollector.queue_size=1024' >> /var/ossec/etc/local_internal_options.conf",
+            "explanation": "Increases the log collector queue size to handle high-volume log bursts."
+        },
+        {
+            "id": 44,
+            "category": "Automation",
+            "command": "grep -q 'Client version' /var/ossec/logs/ossec.log && echo 'Upgraded'",
+            "example": "grep -q 'Client version' /var/ossec/logs/ossec.log && echo 'Upgraded'",
+            "explanation": "Scriptable check to verify if an agent upgrade has completed successfully."
+        },
+        {
+            "id": 45,
+            "category": "Docker Monitoring",
+            "command": "usermod -aG docker wazuh",
+            "example": "usermod -aG docker wazuh",
+            "explanation": "Adds the wazuh user to the docker group so the agent can monitor Docker events."
+        },
+        {
+            "id": 46,
+            "category": "Auditd Integration",
+            "command": "auditctl -w /etc/passwd -p wa -k identity",
+            "example": "auditctl -w /etc/passwd -p wa -k identity",
+            "explanation": "Adds a Linux audit rule to watch /etc/passwd, which Wazuh can then ingest."
+        },
+        {
+            "id": 47,
+            "category": "Auditd Integration",
+            "command": "cat /var/log/audit/audit.log",
+            "example": "cat /var/log/audit/audit.log",
+            "explanation": "Verifies that the audit log exists and is populated for Wazuh to read."
+        },
+        {
+            "id": 48,
+            "category": "System Inventory",
+            "command": "sqlite3 /var/ossec/queue/syscollector/db/local.db 'SELECT * FROM packages LIMIT 5;'",
+            "example": "sqlite3 /var/ossec/queue/syscollector/db/local.db 'SELECT * FROM packages LIMIT 5;'",
+            "explanation": "Directly queries the local Syscollector SQLite database to view inventory data."
+        },
+        {
+            "id": 49,
+            "category": "Clean Uninstall",
+            "command": "yum remove wazuh-agent",
+            "example": "yum remove wazuh-agent",
+            "explanation": "Uninstalls the Wazuh agent package on RHEL/CentOS systems."
+        },
+        {
+            "id": 50,
+            "category": "Clean Uninstall",
+            "command": "apt-get purge wazuh-agent",
+            "example": "apt-get purge wazuh-agent",
+            "explanation": "Uninstalls and removes configuration files for the Wazuh agent on Debian/Ubuntu."
+        },
+        {
+            "id": 51,
+            "category": "Clean Uninstall",
+            "command": "rm -rf /var/ossec",
+            "example": "rm -rf /var/ossec",
+            "explanation": "Manually removes the installation directory to ensure a completely clean slate."
+        },
+        {
+            "id": 52,
+            "category": "Connectivity Test",
+            "command": "nc -zv <MANAGER_IP> 1514",
+            "example": "nc -zv 192.168.1.100 1514",
+            "explanation": "Uses Netcat to test if the manager's registration/event port is reachable."
+        },
+        {
+            "id": 53,
+            "category": "Log Perms",
+            "command": "chmod 644 /var/log/custom_app.log",
+            "example": "chmod 644 /var/log/custom_app.log",
+            "explanation": "Ensures a custom log file is readable by the Wazuh agent user for collection."
+        },
+        {
+            "id": 54,
+            "category": "Packet Capture",
+            "command": "tcpdump -w wazuh_debug.pcap -s 0 host <MANAGER_IP> and port 1514",
+            "example": "tcpdump -w wazuh_debug.pcap -s 0 host 192.168.1.100 and port 1514",
+            "explanation": "Captures full packets to/from manager for advanced protocol analysis in Wireshark."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Debug",
+            "command": "strace -p $(pidof wazuh-agentd)",
+            "example": "strace -p $(pidof wazuh-agentd)",
+            "explanation": "Traces system calls of the running agent daemon to debug hangs or crashes."
+        },
+        {
+            "id": 56,
+            "category": "Advanced Debug",
+            "command": "lsof -p $(pidof wazuh-logcollector)",
+            "example": "lsof -p $(pidof wazuh-logcollector)",
+            "explanation": "Lists all files currently open by the log collector to verify file handles."
+        },
+        {
+            "id": 57,
+            "category": "Status Check",
+            "command": "/var/ossec/bin/agent_control -l",
+            "example": "/var/ossec/bin/agent_control -l",
+            "explanation": "Lists active agents (Note: This is a manager command but useful in hybrid testing)."
+        },
+        {
+            "id": 58,
+            "category": "Policy Validation",
+            "command": "/var/ossec/bin/rootcheck_control -i 001",
+            "example": "/var/ossec/bin/rootcheck_control -i 001",
+            "explanation": "Queries rootcheck database for agent 001 (Manager side command for validation)."
+        },
+        {
+            "id": 59,
+            "category": "Agent Upgrade",
+            "command": "/var/ossec/bin/agent_upgrade -a 001 -f <package_path>",
+            "example": "/var/ossec/bin/agent_upgrade -a 001 -f wazuh_agent_v4.x.wpk",
+            "explanation": "Forces a remote upgrade of agent 001 from the manager (WPK file required)."
+        },
+        {
+            "id": 60,
+            "category": "Cleanup",
+            "command": "systemctl disable wazuh-agent",
+            "example": "systemctl disable wazuh-agent",
+            "explanation": "Disables the Wazuh agent from starting automatically on system boot."
+        }
+    ]
+}

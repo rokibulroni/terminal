@@ -1,0 +1,847 @@
+{
+    "tool": "jq",
+    "description": "Complete jq command and workflow reference from basic to advanced JSON parsing and transformation",
+    "total_commands": 120,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Usage",
+            "command": "jq '.' file.json",
+            "example": "jq '.' access_log.json",
+            "explanation": "Pretty prints the entire JSON content to standard output with syntax highlighting."
+        },
+        {
+            "id": 2,
+            "category": "Basic Usage",
+            "command": "jq -c '.' file.json",
+            "example": "jq -c '.' large_data.json",
+            "explanation": "Compacts the JSON output into a single line per object to save space."
+        },
+        {
+            "id": 3,
+            "category": "Field Access",
+            "command": "jq '.key' file.json",
+            "example": "jq '.status' response.json",
+            "explanation": "Extracts the value of a specific key from the root object."
+        },
+        {
+            "id": 4,
+            "category": "Field Access",
+            "command": "jq '.foo.bar' file.json",
+            "example": "jq '.user.profile.id' users.json",
+            "explanation": "Accesses a nested key using dot notation."
+        },
+        {
+            "id": 5,
+            "category": "Field Access",
+            "command": "jq '.\"complex-key\"' file.json",
+            "example": "jq '.\"Content-Type\"' headers.json",
+            "explanation": "Accesses keys containing special characters or hyphens using quotes."
+        },
+        {
+            "id": 6,
+            "category": "Field Access",
+            "command": "jq '.foo?' file.json",
+            "example": "jq '.error?' logs.json",
+            "explanation": "Suppress errors if the field does not exist (null safety)."
+        },
+        {
+            "id": 7,
+            "category": "Array Operations",
+            "command": "jq '.[0]' file.json",
+            "example": "jq '.[0]' items.json",
+            "explanation": "Extracts the first element of an array."
+        },
+        {
+            "id": 8,
+            "category": "Array Operations",
+            "command": "jq '.[-1]' file.json",
+            "example": "jq '.[-1]' updates.json",
+            "explanation": "Extracts the last element of an array."
+        },
+        {
+            "id": 9,
+            "category": "Array Operations",
+            "command": "jq '.[1:4]' file.json",
+            "example": "jq '.[1:4]' list.json",
+            "explanation": "Slices an array, returning elements from index 1 up to (but not including) 4."
+        },
+        {
+            "id": 10,
+            "category": "Array Operations",
+            "command": "jq '.[]' file.json",
+            "example": "jq '.users[]' users_list.json",
+            "explanation": "Iterates over an array or object values, unpacking them into a stream."
+        },
+        {
+            "id": 11,
+            "category": "Array Operations",
+            "command": "jq 'length' file.json",
+            "example": "jq '.items | length' cart.json",
+            "explanation": "Returns the length of a string, array, or object."
+        },
+        {
+            "id": 12,
+            "category": "Object Construction",
+            "command": "jq '{new_key: .old_key}' file.json",
+            "example": "jq '{id: .user_id, name: .user_name}' users.json",
+            "explanation": "Constructs a new object with renamed or selected fields."
+        },
+        {
+            "id": 13,
+            "category": "Object Construction",
+            "command": "jq '[.a, .b]' file.json",
+            "example": "jq '[.lat, .long]' coordinates.json",
+            "explanation": "Constructs a new array containing selected values."
+        },
+        {
+            "id": 14,
+            "category": "Input/Output Control",
+            "command": "jq -r '.key' file.json",
+            "example": "jq -r '.token' auth.json",
+            "explanation": "Outputs raw strings without quotes, useful for shell piping."
+        },
+        {
+            "id": 15,
+            "category": "Structure Analysis",
+            "command": "jq 'keys' file.json",
+            "example": "jq 'keys' config.json",
+            "explanation": "Returns an array of keys in the object, sorted alphabetically."
+        },
+        {
+            "id": 16,
+            "category": "Structure Analysis",
+            "command": "jq 'keys_unsorted' file.json",
+            "example": "jq 'keys_unsorted' stream.json",
+            "explanation": "Returns keys in the order they appear in the source JSON."
+        },
+        {
+            "id": 17,
+            "category": "Math & Logic",
+            "command": "jq '.price * 1.2' file.json",
+            "example": "jq '.amount * 100' invoice.json",
+            "explanation": "Performs arithmetic operations on numeric fields."
+        },
+        {
+            "id": 18,
+            "category": "Math & Logic",
+            "command": "jq '.a + .b' file.json",
+            "example": "jq '.first + .last' names.json",
+            "explanation": "Adds numbers or concatenates strings depending on type."
+        },
+        {
+            "id": 19,
+            "category": "Transformation",
+            "command": "jq 'map(.id)' file.json",
+            "example": "jq 'map(.id)' objects.json",
+            "explanation": "Transforms an array by applying a filter to every element."
+        },
+        {
+            "id": 20,
+            "category": "Filtering",
+            "command": "jq 'select(.id > 100)' file.json",
+            "example": "jq 'map(select(.age >= 18))' users.json",
+            "explanation": "Filters output, keeping only elements where the condition is true."
+        },
+        {
+            "id": 21,
+            "category": "Filtering",
+            "command": "jq 'select(.status == \"active\")' file.json",
+            "example": "jq '.users[] | select(.role == \"admin\")' users.json",
+            "explanation": "Filters stream for objects matching a specific string value."
+        },
+        {
+            "id": 22,
+            "category": "Filtering",
+            "command": "jq 'select(.error != null)' file.json",
+            "example": "jq 'select(.retry_count != 0)' jobs.json",
+            "explanation": "Selects objects where a specific field is not null."
+        },
+        {
+            "id": 23,
+            "category": "Logical Operators",
+            "command": "jq 'select(.a and .b)' file.json",
+            "example": "jq 'select(.active and .verified)' users.json",
+            "explanation": "Uses boolean AND logic to require multiple conditions."
+        },
+        {
+            "id": 24,
+            "category": "Logical Operators",
+            "command": "jq 'select(.a or .b)' file.json",
+            "example": "jq 'select(.admin or .moderator)' staff.json",
+            "explanation": "Uses boolean OR logic to allow alternative conditions."
+        },
+        {
+            "id": 25,
+            "category": "String Manipulation",
+            "command": "jq 'split(\",\")' file.json",
+            "example": "jq '.tags | split(\",\")' posts.json",
+            "explanation": "Splits a string into an array based on a delimiter."
+        },
+        {
+            "id": 26,
+            "category": "String Manipulation",
+            "command": "jq 'join(\", \")' file.json",
+            "example": "jq '.permissions | join(\" | \")' roles.json",
+            "explanation": "Joins an array of strings into a single string with a separator."
+        },
+        {
+            "id": 27,
+            "category": "String Manipulation",
+            "command": "jq 'ascii_downcase' file.json",
+            "example": "jq '.email | ascii_downcase' contacts.json",
+            "explanation": "Converts string input to lowercase."
+        },
+        {
+            "id": 28,
+            "category": "String Manipulation",
+            "command": "jq 'contains(\"str\")' file.json",
+            "example": "jq 'select(.message | contains(\"Error\"))' logs.json",
+            "explanation": "Checks if a string contains a specific substring."
+        },
+        {
+            "id": 29,
+            "category": "Regular Expressions",
+            "command": "jq 'test(\"regex\")' file.json",
+            "example": "jq 'select(.ip | test(\"^192\\.168\"))' network.json",
+            "explanation": "Tests if a string matches a regular expression pattern."
+        },
+        {
+            "id": 30,
+            "category": "Regular Expressions",
+            "command": "jq 'match(\"regex\")' file.json",
+            "example": "jq '.version | match(\"^[0-9]+\")' package.json",
+            "explanation": "Returns detailed match object including captures and offsets."
+        },
+        {
+            "id": 31,
+            "category": "Regular Expressions",
+            "command": "jq 'capture(\"regex\")' file.json",
+            "example": "jq '.log | capture(\"(?<level>[A-Z]+): (?<msg>.+)\")' syslog.json",
+            "explanation": "Captures named groups from a regex into a JSON object."
+        },
+        {
+            "id": 32,
+            "category": "Sorting & Grouping",
+            "command": "jq 'sort' file.json",
+            "example": "jq '.tags | sort' metadata.json",
+            "explanation": "Sorts an array of scalars or objects."
+        },
+        {
+            "id": 33,
+            "category": "Sorting & Grouping",
+            "command": "jq 'sort_by(.key)' file.json",
+            "example": "jq 'sort_by(.timestamp)' events.json",
+            "explanation": "Sorts an array of objects based on a specific field."
+        },
+        {
+            "id": 34,
+            "category": "Sorting & Grouping",
+            "command": "jq 'group_by(.key)' file.json",
+            "example": "jq 'group_by(.category)' products.json",
+            "explanation": "Groups array elements into subarrays based on a field value."
+        },
+        {
+            "id": 35,
+            "category": "Sorting & Grouping",
+            "command": "jq 'unique' file.json",
+            "example": "jq '.visited_urls | unique' history.json",
+            "explanation": "Removes duplicates from an array and sorts it."
+        },
+        {
+            "id": 36,
+            "category": "Sorting & Grouping",
+            "command": "jq 'unique_by(.key)' file.json",
+            "example": "jq 'unique_by(.id)' users.json",
+            "explanation": "Removes objects with duplicate values for a specific key."
+        },
+        {
+            "id": 37,
+            "category": "Aggregation",
+            "command": "jq 'min' file.json",
+            "example": "jq '[.items[].price] | min' catalog.json",
+            "explanation": "Finds the minimum value in an array."
+        },
+        {
+            "id": 38,
+            "category": "Aggregation",
+            "command": "jq 'max' file.json",
+            "example": "jq '[.scores[]] | max' results.json",
+            "explanation": "Finds the maximum value in an array."
+        },
+        {
+            "id": 39,
+            "category": "Aggregation",
+            "command": "jq 'add' file.json",
+            "example": "jq '[.invoices[].total] | add' finance.json",
+            "explanation": "Sums the numbers in an array."
+        },
+        {
+            "id": 40,
+            "category": "Control Flow",
+            "command": "jq 'if .a then .b else .c end' file.json",
+            "example": "jq 'if .admin then \"superuser\" else \"user\" end' auth.json",
+            "explanation": "Implements standard if-then-else conditional logic."
+        },
+        {
+            "id": 41,
+            "category": "Control Flow",
+            "command": "jq '.a // .b' file.json",
+            "example": "jq '.display_name // .username // \"Anonymous\"' profile.json",
+            "explanation": "Uses the Alternative Operator to provide default values if preceding values are null or false."
+        },
+        {
+            "id": 42,
+            "category": "Data Modification",
+            "command": "jq '.key = \"value\"' file.json",
+            "example": "jq '.status = \"processed\"' task.json",
+            "explanation": "Assigns a new static value to a field."
+        },
+        {
+            "id": 43,
+            "category": "Data Modification",
+            "command": "jq '.count += 1' file.json",
+            "example": "jq '.login_attempts += 1' user.json",
+            "explanation": "Increments a numeric value using update assignment."
+        },
+        {
+            "id": 44,
+            "category": "Data Modification",
+            "command": "jq '.tags += [\"new\"]' file.json",
+            "example": "jq '.roles += [\"auditor\"]' user.json",
+            "explanation": "Appends an element to an existing array."
+        },
+        {
+            "id": 45,
+            "category": "Data Modification",
+            "command": "jq 'del(.key)' file.json",
+            "example": "jq 'del(.password, .secret)' config.json",
+            "explanation": "Deletes specified keys from an object."
+        },
+        {
+            "id": 46,
+            "category": "Data Modification",
+            "command": "jq '(.values[]) |= . + 1' file.json",
+            "example": "jq '(.prices[]) |= . * 1.1' menu.json",
+            "explanation": "Updates every element in an array in place."
+        },
+        {
+            "id": 47,
+            "category": "Input Handling",
+            "command": "jq -s '.' file.json",
+            "example": "jq -s '.' part1.json part2.json",
+            "explanation": "Slurps all input JSON objects into a single large array."
+        },
+        {
+            "id": 48,
+            "category": "Input Handling",
+            "command": "jq -R '.' file.txt",
+            "example": "jq -R '.' raw_logs.txt",
+            "explanation": "Reads input as raw strings instead of JSON."
+        },
+        {
+            "id": 49,
+            "category": "Input Handling",
+            "command": "jq -n '{a: 1}'",
+            "example": "jq -n '{timestamp: now}'",
+            "explanation": "Uses null input, useful for generating JSON from scratch without an input file."
+        },
+        {
+            "id": 50,
+            "category": "Input Handling",
+            "command": "jq --arg name val '.'",
+            "example": "jq -n --arg env \"prod\" '{environment: $env}'",
+            "explanation": "Passes a value from the shell into a jq variable."
+        },
+        {
+            "id": 51,
+            "category": "Date & Time",
+            "command": "jq 'now' file.json",
+            "example": "jq '{check_time: now}' status.json",
+            "explanation": "Returns the current time as a Unix timestamp."
+        },
+        {
+            "id": 52,
+            "category": "Date & Time",
+            "command": "jq 'todate' file.json",
+            "example": "jq '.timestamp | todate' log.json",
+            "explanation": "Converts a Unix timestamp to an ISO 8601 string."
+        },
+        {
+            "id": 53,
+            "category": "Date & Time",
+            "command": "jq 'fromdate' file.json",
+            "example": "jq '.iso_time | fromdate' data.json",
+            "explanation": "Converts an ISO 8601 string to a Unix timestamp."
+        },
+        {
+            "id": 54,
+            "category": "Date & Time",
+            "command": "jq 'strflocaltime(\"%Y-%m-%d\")' file.json",
+            "example": "jq 'now | strflocaltime(\"%H:%M:%S\")' file.json",
+            "explanation": "Formats a timestamp using standard strftime format strings."
+        },
+        {
+            "id": 55,
+            "category": "Advanced Traversal",
+            "command": "jq '..'",
+            "example": "jq '.. | .id?' nested.json",
+            "explanation": "Recursively descends into all values, visiting every node."
+        },
+        {
+            "id": 56,
+            "category": "Advanced Traversal",
+            "command": "jq 'paths'",
+            "example": "jq 'paths' structure.json",
+            "explanation": "Outputs the paths to all elements in the JSON document."
+        },
+        {
+            "id": 57,
+            "category": "Conversion",
+            "command": "jq 'to_entries' file.json",
+            "example": "jq 'to_entries' map.json",
+            "explanation": "Converts an object into an array of {key, value} pairs."
+        },
+        {
+            "id": 58,
+            "category": "Conversion",
+            "command": "jq 'from_entries' file.json",
+            "example": "jq 'from_entries' kvs.json",
+            "explanation": "Converts an array of {key, value} pairs back into an object."
+        },
+        {
+            "id": 59,
+            "category": "Formatting Output",
+            "command": "jq '@base64'",
+            "example": "jq '.payload | @base64' secret.json",
+            "explanation": "Encodes the input string to Base64."
+        },
+        {
+            "id": 60,
+            "category": "Formatting Output",
+            "command": "jq '@base64d'",
+            "example": "jq '.encoded | @base64d' data.json",
+            "explanation": "Decodes a Base64 string."
+        },
+        {
+            "id": 61,
+            "category": "Formatting Output",
+            "command": "jq '@csv'",
+            "example": "jq '.users[] | [.id, .name] | @csv' users.json",
+            "explanation": "Formats an array as a CSV row."
+        },
+        {
+            "id": 62,
+            "category": "Formatting Output",
+            "command": "jq '@tsv'",
+            "example": "jq '.logs[] | [.time, .msg] | @tsv' logs.json",
+            "explanation": "Formats an array as a Tab-Separated Value row."
+        },
+        {
+            "id": 63,
+            "category": "Formatting Output",
+            "command": "jq '@uri'",
+            "example": "jq '.search_query | @uri' request.json",
+            "explanation": "Percent-encodes a string for use in URLs."
+        },
+        {
+            "id": 64,
+            "category": "Formatting Output",
+            "command": "jq '@sh'",
+            "example": "jq '.filename | @sh' config.json",
+            "explanation": "Escapes a string for safe use in a shell command."
+        },
+        {
+            "id": 65,
+            "category": "Debugging",
+            "command": "jq 'debug' file.json",
+            "example": "jq 'map(debug) | .[]' list.json",
+            "explanation": "Prints the current input to stderr for debugging purposes without affecting output."
+        },
+        {
+            "id": 66,
+            "category": "Advanced Logic",
+            "command": "jq 'any'",
+            "example": "jq '.results | any(.passed == false)' test.json",
+            "explanation": "Returns true if any element in the stream matches the condition."
+        },
+        {
+            "id": 67,
+            "category": "Advanced Logic",
+            "command": "jq 'all'",
+            "example": "jq '.servers | all(.status == \"up\")' cluster.json",
+            "explanation": "Returns true only if all elements in the stream match the condition."
+        },
+        {
+            "id": 68,
+            "category": "Advanced Functions",
+            "command": "jq 'reduce .[] as $item (0; . + $item)'",
+            "example": "jq 'reduce .prices[] as $p (0; . + $p)' cart.json",
+            "explanation": "Reduces an array to a single value (e.g., sum) using an accumulator."
+        },
+        {
+            "id": 69,
+            "category": "Advanced Functions",
+            "command": "jq 'reduce inputs as $i (.; . + [$i])'",
+            "example": "jq -n 'reduce inputs as $line (0; . + ($line|length))' file.txt",
+            "explanation": "Processes a stream of inputs efficiently without loading everything into memory."
+        },
+        {
+            "id": 70,
+            "category": "Advanced Functions",
+            "command": "jq 'recurse(.children[])'",
+            "example": "jq 'recurse(.sub_departments[])' org_chart.json",
+            "explanation": "Recursively visits a structure defined by a path."
+        },
+        {
+            "id": 71,
+            "category": "Advanced Functions",
+            "command": "jq 'walk(if type == \"object\" then del(.null_keys) else . end)'",
+            "example": "jq 'walk(if type == \"string\" then ascii_upcase else . end)' data.json",
+            "explanation": "Applies a function to every node in the JSON tree recursively."
+        },
+        {
+            "id": 72,
+            "category": "Environment Interaction",
+            "command": "jq 'env'",
+            "example": "jq -n 'env.HOME'",
+            "explanation": "Accesses system environment variables as a JSON object."
+        },
+        {
+            "id": 73,
+            "category": "Variables",
+            "command": "jq '. as $root | .items[] | select(.id == $root.target)'",
+            "example": "jq '.threshold as $t | .values[] | select(. > $t)' data.json",
+            "explanation": "Defines a variable within jq to reference data from a different context."
+        },
+        {
+            "id": 74,
+            "category": "Variables",
+            "command": "jq --argjson data '{\"a\":1}'",
+            "example": "jq --argjson config '{\"debug\": true}' '$config.debug'",
+            "explanation": "Passes a JSON string from the shell and parses it into a jq variable."
+        },
+        {
+            "id": 75,
+            "category": "Variables",
+            "command": "jq --slurpfile dict dict.json",
+            "example": "jq --slurpfile blacklist bad_ips.json 'select(.ip as $ip | $blacklist | index($ip) | not)' access.json",
+            "explanation": "Reads a secondary file into a variable array for lookups or joining."
+        },
+        {
+            "id": 76,
+            "category": "Type Checking",
+            "command": "jq 'type' file.json",
+            "example": "jq 'map(type)' mixed_array.json",
+            "explanation": "Returns the type of the value (object, array, string, number, null, boolean)."
+        },
+        {
+            "id": 77,
+            "category": "Type Checking",
+            "command": "jq 'select(type == \"string\")'",
+            "example": "jq '.[] | select(type == \"number\")' data.json",
+            "explanation": "Filters input based on JSON data type."
+        },
+        {
+            "id": 78,
+            "category": "Type Checking",
+            "command": "jq 'arrays, objects, scalars'",
+            "example": "jq 'arrays' mixed_stream.json",
+            "explanation": "Built-in filters to select only arrays, objects, or scalar values."
+        },
+        {
+            "id": 79,
+            "category": "String Formatting",
+            "command": "jq '\"Name: \\(.name), ID: \\(.id)\"'",
+            "example": "jq '\"Value: \\(.value * 100)%\"' stats.json",
+            "explanation": "Uses string interpolation to embed expressions inside strings."
+        },
+        {
+            "id": 80,
+            "category": "Module Loading",
+            "command": "jq 'import \"module\" as mod'",
+            "example": "jq -L. 'import \"utils\" as u; u::func' main.json",
+            "explanation": "Imports a jq library file from the search path."
+        },
+        {
+            "id": 81,
+            "category": "Automation Workflow",
+            "command": "jq -e . file.json",
+            "example": "jq -e '.success' response.json",
+            "explanation": "Sets the shell exit code based on the output (0 if result is not null/false, 1 otherwise)."
+        },
+        {
+            "id": 82,
+            "category": "DevOps Automation",
+            "command": "aws ec2 describe-instances | jq '.Reservations[].Instances[].InstanceId'",
+            "example": "cat instances.json | jq -r '.[].InstanceId'",
+            "explanation": "Extracts specific resource IDs from complex Cloud API responses."
+        },
+        {
+            "id": 83,
+            "category": "Log Analysis",
+            "command": "jq -R 'split(\" \") | {time:.[0], method:.[3], url:.[4]}'",
+            "example": "cat access.log | jq -R 'split(\" \") | {ip: .[0]}'",
+            "explanation": "Parses raw text logs into JSON structure using manual splitting."
+        },
+        {
+            "id": 84,
+            "category": "Log Analysis",
+            "command": "jq -s 'group_by(.level) | map({level: .[0].level, count: length})'",
+            "example": "jq -s 'group_by(.status) | map({status:.[0].status, count:length})' logs.json",
+            "explanation": "Aggregates log entries to count occurrences of specific event levels."
+        },
+        {
+            "id": 85,
+            "category": "Log Analysis",
+            "command": "jq 'select(.timestamp > (now - 3600))'",
+            "example": "jq 'select(.time_sec > (now - 86400))' events.json",
+            "explanation": "Filters logs to show only entries from the last hour (or specific duration)."
+        },
+        {
+            "id": 86,
+            "category": "Security Automation",
+            "command": "jq 'select(.headers[\"User-Agent\"] | contains(\"curl\"))'",
+            "example": "jq 'select(.ua | contains(\"python-requests\"))' access_log.json",
+            "explanation": "Identifies automated bot traffic by analyzing User-Agent strings."
+        },
+        {
+            "id": 87,
+            "category": "Security Automation",
+            "command": "jq 'select(.response_code >= 500)'",
+            "example": "jq 'select(.status >= 400)' http_log.json",
+            "explanation": "Filters for server-side errors or client errors in web logs."
+        },
+        {
+            "id": 88,
+            "category": "Security Automation",
+            "command": "jq '.Records[] | select(.eventName == \"ConsoleLogin\" and .errorMessage != null)'",
+            "example": "jq '.records[] | select(.event == \"DeleteBucket\")' cloudtrail.json",
+            "explanation": "Detects failed console login attempts in CloudTrail logs."
+        },
+        {
+            "id": 89,
+            "category": "Security Automation",
+            "command": "jq -r '. | select(.resources[] | contains(\"sg-12345\"))'",
+            "example": "jq 'select(.resource_id == \"i-abcde\")' config_history.json",
+            "explanation": "Searches for events related to a specific compromised or target resource ID."
+        },
+        {
+            "id": 90,
+            "category": "Data Cleaning",
+            "command": "jq 'del(.. | .password?, .secret?, .token?)'",
+            "example": "jq 'del(.. | .ssn?)' user_dump.json",
+            "explanation": "Recursively scrubs sensitive fields like passwords or tokens from a dataset."
+        },
+        {
+            "id": 91,
+            "category": "Data Cleaning",
+            "command": "jq 'map_values(if . == null then \"N/A\" else . end)'",
+            "example": "jq 'map_values(if . == \"\" then null else . end)' data.json",
+            "explanation": "Normalizes nulls or empty strings across an object."
+        },
+        {
+            "id": 92,
+            "category": "Flattening",
+            "command": "jq '[leaf_paths as $path | { \"key\": $path | join(\".\"), \"value\": getpath($path) }] | from_entries'",
+            "example": "jq '...' nested_config.json",
+            "explanation": "Flattens a deeply nested JSON object into a single-level dot-notation map."
+        },
+        {
+            "id": 93,
+            "category": "Docker/K8s",
+            "command": "docker inspect container | jq '.[0].NetworkSettings.IPAddress'",
+            "example": "kubectl get pod -o json | jq '.items[].metadata.name'",
+            "explanation": "Extracts networking or metadata information from container runtime output."
+        },
+        {
+            "id": 94,
+            "category": "Docker/K8s",
+            "command": "kubectl get secret -o json | jq '.data | map_values(@base64d)'",
+            "example": "jq '.data | map_values(@base64d)' k8s_secret.json",
+            "explanation": "Decodes Kubernetes secrets directly from the JSON output."
+        },
+        {
+            "id": 95,
+            "category": "Git Automation",
+            "command": "gh api repos/:owner/:repo/issues | jq 'map(select(.labels[].name == \"bug\"))'",
+            "example": "curl ... | jq 'map(select(.state == \"open\"))'",
+            "explanation": "Filters GitHub API issues by label or state."
+        },
+        {
+            "id": 96,
+            "category": "Network Analysis",
+            "command": "jq -s 'map(.timestamp) | max - min' packets.json",
+            "example": "jq -s 'map(.latency) | add / length' ping.json",
+            "explanation": "Calculates the time duration or average latency from a capture file."
+        },
+        {
+            "id": 97,
+            "category": "Blue Team",
+            "command": "jq 'select(.event_id == 4624 and .logon_type == 10)' winlogs.json",
+            "example": "jq 'select(.id == 4625)' security.json",
+            "explanation": "Filters Windows Event Logs for RDP logins (Type 10) or failures."
+        },
+        {
+            "id": 98,
+            "category": "Blue Team",
+            "command": "jq 'group_by(.src_ip) | map({ip: .[0].src_ip, count: length}) | sort_by(.count) | reverse'",
+            "example": "jq 'group_by(.user) | map({user:.[0].user, count:length})' firewall.json",
+            "explanation": "Generates a frequency analysis of source IPs to identify potential attackers."
+        },
+        {
+            "id": 99,
+            "category": "Advanced Transformation",
+            "command": "jq 'reduce inputs as $item (.; .[$item.id] = $item)'",
+            "example": "jq -n 'reduce inputs as $x ({}; .[$x.name] = $x.value)' data.txt",
+            "explanation": "Transforms a stream of objects into a hash map indexed by ID."
+        },
+        {
+            "id": 100,
+            "category": "Advanced Transformation",
+            "command": "jq 'transpose | map(add)' matrix.json",
+            "example": "jq 'transpose' arrays.json",
+            "explanation": "Transposes a matrix (array of arrays) or sums columns."
+        },
+        {
+            "id": 101,
+            "category": "IAM Analysis",
+            "command": "jq '.Statement[] | select(.Effect == \"Allow\" and .Action == \"*\")'",
+            "example": "jq '.Statement[] | select(.Resource == \"*\")' policy.json",
+            "explanation": "Audits IAM policies for overly permissive wildcard permissions."
+        },
+        {
+            "id": 102,
+            "category": "Streaming Large Files",
+            "command": "jq --stream 'select(.[0][1] == \"id\") | .[1]'",
+            "example": "jq -cn --stream 'fromstream(1|truncate_stream(inputs))' huge.json",
+            "explanation": "Parses massive files token-by-token to reduce memory usage."
+        },
+        {
+            "id": 103,
+            "category": "Streaming Large Files",
+            "command": "jq -cn --stream 'fromstream(inputs | select(.[0][0] == \"users\"))'",
+            "example": "jq --stream 'select(length==2) | .[0] as $p | .[1] as $v | \"\\($p): \\($v)\"' large.json",
+            "explanation": "Reconstructs only specific parts of a large JSON file from a stream."
+        },
+        {
+            "id": 104,
+            "category": "CSV to JSON",
+            "command": "jq -R -s 'split(\"\\n\") | .[1:] | map(split(\",\")) | map({id: .[0], val: .[1]})'",
+            "example": "jq -R -s '...' data.csv",
+            "explanation": "Manually converts raw CSV text into JSON objects (header aware)."
+        },
+        {
+            "id": 105,
+            "category": "Math Statistics",
+            "command": "jq 'map(.value) | add / length' file.json",
+            "example": "jq '.scores | add / length' class.json",
+            "explanation": "Calculates the arithmetic mean (average) of an array of numbers."
+        },
+        {
+            "id": 106,
+            "category": "Math Statistics",
+            "command": "jq 'map(.value) | sort | .[length/2]' file.json",
+            "example": "jq '.prices | sort | .[length/2]' items.json",
+            "explanation": "Calculates the median value of an array."
+        },
+        {
+            "id": 107,
+            "category": "Comparison",
+            "command": "jq -n --argfile a old.json --argfile b new.json '$a == $b'",
+            "example": "jq -n --argfile a 1.json --argfile b 2.json '$a - $b'",
+            "explanation": "Compares two JSON files for strict equality or diffs object keys."
+        },
+        {
+            "id": 108,
+            "category": "Diffing",
+            "command": "jq -n --argfile a old.json --argfile b new.json '($b - $a)'",
+            "example": "jq -n --argfile a v1.json --argfile b v2.json '($b - $a)'",
+            "explanation": "Outputs the fields present in the second file that are missing or different in the first."
+        },
+        {
+            "id": 109,
+            "category": "GeoJSON",
+            "command": "jq '.features[] | select(.properties.population > 1000000)' geo.json",
+            "example": "jq '.features[].geometry.coordinates' cities.json",
+            "explanation": "Filters GeoJSON feature collections based on property data."
+        },
+        {
+            "id": 110,
+            "category": "Encoding",
+            "command": "jq -R -r '@html' input.txt",
+            "example": "jq '.content | @html' post.json",
+            "explanation": "Escapes HTML entities in a string."
+        },
+        {
+            "id": 111,
+            "category": "Encoding",
+            "command": "jq '@json' file.json",
+            "example": "jq '.log_message | @json' payload.json",
+            "explanation": "Serializes a string or object as a JSON string literal."
+        },
+        {
+            "id": 112,
+            "category": "Error Handling",
+            "command": "jq 'try .foo catch \"fallback\"'",
+            "example": "jq 'map(try .value catch 0)' mixed.json",
+            "explanation": "Catches errors during evaluation and provides a default value."
+        },
+        {
+            "id": 113,
+            "category": "Error Handling",
+            "command": "jq 'try (.a / .b) catch error(\"division by zero\")'",
+            "example": "jq 'if .b == 0 then error(\"zero\") else .a/.b end' math.json",
+            "explanation": "Raises a custom error message to halt processing."
+        },
+        {
+            "id": 114,
+            "category": "Complex Selection",
+            "command": "jq '.users[] | select([.roles[] | contains(\"admin\")] | any)'",
+            "example": "jq '.items[] | select([.tags[] | startswith(\"pro\")] | any)' data.json",
+            "explanation": "Selects objects where at least one element in a nested array matches a condition."
+        },
+        {
+            "id": 115,
+            "category": "Complex Selection",
+            "command": "jq 'select(.key | IN(\"A\", \"B\", \"C\"))'",
+            "example": "jq 'select(.status | IN(\"pending\", \"running\"))' jobs.json",
+            "explanation": "Filters based on a value membership in a specific list."
+        },
+        {
+            "id": 116,
+            "category": "Combinatorics",
+            "command": "jq 'combinations'",
+            "example": "jq '[[1,2], [\"a\",\"b\"]] | combinations' file.json",
+            "explanation": "Outputs the Cartesian product of the input arrays."
+        },
+        {
+            "id": 117,
+            "category": "Path Management",
+            "command": "jq 'setpath([\"a\",\"b\"]; 1)'",
+            "example": "jq 'setpath([\"users\", 0, \"active\"]; true)' state.json",
+            "explanation": "Sets a value at a dynamic path specified by an array."
+        },
+        {
+            "id": 118,
+            "category": "Path Management",
+            "command": "jq 'getpath([\"a\",\"b\"])'",
+            "example": "jq 'getpath([\"config\", \"network\", \"ip\"])' config.json",
+            "explanation": "Retrieves a value using an array as the path selector."
+        },
+        {
+            "id": 119,
+            "category": "Deep Equality",
+            "command": "jq 'unique_by(.)'",
+            "example": "jq '[.a, .b] | unique_by(.) | length == 1' compare.json",
+            "explanation": "Checks if complex objects are identical by deduplicating them."
+        },
+        {
+            "id": 120,
+            "category": "Self-Quine",
+            "command": "jq '.' jq_reference_guide.json",
+            "example": "jq '.' self.json",
+            "explanation": "Reads and pretty-prints the file itself to validate its own structure."
+        }
+    ]
+}

@@ -1,0 +1,650 @@
+{
+    "tool": "awscli",
+    "description": "Complete AWS CLI command and workflow reference from basic to advanced cloud operations and security auditing",
+    "total_commands": 92,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Version",
+            "command": "aws --version",
+            "example": "aws --version",
+            "explanation": "Outputs the installed AWS CLI version, Python runtime, and host operating system details for environment verification.\nUse this command to ensure your local installation meets the minimum requirements for specific service features or scripts."
+        },
+        {
+            "id": 2,
+            "category": "Configuration",
+            "command": "aws configure",
+            "example": "aws configure",
+            "explanation": "Initiates an interactive setup to define your Access Key ID, Secret Access Key, default region, and preferred output format.\nRun this as a first-time setup step to establish the local credentials and configuration files required for authenticated API calls."
+        },
+        {
+            "id": 3,
+            "category": "Configuration",
+            "command": "aws configure list",
+            "example": "aws configure list",
+            "explanation": "Displays a structured summary of current configuration data and identifies the source, such as environment variables or config files.\nUtilize this for troubleshooting to determine which specific profile or credential source is currently being prioritized by the CLI."
+        },
+        {
+            "id": 4,
+            "category": "Configuration",
+            "command": "aws configure list-profiles",
+            "example": "aws configure list-profiles",
+            "explanation": "Enumerates all named profiles configured within your local credentials file to provide a clear view of available identity contexts.\nApply this to quickly verify the aliases of different AWS accounts or roles you have saved for use with the --profile flag."
+        },
+        {
+            "id": 5,
+            "category": "Identity (STS)",
+            "command": "aws sts get-caller-identity",
+            "example": "aws sts get-caller-identity",
+            "explanation": "Retrieves details about the active IAM identity, including the Account ID, User/Role ARN, and unique identifier.\nPerform this check as a security best practice to confirm you are operating under the correct identity before executing cloud operations."
+        },
+        {
+            "id": 6,
+            "category": "Identity (STS)",
+            "command": "aws sts decode-authorization-message",
+            "example": "aws sts decode-authorization-message --encoded-message <token>",
+            "explanation": "Translates the encrypted error message from a denied API request into a readable format to reveal the specific policy violation.\nExecute this command to identify which IAM policy, permission boundary, or SCP is preventing a specific action from succeeding."
+        },
+        {
+            "id": 7,
+            "category": "IAM (Users)",
+            "command": "aws iam list-users",
+            "example": "aws iam list-users --output table",
+            "explanation": "Lists all IAM users within the current AWS account and organizes the data into a readable table for administrative review.\nUse this to audit existing user identities and track metadata such as account creation dates and unique user paths."
+        },
+        {
+            "id": 8,
+            "category": "IAM (Users)",
+            "command": "aws iam get-user",
+            "example": "aws iam get-user --user-name Alice",
+            "explanation": "Retrieves comprehensive details for a specific IAM user, including their ARN, creation date, and current tags.\nEmploy this command to verify the specific configuration of an identity or to fetch the exact ARN needed for resource-based policies."
+        },
+        {
+            "id": 9,
+            "category": "IAM (Roles)",
+            "command": "aws iam list-roles",
+            "example": "aws iam list-roles --query 'Roles[].RoleName'",
+            "explanation": "Enumerates all IAM roles in the account and applies a JMESPath filter to isolate and display only the role names.\nUse this for high-level auditing of existing service and user roles to ensure naming conventions and role sprawl are managed."
+        },
+        {
+            "id": 10,
+            "category": "IAM (Policies)",
+            "command": "aws iam list-attached-user-policies",
+            "example": "aws iam list-attached-user-policies --user-name Alice",
+            "explanation": "Identifies all managed IAM policies directly attached to a specified user to verify their current permission set.\nApply this to perform security gap analysis and ensure that users are not granted excessive permissions through direct attachments."
+        },
+        {
+            "id": 11,
+            "category": "IAM (Security)",
+            "command": "aws iam get-account-password-policy",
+            "example": "aws iam get-account-password-policy",
+            "explanation": "Retrieves the global password complexity and rotation requirements defined for the entire AWS account.\nUtilize this command to verify that your account's security posture aligns with industry compliance standards and internal audit policies."
+        },
+        {
+            "id": 12,
+            "category": "IAM (Security)",
+            "command": "aws iam generate-credential-report",
+            "explanation": "Initiates the generation of a comprehensive account-wide report detailing the status of every user's credentials and MFA settings.\nRun this periodically to perform security audits, identifying inactive users or credentials that require rotation or deletion."
+        },
+        {
+            "id": 13,
+            "category": "S3 (Storage)",
+            "command": "aws s3 ls",
+            "example": "aws s3 ls",
+            "explanation": "Lists all S3 buckets available in the current account or the contents of a specific bucket if a path is provided.\nUse this for quick navigation and verification of storage resources before initiating file transfers or management tasks."
+        },
+        {
+            "id": 14,
+            "category": "S3 (Storage)",
+            "command": "aws s3 mb",
+            "example": "aws s3 mb s3://my-new-bucket-name",
+            "explanation": "Creates a new S3 bucket in the default or specified region to provide a storage container for cloud data.\nEnsure bucket names are globally unique to avoid naming conflicts during the creation of new storage resources."
+        },
+        {
+            "id": 15,
+            "category": "S3 (Operations)",
+            "command": "aws s3 cp",
+            "example": "aws s3 cp file.txt s3://my-bucket/file.txt",
+            "explanation": "Copies local files to S3, from S3 to local, or between two S3 buckets while maintaining data integrity.\nUtilize this command for manual uploads or downloads of critical assets and configuration files to and from the cloud."
+        },
+        {
+            "id": 16,
+            "category": "S3 (Operations)",
+            "command": "aws s3 sync",
+            "example": "aws s3 sync ./local-folder s3://my-bucket/remote-folder --delete",
+            "explanation": "Synchronizes a local directory with an S3 prefix by only transferring new or modified files to optimize bandwidth.\nIncorporate the --delete flag to mirror environments exactly, removing files from the destination that no longer exist in the source."
+        },
+        {
+            "id": 17,
+            "category": "S3 (Management)",
+            "command": "aws s3api list-buckets",
+            "example": "aws s3api list-buckets --query \"Buckets[].Name\"",
+            "explanation": "Accesses the low-level S3 control plane to list buckets and enables advanced filtering via the --query parameter.\nUse the s3api variant when you require raw JSON output for programmatic integration or complex filtering of bucket metadata."
+        },
+        {
+            "id": 18,
+            "category": "S3 (Security)",
+            "command": "aws s3api get-bucket-encryption",
+            "example": "aws s3api get-bucket-encryption --bucket my-bucket",
+            "explanation": "Retrieves the server-side encryption (SSE) configuration for a bucket to verify that data-at-rest is properly protected.\nEmploy this during security audits to ensure all storage buckets comply with encryption mandates using either AES-256 or AWS KMS."
+        },
+        {
+            "id": 19,
+            "category": "S3 (Security)",
+            "command": "aws s3api get-public-access-block",
+            "example": "aws s3api get-public-access-block --bucket my-bucket",
+            "explanation": "Checks the status of the Public Access Block settings to ensure a bucket is protected against accidental public exposure.\nApply this check as a fundamental security control to prevent sensitive data leaks caused by misconfigured bucket ACLs or policies."
+        },
+        {
+            "id": 20,
+            "category": "EC2 (Compute)",
+            "command": "aws ec2 describe-regions",
+            "example": "aws ec2 describe-regions --all-regions",
+            "explanation": "Lists all available AWS regions along with their respective endpoints to determine where resources can be deployed.\nUse the --all-regions flag to see both enabled and disabled regions for comprehensive account availability mapping."
+        },
+        {
+            "id": 21,
+            "category": "EC2 (Compute)",
+            "command": "aws ec2 describe-instances",
+            "example": "aws ec2 describe-instances --filters \"Name=instance-state-name,Values=running\"",
+            "explanation": "Retrieves detailed metadata for EC2 instances, with the ability to filter based on state, instance type, or tags.\nUse this to generate an inventory of active compute resources and to check the status of instances during deployment cycles."
+        },
+        {
+            "id": 22,
+            "category": "EC2 (JMESPath Query)",
+            "command": "aws ec2 describe-instances --query",
+            "example": "aws ec2 describe-instances --query \"Reservations[*].Instances[*].{PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}\"",
+            "explanation": "Performs complex server-side filtering to extract specific fields like Public IP and Name tags into a custom JSON or table output.\nLeverage this advanced query capability to create concise reports for DevOps teams without parsing large amounts of unnecessary metadata."
+        },
+        {
+            "id": 23,
+            "category": "EC2 (Management)",
+            "command": "aws ec2 start-instances",
+            "example": "aws ec2 start-instances --instance-ids i-1234567890abcdef0",
+            "explanation": "Initiates the boot sequence for one or more stopped, EBS-backed EC2 instances to bring them into a running state.\nUtilize this command to resume workloads or re-enable development environments that were stopped to save on compute costs."
+        },
+        {
+            "id": 24,
+            "category": "EC2 (Management)",
+            "command": "aws ec2 stop-instances",
+            "example": "aws ec2 stop-instances --instance-ids i-1234567890abcdef0",
+            "explanation": "Sends a shutdown signal to specified EBS-backed instances, moving them to a 'stopped' state while preserving the disk state.\nApply this command as a cost-saving measure for non-production instances or during scheduled maintenance windows."
+        },
+        {
+            "id": 25,
+            "category": "VPC (Networking)",
+            "command": "aws ec2 describe-vpcs",
+            "example": "aws ec2 describe-vpcs",
+            "explanation": "Returns a list of Virtual Private Clouds within the region, providing CIDR blocks, tenancy info, and VPC state.\nUse this to map out the network architecture of your account and verify the availability of specific VPC environments."
+        },
+        {
+            "id": 26,
+            "category": "VPC (Networking)",
+            "command": "aws ec2 describe-subnets",
+            "example": "aws ec2 describe-subnets --filters \"Name=vpc-id,Values=vpc-12345678\"",
+            "explanation": "Lists the subnets associated with a specific VPC, including Availability Zone mappings and available IP counts.\nEmploy this command to ensure resources are being deployed into the correct network tier and to audit available subnet capacity."
+        },
+        {
+            "id": 27,
+            "category": "VPC (Security Groups)",
+            "command": "aws ec2 describe-security-groups",
+            "example": "aws ec2 describe-security-groups --filters Name=group-name,Values=default",
+            "explanation": "Retrieves the ingress and egress rules for security groups to audit virtual firewall configurations.\nUse this to inspect which traffic patterns are permitted for your resources and to identify unused or misconfigured security groups."
+        },
+        {
+            "id": 28,
+            "category": "VPC (Security Audit)",
+            "command": "aws ec2 describe-security-group-rules",
+            "example": "aws ec2 describe-security-group-rules --filters Name=security-group-rule-id,Values=sgr-12345",
+            "explanation": "Provides a granular view of specific security group rules, including port ranges and CIDR descriptions.\nLeverage this command to perform precise security audits and identify overly permissive rules that may violate compliance standards."
+        },
+        {
+            "id": 29,
+            "category": "RDS (Database)",
+            "command": "aws rds describe-db-instances",
+            "example": "aws rds describe-db-instances",
+            "explanation": "Returns detailed information about all provisioned RDS instances, including database engine, status, and endpoint details.\nUtilize this to monitor database health and retrieve the connection strings required for application configuration."
+        },
+        {
+            "id": 30,
+            "category": "RDS (Database)",
+            "command": "aws rds describe-db-snapshots",
+            "example": "aws rds describe-db-snapshots --db-instance-identifier my-db-instance",
+            "explanation": "Lists both automated and manual snapshots for a specific RDS database to verify backup availability.\nUse this command to identify recovery points for restoration and to audit your database backup and retention policy."
+        },
+        {
+            "id": 31,
+            "category": "DynamoDB (Database)",
+            "command": "aws dynamodb list-tables",
+            "example": "aws dynamodb list-tables",
+            "explanation": "Returns a simple list of all DynamoDB table names created within the current region.\nEmploy this for high-level inventory management and to confirm the existence of NoSQL tables before performing data operations."
+        },
+        {
+            "id": 32,
+            "category": "DynamoDB (Data)",
+            "command": "aws dynamodb scan",
+            "example": "aws dynamodb scan --table-name Users --max-items 10",
+            "explanation": "Iterates through all items in a DynamoDB table and returns the results up to the specified limit.\nExercise caution with this command on large tables to avoid consuming excessive Read Capacity Units (RCUs)."
+        },
+        {
+            "id": 33,
+            "category": "Lambda (Serverless)",
+            "command": "aws lambda list-functions",
+            "example": "aws lambda list-functions",
+            "explanation": "Provides an inventory of all deployed Lambda functions, including runtime environments and memory configurations.\nUse this to audit serverless workloads and track the various microservices deployed across your account."
+        },
+        {
+            "id": 34,
+            "category": "Lambda (Serverless)",
+            "command": "aws lambda get-function",
+            "example": "aws lambda get-function --function-name my-function",
+            "explanation": "Retrieves the configuration metadata and a temporary download link for the function's deployment package.\nUtilize this to inspect the current code version or to retrieve a package for local debugging and reverse engineering."
+        },
+        {
+            "id": 35,
+            "category": "Lambda (Execution)",
+            "command": "aws lambda invoke",
+            "example": "aws lambda invoke --function-name my-function response.json",
+            "explanation": "Triggers the execution of a Lambda function and captures the output payload in a specified local file.\nUse this for testing serverless logic or for manual triggering of backend processes during development and troubleshooting."
+        },
+        {
+            "id": 36,
+            "category": "ECS (Containers)",
+            "command": "aws ecs list-clusters",
+            "example": "aws ecs list-clusters",
+            "explanation": "Lists all Amazon ECS clusters configured in the current region to provide an overview of container orchestration environments.\nApply this to identify active compute clusters before managing tasks, services, or container instances."
+        },
+        {
+            "id": 37,
+            "category": "ECS (Containers)",
+            "command": "aws ecs list-tasks",
+            "example": "aws ecs list-tasks --cluster default",
+            "explanation": "Enumerates the task IDs running within a specific ECS cluster to monitor active container deployments.\nEmploy this command to track the lifecycle of containers and to identify specific task ARNs for further inspection or termination."
+        },
+        {
+            "id": 38,
+            "category": "EKS (Kubernetes)",
+            "command": "aws eks list-clusters",
+            "example": "aws eks list-clusters",
+            "explanation": "Lists all Amazon EKS (Kubernetes) managed clusters available in the specified region.\nUse this to confirm cluster availability and retrieve the names needed for updating local kubernetes configurations."
+        },
+        {
+            "id": 39,
+            "category": "EKS (Kubernetes)",
+            "command": "aws eks update-kubeconfig",
+            "example": "aws eks update-kubeconfig --name my-cluster",
+            "explanation": "Automatically updates your local ~/.kube/config file with the necessary credentials to interact with an EKS cluster via kubectl.\nRun this after creating or joining a new cluster to enable standard Kubernetes CLI management tools."
+        },
+        {
+            "id": 40,
+            "category": "CloudWatch (Monitoring)",
+            "command": "aws cloudwatch list-metrics",
+            "example": "aws cloudwatch list-metrics --namespace AWS/EC2",
+            "explanation": "Lists the available metrics for a specific namespace, such as CPU, disk, or network metrics for EC2.\nUtilize this to identify the exact metric names and dimensions required for creating custom CloudWatch alarms."
+        },
+        {
+            "id": 41,
+            "category": "CloudWatch (Logs)",
+            "command": "aws logs describe-log-groups",
+            "example": "aws logs describe-log-groups",
+            "explanation": "Provides a list of all log groups in CloudWatch, showing retention policies and stored data sizes.\nUse this for administrative oversight of application and system logging to ensure proper data retention and cost management."
+        },
+        {
+            "id": 42,
+            "category": "CloudWatch (Logs)",
+            "command": "aws logs filter-log-events",
+            "example": "aws logs filter-log-events --log-group-name my-logs --filter-pattern \"ERROR\"",
+            "explanation": "Searches through log events using specific patterns to quickly isolate errors or specific transaction IDs.\nApply this command during incident response to perform rapid log analysis without manually downloading large log files."
+        },
+        {
+            "id": 43,
+            "category": "CloudTrail (Auditing)",
+            "command": "aws cloudtrail describe-trails",
+            "example": "aws cloudtrail describe-trails",
+            "explanation": "Retrieves the configuration settings for CloudTrail instances to verify that API logging is active in the region.\nUse this to ensure that your governance and auditing trails are correctly logging to the intended S3 buckets."
+        },
+        {
+            "id": 44,
+            "category": "CloudTrail (Auditing)",
+            "command": "aws cloudtrail get-event-selectors",
+            "example": "aws cloudtrail get-event-selectors --trail-name my-trail",
+            "explanation": "Displays the specific data and management events that a trail is configured to capture for audit purposes.\nCheck these settings to verify that critical data operations, such as S3 object access or Lambda executions, are being logged."
+        },
+        {
+            "id": 45,
+            "category": "CloudTrail (Investigation)",
+            "command": "aws cloudtrail lookup-events",
+            "example": "aws cloudtrail lookup-events --lookup-attributes AttributeKey=Username,AttributeValue=Alice",
+            "explanation": "Searches the last 90 days of API activity for specific attributes like Username, Event Name, or Resource ID.\nEmploy this during security investigations to trace the actions of a specific user or to see who modified a particular resource."
+        },
+        {
+            "id": 46,
+            "category": "Secrets Manager",
+            "command": "aws secretsmanager list-secrets",
+            "example": "aws secretsmanager list-secrets",
+            "explanation": "Lists the metadata of all secrets managed in the account, including rotation status and last accessed dates.\nUse this to audit your secret storage and ensure that sensitive credentials are not being hardcoded in applications."
+        },
+        {
+            "id": 47,
+            "category": "Systems Manager (SSM)",
+            "command": "aws ssm describe-parameters",
+            "example": "aws ssm describe-parameters",
+            "explanation": "Returns a list of all parameters stored in the SSM Parameter Store, including their types and last modified dates.\nUtilize this to manage application configuration settings and to audit the usage of SecureString parameters."
+        },
+        {
+            "id": 48,
+            "category": "Systems Manager (SSM)",
+            "command": "aws ssm start-session",
+            "example": "aws ssm start-session --target i-0123456789abcdef0",
+            "explanation": "Establishes a secure, encrypted shell connection to an EC2 instance via the SSM agent, bypassing the need for SSH keys.\nLeverage this for secure instance management to eliminate the need for opening port 22 in your security groups."
+        },
+        {
+            "id": 49,
+            "category": "KMS (Encryption)",
+            "command": "aws kms list-keys",
+            "example": "aws kms list-keys",
+            "explanation": "Lists the unique identifiers for all Customer Master Keys (CMKs) available in the account and region.\nUse this to verify your encryption keys and to retrieve IDs for managing key policies or performing cryptographic operations."
+        },
+        {
+            "id": 50,
+            "category": "KMS (Encryption)",
+            "command": "aws kms list-aliases",
+            "example": "aws kms list-aliases",
+            "explanation": "Displays the friendly names (aliases) mapped to KMS keys, making it easier to identify keys by purpose.\nApply this to map human-readable names to cryptic Key IDs for better management of encryption resources."
+        },
+        {
+            "id": 51,
+            "category": "Resource Groups (Tagging)",
+            "command": "aws resourcegroupstaggingapi get-resources",
+            "example": "aws resourcegroupstaggingapi get-resources --tag-filters Key=Environment,Values=Production",
+            "explanation": "Queries the account for all resources that match specific tag criteria across multiple AWS services.\nUse this for cross-service inventory management and to ensure all resources comply with organizational tagging policies."
+        },
+        {
+            "id": 52,
+            "category": "Security (GuardDuty)",
+            "command": "aws guardduty list-detectors",
+            "example": "aws guardduty list-detectors",
+            "explanation": "Lists the unique detector IDs for GuardDuty instances to verify that threat detection is enabled in the region.\nUse this ID as a prerequisite for querying findings or managing threat intelligence sets."
+        },
+        {
+            "id": 53,
+            "category": "Security (GuardDuty)",
+            "command": "aws guardduty list-findings",
+            "example": "aws guardduty list-findings --detector-id <id> --finding-criteria '{\"Criterion\":{\"severity\":{\"Gte\":7}}}'",
+            "explanation": "Retrieves security finding IDs from GuardDuty, filtered by severity or finding type to prioritize response.\nFocus on high-severity findings (7.0 - 8.9) to rapidly identify and remediate potential security breaches or compromises."
+        },
+        {
+            "id": 54,
+            "category": "Security (Inspector)",
+            "command": "aws inspector2 list-findings",
+            "example": "aws inspector2 list-findings",
+            "explanation": "Lists vulnerability findings across EC2, Lambda, and ECR resources based on continuous scanning.\nUtilize this to identify software vulnerabilities and network reachability issues that require patching or configuration changes."
+        },
+        {
+            "id": 55,
+            "category": "Security (Security Hub)",
+            "command": "aws securityhub get-findings",
+            "example": "aws securityhub get-findings --filters '{\"RecordState\":[{\"Value\":\"ACTIVE\",\"Comparison\":\"EQUALS\"}]}'",
+            "explanation": "Aggregates and retrieves active security alerts and compliance checks from multiple AWS security services.\nUse this as a centralized dashboard for managing your overall security posture and remediating non-compliant resources."
+        },
+        {
+            "id": 56,
+            "category": "Blue Team (Audit)",
+            "command": "aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values=0.0.0.0/0",
+            "example": "aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values=0.0.0.0/0",
+            "explanation": "Identifies all security groups containing rules that allow inbound traffic from any IP address on the internet.\nRun this frequently as a critical security audit to close unintended exposure points and maintain a hardened perimeter."
+        },
+        {
+            "id": 57,
+            "category": "Blue Team (Audit)",
+            "command": "aws iam list-mfa-devices",
+            "example": "aws iam list-mfa-devices --user-name Alice",
+            "explanation": "Checks if a specific user has at least one active Multi-Factor Authentication (MFA) device configured.\nUse this to enforce MFA compliance and identify high-privilege users who are lacking an essential layer of security."
+        },
+        {
+            "id": 58,
+            "category": "WAF (Web Application Firewall)",
+            "command": "aws wafv2 list-web-acls",
+            "example": "aws wafv2 list-web-acls --scope REGIONAL",
+            "explanation": "Lists all Web Access Control Lists (Web ACLs) used to protect regional resources like ALBs or API Gateways.\nApply this to manage your web application firewalls and verify that your public endpoints are protected by appropriate rule sets."
+        },
+        {
+            "id": 59,
+            "category": "Route53 (DNS)",
+            "command": "aws route53 list-hosted-zones",
+            "example": "aws route53 list-hosted-zones",
+            "explanation": "Enumerates all public and private DNS hosted zones associated with your AWS account.\nUse this to manage your domain portfolio and verify the availability of DNS management zones for your applications."
+        },
+        {
+            "id": 60,
+            "category": "Route53 (DNS)",
+            "command": "aws route53 list-resource-record-sets",
+            "example": "aws route53 list-resource-record-sets --hosted-zone-id Z123456789",
+            "explanation": "Lists the specific DNS records (A, CNAME, TXT, etc.) contained within a designated hosted zone.\nUtilize this to audit your DNS infrastructure and verify that domain routing is correctly configured for your services."
+        },
+        {
+            "id": 61,
+            "category": "Incident Response (Snapshot)",
+            "command": "aws ec2 create-snapshot",
+            "example": "aws ec2 create-snapshot --volume-id vol-12345678 --description \"Forensic Snapshot\"",
+            "explanation": "Captures a point-in-time backup of an EBS volume to preserve data for forensic investigation or recovery.\nExecute this immediately during an incident to ensure you have a static copy of a potentially compromised system's filesystem."
+        },
+        {
+            "id": 62,
+            "category": "Incident Response (Isolation)",
+            "command": "aws ec2 modify-instance-attribute",
+            "example": "aws ec2 modify-instance-attribute --instance-id i-12345 --groups sg-isolation-id",
+            "explanation": "Replaces the existing security groups of an instance with a restricted 'isolation' group to cut off network access.\nApply this during an active compromise to stop data exfiltration or lateral movement while keeping the instance running for analysis."
+        },
+        {
+            "id": 63,
+            "category": "Incident Response (Logs)",
+            "command": "aws ec2 create-flow-logs",
+            "example": "aws ec2 create-flow-logs --resource-type VPC --resource-ids vpc-12345 --traffic-type ALL --log-destination-type cloud-watch-logs --log-group-name FlowLogs",
+            "explanation": "Enables the capture of IP traffic data for network interfaces within a VPC for monitoring and troubleshooting.\nUse flow logs to analyze traffic patterns, identify malicious connections, and audit network compliance across your infrastructure."
+        },
+        {
+            "id": 64,
+            "category": "Advanced Filtering (JMESPath)",
+            "command": "aws ec2 describe-volumes --query",
+            "example": "aws ec2 describe-volumes --query \"Volumes[?State!='in-use']\"",
+            "explanation": "Filters and lists all EBS volumes that are not currently attached to an instance, identifying potential waste.\nRun this regularly to find and delete orphaned volumes, helping to reduce unnecessary storage costs in your AWS bill."
+        },
+        {
+            "id": 65,
+            "category": "Advanced Filtering (JMESPath)",
+            "command": "aws iam list-users --query",
+            "example": "aws iam list-users --query \"Users[?PasswordLastUsed!=null].{Name:UserName,LastUsed:PasswordLastUsed}\"",
+            "explanation": "Generates a filtered list of users who have actively used their passwords, showing their names and last login dates.\nUse this to identify stale IAM users who have not logged in recently and may be candidates for credential deactivation."
+        },
+        {
+            "id": 66,
+            "category": "Cost Management",
+            "command": "aws ce get-cost-and-usage",
+            "example": "aws ce get-cost-and-usage --time-period Start=2023-01-01,End=2023-02-01 --granularity MONTHLY --metrics \"BlendedCost\"",
+            "explanation": "Retrieves detailed cost and usage metrics from the AWS Cost Explorer API for a defined time window.\nEmploy this command to programmatically monitor spending trends and generate monthly financial reports for your cloud resources."
+        },
+        {
+            "id": 67,
+            "category": "Organization",
+            "command": "aws organizations list-accounts",
+            "example": "aws organizations list-accounts",
+            "explanation": "Provides a list of all AWS accounts that are members of your current AWS Organization.\nUse this from the management account to map your multi-account structure and track Account IDs across the enterprise."
+        },
+        {
+            "id": 68,
+            "category": "Auto Scaling",
+            "command": "aws autoscaling describe-auto-scaling-groups",
+            "example": "aws autoscaling describe-auto-scaling-groups",
+            "explanation": "Describes the configurations of your Auto Scaling groups, including capacity limits and health check settings.\nUtilize this to monitor the scaling state of your applications and ensure that your high-availability targets are met."
+        },
+        {
+            "id": 69,
+            "category": "Auto Scaling",
+            "command": "aws autoscaling set-desired-capacity",
+            "example": "aws autoscaling set-desired-capacity --auto-scaling-group-name my-asg --desired-capacity 2",
+            "explanation": "Manually adjusts the desired number of instances in an Auto Scaling group to scale the environment up or down.\nApply this for manual capacity adjustments during expected traffic spikes or to reduce costs during low-demand periods."
+        },
+        {
+            "id": 70,
+            "category": "Elastic Load Balancing",
+            "command": "aws elbv2 describe-load-balancers",
+            "example": "aws elbv2 describe-load-balancers",
+            "explanation": "Returns information about Application, Network, and Gateway Load Balancers in your environment.\nUse this to retrieve the DNS names of your load balancers and to verify their operational state."
+        },
+        {
+            "id": 71,
+            "category": "Elastic Load Balancing",
+            "command": "aws elbv2 describe-target-health",
+            "example": "aws elbv2 describe-target-health --target-group-arn arn:aws:elasticloadbalancing:...",
+            "explanation": "Reports the health status of backend targets (such as EC2 instances) registered to a specific load balancer target group.\nUse this for troubleshooting application availability issues by identifying which instances are failing health checks."
+        },
+        {
+            "id": 72,
+            "category": "CloudFormation (IaC)",
+            "command": "aws cloudformation list-stacks",
+            "example": "aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE",
+            "explanation": "Lists CloudFormation stacks based on their current status to provide an overview of deployed infrastructure.\nEmploy this to track the state of your Infrastructure as Code deployments and identify stacks that require cleanup or updates."
+        },
+        {
+            "id": 73,
+            "category": "CloudFormation (IaC)",
+            "command": "aws cloudformation describe-stack-resources",
+            "example": "aws cloudformation describe-stack-resources --stack-name my-stack",
+            "explanation": "Lists every AWS resource created and managed by a specific CloudFormation stack for detailed inventory mapping.\nUtilize this to trace which physical resources (e.g., specific EC2 IDs or S3 buckets) belong to a logical stack."
+        },
+        {
+            "id": 74,
+            "category": "Cleanup",
+            "command": "aws s3 rb",
+            "example": "aws s3 rb s3://my-bucket --force",
+            "explanation": "Deletes an S3 bucket and uses the --force flag to remove all contained objects simultaneously.\nExercise extreme caution as this operation is permanent and cannot be undone; always verify bucket names before execution."
+        },
+        {
+            "id": 75,
+            "category": "Cleanup",
+            "command": "aws ec2 terminate-instances",
+            "example": "aws ec2 terminate-instances --instance-ids i-1234567890abcdef0",
+            "explanation": "Permanently shuts down and deletes specified EC2 instances, releasing all associated hardware resources.\nUse this only when you no longer require the instance, as termination usually results in the deletion of the root EBS volume."
+        },
+        {
+            "id": 76,
+            "category": "Cleanup",
+            "command": "aws cloudformation delete-stack",
+            "example": "aws cloudformation delete-stack --stack-name my-stack",
+            "explanation": "Initiates the removal of a CloudFormation stack along with all the resources it previously provisioned.\nApply this for efficient environment decommissioning to ensure no orphaned resources continue to incur costs."
+        },
+        {
+            "id": 77,
+            "category": "Dry Run (Testing)",
+            "command": "aws ec2 run-instances --dry-run",
+            "example": "aws ec2 run-instances --dry-run --image-id ami-12345 --instance-type t2.micro",
+            "explanation": "Validates that you have the required permissions and that the parameters are correct without actually launching an instance.\nIncorporate this into scripts and automation to prevent failed deployments and verify IAM authorization before runtime."
+        },
+        {
+            "id": 78,
+            "category": "Advanced Workflow (MFA)",
+            "command": "aws sts get-session-token",
+            "example": "aws sts get-session-token --serial-number arn-of-mfa --token-code 123456",
+            "explanation": "Generates temporary security credentials that include an MFA-authenticated session for an IAM user.\nUse these credentials to perform actions that are protected by policies requiring Multi-Factor Authentication."
+        },
+        {
+            "id": 79,
+            "category": "Advanced Workflow (Assume Role)",
+            "command": "aws sts assume-role",
+            "example": "aws sts assume-role --role-arn arn:aws:iam::123456789012:role/RoleName --role-session-name MySession",
+            "explanation": "Requests temporary security credentials for an IAM role to perform cross-account or cross-service operations.\nUtilize this to adopt a different permission set without sharing long-term access keys, enhancing overall security."
+        },
+        {
+            "id": 80,
+            "category": "Backup (EBS)",
+            "command": "aws ec2 create-image",
+            "example": "aws ec2 create-image --instance-id i-12345 --name \"My Server Backup\" --no-reboot",
+            "explanation": "Creates a machine image (AMI) from an existing instance, capturing both the root and data volumes for disaster recovery.\nUse the --no-reboot flag if you need to create the image while the instance is running, though this may affect filesystem consistency."
+        },
+        {
+            "category": "Advanced Route53 & DNS",
+            "command": "aws route53 list-resource-record-sets",
+            "example": "aws route53 list-resource-record-sets --hosted-zone-id Z12345",
+            "explanation": "Extracts the absolute raw DNS routing matrices enabling deep auditing of CNAME, A, and TXT configurations.",
+            "id": 81
+        },
+        {
+            "category": "API Gateway & Edge",
+            "command": "aws apigateway get-rest-apis",
+            "example": "aws apigateway get-rest-apis",
+            "explanation": "Inventories all serverless REST architectures currently mapped and proxying inbound HTTP requests to Lambda endpoints.",
+            "id": 82
+        },
+        {
+            "category": "API Gateway & Edge",
+            "command": "aws apigateway create-deployment",
+            "example": "aws apigateway create-deployment --rest-api-id abc123 --stage-name prod",
+            "explanation": "Compiles and physically pushes staged API routing changes into the live, publicly reachable requested stage.",
+            "id": 83
+        },
+        {
+            "category": "CloudFront CDN",
+            "command": "aws cloudfront create-invalidation",
+            "example": "aws cloudfront create-invalidation --distribution-id E123 --paths \"/*\"",
+            "explanation": "Forces Edge locations worldwide to instantly dump their localized cached versions and re-pull fresh assets from the backend origin.",
+            "id": 84
+        },
+        {
+            "category": "CloudFront CDN",
+            "command": "aws cloudfront get-distribution-config",
+            "example": "aws cloudfront get-distribution-config --id E123",
+            "explanation": "Pulls the complex raw JSON ETag configurations managing WAF attachments, SSL certificates, and origin routing constraints.",
+            "id": 85
+        },
+        {
+            "category": "SQS Messaging",
+            "command": "aws sqs receive-message",
+            "example": "aws sqs receive-message --queue-url https://sqs.reg.amazonaws.com/... --max-number-of-messages 10",
+            "explanation": "Reaches into an operational SQS Queue pulling raw asynchronous message payloads for debugging broken consumer services.",
+            "id": 86
+        },
+        {
+            "category": "SQS Messaging",
+            "command": "aws sqs purge-queue",
+            "example": "aws sqs purge-queue --queue-url https://sqs....",
+            "explanation": "Immediately burns down and obliterates all pending unread messages idling inside an SQS queue structure.",
+            "id": 87
+        },
+        {
+            "category": "SNS Notifications",
+            "command": "aws sns publish",
+            "example": "aws sns publish --topic-arn arn:aws:sns:... --message \"Server down\"",
+            "explanation": "Infects an SNS topic with a raw broadcast message, instantly triggering all associated fan-out targets (Email, SMS, Lambda hooks).",
+            "id": 88
+        },
+        {
+            "category": "Step Functions",
+            "command": "aws stepfunctions start-execution",
+            "example": "aws stepfunctions start-execution --state-machine-arn arn:... --input \"{\\\"key\\\": \\\"value\\\"}\"",
+            "explanation": "Triggers complex automated multi-lambda state machine architectures providing seed JSON structures to begin algorithmic executions.",
+            "id": 89
+        },
+        {
+            "category": "Elasticache (Redis)",
+            "command": "aws elasticache describe-cache-clusters",
+            "example": "aws elasticache describe-cache-clusters --show-cache-node-info",
+            "explanation": "Uncovers the internal DNS endpoints, instance classes, and replication structures of extremely high-speed memory cache architectures.",
+            "id": 90
+        },
+        {
+            "category": "Athena (Data Lake)",
+            "command": "aws athena start-query-execution",
+            "example": "aws athena start-query-execution --query-string \"SELECT * from cloudtrail_logs limit 10\"",
+            "explanation": "Executes raw distributed Serverless SQL queries directly against flat cold-storage S3 JSON/CSV data files.",
+            "id": 91
+        },
+        {
+            "category": "SSM Incident Manager",
+            "command": "aws ssm-incidents start-incident",
+            "example": "aws ssm-incidents start-incident --response-plan-arn arn:aws:ssm-incidents...",
+            "explanation": "Invokes maximum-level AWS runbook automation triggering global organizational alerts natively bypassing standard pagers.",
+            "id": 92
+        }
+    ]
+}

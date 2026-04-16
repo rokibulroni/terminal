@@ -1,0 +1,1162 @@
+{
+    "tool": "autopsy",
+    "description": "Complete Autopsy workflow and feature reference from basic to advanced digital forensics analysis",
+    "total_commands": 165,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Case Creation",
+            "command": "Create New Case",
+            "example": "Launch Autopsy and select 'New Case' from the welcome screen",
+            "explanation": "Initializes the case database and directory structure for a new investigation"
+        },
+        {
+            "id": 2,
+            "category": "Case Creation",
+            "command": "Define Case Information",
+            "example": "Enter Case Name and Base Directory path",
+            "explanation": "Sets the identifier and storage location for all case data"
+        },
+        {
+            "id": 3,
+            "category": "Case Creation",
+            "command": "Set Examiner Details",
+            "example": "Input Examiner Name, Phone, and Email optional fields",
+            "explanation": "Associates the investigator's metadata with the case for reporting purposes"
+        },
+        {
+            "id": 4,
+            "category": "Data Source Ingestion",
+            "command": "Select Data Source Type - Disk Image",
+            "example": "Choose 'Disk Image or VM File' in the Add Data Source wizard",
+            "explanation": "Prepares Autopsy to ingest physical or virtual disk image files like E01 or VMDK"
+        },
+        {
+            "id": 5,
+            "category": "Data Source Ingestion",
+            "command": "Select Data Source Type - Logical Files",
+            "example": "Choose 'Logical Files' to analyze a specific folder without an image",
+            "explanation": "Ingests a live directory or specific files from the host system for analysis"
+        },
+        {
+            "id": 6,
+            "category": "Data Source Ingestion",
+            "command": "Select Data Source Type - Unallocated Space",
+            "example": "Choose 'Unallocated Space Image File' for raw binary chunks",
+            "explanation": "Ingests raw data chunks specifically for carving without filesystem structures"
+        },
+        {
+            "id": 7,
+            "category": "Data Source Ingestion",
+            "command": "Configure Time Zone",
+            "example": "Set the time zone to the suspect's local time or UTC",
+            "explanation": "Ensures accurate timestamp interpretation during file system processing"
+        },
+        {
+            "id": 8,
+            "category": "Ingest Modules",
+            "command": "Enable Recent Activity Module",
+            "example": "Check 'Recent Activity' during ingest configuration",
+            "explanation": "Extracts user activity from registry, recent docs, and installed programs"
+        },
+        {
+            "id": 9,
+            "category": "Ingest Modules",
+            "command": "Enable Hash Lookup Module",
+            "example": "Check 'Hash Lookup' and select a hash set like NSRL",
+            "explanation": "Identifies known good files to ignore and known bad files to flag"
+        },
+        {
+            "id": 10,
+            "category": "Ingest Modules",
+            "command": "Enable File Type Identification",
+            "example": "Check 'File Type Identification' to analyze file signatures",
+            "explanation": "Determines file types based on magic bytes rather than file extensions"
+        },
+        {
+            "id": 11,
+            "category": "Ingest Modules",
+            "command": "Enable Archive Extractor",
+            "example": "Check 'Embedded File Extractor' to open ZIP and RAR files",
+            "explanation": "Unpacks compressed archives to analyze the files contained within them"
+        },
+        {
+            "id": 12,
+            "category": "Ingest Modules",
+            "command": "Enable Exif Parser",
+            "example": "Check 'Picture Analyzer' or Exif parser to extract metadata",
+            "explanation": "Extracts geolocation and camera device data from image files"
+        },
+        {
+            "id": 13,
+            "category": "Ingest Modules",
+            "command": "Enable Keyword Search Module",
+            "example": "Check 'Keyword Search' to index text content",
+            "explanation": "Indexes file content to allow for fast text searching later in the investigation"
+        },
+        {
+            "id": 14,
+            "category": "Ingest Modules",
+            "command": "Enable Email Parser",
+            "example": "Check 'Email Parser' to process MBOX, PST, and OST files",
+            "explanation": "Extracts individual emails and attachments from mailbox container files"
+        },
+        {
+            "id": 15,
+            "category": "Ingest Modules",
+            "command": "Enable Encryption Detection",
+            "example": "Check 'Encryption Detection' to find password-protected files",
+            "explanation": "Flags files that are encrypted or password protected for manual review"
+        },
+        {
+            "id": 16,
+            "category": "Ingest Modules",
+            "command": "Enable Interesting Files Identifier",
+            "example": "Check 'Interesting Files Identifier' using a custom rule set",
+            "explanation": "Flags files matching specific names or paths relevant to the investigation"
+        },
+        {
+            "id": 17,
+            "category": "User Interface",
+            "command": "Navigate Directory Tree",
+            "example": "Expand 'Data Sources' > 'Image Name' > 'Vol' to browse folders",
+            "explanation": "Allows manual exploration of the file system hierarchy"
+        },
+        {
+            "id": 18,
+            "category": "User Interface",
+            "command": "View File Content - Text",
+            "example": "Select the 'Text' tab in the content viewer pane",
+            "explanation": "Displays the ASCII or Unicode text representation of the selected file"
+        },
+        {
+            "id": 19,
+            "category": "User Interface",
+            "command": "View File Content - Hex",
+            "example": "Select the 'Hex' tab to view raw binary data",
+            "explanation": "Shows the raw hexadecimal and ASCII decoding of the file's bytes"
+        },
+        {
+            "id": 20,
+            "category": "User Interface",
+            "command": "View File Content - Application",
+            "example": "Select the 'Application' tab to render images or HTML",
+            "explanation": "Renders supported file types like images and HTML in their native format"
+        },
+        {
+            "id": 21,
+            "category": "User Interface",
+            "command": "View File Metadata",
+            "example": "Select the 'File Metadata' tab to see timestamps and attributes",
+            "explanation": "Displays MAC times, permissions, and file system attributes"
+        },
+        {
+            "id": 22,
+            "category": "Artifact Analysis",
+            "command": "Analyze Web History",
+            "example": "Navigate to 'Web History' under 'Results' in the tree",
+            "explanation": "Lists visited URLs extracted from browser databases"
+        },
+        {
+            "id": 23,
+            "category": "Artifact Analysis",
+            "command": "Analyze Web Cookies",
+            "example": "Navigate to 'Web Cookies' to see session data",
+            "explanation": "Displays tracking cookies and session identifiers from web browsers"
+        },
+        {
+            "id": 24,
+            "category": "Artifact Analysis",
+            "command": "Analyze Web Downloads",
+            "example": "Navigate to 'Web Downloads' to find downloaded files",
+            "explanation": "Lists files downloaded via browsers including source URL and path"
+        },
+        {
+            "id": 25,
+            "category": "Artifact Analysis",
+            "command": "Analyze Installed Programs",
+            "example": "Check 'Installed Programs' artifact category",
+            "explanation": "Lists software applications installed on the system via Registry or packages"
+        },
+        {
+            "id": 26,
+            "category": "Artifact Analysis",
+            "command": "Analyze OS Information",
+            "example": "Check 'Operating System Information' artifact",
+            "explanation": "Shows OS version, install date, and system owner details"
+        },
+        {
+            "id": 27,
+            "category": "Artifact Analysis",
+            "command": "Analyze USB Device History",
+            "example": "Navigate to 'USB Device Attached' artifacts",
+            "explanation": "Lists external storage devices previously connected to the system"
+        },
+        {
+            "id": 28,
+            "category": "Artifact Analysis",
+            "command": "Analyze User Accounts",
+            "example": "Navigate to 'OS Accounts' artifact",
+            "explanation": "Lists user profiles, last login times, and account privileges"
+        },
+        {
+            "id": 29,
+            "category": "File Analysis",
+            "command": "Filter by Extension",
+            "example": "Navigate to 'Views' > 'File Types' > 'By Extension'",
+            "explanation": "Groups files by their extension for quick review of specific types"
+        },
+        {
+            "id": 30,
+            "category": "File Analysis",
+            "command": "Filter by MIME Type",
+            "example": "Navigate to 'Views' > 'File Types' > 'By MIME Type'",
+            "explanation": "Groups files by their detected internal signature or MIME type"
+        },
+        {
+            "id": 31,
+            "category": "File Analysis",
+            "command": "View Deleted Files",
+            "example": "Navigate to 'Views' > 'Deleted Files' > 'File System'",
+            "explanation": "Shows files that have been marked as deleted but are still recoverable"
+        },
+        {
+            "id": 32,
+            "category": "File Analysis",
+            "command": "Sort by File Size",
+            "example": "Click the 'Size' column header in the result viewer",
+            "explanation": "Orders the file list by size to identify unusually large or small files"
+        },
+        {
+            "id": 33,
+            "category": "Search",
+            "command": "Perform Exact Match Search",
+            "example": "Enter a specific word in the Keyword Search bar and search",
+            "explanation": "Locates exact string matches within the indexed text of the case"
+        },
+        {
+            "id": 34,
+            "category": "Search",
+            "command": "Perform Substring Search",
+            "example": "Enter a partial word and select 'Substring match'",
+            "explanation": "Finds words that contain the search term as a fragment"
+        },
+        {
+            "id": 35,
+            "category": "Search",
+            "command": "Perform RegEx Search",
+            "example": "Enter a regular expression like email patterns and search",
+            "explanation": "Uses patterns to find structured data like emails or credit card numbers"
+        },
+        {
+            "id": 36,
+            "category": "Search",
+            "command": "Save Search Results",
+            "example": "Click 'Save' on a search result tab to persist findings",
+            "explanation": "Saves the current search results to the directory tree for reporting"
+        },
+        {
+            "id": 37,
+            "category": "Timeline Analysis",
+            "command": "Open Timeline Viewer",
+            "example": "Click the 'Timeline' button in the top toolbar",
+            "explanation": "Launches the visualization tool for chronological event analysis"
+        },
+        {
+            "id": 38,
+            "category": "Timeline Analysis",
+            "command": "View Counts by Time",
+            "example": "Select 'Counts' mode in Timeline to see activity spikes",
+            "explanation": "Displays a bar chart of event frequency to identify periods of high activity"
+        },
+        {
+            "id": 39,
+            "category": "Timeline Analysis",
+            "command": "View Details by Time",
+            "example": "Select 'Details' mode to see specific event descriptions",
+            "explanation": "Lists individual events like file creation or web access in chronological order"
+        },
+        {
+            "id": 40,
+            "category": "Timeline Analysis",
+            "command": "Filter Timeline by Event Type",
+            "example": "Uncheck 'File System' to focus only on 'Web Activity'",
+            "explanation": "Reduces noise by hiding specific categories of temporal events"
+        },
+        {
+            "id": 41,
+            "category": "Tagging",
+            "command": "Create Custom Tag",
+            "example": "Go to 'Tags' options and create a 'Malware Suspect' tag",
+            "explanation": "Defines a new label for categorizing evidence during analysis"
+        },
+        {
+            "id": 42,
+            "category": "Tagging",
+            "command": "Tag File",
+            "example": "Right-click a file and select 'Add Tag' > 'Bookmark'",
+            "explanation": "Marks a specific file for later review or inclusion in the final report"
+        },
+        {
+            "id": 43,
+            "category": "Tagging",
+            "command": "Tag Result Artifact",
+            "example": "Right-click a Web History entry and tag it",
+            "explanation": "Marks a specific analysis result rather than the source file"
+        },
+        {
+            "id": 44,
+            "category": "Reporting",
+            "command": "Generate HTML Report",
+            "example": "Click 'Generate Report', select 'HTML', and choose data",
+            "explanation": "Creates a browser-viewable report of selected artifacts and tags"
+        },
+        {
+            "id": 45,
+            "category": "Reporting",
+            "command": "Generate Excel Report",
+            "example": "Select 'Excel' format in the Generate Report wizard",
+            "explanation": "Exports artifact tables to a spreadsheet for external manipulation"
+        },
+        {
+            "id": 46,
+            "category": "Setup",
+            "command": "Configure Global Settings",
+            "example": "Tools > Options to adjust memory usage and display settings",
+            "explanation": "Adjusts application-wide preferences for performance and view"
+        },
+        {
+            "id": 47,
+            "category": "Setup",
+            "command": "Manage Hash Sets",
+            "example": "Tools > Options > Hash Sets to import a new MD5 database",
+            "explanation": "Adds external hash databases for filtering known files"
+        },
+        {
+            "id": 48,
+            "category": "Setup",
+            "command": "Update Keyword Lists",
+            "example": "Tools > Options > Keyword Search to add custom lists",
+            "explanation": "Configures predefined lists of search terms for automated searching"
+        },
+        {
+            "id": 49,
+            "category": "Advanced Ingest",
+            "command": "Run Ingest Modules on Subset",
+            "example": "Right-click a folder and choose 'Run Ingest Modules'",
+            "explanation": "Executes analysis modules on a specific directory rather than the whole image"
+        },
+        {
+            "id": 50,
+            "category": "Advanced Ingest",
+            "command": "Prioritize Ingest Jobs",
+            "example": "Use the Ingest Progress monitor to cancel or reorder jobs",
+            "explanation": "Manages system resources by controlling which analysis tasks run first"
+        },
+        {
+            "id": 51,
+            "category": "Artifact Analysis",
+            "command": "Analyze Shellbags",
+            "example": "Review 'Shellbags' artifact for folder access history",
+            "explanation": "Reveals which folders were viewed by the user and when"
+        },
+        {
+            "id": 52,
+            "category": "Artifact Analysis",
+            "command": "Analyze Prefetch",
+            "example": "Review 'Prefetch' artifacts for application execution",
+            "explanation": "Determines which programs were run, how often, and when last executed"
+        },
+        {
+            "id": 53,
+            "category": "Artifact Analysis",
+            "command": "Analyze Shimcache",
+            "example": "Review 'Shimcache' for evidence of program execution compatibility",
+            "explanation": "Identifies applications present on the system even if deleted"
+        },
+        {
+            "id": 54,
+            "category": "Artifact Analysis",
+            "command": "Analyze Recent Documents",
+            "example": "Check 'Recent Documents' artifact from registry/LNK files",
+            "explanation": "Lists documents recently opened by the user"
+        },
+        {
+            "id": 55,
+            "category": "Communications",
+            "command": "Analyze Email Messages",
+            "example": "Browse extracted emails in the 'Email' artifact node",
+            "explanation": "Reads the body, headers, and attachments of processed emails"
+        },
+        {
+            "id": 56,
+            "category": "Communications",
+            "command": "Analyze Call Logs",
+            "example": "Review 'Call Logs' artifact from mobile backups",
+            "explanation": "Lists incoming, outgoing, and missed calls extracted from mobile data"
+        },
+        {
+            "id": 57,
+            "category": "Communications",
+            "command": "Analyze Contacts",
+            "example": "Review 'Contacts' artifact for address book entries",
+            "explanation": "Displays contact names and numbers found in mobile or email data"
+        },
+        {
+            "id": 58,
+            "category": "Communications",
+            "command": "Analyze Text Messages",
+            "example": "Review 'Messages' artifact for SMS/MMS content",
+            "explanation": "Reads short message service content extracted from phone dumps"
+        },
+        {
+            "id": 59,
+            "category": "Advanced Analysis",
+            "command": "File Carving with PhotoRec",
+            "example": "Enable 'PhotoRec Carver' in Ingest Modules",
+            "explanation": "Recovers deleted files from unallocated space by signature scanning"
+        },
+        {
+            "id": 60,
+            "category": "Advanced Analysis",
+            "command": "Extract Strings",
+            "example": "Run the 'Strings' task or view the Strings tab",
+            "explanation": "Extracts printable characters from binary files to find hidden text"
+        },
+        {
+            "id": 61,
+            "category": "Advanced Analysis",
+            "command": "Manual Hex Analysis",
+            "example": "Inspect file headers in the Hex view to verify file type",
+            "explanation": "Visually validates the file signature against the extension"
+        },
+        {
+            "id": 62,
+            "category": "Advanced Analysis",
+            "command": "Registry Hive Analysis",
+            "example": "Browse the virtual 'Registry' folders in the tree view",
+            "explanation": "Navigates the Windows Registry hive structure manually"
+        },
+        {
+            "id": 63,
+            "category": "Advanced Analysis",
+            "command": "Geolocation Mapping",
+            "example": "Open the 'Geolocation' window to see points on a map",
+            "explanation": "Visualizes GPS coordinates extracted from images and metadata on a map"
+        },
+        {
+            "id": 64,
+            "category": "Advanced Analysis",
+            "command": "Communication Visualization",
+            "example": "Open the 'Communications' visualization tool",
+            "explanation": "Graphs relationships between accounts based on calls and emails"
+        },
+        {
+            "id": 65,
+            "category": "Malware Detection",
+            "command": "Analyze Startup Items",
+            "example": "Check 'Startup Items' artifact for persistence mechanisms",
+            "explanation": "Identifies programs configured to launch automatically at boot"
+        },
+        {
+            "id": 66,
+            "category": "Malware Detection",
+            "command": "Search for Webshells",
+            "example": "Keyword search for common webshell functions like 'eval' or 'base64_decode'",
+            "explanation": "Detects potential backdoors in web server directories"
+        },
+        {
+            "id": 67,
+            "category": "Malware Detection",
+            "command": "Identify Packed Files",
+            "example": "Sort executables by entropy or check file type analysis",
+            "explanation": "Finds files with high entropy that may be packed malware"
+        },
+        {
+            "id": 68,
+            "category": "Export",
+            "command": "Export File",
+            "example": "Right-click a file and select 'Extract File(s)'",
+            "explanation": "Copies a file from the forensic image to the local file system"
+        },
+        {
+            "id": 69,
+            "category": "Export",
+            "command": "Export Result Table",
+            "example": "Right-click a result table and 'Export to CSV'",
+            "explanation": "Saves the current list view as a CSV file for external analysis"
+        },
+        {
+            "id": 70,
+            "category": "Reporting",
+            "command": "Create Portable Case",
+            "example": "Reporting > Portable Case to create a shareable viewer",
+            "explanation": "Generates a standalone version of the case for non-technical stakeholders"
+        },
+        {
+            "id": 71,
+            "category": "Automation",
+            "command": "Create Ingest Profile",
+            "example": "Options > Ingest Profiles to save a set of modules",
+            "explanation": "Saves a specific configuration of ingest modules for repeatable workflows"
+        },
+        {
+            "id": 72,
+            "category": "Automation",
+            "command": "Filter Known Files",
+            "example": "Apply the 'Known Files' filter to hide NSRL matches",
+            "explanation": "Hides system files found in the whitelist to focus on user data"
+        },
+        {
+            "id": 73,
+            "category": "Mobile Forensics",
+            "command": "Run Android Analyzer",
+            "example": "Enable 'Android Analyzer' module on a phone dump",
+            "explanation": "Parses SQLite databases specific to Android apps and system"
+        },
+        {
+            "id": 74,
+            "category": "Mobile Forensics",
+            "command": "Analyze GPS Trackpoints",
+            "example": "Review 'GPS Trackpoints' artifact",
+            "explanation": "Examines route history data from navigation applications"
+        },
+        {
+            "id": 75,
+            "category": "Database Analysis",
+            "command": "SQLite Database Viewer",
+            "example": "Open a .db file to view tables within Autopsy",
+            "explanation": "Browses the schema and content of SQLite databases directly in the content viewer"
+        },
+        {
+            "id": 76,
+            "category": "Integration",
+            "command": "Configure Cuckoo Sandbox",
+            "example": "Settings > Cuckoo to connect for malware detonation",
+            "explanation": "Links Autopsy to a Cuckoo instance for automated malware analysis"
+        },
+        {
+            "id": 77,
+            "category": "Integration",
+            "command": "Configure Volatility",
+            "example": "Configure paths to run Volatility plugins on memory dumps",
+            "explanation": "Integrates memory forensics tools to analyze RAM captures"
+        },
+        {
+            "id": 78,
+            "category": "Advanced Search",
+            "command": "Search by Attribute",
+            "example": "Search for files with 'Creation Time' in a specific range",
+            "explanation": "Finds files based on metadata properties rather than content"
+        },
+        {
+            "id": 79,
+            "category": "Advanced Search",
+            "command": "Credit Card Pattern Search",
+            "example": "Enable the 'Credit Card' regex in Keyword Search",
+            "explanation": "Scans for sequences matching major credit card numbering standards"
+        },
+        {
+            "id": 80,
+            "category": "Advanced Search",
+            "command": "IP Address Search",
+            "example": "Enable 'IP Address' regex in Keyword Search",
+            "explanation": "Scans for IPv4 and IPv6 address patterns in files and logs"
+        },
+        {
+            "id": 81,
+            "category": "Defensive Validation",
+            "command": "Verify Digital Signatures",
+            "example": "Check if critical system binaries have valid signatures",
+            "explanation": "Confirms that system files have not been modified by an attacker"
+        },
+        {
+            "id": 82,
+            "category": "Defensive Validation",
+            "command": "Analyze Security Event Logs",
+            "example": "Parse Windows Event Logs for Event ID 4624 (Logon)",
+            "explanation": "Reviews authentication logs to identify unauthorized access attempts"
+        },
+        {
+            "id": 83,
+            "category": "Threat Hunting",
+            "command": "Search for Ransom Note",
+            "example": "Keyword search for 'decrypt', 'bitcoin', or 'readme'",
+            "explanation": "Identifies presence of ransomware instructions"
+        },
+        {
+            "id": 84,
+            "category": "Threat Hunting",
+            "command": "Identify Large Archives",
+            "example": "Filter by size and extension .zip/.rar/.7z",
+            "explanation": "Finds potential data staging archives created for exfiltration"
+        },
+        {
+            "id": 85,
+            "category": "Threat Hunting",
+            "command": "Check Temp Directories",
+            "example": "Browse AppData/Local/Temp for executable files",
+            "explanation": "Inspects temporary folders often used as malware staging grounds"
+        },
+        {
+            "id": 86,
+            "category": "Triage",
+            "command": "Run Triage Ingest Profile",
+            "example": "Run a profile with only 'Recent Activity' and 'Hash Lookup'",
+            "explanation": "Performs a rapid analysis to get quick wins before full processing"
+        },
+        {
+            "id": 87,
+            "category": "Multi-User",
+            "command": "Connect to Central Repository",
+            "example": "Configure PostgreSQL/SQLite central repo in settings",
+            "explanation": "Enables cross-case correlation of artifacts and hashes"
+        },
+        {
+            "id": 88,
+            "category": "Multi-User",
+            "command": "Flag Globally Ignored Items",
+            "example": "Mark an item as 'Notable' in the Central Repository",
+            "explanation": "Tags an artifact so it is flagged in all future cases"
+        },
+        {
+            "id": 89,
+            "category": "Multi-User",
+            "command": "Enable Solr Server",
+            "example": "Connect case to a multi-user Solr text index server",
+            "explanation": "Offloads text indexing to a dedicated server for collaborative cases"
+        },
+        {
+            "id": 90,
+            "category": "Customization",
+            "command": "Install Python Plugin",
+            "example": "Tools > Python Plugins to add community scripts",
+            "explanation": "Extends functionality with user-created Python ingest modules"
+        },
+        {
+            "id": 91,
+            "category": "Customization",
+            "command": "Install Third-Party Module",
+            "example": "Tools > Plugins > Available Plugins to install .nbm files",
+            "explanation": "Adds features via the NetBeans Module format"
+        },
+        {
+            "id": 92,
+            "category": "Analysis",
+            "command": "Annotate Artifact",
+            "example": "Add a comment to a specific file artifact",
+            "explanation": "Attaches examiner notes to a specific finding"
+        },
+        {
+            "id": 93,
+            "category": "Analysis",
+            "command": "Correlate Artifacts",
+            "example": "Use 'Other Occurrences' to see if file exists in other cases",
+            "explanation": "Checks the Central Repository to see if the file was seen before"
+        },
+        {
+            "id": 94,
+            "category": "Advanced",
+            "command": "YARA Rule Scan",
+            "example": "Use a YARA ingest plugin to scan for malware signatures",
+            "explanation": "Applies pattern matching rules to identify malware families"
+        },
+        {
+            "id": 95,
+            "category": "Advanced",
+            "command": "Plaso Integration",
+            "example": "Import Plaso storage file into Autopsy timeline",
+            "explanation": "Visualizes timelines generated by the Plaso super-timeline tool"
+        },
+        {
+            "id": 96,
+            "category": "Advanced",
+            "command": "Parse SAM Hive",
+            "example": "Analyze SAM registry hive for user details",
+            "explanation": "Extracts local user account information and group memberships"
+        },
+        {
+            "id": 97,
+            "category": "Advanced",
+            "command": "Parse SYSTEM Hive",
+            "example": "Analyze SYSTEM registry hive for hardware/timezone info",
+            "explanation": "Extracts system-wide configuration and mounted device lists"
+        },
+        {
+            "id": 98,
+            "category": "Advanced",
+            "command": "Parse SOFTWARE Hive",
+            "example": "Analyze SOFTWARE hive for installed apps and OS version",
+            "explanation": "Extracts software configuration and operating system metadata"
+        },
+        {
+            "id": 99,
+            "category": "Advanced",
+            "command": "Parse NTUSER.DAT",
+            "example": "Analyze NTUSER.DAT for user-specific settings",
+            "explanation": "Extracts user actions, search history, and recent file access"
+        },
+        {
+            "id": 100,
+            "category": "Advanced",
+            "command": "Parse Amcache",
+            "example": "Analyze Amcache.hve for program execution evidence",
+            "explanation": "Identifies executables that were run or present on the system"
+        },
+        {
+            "id": 101,
+            "category": "Reporting",
+            "command": "Export to STIX",
+            "example": "Generate report in STIX format for threat intel",
+            "explanation": "Formats findings into Structured Threat Information Expression for sharing"
+        },
+        {
+            "id": 102,
+            "category": "Reporting",
+            "command": "Export KML",
+            "example": "Generate Google Earth KML report from geolocation data",
+            "explanation": "Creates a map file compatible with Google Earth for location tracking"
+        },
+        {
+            "id": 103,
+            "category": "Evidence Management",
+            "command": "Verify Image Integrity",
+            "example": "Use image verification tool to check E01 hash",
+            "explanation": "Ensures the forensic image has not been corrupted since acquisition"
+        },
+        {
+            "id": 104,
+            "category": "Evidence Management",
+            "command": "Add Local Disk",
+            "example": "Run Autopsy as Admin and add 'Local Disk'",
+            "explanation": "Ingests a currently attached physical drive for analysis"
+        },
+        {
+            "id": 105,
+            "category": "Carving",
+            "command": "Custom Carving Configuration",
+            "example": "Edit carving rules to add new file signatures",
+            "explanation": "Defines custom headers and footers for recovering unsupported file types"
+        },
+        {
+            "id": 106,
+            "category": "Multimedia",
+            "command": "Video Frame Analysis",
+            "example": "Use video triage module to capture frames",
+            "explanation": "Extracts still images from video files for quick review"
+        },
+        {
+            "id": 107,
+            "category": "Multimedia",
+            "command": "Image Gallery View",
+            "example": "Select 'Images' in the tree to view thumbnail grid",
+            "explanation": "Displays all found images in a gallery layout for rapid visual triage"
+        },
+        {
+            "id": 108,
+            "category": "Email Analysis",
+            "command": "Filter Emails by Sender",
+            "example": "Sort email artifacts by 'From' address",
+            "explanation": "Isolates communications originating from a specific suspect"
+        },
+        {
+            "id": 109,
+            "category": "Email Analysis",
+            "command": "Filter Emails by Date",
+            "example": "Apply date filter to email messages",
+            "explanation": "Focuses email review on the relevant timeframe of the incident"
+        },
+        {
+            "id": 110,
+            "category": "System Analysis",
+            "command": "Analyze Scheduled Tasks",
+            "example": "Review 'Scheduled Tasks' artifacts (.job/.xml)",
+            "explanation": "Checks for automated tasks often used for malware persistence"
+        },
+        {
+            "id": 111,
+            "category": "System Analysis",
+            "command": "Analyze Services",
+            "example": "Review System registry for service configurations",
+            "explanation": "Identifies installed background services and their startup types"
+        },
+        {
+            "id": 112,
+            "category": "Incident Response",
+            "command": "Detect Lateral Movement",
+            "example": "Search for RDP logs or PsExec artifacts",
+            "explanation": "Finds evidence of an attacker moving between systems in the network"
+        },
+        {
+            "id": 113,
+            "category": "Incident Response",
+            "command": "Detect Data Exfiltration",
+            "example": "Analyze large file transfers or cloud storage sync logs",
+            "explanation": "Identifies data leaving the network via upload or external drive"
+        },
+        {
+            "id": 114,
+            "category": "Incident Response",
+            "command": "Analyze PowerShell History",
+            "example": "View 'ConsoleHost_history.txt' or PSReadLine artifacts",
+            "explanation": "Reviews executed PowerShell commands for malicious scripts"
+        },
+        {
+            "id": 115,
+            "category": "Incident Response",
+            "command": "Analyze Bash History",
+            "example": "View '.bash_history' files on Linux/Mac images",
+            "explanation": "Reviews command line history on Unix-like systems"
+        },
+        {
+            "id": 116,
+            "category": "Browser Forensics",
+            "command": "Analyze Form History",
+            "example": "Review 'Web Form Autofill' artifacts",
+            "explanation": "Recovers text typed into web forms like search bars or login fields"
+        },
+        {
+            "id": 117,
+            "category": "Browser Forensics",
+            "command": "Analyze Cache",
+            "example": "Review 'Web Cache' artifacts for cached images/scripts",
+            "explanation": "Examines stored web content to reconstruct page views"
+        },
+        {
+            "id": 118,
+            "category": "Cleanup",
+            "command": "Delete Case",
+            "example": "Manually delete the case directory via OS",
+            "explanation": "Removes the case database and reports to free up disk space"
+        },
+        {
+            "id": 119,
+            "category": "Workflow",
+            "command": "Open Recent Case",
+            "example": "Select a case from the 'Recent Cases' list on startup",
+            "explanation": "Quickly resumes work on a previously accessed investigation"
+        },
+        {
+            "id": 120,
+            "category": "Workflow",
+            "command": "Close Case",
+            "example": "Case > Close Case to release locks",
+            "explanation": "Safely closes the database connection and saves the current state"
+        },
+        {
+            "id": 121,
+            "category": "Cloud Forensics",
+            "command": "Analyze Cloud Storage Artifacts",
+            "example": "Look for installed Dropbox/OneDrive databases",
+            "explanation": "Identifies synced files and account information for cloud services"
+        },
+        {
+            "id": 122,
+            "category": "Encryption",
+            "command": "Detect BitLocker",
+            "example": "Identify partitions with BitLocker signatures",
+            "explanation": "Recognizes volumes encrypted with Windows native encryption"
+        },
+        {
+            "id": 123,
+            "category": "Encryption",
+            "command": "Detect TrueCrypt/VeraCrypt",
+            "example": "Identify high-entropy files or mounted volume artifacts",
+            "explanation": "Flags potential encrypted containers used to hide data"
+        },
+        {
+            "id": 124,
+            "category": "Advanced",
+            "command": "Analyze Volume Shadow Copies",
+            "example": "Add VSS snapshots as data sources",
+            "explanation": "Accesses historical versions of files from Windows Restore points"
+        },
+        {
+            "id": 125,
+            "category": "Advanced",
+            "command": "Compare VSS Snapshots",
+            "example": "Compare file differences between Shadow Copies",
+            "explanation": "Identifies what changed on the system between two points in time"
+        },
+        {
+            "id": 126,
+            "category": "Drone Forensics",
+            "command": "Analyze Drone Logs",
+            "example": "Import drone flight logs (DAT/TXT)",
+            "explanation": "Parses flight paths and telemetry from UAV devices"
+        },
+        {
+            "id": 127,
+            "category": "Result Management",
+            "command": "Hide Known Files",
+            "example": "Use 'Hide Known Files' option in views",
+            "explanation": "Suppresses files matching the NSRL whitelist from the view"
+        },
+        {
+            "id": 128,
+            "category": "Result Management",
+            "command": "Group by Data Source",
+            "example": "Toggle 'Group by Data Source' in the tree",
+            "explanation": "Separates artifacts based on which disk image they came from"
+        },
+        {
+            "id": 129,
+            "category": "Advanced UI",
+            "command": "Undock Windows",
+            "example": "Drag the Data Content viewer to a second monitor",
+            "explanation": "Customizes the workspace layout for multi-monitor setups"
+        },
+        {
+            "id": 130,
+            "category": "Advanced UI",
+            "command": "Snapshot Case State",
+            "example": "Backup the case database file (autopsy.db)",
+            "explanation": "Creates a manual backup of the investigation progress"
+        },
+        {
+            "id": 131,
+            "category": "Artifact Analysis",
+            "command": "Analyze LNK Files",
+            "example": "Review parsed Shortcut files",
+            "explanation": "Determines target paths and timestamps of accessed files/folders"
+        },
+        {
+            "id": 132,
+            "category": "Artifact Analysis",
+            "command": "Analyze Jump Lists",
+            "example": "Review Automatic/Custom Jump List artifacts",
+            "explanation": "Shows recent files accessed via the Taskbar or Start Menu"
+        },
+        {
+            "id": 133,
+            "category": "Artifact Analysis",
+            "command": "Analyze Thumbcache",
+            "example": "Review thumbnail cache database entries",
+            "explanation": "Views thumbnails of images that may have been deleted"
+        },
+        {
+            "id": 134,
+            "category": "Artifact Analysis",
+            "command": "Analyze Windows 10 Timeline",
+            "example": "Parse the ActivitiesCache.db",
+            "explanation": "Reconstructs user activity history across devices"
+        },
+        {
+            "id": 135,
+            "category": "Artifact Analysis",
+            "command": "Analyze SRUM Data",
+            "example": "Parse SRUDB.dat for network usage",
+            "explanation": "Analyzes System Resource Usage Monitor for app network/CPU history"
+        },
+        {
+            "id": 136,
+            "category": "Network Forensics",
+            "command": "Import PCAP",
+            "example": "Ingest a .pcap file as a logical file",
+            "explanation": "Adds network capture files for basic extraction (requires plugins for deep analysis)"
+        },
+        {
+            "id": 137,
+            "category": "Keyword Search",
+            "command": "Search for URLs",
+            "example": "Use Regex for 'http://' and 'https://'",
+            "explanation": "Extracts all web links found in files and unallocated space"
+        },
+        {
+            "id": 138,
+            "category": "Keyword Search",
+            "command": "Search for Email Addresses",
+            "example": "Use Regex for email pattern",
+            "explanation": "Harvests all email addresses found on the disk"
+        },
+        {
+            "id": 139,
+            "category": "Keyword Search",
+            "command": "Search for Phone Numbers",
+            "example": "Use Regex for various phone number formats",
+            "explanation": "Identifies potential contact numbers in documents and logs"
+        },
+        {
+            "id": 140,
+            "category": "Scripting",
+            "command": "Run Jython Script",
+            "example": "Execute a custom .py script via the Python Console",
+            "explanation": "Runs automated tasks using the internal Java-Python environment"
+        },
+        {
+            "id": 141,
+            "category": "File Identification",
+            "command": "Check Mismatched Extensions",
+            "example": "Review 'Extension Mismatch Detected' results",
+            "explanation": "Investigates files where the header does not match the file extension"
+        },
+        {
+            "id": 142,
+            "category": "Malware Analysis",
+            "command": "Extract PE Header Info",
+            "example": "View compile time and sections of .exe files",
+            "explanation": "Analyzes executable structure to find anomalies or spoofing"
+        },
+        {
+            "id": 143,
+            "category": "Malware Analysis",
+            "command": "Calculate Entropy",
+            "example": "View entropy score in file metadata",
+            "explanation": "Measures randomness to detect compression or encryption in malware"
+        },
+        {
+            "id": 144,
+            "category": "Reporting",
+            "command": "Tag Reporting",
+            "example": "Generate report containing ONLY tagged items",
+            "explanation": "Creates a concise report focused only on pertinent evidence"
+        },
+        {
+            "id": 145,
+            "category": "Reporting",
+            "command": "Timeline Report",
+            "example": "Export timeline events to CSV",
+            "explanation": "Creates a chronological list of events for external timeline tools"
+        },
+        {
+            "id": 146,
+            "category": "Administration",
+            "command": "Manage Solr Schema",
+            "example": "Update Solr configuration for new index fields",
+            "explanation": "Modifies the search index structure (Advanced Admin task)"
+        },
+        {
+            "id": 147,
+            "category": "Administration",
+            "command": "Clear Image Cache",
+            "example": "Manually clear temp image cache if disk is full",
+            "explanation": "Frees up space used by cached thumbnails and temporary files"
+        },
+        {
+            "id": 148,
+            "category": "Validation",
+            "command": "Check Ingest Logs",
+            "example": "Help > Open Log Folder to view autopsy.log",
+            "explanation": "Troubleshoots errors that occurred during the ingest process"
+        },
+        {
+            "id": 149,
+            "category": "Analysis",
+            "command": "Review User Downloads",
+            "example": "Correlate 'Downloads' folder with browser history",
+            "explanation": "Confirms if a file on disk originated from a specific web download"
+        },
+        {
+            "id": 150,
+            "category": "Analysis",
+            "command": "Review Recycle Bin",
+            "example": "Parse $Recycle.Bin artifacts",
+            "explanation": "Identifies who deleted a file and when it was deleted"
+        },
+        {
+            "id": 151,
+            "category": "Integrity",
+            "command": "Validate Hash Set",
+            "example": "Check if an imported hash set is responding",
+            "explanation": "Ensures the known-good/bad filters are active and accurate"
+        },
+        {
+            "id": 152,
+            "category": "Advanced",
+            "command": "Hex Editor Search",
+            "example": "Search for hex byte sequence in Hex View",
+            "explanation": "Finds specific binary signatures manually within a file"
+        },
+        {
+            "id": 153,
+            "category": "Advanced",
+            "command": "Export Unallocated Space",
+            "example": "Right-click 'Unallocated Space' > Extract",
+            "explanation": "Exports raw unallocated data for external carving tools"
+        },
+        {
+            "id": 154,
+            "category": "Triage",
+            "command": "Live Triage on USB",
+            "example": "Run Autopsy from USB on suspect machine (Lite Mode)",
+            "explanation": "Performs data collection on a live system (requires portable setup)"
+        },
+        {
+            "id": 155,
+            "category": "Analysis",
+            "command": "Review RDP Cache",
+            "example": "Analyze RDP bitmap cache artifacts",
+            "explanation": "Reconstructs visual fragments of previous Remote Desktop sessions"
+        },
+        {
+            "id": 156,
+            "category": "Analysis",
+            "command": "Review TeamViewer Logs",
+            "example": "Keyword search for 'TeamViewer' logs",
+            "explanation": "Identifies remote access sessions via TeamViewer software"
+        },
+        {
+            "id": 157,
+            "category": "Analysis",
+            "command": "Review AnyDesk Artifacts",
+            "example": "Locate AnyDesk 'ad.trace' files",
+            "explanation": "Analyzes logs for AnyDesk remote connection history"
+        },
+        {
+            "id": 158,
+            "category": "Database",
+            "command": "Rebuild Solr Index",
+            "example": "Tools > Options > Keyword Search > Rebuild",
+            "explanation": "Re-indexes the case text if search results are corrupted"
+        },
+        {
+            "id": 159,
+            "category": "Analysis",
+            "command": "Review Event Logs - Service Creation",
+            "example": "Filter for Event ID 7045",
+            "explanation": "Detects when a new service was installed (common malware persistence)"
+        },
+        {
+            "id": 160,
+            "category": "Analysis",
+            "command": "Review Event Logs - Process Creation",
+            "example": "Filter for Event ID 4688",
+            "explanation": "Tracks which processes were launched and by whom"
+        },
+        {
+            "id": 161,
+            "category": "Analysis",
+            "command": "Review Event Logs - Account Creation",
+            "example": "Filter for Event ID 4720",
+            "explanation": "Identifies when a new user account was added to the system"
+        },
+        {
+            "id": 162,
+            "category": "Analysis",
+            "command": "Review Event Logs - Clear Logs",
+            "example": "Filter for Event ID 1102",
+            "explanation": "Detects if the audit log was manually cleared to hide tracks"
+        },
+        {
+            "id": 163,
+            "category": "Export",
+            "command": "Export Metadata to CSV",
+            "example": "Export file listing with MAC times to CSV",
+            "explanation": "Generates a file system bodyfile for external timeline analysis"
+        },
+        {
+            "id": 164,
+            "category": "Finalization",
+            "command": "Archive Case",
+            "example": "Compress the entire case directory",
+            "explanation": "Packages the case data and reports for long-term cold storage"
+        },
+        {
+            "id": 165,
+            "category": "Finalization",
+            "command": "Verify Report Integrity",
+            "example": "Check generated report files against findings",
+            "explanation": "Quality assurance step to ensure report accurately reflects evidence"
+        }
+    ]
+}

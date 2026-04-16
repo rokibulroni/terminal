@@ -1,0 +1,987 @@
+{
+    "tool": "docker",
+    "description": "Complete Docker command and workflow reference from basic to advanced container and cloud operations",
+    "total_commands": 140,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Setup and Verification",
+            "command": "docker --version",
+            "example": "docker --version",
+            "explanation": "Outputs the installed Docker CLI version to verify installation"
+        },
+        {
+            "id": 2,
+            "category": "Basic Setup and Verification",
+            "command": "docker version",
+            "example": "docker version",
+            "explanation": "Displays detailed version information for both Docker Client and Server"
+        },
+        {
+            "id": 3,
+            "category": "Basic Setup and Verification",
+            "command": "docker info",
+            "example": "docker info",
+            "explanation": "Shows system-wide information including kernel version, storage driver, and container counts"
+        },
+        {
+            "id": 4,
+            "category": "Basic Setup and Verification",
+            "command": "docker help",
+            "example": "docker help",
+            "explanation": "Lists all available commands and global options for the Docker CLI"
+        },
+        {
+            "id": 5,
+            "category": "Basic Setup and Verification",
+            "command": "docker login",
+            "example": "docker login registry.example.com",
+            "explanation": "Authenticates the Docker client against a container registry"
+        },
+        {
+            "id": 6,
+            "category": "Image Management",
+            "command": "docker search",
+            "example": "docker search nginx --limit 5",
+            "explanation": "Searches Docker Hub for public images with an optional limit"
+        },
+        {
+            "id": 7,
+            "category": "Image Management",
+            "command": "docker pull",
+            "example": "docker pull alpine:latest",
+            "explanation": "Downloads a specific image tag from a registry to the local cache"
+        },
+        {
+            "id": 8,
+            "category": "Image Management",
+            "command": "docker images",
+            "example": "docker images",
+            "explanation": "Lists all top-level images currently stored locally"
+        },
+        {
+            "id": 9,
+            "category": "Image Management",
+            "command": "docker image ls -a",
+            "example": "docker image ls -a",
+            "explanation": "Lists all local images including intermediate image layers"
+        },
+        {
+            "id": 10,
+            "category": "Image Management",
+            "command": "docker tag",
+            "example": "docker tag nginx:latest myrepo/nginx:v1",
+            "explanation": "Creates a new tag for an existing local image"
+        },
+        {
+            "id": 11,
+            "category": "Image Management",
+            "command": "docker push",
+            "example": "docker push myrepo/nginx:v1",
+            "explanation": "Uploads a locally tagged image to a remote registry"
+        },
+        {
+            "id": 12,
+            "category": "Image Management",
+            "command": "docker rmi",
+            "example": "docker rmi alpine:latest",
+            "explanation": "Removes one or more images from the local storage"
+        },
+        {
+            "id": 13,
+            "category": "Image Management",
+            "command": "docker rmi -f",
+            "example": "docker rmi -f alpine:latest",
+            "explanation": "Forces the removal of an image even if containers are using it"
+        },
+        {
+            "id": 14,
+            "category": "Image Management",
+            "command": "docker image prune",
+            "example": "docker image prune -a",
+            "explanation": "Removes all unused images, not just dangling ones"
+        },
+        {
+            "id": 15,
+            "category": "Image Management",
+            "command": "docker history",
+            "example": "docker history nginx:latest",
+            "explanation": "Shows the history of layers and commands used to build an image"
+        },
+        {
+            "id": 16,
+            "category": "Image Management",
+            "command": "docker save",
+            "example": "docker save -o myimage.tar nginx:latest",
+            "explanation": "Exports an image to a tar archive for offline transfer"
+        },
+        {
+            "id": 17,
+            "category": "Image Management",
+            "command": "docker load",
+            "example": "docker load -i myimage.tar",
+            "explanation": "Loads an image from a tar archive into the local docker engine"
+        },
+        {
+            "id": 18,
+            "category": "Container Lifecycle",
+            "command": "docker create",
+            "example": "docker create --name webserver nginx",
+            "explanation": "Creates a new container layer but does not start it"
+        },
+        {
+            "id": 19,
+            "category": "Container Lifecycle",
+            "command": "docker start",
+            "example": "docker start webserver",
+            "explanation": "Starts one or more stopped containers"
+        },
+        {
+            "id": 20,
+            "category": "Container Lifecycle",
+            "command": "docker run -it",
+            "example": "docker run -it ubuntu /bin/bash",
+            "explanation": "Creates and starts a container in interactive mode with a TTY"
+        },
+        {
+            "id": 21,
+            "category": "Container Lifecycle",
+            "command": "docker run -d",
+            "example": "docker run -d nginx",
+            "explanation": "Runs a container in detached mode in the background"
+        },
+        {
+            "id": 22,
+            "category": "Container Lifecycle",
+            "command": "docker run --rm",
+            "example": "docker run --rm alpine echo 'hello'",
+            "explanation": "Runs a container that automatically removes itself upon exit"
+        },
+        {
+            "id": 23,
+            "category": "Container Lifecycle",
+            "command": "docker ps",
+            "example": "docker ps",
+            "explanation": "Lists currently running containers"
+        },
+        {
+            "id": 24,
+            "category": "Container Lifecycle",
+            "command": "docker ps -a",
+            "example": "docker ps -a",
+            "explanation": "Lists all containers including stopped ones"
+        },
+        {
+            "id": 25,
+            "category": "Container Lifecycle",
+            "command": "docker stop",
+            "example": "docker stop webserver",
+            "explanation": "Gracefully stops a running container by sending SIGTERM"
+        },
+        {
+            "id": 26,
+            "category": "Container Lifecycle",
+            "command": "docker kill",
+            "example": "docker kill webserver",
+            "explanation": "Forcibly stops a container by sending SIGKILL"
+        },
+        {
+            "id": 27,
+            "category": "Container Lifecycle",
+            "command": "docker restart",
+            "example": "docker restart webserver",
+            "explanation": "Stops and then immediately starts a container"
+        },
+        {
+            "id": 28,
+            "category": "Container Lifecycle",
+            "command": "docker pause",
+            "example": "docker pause webserver",
+            "explanation": "Pauses all processes within one or more containers"
+        },
+        {
+            "id": 29,
+            "category": "Container Lifecycle",
+            "command": "docker unpause",
+            "example": "docker unpause webserver",
+            "explanation": "Resumes all processes within one or more paused containers"
+        },
+        {
+            "id": 30,
+            "category": "Container Lifecycle",
+            "command": "docker rm",
+            "example": "docker rm webserver",
+            "explanation": "Removes a stopped container from the system"
+        },
+        {
+            "id": 31,
+            "category": "Container Lifecycle",
+            "command": "docker rm -f",
+            "example": "docker rm -f webserver",
+            "explanation": "Forcibly removes a running container"
+        },
+        {
+            "id": 32,
+            "category": "Container Interaction",
+            "command": "docker exec",
+            "example": "docker exec -it webserver /bin/bash",
+            "explanation": "Runs a new command inside a running container interactively"
+        },
+        {
+            "id": 33,
+            "category": "Container Interaction",
+            "command": "docker attach",
+            "example": "docker attach webserver",
+            "explanation": "Attaches local standard input, output, and error to a running container"
+        },
+        {
+            "id": 34,
+            "category": "Container Interaction",
+            "command": "docker logs",
+            "example": "docker logs webserver",
+            "explanation": "Fetches the logs of a container"
+        },
+        {
+            "id": 35,
+            "category": "Container Interaction",
+            "command": "docker logs -f",
+            "example": "docker logs -f webserver",
+            "explanation": "Streams the logs of a container in real-time"
+        },
+        {
+            "id": 36,
+            "category": "Container Interaction",
+            "command": "docker cp container to host",
+            "example": "docker cp webserver:/etc/nginx/nginx.conf ./",
+            "explanation": "Copies a file from a container to the host filesystem"
+        },
+        {
+            "id": 37,
+            "category": "Container Interaction",
+            "command": "docker cp host to container",
+            "example": "docker cp ./index.html webserver:/usr/share/nginx/html/",
+            "explanation": "Copies a file from the host filesystem into a container"
+        },
+        {
+            "id": 38,
+            "category": "Container Inspection",
+            "command": "docker inspect",
+            "example": "docker inspect webserver",
+            "explanation": "Returns low-level information on a container or object in JSON format"
+        },
+        {
+            "id": 39,
+            "category": "Container Inspection",
+            "command": "docker stats",
+            "example": "docker stats",
+            "explanation": "Displays a live stream of container resource usage statistics"
+        },
+        {
+            "id": 40,
+            "category": "Container Inspection",
+            "command": "docker top",
+            "example": "docker top webserver",
+            "explanation": "Display the running processes of a container"
+        },
+        {
+            "id": 41,
+            "category": "Container Inspection",
+            "command": "docker diff",
+            "example": "docker diff webserver",
+            "explanation": "Inspects changes to files or directories on a container's filesystem"
+        },
+        {
+            "id": 42,
+            "category": "Container Inspection",
+            "command": "docker port",
+            "example": "docker port webserver",
+            "explanation": "Lists port mappings for the container"
+        },
+        {
+            "id": 43,
+            "category": "Networking",
+            "command": "docker network ls",
+            "example": "docker network ls",
+            "explanation": "Lists all networks created by Docker"
+        },
+        {
+            "id": 44,
+            "category": "Networking",
+            "command": "docker network create",
+            "example": "docker network create --driver bridge my-net",
+            "explanation": "Creates a new bridge network for containers to communicate"
+        },
+        {
+            "id": 45,
+            "category": "Networking",
+            "command": "docker network inspect",
+            "example": "docker network inspect my-net",
+            "explanation": "Displays detailed information about a network"
+        },
+        {
+            "id": 46,
+            "category": "Networking",
+            "command": "docker network connect",
+            "example": "docker network connect my-net webserver",
+            "explanation": "Connects a running container to a network"
+        },
+        {
+            "id": 47,
+            "category": "Networking",
+            "command": "docker network disconnect",
+            "example": "docker network disconnect my-net webserver",
+            "explanation": "Disconnects a container from a network"
+        },
+        {
+            "id": 48,
+            "category": "Networking",
+            "command": "docker network rm",
+            "example": "docker network rm my-net",
+            "explanation": "Removes one or more networks"
+        },
+        {
+            "id": 49,
+            "category": "Networking",
+            "command": "docker run -p",
+            "example": "docker run -d -p 8080:80 nginx",
+            "explanation": "Maps host port 8080 to container port 80"
+        },
+        {
+            "id": 50,
+            "category": "Networking",
+            "command": "docker run --network host",
+            "example": "docker run --network host nginx",
+            "explanation": "Runs container using the host's networking stack directly"
+        },
+        {
+            "id": 51,
+            "category": "Networking",
+            "command": "docker run --dns",
+            "example": "docker run --dns 8.8.8.8 nginx",
+            "explanation": "Sets custom DNS servers for the container"
+        },
+        {
+            "id": 52,
+            "category": "Storage and Volumes",
+            "command": "docker volume ls",
+            "example": "docker volume ls",
+            "explanation": "Lists all Docker volumes"
+        },
+        {
+            "id": 53,
+            "category": "Storage and Volumes",
+            "command": "docker volume create",
+            "example": "docker volume create my-data",
+            "explanation": "Creates a new named volume for persistent storage"
+        },
+        {
+            "id": 54,
+            "category": "Storage and Volumes",
+            "command": "docker volume inspect",
+            "example": "docker volume inspect my-data",
+            "explanation": "Displays detailed information about a volume"
+        },
+        {
+            "id": 55,
+            "category": "Storage and Volumes",
+            "command": "docker run -v volume",
+            "example": "docker run -v my-data:/data nginx",
+            "explanation": "Mounts a named volume to a path inside the container"
+        },
+        {
+            "id": 56,
+            "category": "Storage and Volumes",
+            "command": "docker run -v bind",
+            "example": "docker run -v /host/path:/container/path nginx",
+            "explanation": "Binds a host directory to a path inside the container"
+        },
+        {
+            "id": 57,
+            "category": "Storage and Volumes",
+            "command": "docker volume rm",
+            "example": "docker volume rm my-data",
+            "explanation": "Removes a Docker volume"
+        },
+        {
+            "id": 58,
+            "category": "Storage and Volumes",
+            "command": "docker volume prune",
+            "example": "docker volume prune",
+            "explanation": "Removes all unused local volumes"
+        },
+        {
+            "id": 59,
+            "category": "Building Images",
+            "command": "docker build",
+            "example": "docker build -t myapp:v1 .",
+            "explanation": "Builds an image from a Dockerfile in the current directory"
+        },
+        {
+            "id": 60,
+            "category": "Building Images",
+            "command": "docker build file",
+            "example": "docker build -f Dockerfile.dev .",
+            "explanation": "Builds an image using a specific Dockerfile filename"
+        },
+        {
+            "id": 61,
+            "category": "Building Images",
+            "command": "docker build no-cache",
+            "example": "docker build --no-cache -t myapp .",
+            "explanation": "Builds an image without using the build cache"
+        },
+        {
+            "id": 62,
+            "category": "Building Images",
+            "command": "docker build args",
+            "example": "docker build --build-arg VERSION=1.0 .",
+            "explanation": "Passes build-time variables to the Dockerfile"
+        },
+        {
+            "id": 63,
+            "category": "Building Images",
+            "command": "docker build target",
+            "example": "docker build --target production .",
+            "explanation": "Builds only up to a specific stage in a multi-stage Dockerfile"
+        },
+        {
+            "id": 64,
+            "category": "System Maintenance",
+            "command": "docker system df",
+            "example": "docker system df",
+            "explanation": "Show docker disk usage"
+        },
+        {
+            "id": 65,
+            "category": "System Maintenance",
+            "command": "docker system prune",
+            "example": "docker system prune -f",
+            "explanation": "Remove unused data including stopped containers and dangling images"
+        },
+        {
+            "id": 66,
+            "category": "System Maintenance",
+            "command": "docker container prune",
+            "example": "docker container prune",
+            "explanation": "Removes all stopped containers"
+        },
+        {
+            "id": 67,
+            "category": "Security and Isolation",
+            "command": "docker run --user",
+            "example": "docker run --user 1000:1000 alpine whoami",
+            "explanation": "Runs the container as a specific non-root user ID and group ID"
+        },
+        {
+            "id": 68,
+            "category": "Security and Isolation",
+            "command": "docker run --read-only",
+            "example": "docker run --read-only alpine",
+            "explanation": "Mounts the container's root filesystem as read-only"
+        },
+        {
+            "id": 69,
+            "category": "Security and Isolation",
+            "command": "docker run --cap-drop",
+            "example": "docker run --cap-drop ALL alpine",
+            "explanation": "Drops all Linux capabilities from the container for hardening"
+        },
+        {
+            "id": 70,
+            "category": "Security and Isolation",
+            "command": "docker run --cap-add",
+            "example": "docker run --cap-add NET_ADMIN alpine",
+            "explanation": "Adds specific Linux capabilities to the container"
+        },
+        {
+            "id": 71,
+            "category": "Security and Isolation",
+            "command": "docker run --privileged",
+            "example": "docker run --privileged ubuntu",
+            "explanation": "Runs container with full host root capabilities (Use with extreme caution)"
+        },
+        {
+            "id": 72,
+            "category": "Security and Isolation",
+            "command": "docker run --security-opt",
+            "example": "docker run --security-opt no-new-privileges alpine",
+            "explanation": "Prevents the container processes from gaining new privileges"
+        },
+        {
+            "id": 73,
+            "category": "Resource Limits",
+            "command": "docker run --memory",
+            "example": "docker run --memory 512m nginx",
+            "explanation": "Limits the memory usage of the container"
+        },
+        {
+            "id": 74,
+            "category": "Resource Limits",
+            "command": "docker run --cpus",
+            "example": "docker run --cpus 0.5 nginx",
+            "explanation": "Limits the container to use 50% of a CPU core"
+        },
+        {
+            "id": 75,
+            "category": "Resource Limits",
+            "command": "docker run --pids-limit",
+            "example": "docker run --pids-limit 100 alpine",
+            "explanation": "Limits the number of processes a container can start"
+        },
+        {
+            "id": 76,
+            "category": "Advanced Networking",
+            "command": "docker network create overlay",
+            "example": "docker network create -d overlay swarm-net",
+            "explanation": "Creates a multi-host overlay network (requires Swarm mode)"
+        },
+        {
+            "id": 77,
+            "category": "Advanced Networking",
+            "command": "docker run --mac-address",
+            "example": "docker run --mac-address 92:d0:c6:0a:29:33 alpine",
+            "explanation": "Sets a static MAC address for the container network interface"
+        },
+        {
+            "id": 78,
+            "category": "Advanced Networking",
+            "command": "docker run --add-host",
+            "example": "docker run --add-host db-local:10.0.0.5 alpine",
+            "explanation": "Adds a custom entry to the container's /etc/hosts file"
+        },
+        {
+            "id": 79,
+            "category": "Logging and Debugging",
+            "command": "docker logs --tail",
+            "example": "docker logs --tail 10 webserver",
+            "explanation": "Shows only the last 10 lines of container logs"
+        },
+        {
+            "id": 80,
+            "category": "Logging and Debugging",
+            "command": "docker logs --timestamps",
+            "example": "docker logs --timestamps webserver",
+            "explanation": "Adds timestamps to the log output"
+        },
+        {
+            "id": 81,
+            "category": "Logging and Debugging",
+            "command": "docker events",
+            "example": "docker events",
+            "explanation": "Streams real-time events from the Docker daemon"
+        },
+        {
+            "id": 82,
+            "category": "Logging and Debugging",
+            "command": "docker events filter",
+            "example": "docker events --filter 'event=die'",
+            "explanation": "Filters system events to show only container termination events"
+        },
+        {
+            "id": 83,
+            "category": "Advanced Storage",
+            "command": "docker volume create options",
+            "example": "docker volume create --driver local --opt type=tmpfs --opt device=tmpfs foo",
+            "explanation": "Creates a volume with specific driver options"
+        },
+        {
+            "id": 84,
+            "category": "Advanced Storage",
+            "command": "docker run --mount",
+            "example": "docker run --mount type=bind,source=/data,target=/data nginx",
+            "explanation": "Uses the explicit mount syntax for clearer bind mounting"
+        },
+        {
+            "id": 85,
+            "category": "Advanced Storage",
+            "command": "docker run --tmpfs",
+            "example": "docker run --tmpfs /run alpine",
+            "explanation": "Mounts a temporary filesystem in memory that is removed when container stops"
+        },
+        {
+            "id": 86,
+            "category": "Docker Contexts",
+            "command": "docker context ls",
+            "example": "docker context ls",
+            "explanation": "Lists available Docker contexts for managing multiple endpoints"
+        },
+        {
+            "id": 87,
+            "category": "Docker Contexts",
+            "command": "docker context create",
+            "example": "docker context create remote --docker host=ssh://user@remote-host",
+            "explanation": "Creates a context to manage a remote Docker daemon via SSH"
+        },
+        {
+            "id": 88,
+            "category": "Docker Contexts",
+            "command": "docker context use",
+            "example": "docker context use remote",
+            "explanation": "Switches the Docker CLI to operate against a specific context"
+        },
+        {
+            "id": 89,
+            "category": "Docker Compose Integration",
+            "command": "docker compose up",
+            "example": "docker compose up -d",
+            "explanation": "Builds and starts containers defined in docker-compose.yml"
+        },
+        {
+            "id": 90,
+            "category": "Docker Compose Integration",
+            "command": "docker compose down",
+            "example": "docker compose down",
+            "explanation": "Stops and removes containers and networks defined in docker-compose.yml"
+        },
+        {
+            "id": 91,
+            "category": "Docker Compose Integration",
+            "command": "docker compose logs",
+            "example": "docker compose logs -f",
+            "explanation": "Views output from containers defined in the compose file"
+        },
+        {
+            "id": 92,
+            "category": "Advanced Management",
+            "command": "docker export",
+            "example": "docker export webserver > fs.tar",
+            "explanation": "Exports a container's filesystem as a tar archive (without history)"
+        },
+        {
+            "id": 93,
+            "category": "Advanced Management",
+            "command": "docker import",
+            "example": "docker import fs.tar myimage:imported",
+            "explanation": "Imports the contents from a tarball to create a filesystem image"
+        },
+        {
+            "id": 94,
+            "category": "Advanced Management",
+            "command": "docker commit",
+            "example": "docker commit webserver myimage:snapshot",
+            "explanation": "Creates a new image from a container's changes (Not recommended for production)"
+        },
+        {
+            "id": 95,
+            "category": "Advanced Management",
+            "command": "docker wait",
+            "example": "docker wait webserver",
+            "explanation": "Blocks until a container stops, then prints its exit code"
+        },
+        {
+            "id": 96,
+            "category": "Registry & Trust",
+            "command": "docker logout",
+            "example": "docker logout",
+            "explanation": "Logs out from a Docker registry"
+        },
+        {
+            "id": 97,
+            "category": "Registry & Trust",
+            "command": "docker trust inspect",
+            "example": "docker trust inspect nginx:latest",
+            "explanation": "Returns trust and signing data for an image"
+        },
+        {
+            "id": 98,
+            "category": "Registry & Trust",
+            "command": "docker manifest inspect",
+            "example": "docker manifest inspect nginx:latest",
+            "explanation": "Inspects the image manifest to see supported architectures and layers"
+        },
+        {
+            "id": 99,
+            "category": "Blue Team & Forensics",
+            "command": "docker inspect format",
+            "example": "docker inspect --format='{{.NetworkSettings.IPAddress}}' webserver",
+            "explanation": "Extracts specific data like IP address using Go templates"
+        },
+        {
+            "id": 100,
+            "category": "Blue Team & Forensics",
+            "command": "docker inspect mounts",
+            "example": "docker inspect --format='{{json .Mounts}}' webserver",
+            "explanation": "Extracts detailed mounting information for security audit"
+        },
+        {
+            "id": 101,
+            "category": "Blue Team & Forensics",
+            "command": "docker diff check",
+            "example": "docker diff suspicious_container",
+            "explanation": "Checks for unauthorized file modifications inside a compromised container"
+        },
+        {
+            "id": 102,
+            "category": "Blue Team & Forensics",
+            "command": "docker history no-trunc",
+            "example": "docker history --no-trunc nginx:latest",
+            "explanation": "Views full command history to find secrets or bad commands in image build"
+        },
+        {
+            "id": 103,
+            "category": "DevSecOps Workflows",
+            "command": "docker scan",
+            "example": "docker scan myimage:latest",
+            "explanation": "Scans the image for vulnerabilities (requires Docker Scan plugin)"
+        },
+        {
+            "id": 104,
+            "category": "DevSecOps Workflows",
+            "command": "docker sbom",
+            "example": "docker sbom myimage:latest",
+            "explanation": "Generates a Software Bill of Materials for the image (requires plugin)"
+        },
+        {
+            "id": 105,
+            "category": "Container Hardening",
+            "command": "docker run --ulimit",
+            "example": "docker run --ulimit nofile=1024:1024 alpine",
+            "explanation": "Sets specific ulimits like open file descriptors for the container"
+        },
+        {
+            "id": 106,
+            "category": "Container Hardening",
+            "command": "docker run --device",
+            "example": "docker run --device=/dev/snd:/dev/snd alpine",
+            "explanation": "Adds a specific host device to the container"
+        },
+        {
+            "id": 107,
+            "category": "Container Hardening",
+            "command": "docker run --cgroup-parent",
+            "example": "docker run --cgroup-parent=/my-cgroup alpine",
+            "explanation": "Specifies the parent cgroup for the container to inherit limits"
+        },
+        {
+            "id": 108,
+            "category": "Swarm (Basic)",
+            "command": "docker swarm init",
+            "example": "docker swarm init",
+            "explanation": "Initializes a swarm on the current node"
+        },
+        {
+            "id": 109,
+            "category": "Swarm (Basic)",
+            "command": "docker service create",
+            "example": "docker service create --replicas 3 nginx",
+            "explanation": "Creates a replicated service in a Docker Swarm"
+        },
+        {
+            "id": 110,
+            "category": "Swarm (Basic)",
+            "command": "docker service ls",
+            "example": "docker service ls",
+            "explanation": "Lists services running in the swarm"
+        },
+        {
+            "id": 111,
+            "category": "Advanced Runtime",
+            "command": "docker run --runtime",
+            "example": "docker run --runtime=runc alpine",
+            "explanation": "Specifies a custom OCI runtime for the container"
+        },
+        {
+            "id": 112,
+            "category": "Advanced Runtime",
+            "command": "docker run --init",
+            "example": "docker run --init alpine",
+            "explanation": "Runs an init process inside the container to forward signals and reap zombies"
+        },
+        {
+            "id": 113,
+            "category": "Advanced Runtime",
+            "command": "docker run --entrypoint",
+            "example": "docker run --entrypoint /bin/sh nginx",
+            "explanation": "Overwrites the default ENTRYPOINT of the image"
+        },
+        {
+            "id": 114,
+            "category": "Advanced Runtime",
+            "command": "docker run --workdir",
+            "example": "docker run -w /app alpine pwd",
+            "explanation": "Sets the working directory inside the container"
+        },
+        {
+            "id": 115,
+            "category": "Advanced Runtime",
+            "command": "docker run --env",
+            "example": "docker run -e MYVAR=production alpine env",
+            "explanation": "Sets environment variables inside the container"
+        },
+        {
+            "id": 116,
+            "category": "Advanced Runtime",
+            "command": "docker run --env-file",
+            "example": "docker run --env-file ./env.list alpine env",
+            "explanation": "Reads environment variables from a file"
+        },
+        {
+            "id": 117,
+            "category": "Advanced Runtime",
+            "command": "docker run --health-cmd",
+            "example": "docker run --health-cmd='curl -f http://localhost/' nginx",
+            "explanation": "Defines a command to run to check container health"
+        },
+        {
+            "id": 118,
+            "category": "Advanced Runtime",
+            "command": "docker run --health-interval",
+            "example": "docker run --health-interval=30s nginx",
+            "explanation": "Sets the time between health checks"
+        },
+        {
+            "id": 119,
+            "category": "Advanced Runtime",
+            "command": "docker run --cidfile",
+            "example": "docker run --cidfile ./container.id nginx",
+            "explanation": "Writes the container ID to a file upon startup"
+        },
+        {
+            "id": 120,
+            "category": "Advanced Automation",
+            "command": "docker kill signal",
+            "example": "docker kill -s SIGHUP webserver",
+            "explanation": "Sends a specific custom signal to the container process"
+        },
+        {
+            "id": 121,
+            "category": "Advanced Automation",
+            "command": "docker system dial-stdio",
+            "example": "docker system dial-stdio",
+            "explanation": "Proxies the standard input/output to the API connection (Advanced internal use)"
+        },
+        {
+            "id": 122,
+            "category": "Incident Response",
+            "command": "docker container inspect state",
+            "example": "docker inspect --format='{{.State.ExitCode}}' webserver",
+            "explanation": "Quickly retrieves the exit code of a crashed container"
+        },
+        {
+            "id": 123,
+            "category": "Incident Response",
+            "command": "docker cp forensics",
+            "example": "docker cp webserver:/var/log/app.log ./evidence/",
+            "explanation": "Extracts application logs for forensic analysis without entering the container"
+        },
+        {
+            "id": 124,
+            "category": "System Cleanup",
+            "command": "docker builder prune",
+            "example": "docker builder prune",
+            "explanation": "Cleans up the build cache to free up disk space"
+        },
+        {
+            "id": 125,
+            "category": "System Cleanup",
+            "command": "docker system prune volumes",
+            "example": "docker system prune --volumes",
+            "explanation": "Deep cleans the system including unused volumes"
+        },
+        {
+            "category": "Docker Compose",
+            "command": "docker compose up -d",
+            "example": "docker compose up -d",
+            "explanation": "Starts all services defined in a docker-compose.yml in detached background mode.",
+            "id": 126
+        },
+        {
+            "category": "Docker Compose",
+            "command": "docker compose down -v",
+            "example": "docker compose down -v",
+            "explanation": "Stops all compose services and forcefully removes the named volumes attached to them, performing a complete clean state wipe.",
+            "id": 127
+        },
+        {
+            "category": "Docker Compose",
+            "command": "docker compose ps",
+            "example": "docker compose ps",
+            "explanation": "Lists the current status, ports, and health of containers strictly managed by the local docker-compose configuration.",
+            "id": 128
+        },
+        {
+            "category": "Docker Compose",
+            "command": "docker compose logs -f <service>",
+            "example": "docker compose logs -f web",
+            "explanation": "Tails and follows the logs explicitly for one isolated microservice defined inside the compose stack.",
+            "id": 129
+        },
+        {
+            "category": "Docker Swarm",
+            "command": "docker swarm init",
+            "example": "docker swarm init --advertise-addr <ip>",
+            "explanation": "Initializes the machine as a Docker Swarm Master Manager node, generating the join tokens required for worker nodes.",
+            "id": 130
+        },
+        {
+            "category": "Docker Swarm",
+            "command": "docker swarm join-token worker",
+            "example": "docker swarm join-token worker",
+            "explanation": "Reveals the strict command and cryptographic token required for a remote machine to securely join this specific swarm.",
+            "id": 131
+        },
+        {
+            "category": "Docker Swarm",
+            "command": "docker node ls",
+            "example": "docker node ls",
+            "explanation": "Lists all active nodes participating in the swarm matrix, their reachability status, and whether they are managers or workers.",
+            "id": 132
+        },
+        {
+            "category": "Docker Swarm",
+            "command": "docker service create",
+            "example": "docker service create --replicas 3 --name web_server nginx",
+            "explanation": "Deploys a horizontally scaled service directly into the swarm, automatically load balancing requests across 3 isolated replicas.",
+            "id": 133
+        },
+        {
+            "category": "Docker Swarm",
+            "command": "docker service logs <serviceName>",
+            "example": "docker service logs web_server",
+            "explanation": "Aggregates and tails the logs from all scattered swarm replicas belonging to this service into a single unified output stream.",
+            "id": 134
+        },
+        {
+            "category": "Buildx (Advanced BuildKit)",
+            "command": "docker buildx create --use",
+            "example": "docker buildx create --use",
+            "explanation": "Spins up and activates a new sophisticated BuildKit environment unlocking multi-architecture compiling capabilities.",
+            "id": 135
+        },
+        {
+            "category": "Buildx (Advanced BuildKit)",
+            "command": "docker buildx build --platform",
+            "example": "docker buildx build --platform linux/amd64,linux/arm64 -t app:latest --push .",
+            "explanation": "Cross-compiles the current Dockerfile for multiple disparate architectures (Apple Silicon / Intel) simultaneously and pushes the manifest to the registry.",
+            "id": 136
+        },
+        {
+            "category": "Advanced Networking",
+            "command": "docker network create -d overlay",
+            "example": "docker network create -d overlay multi_host_net",
+            "explanation": "Generates a distributed overlay network allowing swarm containers deployed on completely different physical servers to communicate securely natively.",
+            "id": 137
+        },
+        {
+            "category": "Advanced Data Volumes",
+            "command": "docker volume prune -a",
+            "example": "docker volume prune -a --force",
+            "explanation": "Dangerously destroys every single data volume on the system that is not currently actively mounted by a running container.",
+            "id": 138
+        },
+        {
+            "category": "Security & Namespaces",
+            "command": "docker top <container_id>",
+            "example": "docker top 1234abcd",
+            "explanation": "Maps internal container PIDs directly to their corresponding Host Operating System PIDs bridging the namespace isolated visibility.",
+            "id": 139
+        },
+        {
+            "category": "Security & Namespaces",
+            "command": "docker cp <container_id>:<path> <local_path>",
+            "example": "docker cp 12ab:/var/log/nginx/access.log ./",
+            "explanation": "Forcefully circumvents mounting architectures to directly extract or inject raw files out of a running container's sandbox.",
+            "id": 140
+        }
+    ]
+}

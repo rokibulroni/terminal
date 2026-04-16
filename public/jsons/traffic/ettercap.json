@@ -1,0 +1,427 @@
+{
+    "tool": "ettercap",
+    "description": "Complete Ettercap command reference covering all options from basic to advanced",
+    "total_commands": 60,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Usage",
+            "command": "ettercap --help",
+            "example": "ettercap --help",
+            "explanation": "Displays the help screen listing all available command-line options and flags."
+        },
+        {
+            "id": 2,
+            "category": "Basic Usage",
+            "command": "ettercap --version",
+            "example": "ettercap --version",
+            "explanation": "Prints the installed Ettercap version and build information."
+        },
+        {
+            "id": 3,
+            "category": "Interface Selection",
+            "command": "ettercap -I",
+            "example": "ettercap -I",
+            "explanation": "Lists all available network interfaces that Ettercap can utilize for sniffing."
+        },
+        {
+            "id": 4,
+            "category": "Basic Passive Sniffing",
+            "command": "ettercap -T -i eth0",
+            "example": "ettercap -T -i eth0",
+            "explanation": "Starts Ettercap in text-only mode on the specified interface without a graphical interface."
+        },
+        {
+            "id": 5,
+            "category": "Basic Passive Sniffing",
+            "command": "ettercap -C -i eth0",
+            "example": "ettercap -C -i eth0",
+            "explanation": "Launches Ettercap in Curses mode, providing a semi-interactive text-based user interface."
+        },
+        {
+            "id": 6,
+            "category": "Text, Curses, and Daemon Modes",
+            "command": "ettercap -D -i eth0",
+            "example": "ettercap -D -i eth0",
+            "explanation": "Runs Ettercap in daemon mode as a background process."
+        },
+        {
+            "id": 7,
+            "category": "Quiet, Verbose, and Debug Modes",
+            "command": "ettercap -T -q -i eth0",
+            "example": "ettercap -T -q -i eth0",
+            "explanation": "Runs in text mode but suppresses packet content decoding, printing only captured credentials."
+        },
+        {
+            "id": 8,
+            "category": "Quiet, Verbose, and Debug Modes",
+            "command": "ettercap -T -z -i eth0",
+            "example": "ettercap -T -z -i eth0",
+            "explanation": "Starts in silent mode, suppressing output of startup messages and statistics."
+        },
+        {
+            "id": 9,
+            "category": "Promiscuous Mode Control",
+            "command": "ettercap -T -p -i eth0",
+            "example": "ettercap -T -p -i eth0",
+            "explanation": "Disables promiscuous mode, processing only packets addressed to the sniffing interface."
+        },
+        {
+            "id": 10,
+            "category": "Blue Team Detection and Validation",
+            "command": "ettercap -T -u -i eth0",
+            "example": "ettercap -T -u -i eth0",
+            "explanation": "Runs in unoffensive mode, preventing the tool from forwarding packets, useful for passive validation."
+        },
+        {
+            "id": 11,
+            "category": "Basic Passive Sniffing",
+            "command": "ettercap -T -i eth0 -n 192.168.1.0/24",
+            "example": "ettercap -T -i eth0 -n 192.168.1.0/24",
+            "explanation": "Sniffs traffic strictly on the specified network mask, ignoring other packets."
+        },
+        {
+            "id": 12,
+            "category": "Basic Passive Sniffing",
+            "command": "ettercap -T -i eth0 -R",
+            "example": "ettercap -T -i eth0 -R",
+            "explanation": "Reverses packet matching logic, capturing only traffic that does NOT match target specifications."
+        },
+        {
+            "id": 13,
+            "category": "Logging and Output Files",
+            "command": "ettercap -T -i eth0 -w traffic.pcap",
+            "example": "ettercap -T -i eth0 -w traffic.pcap",
+            "explanation": "Captures sniffed traffic and writes it to a standard pcap file for later analysis."
+        },
+        {
+            "id": 14,
+            "category": "Logging and Output Files",
+            "command": "ettercap -T -r traffic.pcap",
+            "example": "ettercap -T -r traffic.pcap",
+            "explanation": "Reads and analyzes packets from an existing pcap file instead of a live interface."
+        },
+        {
+            "id": 15,
+            "category": "Logging and Output Files",
+            "command": "ettercap -T -i eth0 -L logfile",
+            "example": "ettercap -T -i eth0 -L logfile",
+            "explanation": "Logs all capturing information and traffic details to binary log files prefixed with 'logfile'."
+        },
+        {
+            "id": 16,
+            "category": "Logging and Output Files",
+            "command": "ettercap -T -i eth0 -m messages.log",
+            "example": "ettercap -T -i eth0 -m messages.log",
+            "explanation": "Logs only the internal Ettercap messages and alerts to a text file."
+        },
+        {
+            "id": 17,
+            "category": "Bridged Sniffing",
+            "command": "ettercap -T -B eth0 eth1",
+            "example": "ettercap -T -B eth0 eth1",
+            "explanation": "Starts bridged sniffing between two interfaces, allowing traffic inspection as a transparent bridge."
+        },
+        {
+            "id": 18,
+            "category": "Bridged Sniffing",
+            "command": "ettercap -T -B eth0 eth1 -u",
+            "example": "ettercap -T -B eth0 eth1 -u",
+            "explanation": "Runs bridged mode unoffensively, dropping packets instead of forwarding them (simulates a broken cable)."
+        },
+        {
+            "id": 19,
+            "category": "IPv4 and IPv6 Attacks",
+            "command": "ettercap -T -6 -i eth0",
+            "example": "ettercap -T -6 -i eth0",
+            "explanation": "Forces the decoding and handling of IPv6 packets explicitly."
+        },
+        {
+            "id": 20,
+            "category": "Man in the Middle Techniques",
+            "command": "ettercap -T -M arp:remote -i eth0 /192.168.1.10// /192.168.1.1//",
+            "example": "ettercap -T -M arp:remote -i eth0 /192.168.1.10// /192.168.1.1//",
+            "explanation": "Performs a standard ARP poisoning MITM attack targeting a victim IP and the gateway."
+        },
+        {
+            "id": 21,
+            "category": "ARP Poisoning Attacks",
+            "command": "ettercap -T -M arp:remote:oneway -i eth0 /192.168.1.10// /192.168.1.1//",
+            "example": "ettercap -T -M arp:remote:oneway -i eth0 /192.168.1.10// /192.168.1.1//",
+            "explanation": "Executes one-way ARP poisoning, spoofing only from victim to gateway but not the reverse."
+        },
+        {
+            "id": 22,
+            "category": "Target Specification",
+            "command": "ettercap -T -M arp:remote -i eth0 // //",
+            "example": "ettercap -T -M arp:remote -i eth0 // //",
+            "explanation": "Targets every host in the subnet for ARP poisoning (global poisoning)."
+        },
+        {
+            "id": 23,
+            "category": "ICMP Redirection",
+            "command": "ettercap -T -M icmp:00:11:22:33:44:55/10.0.0.1 -i eth0",
+            "example": "ettercap -T -M icmp:00:11:22:33:44:55/10.0.0.1 -i eth0",
+            "explanation": "Performs an ICMP redirection MITM attack spoofing the MAC and IP of a gateway."
+        },
+        {
+            "id": 24,
+            "category": "DHCP Spoofing",
+            "command": "ettercap -T -M dhcp:192.168.1.50,255.255.255.0,192.168.1.1 -i eth0",
+            "example": "ettercap -T -M dhcp:192.168.1.50,255.255.255.0,192.168.1.1 -i eth0",
+            "explanation": "Launches a DHCP spoofing attack, offering an IP, netmask, and DNS server to requesting clients."
+        },
+        {
+            "id": 25,
+            "category": "Port Stealing",
+            "command": "ettercap -T -M port:remote:tree -i eth0 /192.168.1.10//",
+            "example": "ettercap -T -M port:remote:tree -i eth0 /192.168.1.10//",
+            "explanation": "Uses Port Stealing MITM (useful where ARP is blocked) to intercept switch traffic using spanning tree."
+        },
+        {
+            "id": 26,
+            "category": "IPv4 and IPv6 Attacks",
+            "command": "ettercap -T -M ndp:remote -6 -i eth0 // //",
+            "example": "ettercap -T -M ndp:remote -6 -i eth0 // //",
+            "explanation": "Executes an IPv6 Neighbor Discovery Protocol (NDP) poisoning attack against all targets."
+        },
+        {
+            "id": 27,
+            "category": "Plugin Usage and Management",
+            "command": "ettercap -P list",
+            "example": "ettercap -P list",
+            "explanation": "Displays a list of all installed and available plugins."
+        },
+        {
+            "id": 28,
+            "category": "DNS Spoofing",
+            "command": "ettercap -T -M arp:remote -P dns_spoof -i eth0 /192.168.1.10// //",
+            "example": "ettercap -T -M arp:remote -P dns_spoof -i eth0 /192.168.1.10// //",
+            "explanation": "Combines ARP poisoning with the DNS spoofing plugin to resolve domains to an attacker-controlled IP."
+        },
+        {
+            "id": 29,
+            "category": "Red Team Network Attacks",
+            "command": "ettercap -T -M arp:remote -P isolate -i eth0 /192.168.1.10// //",
+            "example": "ettercap -T -M arp:remote -P isolate -i eth0 /192.168.1.10// //",
+            "explanation": "Uses the isolate plugin during ARP poisoning to completely cut off the victim's LAN internet access."
+        },
+        {
+            "id": 30,
+            "category": "Advanced and Combined Real World Scenarios",
+            "command": "ettercap -T -M arp:remote -P autoadd -i eth0",
+            "example": "ettercap -T -M arp:remote -P autoadd -i eth0",
+            "explanation": "Automatically adds new hosts discovered on the network to the ARP poisoning target list dynamically."
+        },
+        {
+            "id": 31,
+            "category": "Credential Sniffing",
+            "command": "ettercap -T -M arp:remote -i eth0 -P remote_browser",
+            "example": "ettercap -T -M arp:remote -i eth0 -P remote_browser",
+            "explanation": "Sniffs URLs visited by the victim and logs them using the remote browser plugin."
+        },
+        {
+            "id": 32,
+            "category": "SSL and HTTPS Interception",
+            "command": "ettercap -T -M arp:remote -i eth0 -S",
+            "example": "ettercap -T -M arp:remote -i eth0 -S",
+            "explanation": "Runs ARP poisoning but explicitly disables SSL/SSH dissection (useful to avoid certificate warnings)."
+        },
+        {
+            "id": 33,
+            "category": "Filter Compilation and Usage",
+            "command": "etterfilter myfilter.ecf -o myfilter.ef",
+            "example": "etterfilter myfilter.ecf -o myfilter.ef",
+            "explanation": "Compiles a human-readable filter source file into a binary filter file usable by Ettercap."
+        },
+        {
+            "id": 34,
+            "category": "Filter Compilation and Usage",
+            "command": "ettercap -T -M arp:remote -i eth0 -F myfilter.ef",
+            "example": "ettercap -T -M arp:remote -i eth0 -F myfilter.ef",
+            "explanation": "Loads a compiled filter to modify, drop, or log packets during the MITM attack."
+        },
+        {
+            "id": 35,
+            "category": "Packet Modification and Injection",
+            "command": "ettercap -T -i eth0 -F drop_tcp.ef",
+            "example": "ettercap -T -i eth0 -F drop_tcp.ef",
+            "explanation": "Applies a specific filter to drop TCP packets matching defined criteria while sniffing."
+        },
+        {
+            "id": 36,
+            "category": "Incident Response Simulation",
+            "command": "ettercap -T -i eth0 -P search_promisc",
+            "example": "ettercap -T -i eth0 -P search_promisc",
+            "explanation": "Uses a plugin to scan the local network for other network interfaces running in promiscuous mode."
+        },
+        {
+            "id": 37,
+            "category": "Incident Response Simulation",
+            "command": "ettercap -T -i eth0 -P scan_poisoner",
+            "example": "ettercap -T -i eth0 -P scan_poisoner",
+            "explanation": "Actively checks if anyone on the network is performing ARP poisoning against the host."
+        },
+        {
+            "id": 38,
+            "category": "Automation and Script Friendly Usage",
+            "command": "ettercap -T -q -i eth0 -M arp:remote // // -P autoadd &",
+            "example": "ettercap -T -q -i eth0 -M arp:remote // // -P autoadd &",
+            "explanation": "Runs a quiet, global ARP poisoning attack in the background with auto-target addition."
+        },
+        {
+            "id": 39,
+            "category": "Protocol Dissectors",
+            "command": "ettercap -T -i eth0 -p",
+            "example": "ettercap -T -i eth0 -p",
+            "explanation": "Sniffs in non-promiscuous mode, analyzing only packets sent to the machine's IP."
+        },
+        {
+            "id": 40,
+            "category": "Logging and Output Files",
+            "command": "ettercap -T -i eth0 -l /tmp/ettercap_info",
+            "example": "ettercap -T -i eth0 -l /tmp/ettercap_info",
+            "explanation": "Logs passive information about discovered hosts and ports to the specified file path."
+        },
+        {
+            "id": 41,
+            "category": "Host Management",
+            "command": "ettercap -T -i eth0 -j hosts.list",
+            "example": "ettercap -T -i eth0 -j hosts.list",
+            "explanation": "Loads a list of hosts from a file instead of scanning the network at startup."
+        },
+        {
+            "id": 42,
+            "category": "Host Management",
+            "command": "ettercap -T -i eth0 -k hosts.list",
+            "example": "ettercap -T -i eth0 -k hosts.list",
+            "explanation": "Saves the list of discovered hosts to a file upon exit."
+        },
+        {
+            "id": 43,
+            "category": "Visualisation",
+            "command": "ettercap -T -i eth0 -V",
+            "example": "ettercap -T -i eth0 -V",
+            "explanation": "Visualizes the format of packets in text mode to understand decoding structure."
+        },
+        {
+            "id": 44,
+            "category": "Packet Modification and Injection",
+            "command": "ettercap -T -i eth0 -e '192.168.1.1'",
+            "example": "ettercap -T -i eth0 -e '192.168.1.1'",
+            "explanation": "Injects a regex into the visualizer to highlight specific packet data containing the IP string."
+        },
+        {
+            "id": 45,
+            "category": "Red Team Network Attacks",
+            "command": "ettercap -T -M arp:remote -P chk_poison -i eth0",
+            "example": "ettercap -T -M arp:remote -P chk_poison -i eth0",
+            "explanation": "Verifies if the ARP poisoning attack is successful on the victim side."
+        },
+        {
+            "id": 46,
+            "category": "Credential Sniffing",
+            "command": "ettercap -T -i eth0 -P mdns_spoof",
+            "example": "ettercap -T -i eth0 -P mdns_spoof",
+            "explanation": "Spoofs Multicast DNS (mDNS) responses to intercept local name resolution traffic."
+        },
+        {
+            "id": 47,
+            "category": "Credential Sniffing",
+            "command": "ettercap -T -M arp:remote -i eth0 -P nbns_spoof",
+            "example": "ettercap -T -M arp:remote -i eth0 -P nbns_spoof",
+            "explanation": "Spoofs NetBIOS Name Service (NBNS) queries to redirect Windows network traffic."
+        },
+        {
+            "id": 48,
+            "category": "SSL and HTTPS Interception",
+            "command": "ettercap -T -M arp:remote -i eth0 -P sslstrip",
+            "example": "ettercap -T -M arp:remote -i eth0 -P sslstrip",
+            "explanation": "Uses the SSLStrip plugin to downgrade HTTPS connections to HTTP for plaintext sniffing."
+        },
+        {
+            "id": 49,
+            "category": "Advanced and Combined Real World Scenarios",
+            "command": "ettercap -T -M arp:remote -i eth0 -P repo_poison",
+            "example": "ettercap -T -M arp:remote -i eth0 -P repo_poison",
+            "explanation": "Redirects Linux package manager traffic to a fake repository during an update."
+        },
+        {
+            "id": 50,
+            "category": "Advanced and Combined Real World Scenarios",
+            "command": "ettercap -T -M arp:remote -i eth0 -P dos_attack",
+            "example": "ettercap -T -M arp:remote -i eth0 -P dos_attack",
+            "explanation": "Runs a Denial of Service attack against a specific victim using the plugin interface."
+        },
+        {
+            "id": 51,
+            "category": "Session Hijacking Techniques",
+            "command": "ettercap -T -i eth0 -F replace_img.ef",
+            "example": "ettercap -T -i eth0 -F replace_img.ef",
+            "explanation": "Uses a filter to replace image data in HTTP streams with a custom image."
+        },
+        {
+            "id": 52,
+            "category": "Target Specification",
+            "command": "ettercap -T -M arp:remote -i eth0 /192.168.1.10// /192.168.1.20//",
+            "example": "ettercap -T -M arp:remote -i eth0 /192.168.1.10// /192.168.1.20//",
+            "explanation": "Performs ARP poisoning between two specific clients, excluding the gateway."
+        },
+        {
+            "id": 53,
+            "category": "Target Specification",
+            "command": "ettercap -T -M arp:remote -i eth0 /192.168.1.10/21,22,80,443/",
+            "example": "ettercap -T -M arp:remote -i eth0 /192.168.1.10/21,22,80,443/",
+            "explanation": "Targets a specific IP but only on FTP, SSH, HTTP, and HTTPS ports."
+        },
+        {
+            "id": 54,
+            "category": "Red Team Network Attacks",
+            "command": "ettercap -T -q -M arp:remote -i eth0 -P rand_flood",
+            "example": "ettercap -T -q -M arp:remote -i eth0 -P rand_flood",
+            "explanation": "Floods the LAN with random MAC addresses to overflow switch CAM tables."
+        },
+        {
+            "id": 55,
+            "category": "Blue Team Detection and Validation",
+            "command": "ettercap -T -i eth0 -P find_conn",
+            "example": "ettercap -T -i eth0 -P find_conn",
+            "explanation": "Enumerates all active connections on the LAN to map current communication flows."
+        },
+        {
+            "id": 56,
+            "category": "Blue Team Detection and Validation",
+            "command": "ettercap -T -i eth0 -P find_ettercap",
+            "example": "ettercap -T -i eth0 -P find_ettercap",
+            "explanation": "Attempts to detect other instances of Ettercap running on the network."
+        },
+        {
+            "id": 57,
+            "category": "Blue Team Detection and Validation",
+            "command": "ettercap -T -i eth0 -P fingerprint",
+            "example": "ettercap -T -i eth0 -P fingerprint",
+            "explanation": "Passively fingerprints the operating systems of remote hosts based on traffic analysis."
+        },
+        {
+            "id": 58,
+            "category": "Advanced and Combined Real World Scenarios",
+            "command": "ettercap -G",
+            "example": "ettercap -G",
+            "explanation": "Launches the GTK+ graphical interface (useful for beginners or visualization)."
+        },
+        {
+            "id": 59,
+            "category": "Advanced and Combined Real World Scenarios",
+            "command": "ettercap -T -i eth0 --script commands.ett",
+            "example": "ettercap -T -i eth0 --script commands.ett",
+            "explanation": "Executes a sequence of Ettercap commands defined in an external script file."
+        },
+        {
+            "id": 60,
+            "category": "Wireless Related Attacks",
+            "command": "ettercap -T -i wlan0 -M arp:remote // //",
+            "example": "ettercap -T -i wlan0 -M arp:remote // //",
+            "explanation": "Performs ARP poisoning on a wireless interface (Standard WiFi MITM)."
+        }
+    ]
+}

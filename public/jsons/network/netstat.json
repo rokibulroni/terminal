@@ -1,0 +1,602 @@
+{
+    "tool": "netstat",
+    "description": "Complete netstat command reference covering all options from basic to advanced for network troubleshooting and security analysis.",
+    "total_commands": 85,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Network Status",
+            "command": "netstat",
+            "example": "netstat",
+            "explanation": "Displays all active open network sockets and established connections.\nProvides a baseline view of current system-wide network activity."
+        },
+        {
+            "id": 2,
+            "category": "Basic Network Status",
+            "command": "netstat -a",
+            "example": "netstat -a",
+            "explanation": "Shows all sockets, including both listening and established states (-a).\nComprehensive list of all ports regardless of their current status."
+        },
+        {
+            "id": 3,
+            "category": "Basic Network Status",
+            "command": "netstat -l",
+            "example": "netstat -l",
+            "explanation": "Lists only sockets that are currently in a listening state (-l).\nIdentifies ports waiting for incoming connection requests."
+        },
+        {
+            "id": 4,
+            "category": "Numerical and Resolved Output",
+            "command": "netstat -n",
+            "example": "netstat -n",
+            "explanation": "Displays addresses and port numbers in numerical format (-n).\nAccelerates output by skipping time-consuming DNS and service name lookups."
+        },
+        {
+            "id": 5,
+            "category": "Numerical and Resolved Output",
+            "command": "netstat -an",
+            "example": "netstat -an",
+            "explanation": "Shows all sockets and listening ports in numeric format (-an).\nCombines comprehensive listing with high-performance numerical output."
+        },
+        {
+            "id": 6,
+            "category": "TCP Connections",
+            "command": "netstat -t",
+            "example": "netstat -t",
+            "explanation": "Filters output to display only TCP protocol connections (-t).\nLimits the view to Transmission Control Protocol session data."
+        },
+        {
+            "id": 7,
+            "category": "TCP Connections",
+            "command": "netstat -at",
+            "example": "netstat -at",
+            "explanation": "Shows all TCP connections, including listening and active sessions (-at).\nProvides a complete picture of all TCP-based service states."
+        },
+        {
+            "id": 8,
+            "category": "TCP Connections",
+            "command": "netstat -lt",
+            "example": "netstat -lt",
+            "explanation": "Lists only the TCP sockets currently waiting for connections (-lt).\nFocuses on available TCP-based server services on the host."
+        },
+        {
+            "id": 9,
+            "category": "TCP Connections",
+            "command": "netstat -tn",
+            "example": "netstat -tn",
+            "explanation": "Displays TCP data with numerical addresses and ports (-tn).\nIdeal for high-speed monitoring of active TCP sessions without DNS overhead."
+        },
+        {
+            "id": 10,
+            "category": "TCP Connections",
+            "command": "netstat -ant",
+            "example": "netstat -ant",
+            "explanation": "Combined view of all TCP sockets (listening and active) in numeric format (-ant).\nProvides a rapid and detailed overview of the entire TCP stack state."
+        },
+        {
+            "id": 11,
+            "category": "UDP Connections",
+            "command": "netstat -u",
+            "example": "netstat -u",
+            "explanation": "Filters output to display only UDP protocol connections (-u).\nDisplays active and recently used User Datagram Protocol socket data."
+        },
+        {
+            "id": 12,
+            "category": "UDP Connections",
+            "command": "netstat -au",
+            "example": "netstat -au",
+            "explanation": "Shows all UDP connections, including listening sockets (-au).\nEnables discovery of both established flows and available UDP services."
+        },
+        {
+            "id": 13,
+            "category": "UDP Connections",
+            "command": "netstat -lu",
+            "example": "netstat -lu",
+            "explanation": "Lists only UDP sockets that are actively listening for packets (-lu).\nIdentifies open UDP ports that could be used for incoming payloads."
+        },
+        {
+            "id": 14,
+            "category": "UDP Connections",
+            "command": "netstat -un",
+            "example": "netstat -un",
+            "explanation": "Displays UDP connections with numerical addresses and ports (-un).\nProvides a fast look at UDP traffic without resolving names."
+        },
+        {
+            "id": 15,
+            "category": "UDP Connections",
+            "command": "netstat -anu",
+            "example": "netstat -anu",
+            "explanation": "Shows all UDP socket states in numerical format (-anu).\nComprehensive and efficient view of all local UDP service availability."
+        },
+        {
+            "id": 16,
+            "category": "UNIX Domain Sockets",
+            "command": "netstat -x",
+            "example": "netstat -x",
+            "explanation": "Displays information about active UNIX domain sockets (-x).\nMakes local inter-process communication (IPC) channels visible for analysis."
+        },
+        {
+            "id": 17,
+            "category": "UNIX Domain Sockets",
+            "command": "netstat -lx",
+            "example": "netstat -lx",
+            "explanation": "Lists only listening UNIX domain sockets (-lx).\nIdentifies local system services waiting for internal application connections."
+        },
+        {
+            "id": 18,
+            "category": "UNIX Domain Sockets",
+            "command": "netstat -ax",
+            "example": "netstat -ax",
+            "explanation": "Shows all UNIX domain sockets, both listening and connected (-ax).\nFull visualization of internal system-wide socket-based IPC."
+        },
+        {
+            "id": 19,
+            "category": "Raw Sockets",
+            "command": "netstat -w",
+            "example": "netstat -w",
+            "explanation": "Displays raw socket data if supported by the kernel (-w).\nEnables visibility of low-level protocol interactions below the transport layer."
+        },
+        {
+            "id": 20,
+            "category": "Process and PID Association",
+            "command": "netstat -p",
+            "example": "sudo netstat -p",
+            "explanation": "Shows the PID and program name for each network socket (-p).\nCritically links network activity to specific running software processes."
+        },
+        {
+            "id": 21,
+            "category": "Process and PID Association",
+            "command": "netstat -tp",
+            "example": "sudo netstat -tp",
+            "explanation": "Displays TCP connections with associated process IDs and names (-tp).\nMaps transport layer activity directly to the initiating application."
+        },
+        {
+            "id": 22,
+            "category": "Process and PID Association",
+            "command": "netstat -up",
+            "example": "sudo netstat -up",
+            "explanation": "Displays UDP connections with associated process IDs and names (-up).\nIdentifies which system processes are handling datagram traffic."
+        },
+        {
+            "id": 23,
+            "category": "Process and PID Association",
+            "command": "netstat -xlp",
+            "example": "sudo netstat -xlp",
+            "explanation": "Lists listening UNIX sockets with their associated process info (-xlp).\nAllows tracing of internal L5 services back to their binary sources."
+        },
+        {
+            "id": 24,
+            "category": "Process and PID Association",
+            "command": "netstat -tulpn",
+            "example": "sudo netstat -tulpn",
+            "explanation": "Standard admin view of all listening TCP/UDP ports with PIDs (-tulpn).\nEssential tool for auditing server security and verifying listening services."
+        },
+        {
+            "id": 25,
+            "category": "Process and PID Association",
+            "command": "netstat -anp",
+            "example": "sudo netstat -anp",
+            "explanation": "Displays all connections and listening ports with PIDs numerically (-anp).\nProvides maximum visibility into the entire active network footprint of the OS."
+        },
+        {
+            "id": 26,
+            "category": "Process and PID Association",
+            "command": "netstat -ep",
+            "example": "sudo netstat -ep",
+            "explanation": "Shows process info with extended user ID and inode data (-ep).\nProvides deep system integration details for socket-to-file matching."
+        },
+        {
+            "id": 27,
+            "category": "Extended and Verbose Output",
+            "command": "netstat -e",
+            "example": "netstat -e",
+            "explanation": "Displays extended socket info including owner UID and inode (-e).\nUseful for determining the security context and identity of connection owners."
+        },
+        {
+            "id": 28,
+            "category": "Extended and Verbose Output",
+            "command": "netstat -ee",
+            "example": "netstat -ee",
+            "explanation": "Displays very verbose kernel-level socket information (-ee).\nProvides deepest possible visibility into internal networking structures."
+        },
+        {
+            "id": 29,
+            "category": "Extended and Verbose Output",
+            "command": "netstat -ne",
+            "example": "netstat -ne",
+            "explanation": "Numerical addresses combined with extended owner details (-ne).\nHigh-performance view that includes security identifier (UID) for each socket."
+        },
+        {
+            "id": 30,
+            "category": "Extended and Verbose Output",
+            "command": "netstat -v",
+            "example": "netstat -v",
+            "explanation": "Enables verbose mode, printing info on protocol family status (-v).\nHelps diagnose why certain protocols may not be displaying active sockets."
+        },
+        {
+            "id": 31,
+            "category": "Extended and Verbose Output",
+            "command": "netstat -W",
+            "example": "netstat -W",
+            "explanation": "Enables wide mode to prevent address truncation (-W).\nEnsures that long IPv6 or hostname strings are fully readable in the output."
+        },
+        {
+            "id": 32,
+            "category": "Extended and Verbose Output",
+            "command": "netstat -tunlpW",
+            "example": "sudo netstat -tunlpW",
+            "explanation": "Shows listening TCP/UDP ports with PIDs and full IP strings (-tunlpW).\nFull-detail admin view for comprehensive local service identification."
+        },
+        {
+            "id": 33,
+            "category": "Continuous and Periodic Output",
+            "command": "netstat -c",
+            "example": "netstat -c",
+            "explanation": "Updates the netstat output continuously every second (-c).\nEnables real-time monitoring of connection state changes and bursts."
+        },
+        {
+            "id": 34,
+            "category": "Continuous and Periodic Output",
+            "command": "netstat -tc",
+            "example": "netstat -tc",
+            "explanation": "Continuously monitors TCP connection states every second (-tc).\nProvides a live dashboard of Transmission Control Protocol activity."
+        },
+        {
+            "id": 35,
+            "category": "Continuous and Periodic Output",
+            "command": "netstat -uc",
+            "example": "netstat -uc",
+            "explanation": "Continuously monitors UDP datagram flow every second (-uc).\nIdentifies real-time spikes or patterns in User Datagram Protocol usage."
+        },
+        {
+            "id": 36,
+            "category": "Continuous and Periodic Output",
+            "command": "netstat -anc",
+            "example": "netstat -anc",
+            "explanation": "Continuously displays all connections in numeric format (-anc).\nMonitors system-wide socket activity without DNS resolution delay."
+        },
+        {
+            "id": 37,
+            "category": "Timers and Advanced Info",
+            "command": "netstat -o",
+            "example": "netstat -o",
+            "explanation": "Displays network state timer information (-o).\nProvides visibility into socket timeout, keepalive, and retransmission states."
+        },
+        {
+            "id": 38,
+            "category": "Timers and Advanced Info",
+            "command": "netstat -to",
+            "example": "netstat -to",
+            "explanation": "Shows TCP connections with their active timer states (-to).\nEssential for diagnosing stuck sessions or performance-degrading retransmissions."
+        },
+        {
+            "id": 39,
+            "category": "Timers and Advanced Info",
+            "command": "netstat -anto",
+            "example": "netstat -anto",
+            "explanation": "Displays all numerical TCP connections including active timers (-anto).\nHigh-precision diagnostic view for transport-layer protocol behavior."
+        },
+        {
+            "id": 40,
+            "category": "Timers and Advanced Info",
+            "command": "netstat -apo",
+            "example": "sudo netstat -apo",
+            "explanation": "Shows all sockets with PIDs and timer data (-apo).\nEnables deep debugging of process-specific network hang issues."
+        },
+        {
+            "id": 41,
+            "category": "Protocol Statistics",
+            "command": "netstat -s",
+            "example": "netstat -s",
+            "explanation": "Displays summary statistics for each network protocol (-s).\nAggregates error counts, packet totals, and flow metrics across the stack."
+        },
+        {
+            "id": 42,
+            "category": "Protocol Statistics",
+            "command": "netstat -su",
+            "example": "netstat -su",
+            "explanation": "Shows detailed statistics specifically for the UDP protocol (-su).\nUseful for identifying datagram loss or buffer overflow issues in the stack."
+        },
+        {
+            "id": 43,
+            "category": "Protocol Statistics",
+            "command": "netstat -st",
+            "example": "netstat -st",
+            "explanation": "Shows detailed statistics specifically for the TCP protocol (-st).\nEnables auditing of connection establishment, segments, and error rates."
+        },
+        {
+            "id": 44,
+            "category": "Protocol Statistics",
+            "command": "netstat -ss",
+            "example": "netstat -ss",
+            "explanation": "Displays maximal protocol statistics including rare counters (-ss).\nDeep-dive audit into low-level protocol event and failure statistics."
+        },
+        {
+            "id": 45,
+            "category": "Routing Table Display",
+            "command": "netstat -r",
+            "example": "netstat -r",
+            "explanation": "Displays the kernel IP routing table (-r).\nVisualizes the system's pathing logic for different destination networks."
+        },
+        {
+            "id": 46,
+            "category": "Routing Table Display",
+            "command": "netstat -rn",
+            "example": "netstat -rn",
+            "explanation": "Displays the routing table with numerical IP addresses (-rn).\nPrevents slow DNS lookups when auditing network routing configurations."
+        },
+        {
+            "id": 47,
+            "category": "Routing Table Display",
+            "command": "netstat -rF",
+            "example": "netstat -rF",
+            "explanation": "Displays the Forwarding Information Base routing table (-rF).\nShows the active forwarding rules used by the kernel for packet transit."
+        },
+        {
+            "id": 48,
+            "category": "Routing Table Display",
+            "command": "netstat -rC",
+            "example": "netstat -rC",
+            "explanation": "Displays the routing cache for recently used paths (-rC).\nProvides visibility into recent destination routing decisions and metrics."
+        },
+        {
+            "id": 49,
+            "category": "Routing Table Display",
+            "command": "netstat -rne",
+            "example": "netstat -rne",
+            "explanation": "Numerical routing table with extended kernel info (-rne).\nDetailed view of paths including MTU, window, and hop characteristics."
+        },
+        {
+            "id": 50,
+            "category": "Network Interface Statistics",
+            "command": "netstat -i",
+            "example": "netstat -i",
+            "explanation": "Displays a table of all network interfaces and statistics (-i).\nSummary of RX/TX packet counts, errors, and drops for each adapter."
+        },
+        {
+            "id": 51,
+            "category": "Network Interface Statistics",
+            "command": "netstat -ie",
+            "example": "netstat -ie",
+            "explanation": "Displays interface statistics in a long format (-ie).\nProvides detailed hardware configuration and status mirroring ifconfig output."
+        },
+        {
+            "id": 52,
+            "category": "Network Interface Statistics",
+            "command": "netstat -ia",
+            "example": "netstat -ia",
+            "explanation": "Shows statistics for all interfaces, including inactive ones (-ia).\nFull inventory of physical and virtual networking hardware capabilities."
+        },
+        {
+            "id": 53,
+            "category": "Multicast and Broadcast Information",
+            "command": "netstat -g",
+            "example": "netstat -g",
+            "explanation": "Displays multicast group membership for local interfaces (-g).\nIdentifies which multicast groups the host is currently participating in."
+        },
+        {
+            "id": 54,
+            "category": "Multicast and Broadcast Information",
+            "command": "netstat -gn",
+            "example": "netstat -gn",
+            "explanation": "Displays multicast groups with numerical interface IPs (-gn).\nClear accounting of multicast participation without resolution delays."
+        },
+        {
+            "id": 55,
+            "category": "IPv4 and IPv6 Views",
+            "command": "netstat -4",
+            "example": "netstat -4",
+            "explanation": "Filters output to show only IPv4 network connections (-4).\nExcludes modern IPv6 data to focus on legacy stack auditing."
+        },
+        {
+            "id": 56,
+            "category": "IPv4 and IPv6 Views",
+            "command": "netstat -6",
+            "example": "netstat -6",
+            "explanation": "Filters output to show only IPv6 network connections (-6).\nExposes active communications specifically on the modern IPv6 stack."
+        },
+        {
+            "id": 57,
+            "category": "IPv4 and IPv6 Views",
+            "command": "netstat -l6",
+            "example": "netstat -l6",
+            "explanation": "Displays only listening sockets on the IPv6 family (-l6).\nIdentifies services exclusively exposed via IPv6 transport protocols."
+        },
+        {
+            "id": 58,
+            "category": "IPv4 and IPv6 Views",
+            "command": "netstat -u4",
+            "example": "netstat -u4",
+            "explanation": "Displays only UDP connections using IPv4 (-u4).\nTargets the User Datagram Protocol specifically on the IPv4 layer."
+        },
+        {
+            "id": 59,
+            "category": "IPv4 and IPv6 Views",
+            "command": "netstat -t4n",
+            "example": "netstat -t4n",
+            "explanation": "Shows numerical TCP connections for IPv4 only (-t4n).\nHighly specific, high-performance view of legacy transport session data."
+        },
+        {
+            "id": 60,
+            "category": "Port and Address Filtering",
+            "command": "netstat --numeric-ports",
+            "example": "netstat --numeric-ports",
+            "explanation": "Resolves hostnames while keeping port numbers numerical (--numeric-ports).\nProvides human-readable targets while maintaining exact technical port identification."
+        },
+        {
+            "id": 61,
+            "category": "Port and Address Filtering",
+            "command": "netstat --numeric-hosts",
+            "example": "netstat --numeric-hosts",
+            "explanation": "Numerical IP addresses with service name resolution (--numeric-hosts).\nEasily identifies the type of service (e.g. 'http') while keeping IPs exact."
+        },
+        {
+            "id": 62,
+            "category": "Port and Address Filtering",
+            "command": "netstat --numeric-users",
+            "example": "netstat --numeric-users",
+            "explanation": "Shows numerical user IDs (UID) instead of names (--numeric-users).\nCrucial for shell-based parsing where UID stability is preferred over names."
+        },
+        {
+            "id": 63,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "netstat -A inet",
+            "example": "netstat -A inet",
+            "explanation": "Filters connections to the 'inet' (IPv4) address family (-A inet).\nExplicitly selects the IPv4 transport layer for detailed socket analysis."
+        },
+        {
+            "id": 64,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "netstat -A inet6",
+            "example": "netstat -A inet6",
+            "explanation": "Filters connections to the 'inet6' (IPv6) address family (-A inet6).\nFocuses documentation and analysis on the modern IPv6 transport layer."
+        },
+        {
+            "id": 65,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "netstat -A unix",
+            "example": "netstat -A unix",
+            "explanation": "Explicitly selects only UNIX domain socket family (-A unix).\nPerfect for auditing internal local application inter-communication."
+        },
+        {
+            "id": 66,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "netstat -tln",
+            "example": "netstat -tln",
+            "explanation": "Quick check for open and listening TCP ports (-tln).\nFast standard method for verifying server service availability numerically."
+        },
+        {
+            "id": 67,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "netstat -uln",
+            "example": "netstat -uln",
+            "explanation": "Quick check for open and listening UDP ports (-uln).\nDetermines which datagram-based services are active on the host."
+        },
+        {
+            "id": 68,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "netstat -rnC",
+            "example": "netstat -rnC",
+            "explanation": "Inspects the routing cache to debug routing decisions (-rnC).\nIdentifies why specific destination traffic might be taking an unexpected path."
+        },
+        {
+            "id": 69,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "netstat -ie",
+            "example": "netstat -ie",
+            "explanation": "Checks for RX/TX errors or dropped packets on interfaces (-ie).\nFundamental tool for diagnosing physical layer or driver-level throughput issues."
+        },
+        {
+            "id": 70,
+            "category": "Security and Incident Response Use Cases",
+            "command": "netstat -anp",
+            "example": "sudo netstat -anp",
+            "explanation": "Maps connection to PID for malware and intrusion hunting (-anp).\nIdentifies exact binaries initiating or receiving connections in suspicious patterns."
+        },
+        {
+            "id": 71,
+            "category": "Security and Incident Response Use Cases",
+            "command": "netstat -antp",
+            "example": "sudo netstat -antp",
+            "explanation": "Focuses on TCP connections with PIDs to find backdoors (-antp).\nTargets unauthorized remote shells or C2 traffic originating from the OS."
+        },
+        {
+            "id": 72,
+            "category": "Security and Incident Response Use Cases",
+            "command": "netstat -anup",
+            "example": "sudo netstat -anup",
+            "explanation": "Focuses on UDP to find hidden datagram-based trojans (-anup).\nExposes non-stream communication channels used for data exfiltration."
+        },
+        {
+            "id": 73,
+            "category": "Security and Incident Response Use Cases",
+            "command": "netstat -lxp",
+            "example": "sudo netstat -lxp",
+            "explanation": "Audits local IPC sockets for suspicious local activities (-lxp).\nUncovers internal process masquerading or illegal local pipe usage."
+        },
+        {
+            "id": 74,
+            "category": "Blue Team Defensive Monitoring",
+            "command": "netstat -c -ant",
+            "example": "netstat -c -ant",
+            "explanation": "Real-time monitor of TCP connections for new inbound probes (-c -ant).\nDiagnostic tool for watching active port knocking or connection floods."
+        },
+        {
+            "id": 75,
+            "category": "Blue Team Defensive Monitoring",
+            "command": "netstat -s | grep -i retrans",
+            "example": "netstat -s",
+            "explanation": "Analyzes protocol retransmissions for DoS monitoring (-s).\nHigh numbers of retransmits often indicate a significant network layer bottleneck."
+        },
+        {
+            "id": 76,
+            "category": "Blue Team Defensive Monitoring",
+            "command": "netstat -g",
+            "example": "netstat -g",
+            "explanation": "Verifies host membership in multicast discovery groups (-g).\nChecks for participation in protocols like SSDP or mDNS for network leakage."
+        },
+        {
+            "id": 77,
+            "category": "Red Team Post Exploitation Validation",
+            "command": "netstat -ant | grep ESTABLISHED",
+            "example": "netstat -ant",
+            "explanation": "Identifies currently active TCP sessions in ESTABLISHED state.\nQuickly highlights active infiltration or admin sessions for hijack targeting."
+        },
+        {
+            "id": 78,
+            "category": "Red Team Post Exploitation Validation",
+            "command": "netstat -rn",
+            "example": "netstat -rn",
+            "explanation": "Numerical routing map for internal subnet discovery (-rn).\nBuilds a logical picture of the network topology for internal pivoting planning."
+        },
+        {
+            "id": 79,
+            "category": "Red Team Post Exploitation Validation",
+            "command": "netstat -punta",
+            "example": "sudo netstat -punta",
+            "explanation": "Full-stack enumeration of all protocols and their binaries (-punta).\nMaximum intensity reconnaissance of the targets' communication footprint."
+        },
+        {
+            "id": 80,
+            "category": "Legacy System Diagnostics",
+            "command": "netstat -M",
+            "example": "netstat -M",
+            "explanation": "Displays legacy IP masqueraded connections (-M).\nRequired for auditing NAT translation states on ancient Linux kernels."
+        },
+        {
+            "id": 81,
+            "category": "Legacy System Diagnostics",
+            "command": "netstat --symbolic",
+            "example": "netstat --symbolic",
+            "explanation": "Alternative syntax for enabling symbolic hostname resolution.\nForces the tool to translate IP addresses into readable domain names."
+        },
+        {
+            "id": 82,
+            "category": "Legacy System Diagnostics",
+            "command": "netstat --route",
+            "example": "netstat --route",
+            "explanation": "Long-form argument for displaying the kernel routing table.\nHuman-readable equivalent to the -r flag for easier scripting maintenance."
+        },
+        {
+            "id": 83,
+            "category": "Legacy System Diagnostics",
+            "command": "netstat --interfaces",
+            "example": "netstat --interfaces",
+            "explanation": "Long-form argument for displaying the network interface table.\nExplicitly calls for adapter-level TX/RX and error packet statistics."
+        },
+        {
+            "id": 84,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "netstat -aneo",
+            "example": "netstat -aneo",
+            "explanation": "Numeric view with extended details and connection timers (-aneo).\nA deep TCP session analysis view including user identity and inode context."
+        },
+        {
+            "id": 85,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "netstat -tupln",
+            "example": "sudo netstat -tupln",
+            "explanation": "The ultimate standard command for listing all active listeners (-tupln).\nDisplays all TCP/UDP ports, numeric targets, and the owning process ID."
+        }
+    ]
+}

@@ -1,0 +1,707 @@
+{
+    "tool": "ss",
+    "description": "Complete ss command reference covering all options from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Socket Listing",
+            "command": "ss",
+            "example": "ss",
+            "explanation": "Displays a list of all active non-listening network connections.\nProvides a rapid overview of currently occupied socket streams."
+        },
+        {
+            "id": 2,
+            "category": "Basic Socket Listing",
+            "command": "ss -s",
+            "example": "ss -s",
+            "explanation": "Prints a high-level summary of system-wide socket statistics (-s).\nShows a breakdown of active, listening, and closed sockets by protocol."
+        },
+        {
+            "id": 3,
+            "category": "Basic Socket Listing",
+            "command": "ss -a",
+            "example": "ss -a",
+            "explanation": "Displays all sockets, including both listening and established states (-a).\nFull visualization of the system's entire active and passive network footprint."
+        },
+        {
+            "id": 4,
+            "category": "Basic Socket Listing",
+            "command": "ss -l",
+            "example": "ss -l",
+            "explanation": "Lists only sockets currently in a listening state (-l).\nIdentifies all services waiting for incoming connection requests on the host."
+        },
+        {
+            "id": 5,
+            "category": "Numerical and Resolved Output",
+            "command": "ss -n",
+            "example": "ss -n",
+            "explanation": "Displays all addresses and port numbers in numerical format (-n).\nAccelerates output by skipping time-consuming DNS and service name resolution."
+        },
+        {
+            "id": 6,
+            "category": "Numerical and Resolved Output",
+            "command": "ss -r",
+            "example": "ss -r",
+            "explanation": "Attempts to resolve numeric IPs and ports to readable names (-r).\nProvides a more intuitive view of connections for human analysis."
+        },
+        {
+            "id": 7,
+            "category": "TCP Socket Inspection",
+            "command": "ss -t",
+            "example": "ss -t",
+            "explanation": "Filters the output to display only TCP protocol sockets (-t).\nLimits analysis to connection-oriented Transmission Control Protocol sessions."
+        },
+        {
+            "id": 8,
+            "category": "UDP Socket Inspection",
+            "command": "ss -u",
+            "example": "ss -u",
+            "explanation": "Filters the output to display only UDP protocol sockets (-u).\nDisplays active and recently used User Datagram Protocol datagram streams."
+        },
+        {
+            "id": 9,
+            "category": "Raw Socket Inspection",
+            "command": "ss -w",
+            "example": "ss -w",
+            "explanation": "Displays information about active RAW sockets (-w).\nEnables visibility of low-level protocol access often used by diagnostic tools."
+        },
+        {
+            "id": 10,
+            "category": "Unix Socket Inspection",
+            "command": "ss -x",
+            "example": "ss -x",
+            "explanation": "Lists active UNIX domain sockets used for local IPC (-x).\nProvides visibility into internal communication between local system processes."
+        },
+        {
+            "id": 11,
+            "category": "IPv4 and IPv6 Sockets",
+            "command": "ss -4",
+            "example": "ss -4",
+            "explanation": "Filters output to show only IPv4 address family sockets (-4).\nExcludes modern IPv6 data to focus strictly on legacy transport layer auditing."
+        },
+        {
+            "id": 12,
+            "category": "IPv4 and IPv6 Sockets",
+            "command": "ss -6",
+            "example": "ss -6",
+            "explanation": "Filters output to show only IPv6 address family sockets (-6).\nExposes active communications specifically on the modern IPv6 transport stack."
+        },
+        {
+            "id": 13,
+            "category": "Listening Sockets",
+            "command": "ss -lt",
+            "example": "ss -lt",
+            "explanation": "Lists all TCP sockets currently in a listening state (-lt).\nFocuses on available TCP-based server services currently active on the host."
+        },
+        {
+            "id": 14,
+            "category": "Listening Sockets",
+            "command": "ss -lu",
+            "example": "ss -lu",
+            "explanation": "Lists all UDP sockets that are actively receptive to packets (-lu).\nIdentifies open UDP ports that are ready to process incoming datagrams."
+        },
+        {
+            "id": 15,
+            "category": "Listening Sockets",
+            "command": "ss -lx",
+            "example": "ss -lx",
+            "explanation": "Lists all listening UNIX domain sockets for local services (-lx).\nIdentifies active IPC endpoints waiting for internal application connections."
+        },
+        {
+            "id": 16,
+            "category": "Process and PID Association",
+            "command": "ss -p",
+            "example": "ss -p",
+            "explanation": "Shows the PID and process name for each active socket (-p).\nCritically links all network communications to their initiating system processes."
+        },
+        {
+            "id": 17,
+            "category": "Process and PID Association",
+            "command": "ss -lp",
+            "example": "ss -lp",
+            "explanation": "Lists listening sockets with their associated process information (-lp).\nIdentifies which software binaries are responsible for each open port."
+        },
+        {
+            "id": 18,
+            "category": "Blue Team Defensive Monitoring",
+            "command": "ss -lnt",
+            "example": "ss -lnt",
+            "explanation": "Displays listening TCP sockets with numerical ports (-lnt).\nStandard method for quickly auditing open server ports without DNS latency."
+        },
+        {
+            "id": 19,
+            "category": "Blue Team Defensive Monitoring",
+            "command": "ss -lntp",
+            "example": "ss -lntp",
+            "explanation": "Displays listening TCP sockets with PIDs and numeric ports (-lntp).\nEssential admin command for identifying and auditing every local server service."
+        },
+        {
+            "id": 20,
+            "category": "Blue Team Defensive Monitoring",
+            "command": "ss -lnup",
+            "example": "ss -lnup",
+            "explanation": "Displays listening UDP sockets with PIDs and numeric ports (-lnup).\nEnables auditing of datagram-based services and their corresponding binaries."
+        },
+        {
+            "id": 21,
+            "category": "Extended and Detailed Output",
+            "command": "ss -e",
+            "example": "ss -e",
+            "explanation": "Shows extended socket info including owner UID and inode (-e).\nProvides security context and file-system reference for each network socket."
+        },
+        {
+            "id": 22,
+            "category": "Timing and Statistics Output",
+            "command": "ss -o",
+            "example": "ss -o",
+            "explanation": "Displays network timer information for each socket (-o).\nIncludes keepalive and retransmission states for protocol health diagnosis."
+        },
+        {
+            "id": 23,
+            "category": "Memory Usage and Queue Analysis",
+            "command": "ss -m",
+            "example": "ss -m",
+            "explanation": "Displays detailed memory usage for each network socket (-m).\nEnables identification of socket-level resource exhaustion or performance issues."
+        },
+        {
+            "id": 24,
+            "category": "TCP States and Flags Inspection",
+            "command": "ss -i",
+            "example": "ss -i",
+            "explanation": "Displays internal TCP protocol metrics including RTT and cwnd (-i).\nDeep diagnostic tool for analyzing transport layer efficiency and congestion."
+        },
+        {
+            "id": 25,
+            "category": "Extended and Detailed Output",
+            "command": "ss -emp",
+            "example": "ss -emp",
+            "explanation": "Combines extended info, memory stats, and process IDs (-emp).\nThe definitive view for deep-dive technical auditing of individual sockets."
+        },
+        {
+            "id": 26,
+            "category": "Socket State Filtering",
+            "command": "ss state established",
+            "example": "ss state established",
+            "explanation": "Filters output to only show successfully ESTABLISHED connections.\nFocuses analysis on active, live communication sessions between hosts."
+        },
+        {
+            "id": 27,
+            "category": "Socket State Filtering",
+            "command": "ss state connected",
+            "example": "ss state connected",
+            "explanation": "Filters for all sockets in any successfully connected state.\nExcludes passive listeners to focus on outgoing and established flows."
+        },
+        {
+            "id": 28,
+            "category": "Socket State Filtering",
+            "command": "ss state listening",
+            "example": "ss state listening",
+            "explanation": "Specifically filters the list for sockets in the LISTENING state.\nEnables systematic auditing of all available network-accessible local services."
+        },
+        {
+            "id": 29,
+            "category": "Socket State Filtering",
+            "command": "ss -t state time-wait",
+            "example": "ss -t state time-wait",
+            "explanation": "Lists TCP sockets currently in the TIME-WAIT state.\nIdentifies connections that have recently closed but are still in the final timeout."
+        },
+        {
+            "id": 30,
+            "category": "Socket State Filtering",
+            "command": "ss -t state close-wait",
+            "example": "ss -t state close-wait",
+            "explanation": "Lists TCP sockets stuck in the CLOSE-WAIT state.\nOften indicates an application failure to properly terminate its network sessions."
+        },
+        {
+            "id": 31,
+            "category": "Socket State Filtering",
+            "command": "ss -t state fin-wait-1",
+            "example": "ss -t state fin-wait-1",
+            "explanation": "Shows sockets in FIN-WAIT-1, waiting for remote acknowledgment of a close.\nUseful for diagnosing half-closed or hung session termination sequences."
+        },
+        {
+            "id": 32,
+            "category": "Socket State Filtering",
+            "command": "ss -t state syn-sent",
+            "example": "ss -t state syn-sent",
+            "explanation": "Displays sockets currently attempting to initiate a new connection (SYN sent).\nIdentifies active outbound connection attempts and potential timeouts."
+        },
+        {
+            "id": 33,
+            "category": "Socket State Filtering",
+            "command": "ss -t state syn-recv",
+            "example": "ss -t state syn-recv",
+            "explanation": "Displays sockets processing an incoming connection request (SYN received).\nIdentifies current high rates of connection establishment or potential SYN flooding."
+        },
+        {
+            "id": 34,
+            "category": "Socket State Filtering",
+            "command": "ss -4 state closing",
+            "example": "ss -4 state closing",
+            "explanation": "Filters output for IPv4 sockets in the CLOSING state.\nUsed to identify legacy protocol sockets currently in the process of shutting down."
+        },
+        {
+            "id": 35,
+            "category": "Port and Address Filtering",
+            "command": "ss dport = :80",
+            "example": "ss dport = :80",
+            "explanation": "Filters sockets where the remote destination port is 80 (HTTP).\nIsolates all active web browsing or outgoing HTTP API traffic."
+        },
+        {
+            "id": 36,
+            "category": "Port and Address Filtering",
+            "command": "ss sport = :22",
+            "example": "ss sport = :22",
+            "explanation": "Filters connections where the local source port is 22 (SSH).\nEnables auditing of incoming remote administrative access sessions."
+        },
+        {
+            "id": 37,
+            "category": "Port and Address Filtering",
+            "command": "ss dport = :ssh",
+            "example": "ss dport = :ssh",
+            "explanation": "Uses service name 'ssh' instead of numeric port 22 for filtering.\nProvides a more readable approach to service-based socket auditing."
+        },
+        {
+            "id": 38,
+            "category": "Port and Address Filtering",
+            "command": "ss dport > :1024",
+            "example": "ss dport > :1024",
+            "explanation": "Lists connections using non-privileged destination ports (> 1024).\nIdentifies traffic to dynamic or non-standard server services."
+        },
+        {
+            "id": 39,
+            "category": "Port and Address Filtering",
+            "command": "ss sport < :1024",
+            "example": "ss sport < :1024",
+            "explanation": "Lists connections originating from local privileged ports (0-1023).\nMonitors traffic from authenticated system services or administrative tasks."
+        },
+        {
+            "id": 40,
+            "category": "Port and Address Filtering",
+            "command": "ss dport >= :5000",
+            "example": "ss dport >= :5000",
+            "explanation": "Filters for connections targeting ports 5000 and higher.\nNarrows focus to modern web frameworks or specialized custom server listeners."
+        },
+        {
+            "id": 41,
+            "category": "Port and Address Filtering",
+            "command": "ss sport le :100",
+            "example": "ss sport le :100",
+            "explanation": "Filters for local source ports less than or equal to 100.\nFocuses audit on core foundational system services like DNS, HTTP, or FTP."
+        },
+        {
+            "id": 42,
+            "category": "Port and Address Filtering",
+            "command": "ss dst 192.168.1.1",
+            "example": "ss dst 192.168.1.1",
+            "explanation": "Filters for all sockets specifically destined for the IP 192.168.1.1.\nIsolates communication with a particular network host or gateway."
+        },
+        {
+            "id": 43,
+            "category": "Port and Address Filtering",
+            "command": "ss src 10.0.0.5",
+            "example": "ss src 10.0.0.5",
+            "explanation": "Filters for sessions originating from a specific local interface IP.\nDetermines which local ethernet adapter or virtual IP is handling specific flows."
+        },
+        {
+            "id": 44,
+            "category": "Port and Address Filtering",
+            "command": "ss dst 192.168.1.0/24",
+            "example": "ss dst 192.168.1.0/24",
+            "explanation": "Filters connections for an entire CIDR-defined destination subnet.\nEnables broad auditing of traffic to a specific department or network segment."
+        },
+        {
+            "id": 45,
+            "category": "Port and Address Filtering",
+            "command": "ss src 127.0.0.0/8",
+            "example": "ss src 127.0.0.0/8",
+            "explanation": "Filters for traffic originating from the local loopback subnet.\nMakes all internal, on-host service communications visible for audit."
+        },
+        {
+            "id": 46,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -nt state established",
+            "example": "ss -nt state established",
+            "explanation": "Shows established TCP connections numerically for fast processing.\nStandard high-performance method for watching live system communication."
+        },
+        {
+            "id": 47,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -nt '( dport = :80 or dport = :443 )'",
+            "example": "ss -nt '( dport = :80 or dport = :443 )'",
+            "explanation": "Uses logical OR to filter for both HTTP and HTTPS TCP connections.\nProvides a consolidated view of all active web-traffic transport sessions."
+        },
+        {
+            "id": 48,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -nt dst :443 state established",
+            "example": "ss -nt dst :443 state established",
+            "explanation": "Filters specifically for established connections to remote port 443.\nIdentifies all and only live encrypted web or API session data."
+        },
+        {
+            "id": 49,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -nt dport != :22",
+            "example": "ss -nt dport != :22",
+            "explanation": "Displays all TCP connections except those on the SSH port (22).\nFilters out administrative noise to focus on other active network services."
+        },
+        {
+            "id": 50,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -lp src :8080",
+            "example": "ss -lp src :8080",
+            "explanation": "Reveals the exact process listening on local port 8080.\nDirectly identifies the software application responsible for a specific port."
+        },
+        {
+            "id": 51,
+            "category": "Security and Incident Response Use Cases",
+            "command": "ss -lntpZ",
+            "example": "ss -lntpZ",
+            "explanation": "Lists listening ports with PIDs and SELinux security contexts (-lntpZ).\nCritical for auditing system security policy and mandatory access controls."
+        },
+        {
+            "id": 52,
+            "category": "Security and Incident Response Use Cases",
+            "command": "ss -p dst 1.1.1.1",
+            "example": "ss -p dst 1.1.1.1",
+            "explanation": "Identifies the local process communicating with a specific remote IP.\nEssential for pinpointing which application is sending data to a suspect host."
+        },
+        {
+            "id": 53,
+            "category": "Security and Incident Response Use Cases",
+            "command": "ss -x src /tmp/.X11-unix/*",
+            "example": "ss -x src /tmp/.X11-unix/*",
+            "explanation": "Filters for Unix domain sockets matching a specific system path.\nAudits local process communication related to the X11 graphics system."
+        },
+        {
+            "id": 54,
+            "category": "Real Time Monitoring and Watching",
+            "command": "ss -E",
+            "example": "ss -E",
+            "explanation": "Continuously monitors and displays new socket events in real-time (-E).\nIdeal for detecting rapid port usage changes or malicious connection spikes."
+        },
+        {
+            "id": 55,
+            "category": "Real Time Monitoring and Watching",
+            "command": "ss -E grep tcp",
+            "example": "ss -E grep tcp",
+            "explanation": "Live stream monitor for TCP socket creation and termination events.\nProvides a scrolling terminal view of every new TCP handshake on the system."
+        },
+        {
+            "id": 56,
+            "category": "Memory Usage and Queue Analysis",
+            "command": "ss -tm",
+            "example": "ss -tm",
+            "explanation": "Displays memory allocation statistics specifically for TCP sockets.\nIdentifies potential buffer leaks or resource-heavy transport sessions."
+        },
+        {
+            "id": 57,
+            "category": "Memory Usage and Queue Analysis",
+            "command": "ss -ltm",
+            "example": "ss -ltm",
+            "explanation": "Shows detailed memory footprints for all listening TCP services.\nEnables resource auditing of server-side applications and their network buffers."
+        },
+        {
+            "id": 58,
+            "category": "TCP States and Flags Inspection",
+            "command": "ss -ti",
+            "example": "ss -ti",
+            "explanation": "Analyzes internal TCP metrics to diagnose latency and throughput issues.\nExposes RTT and congestion window data for transport-layer optimization."
+        },
+        {
+            "id": 59,
+            "category": "TCP States and Flags Inspection",
+            "command": "ss -tie",
+            "example": "ss -tie",
+            "explanation": "Combines extended attributes with internal protocol metrics (-tie).\nMaximal diagnostic view for auditing both security context and protocol health."
+        },
+        {
+            "id": 60,
+            "category": "Interface Based Filtering",
+            "command": "ss -I eth0",
+            "example": "ss -I eth0",
+            "explanation": "Filters output for sockets strictly bound to the 'eth0' network interface.\nIsolates analysis to traffic traversing a single specific hardware adapter."
+        },
+        {
+            "id": 61,
+            "category": "Interface Based Filtering",
+            "command": "ss dev eth0",
+            "example": "ss dev eth0",
+            "explanation": "Uses device-based filtering to show connections on adapter 'eth0'.\nAlternate syntax for isolating network traffic by physical or virtual interface."
+        },
+        {
+            "id": 62,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -a -A tcp",
+            "example": "ss -a -A tcp",
+            "explanation": "Uses the family flag to select all active TCP sockets in the system.\nComprehensive view of all Transmission Control Protocol states."
+        },
+        {
+            "id": 63,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -a -A udp",
+            "example": "ss -a -A udp",
+            "explanation": "Uses the family flag to select all active UDP sockets in the system.\nFull visualization of User Datagram Protocol usage across the host."
+        },
+        {
+            "id": 64,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -A unix",
+            "example": "ss -A unix",
+            "explanation": "Explicitly selects only Unix domain socket address family members.\nFocuses reconnaissance on local platform-specific inter-process flow."
+        },
+        {
+            "id": 65,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -A packet",
+            "example": "ss -A packet",
+            "explanation": "Displays raw packet sockets used by sniffers and diagnostic tools.\nIdentifies applications performing direct link-layer network interaction."
+        },
+        {
+            "id": 66,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -A netlink",
+            "example": "ss -A netlink",
+            "explanation": "Shows Netlink sockets for internal kernel-to-user space messaging.\nEnables visibility into system configuration and routing update channels."
+        },
+        {
+            "id": 67,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss --vsock",
+            "example": "ss --vsock",
+            "explanation": "Displays VSOCK sockets for host-to-guest communication in VMs.\nIdentifies internal transport links between the hypervisor and virtual machines."
+        },
+        {
+            "id": 68,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss --xdp",
+            "example": "ss --xdp",
+            "explanation": "Displays eXpress Data Path (XDP) network sockets.\nEnables visibility into high-performance, kernel-bypass packet processing."
+        },
+        {
+            "id": 69,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "ss -t state established '( dport = :http or sport = :http )'",
+            "example": "ss -t state established '( dport = :http or sport = :http )'",
+            "explanation": "Finds all active HTTP sessions, regardless of flow direction.\nIdentifies both hosted web services and outgoing web client connections."
+        },
+        {
+            "id": 70,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "ss -o state established '( dport = :ssh or sport = :ssh )'",
+            "example": "ss -o state established '( dport = :ssh or sport = :ssh )'",
+            "explanation": "Checks SSH connections including timers for keepalive monitoring.\nIdentified sessions that are idle but maintained by protocol keepalive signals."
+        },
+        {
+            "id": 71,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "ss -4 state time-wait src 10.0.0.5",
+            "example": "ss -4 state time-wait src 10.0.0.5",
+            "explanation": "Audits TIME-WAIT state IPv4 sockets on a specific interface address.\nDiagnoses potential source port exhaustion issues for a particular IP."
+        },
+        {
+            "id": 72,
+            "category": "Quiet and Summary Views",
+            "command": "ss -H",
+            "example": "ss -H",
+            "explanation": "Suppresses output header lines to facilitate automated parsing (-H).\nProvides a clean, data-only stream for secondary script processing."
+        },
+        {
+            "id": 73,
+            "category": "Quiet and Summary Views",
+            "command": "ss -H -t -n",
+            "example": "ss -H -t -n",
+            "explanation": "Outputs raw numeric TCP data without headers for downstream processing.\nOptimized format for piped commands like grep, awk, or custom loggers."
+        },
+        {
+            "id": 74,
+            "category": "Process and PID Association",
+            "command": "ss -pt state established",
+            "example": "ss -pt state established",
+            "explanation": "Lists established TCP connections and their owning software processes.\nIdentifies exact binaries responsible for all currently active transport sessions."
+        },
+        {
+            "id": 75,
+            "category": "Security and Incident Response Use Cases",
+            "command": "ss -K dst 192.168.1.100",
+            "example": "ss -K dst 192.168.1.100",
+            "explanation": "Forcibly terminates all network connections to a specific remote host (-K).\nImmediate mitigation tool for severing links to compromised or hostile IPs."
+        },
+        {
+            "id": 76,
+            "category": "Security and Incident Response Use Cases",
+            "command": "ss -K dport = :4444",
+            "example": "ss -K dport = :4444",
+            "explanation": "Forcibly kills connections on the specified suspicious port (-K).\nStandard response tool for immediately severing reverse-shell communication links."
+        },
+        {
+            "id": 77,
+            "category": "Red Team Post Exploitation Validation",
+            "command": "ss -lntp | grep -v 127.0.0.1",
+            "example": "ss -lntp | grep -v 127.0.0.1",
+            "explanation": "Identifies services exposed to the network by excluding localhost.\nProvides a filtered view of the true external attack surface of the system."
+        },
+        {
+            "id": 78,
+            "category": "Red Team Post Exploitation Validation",
+            "command": "ss -plu",
+            "example": "ss -plu",
+            "explanation": "Checks for listening UDP services and their owning process names.\nExposes datagram-based entry points that may hide from standard TCP audits."
+        },
+        {
+            "id": 79,
+            "category": "Red Team Post Exploitation Validation",
+            "command": "ss -pw -a",
+            "example": "ss -pw -a",
+            "explanation": "Checks for all active raw sockets and their associated PIDs.\nIdentifies potential packet sniffers or unauthorized low-level protocols."
+        },
+        {
+            "id": 80,
+            "category": "JSON and Script Friendly Output",
+            "command": "ss -j",
+            "example": "ss -j",
+            "explanation": "Outputs all socket data in structured JSON format (-j).\nEnables seamless handoff of system network state to modern automation tools."
+        },
+        {
+            "id": 81,
+            "category": "JSON and Script Friendly Output",
+            "command": "ss -lj",
+            "example": "ss -lj",
+            "explanation": "Outputs listening sockets in a machine-parseable JSON format (-lj).\nStandardizes service inventory collection for large-scale infrastructure auditing."
+        },
+        {
+            "id": 82,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -o state connected",
+            "example": "ss -o state connected",
+            "explanation": "Lists all connected sockets with integrated timestamp and timer data.\nProvides a temporal context for analyzing session longevity and health."
+        },
+        {
+            "id": 83,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -4 -t -n state established",
+            "example": "ss -4 -t -n state established",
+            "explanation": "Precise filter for established legacy IPv4 TCP sessions numerically.\nHigh-speed method for monitoring traditional server-client communication flows."
+        },
+        {
+            "id": 84,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -D /tmp/ss.dump",
+            "example": "ss -D /tmp/ss.dump",
+            "explanation": "Dumps current system-wide socket state to a binary file (-D).\nEnables capturing a high-fidelity snapshot for future forensic playback."
+        },
+        {
+            "id": 85,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -F /tmp/ss.dump",
+            "example": "ss -F /tmp/ss.dump",
+            "explanation": "Restores and displays socket data from a previous binary dump (-F).\nEnables detailed time-travel analysis of historical network states."
+        },
+        {
+            "id": 86,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -f inet",
+            "example": "ss -f inet",
+            "explanation": "Forces address family to IPv4 for the current filter task.\nEnsures subsequent commands only process legacy internet protocol data."
+        },
+        {
+            "id": 87,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -f inet6",
+            "example": "ss -f inet6",
+            "explanation": "Forces address family to IPv6 for the current filter task.\nLimits output strictly to modern next-generation IP transport data."
+        },
+        {
+            "id": 88,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -f link",
+            "example": "ss -f link",
+            "explanation": "Displays all Link Layer (MAC layer) sockets in the system.\nProvides visibility into the absolute lowest level of network stack interface."
+        },
+        {
+            "id": 89,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -f vsock",
+            "example": "ss -f vsock",
+            "explanation": "Filters for virtual machine guest-to-host VSOCK sockets.\nExposes internal virtualization-layer transport channels for audit."
+        },
+        {
+            "id": 90,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -t -a -Z",
+            "example": "ss -t -a -Z",
+            "explanation": "Lists all TCP sockets including SELinux security labels (-a -Z).\nEssential for auditing mandatory access control policies on network objects."
+        },
+        {
+            "id": 91,
+            "category": "Network Troubleshooting Scenarios",
+            "command": "ss -b",
+            "example": "ss -b",
+            "explanation": "Show socket-specific BPF (Berkeley Packet Filter) code (-b).\nReveals low-level packet processing logic and potential filtering bypasses."
+        },
+        {
+            "id": 92,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -M",
+            "example": "ss -M",
+            "explanation": "Alias for dumping binary socket statistics to a local file (-M).\nProvides a rapid method for capturing raw transport layer state data."
+        },
+        {
+            "id": 93,
+            "category": "Extended and Detailed Output",
+            "command": "ss -O",
+            "example": "ss -O",
+            "explanation": "Alias for printing keepalive and retransmission timer data (-O).\nIdentifies protocol-level timeouts and connection health metrics."
+        },
+        {
+            "id": 94,
+            "category": "Process and PID Association",
+            "command": "ss -N netns1",
+            "example": "ss -N netns1",
+            "explanation": "Queries sockets within a specific non-default network namespace.\nEnables auditing of containerized or isolated network environments."
+        },
+        {
+            "id": 95,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss state synchronized",
+            "example": "ss state synchronized",
+            "explanation": "Filters for synchronized states (ESTABLISHED, SYN-RECV, FIN-WAIT).\nIdentifies sessions that have successfully completed a handshake phase."
+        },
+        {
+            "id": 96,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss state bucket",
+            "example": "ss state bucket",
+            "explanation": "Filters for 'bucket' minisockets like TIME-WAIT and SYN-RECV.\nOptimizes analysis of short-lived or transitional connection states."
+        },
+        {
+            "id": 97,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss state big",
+            "example": "ss state big",
+            "explanation": "Filters for standard (large) sockets that are not transitional.\nConcentrates audit on sustained, bidirectional communication streams."
+        },
+        {
+            "id": 98,
+            "category": "Security and Incident Response Use Cases",
+            "command": "ss -tlp sport = :3306",
+            "example": "ss -tlp sport = :3306",
+            "explanation": "Verifies if a database process is listening on terminal port 3306.\nDirectly confirms availability and process-ownership of the MySQL service."
+        },
+        {
+            "id": 99,
+            "category": "Security and Incident Response Use Cases",
+            "command": "ss -at '( dport = :23 or sport = :23 )'",
+            "example": "ss -at '( dport = :23 or sport = :23 )'",
+            "explanation": "Audits the system for active insecure Telnet communication flows.\nIdentifies legacy, plain-text administration sessions that should be secured."
+        },
+        {
+            "id": 100,
+            "category": "Advanced and Combined Real World Analysis",
+            "command": "ss -temoi -4 state established",
+            "example": "ss -temoi -4 state established",
+            "explanation": "The ultimate detailed view for established IPv4 TCP transport units.\nConsolidates memory, timers, PIDs, and internal metrics in one snapshot."
+        }
+    ]
+}

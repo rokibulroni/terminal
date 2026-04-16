@@ -1,0 +1,77 @@
+{
+    "tool": "clair",
+    "description": "Clair: An immensely powerful, enterprise-grade static analysis engine designed natively strictly evaluating continuous delivery integration vulnerabilities directly against integrated global API databases.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Initialization",
+            "command": "clairctl report <image>",
+            "example": "clairctl report ubuntu:latest",
+            "explanation": "Triggers immediate aggressive centralized static evaluation pipelines actively forcing completely mapped structural manifest arrays inherently through explicitly detailed API engines."
+        },
+        {
+            "id": 2,
+            "category": "Report Analysis",
+            "command": "clairctl report --out <format> <image>",
+            "example": "clairctl report --out=json my_app:latest",
+            "explanation": "Overrides baseline output grids strictly enforcing heavily defined continuous localized machine-readable integrations seamlessly feeding into explicit analytical SIEMs."
+        },
+        {
+            "id": 3,
+            "category": "Push Implementations",
+            "command": "clairctl push <image>",
+            "example": "clairctl push vulnerable:latest",
+            "explanation": "Uploads complex extracted local filesystem overlay boundaries directly securely into decoupled active Clair API instances manually indexing completely new image hashes."
+        },
+        {
+            "id": 4,
+            "category": "Pull Evaluations",
+            "command": "clairctl pull <hash>",
+            "example": "clairctl pull sha256:1234abcd...",
+            "explanation": "Downloads extremely massive analytical outputs mapping entirely previously archived heavily centralized evaluations enabling cleanly unmitigated offline analysis checks."
+        },
+        {
+            "id": 5,
+            "category": "API Authentication",
+            "command": "clairctl --config <file> report <target>",
+            "example": "clairctl --config config.yaml report target:v1",
+            "explanation": "Attaches explicit external structural authorization arrays cleanly interacting natively directly bypassing completely gated inherently explicitly internal API limitations."
+        },
+        {
+            "id": 6,
+            "category": "Manifest Mappings",
+            "command": "clairctl manifest <image>",
+            "example": "clairctl manifest my_app:latest",
+            "explanation": "Disassembles massive internal OCI structural limits inherently capturing absolutely essential local detailed Dockerfile instruction layer metrics entirely mapped physically."
+        },
+        {
+            "id": 7,
+            "category": "Clean Dumps",
+            "command": "clairctl export-updaters",
+            "example": "clairctl export-updaters > cve.gz",
+            "explanation": "Dumps enormous heavily synced internal dynamic CVE definitions seamlessly saving deeply configured global intelligence mapping definitions fundamentally strictly to offline disks."
+        },
+        {
+            "id": 8,
+            "category": "Import Dumps",
+            "command": "clairctl import-updaters <file>",
+            "example": "clairctl import-updaters cve.gz",
+            "explanation": "Forcibly replaces internal outdated logic fundamentally feeding immensely massive explicit disconnected tracking archives deeply actively resolving highly isolated internal servers."
+        },
+        {
+            "id": 9,
+            "category": "Debug Executions",
+            "command": "clairctl report -D <image>",
+            "example": "clairctl report -D app:latest",
+            "explanation": "Enables hyper-verbose execution limits extensively completely dropping entire tracking API sequences actively broadcasting precisely explicit runtime variables handling locally."
+        },
+        {
+            "id": 10,
+            "category": "Metrics Tracking",
+            "command": "clairctl serve",
+            "example": "clairctl serve",
+            "explanation": "Boots completely decoupled HTTP analytical infrastructure matrices continuously broadcasting fundamental deep explicitly detailed analytical metric payloads natively actively externally."
+        }
+    ]
+}

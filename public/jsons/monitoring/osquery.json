@@ -1,0 +1,602 @@
+{
+    "tool": "osquery",
+    "description": "Complete osquery command and workflow reference from basic to advanced endpoint monitoring and detection",
+    "total_commands": 85,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Interactive Query Shell",
+            "command": "osqueryi",
+            "example": "osqueryi",
+            "explanation": "Launches the interactive osquery shell for live ad-hoc system querying."
+        },
+        {
+            "id": 2,
+            "category": "Interactive Query Shell",
+            "command": "osqueryi --help",
+            "example": "osqueryi --help",
+            "explanation": "Displays the list of available command-line flags and options for the interactive shell."
+        },
+        {
+            "id": 3,
+            "category": "Interactive Query Shell",
+            "command": ".help",
+            "example": ".help",
+            "explanation": "Lists the available meta-commands within the interactive shell environment."
+        },
+        {
+            "id": 4,
+            "category": "Interactive Query Shell",
+            "command": ".tables",
+            "example": ".tables",
+            "explanation": "Lists all available tables that can be queried on the current operating system."
+        },
+        {
+            "id": 5,
+            "category": "Interactive Query Shell",
+            "command": ".schema",
+            "example": ".schema users",
+            "explanation": "Displays the structure and column definitions for a specific table."
+        },
+        {
+            "id": 6,
+            "category": "Interactive Query Shell",
+            "command": ".mode",
+            "example": ".mode pretty",
+            "explanation": "Sets the output display mode to pretty-print, line, list, or csv for better readability."
+        },
+        {
+            "id": 7,
+            "category": "Interactive Query Shell",
+            "command": ".quit",
+            "example": ".quit",
+            "explanation": "Exits the interactive osquery shell safely."
+        },
+        {
+            "id": 8,
+            "category": "System Information",
+            "command": "SELECT version FROM osquery_info;",
+            "example": "SELECT version FROM osquery_info;",
+            "explanation": "Retrieves the currently installed version of the osquery agent."
+        },
+        {
+            "id": 9,
+            "category": "System Information",
+            "command": "SELECT * FROM system_info;",
+            "example": "SELECT hostname, cpu_brand, physical_memory FROM system_info;",
+            "explanation": "Queries core hardware and operating system details including hostname and memory."
+        },
+        {
+            "id": 10,
+            "category": "System Information",
+            "command": "SELECT * FROM uptime;",
+            "example": "SELECT total_seconds FROM uptime;",
+            "explanation": "Checks how long the system has been running since the last reboot."
+        },
+        {
+            "id": 11,
+            "category": "System Information",
+            "command": "SELECT * FROM os_version;",
+            "example": "SELECT name, major, minor, patch FROM os_version;",
+            "explanation": "Details the specific operating system version and build number."
+        },
+        {
+            "id": 12,
+            "category": "User & Account Auditing",
+            "command": "SELECT * FROM users;",
+            "example": "SELECT uid, username, description FROM users;",
+            "explanation": "Lists all local user accounts present on the system."
+        },
+        {
+            "id": 13,
+            "category": "User & Account Auditing",
+            "command": "SELECT * FROM groups;",
+            "example": "SELECT gid, groupname FROM groups;",
+            "explanation": "Lists all local groups defined on the system."
+        },
+        {
+            "id": 14,
+            "category": "User & Account Auditing",
+            "command": "SELECT * FROM logged_in_users;",
+            "example": "SELECT user, tty, host, time FROM logged_in_users;",
+            "explanation": "Identifies users currently logged into the system and their source."
+        },
+        {
+            "id": 15,
+            "category": "User & Account Auditing",
+            "command": "SELECT * FROM last;",
+            "example": "SELECT username, time, type FROM last;",
+            "explanation": "Reviews the history of system logins and reboots."
+        },
+        {
+            "id": 16,
+            "category": "Process Monitoring",
+            "command": "SELECT * FROM processes;",
+            "example": "SELECT pid, name, path, cmdline FROM processes;",
+            "explanation": "Enumerates all currently running processes on the host."
+        },
+        {
+            "id": 17,
+            "category": "Process Monitoring",
+            "command": "SELECT * FROM process_envs;",
+            "example": "SELECT pid, key, value FROM process_envs WHERE pid = 1;",
+            "explanation": " inspects the environment variables associated with a specific process ID."
+        },
+        {
+            "id": 18,
+            "category": "Process Monitoring",
+            "command": "SELECT * FROM process_open_files;",
+            "example": "SELECT pid, fd, path FROM process_open_files WHERE pid = <PID>;",
+            "explanation": "Lists all file descriptors currently opened by a specific process."
+        },
+        {
+            "id": 19,
+            "category": "Process Monitoring",
+            "command": "SELECT * FROM process_memory_map;",
+            "example": "SELECT pid, path, permissions FROM process_memory_map WHERE pid = <PID>;",
+            "explanation": "Examines the memory map of a process to see loaded shared libraries."
+        },
+        {
+            "id": 20,
+            "category": "Network Analysis",
+            "command": "SELECT * FROM listening_ports;",
+            "example": "SELECT port, protocol, address FROM listening_ports;",
+            "explanation": "Identifies ports that are currently in a listening state on the host."
+        },
+        {
+            "id": 21,
+            "category": "Network Analysis",
+            "command": "SELECT * FROM process_open_sockets;",
+            "example": "SELECT pid, local_port, remote_address, remote_port FROM process_open_sockets;",
+            "explanation": "Maps active network sockets to the processes that own them."
+        },
+        {
+            "id": 22,
+            "category": "Network Analysis",
+            "command": "SELECT * FROM interface_addresses;",
+            "example": "SELECT interface, address, mask FROM interface_addresses;",
+            "explanation": "Lists the IP addresses assigned to network interfaces."
+        },
+        {
+            "id": 23,
+            "category": "Network Analysis",
+            "command": "SELECT * FROM dns_resolvers;",
+            "example": "SELECT * FROM dns_resolvers;",
+            "explanation": "Checks the DNS servers configured for the system."
+        },
+        {
+            "id": 24,
+            "category": "Network Analysis",
+            "command": "SELECT * FROM etc_hosts;",
+            "example": "SELECT address, hostnames FROM etc_hosts;",
+            "explanation": "Reads the static host definitions from the hosts file."
+        },
+        {
+            "id": 25,
+            "category": "File System Inspection",
+            "command": "SELECT * FROM file;",
+            "example": "SELECT path, size, mode, uid FROM file WHERE path = '/etc/passwd';",
+            "explanation": "Retrieves metadata for a specific file on the disk."
+        },
+        {
+            "id": 26,
+            "category": "File System Inspection",
+            "command": "SELECT * FROM hash;",
+            "example": "SELECT path, sha256 FROM hash WHERE path = '/bin/ls';",
+            "explanation": "Calculates the cryptographic hash (MD5, SHA1, SHA256) of a specific file."
+        },
+        {
+            "id": 27,
+            "category": "File System Inspection",
+            "command": "Recursive File Search",
+            "example": "SELECT path, filename FROM file WHERE directory = '/etc/' AND filename LIKE '%.conf';",
+            "explanation": "Performs a wildcard search for files within a specific directory."
+        },
+        {
+            "id": 28,
+            "category": "Software & Packages",
+            "command": "SELECT * FROM deb_packages;",
+            "example": "SELECT name, version, status FROM deb_packages;",
+            "explanation": "Lists installed Debian-based packages (Ubuntu/Debian systems)."
+        },
+        {
+            "id": 29,
+            "category": "Software & Packages",
+            "command": "SELECT * FROM rpm_packages;",
+            "example": "SELECT name, version, release FROM rpm_packages;",
+            "explanation": "Lists installed RPM-based packages (RHEL/CentOS systems)."
+        },
+        {
+            "id": 30,
+            "category": "Software & Packages",
+            "command": "SELECT * FROM python_packages;",
+            "example": "SELECT name, version FROM python_packages;",
+            "explanation": "Enumerates globally installed Python libraries."
+        },
+        {
+            "id": 31,
+            "category": "Persistence Mechanisms",
+            "command": "SELECT * FROM startup_items;",
+            "example": "SELECT name, path, status FROM startup_items;",
+            "explanation": "Checks for items configured to run automatically at system boot."
+        },
+        {
+            "id": 32,
+            "category": "Persistence Mechanisms",
+            "command": "SELECT * FROM crontab;",
+            "example": "SELECT command, path FROM crontab;",
+            "explanation": "Audits scheduled cron jobs for all users."
+        },
+        {
+            "id": 33,
+            "category": "Persistence Mechanisms",
+            "command": "SELECT * FROM systemd_units;",
+            "example": "SELECT id, active_state, load_state FROM systemd_units;",
+            "explanation": "Inspects systemd services and their current status on Linux systems."
+        },
+        {
+            "id": 34,
+            "category": "Persistence Mechanisms",
+            "command": "SELECT * FROM kernel_modules;",
+            "example": "SELECT name, size FROM kernel_modules;",
+            "explanation": "Lists loaded kernel modules or drivers which could indicate rootkits."
+        },
+        {
+            "id": 35,
+            "category": "Daemon Configuration",
+            "command": "osqueryd --flagfile",
+            "example": "osqueryd --flagfile /etc/osquery/osquery.flags",
+            "explanation": "Starts the osquery daemon using a specific flag file for configuration."
+        },
+        {
+            "id": 36,
+            "category": "Daemon Configuration",
+            "command": "osqueryd --config_check",
+            "example": "osqueryd --config_check",
+            "explanation": "Validates the syntax of the configuration file without starting the daemon."
+        },
+        {
+            "id": 37,
+            "category": "Daemon Configuration",
+            "command": "osqueryd --verbose",
+            "example": "osqueryd --verbose",
+            "explanation": "Enables verbose logging to standard output for debugging daemon issues."
+        },
+        {
+            "id": 38,
+            "category": "Daemon Configuration",
+            "command": "osqueryd --pidfile",
+            "example": "osqueryd --pidfile /var/run/osqueryd.pid",
+            "explanation": "Specifies the location to write the daemon's process ID file."
+        },
+        {
+            "id": 39,
+            "category": "Logging & Output",
+            "command": "osqueryi --json",
+            "example": "osqueryi --json \"SELECT * FROM users\"",
+            "explanation": "Executes a query and outputs the result in strict JSON format."
+        },
+        {
+            "id": 40,
+            "category": "Logging & Output",
+            "command": "osqueryi --csv",
+            "example": "osqueryi --csv \"SELECT * FROM users\"",
+            "explanation": "Executes a query and outputs the result in CSV format."
+        },
+        {
+            "id": 41,
+            "category": "Logging & Output",
+            "command": "osqueryd --logger_plugin",
+            "example": "osqueryd --logger_plugin filesystem",
+            "explanation": "Configures the daemon to write logs to the local filesystem."
+        },
+        {
+            "id": 42,
+            "category": "Logging & Output",
+            "command": "osqueryd --logger_path",
+            "example": "osqueryd --logger_path /var/log/osquery",
+            "explanation": "Sets the specific directory where filesystem logs will be stored."
+        },
+        {
+            "id": 43,
+            "category": "Performance Tuning",
+            "command": "osqueryd --watchdog_level",
+            "example": "osqueryd --watchdog_level 3",
+            "explanation": "Sets the strictness of the watchdog process that monitors daemon resource usage."
+        },
+        {
+            "id": 44,
+            "category": "Performance Tuning",
+            "command": "osqueryd --watchdog_memory_limit",
+            "example": "osqueryd --watchdog_memory_limit 500",
+            "explanation": "Limits the memory (in MB) the daemon can use before being restarted."
+        },
+        {
+            "id": 45,
+            "category": "Performance Tuning",
+            "command": "osqueryd --watchdog_utilization_limit",
+            "example": "osqueryd --watchdog_utilization_limit 20",
+            "explanation": "Limits the CPU utilization percentage the daemon is allowed to consume."
+        },
+        {
+            "id": 46,
+            "category": "Event Auditing",
+            "command": "SELECT * FROM process_events;",
+            "example": "SELECT pid, path, time FROM process_events;",
+            "explanation": "Queries the real-time event buffer for process executions (requires audit enabling)."
+        },
+        {
+            "id": 47,
+            "category": "Event Auditing",
+            "command": "SELECT * FROM file_events;",
+            "example": "SELECT target_path, action, time FROM file_events;",
+            "explanation": "Queries the event buffer for file system changes monitored by FIM configurations."
+        },
+        {
+            "id": 48,
+            "category": "Event Auditing",
+            "command": "SELECT * FROM socket_events;",
+            "example": "SELECT local_port, remote_address, action FROM socket_events;",
+            "explanation": "Queries the event buffer for network socket connections and binds."
+        },
+        {
+            "id": 49,
+            "category": "Event Auditing",
+            "command": "osqueryd --disable_events=false",
+            "example": "osqueryd --disable_events=false",
+            "explanation": "Ensures the eventing subsystem is enabled for table based auditing."
+        },
+        {
+            "id": 50,
+            "category": "Event Auditing",
+            "command": "osqueryd --events_expiry",
+            "example": "osqueryd --events_expiry 3600",
+            "explanation": "Sets the time in seconds before events expire from the internal buffer."
+        },
+        {
+            "id": 51,
+            "category": "TLS & Remote Logging",
+            "command": "osqueryd --tls_hostname",
+            "example": "osqueryd --tls_hostname osquery.example.com",
+            "explanation": "Defines the remote TLS server hostname for configuration and log shipping."
+        },
+        {
+            "id": 52,
+            "category": "TLS & Remote Logging",
+            "command": "osqueryd --enroll_secret_path",
+            "example": "osqueryd --enroll_secret_path /etc/osquery/enroll.secret",
+            "explanation": "Points to the file containing the shared secret used for authenticating to the TLS server."
+        },
+        {
+            "id": 53,
+            "category": "TLS & Remote Logging",
+            "command": "osqueryd --config_plugin tls",
+            "example": "osqueryd --config_plugin tls",
+            "explanation": "Instructs the daemon to pull its configuration from the remote TLS server."
+        },
+        {
+            "id": 54,
+            "category": "SOC Monitoring Workflow",
+            "command": "JOIN Processes and Users",
+            "example": "SELECT p.pid, p.name, u.username FROM processes p JOIN users u ON p.uid = u.uid;",
+            "explanation": "Correlates running processes with the specific user account running them."
+        },
+        {
+            "id": 55,
+            "category": "SOC Monitoring Workflow",
+            "command": "JOIN Listening Ports and Processes",
+            "example": "SELECT p.name, l.port, l.protocol FROM listening_ports l JOIN processes p ON l.pid = p.pid;",
+            "explanation": "Identifies exactly which process binary is responsible for an open port."
+        },
+        {
+            "id": 56,
+            "category": "Blue Team Validation",
+            "command": "Verify Firewall Rules",
+            "example": "SELECT * FROM iptables;",
+            "explanation": "Audits the current iptables ruleset to ensure firewall policy compliance."
+        },
+        {
+            "id": 57,
+            "category": "Blue Team Validation",
+            "command": "Check Mount Points",
+            "example": "SELECT device, path, type FROM mounts;",
+            "explanation": "Verifies that filesystems are mounted with correct options (e.g., noexec on tmp)."
+        },
+        {
+            "id": 58,
+            "category": "Blue Team Validation",
+            "command": "Audit SSH Keys",
+            "example": "SELECT * FROM authorized_keys;",
+            "explanation": "Lists all public keys authorized to SSH into user accounts."
+        },
+        {
+            "id": 59,
+            "category": "Blue Team Validation",
+            "command": "Detect World Writable Files",
+            "example": "SELECT path, mode FROM file WHERE directory = '/etc/' AND mode LIKE '%777';",
+            "explanation": "Scans critical directories for files that are writable by any user."
+        },
+        {
+            "id": 60,
+            "category": "Purple Team Simulation",
+            "command": "Detect Reverse Shells",
+            "example": "SELECT * FROM processes WHERE cmdline LIKE '%/dev/tcp/%';",
+            "explanation": "Hunts for common bash reverse shell patterns in command lines."
+        },
+        {
+            "id": 61,
+            "category": "Purple Team Simulation",
+            "command": "Detect Suspicious Parentage",
+            "example": "SELECT p1.name AS parent, p2.name AS child FROM processes p1 JOIN processes p2 ON p1.pid = p2.parent WHERE p1.name = 'httpd' AND p2.name = 'bash';",
+            "explanation": "Identifies web server processes spawning unexpected shells."
+        },
+        {
+            "id": 62,
+            "category": "Purple Team Simulation",
+            "command": "Detect Deleted Executables",
+            "example": "SELECT name, pid, on_disk FROM processes WHERE on_disk = 0;",
+            "explanation": "Finds processes running from binaries that have been deleted from the disk."
+        },
+        {
+            "id": 63,
+            "category": "Purple Team Simulation",
+            "command": "Detect High Port Traffic",
+            "example": "SELECT * FROM process_open_sockets WHERE remote_port > 1024 AND state = 'ESTABLISHED';",
+            "explanation": "Monitors for connections to non-standard high ports often used for C2."
+        },
+        {
+            "id": 64,
+            "category": "Threat Hunting",
+            "command": "Hunt for Netcat",
+            "example": "SELECT pid, cmdline FROM processes WHERE name = 'nc' OR name = 'netcat';",
+            "explanation": "Scans active processes for the presence of the netcat utility."
+        },
+        {
+            "id": 65,
+            "category": "Threat Hunting",
+            "command": "Hunt for Base64 Commands",
+            "example": "SELECT * FROM shell_history WHERE command LIKE '%base64%';",
+            "explanation": "Searches user shell history for potentially obfuscated base64 commands."
+        },
+        {
+            "id": 66,
+            "category": "Threat Hunting",
+            "command": "Hash Running Processes",
+            "example": "SELECT p.name, p.pid, h.sha256 FROM processes p JOIN hash h ON p.path = h.path;",
+            "explanation": "Calculates the SHA256 hash of the binary for every running process."
+        },
+        {
+            "id": 67,
+            "category": "Incident Response",
+            "command": "Dump Process List JSON",
+            "example": "osqueryi --json \"SELECT * FROM processes\"",
+            "explanation": "Exports the full process state to JSON for offline analysis during an incident."
+        },
+        {
+            "id": 68,
+            "category": "Incident Response",
+            "command": "Dump Open Files JSON",
+            "example": "osqueryi --json \"SELECT * FROM process_open_files\"",
+            "explanation": "Captures a snapshot of all files held open by processes for forensic review."
+        },
+        {
+            "id": 69,
+            "category": "Incident Response",
+            "command": "Identify Malware Path",
+            "example": "SELECT path, size FROM file WHERE directory = '/tmp' AND size > 0;",
+            "explanation": "Quickly inspects temporary directories for dropped executable payloads."
+        },
+        {
+            "id": 70,
+            "category": "Incident Response",
+            "command": "Check Sudoers Changes",
+            "example": "SELECT * FROM file WHERE path = '/etc/sudoers';",
+            "explanation": "Verifies the metadata of the sudoers file to check for unauthorized modification."
+        },
+        {
+            "id": 71,
+            "category": "Automation & Scripting",
+            "command": "Batch Query Execution",
+            "example": "osqueryi < query_list.sql",
+            "explanation": "Feeds a file containing multiple SQL queries directly into the osquery shell."
+        },
+        {
+            "id": 72,
+            "category": "Automation & Scripting",
+            "command": "Pack Configuration",
+            "example": "SELECT * FROM osquery_packs;",
+            "explanation": "Introspects the currently loaded query packs defined in the configuration."
+        },
+        {
+            "id": 73,
+            "category": "Automation & Scripting",
+            "command": "Schedule Introspection",
+            "example": "SELECT * FROM osquery_schedule;",
+            "explanation": "Displays the execution schedule and performance stats of configured queries."
+        },
+        {
+            "id": 74,
+            "category": "Advanced Configuration",
+            "command": "Extensions Loading",
+            "example": "osqueryi --extension /path/to/extension.ext",
+            "explanation": "Loads an external extension to add new tables or capabilities to osquery."
+        },
+        {
+            "id": 75,
+            "category": "Advanced Configuration",
+            "command": "Custom Socket Path",
+            "example": "osqueryi --socket /var/osquery/osquery.em",
+            "explanation": "Connects the shell to a daemon running on a non-standard socket path."
+        },
+        {
+            "id": 76,
+            "category": "Container Monitoring",
+            "command": "Docker Info",
+            "example": "SELECT * FROM docker_info;",
+            "explanation": "Retrieves high-level information about the Docker daemon if present."
+        },
+        {
+            "id": 77,
+            "category": "Container Monitoring",
+            "command": "Docker Containers",
+            "example": "SELECT id, image, status FROM docker_containers;",
+            "explanation": "Lists active Docker containers and their current running status."
+        },
+        {
+            "id": 78,
+            "category": "MacOS Specific",
+            "command": "Launchd Agents",
+            "example": "SELECT label, path, run_at_load FROM launchd;",
+            "explanation": "Audits macOS launch daemons and agents for persistence."
+        },
+        {
+            "id": 79,
+            "category": "MacOS Specific",
+            "command": "Gatekeeper Status",
+            "example": "SELECT assessments_enabled FROM gatekeeper;",
+            "explanation": "Checks if macOS Gatekeeper security assessment is enabled."
+        },
+        {
+            "id": 80,
+            "category": "Windows Specific",
+            "command": "Services Inspection",
+            "example": "SELECT name, display_name, status FROM services;",
+            "explanation": "Lists installed services and their running state on Windows."
+        },
+        {
+            "id": 81,
+            "category": "Windows Specific",
+            "command": "Registry Auto-Start",
+            "example": "SELECT name, data FROM registry WHERE key LIKE '%Run%';",
+            "explanation": "Queries the Windows registry for keys that execute programs at startup."
+        },
+        {
+            "id": 82,
+            "category": "Cleanup",
+            "command": "Flush Logs",
+            "example": "osqueryd --force",
+            "explanation": "Forces the daemon to flush logs to the configured backend immediately."
+        },
+        {
+            "id": 83,
+            "category": "Cleanup",
+            "command": "Kill Daemon",
+            "example": "pkill osqueryd",
+            "explanation": "Terminates the osquery daemon process (Linux/Unix)."
+        },
+        {
+            "id": 84,
+            "category": "Cleanup",
+            "command": "Remove Pidfile",
+            "example": "rm /var/run/osqueryd.pid",
+            "explanation": "Manually removes the pidfile if the daemon crashed or did not exit cleanly."
+        },
+        {
+            "id": 85,
+            "category": "Verification",
+            "command": "Check Daemon Status",
+            "example": "ps aux | grep osqueryd",
+            "explanation": "Verifies from the system shell that the osquery daemon is running."
+        }
+    ]
+}

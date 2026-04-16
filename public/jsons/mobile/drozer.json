@@ -1,0 +1,77 @@
+{
+    "tool": "drozer",
+    "description": "Drozer: A comprehensive security and attack framework explicitly tailored to bridge deep physical exploitation across Android Inter-Process Communication (IPC) layers.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Console Attachment",
+            "command": "drozer console connect",
+            "example": "drozer console connect",
+            "explanation": "Initializes the python REPL socket mapping establishing a high-bandwidth connection heavily interfacing with the Drozer APK agent installed natively on the phone."
+        },
+        {
+            "id": 2,
+            "category": "Package Information",
+            "command": "run app.package.info -a <package>",
+            "example": "run app.package.info -a com.target.app",
+            "explanation": "Disects absolute localized Android architectures pulling UUIDs, installed system paths, permission data, and deeply embedded proprietary package logic."
+        },
+        {
+            "id": 3,
+            "category": "Attack Surface",
+            "command": "run app.package.attacksurface <package>",
+            "example": "run app.package.attacksurface com.target.app",
+            "explanation": "Pings the AndroidManifest explicitly charting exactly how many Activities, Providers, Receivers, and Services are inherently publicly mapped and exploitable."
+        },
+        {
+            "id": 4,
+            "category": "Activity Extraction",
+            "command": "run app.activity.info -a <package>",
+            "example": "run app.activity.info -a com.target.app",
+            "explanation": "Maps deeply unprotected Activity intents rendering an explicit view representing exact classes that can automatically be initialized bypassing authentication layers."
+        },
+        {
+            "id": 5,
+            "category": "Activity Bypassing",
+            "command": "run app.activity.start --component <pkg> <class>",
+            "example": "run app.activity.start --component com.target.app com.target.AdminDash",
+            "explanation": "Fires a custom explicit Android Intent structurally coercing the Android OS to immediately execute the identified highly vulnerable hidden Administrator Dashboard."
+        },
+        {
+            "id": 6,
+            "category": "Content Provider Enumeration",
+            "command": "run app.provider.info -a <package>",
+            "example": "run app.provider.info -a com.target.app",
+            "explanation": "Evaluates internal raw SQL databases fundamentally verifying whether external URI endpoints uniquely allow unauthenticated queries exposing massive datasets."
+        },
+        {
+            "id": 7,
+            "category": "Database Querying",
+            "command": "run app.provider.query <uri>",
+            "example": "run app.provider.query content://com.target.provider/users",
+            "explanation": "Forcefully dumps and inherently leaks massive raw internal SQLite matrices bypassing API restrictions exactly like standard generic Web SQL Injection attacks."
+        },
+        {
+            "id": 8,
+            "category": "Database Vulnerability",
+            "command": "run scanner.provider.injection -a <package>",
+            "example": "run scanner.provider.injection -a com.target.app",
+            "explanation": "Executes fully automated SQL payload sweeping explicitly injecting randomized matrices locating definitively exploitable Content Provider API mappings."
+        },
+        {
+            "id": 9,
+            "category": "Path Traversal",
+            "command": "run scanner.provider.traversal -a <package>",
+            "example": "run scanner.provider.traversal -a com.target.app",
+            "explanation": "Automates complex relative-path resolution hacking cleanly attempting to manipulate URI links strictly retrieving `/etc/hosts` arrays across app bounds."
+        },
+        {
+            "id": 10,
+            "category": "Broadcast Execution",
+            "command": "run app.broadcast.send --action",
+            "example": "run app.broadcast.send --action android.intent.action.BOOT_COMPLETED",
+            "explanation": "Simulates complex hidden hardware triggers (e.g. system reboots, SMS received) tricking isolated Android packages to aggressively initialize background tracking daemons."
+        }
+    ]
+}

@@ -1,0 +1,497 @@
+{
+    "tool": "ldapsearch",
+    "description": "Complete ldapsearch command reference covering all options from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Connection",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "explanation": "Performs a basic anonymous query against the target IP using simple authentication."
+        },
+        {
+            "id": 2,
+            "category": "Basic Connection",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=*)\"",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=*)\"",
+            "explanation": "Connects to a hostname and retrieves all objects in the base DN."
+        },
+        {
+            "id": 3,
+            "category": "Authentication",
+            "command": "ldapsearch -x -D \"cn=admin,dc=example,dc=local\" -W -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -D \"cn=admin,dc=example,dc=local\" -W -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "explanation": "Authenticates with a specific Bind DN and prompts the user for the password interactively."
+        },
+        {
+            "id": 4,
+            "category": "Authentication",
+            "command": "ldapsearch -x -D \"cn=admin,dc=example,dc=local\" -w \"P@ssw0rd123\" -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -D \"cn=admin,dc=example,dc=local\" -w \"P@ssw0rd123\" -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "explanation": "Authenticates providing the password inline (less secure, useful for scripts)."
+        },
+        {
+            "id": 5,
+            "category": "Authentication",
+            "command": "ldapsearch -x -D \"EXAMPLE\\Administrator\" -W -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -D \"EXAMPLE\\Administrator\" -W -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "explanation": "Uses the Active Directory down-level logon name format for binding."
+        },
+        {
+            "id": 6,
+            "category": "Authentication",
+            "command": "ldapsearch -x -D \"admin@example.local\" -W -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -D \"admin@example.local\" -W -H ldap://192.168.1.10 -b \"dc=example,dc=local\"",
+            "explanation": "Uses the User Principal Name (UPN) format for binding to Active Directory."
+        },
+        {
+            "id": 7,
+            "category": "Authentication",
+            "command": "ldapsearch -x -D \"cn=admin,dc=example,dc=local\" -y passfile.txt -H ldap://192.168.1.10",
+            "example": "ldapsearch -x -D \"cn=admin,dc=example,dc=local\" -y passfile.txt -H ldap://192.168.1.10",
+            "explanation": "Reads the bind password from a specified file to avoid exposing it in the command history."
+        },
+        {
+            "id": 8,
+            "category": "Security & Encryption",
+            "command": "ldapsearch -x -H ldaps://dc.example.local:636 -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -H ldaps://dc.example.local:636 -b \"dc=example,dc=local\"",
+            "explanation": "Connects over SSL (LDAPS) on the standard secure port 636."
+        },
+        {
+            "id": 9,
+            "category": "Security & Encryption",
+            "command": "ldapsearch -x -Z -H ldap://dc.example.local -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -Z -H ldap://dc.example.local -b \"dc=example,dc=local\"",
+            "explanation": "Initiates a StartTLS operation to upgrade a cleartext connection to an encrypted one."
+        },
+        {
+            "id": 10,
+            "category": "Security & Encryption",
+            "command": "ldapsearch -x -ZZ -H ldap://dc.example.local -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -ZZ -H ldap://dc.example.local -b \"dc=example,dc=local\"",
+            "explanation": "Enforces StartTLS and fails the connection if the TLS upgrade is not successful."
+        },
+        {
+            "id": 11,
+            "category": "Scope Control",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -s base",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -s base",
+            "explanation": "Searches only the base object itself, useful for checking RootDSE or specific object attributes."
+        },
+        {
+            "id": 12,
+            "category": "Scope Control",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -s one",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -s one",
+            "explanation": "Searches one level deep (immediate children) excluding the base object itself."
+        },
+        {
+            "id": 13,
+            "category": "Scope Control",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -s sub",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -s sub",
+            "explanation": "Performs a subtree search, searching the base object and the entire hierarchy below it (default)."
+        },
+        {
+            "id": 14,
+            "category": "Attribute Selection",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(objectClass=person)\" cn mail",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(objectClass=person)\" cn mail",
+            "explanation": "Retrieves only the Common Name and Email attributes for person objects."
+        },
+        {
+            "id": 15,
+            "category": "Attribute Selection",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(objectClass=*)\" * +",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(objectClass=*)\" * +",
+            "explanation": "Retrieves all user attributes (*) and all operational attributes (+) like modifyTimestamp."
+        },
+        {
+            "id": 16,
+            "category": "Attribute Selection",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -u \"(objectClass=person)\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -u \"(objectClass=person)\"",
+            "explanation": "Displays the User Friendly Name (UFN) of the Distinguished Name in the output."
+        },
+        {
+            "id": 17,
+            "category": "Attribute Selection",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -A \"(objectClass=person)\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -A \"(objectClass=person)\"",
+            "explanation": "Retrieves attribute names only without their values, useful for schema discovery."
+        },
+        {
+            "id": 18,
+            "category": "Output Formatting",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -LL",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -LL",
+            "explanation": "Outputs in LDIF format without comments, suitable for processing by other tools."
+        },
+        {
+            "id": 19,
+            "category": "Output Formatting",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -LLL",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -LLL",
+            "explanation": "Outputs in raw LDIF format without comments or version information."
+        },
+        {
+            "id": 20,
+            "category": "Output Formatting",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -L",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -L",
+            "explanation": "Outputs in LDIF format v1 (standard default)."
+        },
+        {
+            "id": 21,
+            "category": "Referrals & Aliases",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -C",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -C",
+            "explanation": "Automatically chases referrals to other LDAP servers."
+        },
+        {
+            "id": 22,
+            "category": "Referrals & Aliases",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -M",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -M",
+            "explanation": "Sends the ManageDsaIT control, instructing the server to return referral objects as entries rather than chasing them."
+        },
+        {
+            "id": 23,
+            "category": "Referrals & Aliases",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -a always",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -a always",
+            "explanation": "Always dereference aliases during both searching and finding."
+        },
+        {
+            "id": 24,
+            "category": "Performance & Limits",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -z 10",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -z 10",
+            "explanation": "Limits the number of entries returned to a maximum of 10."
+        },
+        {
+            "id": 25,
+            "category": "Performance & Limits",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -l 5",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -l 5",
+            "explanation": "Sets a time limit of 5 seconds for the search to complete."
+        },
+        {
+            "id": 26,
+            "category": "Advanced Controls",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -E pr=1000/noprompt",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -E pr=1000/noprompt",
+            "explanation": "Uses the Paged Results control to retrieve datasets larger than the server's size limit (e.g., AD's 1000 limit)."
+        },
+        {
+            "id": 27,
+            "category": "Advanced Controls",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -E sss=-cn",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -E sss=-cn",
+            "explanation": "Requests Server Side Sorting of results by Common Name in descending order."
+        },
+        {
+            "id": 28,
+            "category": "SASL Authentication",
+            "command": "ldapsearch -H ldap://dc.example.local -Y GSSAPI -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -H ldap://dc.example.local -Y GSSAPI -b \"dc=example,dc=local\"",
+            "explanation": "Authenticates using Kerberos (GSSAPI) via the current user's Ticket Granting Ticket."
+        },
+        {
+            "id": 29,
+            "category": "SASL Authentication",
+            "command": "ldapsearch -H ldap://dc.example.local -Y DIGEST-MD5 -U admin -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -H ldap://dc.example.local -Y DIGEST-MD5 -U admin -b \"dc=example,dc=local\"",
+            "explanation": "Authenticates using the DIGEST-MD5 SASL mechanism for the user 'admin'."
+        },
+        {
+            "id": 30,
+            "category": "SASL Authentication",
+            "command": "ldapsearch -H ldapi:/// -Y EXTERNAL -b \"cn=config\"",
+            "example": "ldapsearch -H ldapi:/// -Y EXTERNAL -b \"cn=config\"",
+            "explanation": "Uses Unix socket (IPC) authentication, often used for root access to local OpenLDAP configuration."
+        },
+        {
+            "id": 31,
+            "category": "SASL Authentication",
+            "command": "ldapsearch -H ldap://dc.example.local -Y GSSAPI -O max -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -H ldap://dc.example.local -Y GSSAPI -O max -b \"dc=example,dc=local\"",
+            "explanation": "Uses GSSAPI with maximum security properties (encryption and integrity protection)."
+        },
+        {
+            "id": 32,
+            "category": "Basic Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(cn=John Doe)\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(cn=John Doe)\"",
+            "explanation": "Filters for objects where the Common Name is exactly 'John Doe'."
+        },
+        {
+            "id": 33,
+            "category": "Basic Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(cn=J*)\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(cn=J*)\"",
+            "explanation": "Filters for objects where the Common Name starts with 'J' (wildcard)."
+        },
+        {
+            "id": 34,
+            "category": "Basic Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(description=*)\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(description=*)\"",
+            "explanation": "Filters for objects where the 'description' attribute is present (not null)."
+        },
+        {
+            "id": 35,
+            "category": "Basic Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(gidNumber>=1000)\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(gidNumber>=1000)\"",
+            "explanation": "Filters for objects where the gidNumber is greater than or equal to 1000."
+        },
+        {
+            "id": 36,
+            "category": "Complex Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(&(objectClass=user)(cn=admin))\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(&(objectClass=user)(cn=admin))\"",
+            "explanation": "Uses the AND operator to find objects that are both a user AND have the common name 'admin'."
+        },
+        {
+            "id": 37,
+            "category": "Complex Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(|(cn=admin)(cn=root))\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(|(cn=admin)(cn=root))\"",
+            "explanation": "Uses the OR operator to find objects that are named 'admin' OR 'root'."
+        },
+        {
+            "id": 38,
+            "category": "Complex Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(&(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))\"",
+            "explanation": "Uses the NOT operator and bitwise logic to find active users (excluding disabled accounts)."
+        },
+        {
+            "id": 39,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=user)\" sAMAccountName",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=user)\" sAMAccountName",
+            "explanation": "Enumerates all user login names (sAMAccountName) in an Active Directory domain."
+        },
+        {
+            "id": 40,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=group)\" cn member",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=group)\" cn member",
+            "explanation": "Enumerates all groups and lists their member DNs."
+        },
+        {
+            "id": 41,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectCategory=Computer)\" name operatingSystem",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectCategory=Computer)\" name operatingSystem",
+            "explanation": "Enumerates all computer objects and their operating system versions."
+        },
+        {
+            "id": 42,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(servicePrincipalName=*)\" servicePrincipalName",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(servicePrincipalName=*)\" servicePrincipalName",
+            "explanation": "Performs 'Kerberoasting' recon by identifying accounts with Service Principal Names (SPNs)."
+        },
+        {
+            "id": 43,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(adminCount=1)\" cn",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(adminCount=1)\" cn",
+            "explanation": "Identifies high-value targets by searching for objects protected by AdminSDHolder (adminCount=1)."
+        },
+        {
+            "id": 44,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(userAccountControl:1.2.840.113556.1.4.803:=524288)\" cn",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(userAccountControl:1.2.840.113556.1.4.803:=524288)\" cn",
+            "explanation": "Identifies accounts configured with 'Trusted for Delegation' (risky configuration)."
+        },
+        {
+            "id": 45,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(userAccountControl:1.2.840.113556.1.4.803:=4194304)\" cn",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(userAccountControl:1.2.840.113556.1.4.803:=4194304)\" cn",
+            "explanation": "Identifies accounts with 'Do not require Kerberos preauthentication' enabled (AS-REP Roasting targets)."
+        },
+        {
+            "id": 46,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(pwdLastSet=0)\" cn",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(pwdLastSet=0)\" cn",
+            "explanation": "Finds accounts that must change their password at next logon."
+        },
+        {
+            "id": 47,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(userAccountControl:1.2.840.113556.1.4.803:=65536)\" cn",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(userAccountControl:1.2.840.113556.1.4.803:=65536)\" cn",
+            "explanation": "Finds accounts where the password is set to never expire."
+        },
+        {
+            "id": 48,
+            "category": "Active Directory Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(description=*password*)\" description",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(description=*password*)\" description",
+            "explanation": "Searches for the string 'password' inside description fields, a common place for leaked credentials."
+        },
+        {
+            "id": 49,
+            "category": "Server Information",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -s base -b \"\" +",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -s base -b \"\" +",
+            "explanation": "Queries the RootDSE (empty base DN) for operational attributes to discover server capabilities and contexts."
+        },
+        {
+            "id": 50,
+            "category": "Server Information",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -s base -b \"cn=Subschema\" attributeTypes",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -s base -b \"cn=Subschema\" attributeTypes",
+            "explanation": "Queries the LDAP schema to list all defined attribute types."
+        },
+        {
+            "id": 51,
+            "category": "Server Information",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -s base -b \"\" namingContexts",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -s base -b \"\" namingContexts",
+            "explanation": "Retrieves the naming contexts to identify valid base DNs for future searches."
+        },
+        {
+            "id": 52,
+            "category": "Advanced Output",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -t",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -t",
+            "explanation": "Writes non-printable values (like binary photos or certificates) to temporary files."
+        },
+        {
+            "id": 53,
+            "category": "Advanced Output",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -T /tmp/ldap",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -T /tmp/ldap",
+            "explanation": "Writes binary values to temporary files in a specified directory."
+        },
+        {
+            "id": 54,
+            "category": "Debug & Verbose",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -v",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -v",
+            "explanation": "Runs in verbose mode, showing diagnostics to standard error."
+        },
+        {
+            "id": 55,
+            "category": "Debug & Verbose",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -d 1",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -d 1",
+            "explanation": "Runs with debug level 1 (trace) to view detailed connection handling information."
+        },
+        {
+            "id": 56,
+            "category": "Debug & Verbose",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -n",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -n",
+            "explanation": "Performs a dry run, showing what would be done without actually connecting to the server."
+        },
+        {
+            "id": 57,
+            "category": "File Input",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -f filters.txt -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -f filters.txt -b \"dc=example,dc=local\"",
+            "explanation": "Reads a series of filters from a file and performs a search for each one."
+        },
+        {
+            "id": 58,
+            "category": "Network",
+            "command": "ldapsearch -x -H ldap://[fe80::1] -b \"dc=example,dc=local\"",
+            "example": "ldapsearch -x -H ldap://[fe80::1] -b \"dc=example,dc=local\"",
+            "explanation": "Connects to an LDAP server using an IPv6 address literal."
+        },
+        {
+            "id": 59,
+            "category": "Operational Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"CN=Policies,CN=System,DC=example,DC=local\" -s sub \"(objectClass=*)\"",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"CN=Policies,CN=System,DC=example,DC=local\" -s sub \"(objectClass=*)\"",
+            "explanation": "Retrieves Group Policy Objects (GPO) information from the System container."
+        },
+        {
+            "id": 60,
+            "category": "Operational Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"DC=ForestDnsZones,DC=example,DC=local\" \"(objectClass=*)\"",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"DC=ForestDnsZones,DC=example,DC=local\" \"(objectClass=*)\"",
+            "explanation": "Enumerates DNS records stored within the Active Directory Forest DNS Zones."
+        },
+        {
+            "id": 61,
+            "category": "LAPS Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(ms-Mcs-AdmPwd=*)\" ms-Mcs-AdmPwd",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(ms-Mcs-AdmPwd=*)\" ms-Mcs-AdmPwd",
+            "explanation": "Attempts to retrieve cleartext Local Administrator Password Solution (LAPS) passwords."
+        },
+        {
+            "id": 62,
+            "category": "Exchange Recon",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=msExchExchangeServer)\"",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(objectClass=msExchExchangeServer)\"",
+            "explanation": "Identifies Microsoft Exchange servers within the environment."
+        },
+        {
+            "id": 63,
+            "category": "Blue Team Audit",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(&(objectClass=user)(!(pwdLastSet=*)))\"",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(&(objectClass=user)(!(pwdLastSet=*)))\"",
+            "explanation": "Finds users who have never set a password (potential stale or uninitialized accounts)."
+        },
+        {
+            "id": 64,
+            "category": "Blue Team Audit",
+            "command": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(&(objectCategory=person)(objectClass=user)(primaryGroupID=512))\"",
+            "example": "ldapsearch -x -H ldap://dc.example.local -b \"dc=example,dc=local\" \"(&(objectCategory=person)(objectClass=user)(primaryGroupID=512))\"",
+            "explanation": "Finds users whose Primary Group ID is 512 (Domain Admins), verifying high-privilege membership."
+        },
+        {
+            "id": 65,
+            "category": "Advanced Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(cn~=john)\"",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(cn~=john)\"",
+            "explanation": "Uses the 'approximate' (sounds like) operator to find values that sound like 'john'."
+        },
+        {
+            "id": 66,
+            "category": "Schema Recon",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"cn=schema\" -s base objectClasses",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"cn=schema\" -s base objectClasses",
+            "explanation": "Dumps the full list of Object Classes defined in the schema."
+        },
+        {
+            "id": 67,
+            "category": "LDIF Import Format",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -L > backup.ldif",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -L > backup.ldif",
+            "explanation": "Redirects standard output to a file to create a backup in LDIF format."
+        },
+        {
+            "id": 68,
+            "category": "Advanced",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -E !pr=1000/noprompt",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -E !pr=1000/noprompt",
+            "explanation": "Uses the 'Critical' (!) flag with paging, forcing the server to return an error if it doesn't support paging."
+        },
+        {
+            "id": 69,
+            "category": "Attribute Filtering",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(objectClass=*)\" 1.1",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" \"(objectClass=*)\" 1.1",
+            "explanation": "Requests the special attribute '1.1', which tells the server to return entries with NO attributes (DNs only)."
+        },
+        {
+            "id": 70,
+            "category": "Time Limit",
+            "command": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -l 0",
+            "example": "ldapsearch -x -H ldap://192.168.1.10 -b \"dc=example,dc=local\" -l 0",
+            "explanation": "Sets the time limit to 0 (unlimited), instructing the client to wait indefinitely for the server response."
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+  "tool": "journalctl",
+  "description": "Journalctl allows for complex querying and reading of the detailed binary log data collected by systemd.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Access",
+      "command": "journalctl",
+      "example": "journalctl",
+      "explanation": "Starts paging through all chronologically assembled systemd logs from the beginning of recorded history."
+    },
+    {
+      "id": 2,
+      "category": "Tailing",
+      "command": "journalctl -f",
+      "example": "journalctl -f",
+      "explanation": "Continually follows newly generated logs in real-time. Equivalent to 'tail -f'."
+    },
+    {
+      "id": 3,
+      "category": "Tailing",
+      "command": "journalctl -n <lines>",
+      "example": "journalctl -n 50",
+      "explanation": "Simply prints the exact specified number of the most recent log lines."
+    },
+    {
+      "id": 4,
+      "category": "Filtering",
+      "command": "journalctl -u <service_name>",
+      "example": "journalctl -u sshd",
+      "explanation": "Strictly filters tracking metadata so only logs belonging to the specified systemd unit/service are shown."
+    },
+    {
+      "id": 5,
+      "category": "Filtering",
+      "command": "journalctl -p <priority_level>",
+      "example": "journalctl -p err",
+      "explanation": "Returns logs restricted by severity level. (Levels: 'emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug')."
+    },
+    {
+      "id": 6,
+      "category": "Boot Tracking",
+      "command": "journalctl -b",
+      "example": "journalctl -b",
+      "explanation": "Isolates and prints all logs exclusively tied to the current system boot sequence."
+    },
+    {
+      "id": 7,
+      "category": "Boot Tracking",
+      "command": "journalctl -b -<boot_offset>",
+      "example": "journalctl -b -1",
+      "explanation": "Reviews logs exclusively attached to historical boots. (-1 is the previous boot, -2 is two boots ago)."
+    },
+    {
+      "id": 8,
+      "category": "Time Boxing",
+      "command": "journalctl --since=\"<time>\" --until=\"<time>\"",
+      "example": "journalctl --since=\"2023-01-01 12:00:00\" --until=\"1 hour ago\"",
+      "explanation": "Parses logs bounded by explicit timestamps or human-readable time intervals."
+    },
+    {
+      "id": 9,
+      "category": "Information",
+      "command": "journalctl --disk-usage",
+      "example": "journalctl --disk-usage",
+      "explanation": "Displays the precise amount of disk space occupied by the compiled binary journal storage."
+    },
+    {
+      "id": 10,
+      "category": "Maintenance",
+      "command": "journalctl --vacuum-size=<size>",
+      "example": "journalctl --vacuum-size=500M",
+      "explanation": "Forcefully cleans out old logs, restricting the maximum journal archive size to the provided parameter."
+    }
+  ]
+}

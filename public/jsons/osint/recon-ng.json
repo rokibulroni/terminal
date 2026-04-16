@@ -1,0 +1,77 @@
+{
+    "tool": "recon-ng",
+    "description": "Recon-ng: A full-featured Web Reconnaissance framework built in Python mirroring Metasploit's powerful internal database and modular architecture.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Initialization",
+            "command": "recon-ng",
+            "example": "recon-ng",
+            "explanation": "Launches the interactive modular console structure locking the CLI into the explicit Recon-ng framework."
+        },
+        {
+            "id": 2,
+            "category": "Marketplace",
+            "command": "marketplace install <module>",
+            "example": "marketplace install all",
+            "explanation": "Contacts the centralized module repository to download necessary APIs and exploitation scripts."
+        },
+        {
+            "id": 3,
+            "category": "Search Logic",
+            "command": "marketplace search <string>",
+            "example": "marketplace search xss",
+            "explanation": "Searches the central repository module listing for scripts containing the defined keyword or capability."
+        },
+        {
+            "id": 4,
+            "category": "Workspaces",
+            "command": "workspaces create <name>",
+            "example": "workspaces create target_corp",
+            "explanation": "Instantiates a completely isolated internal sqlite database container guaranteeing the current target's intel does not blend into older campaigns."
+        },
+        {
+            "id": 5,
+            "category": "Module Deployment",
+            "command": "modules load <path>",
+            "example": "modules load recon/domains-hosts/bing_domain_web",
+            "explanation": "Engages a specific installed module moving the framework context over to its specific payload parameters."
+        },
+        {
+            "id": 6,
+            "category": "Info / Options",
+            "command": "info",
+            "example": "info",
+            "explanation": "Extracts the parameter structure required for the currently loaded module ensuring you know exactly what variables to set."
+        },
+        {
+            "id": 7,
+            "category": "Variable Control",
+            "command": "options set <name> <value>",
+            "example": "options set SOURCE example.com",
+            "explanation": "Defines the required global execution constraints or targeted domain spaces for the active loaded module."
+        },
+        {
+            "id": 8,
+            "category": "API Management",
+            "command": "keys add <name> <key>",
+            "example": "keys add shodan_api 12345",
+            "explanation": "Permanently installs authorization tokens allowing modules to seamlessly interact with rate-limited global intelligence databases."
+        },
+        {
+            "id": 9,
+            "category": "Execution Engine",
+            "command": "run",
+            "example": "run",
+            "explanation": "Instructs the currently loaded, perfectly-configured module to actively process the intelligence operation."
+        },
+        {
+            "id": 10,
+            "category": "Database Reporting",
+            "command": "show <table_name>",
+            "example": "show hosts",
+            "explanation": "Prints out the raw internal data logic acquired during executions (e.g. hosts, domains, ports, vulnerabilities) into standard columns."
+        }
+    ]
+}

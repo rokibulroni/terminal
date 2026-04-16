@@ -1,0 +1,602 @@
+{
+    "tool": "wpscan",
+    "description": "Complete WPScan command reference covering all options from basic to advanced",
+    "total_commands": 85,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic WordPress Scan",
+            "command": "wpscan --url https://example.com",
+            "example": "wpscan --url https://example.com",
+            "explanation": "Performs a simple scan to detect core version, main theme, and common plugins."
+        },
+        {
+            "id": 2,
+            "category": "Basic WordPress Scan",
+            "command": "wpscan --url https://example.com --verbose",
+            "example": "wpscan --url https://example.com --verbose",
+            "explanation": "Runs a basic scan with verbose output to show more details about the execution."
+        },
+        {
+            "id": 3,
+            "category": "Basic WordPress Scan",
+            "command": "wpscan --url https://example.com --no-banner",
+            "example": "wpscan --url https://example.com --no-banner",
+            "explanation": "Runs the scan without displaying the WPScan ASCII art banner."
+        },
+        {
+            "id": 4,
+            "category": "Connection Options",
+            "command": "wpscan --url https://example.com --random-user-agent",
+            "example": "wpscan --url https://example.com --random-user-agent",
+            "explanation": "Uses a random user-agent for each request to bypass basic firewall rules."
+        },
+        {
+            "id": 5,
+            "category": "Connection Options",
+            "command": "wpscan --url https://example.com --user-agent \"CustomAgent/1.0\"",
+            "example": "wpscan --url https://example.com --user-agent \"CustomAgent/1.0\"",
+            "explanation": "Sets a specific custom User-Agent string for all requests."
+        },
+        {
+            "id": 6,
+            "category": "Enumeration - Plugins",
+            "command": "wpscan --url https://example.com --enumerate vp",
+            "example": "wpscan --url https://example.com --enumerate vp",
+            "explanation": "Enumerates only plugins that are known to be vulnerable."
+        },
+        {
+            "id": 7,
+            "category": "Enumeration - Plugins",
+            "command": "wpscan --url https://example.com --enumerate p",
+            "example": "wpscan --url https://example.com --enumerate p",
+            "explanation": "Enumerates the most popular WordPress plugins."
+        },
+        {
+            "id": 8,
+            "category": "Enumeration - Plugins",
+            "command": "wpscan --url https://example.com --enumerate ap",
+            "example": "wpscan --url https://example.com --enumerate ap",
+            "explanation": "Enumerates all plugins (aggressive detection, may take a long time)."
+        },
+        {
+            "id": 9,
+            "category": "Enumeration - Themes",
+            "command": "wpscan --url https://example.com --enumerate vt",
+            "example": "wpscan --url https://example.com --enumerate vt",
+            "explanation": "Enumerates only themes that are known to be vulnerable."
+        },
+        {
+            "id": 10,
+            "category": "Enumeration - Themes",
+            "command": "wpscan --url https://example.com --enumerate t",
+            "example": "wpscan --url https://example.com --enumerate t",
+            "explanation": "Enumerates the most popular WordPress themes."
+        },
+        {
+            "id": 11,
+            "category": "Enumeration - Themes",
+            "command": "wpscan --url https://example.com --enumerate at",
+            "example": "wpscan --url https://example.com --enumerate at",
+            "explanation": "Enumerates all themes (aggressive detection)."
+        },
+        {
+            "id": 12,
+            "category": "Enumeration - Users",
+            "command": "wpscan --url https://example.com --enumerate u",
+            "example": "wpscan --url https://example.com --enumerate u",
+            "explanation": "Enumerates users using default methods (IDs 1-10)."
+        },
+        {
+            "id": 13,
+            "category": "Enumeration - Users",
+            "command": "wpscan --url https://example.com --enumerate u1-50",
+            "example": "wpscan --url https://example.com --enumerate u1-50",
+            "explanation": "Enumerates users with IDs specifically within the range of 1 to 50."
+        },
+        {
+            "id": 14,
+            "category": "Enumeration - Files",
+            "command": "wpscan --url https://example.com --enumerate tt",
+            "example": "wpscan --url https://example.com --enumerate tt",
+            "explanation": "Scans specifically for TimThumb files (image resizing scripts often vulnerable)."
+        },
+        {
+            "id": 15,
+            "category": "Enumeration - Files",
+            "command": "wpscan --url https://example.com --enumerate cb",
+            "example": "wpscan --url https://example.com --enumerate cb",
+            "explanation": "Scans for configuration backup files (e.g., wp-config.php.bak)."
+        },
+        {
+            "id": 16,
+            "category": "Enumeration - Files",
+            "command": "wpscan --url https://example.com --enumerate dbe",
+            "example": "wpscan --url https://example.com --enumerate dbe",
+            "explanation": "Scans for database export files which may contain sensitive data."
+        },
+        {
+            "id": 17,
+            "category": "Enumeration - Media",
+            "command": "wpscan --url https://example.com --enumerate m",
+            "example": "wpscan --url https://example.com --enumerate m",
+            "explanation": "Enumerates media IDs range to identify attachment names."
+        },
+        {
+            "id": 18,
+            "category": "Enumeration - Combined",
+            "command": "wpscan --url https://example.com --enumerate vp,vt,tt,cb,dbe,u,m",
+            "example": "wpscan --url https://example.com --enumerate vp,vt,tt,cb,dbe,u,m",
+            "explanation": "Runs a comprehensive enumeration for vuln plugins, themes, timthumbs, backups, DB exports, users, and media."
+        },
+        {
+            "id": 19,
+            "category": "Vulnerability Database API",
+            "command": "wpscan --url https://example.com --api-token YOUR_TOKEN",
+            "example": "wpscan --url https://example.com --api-token ABC123XYZ",
+            "explanation": "Uses the WPVulnDB API token to display specific vulnerability data for identified components."
+        },
+        {
+            "id": 20,
+            "category": "Detection Mode",
+            "command": "wpscan --url https://example.com --detection-mode passive",
+            "example": "wpscan --url https://example.com --detection-mode passive",
+            "explanation": "Forces passive detection mode, processing only the homepage and avoiding aggressive requests."
+        },
+        {
+            "id": 21,
+            "category": "Detection Mode",
+            "command": "wpscan --url https://example.com --detection-mode aggressive",
+            "example": "wpscan --url https://example.com --detection-mode aggressive",
+            "explanation": "Forces aggressive detection mode, requesting every potential plugin/theme url to verify existence."
+        },
+        {
+            "id": 22,
+            "category": "Detection Mode",
+            "command": "wpscan --url https://example.com --plugins-detection mixed",
+            "example": "wpscan --url https://example.com --plugins-detection mixed",
+            "explanation": "Uses a mix of passive and aggressive methods for plugin detection."
+        },
+        {
+            "id": 23,
+            "category": "Detection Mode",
+            "command": "wpscan --url https://example.com --plugins-version-detection passive",
+            "example": "wpscan --url https://example.com --plugins-version-detection passive",
+            "explanation": "Checks plugin versions solely based on the readme file or file headers without aggressive probing."
+        },
+        {
+            "id": 24,
+            "category": "Bypass & Evasion",
+            "command": "wpscan --url https://example.com --stealthy",
+            "example": "wpscan --url https://example.com --stealthy",
+            "explanation": "Alias command that enables random user agent, passive detection, and passive version detection."
+        },
+        {
+            "id": 25,
+            "category": "Bypass & Evasion",
+            "command": "wpscan --url https://example.com --throttle 500",
+            "example": "wpscan --url https://example.com --throttle 500",
+            "explanation": "Waits 500 milliseconds between requests to avoid hitting rate limits."
+        },
+        {
+            "id": 26,
+            "category": "Bypass & Evasion",
+            "command": "wpscan --url https://example.com --request-timeout 60",
+            "example": "wpscan --url https://example.com --request-timeout 60",
+            "explanation": "Sets the request timeout to 60 seconds for slow servers."
+        },
+        {
+            "id": 27,
+            "category": "Bypass & Evasion",
+            "command": "wpscan --url https://example.com --connect-timeout 30",
+            "example": "wpscan --url https://example.com --connect-timeout 30",
+            "explanation": "Sets the connection timeout to 30 seconds."
+        },
+        {
+            "id": 28,
+            "category": "Performance",
+            "command": "wpscan --url https://example.com --max-threads 10",
+            "example": "wpscan --url https://example.com --max-threads 10",
+            "explanation": "Increases the scanning speed by using 10 concurrent threads."
+        },
+        {
+            "id": 29,
+            "category": "Proxy & Tor",
+            "command": "wpscan --url https://example.com --proxy http://127.0.0.1:8080",
+            "example": "wpscan --url https://example.com --proxy http://127.0.0.1:8080",
+            "explanation": "Routes all traffic through an HTTP proxy (e.g., Burp Suite)."
+        },
+        {
+            "id": 30,
+            "category": "Proxy & Tor",
+            "command": "wpscan --url https://example.com --proxy socks5://127.0.0.1:9050",
+            "example": "wpscan --url https://example.com --proxy socks5://127.0.0.1:9050",
+            "explanation": "Routes all traffic through a SOCKS5 proxy (e.g., Tor)."
+        },
+        {
+            "id": 31,
+            "category": "Proxy & Tor",
+            "command": "wpscan --url https://example.com --proxy-auth username:password",
+            "example": "wpscan --url https://example.com --proxy http://1.2.3.4:8080 --proxy-auth admin:secret",
+            "explanation": "Provides authentication credentials for the proxy server."
+        },
+        {
+            "id": 32,
+            "category": "Authentication (Target)",
+            "command": "wpscan --url https://example.com --http-auth username:password",
+            "example": "wpscan --url https://example.com --http-auth admin:secret",
+            "explanation": "Uses HTTP Basic Authentication for targets protected by .htaccess/htpasswd."
+        },
+        {
+            "id": 33,
+            "category": "Authentication (Target)",
+            "command": "wpscan --url https://example.com --cookie \"wordpress_logged_in_hash=value\"",
+            "example": "wpscan --url https://example.com --cookie \"wordpress_logged_in_x=12345\"",
+            "explanation": "Supplies a session cookie to simulate a logged-in user scan."
+        },
+        {
+            "id": 34,
+            "category": "Networking",
+            "command": "wpscan --url https://example.com --headers \"X-Custom-Header: value\"",
+            "example": "wpscan --url https://example.com --headers \"X-Bug-Bounty: user123\"",
+            "explanation": "Adds custom HTTP headers to every request sent by the scanner."
+        },
+        {
+            "id": 35,
+            "category": "Networking",
+            "command": "wpscan --url https://example.com --disable-tls-checks",
+            "example": "wpscan --url https://example.com --disable-tls-checks",
+            "explanation": "Disables SSL/TLS certificate verification (useful for self-signed certificates)."
+        },
+        {
+            "id": 36,
+            "category": "Advanced Scanning",
+            "command": "wpscan --url https://example.com --force",
+            "example": "wpscan --url https://example.com --force",
+            "explanation": "Forces the scan to proceed even if the target does not appear to be WordPress."
+        },
+        {
+            "id": 37,
+            "category": "Advanced Scanning",
+            "command": "wpscan --url https://example.com --ignore-main-redirect",
+            "example": "wpscan --url https://example.com --ignore-main-redirect",
+            "explanation": "Prevents the scanner from following a redirect on the main URL."
+        },
+        {
+            "id": 38,
+            "category": "Advanced Scanning",
+            "command": "wpscan --url https://example.com --wp-content-dir custom-content",
+            "example": "wpscan --url https://example.com --wp-content-dir wp-content-renamed",
+            "explanation": "Manually specifies the wp-content directory if it has been renamed for security."
+        },
+        {
+            "id": 39,
+            "category": "Advanced Scanning",
+            "command": "wpscan --url https://example.com --wp-plugins-dir custom-plugins",
+            "example": "wpscan --url https://example.com --wp-plugins-dir assets/plugins",
+            "explanation": "Manually specifies the plugins directory location."
+        },
+        {
+            "id": 40,
+            "category": "Brute Force - Preparation",
+            "command": "wpscan --url https://example.com --enumerate u",
+            "example": "wpscan --url https://example.com --enumerate u",
+            "explanation": "First step of brute force: identifying valid usernames to attack."
+        },
+        {
+            "id": 41,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com --passwords rockyou.txt --usernames admin",
+            "example": "wpscan --url https://example.com -P rockyou.txt -U admin",
+            "explanation": "Performs a password dictionary attack against a single username 'admin'."
+        },
+        {
+            "id": 42,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com --passwords pass.txt --usernames users.txt",
+            "example": "wpscan --url https://example.com -P pass.txt -U users.txt",
+            "explanation": "Performs a password attack using a list of usernames and a list of passwords."
+        },
+        {
+            "id": 43,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com --wordlist dictionary.txt --threads 20",
+            "example": "wpscan --url https://example.com -P dictionary.txt -U admin -t 20",
+            "explanation": "Runs a brute force attack with increased concurrency (20 threads)."
+        },
+        {
+            "id": 44,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com --password-attack wp-login",
+            "example": "wpscan --url https://example.com -P list.txt -U admin --password-attack wp-login",
+            "explanation": "Forces the brute force attack to use the standard wp-login.php form."
+        },
+        {
+            "id": 45,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com --password-attack xmlrpc",
+            "example": "wpscan --url https://example.com -P list.txt -U admin --password-attack xmlrpc",
+            "explanation": "Forces the brute force attack to use the XML-RPC interface (faster than wp-login)."
+        },
+        {
+            "id": 46,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com --multicall-max-passwords 500",
+            "example": "wpscan --url https://example.com -P list.txt -U admin --password-attack xmlrpc --multicall-max-passwords 500",
+            "explanation": "Attempts 500 passwords per single XML-RPC request to optimize speed."
+        },
+        {
+            "id": 47,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com --exclude-content-based \"Error\"",
+            "example": "wpscan --url https://example.com -U admin -P list.txt --exclude-content-based \"Error\"",
+            "explanation": "Excludes responses containing specific text 'Error' from valid login results."
+        },
+        {
+            "id": 48,
+            "category": "Output & Logging",
+            "command": "wpscan --url https://example.com --format json",
+            "example": "wpscan --url https://example.com --format json",
+            "explanation": "Outputs the scan results to the console in JSON format."
+        },
+        {
+            "id": 49,
+            "category": "Output & Logging",
+            "command": "wpscan --url https://example.com --format cli-no-colour",
+            "example": "wpscan --url https://example.com --format cli-no-colour",
+            "explanation": "Outputs text results without ANSI color codes (good for logging)."
+        },
+        {
+            "id": 50,
+            "category": "Output & Logging",
+            "command": "wpscan --url https://example.com --output report.txt",
+            "example": "wpscan --url https://example.com --output report.txt",
+            "explanation": "Saves the default output into a file named report.txt."
+        },
+        {
+            "id": 51,
+            "category": "Output & Logging",
+            "command": "wpscan --url https://example.com --format json --output result.json",
+            "example": "wpscan --url https://example.com --format json --output result.json",
+            "explanation": "Saves the scan results in JSON format to a specific file."
+        },
+        {
+            "id": 52,
+            "category": "Output & Logging",
+            "command": "wpscan --url https://example.com --debug-output",
+            "example": "wpscan --url https://example.com --debug-output",
+            "explanation": "Prints raw requests and responses to the console for debugging scan issues."
+        },
+        {
+            "id": 53,
+            "category": "Update",
+            "command": "wpscan --update",
+            "example": "wpscan --update",
+            "explanation": "Updates the WPScan internal database (requires internet connection)."
+        },
+        {
+            "id": 54,
+            "category": "General",
+            "command": "wpscan --version",
+            "example": "wpscan --version",
+            "explanation": "Displays the currently installed version of WPScan."
+        },
+        {
+            "id": 55,
+            "category": "Automation",
+            "command": "wpscan --url https://example.com --no-update",
+            "example": "wpscan --url https://example.com --no-update",
+            "explanation": "Prevents WPScan from attempting to update the database before scanning (faster start)."
+        },
+        {
+            "id": 56,
+            "category": "Scope Control",
+            "command": "wpscan --url https://example.com --scope-include-content",
+            "example": "wpscan --url https://example.com --scope-include-content",
+            "explanation": "Allows the scanner to analyze content that might be outside the main domain scope."
+        },
+        {
+            "id": 57,
+            "category": "Advanced Enumeration",
+            "command": "wpscan --url https://example.com --enumerate u --users-detection-mode mixed",
+            "example": "wpscan --url https://example.com --enumerate u --users-detection-mode mixed",
+            "explanation": "Uses both passive (author archives) and aggressive (login error messages) techniques to find users."
+        },
+        {
+            "id": 58,
+            "category": "Custom Directories",
+            "command": "wpscan --url https://example.com --wp-themes-dir css/themes",
+            "example": "wpscan --url https://example.com --wp-themes-dir css/themes",
+            "explanation": "Specifies a custom location for the themes directory."
+        },
+        {
+            "id": 59,
+            "category": "Config Backup",
+            "command": "wpscan --url https://example.com --config-file custom_config.yml",
+            "example": "wpscan --url https://example.com --config-file custom_config.yml",
+            "explanation": "Uses a YAML configuration file to define scan parameters instead of command line flags."
+        },
+        {
+            "id": 60,
+            "category": "API Integration",
+            "command": "wpscan --url https://example.com --api-token TOKEN --enumerate vp,vt",
+            "example": "wpscan --url https://example.com --api-token TOKEN --enumerate vp,vt",
+            "explanation": "Combines API token with vulnerable plugin/theme enumeration for rich vulnerability data."
+        },
+        {
+            "id": 61,
+            "category": "Request Modifiers",
+            "command": "wpscan --url https://example.com --exclude-usernames admin,root",
+            "example": "wpscan --url https://example.com --enumerate u --exclude-usernames admin,root",
+            "explanation": "Excludes specific usernames from being reported or attacked."
+        },
+        {
+            "id": 62,
+            "category": "Debugging",
+            "command": "wpscan --url https://example.com --log file.log",
+            "example": "wpscan --url https://example.com --log file.log",
+            "explanation": "Creates a log file capturing the standard output of the scan."
+        },
+        {
+            "id": 63,
+            "category": "Complex Scan",
+            "command": "wpscan --url https://example.com -e vp,vt,u --api-token TOKEN --random-user-agent --ignore-main-redirect",
+            "example": "wpscan --url https://example.com -e vp,vt,u --api-token TOKEN --random-user-agent --ignore-main-redirect",
+            "explanation": "A realistic red-team scan: enumerate vulns/users, use API, fake UA, and ignore redirects."
+        },
+        {
+            "id": 64,
+            "category": "Complex Scan",
+            "command": "wpscan --url https://example.com --stealthy --api-token TOKEN --format json --output scan.json",
+            "example": "wpscan --url https://example.com --stealthy --api-token TOKEN --format json --output scan.json",
+            "explanation": "A stealthy, automated scan saving results to JSON for CI/CD pipelines."
+        },
+        {
+            "id": 65,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com -U users.txt -P passwords.txt --login-uri /my-custom-login",
+            "example": "wpscan --url https://example.com -U users.txt -P passwords.txt --login-uri /my-custom-login",
+            "explanation": "Targets a custom login page URL instead of the default wp-login.php."
+        },
+        {
+            "id": 66,
+            "category": "Detection Tweaks",
+            "command": "wpscan --url https://example.com --plugins-version-detection aggressive",
+            "example": "wpscan --url https://example.com --plugins-version-detection aggressive",
+            "explanation": "Aggressively probes plugins to determine their exact versions."
+        },
+        {
+            "id": 67,
+            "category": "Detection Tweaks",
+            "command": "wpscan --url https://example.com --themes-version-detection mixed",
+            "example": "wpscan --url https://example.com --themes-version-detection mixed",
+            "explanation": "Uses mixed methods to determine theme versions."
+        },
+        {
+            "id": 68,
+            "category": "Enumeration - TimThumb",
+            "command": "wpscan --url https://example.com --enumerate tt",
+            "example": "wpscan --url https://example.com --enumerate tt",
+            "explanation": "Specific check for legacy TimThumb vulnerability existence."
+        },
+        {
+            "id": 69,
+            "category": "Network Security",
+            "command": "wpscan --url https://example.com --ssl-client-cert client.crt --ssl-client-key client.key",
+            "example": "wpscan --url https://example.com --ssl-client-cert client.crt --ssl-client-key client.key",
+            "explanation": "Provides client-side SSL certificates if the server requires mutual TLS."
+        },
+        {
+            "id": 70,
+            "category": "Basic Scan",
+            "command": "wpscan --help",
+            "example": "wpscan --help",
+            "explanation": "Displays the full help menu with all available flags and options."
+        },
+        {
+            "id": 71,
+            "category": "Enumeration",
+            "command": "wpscan --url https://example.com --enumerate ap --plugins-list plugins.txt",
+            "example": "wpscan --url https://example.com --enumerate ap --plugins-list plugins.txt",
+            "explanation": "Uses a custom list of plugins to check against the target instead of the default database."
+        },
+        {
+            "id": 72,
+            "category": "Enumeration",
+            "command": "wpscan --url https://example.com --enumerate at --themes-list themes.txt",
+            "example": "wpscan --url https://example.com --enumerate at --themes-list themes.txt",
+            "explanation": "Uses a custom list of themes to check against the target."
+        },
+        {
+            "id": 73,
+            "category": "Performance",
+            "command": "wpscan --url https://example.com --request-timeout 10 --connect-timeout 5",
+            "example": "wpscan --url https://example.com --request-timeout 10 --connect-timeout 5",
+            "explanation": "Highly restrictive timeouts for failing fast on unresponsive targets."
+        },
+        {
+            "id": 74,
+            "category": "Output",
+            "command": "wpscan --url https://example.com --format cli",
+            "example": "wpscan --url https://example.com --format cli",
+            "explanation": "Forces the standard command line interface output format."
+        },
+        {
+            "id": 75,
+            "category": "Enumeration",
+            "command": "wpscan --url https://example.com --enumerate u --users-list users.txt",
+            "example": "wpscan --url https://example.com --enumerate u --users-list users.txt",
+            "explanation": "Checks for the existence of specific users from a provided list."
+        },
+        {
+            "id": 76,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com -U admin -P pass.txt --password-attack wp-login --request-timeout 90",
+            "example": "wpscan --url https://example.com -U admin -P pass.txt --password-attack wp-login --request-timeout 90",
+            "explanation": "Brute force on wp-login with extended timeout to handle server lag."
+        },
+        {
+            "id": 77,
+            "category": "Authentication",
+            "command": "wpscan --url https://example.com --cookie \"PHPSESSID=123; path=/\"",
+            "example": "wpscan --url https://example.com --cookie \"PHPSESSID=123; path=/\"",
+            "explanation": "Sets a generic PHP session ID cookie for the scan."
+        },
+        {
+            "id": 78,
+            "category": "Bypass",
+            "command": "wpscan --url https://example.com --random-user-agent --throttle 1000",
+            "example": "wpscan --url https://example.com --random-user-agent --throttle 1000",
+            "explanation": "Slow, randomized scan (1 request/sec) to evade WAF rate limiting."
+        },
+        {
+            "id": 79,
+            "category": "Enumeration - All",
+            "command": "wpscan --url https://example.com --enumerate vp,vt,tt,cb,dbe,u,m --detection-mode aggressive",
+            "example": "wpscan --url https://example.com --enumerate vp,vt,tt,cb,dbe,u,m --detection-mode aggressive",
+            "explanation": "Maximum noise scan: enumerates everything possible with aggressive detection enabled."
+        },
+        {
+            "id": 80,
+            "category": "Output",
+            "command": "wpscan --url https://example.com --no-banner --format json",
+            "example": "wpscan --url https://example.com --no-banner --format json",
+            "explanation": "Clean JSON output without the banner, suitable for parsing by other tools."
+        },
+        {
+            "id": 81,
+            "category": "Network",
+            "command": "wpscan --url https://example.com --server https://githack.com",
+            "example": "wpscan --url https://example.com --server https://custom-update-server.com",
+            "explanation": "Specifies a custom server URL for WPScan updates (rarely used)."
+        },
+        {
+            "id": 82,
+            "category": "Headers",
+            "command": "wpscan --url https://example.com --headers \"Authorization: Bearer XYZ\"",
+            "example": "wpscan --url https://example.com --headers \"Authorization: Bearer XYZ\"",
+            "explanation": "Passes an OAuth bearer token in the headers for scans behind API gateways."
+        },
+        {
+            "id": 83,
+            "category": "Enumeration - Range",
+            "command": "wpscan --url https://example.com --enumerate m1-100",
+            "example": "wpscan --url https://example.com --enumerate m1-100",
+            "explanation": "Enumerates media attachments specifically within ID range 1 to 100."
+        },
+        {
+            "id": 84,
+            "category": "Brute Force",
+            "command": "wpscan --url https://example.com -U admin -P pass.txt --view-state \"XYZ\"",
+            "example": "wpscan --url https://example.com -U admin -P pass.txt --view-state \"XYZ\"",
+            "explanation": "Passes a specific ViewState parameter if required by the login form."
+        },
+        {
+            "id": 85,
+            "category": "Full Audit",
+            "command": "wpscan --url https://example.com --enumerate vp,vt,u --api-token TOKEN --random-user-agent --format json --output audit.json",
+            "example": "wpscan --url https://example.com -e vp,vt,u --api-token TOKEN --ua --format json -o audit.json",
+            "explanation": "Complete audit command generating a JSON report with vuln data and randomized agent."
+        }
+    ]
+}

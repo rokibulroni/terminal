@@ -1,0 +1,357 @@
+{
+    "tool": "docker-bench-security",
+    "description": "Complete Docker Bench for Security command and workflow reference from basic to advanced container security auditing",
+    "total_commands": 50,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Execution",
+            "command": "sudo ./docker-bench-security.sh",
+            "example": "sudo ./docker-bench-security.sh",
+            "explanation": "Executes the full CIS Docker Benchmark audit script against the local host using default settings."
+        },
+        {
+            "id": 2,
+            "category": "Basic Execution",
+            "command": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security",
+            "example": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security",
+            "explanation": "Runs Docker Bench for Security from a container with necessary volume mounts and privileges to audit the host."
+        },
+        {
+            "id": 3,
+            "category": "Basic Execution",
+            "command": "sudo ./docker-bench-security.sh -h",
+            "example": "sudo ./docker-bench-security.sh -h",
+            "explanation": "Displays the help menu listing all available flags and execution options."
+        },
+        {
+            "id": 4,
+            "category": "Output and Reporting",
+            "command": "sudo ./docker-bench-security.sh -l <filename>",
+            "example": "sudo ./docker-bench-security.sh -l my-audit-log",
+            "explanation": "Runs the benchmark and saves the output to a specified log file in the current directory."
+        },
+        {
+            "id": 5,
+            "category": "Output and Reporting",
+            "command": "sudo ./docker-bench-security.sh -p",
+            "example": "sudo ./docker-bench-security.sh -p",
+            "explanation": "Prevents the script from writing any log files to disk, outputting only to stdout."
+        },
+        {
+            "id": 6,
+            "category": "Host and Daemon Configuration",
+            "command": "sudo ./docker-bench-security.sh -c host_configuration",
+            "example": "sudo ./docker-bench-security.sh -c host_configuration",
+            "explanation": "Limits the audit strictly to Section 1: Host Configuration checks."
+        },
+        {
+            "id": 7,
+            "category": "Host and Daemon Configuration",
+            "command": "sudo ./docker-bench-security.sh -c docker_daemon_configuration",
+            "example": "sudo ./docker-bench-security.sh -c docker_daemon_configuration",
+            "explanation": "Limits the audit strictly to Section 2: Docker Daemon Configuration checks."
+        },
+        {
+            "id": 8,
+            "category": "Host and Daemon Configuration",
+            "command": "sudo ./docker-bench-security.sh -c docker_daemon_configuration_files",
+            "example": "sudo ./docker-bench-security.sh -c docker_daemon_configuration_files",
+            "explanation": "Limits the audit strictly to Section 3: Docker Daemon Configuration Files checks."
+        },
+        {
+            "id": 9,
+            "category": "Image and Build Configuration",
+            "command": "sudo ./docker-bench-security.sh -c container_images",
+            "example": "sudo ./docker-bench-security.sh -c container_images",
+            "explanation": "Limits the audit strictly to Section 4: Container Images and Build File checks."
+        },
+        {
+            "id": 10,
+            "category": "Container and Runtime Security",
+            "command": "sudo ./docker-bench-security.sh -c container_runtime",
+            "example": "sudo ./docker-bench-security.sh -c container_runtime",
+            "explanation": "Limits the audit strictly to Section 5: Container Runtime checks."
+        },
+        {
+            "id": 11,
+            "category": "Container and Runtime Security",
+            "command": "sudo ./docker-bench-security.sh -c docker_security_operations",
+            "example": "sudo ./docker-bench-security.sh -c docker_security_operations",
+            "explanation": "Limits the audit strictly to Section 6: Docker Security Operations checks."
+        },
+        {
+            "id": 12,
+            "category": "Container and Runtime Security",
+            "command": "sudo ./docker-bench-security.sh -c docker_swarm_configuration",
+            "example": "sudo ./docker-bench-security.sh -c docker_swarm_configuration",
+            "explanation": "Limits the audit strictly to Section 7: Docker Swarm Configuration checks."
+        },
+        {
+            "id": 13,
+            "category": "Specific Check Targeting",
+            "command": "sudo ./docker-bench-security.sh -c check_1.1",
+            "example": "sudo ./docker-bench-security.sh -c check_1.1",
+            "explanation": "Runs only the specific check 1.1 regarding Linux Kernel Capabilities."
+        },
+        {
+            "id": 14,
+            "category": "Specific Check Targeting",
+            "command": "sudo ./docker-bench-security.sh -c check_2.1,check_2.2",
+            "example": "sudo ./docker-bench-security.sh -c check_2.1,check_2.2",
+            "explanation": "Runs a comma-separated list of specific checks, ignoring all others."
+        },
+        {
+            "id": 15,
+            "category": "Excluding Checks",
+            "command": "sudo ./docker-bench-security.sh -e check_2.6",
+            "example": "sudo ./docker-bench-security.sh -e check_2.6",
+            "explanation": "Runs the full benchmark but explicitly excludes check 2.6 (TLS authentication)."
+        },
+        {
+            "id": 16,
+            "category": "Excluding Checks",
+            "command": "sudo ./docker-bench-security.sh -e check_4.5,check_5.1",
+            "example": "sudo ./docker-bench-security.sh -e check_4.5,check_5.1",
+            "explanation": "Runs the full benchmark while excluding multiple specific checks defined by a comma-separated list."
+        },
+        {
+            "id": 17,
+            "category": "Excluding Checks",
+            "command": "sudo ./docker-bench-security.sh -e docker_swarm_configuration",
+            "example": "sudo ./docker-bench-security.sh -e docker_swarm_configuration",
+            "explanation": "Runs the full benchmark but skips the entire Docker Swarm Configuration section."
+        },
+        {
+            "id": 18,
+            "category": "Image Filter",
+            "command": "sudo ./docker-bench-security.sh -t <image_tag>",
+            "example": "sudo ./docker-bench-security.sh -t postgres",
+            "explanation": "Limits the container image checks to only images matching the specified tag."
+        },
+        {
+            "id": 19,
+            "category": "Output and Reporting",
+            "command": "sudo ./docker-bench-security.sh -j",
+            "example": "sudo ./docker-bench-security.sh -j",
+            "explanation": "Outputs the audit results in JSON format to the console for parsing."
+        },
+        {
+            "id": 20,
+            "category": "Output and Reporting",
+            "command": "sudo ./docker-bench-security.sh -j -l output.json",
+            "example": "sudo ./docker-bench-security.sh -j -l output.json",
+            "explanation": "Runs the benchmark and saves the results in JSON format to a specific file."
+        },
+        {
+            "id": 21,
+            "category": "Container Execution Variants",
+            "command": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security -c host_configuration",
+            "example": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security -c host_configuration",
+            "explanation": "Runs only the host configuration checks using the containerized version of the tool."
+        },
+        {
+            "id": 22,
+            "category": "Container Execution Variants",
+            "command": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security -e check_1.1",
+            "example": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security -e check_1.1",
+            "explanation": "Runs the containerized benchmark excluding specific kernel capability checks."
+        },
+        {
+            "id": 23,
+            "category": "Environment Configuration",
+            "command": "export DOCKER_CONTENT_TRUST=1 && sudo ./docker-bench-security.sh",
+            "example": "export DOCKER_CONTENT_TRUST=1 && sudo ./docker-bench-security.sh",
+            "explanation": "Enables Docker Content Trust in the shell before running the benchmark to satisfy DCT checks."
+        },
+        {
+            "id": 24,
+            "category": "Environment Configuration",
+            "command": "sudo -E ./docker-bench-security.sh",
+            "example": "sudo -E ./docker-bench-security.sh",
+            "explanation": "Preserves existing environment variables (like proxy settings) when running the script as root."
+        },
+        {
+            "id": 25,
+            "category": "Logging and Auditing",
+            "command": "sudo ./docker-bench-security.sh -c check_1.2.1",
+            "example": "sudo ./docker-bench-security.sh -c check_1.2.1",
+            "explanation": "Validates specifically if a separate partition for containers has been created."
+        },
+        {
+            "id": 26,
+            "category": "Logging and Auditing",
+            "command": "sudo ./docker-bench-security.sh -c check_2.12",
+            "example": "sudo ./docker-bench-security.sh -c check_2.12",
+            "explanation": "Checks specifically if centralized and remote logging is configured for the Docker daemon."
+        },
+        {
+            "id": 27,
+            "category": "Access Control",
+            "command": "sudo ./docker-bench-security.sh -c check_2.13",
+            "example": "sudo ./docker-bench-security.sh -c check_2.13",
+            "explanation": "Verifies that the Docker daemon performs live restoration to reduce downtime."
+        },
+        {
+            "id": 28,
+            "category": "Access Control",
+            "command": "sudo ./docker-bench-security.sh -c check_3.1,check_3.2",
+            "example": "sudo ./docker-bench-security.sh -c check_3.1,check_3.2",
+            "explanation": "Audits the ownership and permissions of the docker.service and docker.socket files."
+        },
+        {
+            "id": 29,
+            "category": "Automation and Pipeline",
+            "command": "sudo ./docker-bench-security.sh -j | jq .",
+            "example": "sudo ./docker-bench-security.sh -j | jq .",
+            "explanation": "Pipes the JSON output to jq for immediate formatted validation in a terminal."
+        },
+        {
+            "id": 30,
+            "category": "Automation and Pipeline",
+            "command": "sudo ./docker-bench-security.sh -j > docker-bench-results.json",
+            "example": "sudo ./docker-bench-security.sh -j > docker-bench-results.json",
+            "explanation": "Redirects JSON output to a file for ingestion by SIEM or dashboard tools."
+        },
+        {
+            "id": 31,
+            "category": "Advanced Filtering",
+            "command": "sudo ./docker-bench-security.sh -c host_configuration,container_runtime -e check_1.2",
+            "example": "sudo ./docker-bench-security.sh -c host_configuration,container_runtime -e check_1.2",
+            "explanation": "Combines inclusion and exclusion flags to audit host and runtime sections but skip disk partition checks."
+        },
+        {
+            "id": 32,
+            "category": "Advanced Filtering",
+            "command": "sudo ./docker-bench-security.sh -c check_4.1 -t production_image",
+            "example": "sudo ./docker-bench-security.sh -c check_4.1 -t production_image",
+            "explanation": "Checks user creation within containers only for images tagged 'production_image'."
+        },
+        {
+            "id": 33,
+            "category": "Cloud Posture",
+            "command": "sudo ./docker-bench-security.sh -c check_2.4",
+            "example": "sudo ./docker-bench-security.sh -c check_2.4",
+            "explanation": "Verifies that insecure registries are not allowed in the daemon configuration."
+        },
+        {
+            "id": 34,
+            "category": "Cloud Posture",
+            "command": "sudo ./docker-bench-security.sh -c check_2.11",
+            "example": "sudo ./docker-bench-security.sh -c check_2.11",
+            "explanation": "Ensures that Userland Proxy is disabled if hairpin NAT is available."
+        },
+        {
+            "id": 35,
+            "category": "Blue Team Validation",
+            "command": "sudo ./docker-bench-security.sh -c check_5.10",
+            "example": "sudo ./docker-bench-security.sh -c check_5.10",
+            "explanation": "Verifies that memory usage limits are set for containers to prevent DoS attacks."
+        },
+        {
+            "id": 36,
+            "category": "Blue Team Validation",
+            "command": "sudo ./docker-bench-security.sh -c check_5.11",
+            "example": "sudo ./docker-bench-security.sh -c check_5.11",
+            "explanation": "Verifies that CPU priority is set appropriately for containers."
+        },
+        {
+            "id": 37,
+            "category": "Blue Team Validation",
+            "command": "sudo ./docker-bench-security.sh -c check_5.12",
+            "example": "sudo ./docker-bench-security.sh -c check_5.12",
+            "explanation": "Ensures the container's root filesystem is mounted as read-only."
+        },
+        {
+            "id": 38,
+            "category": "Blue Team Validation",
+            "command": "sudo ./docker-bench-security.sh -c check_5.31",
+            "example": "sudo ./docker-bench-security.sh -c check_5.31",
+            "explanation": "Checks that the docker socket is not mounted inside any container."
+        },
+        {
+            "id": 39,
+            "category": "Compliance Auditing",
+            "command": "sudo ./docker-bench-security.sh -l /var/log/audit/docker_compliance_$(date +%F).log",
+            "example": "sudo ./docker-bench-security.sh -l /var/log/audit/docker_compliance_$(date +%F).log",
+            "explanation": "Generates a timestamped compliance log file in a dedicated audit directory."
+        },
+        {
+            "id": 40,
+            "category": "Incident Response",
+            "command": "sudo ./docker-bench-security.sh -c check_5.25",
+            "example": "sudo ./docker-bench-security.sh -c check_5.25",
+            "explanation": "Checks if container health checks are configured to detect compromised or stalled services."
+        },
+        {
+            "id": 41,
+            "category": "Incident Response",
+            "command": "sudo ./docker-bench-security.sh -c check_2.15",
+            "example": "sudo ./docker-bench-security.sh -c check_2.15",
+            "explanation": "Validates that User Namespace Remapping is enabled to mitigate privilege escalation attacks."
+        },
+        {
+            "id": 42,
+            "category": "Advanced Container Runtime",
+            "command": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security -j > report.json",
+            "example": "docker run --rm --net host --pid host --userns host --cap-add audit_control -v /etc:/etc:ro -v /var/lib:/var/lib:ro -v /var/run/docker.sock:/var/run/docker.sock:ro --label docker_bench_security docker/docker-bench-security -j > report.json",
+            "explanation": "Runs the containerized audit in a pipeline and saves JSON output to the host."
+        },
+        {
+            "id": 43,
+            "category": "CI/CD Integration",
+            "command": "sh -c 'sudo ./docker-bench-security.sh -j' | grep -q '\"Warn\": 0'",
+            "example": "sh -c 'sudo ./docker-bench-security.sh -j' | grep -q '\"Warn\": 0'",
+            "explanation": "Pipeline check that fails if any warnings are detected in the JSON output."
+        },
+        {
+            "id": 44,
+            "category": "CI/CD Integration",
+            "command": "sh -c 'sudo ./docker-bench-security.sh -j' | grep -q '\"Fail\": 0'",
+            "example": "sh -c 'sudo ./docker-bench-security.sh -j' | grep -q '\"Fail\": 0'",
+            "explanation": "Pipeline check that fails if any hard failures are detected in the JSON output."
+        },
+        {
+            "id": 45,
+            "category": "Advanced Customization",
+            "command": "sudo ./docker-bench-security.sh -b -l custom.log -c container_images -e check_4.6",
+            "example": "sudo ./docker-bench-security.sh -b -l custom.log -c container_images -e check_4.6",
+            "explanation": "Runs a customized audit on images, logging to a file, excluding health check validation."
+        },
+        {
+            "id": 46,
+            "category": "Legacy Compatibility",
+            "command": "sudo ./docker-bench-security.sh -c 1,2,3",
+            "example": "sudo ./docker-bench-security.sh -c 1,2,3",
+            "explanation": "Runs checks for sections 1, 2, and 3 using the older comma-separated integer syntax."
+        },
+        {
+            "id": 47,
+            "category": "Docker Rootless",
+            "command": "docker-bench-security.sh",
+            "example": "docker-bench-security.sh",
+            "explanation": "Attempts to run the script without sudo, useful for verifying rootless docker configurations."
+        },
+        {
+            "id": 48,
+            "category": "Network Security",
+            "command": "sudo ./docker-bench-security.sh -c check_5.9",
+            "example": "sudo ./docker-bench-security.sh -c check_5.9",
+            "explanation": "Checks if the container's network bridge is set to the default docker0."
+        },
+        {
+            "id": 49,
+            "category": "Network Security",
+            "command": "sudo ./docker-bench-security.sh -c check_2.6",
+            "example": "sudo ./docker-bench-security.sh -c check_2.6",
+            "explanation": "Verifies that TLS authentication is configured for the Docker daemon."
+        },
+        {
+            "id": 50,
+            "category": "Cleanup",
+            "command": "rm docker-bench-security.log.json",
+            "example": "rm docker-bench-security.log.json",
+            "explanation": "Removes the default JSON log file generated by the tool after audit completion."
+        }
+    ]
+}

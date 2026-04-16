@@ -1,0 +1,497 @@
+{
+    "tool": "whatweb",
+    "description": "Complete WhatWeb command reference covering all options from basic to advanced",
+    "total_commands": 70,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Technology Detection",
+            "command": "whatweb example.com",
+            "example": "whatweb example.com",
+            "explanation": "Performs a default scan to identify web technologies on a single target domain."
+        },
+        {
+            "id": 2,
+            "category": "Basic Technology Detection",
+            "command": "whatweb http://192.168.1.10",
+            "example": "whatweb http://192.168.1.10",
+            "explanation": "Scans a local IP address using the HTTP protocol."
+        },
+        {
+            "id": 3,
+            "category": "Basic Technology Detection",
+            "command": "whatweb https://www.example.com",
+            "example": "whatweb https://www.example.com",
+            "explanation": "Scans a secure website using the HTTPS protocol."
+        },
+        {
+            "id": 4,
+            "category": "Basic Technology Detection",
+            "command": "whatweb example.com/page.html",
+            "example": "whatweb example.com/page.html",
+            "explanation": "Scans a specific webpage rather than the root domain."
+        },
+        {
+            "id": 5,
+            "category": "Multiple Target Scanning",
+            "command": "whatweb example.com google.com yahoo.com",
+            "example": "whatweb example.com google.com yahoo.com",
+            "explanation": "Scans multiple space-separated domains in a single execution."
+        },
+        {
+            "id": 6,
+            "category": "Multiple Target Scanning",
+            "command": "whatweb 192.168.1.0/24",
+            "example": "whatweb 192.168.1.0/24",
+            "explanation": "Scans an entire CIDR network range for web servers."
+        },
+        {
+            "id": 7,
+            "category": "Multiple Target Scanning",
+            "command": "whatweb 192.168.1.10-192.168.1.20",
+            "example": "whatweb 192.168.1.10-192.168.1.20",
+            "explanation": "Scans a specific range of IP addresses."
+        },
+        {
+            "id": 8,
+            "category": "Input from File and STDIN",
+            "command": "whatweb -i targets.txt",
+            "example": "whatweb -i targets.txt",
+            "explanation": "Reads a list of targets from a specified file."
+        },
+        {
+            "id": 9,
+            "category": "Input from File and STDIN",
+            "command": "whatweb --input-file=targets.txt",
+            "example": "whatweb --input-file=targets.txt",
+            "explanation": "Uses the long-form flag to read targets from a file."
+        },
+        {
+            "id": 10,
+            "category": "Aggression Level Control",
+            "command": "whatweb -a 1 example.com",
+            "example": "whatweb -a 1 example.com",
+            "explanation": "Performs a stealthy scan that makes only one HTTP request per target."
+        },
+        {
+            "id": 11,
+            "category": "Aggression Level Control",
+            "command": "whatweb --aggression 1 example.com",
+            "example": "whatweb --aggression 1 example.com",
+            "explanation": "Explicitly sets the aggression level to stealth mode."
+        },
+        {
+            "id": 12,
+            "category": "Aggression Level Control",
+            "command": "whatweb -a 3 example.com",
+            "example": "whatweb -a 3 example.com",
+            "explanation": "Performs an aggressive scan with multiple requests and plugin triggers."
+        },
+        {
+            "id": 13,
+            "category": "Aggression Level Control",
+            "command": "whatweb -a 4 example.com",
+            "example": "whatweb -a 4 example.com",
+            "explanation": "Performs a heavy scan that attempts to identify every possible plugin."
+        },
+        {
+            "id": 14,
+            "category": "Plugin Listing and Selection",
+            "command": "whatweb -l",
+            "example": "whatweb -l",
+            "explanation": "Lists all available plugins currently installed in WhatWeb."
+        },
+        {
+            "id": 15,
+            "category": "Plugin Listing and Selection",
+            "command": "whatweb --list-plugins",
+            "example": "whatweb --list-plugins",
+            "explanation": "Displays the full list of plugins using the long flag."
+        },
+        {
+            "id": 16,
+            "category": "Plugin Listing and Selection",
+            "command": "whatweb -p wordpress example.com",
+            "example": "whatweb -p wordpress example.com",
+            "explanation": "Runs only the WordPress plugin against the target."
+        },
+        {
+            "id": 17,
+            "category": "Plugin Listing and Selection",
+            "command": "whatweb -p \"jquery,html5\" example.com",
+            "example": "whatweb -p \"jquery,html5\" example.com",
+            "explanation": "Runs a specific set of comma-separated plugins."
+        },
+        {
+            "id": 18,
+            "category": "Plugin Listing and Selection",
+            "command": "whatweb --info-plugins=\"wordpress\"",
+            "example": "whatweb --info-plugins=\"wordpress\"",
+            "explanation": "Displays detailed information about the specific WordPress plugin."
+        },
+        {
+            "id": 19,
+            "category": "Plugin Listing and Selection",
+            "command": "whatweb --search-plugins=\"cms\"",
+            "example": "whatweb --search-plugins=\"cms\"",
+            "explanation": "Searches for plugins containing the keyword 'cms'."
+        },
+        {
+            "id": 20,
+            "category": "User Agent Customization",
+            "command": "whatweb -U \"Mozilla/5.0\" example.com",
+            "example": "whatweb -U \"Mozilla/5.0\" example.com",
+            "explanation": "Sets a custom User-Agent string for the scan requests."
+        },
+        {
+            "id": 21,
+            "category": "User Agent Customization",
+            "command": "whatweb --user-agent \"Googlebot/2.1\" example.com",
+            "example": "whatweb --user-agent \"Googlebot/2.1\" example.com",
+            "explanation": "Impersonates the Googlebot crawler during the scan."
+        },
+        {
+            "id": 22,
+            "category": "HTTP Header and Cookie Analysis",
+            "command": "whatweb -H \"X-Custom-Header: value\" example.com",
+            "example": "whatweb -H \"X-Custom-Header: value\" example.com",
+            "explanation": "Adds a custom HTTP header to the request."
+        },
+        {
+            "id": 23,
+            "category": "HTTP Header and Cookie Analysis",
+            "command": "whatweb --header \"Authorization: Basic 12345\" example.com",
+            "example": "whatweb --header \"Authorization: Basic 12345\" example.com",
+            "explanation": "Sends an Authorization header manually."
+        },
+        {
+            "id": 24,
+            "category": "HTTP Header and Cookie Analysis",
+            "command": "whatweb -c \"sessionid=12345\" example.com",
+            "example": "whatweb -c \"sessionid=12345\" example.com",
+            "explanation": "Sends a custom cookie with the scan request."
+        },
+        {
+            "id": 25,
+            "category": "Authentication Handling",
+            "command": "whatweb -u user:password example.com",
+            "example": "whatweb -u user:password example.com",
+            "explanation": "Uses Basic HTTP Authentication with the provided credentials."
+        },
+        {
+            "id": 26,
+            "category": "Authentication Handling",
+            "command": "whatweb --user user:password example.com",
+            "example": "whatweb --user user:password example.com",
+            "explanation": "Uses the long flag to provide Basic Authentication credentials."
+        },
+        {
+            "id": 27,
+            "category": "Proxy and Network Configuration",
+            "command": "whatweb --proxy 127.0.0.1:8080 example.com",
+            "example": "whatweb --proxy 127.0.0.1:8080 example.com",
+            "explanation": "Routes scan traffic through an HTTP proxy."
+        },
+        {
+            "id": 28,
+            "category": "Proxy and Network Configuration",
+            "command": "whatweb --proxy-user user:pass example.com",
+            "example": "whatweb --proxy-user user:pass example.com",
+            "explanation": "Provides authentication credentials for the proxy server."
+        },
+        {
+            "id": 29,
+            "category": "Redirect and Response Handling",
+            "command": "whatweb --follow-redirect=always example.com",
+            "example": "whatweb --follow-redirect=always example.com",
+            "explanation": "Forces the scanner to always follow HTTP redirects."
+        },
+        {
+            "id": 30,
+            "category": "Redirect and Response Handling",
+            "command": "whatweb --follow-redirect=never example.com",
+            "example": "whatweb --follow-redirect=never example.com",
+            "explanation": "Prevents the scanner from following any HTTP redirects."
+        },
+        {
+            "id": 31,
+            "category": "Timeout and Performance",
+            "command": "whatweb --max-threads 25 example.com",
+            "example": "whatweb --max-threads 25 example.com",
+            "explanation": "Increases the number of concurrent threads to speed up scanning."
+        },
+        {
+            "id": 32,
+            "category": "Timeout and Performance",
+            "command": "whatweb -t 10 example.com",
+            "example": "whatweb -t 10 example.com",
+            "explanation": "Sets the maximum concurrent threads to 10."
+        },
+        {
+            "id": 33,
+            "category": "Timeout and Performance",
+            "command": "whatweb --open-timeout 5 example.com",
+            "example": "whatweb --open-timeout 5 example.com",
+            "explanation": "Sets the connection timeout limit to 5 seconds."
+        },
+        {
+            "id": 34,
+            "category": "Timeout and Performance",
+            "command": "whatweb --read-timeout 10 example.com",
+            "example": "whatweb --read-timeout 10 example.com",
+            "explanation": "Sets the timeout for reading the HTTP response to 10 seconds."
+        },
+        {
+            "id": 35,
+            "category": "Timeout and Performance",
+            "command": "whatweb --wait 2 example.com",
+            "example": "whatweb --wait 2 example.com",
+            "explanation": "Adds a delay of 2 seconds between requests to avoid detection."
+        },
+        {
+            "id": 36,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-brief=result.txt example.com",
+            "example": "whatweb --log-brief=result.txt example.com",
+            "explanation": "Logs a brief, one-line summary of results to a text file."
+        },
+        {
+            "id": 37,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-verbose=result.txt example.com",
+            "example": "whatweb --log-verbose=result.txt example.com",
+            "explanation": "Logs detailed results including headers and descriptions to a text file."
+        },
+        {
+            "id": 38,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-xml=result.xml example.com",
+            "example": "whatweb --log-xml=result.xml example.com",
+            "explanation": "Exports the scan results in XML format."
+        },
+        {
+            "id": 39,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-json=result.json example.com",
+            "example": "whatweb --log-json=result.json example.com",
+            "explanation": "Exports the scan results in JSON format."
+        },
+        {
+            "id": 40,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-sql=result.sql example.com",
+            "example": "whatweb --log-sql=result.sql example.com",
+            "explanation": "Exports results as SQL INSERT statements."
+        },
+        {
+            "id": 41,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-magictree=result.xml example.com",
+            "example": "whatweb --log-magictree=result.xml example.com",
+            "explanation": "Exports results in MagicTree XML format."
+        },
+        {
+            "id": 42,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-object=ruby_object example.com",
+            "example": "whatweb --log-object=ruby_object example.com",
+            "explanation": "Logs the raw Ruby object structure."
+        },
+        {
+            "id": 43,
+            "category": "Logging and Output Control",
+            "command": "whatweb --log-mongo-database=dbname example.com",
+            "example": "whatweb --log-mongo-database=dbname example.com",
+            "explanation": "Logs results directly to a MongoDB database."
+        },
+        {
+            "id": 44,
+            "category": "Verbose and Debug Modes",
+            "command": "whatweb -v example.com",
+            "example": "whatweb -v example.com",
+            "explanation": "Enables verbose mode to show plugins and detailed analysis."
+        },
+        {
+            "id": 45,
+            "category": "Verbose and Debug Modes",
+            "command": "whatweb --verbose example.com",
+            "example": "whatweb --verbose example.com",
+            "explanation": "Uses the long flag to enable verbose output."
+        },
+        {
+            "id": 46,
+            "category": "Verbose and Debug Modes",
+            "command": "whatweb --debug example.com",
+            "example": "whatweb --debug example.com",
+            "explanation": "Enables debug mode to see errors and internal processing."
+        },
+        {
+            "id": 47,
+            "category": "Quiet and Script Friendly",
+            "command": "whatweb -q example.com",
+            "example": "whatweb -q example.com",
+            "explanation": "Enables quiet mode to suppress standard output."
+        },
+        {
+            "id": 48,
+            "category": "Quiet and Script Friendly",
+            "command": "whatweb --quiet example.com",
+            "example": "whatweb --quiet example.com",
+            "explanation": "Uses the long flag to suppress output."
+        },
+        {
+            "id": 49,
+            "category": "Quiet and Script Friendly",
+            "command": "whatweb --no-errors example.com",
+            "example": "whatweb --no-errors example.com",
+            "explanation": "Suppresses error messages from the output."
+        },
+        {
+            "id": 50,
+            "category": "Quiet and Script Friendly",
+            "command": "whatweb --color=never example.com",
+            "example": "whatweb --color=never example.com",
+            "explanation": "Disables color output for easier text parsing."
+        },
+        {
+            "id": 51,
+            "category": "Quiet and Script Friendly",
+            "command": "whatweb --color=always example.com",
+            "example": "whatweb --color=always example.com",
+            "explanation": "Forces color output even when piping to files."
+        },
+        {
+            "id": 52,
+            "category": "Red Team Technology Enumeration",
+            "command": "whatweb -a 3 --no-errors -t 20 192.168.1.0/24",
+            "example": "whatweb -a 3 --no-errors -t 20 192.168.1.0/24",
+            "explanation": "Aggressively scans a subnet with high concurrency and error suppression."
+        },
+        {
+            "id": 53,
+            "category": "Red Team Technology Enumeration",
+            "command": "whatweb -a 3 -p \"wordpress,joomla,drupal\" example.com",
+            "example": "whatweb -a 3 -p \"wordpress,joomla,drupal\" example.com",
+            "explanation": "Aggressively checks specifically for common CMS platforms."
+        },
+        {
+            "id": 54,
+            "category": "Red Team Technology Enumeration",
+            "command": "whatweb --custom-plugin \"myplugin.rb\" example.com",
+            "example": "whatweb --custom-plugin \"myplugin.rb\" example.com",
+            "explanation": "Runs a custom-written Ruby plugin against the target."
+        },
+        {
+            "id": 55,
+            "category": "Blue Team Surface Monitoring",
+            "command": "whatweb --log-json=inventory.json 192.168.1.0/24",
+            "example": "whatweb --log-json=inventory.json 192.168.1.0/24",
+            "explanation": "Generates a JSON inventory of all web assets in the network."
+        },
+        {
+            "id": 56,
+            "category": "Blue Team Surface Monitoring",
+            "command": "whatweb -a 1 --log-brief=daily_scan.txt -i targets.txt",
+            "example": "whatweb -a 1 --log-brief=daily_scan.txt -i targets.txt",
+            "explanation": "Performs a daily stealth scan of known targets for change monitoring."
+        },
+        {
+            "id": 57,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb -a 3 -v --log-xml=report.xml example.com",
+            "example": "whatweb -a 3 -v --log-xml=report.xml example.com",
+            "explanation": "Combines aggression, verbosity, and XML logging for a full audit."
+        },
+        {
+            "id": 58,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb --proxy 127.0.0.1:9050 --proxy-type socks5 example.com",
+            "example": "whatweb --proxy 127.0.0.1:9050 --proxy-type socks5 example.com",
+            "explanation": "Scans a target through a SOCKS5 proxy (e.g., Tor)."
+        },
+        {
+            "id": 59,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb -a 3 --user-agent \"Mozilla/5.0\" --header \"Referer: google.com\" example.com",
+            "example": "whatweb -a 3 --user-agent \"Mozilla/5.0\" --header \"Referer: google.com\" example.com",
+            "explanation": "Mimics a user clicking from Google with a standard browser agent."
+        },
+        {
+            "id": 60,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb -p +Title example.com",
+            "example": "whatweb -p +Title example.com",
+            "explanation": "Explicitly enables the Title plugin in addition to defaults."
+        },
+        {
+            "id": 61,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb -p -Title example.com",
+            "example": "whatweb -p -Title example.com",
+            "explanation": "Excludes the Title plugin from the current scan."
+        },
+        {
+            "id": 62,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb --url-prefix https:// example.com",
+            "example": "whatweb --url-prefix https:// example.com",
+            "explanation": "Forces the scanner to prepend https:// to the target."
+        },
+        {
+            "id": 63,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb --url-suffix /admin example.com",
+            "example": "whatweb --url-suffix /admin example.com",
+            "explanation": "Appends a specific path suffix to all target URLs."
+        },
+        {
+            "id": 64,
+            "category": "Automation and Pipeline Usage",
+            "command": "cat targets.txt | whatweb --input-file -",
+            "example": "cat targets.txt | whatweb --input-file -",
+            "explanation": "Pipes targets from standard input into WhatWeb."
+        },
+        {
+            "id": 65,
+            "category": "Automation and Pipeline Usage",
+            "command": "whatweb --log-json=/dev/stdout example.com | jq .",
+            "example": "whatweb --log-json=/dev/stdout example.com | jq .",
+            "explanation": "Pipes JSON output directly to jq for parsing."
+        },
+        {
+            "id": 66,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb --max-redirects 5 example.com",
+            "example": "whatweb --max-redirects 5 example.com",
+            "explanation": "Limits the number of redirects followed to prevent loops."
+        },
+        {
+            "id": 67,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb --dids",
+            "example": "whatweb --dids",
+            "explanation": "Lists the DIDs (Document IDs) of plugins."
+        },
+        {
+            "id": 68,
+            "category": "Advanced and Combined Real World Scans",
+            "command": "whatweb --grep \"Apache\" example.com",
+            "example": "whatweb --grep \"Apache\" example.com",
+            "explanation": "Shows only results matching the string 'Apache'."
+        },
+        {
+            "id": 69,
+            "category": "Help and Documentation",
+            "command": "whatweb --help",
+            "example": "whatweb --help",
+            "explanation": "Displays the short help menu and usage options."
+        },
+        {
+            "id": 70,
+            "category": "Help and Documentation",
+            "command": "whatweb --man",
+            "example": "whatweb --man",
+            "explanation": "Displays the full manual page for the tool."
+        }
+    ]
+}

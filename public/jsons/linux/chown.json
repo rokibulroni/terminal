@@ -1,0 +1,77 @@
+{
+  "tool": "chown",
+  "description": "Change Owner (chown): Crucial Linux command for dynamically modifying the user and group ownership of defined files, symbolic links, and core directories.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Assignment",
+      "command": "chown <user> <file>",
+      "example": "chown admin report.txt",
+      "explanation": "Transfers direct system ownership of the file to a specific authenticated user entity."
+    },
+    {
+      "id": 2,
+      "category": "Basic Assignment",
+      "command": "chown :<group> <file>",
+      "example": "chown :developers report.txt",
+      "explanation": "Changes only the group ownership of a file to the defined target group while leaving the user owner entirely unchanged. (Similar to 'chgrp')."
+    },
+    {
+      "id": 3,
+      "category": "Complete Transfer",
+      "command": "chown <user>:<group> <file>",
+      "example": "chown redis:redis config.conf",
+      "explanation": "Simultaneously alters both the exact user owner and the group owner in one isolated command."
+    },
+    {
+      "id": 4,
+      "category": "Recursion",
+      "command": "chown -R <user>:<group> <directory>",
+      "example": "chown -R www-data:www-data /var/www/html",
+      "explanation": "Recursively sweeps standard directories forcefully asserting ownership over all internal files and sub-folders automatically."
+    },
+    {
+      "id": 5,
+      "category": "Advanced",
+      "command": "chown --reference=<ref_file> <target_file>",
+      "example": "chown --reference=template.txt newfile.txt",
+      "explanation": "Perfectly clones and copies the ownership schema of a reference file directly onto the targeted subject."
+    },
+    {
+      "id": 6,
+      "category": "Symlinks",
+      "command": "chown -h <user>:<group> <symlink>",
+      "example": "chown -h root:root link_file",
+      "explanation": "Changes the underlying ownership of the target soft symlink itself rather than traversing the link to change its root target."
+    },
+    {
+      "id": 7,
+      "category": "Security",
+      "command": "chown root: <file>",
+      "example": "chown root: protected.sh",
+      "explanation": "Sets the user to root, and automatically updates the group to root's default login group simultaneously."
+    },
+    {
+      "id": 8,
+      "category": "Information",
+      "command": "chown -v <user> <file>",
+      "example": "chown -v deploy app.js",
+      "explanation": "Enables verbose diagnostics. The system strictly prints out every single action or transfer it processes."
+    },
+    {
+      "id": 9,
+      "category": "Process Output",
+      "command": "chown -c <user> <file>",
+      "example": "chown -c deploy app.js",
+      "explanation": "Reports tracking changes (like verbose) but strictly limits outputs to only print when a system change was successfully implemented."
+    },
+    {
+      "id": 10,
+      "category": "Filtering",
+      "command": "chown --from=<current_owner> <new_owner> <file>",
+      "example": "chown --from=root ubuntu important.log",
+      "explanation": "A deeply safe condition tag: Only executes the ownership swap if the current owner strictly equates to the parameter supplied."
+    }
+  ]
+}

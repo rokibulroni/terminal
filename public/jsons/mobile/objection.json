@@ -1,0 +1,77 @@
+{
+    "tool": "objection",
+    "description": "Objection: A runtime mobile exploration toolkit powered by Frida. Built specifically to help assess mobile applications and their security posture without the need for a jailbroken or rooted device.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Exploration Mode",
+            "command": "objection -g <package> explore",
+            "example": "objection -g com.target.app explore",
+            "explanation": "Executes an immediate hook natively connecting directly into the application wrapping the system in a massive pre-programmed exploitation console interface."
+        },
+        {
+            "id": 2,
+            "category": "Certificate Pinning",
+            "command": "android sslpinning disable",
+            "example": "android sslpinning disable",
+            "explanation": "Dynamically neutralizes active Java certificate bounds dynamically re-routing raw HTTPS packet traffic completely unencrypted cleanly into Burp Suite proxies."
+        },
+        {
+            "id": 3,
+            "category": "Root Bypassing",
+            "command": "android root disable",
+            "example": "android root disable",
+            "explanation": "Disables standard boolean logical gates intercepting SU checks causing standard anti-root libraries to implicitly return false validations dynamically."
+        },
+        {
+            "id": 4,
+            "category": "Keystore Dumping",
+            "command": "android keystore list",
+            "example": "android keystore list",
+            "explanation": "Forcefully extracts incredibly highly secure proprietary system aliases specifically ripping unencrypted raw authorization cryptographic keys dynamically out of Android Vault Memory."
+        },
+        {
+            "id": 5,
+            "category": "Clipboard Tracking",
+            "command": "android clipboard monitor",
+            "example": "android clipboard monitor",
+            "explanation": "Reroutes all Android OS clipboard copy/paste buffers natively echoing out password management interactions locally directly to the CLI monitor."
+        },
+        {
+            "id": 6,
+            "category": "Activity Execution",
+            "command": "android intent launch_activity",
+            "example": "android intent launch_activity com.app.SecretAdminDash",
+            "explanation": "Circumvents login portals by invoking absolute Activity Intents directly injecting the user immediately right past traditional authentication barriers."
+        },
+        {
+            "id": 7,
+            "category": "Database Execution",
+            "command": "sqlite connect <file.db>",
+            "example": "sqlite connect /data/data/com.app/databases/cache.db",
+            "explanation": "Boots a flawless live synchronous Sqlite connection fundamentally writing or manipulating unencrypted raw database schemas native inside the application."
+        },
+        {
+            "id": 8,
+            "category": "Memory Searches",
+            "command": "memory search <regex>",
+            "example": "memory search 'password123'",
+            "explanation": "Traverses and dissects active active RAM mappings locating unique occurrences of extremely specific variable arrays across internal app containers."
+        },
+        {
+            "id": 9,
+            "category": "Hooking Classes",
+            "command": "android hooking watch class <class>",
+            "example": "android hooking watch class com.example.crypto.AESUtil",
+            "explanation": "Automates complex analysis cleanly by explicitly printing the internal live arguments explicitly being passed back and forth into Java-written cryptography classes."
+        },
+        {
+            "id": 10,
+            "category": "Hooking Methods",
+            "command": "android hooking watch class_method",
+            "example": "android hooking watch class_method com.app.AESUtil.encrypt",
+            "explanation": "Targets explicitly singular class methods isolating console output strictly verifying specific execution parameters dynamically eliminating heavy stdout noise."
+        }
+    ]
+}

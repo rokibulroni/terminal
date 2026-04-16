@@ -1,0 +1,112 @@
+{
+    "tool": "adb",
+    "description": "Android Debug Bridge (ADB): A highly versatile and immensely powerful command-line tool allowing absolute administrative communication interfacing directly into operational Android devices.",
+    "total_commands": 15,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Device Detection",
+            "command": "adb devices",
+            "example": "adb devices -l",
+            "explanation": "Enumerates all actively mounted emulators or hardware units currently bridged via USB or TCP networks, verifying operational daemon synchronization."
+        },
+        {
+            "id": 2,
+            "category": "Remote Routing",
+            "command": "adb connect <ip>:<port>",
+            "example": "adb connect 192.168.1.100:5555",
+            "explanation": "Establishes a completely wireless remote debug connection executing strictly through a WLAN architecture without structural USB cabling."
+        },
+        {
+            "id": 3,
+            "category": "Root Elevation",
+            "command": "adb root",
+            "example": "adb root",
+            "explanation": "Orders the active internal adbd system daemon to terminate entirely and forcefully restart assuming god-level root privileges."
+        },
+        {
+            "id": 4,
+            "category": "Shell Interaction",
+            "command": "adb shell",
+            "example": "adb shell",
+            "explanation": "Inverts standard terminal processing explicitly dropping the CLI user perfectly into an interactive UNIX shell natively enclosed within the Android device."
+        },
+        {
+            "id": 5,
+            "category": "File Extraction (Pull)",
+            "command": "adb pull <remote> <local>",
+            "example": "adb pull /sdcard/camera/ ./pictures/",
+            "explanation": "Downloads specified massive files or directory structures natively ripping them from the Android filesystem directly to the local computer."
+        },
+        {
+            "id": 6,
+            "category": "File Injection (Push)",
+            "command": "adb push <local> <remote>",
+            "example": "adb push custom_payload.apk /data/local/tmp/",
+            "explanation": "Securely uploads payloads, configs, or binaries directly traversing off the local hard drive cleanly onto the target embedded architecture."
+        },
+        {
+            "id": 7,
+            "category": "Package Installation",
+            "command": "adb install <apk>",
+            "example": "adb install -r -d target_app.apk",
+            "explanation": "Directly compiles and forces the execution of package payloads into the Android OS (Using -r to replace overriding previous installations)."
+        },
+        {
+            "id": 8,
+            "category": "Log Extraction",
+            "command": "adb logcat",
+            "example": "adb logcat -d > dump.txt",
+            "explanation": "Hooks directly into the system arrays immediately dumping the complete continuous real-time Android system debugging console into stdout."
+        },
+        {
+            "id": 9,
+            "category": "Application Activity",
+            "command": "adb shell am start -n <package/activity>",
+            "example": "adb shell am start -n com.example.app/.MainActivity",
+            "explanation": "Commands the Activity Manager (am) to radically execute explicit intents forcing deep unseen activities or applications to forcibly launch."
+        },
+        {
+            "id": 10,
+            "category": "Application Disassembly",
+            "command": "adb shell pm clear <package>",
+            "example": "adb shell pm clear com.target.app",
+            "explanation": "Commands the Package Manager (pm) wiping all isolated cached internal SQLite arrays immediately restoring the target application strictly to factory default states."
+        },
+        {
+            "category": "Memory Tracing",
+            "command": "adb shell procrank",
+            "example": "adb shell procrank",
+            "explanation": "Generates a highly-structured table detailing explicitly active Android processor memory (VSS, RSS, PSS, USS) inherently mapping massive system memory leaks.",
+            "id": 11
+        },
+        {
+            "category": "Network Emulation",
+            "command": "adb shell svc wifi disable",
+            "example": "adb shell svc wifi disable",
+            "explanation": "Hard-kills inherently active wireless controllers cleanly forcing the Android networking logic to rely utterly explicitly on cellular data fallback.",
+            "id": 12
+        },
+        {
+            "category": "Screen Capture",
+            "command": "adb shell screencap -p > <file.png>",
+            "example": "adb shell screencap -p > screenshot.png",
+            "explanation": "Immediately snaps fundamental high-definition raw images of the active remote display fundamentally sending the PNG bytes straight off the device.",
+            "id": 13
+        },
+        {
+            "category": "Media Capture",
+            "command": "adb shell screenrecord <path.mp4>",
+            "example": "adb shell screenrecord --time-limit 10 /sdcard/demo.mp4",
+            "explanation": "Drives native hardware-accelerated video recording completely unnotified cleanly bypassing standard Application layer security matrices generating physical HD video files natively.",
+            "id": 14
+        },
+        {
+            "category": "Deep Hardware Bridging",
+            "command": "adb shell dumpsys battery set level <val>",
+            "example": "adb shell dumpsys battery set level 5",
+            "explanation": "Spoofs incredibly complex deeply hidden internal hardware system states actively forcing the OS to falsely believe massive battery-drain scenarios triggering deep Low-Power states.",
+            "id": 15
+        }
+    ]
+}

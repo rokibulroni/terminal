@@ -1,0 +1,77 @@
+{
+  "tool": "grep",
+  "description": "Global Regular Expression Print (grep): The fundamental CLI text processor strictly analyzing input lines for specific strings or complex RegEx schemas.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Extraction",
+      "command": "grep \"<string>\" <file>",
+      "example": "grep \"ERROR\" syslog.log",
+      "explanation": "Pulls out and inherently displays standard lines from target file blocks explicitly containing the requested string."
+    },
+    {
+      "id": 2,
+      "category": "Basic Extraction",
+      "command": "grep -i \"<string>\" <file>",
+      "example": "grep -i \"error\" syslog.log",
+      "explanation": "Forces analytical models to drop case sensitivity resolving logic for matching (ERROR, error, E-rRoR)."
+    },
+    {
+      "id": 3,
+      "category": "Extraction Rules",
+      "command": "grep -v \"<string>\" <file>",
+      "example": "grep -v \"DEBUG\" application.log",
+      "explanation": "Inverts matching protocol. Drops matched lines and explicitly returns strictly standard lines NOT carrying the specified string."
+    },
+    {
+      "id": 4,
+      "category": "System Sweeping",
+      "command": "grep -r \"<string>\" <directory>",
+      "example": "grep -r \"function auth()\" /var/www/",
+      "explanation": "Fires recursive analytical scanning diving deeply through target root directories mapping out any files invoking referenced strings."
+    },
+    {
+      "id": 5,
+      "category": "System Sweeping",
+      "command": "grep -rl \"<string>\" <directory>",
+      "example": "grep -rl \"API_KEY\" /home/user/",
+      "explanation": "Optimizes recursion matrices bypassing complex codeline prints to forcefully just list the absolute pathing to impacted valid files."
+    },
+    {
+      "id": 6,
+      "category": "Context Analysis",
+      "command": "grep -A <lines> \"<string>\" <file>",
+      "example": "grep -A 3 \"Exception\" app.log",
+      "explanation": "Extracts triggered target lines absolutely, while concurrently printing specific appended amounts of contextual lines immediately after (A)."
+    },
+    {
+      "id": 7,
+      "category": "Context Analysis",
+      "command": "grep -B <lines> \"<string>\" <file>",
+      "example": "grep -B 3 \"Exception\" app.log",
+      "explanation": "Extracts matched target sequences tracking specific trailing arrays immediately Before (B) the line activation metric occurs."
+    },
+    {
+      "id": 8,
+      "category": "Filtering Metadata",
+      "command": "grep -c \"<string>\" <file>",
+      "example": "grep -c \"GET /login\" access.log",
+      "explanation": "Overwrites line extraction replacing text dumps with strict raw numeric aggregate totals charting standard occurrences sequentially."
+    },
+    {
+      "id": 9,
+      "category": "Filtering Metadata",
+      "command": "grep -n \"<string>\" <file>",
+      "example": "grep -n \"TODO\" main.cpp",
+      "explanation": "Aligns extraction responses printing raw structural string outputs explicitly prefixed inherently detailing absolute line numeric targeting points."
+    },
+    {
+      "id": 10,
+      "category": "Strict Formatting",
+      "command": "grep -w \"<string>\" <file>",
+      "example": "grep -w \"var\" index.js",
+      "explanation": "Denies substring resolutions explicitly forcing analysis models tracking strictly whole standalone words dynamically isolating 'var' and bypassing 'variable'."
+    }
+  ]
+}

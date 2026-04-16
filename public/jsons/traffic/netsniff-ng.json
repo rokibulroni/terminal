@@ -1,0 +1,322 @@
+{
+    "tool": "netsniff-ng",
+    "description": "Complete netsniff-ng command reference covering all options from basic to advanced zero-copy packet capture and replay",
+    "total_commands": 45,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Packet Capture",
+            "command": "netsniff-ng -i eth0",
+            "example": "netsniff-ng -i eth0",
+            "explanation": "Captures packets from the eth0 interface and prints basic header information to the console."
+        },
+        {
+            "id": 2,
+            "category": "Basic Packet Capture",
+            "command": "netsniff-ng --in any",
+            "example": "netsniff-ng --in any",
+            "explanation": "Captures traffic from all available network interfaces simultaneously using the 'any' device."
+        },
+        {
+            "id": 3,
+            "category": "Console Output Formatting",
+            "command": "netsniff-ng -i eth0 -X",
+            "example": "netsniff-ng -i eth0 -X",
+            "explanation": "Captures packets and displays the payload in both hexadecimal and ASCII format for deep inspection."
+        },
+        {
+            "id": 4,
+            "category": "Console Output Formatting",
+            "command": "netsniff-ng -i eth0 -l",
+            "example": "netsniff-ng -i eth0 -l",
+            "explanation": "Displays one line of summary information per packet, useful for high-volume traffic monitoring."
+        },
+        {
+            "id": 5,
+            "category": "Console Output Formatting",
+            "command": "netsniff-ng -i eth0 -V",
+            "example": "netsniff-ng -i eth0 -V",
+            "explanation": "Enables verbose mode to show detailed internal status and packet processing information."
+        },
+        {
+            "id": 6,
+            "category": "Quiet and Silent Mode",
+            "command": "netsniff-ng -i eth0 -q",
+            "example": "netsniff-ng -i eth0 -q",
+            "explanation": "Runs in quiet mode, suppressing the startup banner and printing less non-essential information."
+        },
+        {
+            "id": 7,
+            "category": "Quiet and Silent Mode",
+            "command": "netsniff-ng -i eth0 -s",
+            "example": "netsniff-ng -i eth0 -s",
+            "explanation": "Runs in silent mode, capturing packets without printing anything to the console to maximize performance."
+        },
+        {
+            "id": 8,
+            "category": "Promiscuous Mode Control",
+            "command": "netsniff-ng -i eth0 -p",
+            "example": "netsniff-ng -i eth0 -p",
+            "explanation": "Explicitly disables promiscuous mode, capturing only packets destined for the interface's MAC address."
+        },
+        {
+            "id": 9,
+            "category": "Writing PCAP Files",
+            "command": "netsniff-ng -i eth0 -o dump.pcap",
+            "example": "netsniff-ng -i eth0 -o capture.pcap",
+            "explanation": "Captures packets from eth0 and writes them directly to a PCAP file using zero-copy mechanisms."
+        },
+        {
+            "id": 10,
+            "category": "Writing PCAP Files",
+            "command": "netsniff-ng -i eth0 -o /mnt/data/dump.pcap -s",
+            "example": "netsniff-ng -i eth0 -o /mnt/data/dump.pcap -s",
+            "explanation": "Writes packets to a file silently without console output, ideal for high-speed background recording."
+        },
+        {
+            "id": 11,
+            "category": "Reading PCAP Files",
+            "command": "netsniff-ng -i dump.pcap",
+            "example": "netsniff-ng -i capture.pcap",
+            "explanation": "Reads a previously saved PCAP file and displays the packet contents to the standard output."
+        },
+        {
+            "id": 12,
+            "category": "Traffic Replay",
+            "command": "netsniff-ng -i dump.pcap -o eth0",
+            "example": "netsniff-ng -i traffic.pcap -o eth0",
+            "explanation": "Replays packets from a PCAP file out through the eth0 network interface onto the live network."
+        },
+        {
+            "id": 13,
+            "category": "Traffic Replay",
+            "command": "netsniff-ng -i dump.pcap -o eth0 -s",
+            "example": "netsniff-ng -i traffic.pcap -o eth0 -s",
+            "explanation": "Replays traffic silently to the network interface to achieve maximum throughput generation."
+        },
+        {
+            "id": 14,
+            "category": "Replay Timing Control",
+            "command": "netsniff-ng -i dump.pcap -o eth0 -I 100",
+            "example": "netsniff-ng -i dump.pcap -o eth0 -I 100",
+            "explanation": "Replays packets with a fixed inter-packet interval of 100 microseconds, ignoring original timestamps."
+        },
+        {
+            "id": 15,
+            "category": "Packet Limit",
+            "command": "netsniff-ng -i eth0 -n 1000",
+            "example": "netsniff-ng -i eth0 -n 1000",
+            "explanation": "Captures exactly 1000 packets and then automatically exits."
+        },
+        {
+            "id": 16,
+            "category": "Duration Limit",
+            "command": "netsniff-ng -i eth0 -T 10s",
+            "example": "netsniff-ng -i eth0 -T 10s",
+            "explanation": "Captures traffic for exactly 10 seconds and then terminates the process."
+        },
+        {
+            "id": 17,
+            "category": "Ring Buffer Tuning",
+            "command": "netsniff-ng -i eth0 -S 64MiB",
+            "example": "netsniff-ng -i eth0 -S 64MiB",
+            "explanation": "Allocates a 64 Mebibyte kernel ring buffer for packet capture to prevent drops during traffic spikes."
+        },
+        {
+            "id": 18,
+            "category": "Ring Buffer Tuning",
+            "command": "netsniff-ng -i eth0 -S 1GiB",
+            "example": "netsniff-ng -i eth0 -S 1GiB",
+            "explanation": "Allocates a massive 1 Gibibyte ring buffer for extremely high-throughput enterprise network monitoring."
+        },
+        {
+            "id": 19,
+            "category": "CPU Affinity",
+            "command": "netsniff-ng -i eth0 -b 0",
+            "example": "netsniff-ng -i eth0 -b 0",
+            "explanation": "Pins the packet capture process to CPU core 0 to reduce cache misses and improve capture performance."
+        },
+        {
+            "id": 20,
+            "category": "CPU Affinity and Optimization",
+            "command": "netsniff-ng -i eth0 -b 1 -s -o dump.pcap",
+            "example": "netsniff-ng -i eth0 -b 1 -s -o dump.pcap",
+            "explanation": "Combines CPU pinning to core 1, silent mode, and file writing for an optimized capture pipeline."
+        },
+        {
+            "id": 21,
+            "category": "Process Priority",
+            "command": "netsniff-ng -i eth0 -H",
+            "example": "netsniff-ng -i eth0 -H",
+            "explanation": "Runs the process with high priority (SCHED_FIFO) to minimize latency and packet loss on loaded systems."
+        },
+        {
+            "id": 22,
+            "category": "Hardware Timestamping",
+            "command": "netsniff-ng -i eth0 --hwtstamp-unsync",
+            "example": "netsniff-ng -i eth0 --hwtstamp-unsync",
+            "explanation": "Enables hardware timestamping if the NIC supports it, without synchronizing to the system clock."
+        },
+        {
+            "id": 23,
+            "category": "Packet Filtering",
+            "command": "netsniff-ng -i eth0 -f filter.bpf",
+            "example": "netsniff-ng -i eth0 -f http_filter.bpf",
+            "explanation": "Applies a pre-compiled Berkeley Packet Filter (BPF) code from a file to filter traffic at the kernel level."
+        },
+        {
+            "id": 24,
+            "category": "Packet Filtering",
+            "command": "netsniff-ng -i eth0 -f /etc/netsniff-ng/rules.bpf -o filtered.pcap",
+            "example": "netsniff-ng -i eth0 -f rules.bpf -o filtered.pcap",
+            "explanation": "Captures only packets matching the BPF rules defined in the file and writes them to disk."
+        },
+        {
+            "id": 25,
+            "category": "Scatter/Gather I/O",
+            "command": "netsniff-ng -i eth0 --scatter-gather",
+            "example": "netsniff-ng -i eth0 --scatter-gather",
+            "explanation": "Enables scatter-gather I/O on the packet socket, which may improve performance on specific hardware configurations."
+        },
+        {
+            "id": 26,
+            "category": "Mmap Mode",
+            "command": "netsniff-ng -i eth0 --mmap",
+            "example": "netsniff-ng -i eth0 --mmap",
+            "explanation": "Explicitly forces memory-mapped packet socket mode (standard in netsniff-ng) for zero-copy efficiency."
+        },
+        {
+            "id": 27,
+            "category": "PCAP Rotation",
+            "command": "netsniff-ng -i eth0 -o /var/log/pcap/ -P dump -n 10000",
+            "example": "netsniff-ng -i eth0 -o /var/log/pcap/ -P dump -n 10000",
+            "explanation": "Writes to a directory with a file prefix, rotating the file after every 10,000 packets."
+        },
+        {
+            "id": 28,
+            "category": "PCAP Rotation by Size",
+            "command": "netsniff-ng -i eth0 -o . -P trace -F 100MiB",
+            "example": "netsniff-ng -i eth0 -o . -P trace -F 100MiB",
+            "explanation": "Rotates capture files in the current directory with prefix 'trace' whenever a file reaches 100 MiB."
+        },
+        {
+            "id": 29,
+            "category": "User Privilege Drop",
+            "command": "netsniff-ng -i eth0 -u 1000 -g 1000",
+            "example": "netsniff-ng -i eth0 -u 1000 -g 1000",
+            "explanation": "Drops root privileges to the specified user and group ID after initializing the capture socket for security."
+        },
+        {
+            "id": 30,
+            "category": "Jumbo Frames",
+            "command": "netsniff-ng -i eth0 -J",
+            "example": "netsniff-ng -i eth0 -J",
+            "explanation": "Enables support for jumbo frames in the ring buffer layout to accommodate packets larger than standard MTU."
+        },
+        {
+            "id": 31,
+            "category": "Randomized MAC",
+            "command": "netsniff-ng -i eth0 --rand",
+            "example": "netsniff-ng -i eth0 --rand",
+            "explanation": "Randomizes the MAC address of the interface before starting operations (if supported by driver)."
+        },
+        {
+            "id": 32,
+            "category": "RFMON Mode",
+            "command": "netsniff-ng -i wlan0 --rfraw",
+            "example": "netsniff-ng -i wlan0 --rfraw",
+            "explanation": "Enables raw radio frequency monitor mode on wireless interfaces for capturing 802.11 management frames."
+        },
+        {
+            "id": 33,
+            "category": "VLAN Capture",
+            "command": "netsniff-ng -i eth0 -o vlan.pcap --verbose",
+            "example": "netsniff-ng -i eth0 -o vlan.pcap --verbose",
+            "explanation": "Captures traffic including VLAN tags and prints detailed protocol structures for verification."
+        },
+        {
+            "id": 34,
+            "category": "Traffic Generation",
+            "command": "netsniff-ng -i eth0 --trafgen",
+            "example": "netsniff-ng -i eth0 --trafgen",
+            "explanation": "Usually redirects to the trafgen tool, but netsniff-ng handles replay; this mode relates to TX path optimization."
+        },
+        {
+            "id": 35,
+            "category": "Kernel Statistics",
+            "command": "netsniff-ng -i eth0 --stats",
+            "example": "netsniff-ng -i eth0 --stats",
+            "explanation": "Prints kernel-level packet socket statistics including drop counts and freeze status upon exit."
+        },
+        {
+            "id": 36,
+            "category": "Lock Memory",
+            "command": "netsniff-ng -i eth0 -k",
+            "example": "netsniff-ng -i eth0 -k",
+            "explanation": "Locks the process memory into RAM (mlockall) to prevent swapping and ensure consistent high-speed capture."
+        },
+        {
+            "id": 37,
+            "category": "Loopback Capture",
+            "command": "netsniff-ng -i lo -o loopback.pcap",
+            "example": "netsniff-ng -i lo -o loopback.pcap",
+            "explanation": "Captures internal local traffic on the loopback interface and saves it to a file."
+        },
+        {
+            "id": 38,
+            "category": "Pipe Output",
+            "command": "netsniff-ng -i eth0 --pipe",
+            "example": "netsniff-ng -i eth0 --pipe",
+            "explanation": "Writes raw packet data to stdout for piping into other tools without pcap headers."
+        },
+        {
+            "id": 39,
+            "category": "Advanced Replay",
+            "command": "netsniff-ng -i malicious.pcap -o eth0 -k -s -b 0",
+            "example": "netsniff-ng -i malicious.pcap -o eth0 -k -s -b 0",
+            "explanation": "Replays malicious traffic for IDS testing with memory locking, CPU pinning, and silent mode for precision."
+        },
+        {
+            "id": 40,
+            "category": "Interval Capture",
+            "command": "netsniff-ng -i eth0 -G 5s",
+            "example": "netsniff-ng -i eth0 -G 5s",
+            "explanation": "Rotates the capture file every 5 seconds, useful for segmenting continuous monitoring data."
+        },
+        {
+            "id": 41,
+            "category": "Specific Protocol Dump",
+            "command": "netsniff-ng -i eth0 --hex",
+            "example": "netsniff-ng -i eth0 --hex",
+            "explanation": "Dumps the packet content in a hex format, an alias for the -X option."
+        },
+        {
+            "id": 42,
+            "category": "Version Check",
+            "command": "netsniff-ng -v",
+            "example": "netsniff-ng -v",
+            "explanation": "Displays the version information and build features of the installed netsniff-ng tool."
+        },
+        {
+            "id": 43,
+            "category": "Help Menu",
+            "command": "netsniff-ng -h",
+            "example": "netsniff-ng -h",
+            "explanation": "Shows the brief help menu listing available flags and usage syntax."
+        },
+        {
+            "id": 44,
+            "category": "Full Help",
+            "command": "netsniff-ng --help",
+            "example": "netsniff-ng --help",
+            "explanation": "Displays the complete help documentation with all available command-line options."
+        },
+        {
+            "id": 45,
+            "category": "Combined Security Monitoring",
+            "command": "netsniff-ng -i eth0 -s -o /var/log/traffic/ -P daily -S 512MiB -k -b 0",
+            "example": "netsniff-ng -i eth0 -s -o /var/log/traffic/ -P daily -S 512MiB -k -b 0",
+            "explanation": "A production-grade monitoring command with silent capture, large ring buffer, memory locking, CPU affinity, and file rotation."
+        }
+    ]
+}

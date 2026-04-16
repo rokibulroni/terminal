@@ -1,0 +1,77 @@
+{
+  "tool": "raspi-config",
+  "description": "raspi-config is the primary configuration tool for Raspberry Pi OS. While normally an interactive CLI GUI, its non-interactive mode allows deep systemic automation and structural changes.",
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Interactivity",
+      "command": "sudo raspi-config",
+      "example": "sudo raspi-config",
+      "explanation": "Launches the standard curses-based interactive graphical interface for adjusting core system configuration settings."
+    },
+    {
+      "id": 2,
+      "category": "Systemic Filesystem",
+      "command": "sudo raspi-config nonint do_expand_rootfs",
+      "example": "sudo raspi-config nonint do_expand_rootfs",
+      "explanation": "Forces the filesystem to automatically expand and consume all available unallocated space on the MicroSD card upon the next boot sequence."
+    },
+    {
+      "id": 3,
+      "category": "Hardware Busses",
+      "command": "sudo raspi-config nonint do_i2c 0",
+      "example": "sudo raspi-config nonint do_i2c 0",
+      "explanation": "Silently enables the I2C hardware bus natively in the boot configuration (0 means Enable, 1 means Disable in nonint conventions)."
+    },
+    {
+      "id": 4,
+      "category": "Hardware Busses",
+      "command": "sudo raspi-config nonint do_spi 0",
+      "example": "sudo raspi-config nonint do_spi 0",
+      "explanation": "Silently enables the SPI (Serial Peripheral Interface) hardware bus for high-speed sensor communication."
+    },
+    {
+      "id": 5,
+      "category": "Hardware Busses",
+      "command": "sudo raspi-config nonint do_serial 2",
+      "example": "sudo raspi-config nonint do_serial 2",
+      "explanation": "Configures the GPIO Serial Port. (0=Shell/Hardware enabled, 1=Shell/Hardware disabled, 2=Shell disabled/Hardware enabled)."
+    },
+    {
+      "id": 6,
+      "category": "Remote Access",
+      "command": "sudo raspi-config nonint do_ssh 0",
+      "example": "sudo raspi-config nonint do_ssh 0",
+      "explanation": "Enables the SSH daemon seamlessly, ensuring headless network administration is permitted."
+    },
+    {
+      "id": 7,
+      "category": "Remote Access",
+      "command": "sudo raspi-config nonint do_vnc 0",
+      "example": "sudo raspi-config nonint do_vnc 0",
+      "explanation": "Instantiates and enables the RealVNC server module natively for remote graphical desktop access."
+    },
+    {
+      "id": 8,
+      "category": "Boot Configuration",
+      "command": "sudo raspi-config nonint do_boot_behaviour B1",
+      "example": "sudo raspi-config nonint do_boot_behaviour B1",
+      "explanation": "Overrides boot procedures targeting specific runlevels. (B1=Console/Requires Login, B2=Console/Autologin, B3=Desktop/Requires Login, B4=Desktop/Autologin)."
+    },
+    {
+      "id": 9,
+      "category": "Localization",
+      "command": "sudo raspi-config nonint do_wifi_country <COUNTRY_CODE>",
+      "example": "sudo raspi-config nonint do_wifi_country US",
+      "explanation": "Injects specific 2-letter regulatory domain codes into wpa_supplicant allowing the WiFi radio to legally initialize."
+    },
+    {
+      "id": 10,
+      "category": "Maintenance",
+      "command": "sudo raspi-config nonint update",
+      "example": "sudo raspi-config nonint update",
+      "explanation": "Automatically pulls the latest commit structural updates forcing the raspi-config utility to update itself."
+    }
+  ]
+}

@@ -1,0 +1,707 @@
+{
+    "tool": "rpcclient",
+    "description": "Complete rpcclient command reference covering all options from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Connection",
+            "command": "rpcclient -U \"\" 192.168.1.10",
+            "example": "rpcclient -U \"\" 192.168.1.10",
+            "explanation": "Connects to the target RPC service using a null session without authentication."
+        },
+        {
+            "id": 2,
+            "category": "Basic Connection",
+            "command": "rpcclient -U \"\" -N 192.168.1.10",
+            "example": "rpcclient -U \"\" -N 192.168.1.10",
+            "explanation": "Connects using a null session and explicitly suppresses the password prompt."
+        },
+        {
+            "id": 3,
+            "category": "Basic Connection",
+            "command": "rpcclient -U \"%\" 192.168.1.10",
+            "example": "rpcclient -U \"%\" 192.168.1.10",
+            "explanation": "Attempts to connect with a blank username and blank password shorthand."
+        },
+        {
+            "id": 4,
+            "category": "Basic Connection",
+            "command": "rpcclient -U \"user\" 192.168.1.10",
+            "example": "rpcclient -U \"administrator\" 192.168.1.10",
+            "explanation": "Connects specifying a username and prompts interactively for the password."
+        },
+        {
+            "id": 5,
+            "category": "Basic Connection",
+            "command": "rpcclient -U \"user%password\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%Password123\" 192.168.1.10",
+            "explanation": "Connects using a username and password provided inline for automation."
+        },
+        {
+            "id": 6,
+            "category": "Authentication",
+            "command": "rpcclient -W WORKGROUP -U \"user%pass\" 192.168.1.10",
+            "example": "rpcclient -W CORP -U \"jsmith%Summer2023\" 10.10.10.5",
+            "explanation": "Authenticates to a specific workgroup or domain controller."
+        },
+        {
+            "id": 7,
+            "category": "Authentication",
+            "command": "rpcclient -k 192.168.1.10",
+            "example": "rpcclient -k dc.example.local",
+            "explanation": "Uses Kerberos authentication instead of NTLM (requires valid ticket)."
+        },
+        {
+            "id": 8,
+            "category": "Authentication",
+            "command": "rpcclient --pw-nt-hash \"hash\" -U \"user\" 192.168.1.10",
+            "example": "rpcclient --pw-nt-hash \"aad3b435b51404eeaad3b435b51404ee:8846f7eaee8fb117ad06bdd830b7586c\" -U \"Administrator\" 192.168.1.10",
+            "explanation": "Performs a Pass-the-Hash attack by authenticating with an NT hash."
+        },
+        {
+            "id": 9,
+            "category": "Transport Configuration",
+            "command": "rpcclient -I 192.168.1.10 target_netbios_name",
+            "example": "rpcclient -I 192.168.1.10 FILESERVER01",
+            "explanation": "Forces the destination IP address while resolving a specific NetBIOS name."
+        },
+        {
+            "id": 10,
+            "category": "Transport Configuration",
+            "command": "rpcclient -p 445 192.168.1.10",
+            "example": "rpcclient -p 445 192.168.1.10",
+            "explanation": "Connects explicitly over SMB port 445 (TCP)."
+        },
+        {
+            "id": 11,
+            "category": "Transport Configuration",
+            "command": "rpcclient -p 139 192.168.1.10",
+            "example": "rpcclient -p 139 192.168.1.10",
+            "explanation": "Connects explicitly over NetBIOS Session port 139 (TCP)."
+        },
+        {
+            "id": 12,
+            "category": "Security Options",
+            "command": "rpcclient -S on 192.168.1.10",
+            "example": "rpcclient -S on 192.168.1.10",
+            "explanation": "Enforces SMB signing state to 'on' for the connection."
+        },
+        {
+            "id": 13,
+            "category": "Security Options",
+            "command": "rpcclient -P 192.168.1.10",
+            "example": "rpcclient -P 192.168.1.10",
+            "explanation": "Requests SMB sealing (encryption) for the connection."
+        },
+        {
+            "id": 14,
+            "category": "Batch Mode",
+            "command": "rpcclient -c \"command\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"srvinfo\" 192.168.1.10",
+            "explanation": "Executes a single RPC command non-interactively and exits."
+        },
+        {
+            "id": 15,
+            "category": "Batch Mode",
+            "command": "rpcclient -c \"cmd1; cmd2\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"srvinfo; netshareenum\" 192.168.1.10",
+            "explanation": "Executes multiple RPC commands in sequence separated by semicolons."
+        },
+        {
+            "id": 16,
+            "category": "Server Information",
+            "command": "rpcclient -c \"srvinfo\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"srvinfo\" 192.168.1.10",
+            "explanation": "Retrieves basic server information including OS version and server type."
+        },
+        {
+            "id": 17,
+            "category": "OS and Server Information",
+            "command": "rpcclient -c \"srvinfo 101\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"srvinfo 101\" 192.168.1.10",
+            "explanation": "Retrieves Level 101 server information for detailed versioning."
+        },
+        {
+            "id": 18,
+            "category": "Shares and Resources",
+            "command": "rpcclient -c \"netshareenum\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"netshareenum\" 192.168.1.10",
+            "explanation": "Enumerates available network shares on the target using Level 1 info."
+        },
+        {
+            "id": 19,
+            "category": "Shares and Resources",
+            "command": "rpcclient -c \"netshareenumall\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"netshareenumall\" 192.168.1.10",
+            "explanation": "Enumerates all shares including administrative hidden shares (C$, IPC$, etc)."
+        },
+        {
+            "id": 20,
+            "category": "Shares and Resources",
+            "command": "rpcclient -c \"netsharegetinfo ShareName\" 192.168.1.10",
+            "example": "rpcclient -U \"user%pass\" -c \"netsharegetinfo IPC$\" 192.168.1.10",
+            "explanation": "Retrieves detailed information about a specific share."
+        },
+        {
+            "id": 21,
+            "category": "Session Enumeration",
+            "command": "rpcclient -c \"netsessenum\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"netsessenum\" 192.168.1.10",
+            "explanation": "Lists active sessions established by users on the target machine."
+        },
+        {
+            "id": 22,
+            "category": "File Enumeration",
+            "command": "rpcclient -c \"netfileenum\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"netfileenum\" 192.168.1.10",
+            "explanation": "Lists files currently opened by remote users."
+        },
+        {
+            "id": 23,
+            "category": "Disk Enumeration",
+            "command": "rpcclient -c \"netdiskenum\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"netdiskenum\" 192.168.1.10",
+            "explanation": "Enumerates physical disk drives associated with shares."
+        },
+        {
+            "id": 24,
+            "category": "Domain Information",
+            "command": "rpcclient -c \"dsroledominfo\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"dsroledominfo\" 192.168.1.10",
+            "explanation": "Displays the role of the server within the domain (e.g., PDC, Backup, Member)."
+        },
+        {
+            "id": 25,
+            "category": "LSA Enumeration",
+            "command": "rpcclient -c \"lsaquery\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"lsaquery\" 192.168.1.10",
+            "explanation": "Queries the LSA policy handle to retrieve the Domain SID and Name."
+        },
+        {
+            "id": 26,
+            "category": "SID Lookup",
+            "command": "rpcclient -c \"lookupnames username\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"lookupnames administrator\" 192.168.1.10",
+            "explanation": "Resolves a username to its corresponding SID (Security Identifier)."
+        },
+        {
+            "id": 27,
+            "category": "SID Lookup",
+            "command": "rpcclient -c \"lookupsids SID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"lookupsids S-1-5-21-12345-67890-500\" 192.168.1.10",
+            "explanation": "Resolves a specific SID back to its username or group name."
+        },
+        {
+            "id": 28,
+            "category": "Privilege Enumeration",
+            "command": "rpcclient -c \"enumprivs\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumprivs\" 192.168.1.10",
+            "explanation": "Enumerates all privileges supported by the system's LSA."
+        },
+        {
+            "id": 29,
+            "category": "Trust Enumeration",
+            "command": "rpcclient -c \"enumtrusts\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumtrusts\" 192.168.1.10",
+            "explanation": "Lists trusted domains and their SIDs."
+        },
+        {
+            "id": 30,
+            "category": "Account Rights",
+            "command": "rpcclient -c \"enumacctrights\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumacctrights\" 192.168.1.10",
+            "explanation": "Enumerates privileges assigned to accounts."
+        },
+        {
+            "id": 31,
+            "category": "Context Information",
+            "command": "rpcclient -c \"getusername\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getusername\" 192.168.1.10",
+            "explanation": "Returns the username of the current authenticated session context."
+        },
+        {
+            "id": 32,
+            "category": "User Enumeration",
+            "command": "rpcclient -c \"enumdomusers\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumdomusers\" 192.168.1.10",
+            "explanation": "Lists all domain users with their RIDs."
+        },
+        {
+            "id": 33,
+            "category": "User Enumeration",
+            "command": "rpcclient -c \"querydispinfo\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"querydispinfo\" 192.168.1.10",
+            "explanation": "Lists users with full names and descriptions (often works when enumdomusers fails)."
+        },
+        {
+            "id": 34,
+            "category": "User Enumeration",
+            "command": "rpcclient -c \"querydispinfo2\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"querydispinfo2\" 192.168.1.10",
+            "explanation": "Alternative query info level 2 for user enumeration."
+        },
+        {
+            "id": 35,
+            "category": "User Enumeration",
+            "command": "rpcclient -c \"querydispinfo3\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"querydispinfo3\" 192.168.1.10",
+            "explanation": "Alternative query info level 3 for user enumeration."
+        },
+        {
+            "id": 36,
+            "category": "Group Enumeration",
+            "command": "rpcclient -c \"enumdomgroups\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumdomgroups\" 192.168.1.10",
+            "explanation": "Lists all global domain groups and their RIDs."
+        },
+        {
+            "id": 37,
+            "category": "Group Enumeration",
+            "command": "rpcclient -c \"enumalsgroups domain\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumalsgroups builtin\" 192.168.1.10",
+            "explanation": "Enumerates alias (local) groups, often used with 'builtin' to find Administrators."
+        },
+        {
+            "id": 38,
+            "category": "User Details",
+            "command": "rpcclient -c \"queryuser RID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"queryuser 500\" 192.168.1.10",
+            "explanation": "Retrieves detailed account information (logon time, expiration, path) for a user RID."
+        },
+        {
+            "id": 39,
+            "category": "User Details",
+            "command": "rpcclient -c \"queryusergroups RID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"queryusergroups 500\" 192.168.1.10",
+            "explanation": "Lists the groups that a specific user RID belongs to."
+        },
+        {
+            "id": 40,
+            "category": "Group Details",
+            "command": "rpcclient -c \"querygroup RID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"querygroup 512\" 192.168.1.10",
+            "explanation": "Retrieves detailed information about a specific global group."
+        },
+        {
+            "id": 41,
+            "category": "Group Membership",
+            "command": "rpcclient -c \"querygroupmem RID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"querygroupmem 512\" 192.168.1.10",
+            "explanation": "Lists the members (RIDs) of a specific global domain group."
+        },
+        {
+            "id": 42,
+            "category": "Group Membership",
+            "command": "rpcclient -c \"queryaliasmem RID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"queryaliasmem 544\" 192.168.1.10",
+            "explanation": "Lists the members of a local alias group (e.g., RID 544 for Administrators)."
+        },
+        {
+            "id": 43,
+            "category": "Alias Details",
+            "command": "rpcclient -c \"queryaliasinfo RID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"queryaliasinfo 544\" 192.168.1.10",
+            "explanation": "Retrieves information about a specific alias group."
+        },
+        {
+            "id": 44,
+            "category": "Password Policy",
+            "command": "rpcclient -c \"getdompwinfo\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getdompwinfo\" 192.168.1.10",
+            "explanation": "Retrieves the domain password policy (complexity, min length, history)."
+        },
+        {
+            "id": 45,
+            "category": "Password Policy",
+            "command": "rpcclient -c \"getusrdompwinfo RID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getusrdompwinfo 500\" 192.168.1.10",
+            "explanation": "Retrieves password policy information specific to a user RID."
+        },
+        {
+            "id": 46,
+            "category": "Printer Enumeration",
+            "command": "rpcclient -c \"enumprinters\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumprinters\" 192.168.1.10",
+            "explanation": "Enumerates printers installed on the remote system."
+        },
+        {
+            "id": 47,
+            "category": "Printer Enumeration",
+            "command": "rpcclient -c \"enumports\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumports\" 192.168.1.10",
+            "explanation": "Enumerates printer ports."
+        },
+        {
+            "id": 48,
+            "category": "Printer Enumeration",
+            "command": "rpcclient -c \"enumdrivers\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumdrivers\" 192.168.1.10",
+            "explanation": "Enumerates installed printer drivers."
+        },
+        {
+            "id": 49,
+            "category": "Printer Enumeration",
+            "command": "rpcclient -c \"enumjobs\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumjobs\" 192.168.1.10",
+            "explanation": "Enumerates current print jobs in the queue."
+        },
+        {
+            "id": 50,
+            "category": "Printer Enumeration",
+            "command": "rpcclient -c \"getprinter PrinterName\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getprinter 'Microsoft XPS Document Writer'\" 192.168.1.10",
+            "explanation": "Retrieves specific configuration details for a named printer."
+        },
+        {
+            "id": 51,
+            "category": "DFS Enumeration",
+            "command": "rpcclient -c \"dfsquery\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"dfsquery\" 192.168.1.10",
+            "explanation": "Queries Distributed File System (DFS) information."
+        },
+        {
+            "id": 52,
+            "category": "Service Enumeration",
+            "command": "rpcclient -c \"enumservices\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumservices\" 192.168.1.10",
+            "explanation": "Enumerates services running on the remote host (requires specific access)."
+        },
+        {
+            "id": 53,
+            "category": "Logon Information",
+            "command": "rpcclient -c \"netlogon\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"netlogon\" 192.168.1.10",
+            "explanation": "Attempts to trigger a netlogon event."
+        },
+        {
+            "id": 54,
+            "category": "Logon Information",
+            "command": "rpcclient -c \"logonctrl2\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"logonctrl2\" 192.168.1.10",
+            "explanation": "Retrieves logon control information using version 2 protocol."
+        },
+        {
+            "id": 55,
+            "category": "Domain Info",
+            "command": "rpcclient -c \"querydominfo\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"querydominfo\" 192.168.1.10",
+            "explanation": "Queries general domain information."
+        },
+        {
+            "id": 56,
+            "category": "Red Team / Account Creation",
+            "command": "rpcclient -c \"createdomuser username\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"createdomuser hacker\" 192.168.1.10",
+            "explanation": "Creates a new domain user (requires administrative privileges)."
+        },
+        {
+            "id": 57,
+            "category": "Red Team / Account Creation",
+            "command": "rpcclient -c \"deletedomuser username\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"deletedomuser hacker\" 192.168.1.10",
+            "explanation": "Deletes a domain user (requires administrative privileges)."
+        },
+        {
+            "id": 58,
+            "category": "Red Team / Groups",
+            "command": "rpcclient -c \"adddomgroupmem GroupRID UserRID\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"adddomgroupmem 512 1001\" 192.168.1.10",
+            "explanation": "Adds a user RID to a domain group RID (requires privileges)."
+        },
+        {
+            "id": 59,
+            "category": "Red Team / Groups",
+            "command": "rpcclient -c \"deldomgroupmem GroupRID UserRID\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"deldomgroupmem 512 1001\" 192.168.1.10",
+            "explanation": "Removes a user RID from a domain group RID (requires privileges)."
+        },
+        {
+            "id": 60,
+            "category": "Red Team / Passwords",
+            "command": "rpcclient -c \"setuserinfo2 RID 24 'password'\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"setuserinfo2 1001 24 'P@ssw0rd!'\" 192.168.1.10",
+            "explanation": "Resets a user's password directly via RPC (Info level 24)."
+        },
+        {
+            "id": 61,
+            "category": "RID Cycling",
+            "command": "rpcclient -c \"lookupsids S-1-5-21-X-X-500; lookupsids S-1-5-21-X-X-501\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"lookupsids S-1-5-21-123-456-500; lookupsids S-1-5-21-123-456-501\" 192.168.1.10",
+            "explanation": "Manual RID cycling example checking common RIDs 500 and 501."
+        },
+        {
+            "id": 62,
+            "category": "Security Testing",
+            "command": "rpcclient -c \"samlogon username\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"samlogon administrator\" 192.168.1.10",
+            "explanation": "Attempts a SAM logon to test account validity."
+        },
+        {
+            "id": 63,
+            "category": "Time Information",
+            "command": "rpcclient -c \"nettime\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"nettime\" 192.168.1.10",
+            "explanation": "Queries the remote server's system time."
+        },
+        {
+            "id": 64,
+            "category": "Registry (Simulated)",
+            "command": "rpcclient -c \"shutdown\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"shutdown\" 192.168.1.10",
+            "explanation": "Attempts to shut down the remote server via RPC (rarely works, dangerous)."
+        },
+        {
+            "id": 65,
+            "category": "Debug Mode",
+            "command": "rpcclient -d 3 -U \"\" -N 192.168.1.10",
+            "example": "rpcclient -d 3 -U \"\" -N 192.168.1.10",
+            "explanation": "Runs rpcclient with debug level 3 for troubleshooting connection issues."
+        },
+        {
+            "id": 66,
+            "category": "Debug Mode",
+            "command": "rpcclient -d 10 -U \"\" 192.168.1.10",
+            "example": "rpcclient -d 10 -U \"\" 192.168.1.10",
+            "explanation": "Runs with maximum debug verbosity (Level 10) for deep packet inspection."
+        },
+        {
+            "id": 67,
+            "category": "Scripting",
+            "command": "rpcclient -c \"querydispinfo\" 192.168.1.10 | grep \"Name:\"",
+            "example": "rpcclient -U \"\" -N -c \"querydispinfo\" 192.168.1.10 | grep \"Name:\"",
+            "explanation": "Example of piping rpcclient output for clean user list extraction."
+        },
+        {
+            "id": 68,
+            "category": "LSA Secrets",
+            "command": "rpcclient -c \"getprimarydomain\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getprimarydomain\" 192.168.1.10",
+            "explanation": "Retrieves the primary domain name of the target."
+        },
+        {
+            "id": 69,
+            "category": "Configuration",
+            "command": "rpcclient -s /etc/samba/smb.conf 192.168.1.10",
+            "example": "rpcclient -s /tmp/custom_smb.conf -U \"\" 192.168.1.10",
+            "explanation": "Uses a custom Samba configuration file for the client connection."
+        },
+        {
+            "id": 70,
+            "category": "Domain Info",
+            "command": "rpcclient -c \"dsenumdomtrusts\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"dsenumdomtrusts\" 192.168.1.10",
+            "explanation": "Enumerates domain trusts using Directory Service RPC calls."
+        },
+        {
+            "id": 71,
+            "category": "Timeout Configuration",
+            "command": "rpcclient -t 10 -U \"\" 192.168.1.10",
+            "example": "rpcclient -t 10 -U \"\" 192.168.1.10",
+            "explanation": "Sets the connection timeout to 10 seconds."
+        },
+        {
+            "id": 72,
+            "category": "Advanced",
+            "command": "rpcclient -c \"getremotetod\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getremotetod\" 192.168.1.10",
+            "explanation": "Gets the Time of Day (TOD) from the remote server."
+        },
+        {
+            "id": 73,
+            "category": "User Details",
+            "command": "rpcclient -c \"queryuseraliases BuiltinRID DomainSID\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"queryuseraliases 544 S-1-5-21-12345\" 192.168.1.10",
+            "explanation": "Queries which aliases a specific user SID belongs to."
+        },
+        {
+            "id": 74,
+            "category": "LSA Info",
+            "command": "rpcclient -c \"lsaquerysecobj\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"lsaquerysecobj\" 192.168.1.10",
+            "explanation": "Queries LSA security objects."
+        },
+        {
+            "id": 75,
+            "category": "Group Creation",
+            "command": "rpcclient -c \"createdomgroup GroupName\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"createdomgroup NewGroup\" 192.168.1.10",
+            "explanation": "Creates a new domain group (requires privileges)."
+        },
+        {
+            "id": 76,
+            "category": "Group Deletion",
+            "command": "rpcclient -c \"deletedomgroup GroupName\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"deletedomgroup NewGroup\" 192.168.1.10",
+            "explanation": "Deletes a domain group (requires privileges)."
+        },
+        {
+            "id": 77,
+            "category": "Alias Creation",
+            "command": "rpcclient -c \"createalias AliasName\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"createalias LocalAdmin2\" 192.168.1.10",
+            "explanation": "Creates a new alias (local group) on the target."
+        },
+        {
+            "id": 78,
+            "category": "Alias Deletion",
+            "command": "rpcclient -c \"deletealias AliasName\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"deletealias LocalAdmin2\" 192.168.1.10",
+            "explanation": "Deletes an alias (local group) from the target."
+        },
+        {
+            "id": 79,
+            "category": "Red Team / Alias Member",
+            "command": "rpcclient -c \"addaliasmem AliasRID UserSID\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"addaliasmem 544 S-1-5-21-12345-1001\" 192.168.1.10",
+            "explanation": "Adds a user to a local alias group (e.g. adding a user to Administrators)."
+        },
+        {
+            "id": 80,
+            "category": "Red Team / Alias Member",
+            "command": "rpcclient -c \"delaliasmem AliasRID UserSID\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"delaliasmem 544 S-1-5-21-12345-1001\" 192.168.1.10",
+            "explanation": "Removes a user from a local alias group."
+        },
+        {
+            "id": 81,
+            "category": "RPC Endpoint Mapper",
+            "command": "rpcclient -c \"epmapper\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"epmapper\" 192.168.1.10",
+            "explanation": "Enumerates endpoints from the Endpoint Mapper (EPM)."
+        },
+        {
+            "id": 82,
+            "category": "Monitor",
+            "command": "rpcclient -c \"enummonitor\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enummonitor\" 192.168.1.10",
+            "explanation": "Enumerates print monitors."
+        },
+        {
+            "id": 83,
+            "category": "Forms",
+            "command": "rpcclient -c \"enumforms\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumforms\" 192.168.1.10",
+            "explanation": "Enumerates printer forms."
+        },
+        {
+            "id": 84,
+            "category": "Service Info",
+            "command": "rpcclient -c \"queryservice ServiceName\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"queryservice Spooler\" 192.168.1.10",
+            "explanation": "Queries the status and config of a specific service."
+        },
+        {
+            "id": 85,
+            "category": "Service Control",
+            "command": "rpcclient -c \"stopservice ServiceName\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"stopservice Spooler\" 192.168.1.10",
+            "explanation": "Stops a remote service (requires Admin)."
+        },
+        {
+            "id": 86,
+            "category": "Service Control",
+            "command": "rpcclient -c \"startservice ServiceName\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"startservice Spooler\" 192.168.1.10",
+            "explanation": "Starts a remote service (requires Admin)."
+        },
+        {
+            "id": 87,
+            "category": "DFS",
+            "command": "rpcclient -c \"dfsgetinfo Share\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"dfsgetinfo \\\\server\\share\" 192.168.1.10",
+            "explanation": "Gets info about a DFS share."
+        },
+        {
+            "id": 88,
+            "category": "User Rights",
+            "command": "rpcclient -c \"lsaaddacctrights SID Right\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"lsaaddacctrights S-1-5-21-1234 SeShutdownPrivilege\" 192.168.1.10",
+            "explanation": "Grants a specific privilege/right to a SID."
+        },
+        {
+            "id": 89,
+            "category": "User Rights",
+            "command": "rpcclient -c \"lsaremoveacctrights SID Right\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"lsaremoveacctrights S-1-5-21-1234 SeShutdownPrivilege\" 192.168.1.10",
+            "explanation": "Revokes a specific privilege/right from a SID."
+        },
+        {
+            "id": 90,
+            "category": "LSA Enum",
+            "command": "rpcclient -c \"lsalookupprivvalue Privilege\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"lsalookupprivvalue SeShutdownPrivilege\" 192.168.1.10",
+            "explanation": "Looks up the LUID value for a named privilege."
+        },
+        {
+            "id": 91,
+            "category": "Registry (WinReg)",
+            "command": "rpcclient -c \"enumkey KeyHandle\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"enumkey 10\" 192.168.1.10",
+            "explanation": "Enumerates registry keys from an open handle (advanced, requires openkey)."
+        },
+        {
+            "id": 92,
+            "category": "Network Interface",
+            "command": "rpcclient -c \"netr_ServerGetInfo\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"netr_ServerGetInfo\" 192.168.1.10",
+            "explanation": "Raw RPC call to get server info (similar to srvinfo but via netr)."
+        },
+        {
+            "id": 93,
+            "category": "Blue Team Validation",
+            "command": "rpcclient -c \"getdompwinfo\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getdompwinfo\" 192.168.1.10",
+            "explanation": "Validation: Checks if the password policy is too weak (e.g., no complexity)."
+        },
+        {
+            "id": 94,
+            "category": "Blue Team Validation",
+            "command": "rpcclient -c \"enumdomusers\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"enumdomusers\" 192.168.1.10",
+            "explanation": "Validation: Checks if Null Session allows dumping the entire user list."
+        },
+        {
+            "id": 95,
+            "category": "Combined Enumeration",
+            "command": "rpcclient -c \"querydominfo; enumdomusers; enumdomgroups\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"querydominfo; enumdomusers; enumdomgroups\" 192.168.1.10",
+            "explanation": "Runs a rapid triage sequence to get domain info, users, and groups in one go."
+        },
+        {
+            "id": 96,
+            "category": "Interactive Shell",
+            "command": "rpcclient -U \"user\" 192.168.1.10",
+            "example": "rpcclient -U \"administrator\" 192.168.1.10",
+            "explanation": "Drops into the interactive rpcclient shell for manual exploration."
+        },
+        {
+            "id": 97,
+            "category": "Printer Driver",
+            "command": "rpcclient -c \"getdriver DriverName\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"getdriver 'HP LaserJet'\" 192.168.1.10",
+            "explanation": "Gets info about a specific printer driver."
+        },
+        {
+            "id": 98,
+            "category": "DFS Enum",
+            "command": "rpcclient -c \"dfsnumber\" 192.168.1.10",
+            "example": "rpcclient -U \"\" -N -c \"dfsnumber\" 192.168.1.10",
+            "explanation": "Returns the number of DFS shares available."
+        },
+        {
+            "id": 99,
+            "category": "FSRVP (Shadow Copy)",
+            "command": "rpcclient -c \"fss_is_path_supported SharePath\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"fss_is_path_supported \\\\server\\share\" 192.168.1.10",
+            "explanation": "Checks if a share supports Shadow Copy (FSRVP)."
+        },
+        {
+            "id": 100,
+            "category": "Incident Response",
+            "command": "rpcclient -c \"netsessenum; netfileenum\" 192.168.1.10",
+            "example": "rpcclient -U \"admin%pass\" -c \"netsessenum; netfileenum\" 192.168.1.10",
+            "explanation": "Snapshots active sessions and open files to identify suspicious activity."
+        }
+    ]
+}

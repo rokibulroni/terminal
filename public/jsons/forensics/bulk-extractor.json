@@ -1,0 +1,462 @@
+{
+    "tool": "bulk-extractor",
+    "description": "Complete bulk extractor command and workflow reference from basic to advanced forensic artifact extraction",
+    "total_commands": 65,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Forensic Scanning",
+            "command": "bulk_extractor -o output_dir image.dd",
+            "example": "bulk_extractor -o case001_output suspect_drive.dd",
+            "explanation": "Performs a default forensic scan on a raw disk image and saves artifacts to the specified directory"
+        },
+        {
+            "id": 2,
+            "category": "Basic Forensic Scanning",
+            "command": "bulk_extractor -h",
+            "example": "bulk_extractor -h",
+            "explanation": "Displays the help menu with a list of available command-line options and flags"
+        },
+        {
+            "id": 3,
+            "category": "Basic Forensic Scanning",
+            "command": "bulk_extractor -V",
+            "example": "bulk_extractor -V",
+            "explanation": "Displays the version information and compilation details of the tool"
+        },
+        {
+            "id": 4,
+            "category": "Basic Forensic Scanning",
+            "command": "bulk_extractor -H",
+            "example": "bulk_extractor -H",
+            "explanation": "Lists all available scanners and their current status (enabled or disabled)"
+        },
+        {
+            "id": 5,
+            "category": "Input Handling and Scanning Scope",
+            "command": "bulk_extractor -R -o output_dir directory_path",
+            "example": "bulk_extractor -R -o evidence_out /mnt/evidence_files",
+            "explanation": "Recursively scans a directory of files treating them as inputs for artifact extraction"
+        },
+        {
+            "id": 6,
+            "category": "Input Handling and Scanning Scope",
+            "command": "bulk_extractor -o output_dir -",
+            "example": "cat image.dd | bulk_extractor -o output_dir -",
+            "explanation": "Accepts input from standard input (stdin) via a pipe for streaming analysis"
+        },
+        {
+            "id": 7,
+            "category": "Performance and Tuning",
+            "command": "bulk_extractor -j 4 -o output_dir image.dd",
+            "example": "bulk_extractor -j 8 -o fast_scan image.dd",
+            "explanation": "Specifies the number of parallel threads to use for faster processing"
+        },
+        {
+            "id": 8,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -x all -E email -o output_dir image.dd",
+            "example": "bulk_extractor -x all -E email -o mail_artifacts image.dd",
+            "explanation": "Disables all default scanners and enables only the email scanner for targeted extraction"
+        },
+        {
+            "id": 9,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E accts -o output_dir image.dd",
+            "example": "bulk_extractor -E accts -o accounts_out image.dd",
+            "explanation": "Enables the accounts scanner to detect credit card numbers and other financial identifiers"
+        },
+        {
+            "id": 10,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E url -o output_dir image.dd",
+            "example": "bulk_extractor -E url -o web_history image.dd",
+            "explanation": "Enables the URL scanner to extract web addresses and domain names from the image"
+        },
+        {
+            "id": 11,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E exif -o output_dir image.dd",
+            "example": "bulk_extractor -E exif -o photo_metadata image.dd",
+            "explanation": "Extracts EXIF metadata from image files embedded within the disk image"
+        },
+        {
+            "id": 12,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E gps -o output_dir image.dd",
+            "example": "bulk_extractor -E gps -o geo_data image.dd",
+            "explanation": "Scans for GPS coordinates and geolocation data within files and metadata"
+        },
+        {
+            "id": 13,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E net -o output_dir image.dd",
+            "example": "bulk_extractor -E net -o network_trace image.dd",
+            "explanation": "Parses network packets found in the image to extract IP addresses and packet data"
+        },
+        {
+            "id": 14,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E json -o output_dir image.dd",
+            "example": "bulk_extractor -E json -o json_data image.dd",
+            "explanation": "Detects and extracts JSON objects typically found in logs and web applications"
+        },
+        {
+            "id": 15,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E aes -o output_dir image.dd",
+            "example": "bulk_extractor -E aes -o crypto_keys image.dd",
+            "explanation": "Scans for AES key schedules in memory dumps or disk images to recover encryption keys"
+        },
+        {
+            "id": 16,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E base64 -o output_dir image.dd",
+            "example": "bulk_extractor -E base64 -o encoded_data image.dd",
+            "explanation": "Decodes Base64 strings found in the image and extracts features from the decoded content"
+        },
+        {
+            "id": 17,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E elf -o output_dir image.dd",
+            "example": "bulk_extractor -E elf -o linux_bins image.dd",
+            "explanation": "Identifies and extracts information from ELF executables common in Linux systems"
+        },
+        {
+            "id": 18,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E winpe -o output_dir image.dd",
+            "example": "bulk_extractor -E winpe -o windows_exe image.dd",
+            "explanation": "Scans for Windows Portable Executable (PE) file headers and imports/exports"
+        },
+        {
+            "id": 19,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E windirs -o output_dir image.dd",
+            "example": "bulk_extractor -E windirs -o dir_entries image.dd",
+            "explanation": "Extracts Windows directory entries and file metadata from FAT and NTFS artifacts"
+        },
+        {
+            "id": 20,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E winprefetch -o output_dir image.dd",
+            "example": "bulk_extractor -E winprefetch -o prefetch_artifacts image.dd",
+            "explanation": "Parses Windows Prefetch files to determine application execution history"
+        },
+        {
+            "id": 21,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E zip -o output_dir image.dd",
+            "example": "bulk_extractor -E zip -o archive_contents image.dd",
+            "explanation": "Locates ZIP archive headers and extracts metadata about compressed files"
+        },
+        {
+            "id": 22,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E gzip -o output_dir image.dd",
+            "example": "bulk_extractor -E gzip -o comp_streams image.dd",
+            "explanation": "Detects and processes GZIP compressed streams to extract internal content"
+        },
+        {
+            "id": 23,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E pdf -o output_dir image.dd",
+            "example": "bulk_extractor -E pdf -o document_meta image.dd",
+            "explanation": "Extracts text and metadata from PDF document structures found in the image"
+        },
+        {
+            "id": 24,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E hiber -o output_dir image.dd",
+            "example": "bulk_extractor -E hiber -o hibernation_data image.dd",
+            "explanation": "Scans Windows hibernation files for decompressed pages and artifacts"
+        },
+        {
+            "id": 25,
+            "category": "Scanning Controls",
+            "command": "bulk_extractor -Y 1000 -o output_dir image.dd",
+            "example": "bulk_extractor -Y 500000 -o partition_start image.dd",
+            "explanation": "Starts the forensic scan at a specific byte offset into the image file"
+        },
+        {
+            "id": 26,
+            "category": "Scanning Controls",
+            "command": "bulk_extractor -L 1G -o output_dir image.dd",
+            "example": "bulk_extractor -L 500M -o sample_scan image.dd",
+            "explanation": "Limits the scan to a specific size (e.g., 1 gigabyte) from the start point"
+        },
+        {
+            "id": 27,
+            "category": "Output and Logging",
+            "command": "bulk_extractor -b banner.txt -o output_dir image.dd",
+            "example": "bulk_extractor -b case_header.txt -o output_dir image.dd",
+            "explanation": "Adds the contents of a banner file to the top of every output feature file"
+        },
+        {
+            "id": 28,
+            "category": "Filtering and Stoplists",
+            "command": "bulk_extractor -w stoplist.txt -o output_dir image.dd",
+            "example": "bulk_extractor -w whitelist_words.txt -o clean_output image.dd",
+            "explanation": "Uses a stoplist file to exclude specific terms or features from the final output"
+        },
+        {
+            "id": 29,
+            "category": "Filtering and Stoplists",
+            "command": "bulk_extractor -F filter_terms.txt -o output_dir image.dd",
+            "example": "bulk_extractor -F search_terms.txt -o specific_hits image.dd",
+            "explanation": "Uses a filter file to only include features that match specific terms"
+        },
+        {
+            "id": 30,
+            "category": "Advanced Configuration",
+            "command": "bulk_extractor -S word_min=6 -o output_dir image.dd",
+            "example": "bulk_extractor -S word_min=10 -o long_words image.dd",
+            "explanation": "Sets the minimum length of extracted words for the wordlist scanner to 6 characters"
+        },
+        {
+            "id": 31,
+            "category": "Advanced Configuration",
+            "command": "bulk_extractor -S word_max=20 -o output_dir image.dd",
+            "example": "bulk_extractor -S word_max=15 -o short_words image.dd",
+            "explanation": "Sets the maximum length of extracted words to reduce noise in wordlist generation"
+        },
+        {
+            "id": 32,
+            "category": "Performance and Tuning",
+            "command": "bulk_extractor -M 50 -o output_dir image.dd",
+            "example": "bulk_extractor -M 100 -o deep_scan image.dd",
+            "explanation": "Sets the maximum recursion depth for scanners that explore compressed or encoded data"
+        },
+        {
+            "id": 33,
+            "category": "Performance and Tuning",
+            "command": "bulk_extractor -m 100 -o output_dir image.dd",
+            "example": "bulk_extractor -m 200 -o large_mem_scan image.dd",
+            "explanation": "Sets the maximum number of megabytes to process for a single file during recursion"
+        },
+        {
+            "id": 34,
+            "category": "Incident Response Investigations",
+            "command": "bulk_extractor -E kml -o output_dir ram_dump.mem",
+            "example": "bulk_extractor -E kml -o geo_artifacts ram.raw",
+            "explanation": "Scans a RAM dump for KML (Keyhole Markup Language) data to find geolocation artifacts"
+        },
+        {
+            "id": 35,
+            "category": "Incident Response Investigations",
+            "command": "bulk_extractor -x all -E facebook -o output_dir image.dd",
+            "example": "bulk_extractor -x all -E facebook -o social_media image.dd",
+            "explanation": "Specifically targets Facebook-related artifacts like IDs and chat fragments"
+        },
+        {
+            "id": 36,
+            "category": "Advanced Feature Extraction",
+            "command": "bulk_extractor -E ssn -o output_dir image.dd",
+            "example": "bulk_extractor -E ssn -o pii_scan image.dd",
+            "explanation": "Enables the Social Security Number scanner to identify PII within the target"
+        },
+        {
+            "id": 37,
+            "category": "Advanced Feature Extraction",
+            "command": "bulk_extractor -E vcard -o output_dir image.dd",
+            "example": "bulk_extractor -E vcard -o contacts_scan image.dd",
+            "explanation": "Extracts vCard contact information often found in mobile backups and emails"
+        },
+        {
+            "id": 38,
+            "category": "Output and Logging",
+            "command": "bulk_extractor -q -o output_dir image.dd",
+            "example": "bulk_extractor -q -o silent_scan image.dd",
+            "explanation": "Runs the tool in quiet mode, suppressing status messages to stdout for cleaner logs"
+        },
+        {
+            "id": 39,
+            "category": "Scanning Controls",
+            "command": "bulk_extractor -1 -o output_dir image.dd",
+            "example": "bulk_extractor -1 -o single_thread image.dd",
+            "explanation": "Forces the tool to run on a single thread, useful for debugging or limited resources"
+        },
+        {
+            "id": 40,
+            "category": "Advanced Configuration",
+            "command": "bulk_extractor -S ssn_mode=1 -o output_dir image.dd",
+            "example": "bulk_extractor -S ssn_mode=2 -o strict_ssn image.dd",
+            "explanation": "Adjusts the sensitivity or validation mode of the SSN scanner via configuration variables"
+        },
+        {
+            "id": 41,
+            "category": "Blue Team Defensive Validation",
+            "command": "bulk_extractor -E wordlist -o output_dir image.dd",
+            "example": "bulk_extractor -E wordlist -o pass_audit image.dd",
+            "explanation": "Generates a wordlist of all strings in the image for password cracking audits"
+        },
+        {
+            "id": 42,
+            "category": "Threat Hunting",
+            "command": "bulk_extractor -r alert_list.txt -o output_dir image.dd",
+            "example": "bulk_extractor -r ioc_list.txt -o threat_hunt image.dd",
+            "explanation": "Uses an alert list (globally) to flag specific indicators of compromise (IOCs) found in the image"
+        },
+        {
+            "id": 43,
+            "category": "Output and Logging",
+            "command": "bulk_extractor -o output_dir -S report_context_width=64 image.dd",
+            "example": "bulk_extractor -o extended_context -S report_context_width=128 image.dd",
+            "explanation": "Increases the amount of context data saved around a feature in the report file"
+        },
+        {
+            "id": 44,
+            "category": "Advanced Configuration",
+            "command": "bulk_extractor -z 0 -o output_dir image.dd",
+            "example": "bulk_extractor -z 0 -o start_zero image.dd",
+            "explanation": "Start the page numbering at zero instead of one for the output histogram"
+        },
+        {
+            "id": 45,
+            "category": "Incident Response Investigations",
+            "command": "bulk_extractor -E httplogs -o output_dir image.dd",
+            "example": "bulk_extractor -E httplogs -o web_logs image.dd",
+            "explanation": "Parses common HTTP server log formats from unallocated space or log files"
+        },
+        {
+            "id": 46,
+            "category": "Automation and Pipeline Workflows",
+            "command": "bulk_extractor -o output_dir -C 100 image.dd",
+            "example": "bulk_extractor -o huge_scan -C 500 big_image.dd",
+            "explanation": "Creates a crash checkpoint file every specified number of megabytes to allow resuming"
+        },
+        {
+            "id": 47,
+            "category": "Advanced Configuration",
+            "command": "bulk_extractor -G 20 -o output_dir image.dd",
+            "example": "bulk_extractor -G 50 -o small_page image.dd",
+            "explanation": "Sets the page size for analysis in megabytes, affecting memory usage and granularity"
+        },
+        {
+            "id": 48,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E ether -o output_dir image.dd",
+            "example": "bulk_extractor -E ether -o mac_addrs image.dd",
+            "explanation": "Scans specifically for Ethernet MAC addresses in the raw data"
+        },
+        {
+            "id": 49,
+            "category": "Input Handling and Scanning Scope",
+            "command": "bulk_extractor -o output_dir -s 512 image.dd",
+            "example": "bulk_extractor -o output_dir -s 1 image.raw",
+            "explanation": "Sets the sampling rate to process only a fraction of the data for rapid triage"
+        },
+        {
+            "id": 50,
+            "category": "Advanced Configuration",
+            "command": "bulk_extractor -S opt_context=1 -o output_dir image.dd",
+            "example": "bulk_extractor -S opt_context=0 -o no_context image.dd",
+            "explanation": "Enables or disables the saving of context data alongside extracted features"
+        },
+        {
+            "id": 51,
+            "category": "Blue Team Defensive Validation",
+            "command": "bulk_extractor -E find -S find_regex=regex.txt -o output_dir image.dd",
+            "example": "bulk_extractor -E find -S find_regex=pii_patterns.txt -o regex_scan image.dd",
+            "explanation": "Uses the 'find' scanner with a user-provided file of regex patterns for custom data detection"
+        },
+        {
+            "id": 52,
+            "category": "Advanced Feature Extraction",
+            "command": "bulk_extractor -E outlook -o output_dir image.dd",
+            "example": "bulk_extractor -E outlook -o pst_ost image.dd",
+            "explanation": "Scans for Outlook PST and OST file structures and email artifacts"
+        },
+        {
+            "id": 53,
+            "category": "Advanced Feature Extraction",
+            "command": "bulk_extractor -E fe80 -o output_dir image.dd",
+            "example": "bulk_extractor -E fe80 -o ipv6_link_local image.dd",
+            "explanation": "Scans specifically for IPv6 Link-Local addresses in the data"
+        },
+        {
+            "id": 54,
+            "category": "Threat Hunting",
+            "command": "bulk_extractor -E xor -o output_dir image.dd",
+            "example": "bulk_extractor -E xor -o obfuscated_data image.dd",
+            "explanation": "Attempts to detect XOR-encoded strings often used by malware to hide configuration data"
+        },
+        {
+            "id": 55,
+            "category": "Advanced Combined Workflow",
+            "command": "bulk_extractor -x all -E email -E url -E ip -w whitelist.txt -o output_dir image.dd",
+            "example": "bulk_extractor -x all -E email -E url -E ip -w known_good.txt -o triage image.dd",
+            "explanation": "Runs a targeted triage scan for communication artifacts while excluding known safe domains"
+        },
+        {
+            "id": 56,
+            "category": "Advanced Combined Workflow",
+            "command": "bulk_extractor -R -j 16 -M 20 -o output_dir /evidence/files",
+            "example": "bulk_extractor -R -j 32 -M 50 -o massive_dir_scan /mnt/server_dump",
+            "explanation": "High-performance recursive directory scan with deep recursion limits and high thread count"
+        },
+        {
+            "id": 57,
+            "category": "Automation and Pipeline Workflows",
+            "command": "bulk_extractor -o output_dir -S fmt=json image.dd",
+            "example": "bulk_extractor -o json_output -S fmt=json image.dd",
+            "explanation": "Configures the output format to JSON for easier ingestion into other analysis tools (if supported by build)"
+        },
+        {
+            "id": 58,
+            "category": "Feature and Artifact Extraction",
+            "command": "bulk_extractor -E sqlite -o output_dir image.dd",
+            "example": "bulk_extractor -E sqlite -o db_fragments image.dd",
+            "explanation": "Scans for SQLite database pages and recovers deleted records from free space"
+        },
+        {
+            "id": 59,
+            "category": "Advanced Feature Extraction",
+            "command": "bulk_extractor -E lightgrep -S lightgrep_keywords=keywords.txt -o output_dir image.dd",
+            "example": "bulk_extractor -E lightgrep -S lightgrep_keywords=search.txt -o fast_search image.dd",
+            "explanation": "Uses the Lightgrep engine (if compiled) for extremely fast keyword searching"
+        },
+        {
+            "id": 60,
+            "category": "Incident Response Investigations",
+            "command": "bulk_extractor -E utmp -o output_dir image.dd",
+            "example": "bulk_extractor -E utmp -o login_history image.dd",
+            "explanation": "Extracts login records from Unix utmp/wtmp structures found in the image"
+        },
+        {
+            "id": 61,
+            "category": "Performance and Tuning",
+            "command": "bulk_extractor -P /path/to/plugins -o output_dir image.dd",
+            "example": "bulk_extractor -P ./custom_scanners -o plugin_scan image.dd",
+            "explanation": "Specifies a custom directory to load additional shared object scanners or plugins"
+        },
+        {
+            "id": 62,
+            "category": "Advanced Combined Workflow",
+            "command": "bulk_extractor -Y 1000 -L 500M -x all -E aes -E base64 -o output_dir image.dd",
+            "example": "bulk_extractor -Y 0 -L 1G -x all -E aes -E base64 -o crypto_triage image.dd",
+            "explanation": "Performs a focused cryptographic artifact scan on a specific slice of the disk image"
+        },
+        {
+            "id": 63,
+            "category": "Digital Forensics Reporting",
+            "command": "bulk_extractor -S banner_file=header.txt -S report_file=report.xml -o output_dir image.dd",
+            "example": "bulk_extractor -S banner_file=info.txt -S report_file=final.xml -o report_out image.dd",
+            "explanation": "Customizes the banner and report filename generation for automated reporting pipelines"
+        },
+        {
+            "id": 64,
+            "category": "Threat Hunting",
+            "command": "bulk_extractor -E rar -o output_dir image.dd",
+            "example": "bulk_extractor -E rar -o archive_hunt image.dd",
+            "explanation": "Scans for RAR archive headers which are often used for exfiltrating stolen data"
+        },
+        {
+            "id": 65,
+            "category": "Advanced Combined Workflow",
+            "command": "bulk_extractor -j 8 -q -w stop.txt -r alert.txt -o output_dir image.dd",
+            "example": "bulk_extractor -j 16 -q -w common.txt -r malware_iocs.txt -o auto_hunt image.dd",
+            "explanation": "High-performance, quiet automated scan using both stoplists for noise reduction and alert lists for IOC detection"
+        }
+    ]
+}

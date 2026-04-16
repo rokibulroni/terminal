@@ -1,0 +1,742 @@
+{
+    "tool": "tmux",
+    "description": "Complete tmux command and workflow reference from basic to advanced terminal multiplexing and session management",
+    "total_commands": 105,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Session Start",
+            "command": "tmux",
+            "example": "tmux",
+            "explanation": "Starts a new tmux session with a default numerical name."
+        },
+        {
+            "id": 2,
+            "category": "Session Start",
+            "command": "tmux new -s [name]",
+            "example": "tmux new -s production",
+            "explanation": "Starts a new session with a specific custom name for easier identification."
+        },
+        {
+            "id": 3,
+            "category": "Session Management",
+            "command": "tmux ls",
+            "example": "tmux ls",
+            "explanation": "Lists all currently running tmux sessions."
+        },
+        {
+            "id": 4,
+            "category": "Session Management",
+            "command": "tmux attach -t [name]",
+            "example": "tmux attach -t production",
+            "explanation": "Attaches to an existing background session identified by its name."
+        },
+        {
+            "id": 5,
+            "category": "Session Management",
+            "command": "tmux attach -d -t [name]",
+            "example": "tmux attach -d -t dev",
+            "explanation": "Attaches to a session and detaches any other clients currently attached to it."
+        },
+        {
+            "id": 6,
+            "category": "Session Management",
+            "command": "Prefix + d",
+            "example": "Ctrl-b d",
+            "explanation": "Detaches from the current session, leaving it running in the background."
+        },
+        {
+            "id": 7,
+            "category": "Session Management",
+            "command": "tmux rename-session -t [current] [new]",
+            "example": "tmux rename-session -t 0 webserver",
+            "explanation": "Renames an existing session to a new label."
+        },
+        {
+            "id": 8,
+            "category": "Session Management",
+            "command": "Prefix + $",
+            "example": "Ctrl-b $",
+            "explanation": "Interactively prompts to rename the current session."
+        },
+        {
+            "id": 9,
+            "category": "Session Management",
+            "command": "tmux kill-session -t [name]",
+            "example": "tmux kill-session -t database",
+            "explanation": "Terminates a specific session and closes all its windows and panes."
+        },
+        {
+            "id": 10,
+            "category": "Session Management",
+            "command": "tmux kill-server",
+            "example": "tmux kill-server",
+            "explanation": "Kills the tmux server and all sessions, windows, and panes immediately."
+        },
+        {
+            "id": 11,
+            "category": "Window Management",
+            "command": "Prefix + c",
+            "example": "Ctrl-b c",
+            "explanation": "Creates a new window within the current session."
+        },
+        {
+            "id": 12,
+            "category": "Window Management",
+            "command": "tmux new-window -n [name]",
+            "example": "tmux new-window -n logs",
+            "explanation": "Creates a new window with a specified name."
+        },
+        {
+            "id": 13,
+            "category": "Window Management",
+            "command": "Prefix + ,",
+            "example": "Ctrl-b ,",
+            "explanation": "Prompts to rename the current window."
+        },
+        {
+            "id": 14,
+            "category": "Window Management",
+            "command": "Prefix + n",
+            "example": "Ctrl-b n",
+            "explanation": "Switches to the next window in the list."
+        },
+        {
+            "id": 15,
+            "category": "Window Management",
+            "command": "Prefix + p",
+            "example": "Ctrl-b p",
+            "explanation": "Switches to the previous window in the list."
+        },
+        {
+            "id": 16,
+            "category": "Window Management",
+            "command": "Prefix + [number]",
+            "example": "Ctrl-b 2",
+            "explanation": "Switches directly to the window at the specified index."
+        },
+        {
+            "id": 17,
+            "category": "Window Management",
+            "command": "Prefix + w",
+            "example": "Ctrl-b w",
+            "explanation": "Opens an interactive list to select a specific window from any session."
+        },
+        {
+            "id": 18,
+            "category": "Window Management",
+            "command": "Prefix + &",
+            "example": "Ctrl-b &",
+            "explanation": "Prompts confirmation to kill (close) the current window."
+        },
+        {
+            "id": 19,
+            "category": "Window Management",
+            "command": "tmux move-window -r",
+            "example": "tmux move-window -r",
+            "explanation": "Renumbers all windows in the session sequentially to remove gaps."
+        },
+        {
+            "id": 20,
+            "category": "Pane Management",
+            "command": "Prefix + %",
+            "example": "Ctrl-b %",
+            "explanation": "Splits the current pane vertically into two side-by-side panes."
+        },
+        {
+            "id": 21,
+            "category": "Pane Management",
+            "command": "Prefix + \"",
+            "example": "Ctrl-b \"",
+            "explanation": "Splits the current pane horizontally into two top-and-bottom panes."
+        },
+        {
+            "id": 22,
+            "category": "Pane Management",
+            "command": "Prefix + o",
+            "example": "Ctrl-b o",
+            "explanation": "Cycles focus to the next pane in the current window."
+        },
+        {
+            "id": 23,
+            "category": "Pane Management",
+            "command": "Prefix + Arrow Key",
+            "example": "Ctrl-b Up",
+            "explanation": "Moves focus to the pane in the direction of the arrow key."
+        },
+        {
+            "id": 24,
+            "category": "Pane Management",
+            "command": "Prefix + x",
+            "example": "Ctrl-b x",
+            "explanation": "Prompts confirmation to kill (close) the current pane."
+        },
+        {
+            "id": 25,
+            "category": "Pane Management",
+            "command": "Prefix + z",
+            "example": "Ctrl-b z",
+            "explanation": "Toggles zoom on the current pane, making it fill the entire window."
+        },
+        {
+            "id": 26,
+            "category": "Pane Management",
+            "command": "Prefix + {",
+            "example": "Ctrl-b {",
+            "explanation": "Swaps the current pane with the previous pane."
+        },
+        {
+            "id": 27,
+            "category": "Pane Management",
+            "command": "Prefix + }",
+            "example": "Ctrl-b }",
+            "explanation": "Swaps the current pane with the next pane."
+        },
+        {
+            "id": 28,
+            "category": "Pane Management",
+            "command": "Prefix + Space",
+            "example": "Ctrl-b Space",
+            "explanation": "Cycles through the available automated pane layouts."
+        },
+        {
+            "id": 29,
+            "category": "Pane Management",
+            "command": "tmux break-pane",
+            "example": "tmux break-pane",
+            "explanation": "Detaches the current pane and moves it into its own new window."
+        },
+        {
+            "id": 30,
+            "category": "Pane Management",
+            "command": "tmux join-pane -t [window]",
+            "example": "tmux join-pane -t :1",
+            "explanation": "Moves the current pane into an existing window."
+        },
+        {
+            "id": 31,
+            "category": "Pane Management",
+            "command": "tmux resize-pane -[U/D/L/R] [amount]",
+            "example": "tmux resize-pane -D 10",
+            "explanation": "Resizes the current pane in a specific direction by a number of cells."
+        },
+        {
+            "id": 32,
+            "category": "Copy Mode & Scrollback",
+            "command": "Prefix + [",
+            "example": "Ctrl-b [",
+            "explanation": "Enters copy mode to scroll through history and select text."
+        },
+        {
+            "id": 33,
+            "category": "Copy Mode & Scrollback",
+            "command": "Prefix + PgUp",
+            "example": "Ctrl-b PgUp",
+            "explanation": "Enters copy mode and scrolls up one page immediately."
+        },
+        {
+            "id": 34,
+            "category": "Copy Mode & Scrollback",
+            "command": "q",
+            "example": "q",
+            "explanation": "Quits copy mode and returns to the command prompt."
+        },
+        {
+            "id": 35,
+            "category": "Copy Mode & Scrollback",
+            "command": "g",
+            "example": "g (in vi-copy mode)",
+            "explanation": "Goes to the very top of the scrollback history."
+        },
+        {
+            "id": 36,
+            "category": "Copy Mode & Scrollback",
+            "command": "G",
+            "example": "G (in vi-copy mode)",
+            "explanation": "Goes to the very bottom of the scrollback history."
+        },
+        {
+            "id": 37,
+            "category": "Copy Mode & Scrollback",
+            "command": "/",
+            "example": "/error (in vi-copy mode)",
+            "explanation": "Searches forward in the scrollback buffer for a specific pattern."
+        },
+        {
+            "id": 38,
+            "category": "Copy Mode & Scrollback",
+            "command": "?",
+            "example": "?warning (in vi-copy mode)",
+            "explanation": "Searches backward in the scrollback buffer for a specific pattern."
+        },
+        {
+            "id": 39,
+            "category": "Copy Mode & Scrollback",
+            "command": "Space",
+            "example": "Space (in vi-copy mode)",
+            "explanation": "Starts text selection in copy mode."
+        },
+        {
+            "id": 40,
+            "category": "Copy Mode & Scrollback",
+            "command": "Enter",
+            "example": "Enter (in vi-copy mode)",
+            "explanation": "Copies the selected text to the tmux paste buffer and exits copy mode."
+        },
+        {
+            "id": 41,
+            "category": "Buffer Management",
+            "command": "Prefix + ]",
+            "example": "Ctrl-b ]",
+            "explanation": "Pastes the most recently copied text from the tmux buffer."
+        },
+        {
+            "id": 42,
+            "category": "Buffer Management",
+            "command": "tmux list-buffers",
+            "example": "tmux list-buffers",
+            "explanation": "Displays a history of copied text segments stored in buffers."
+        },
+        {
+            "id": 43,
+            "category": "Buffer Management",
+            "command": "tmux show-buffer",
+            "example": "tmux show-buffer",
+            "explanation": "Displays the contents of the current paste buffer without pasting it."
+        },
+        {
+            "id": 44,
+            "category": "Buffer Management",
+            "command": "tmux save-buffer [file]",
+            "example": "tmux save-buffer ~/clipboard.txt",
+            "explanation": "Saves the contents of the paste buffer to a file."
+        },
+        {
+            "id": 45,
+            "category": "Buffer Management",
+            "command": "tmux load-buffer [file]",
+            "example": "tmux load-buffer ~/config.txt",
+            "explanation": "Loads text from a file into a new paste buffer."
+        },
+        {
+            "id": 46,
+            "category": "Configuration",
+            "command": "tmux show-options -g",
+            "example": "tmux show-options -g",
+            "explanation": "Displays the global session options currently active."
+        },
+        {
+            "id": 47,
+            "category": "Configuration",
+            "command": "tmux show-window-options -g",
+            "example": "tmux show-window-options -g",
+            "explanation": "Displays the global window options currently active."
+        },
+        {
+            "id": 48,
+            "category": "Configuration",
+            "command": "tmux source-file [path]",
+            "example": "tmux source-file ~/.tmux.conf",
+            "explanation": "Reloads the tmux configuration file without restarting the server."
+        },
+        {
+            "id": 49,
+            "category": "Configuration",
+            "command": "Prefix + :",
+            "example": "Ctrl-b :",
+            "explanation": "Opens the tmux command prompt for entering commands interactively."
+        },
+        {
+            "id": 50,
+            "category": "Key Bindings",
+            "command": "tmux list-keys",
+            "example": "tmux list-keys",
+            "explanation": "Lists all current key bindings."
+        },
+        {
+            "id": 51,
+            "category": "Key Bindings",
+            "command": "tmux bind-key [key] [command]",
+            "example": "tmux bind-key R source-file ~/.tmux.conf",
+            "explanation": "Binds a specific command to a key combination."
+        },
+        {
+            "id": 52,
+            "category": "Key Bindings",
+            "command": "tmux unbind-key [key]",
+            "example": "tmux unbind-key C-b",
+            "explanation": "Removes a specific key binding."
+        },
+        {
+            "id": 53,
+            "category": "Environment",
+            "command": "tmux show-environment",
+            "example": "tmux show-environment",
+            "explanation": "Displays the global environment variables for the tmux session."
+        },
+        {
+            "id": 54,
+            "category": "Environment",
+            "command": "tmux set-environment [name] [value]",
+            "example": "tmux set-environment PRODUCTION true",
+            "explanation": "Sets a global environment variable for the session."
+        },
+        {
+            "id": 55,
+            "category": "Status Bar Customization",
+            "command": "tmux set-option -g status-position [top/bottom]",
+            "example": "tmux set-option -g status-position top",
+            "explanation": "Moves the status bar to the top or bottom of the screen."
+        },
+        {
+            "id": 56,
+            "category": "Status Bar Customization",
+            "command": "tmux set-option -g status-bg [color]",
+            "example": "tmux set-option -g status-bg red",
+            "explanation": "Changes the background color of the status bar."
+        },
+        {
+            "id": 57,
+            "category": "Status Bar Customization",
+            "command": "tmux set-option -g status-left-length [number]",
+            "example": "tmux set-option -g status-left-length 50",
+            "explanation": "Increases the character limit for the left side of the status bar."
+        },
+        {
+            "id": 58,
+            "category": "Status Bar Customization",
+            "command": "tmux set-option -g status-interval [seconds]",
+            "example": "tmux set-option -g status-interval 1",
+            "explanation": "Sets how frequently the status bar updates in seconds."
+        },
+        {
+            "id": 59,
+            "category": "Automation & Scripting",
+            "command": "tmux new-session -d -s [name] '[command]'",
+            "example": "tmux new-session -d -s backup 'sh ./backup.sh'",
+            "explanation": "Starts a detached session that immediately runs a specific background command."
+        },
+        {
+            "id": 60,
+            "category": "Automation & Scripting",
+            "command": "tmux send-keys -t [target] '[keys]' Enter",
+            "example": "tmux send-keys -t mysession:0 'top' Enter",
+            "explanation": "Sends keystrokes to a specific pane as if typed by the user."
+        },
+        {
+            "id": 61,
+            "category": "Automation & Scripting",
+            "command": "tmux run-shell '[script]'",
+            "example": "tmux run-shell '~/scripts/alert.sh'",
+            "explanation": "Executes a shell command or script in the background."
+        },
+        {
+            "id": 62,
+            "category": "Automation & Scripting",
+            "command": "tmux if-shell '[condition]' '[cmd1]' '[cmd2]'",
+            "example": "tmux if-shell 'true' 'display "Yes"' 'display "No"'",
+            "explanation": "Executes a tmux command conditionally based on a shell command's success."
+        },
+        {
+            "id": 63,
+            "category": "Automation & Scripting",
+            "command": "tmux wait-for [channel]",
+            "example": "tmux wait-for task_complete",
+            "explanation": "Blocks execution until a signal is received on a specific channel."
+        },
+        {
+            "id": 64,
+            "category": "Automation & Scripting",
+            "command": "tmux wait-for -S [channel]",
+            "example": "tmux wait-for -S task_complete",
+            "explanation": "Sends a signal to a waiting tmux client to resume execution."
+        },
+        {
+            "id": 65,
+            "category": "Operational Workflows",
+            "command": "tmux set-window-option synchronize-panes on",
+            "example": "tmux set-window-option synchronize-panes on",
+            "explanation": "Broadcasts all keystrokes to every pane in the current window simultaneously."
+        },
+        {
+            "id": 66,
+            "category": "Operational Workflows",
+            "command": "tmux pipe-pane -o '[command]'",
+            "example": "tmux pipe-pane -o 'cat >> ~/session.log'",
+            "explanation": "Pipes all output from the current pane to a file for logging."
+        },
+        {
+            "id": 67,
+            "category": "Operational Workflows",
+            "command": "tmux pipe-pane",
+            "example": "tmux pipe-pane",
+            "explanation": "Stops piping output from the current pane."
+        },
+        {
+            "id": 68,
+            "category": "Operational Workflows",
+            "command": "tmux capture-pane -S -",
+            "example": "tmux capture-pane -S -",
+            "explanation": "Captures the entire visible text and scrollback history of the pane into a buffer."
+        },
+        {
+            "id": 69,
+            "category": "Operational Workflows",
+            "command": "tmux respawn-pane -k",
+            "example": "tmux respawn-pane -k",
+            "explanation": "Kills the process in the pane and restarts the shell or original command."
+        },
+        {
+            "id": 70,
+            "category": "Operational Workflows",
+            "command": "tmux respawn-window -k",
+            "example": "tmux respawn-window -k",
+            "explanation": "Kills processes in the window and restarts the window environment."
+        },
+        {
+            "id": 71,
+            "category": "Blue Team Defensive",
+            "command": "tmux set-window-option monitor-activity on",
+            "example": "tmux set-window-option monitor-activity on",
+            "explanation": "Highlights the window in the status bar if output activity is detected."
+        },
+        {
+            "id": 72,
+            "category": "Blue Team Defensive",
+            "command": "tmux set-window-option monitor-silence [seconds]",
+            "example": "tmux set-window-option monitor-silence 30",
+            "explanation": "Alerts if no output is received in a pane for a specified duration."
+        },
+        {
+            "id": 73,
+            "category": "Blue Team Defensive",
+            "command": "tmux set-option -g visual-bell on",
+            "example": "tmux set-option -g visual-bell on",
+            "explanation": "Flashes the status bar instead of making a sound when a bell occurs."
+        },
+        {
+            "id": 74,
+            "category": "Blue Team Defensive",
+            "command": "tmux lock-session",
+            "example": "tmux lock-session",
+            "explanation": "Locks the session requiring a password (if configured) to resume."
+        },
+        {
+            "id": 75,
+            "category": "Blue Team Defensive",
+            "command": "tmux list-clients",
+            "example": "tmux list-clients",
+            "explanation": "Shows all users or terminals currently attached to the session."
+        },
+        {
+            "id": 76,
+            "category": "Blue Team Defensive",
+            "command": "tmux detach-client -t [client]",
+            "example": "tmux detach-client -t /dev/pts/1",
+            "explanation": "Forcibly removes a specific client connection from the session."
+        },
+        {
+            "id": 77,
+            "category": "Incident Response",
+            "command": "tmux new -s IR -d; tmux pipe-pane -t IR -o 'cat >> ir_log.txt'",
+            "example": "tmux new -s IR -d; tmux pipe-pane -t IR -o 'cat >> ir_log.txt'",
+            "explanation": "Workflow to start a detached session and immediately begin logging everything."
+        },
+        {
+            "id": 78,
+            "category": "Incident Response",
+            "command": "tmux clock-mode",
+            "example": "Prefix + t",
+            "explanation": "Displays a large digital clock, useful for timestamping screenshots."
+        },
+        {
+            "id": 79,
+            "category": "Advanced Workflow",
+            "command": "tmux link-window -s [src] -t [dst]",
+            "example": "tmux link-window -s dev:0 -t prod:1",
+            "explanation": "Links a window so it appears in multiple sessions simultaneously."
+        },
+        {
+            "id": 80,
+            "category": "Advanced Workflow",
+            "command": "tmux unlink-window -t [target]",
+            "example": "tmux unlink-window -t prod:1",
+            "explanation": "Removes a linked window from the current session without destroying it."
+        },
+        {
+            "id": 81,
+            "category": "Advanced Workflow",
+            "command": "tmux refresh-client -S",
+            "example": "tmux refresh-client -S",
+            "explanation": "Updates the client status line and redraws the screen."
+        },
+        {
+            "id": 82,
+            "category": "Advanced Workflow",
+            "command": "tmux select-layout tiled",
+            "example": "Prefix + Alt + 5",
+            "explanation": "Arranges all panes in the current window in a tiled grid."
+        },
+        {
+            "id": 83,
+            "category": "Advanced Workflow",
+            "command": "tmux select-layout even-horizontal",
+            "example": "Prefix + Alt + 1",
+            "explanation": "Arranges all panes in equal-width columns."
+        },
+        {
+            "id": 84,
+            "category": "Advanced Workflow",
+            "command": "tmux select-layout even-vertical",
+            "example": "Prefix + Alt + 2",
+            "explanation": "Arranges all panes in equal-height rows."
+        },
+        {
+            "id": 85,
+            "category": "Advanced Workflow",
+            "command": "tmux select-layout main-horizontal",
+            "example": "Prefix + Alt + 3",
+            "explanation": "Arranges one large main pane on top and smaller panes below."
+        },
+        {
+            "id": 86,
+            "category": "Advanced Workflow",
+            "command": "tmux select-layout main-vertical",
+            "example": "Prefix + Alt + 4",
+            "explanation": "Arranges one large main pane on the left and smaller panes on the right."
+        },
+        {
+            "id": 87,
+            "category": "Advanced Workflow",
+            "command": "tmux rotate-window",
+            "example": "Prefix + Ctrl-o",
+            "explanation": "Rotates the positions of panes within the current window."
+        },
+        {
+            "id": 88,
+            "category": "Shared Sessions",
+            "command": "tmux -S /tmp/shared_socket new -s shared",
+            "example": "tmux -S /tmp/shared_socket new -s shared",
+            "explanation": "Creates a session using a specific socket file for multi-user access."
+        },
+        {
+            "id": 89,
+            "category": "Shared Sessions",
+            "command": "tmux -S /tmp/shared_socket attach -t shared",
+            "example": "tmux -S /tmp/shared_socket attach -t shared",
+            "explanation": "Attaches to a session located at a specific socket path."
+        },
+        {
+            "id": 90,
+            "category": "Shared Sessions",
+            "command": "chmod 777 /tmp/shared_socket",
+            "example": "chmod 777 /tmp/shared_socket",
+            "explanation": "External command often used to grant permissions for shared socket access."
+        },
+        {
+            "id": 91,
+            "category": "Configuration",
+            "command": "tmux set-option -g history-limit [lines]",
+            "example": "tmux set-option -g history-limit 10000",
+            "explanation": "Increases the scrollback buffer size to store more history."
+        },
+        {
+            "id": 92,
+            "category": "Configuration",
+            "command": "tmux set-option -g base-index 1",
+            "example": "tmux set-option -g base-index 1",
+            "explanation": "Sets window numbering to start at 1 instead of 0."
+        },
+        {
+            "id": 93,
+            "category": "Configuration",
+            "command": "tmux set-window-option -g pane-base-index 1",
+            "example": "tmux set-window-option -g pane-base-index 1",
+            "explanation": "Sets pane numbering to start at 1 instead of 0."
+        },
+        {
+            "id": 94,
+            "category": "Configuration",
+            "command": "tmux set-option -g renumber-windows on",
+            "example": "tmux set-option -g renumber-windows on",
+            "explanation": "Automatically renumbers windows when one is closed."
+        },
+        {
+            "id": 95,
+            "category": "Configuration",
+            "command": "tmux set-option -g mouse on",
+            "example": "tmux set-option -g mouse on",
+            "explanation": "Enables mouse support for selecting panes and resizing."
+        },
+        {
+            "id": 96,
+            "category": "SOC Workflow",
+            "command": "tmux split-window -h 'htop'; tmux split-window -v 'tail -f /var/log/syslog'",
+            "example": "tmux split-window -h 'htop'; tmux split-window -v 'tail -f /var/log/syslog'",
+            "explanation": "One-line command to set up a monitoring dashboard."
+        },
+        {
+            "id": 97,
+            "category": "SOC Workflow",
+            "command": "tmux set-hook -g alert-activity 'run-shell \"echo Alert >> ~/alerts.log\"'",
+            "example": "tmux set-hook -g alert-activity 'run-shell \"echo Alert >> ~/alerts.log\"'",
+            "explanation": "Configures a hook to run a script whenever activity is detected."
+        },
+        {
+            "id": 98,
+            "category": "SOC Workflow",
+            "command": "tmux set-hook -g session-created 'source-file ~/.tmux_soc.conf'",
+            "example": "tmux set-hook -g session-created 'source-file ~/.tmux_soc.conf'",
+            "explanation": "Automatically applies a specific config when a new session is created."
+        },
+        {
+            "id": 99,
+            "category": "Scripting",
+            "command": "tmux list-panes -a -F '#{pane_id} #{pane_current_command}'",
+            "example": "tmux list-panes -a -F '#{pane_id} #{pane_current_command}'",
+            "explanation": "Lists all panes and their currently running commands using a format string."
+        },
+        {
+            "id": 100,
+            "category": "Scripting",
+            "command": "tmux list-windows -F '#{window_index}: #{window_name}'",
+            "example": "tmux list-windows -F '#{window_index}: #{window_name}'",
+            "explanation": "Lists windows with a custom output format for scripting parsing."
+        },
+        {
+            "id": 101,
+            "category": "Pane Management",
+            "command": "tmux display-panes",
+            "example": "Prefix + q",
+            "explanation": "Briefly displays the index numbers of visible panes."
+        },
+        {
+            "id": 102,
+            "category": "Pane Management",
+            "command": "tmux select-pane -t [id]",
+            "example": "tmux select-pane -t 1",
+            "explanation": "Selects a pane directly by its visible index number."
+        },
+        {
+            "id": 103,
+            "category": "Advanced",
+            "command": "tmux switch-client -t [session]",
+            "example": "tmux switch-client -t backend",
+            "explanation": "Switches the current client to a different session without detaching."
+        },
+        {
+            "id": 104,
+            "category": "Advanced",
+            "command": "tmux last-window",
+            "example": "Prefix + l",
+            "explanation": "Toggles between the current window and the previously selected window."
+        },
+        {
+            "id": 105,
+            "category": "Advanced",
+            "command": "tmux last-pane",
+            "example": "Prefix + ;",
+            "explanation": "Toggles between the current pane and the previously active pane."
+        }
+    ]
+}

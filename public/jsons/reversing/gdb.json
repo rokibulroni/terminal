@@ -1,0 +1,112 @@
+{
+    "tool": "gdb",
+    "description": "GNU Debugger (GDB): The definitive open-source debugger natively executing step-through arrays checking C, C++, and Assembly runtime memories.",
+    "total_commands": 15,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Initialization",
+            "command": "gdb <binary>",
+            "example": "gdb ./target_binary",
+            "explanation": "Loads the specified local ELF binary structure actively into the massive internal GDB runtime environment preparing it strictly for detailed manipulation."
+        },
+        {
+            "id": 2,
+            "category": "Running Threads",
+            "command": "run",
+            "example": "run arg1 arg2",
+            "explanation": "Fires the inherent system execution algorithms natively compiling the binary with attached external trailing arguments matching an exact live shell execution."
+        },
+        {
+            "id": 3,
+            "category": "Breakpointing",
+            "command": "break *<address>",
+            "example": "break *0x004005d0",
+            "explanation": "Drops a hard logic stop immediately pausing the live process exclusively at the designated raw hexidecimal execution memory offset."
+        },
+        {
+            "id": 4,
+            "category": "Function Breaking",
+            "command": "break <function>",
+            "example": "break main",
+            "explanation": "Reroutes debugging matrices natively hooking a designated function name allowing execution flows to strictly halt specifically when standard APIs are invoked."
+        },
+        {
+            "id": 5,
+            "category": "Memory Stepping",
+            "command": "stepi",
+            "example": "stepi",
+            "explanation": "Advances the execution grid moving explicitly forward one precise absolute assembly manipulation instruction without circumventing or jumping deep subroutines."
+        },
+        {
+            "id": 6,
+            "category": "Execution Jumping",
+            "command": "continue",
+            "example": "continue",
+            "explanation": "Bypasses all localized pausing inherently dumping active control processing logic straight through until the subsequent hardcoded system breakpoint is encountered."
+        },
+        {
+            "id": 7,
+            "category": "Register Diagnostics",
+            "command": "info registers",
+            "example": "info registers",
+            "explanation": "Reveals real-time structural CPU matrices heavily detailing every exact variable array immediately residing inside RAX, RBX, RCX processors natively."
+        },
+        {
+            "id": 8,
+            "category": "Memory Dumps",
+            "command": "x/8xw $rsp",
+            "example": "x/8xw $rsp",
+            "explanation": "Extracts complex arbitrary unencrypted memory grids natively dumping 8 explicit hexadecimal words structurally originating natively from the live Stack Pointer ($rsp)."
+        },
+        {
+            "id": 9,
+            "category": "String Extractions",
+            "command": "x/s <address>",
+            "example": "x/s 0x004006c0",
+            "explanation": "Translates contiguous unstructured hex values located precisely at the specified offset memory address inherently dropping them locally as absolute plaintext strings."
+        },
+        {
+            "id": 10,
+            "category": "Layout Switching",
+            "command": "layout asm",
+            "example": "layout asm",
+            "explanation": "Overhauls the generic legacy monolithic CLI outputs inherently splitting the terminal visualization mapping directly showing live updating parallel assembly and register panels."
+        },
+        {
+            "category": "Signal Integration",
+            "command": "handle <signal> <action>",
+            "example": "handle SIGINT nostop noprint pass",
+            "explanation": "Overrides default UNIX signal routing structurally preventing custom malware algorithms from natively terminating the explicit localized GDB debugging sandbox dynamically.",
+            "id": 11
+        },
+        {
+            "category": "Thread Execution",
+            "command": "info threads",
+            "example": "info threads",
+            "explanation": "Dumps utterly complex deeply obfuscated execution tables structurally mapping every single asynchronously spawned background process actively bridged to the target.",
+            "id": 12
+        },
+        {
+            "category": "Watchpointing",
+            "command": "watch *<address>",
+            "example": "watch *0x00405020",
+            "explanation": "Engages inherently decoupled hardware-level logic traps fundamentally stopping total active process execution strictly precisely when the defined memory array actively modifies.",
+            "id": 13
+        },
+        {
+            "category": "Data Bridging",
+            "command": "set {int}<address> = <value>",
+            "example": "set {int}0x8048990 = 1",
+            "explanation": "Reroutes deep physical memory layouts actively overwriting strict Boolean parameters inherently breaking localized validation matrix algorithms dynamically bypassing unauthenticated loops.",
+            "id": 14
+        },
+        {
+            "category": "Stack Trace",
+            "command": "backtrace full",
+            "example": "backtrace full",
+            "explanation": "Examines extremely granular inherent core dumps tracking absolutely entire execution arrays directly exposing explicitly deeply historically referenced nested function arrays natively.",
+            "id": 15
+        }
+    ]
+}

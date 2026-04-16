@@ -1,0 +1,707 @@
+{
+    "tool": "iw",
+    "description": "Complete iw command and workflow reference from basic to advanced wireless interface management and inspection",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Help",
+            "command": "iw help",
+            "example": "iw help",
+            "explanation": "Displays the summary of all available iw commands and usage syntax"
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax & Help",
+            "command": "iw --version",
+            "example": "iw --version",
+            "explanation": "Prints the installed version of the iw tool"
+        },
+        {
+            "id": 3,
+            "category": "Wireless Device Enumeration",
+            "command": "iw list",
+            "example": "iw list",
+            "explanation": "Lists all physical wireless devices and details their hardware capabilities"
+        },
+        {
+            "id": 4,
+            "category": "Wireless Device Enumeration",
+            "command": "iw dev",
+            "example": "iw dev",
+            "explanation": "Lists all logical wireless interfaces currently recognized by the kernel"
+        },
+        {
+            "id": 5,
+            "category": "Wireless Device Enumeration",
+            "command": "iw phy",
+            "example": "iw phy",
+            "explanation": "Lists all physical wireless hardware (WPHY) present on the system"
+        },
+        {
+            "id": 6,
+            "category": "Interface Information",
+            "command": "iw dev <devname> info",
+            "example": "iw dev wlan0 info",
+            "explanation": "Shows detailed configuration information for a specific wireless interface"
+        },
+        {
+            "id": 7,
+            "category": "Interface Information",
+            "command": "iw dev <devname> link",
+            "example": "iw dev wlan0 link",
+            "explanation": "Displays current link status including connected SSID, frequency, and signal strength"
+        },
+        {
+            "id": 8,
+            "category": "Scanning & Discovery",
+            "command": "iw dev <devname> scan",
+            "example": "iw dev wlan0 scan",
+            "explanation": "Initiates a standard active scan for available wireless networks"
+        },
+        {
+            "id": 9,
+            "category": "Scanning & Discovery",
+            "command": "iw dev <devname> scan passive",
+            "example": "iw dev wlan0 scan passive",
+            "explanation": "Performs a passive scan without sending probe requests to remain stealthy"
+        },
+        {
+            "id": 10,
+            "category": "Scanning & Discovery",
+            "command": "iw dev <devname> scan -u",
+            "example": "iw dev wlan0 scan -u",
+            "explanation": "Scans for networks and prints results with human-readable formatting"
+        },
+        {
+            "id": 11,
+            "category": "Scanning & Discovery",
+            "command": "iw dev <devname> scan freq <freq>",
+            "example": "iw dev wlan0 scan freq 2412",
+            "explanation": "Scans only a specific frequency to save time and reduce noise"
+        },
+        {
+            "id": 12,
+            "category": "Scanning & Discovery",
+            "command": "iw dev <devname> scan ssid <ssid>",
+            "example": "iw dev wlan0 scan ssid \"LabWifi\"",
+            "explanation": "Initiates an active directed scan specifically for a target SSID"
+        },
+        {
+            "id": 13,
+            "category": "Scanning & Discovery",
+            "command": "iw dev <devname> scan dump",
+            "example": "iw dev wlan0 scan dump",
+            "explanation": "Displays the results of the most recent scan buffer without scanning again"
+        },
+        {
+            "id": 14,
+            "category": "Scanning & Discovery",
+            "command": "iw dev <devname> scan trigger",
+            "example": "iw dev wlan0 scan trigger",
+            "explanation": "Triggers a background scan without immediately waiting for or printing results"
+        },
+        {
+            "id": 15,
+            "category": "Interface Mode Management",
+            "command": "iw dev <devname> set type managed",
+            "example": "iw dev wlan0 set type managed",
+            "explanation": "Sets the interface to managed mode for standard client station operations"
+        },
+        {
+            "id": 16,
+            "category": "Interface Mode Management",
+            "command": "iw dev <devname> set type monitor",
+            "example": "iw dev wlan0 set type monitor",
+            "explanation": "Sets the interface to monitor mode for packet sniffing and traffic analysis"
+        },
+        {
+            "id": 17,
+            "category": "Interface Mode Management",
+            "command": "iw dev <devname> set type ibss",
+            "example": "iw dev wlan0 set type ibss",
+            "explanation": "Sets the interface to Ad-Hoc (IBSS) mode for peer-to-peer networking"
+        },
+        {
+            "id": 18,
+            "category": "Interface Mode Management",
+            "command": "iw dev <devname> set type ap",
+            "example": "iw dev wlan0 set type ap",
+            "explanation": "Sets the interface to Access Point mode to broadcast a network"
+        },
+        {
+            "id": 19,
+            "category": "Interface Mode Management",
+            "command": "iw dev <devname> set type wds",
+            "example": "iw dev wlan0 set type wds",
+            "explanation": "Sets the interface to Wireless Distribution System mode for bridging"
+        },
+        {
+            "id": 20,
+            "category": "Virtual Interface Management",
+            "command": "iw phy <phyname> interface add <name> type <type>",
+            "example": "iw phy phy0 interface add mon0 type monitor",
+            "explanation": "Creates a new virtual interface on the specified physical hardware"
+        },
+        {
+            "id": 21,
+            "category": "Virtual Interface Management",
+            "command": "iw dev <devname> del",
+            "example": "iw dev mon0 del",
+            "explanation": "Deletes a specific virtual wireless interface from the system"
+        },
+        {
+            "id": 22,
+            "category": "Virtual Interface Management",
+            "command": "iw dev <devname> set name <newname>",
+            "example": "iw dev wlan0 set name wifi0",
+            "explanation": "Renames a wireless interface to a new custom identifier"
+        },
+        {
+            "id": 23,
+            "category": "Frequency & Channel Control",
+            "command": "iw dev <devname> set freq <freq>",
+            "example": "iw dev wlan0 set freq 2412",
+            "explanation": "Forces the interface to listen or transmit on a specific frequency in MHz"
+        },
+        {
+            "id": 24,
+            "category": "Frequency & Channel Control",
+            "command": "iw dev <devname> set channel <channel>",
+            "example": "iw dev wlan0 set channel 6",
+            "explanation": "Sets the interface to a specific channel number on the 2.4GHz band"
+        },
+        {
+            "id": 25,
+            "category": "Frequency & Channel Control",
+            "command": "iw dev <devname> set freq <freq> <width_type>",
+            "example": "iw dev wlan0 set freq 5180 80MHz",
+            "explanation": "Sets frequency with a specific channel width for high throughput testing"
+        },
+        {
+            "id": 26,
+            "category": "Frequency & Channel Control",
+            "command": "iw dev <devname> set freq <freq> HT20",
+            "example": "iw dev wlan0 set freq 2412 HT20",
+            "explanation": "Sets the frequency enforcing a standard 20MHz High Throughput width"
+        },
+        {
+            "id": 27,
+            "category": "Frequency & Channel Control",
+            "command": "iw dev <devname> set freq <freq> HT40+",
+            "example": "iw dev wlan0 set freq 2437 HT40+",
+            "explanation": "Sets the frequency enforcing 40MHz width with the secondary channel above"
+        },
+        {
+            "id": 28,
+            "category": "Frequency & Channel Control",
+            "command": "iw dev <devname> set freq <freq> HT40-",
+            "example": "iw dev wlan0 set freq 2437 HT40-",
+            "explanation": "Sets the frequency enforcing 40MHz width with the secondary channel below"
+        },
+        {
+            "id": 29,
+            "category": "TX Power Configuration",
+            "command": "iw dev <devname> set txpower fixed <mBm>",
+            "example": "iw dev wlan0 set txpower fixed 2000",
+            "explanation": "Sets a fixed transmit power in millibels (2000 mBm = 20 dBm)"
+        },
+        {
+            "id": 30,
+            "category": "TX Power Configuration",
+            "command": "iw dev <devname> set txpower auto",
+            "example": "iw dev wlan0 set txpower auto",
+            "explanation": "Allows the hardware to automatically manage transmit power levels"
+        },
+        {
+            "id": 31,
+            "category": "TX Power Configuration",
+            "command": "iw dev <devname> set txpower limit <mBm>",
+            "example": "iw dev wlan0 set txpower limit 1000",
+            "explanation": "Sets a maximum upper limit for transmit power output"
+        },
+        {
+            "id": 32,
+            "category": "Regulatory Management",
+            "command": "iw reg get",
+            "example": "iw reg get",
+            "explanation": "Displays the current regulatory domain and frequency constraints"
+        },
+        {
+            "id": 33,
+            "category": "Regulatory Management",
+            "command": "iw reg set <ISO>",
+            "example": "iw reg set US",
+            "explanation": "Sets the regulatory domain to a specific country code like US or JP"
+        },
+        {
+            "id": 34,
+            "category": "Connection Management",
+            "command": "iw dev <devname> connect <SSID>",
+            "example": "iw dev wlan0 connect \"GuestNet\"",
+            "explanation": "Attempts to connect to an open wireless network with the specified SSID"
+        },
+        {
+            "id": 35,
+            "category": "Connection Management",
+            "command": "iw dev <devname> connect <SSID> <freq>",
+            "example": "iw dev wlan0 connect \"GuestNet\" 2412",
+            "explanation": "Connects to a specific SSID on a forced frequency channel"
+        },
+        {
+            "id": 36,
+            "category": "Connection Management",
+            "command": "iw dev <devname> connect <SSID> key 0:<key>",
+            "example": "iw dev wlan0 connect \"WEPNET\" key 0:ABCDE",
+            "explanation": "Connects to a legacy WEP network using a specific key index"
+        },
+        {
+            "id": 37,
+            "category": "Connection Management",
+            "command": "iw dev <devname> disconnect",
+            "example": "iw dev wlan0 disconnect",
+            "explanation": "Disconnects the interface from the current Access Point"
+        },
+        {
+            "id": 38,
+            "category": "Connection Management",
+            "command": "iw dev <devname> auth <SSID>",
+            "example": "iw dev wlan0 auth \"SecureNet\"",
+            "explanation": "Initiates authentication sequence without full association"
+        },
+        {
+            "id": 39,
+            "category": "Station & Peer Inspection",
+            "command": "iw dev <devname> station dump",
+            "example": "iw dev wlan0 station dump",
+            "explanation": "Dumps statistics for all currently connected stations or peers"
+        },
+        {
+            "id": 40,
+            "category": "Station & Peer Inspection",
+            "command": "iw dev <devname> station get <mac>",
+            "example": "iw dev wlan0 station get 00:11:22:33:44:55",
+            "explanation": "Retrieves detailed signal and throughput stats for a specific station MAC"
+        },
+        {
+            "id": 41,
+            "category": "Station & Peer Inspection",
+            "command": "iw dev <devname> station del <mac>",
+            "example": "iw dev wlan0 station del 00:11:22:33:44:55",
+            "explanation": "Forcibly removes a station from the driver's internal table"
+        },
+        {
+            "id": 42,
+            "category": "Power Save Configuration",
+            "command": "iw dev <devname> get power_save",
+            "example": "iw dev wlan0 get power_save",
+            "explanation": "Checks the current power save mode status of the interface"
+        },
+        {
+            "id": 43,
+            "category": "Power Save Configuration",
+            "command": "iw dev <devname> set power_save on",
+            "example": "iw dev wlan0 set power_save on",
+            "explanation": "Enables power saving mode to conserve energy during inactivity"
+        },
+        {
+            "id": 44,
+            "category": "Power Save Configuration",
+            "command": "iw dev <devname> set power_save off",
+            "example": "iw dev wlan0 set power_save off",
+            "explanation": "Disables power saving to ensure maximum performance and consistent Rx/Tx"
+        },
+        {
+            "id": 45,
+            "category": "Bitrate Configuration",
+            "command": "iw dev <devname> set bitrates legacy-2.4 <rates>",
+            "example": "iw dev wlan0 set bitrates legacy-2.4 1 2 5.5 11",
+            "explanation": "Forces the interface to use specific legacy 802.11b bitrates"
+        },
+        {
+            "id": 46,
+            "category": "Bitrate Configuration",
+            "command": "iw dev <devname> set bitrates ht-mcs-2.4 <indexes>",
+            "example": "iw dev wlan0 set bitrates ht-mcs-2.4 0 1 2 3",
+            "explanation": "Restricts the interface to use specific HT MCS indexes on 2.4GHz"
+        },
+        {
+            "id": 47,
+            "category": "Advanced Monitor Config",
+            "command": "iw dev <devname> set monitor none",
+            "example": "iw dev wlan0 set monitor none",
+            "explanation": "Disables all specific monitor mode flags for a raw capture state"
+        },
+        {
+            "id": 48,
+            "category": "Advanced Monitor Config",
+            "command": "iw dev <devname> set monitor fcsfail",
+            "example": "iw dev wlan0 set monitor fcsfail",
+            "explanation": "Configures monitor mode to pass packets with bad checksums (FCS errors)"
+        },
+        {
+            "id": 49,
+            "category": "Advanced Monitor Config",
+            "command": "iw dev <devname> set monitor control",
+            "example": "iw dev wlan0 set monitor control",
+            "explanation": "Configures monitor mode to capture 802.11 control frames like RTS/CTS"
+        },
+        {
+            "id": 50,
+            "category": "Advanced Monitor Config",
+            "command": "iw dev <devname> set monitor otherbss",
+            "example": "iw dev wlan0 set monitor otherbss",
+            "explanation": "Configures monitor mode to capture traffic from other BSSIDs"
+        },
+        {
+            "id": 51,
+            "category": "Advanced Monitor Config",
+            "command": "iw dev <devname> set monitor cook",
+            "example": "iw dev wlan0 set monitor cook",
+            "explanation": "Enables cooked monitor mode where the hardware handles some processing"
+        },
+        {
+            "id": 52,
+            "category": "Event Monitoring",
+            "command": "iw event",
+            "example": "iw event",
+            "explanation": "Monitors and displays wireless kernel events in real-time"
+        },
+        {
+            "id": 53,
+            "category": "Event Monitoring",
+            "command": "iw event -t",
+            "example": "iw event -t",
+            "explanation": "Monitors wireless events and prepends a timestamp to each line"
+        },
+        {
+            "id": 54,
+            "category": "Event Monitoring",
+            "command": "iw event -f",
+            "example": "iw event -f",
+            "explanation": "Monitors wireless events and prints full details for each event"
+        },
+        {
+            "id": 55,
+            "category": "Mesh Networking",
+            "command": "iw dev <devname> mesh join <meshid>",
+            "example": "iw dev wlan0 mesh join \"CityMesh\"",
+            "explanation": "Joins an 802.11s mesh network with the specified ID"
+        },
+        {
+            "id": 56,
+            "category": "Mesh Networking",
+            "command": "iw dev <devname> mesh leave",
+            "example": "iw dev wlan0 mesh leave",
+            "explanation": "Leaves the currently joined mesh network"
+        },
+        {
+            "id": 57,
+            "category": "Mesh Networking",
+            "command": "iw dev <devname> mpath dump",
+            "example": "iw dev wlan0 mpath dump",
+            "explanation": "Dumps the current mesh path routing table"
+        },
+        {
+            "id": 58,
+            "category": "Ad-Hoc Networking",
+            "command": "iw dev <devname> ibss join <ssid> <freq>",
+            "example": "iw dev wlan0 ibss join \"AdHocNet\" 2412",
+            "explanation": "Joins or creates an IBSS Ad-Hoc network on a specific frequency"
+        },
+        {
+            "id": 59,
+            "category": "Ad-Hoc Networking",
+            "command": "iw dev <devname> ibss leave",
+            "example": "iw dev wlan0 ibss leave",
+            "explanation": "Leaves the current IBSS Ad-Hoc network"
+        },
+        {
+            "id": 60,
+            "category": "4-Address Mode",
+            "command": "iw dev <devname> set 4addr on",
+            "example": "iw dev wlan0 set 4addr on",
+            "explanation": "Enables 4-address mode usually required for WDS bridging or virtualization"
+        },
+        {
+            "id": 61,
+            "category": "4-Address Mode",
+            "command": "iw dev <devname> set 4addr off",
+            "example": "iw dev wlan0 set 4addr off",
+            "explanation": "Disables 4-address mode returning to standard 3-address addressing"
+        },
+        {
+            "id": 62,
+            "category": "PHY Configuration",
+            "command": "iw phy <phyname> set distance <dist>",
+            "example": "iw phy phy0 set distance 1000",
+            "explanation": "Sets the coverage class distance in meters to adjust ACK timeouts"
+        },
+        {
+            "id": 63,
+            "category": "PHY Configuration",
+            "command": "iw phy <phyname> set netns <pid>",
+            "example": "iw phy phy0 set netns 1234",
+            "explanation": "Moves the entire physical wireless card into a different network namespace"
+        },
+        {
+            "id": 64,
+            "category": "PHY Configuration",
+            "command": "iw phy <phyname> set rts <threshold>",
+            "example": "iw phy phy0 set rts 500",
+            "explanation": "Sets the RTS threshold to control collision avoidance for packet sizes"
+        },
+        {
+            "id": 65,
+            "category": "PHY Configuration",
+            "command": "iw phy <phyname> set frag <threshold>",
+            "example": "iw phy phy0 set frag 256",
+            "explanation": "Sets the fragmentation threshold to split large packets"
+        },
+        {
+            "id": 66,
+            "category": "Advanced Vendor Commands",
+            "command": "iw dev <devname> vendor recvbin <oui> <subcmd>",
+            "example": "iw dev wlan0 vendor recvbin 0x001374 0x01",
+            "explanation": "Sends a vendor-specific command and receives binary output data"
+        },
+        {
+            "id": 67,
+            "category": "Red Team Workflow",
+            "command": "iw dev <devname> set noack_map <map>",
+            "example": "iw dev wlan0 set noack_map 0x0001",
+            "explanation": "Sets the NoACK map to disable acknowledgments for specific traffic classes"
+        },
+        {
+            "id": 68,
+            "category": "Red Team Workflow",
+            "command": "iw phy <phyname> interface add mon0 type monitor flags none",
+            "example": "iw phy phy0 interface add mon0 type monitor flags none",
+            "explanation": "Creates a clean monitor interface with no filtering flags for full capture"
+        },
+        {
+            "id": 69,
+            "category": "Red Team Workflow",
+            "command": "iw dev <devname> scan passive dump",
+            "example": "iw dev mon0 scan passive dump",
+            "explanation": "Dumps scan results collected passively to avoid revealing presence"
+        },
+        {
+            "id": 70,
+            "category": "Red Team Workflow",
+            "command": "iw dev <devname> set channel <chan> <width>",
+            "example": "iw dev mon0 set channel 1 20MHz",
+            "explanation": "Locks monitor interface to channel 1 with 20MHz width for targeted sniffing"
+        },
+        {
+            "id": 71,
+            "category": "Red Team Workflow",
+            "command": "iw dev <devname> scan trigger freq <freq>",
+            "example": "iw dev wlan0 scan trigger freq 2412",
+            "explanation": "Triggers a probe request flood on a single frequency by scanning repeatedly"
+        },
+        {
+            "id": 72,
+            "category": "Blue Team Workflow",
+            "command": "iw dev <devname> station dump",
+            "example": "iw dev wlan0 station dump",
+            "explanation": "Periodically dumps station info to detect rogue devices or unauthorized connections"
+        },
+        {
+            "id": 73,
+            "category": "Blue Team Workflow",
+            "command": "iw dev <devname> link",
+            "example": "iw dev wlan0 link",
+            "explanation": "Verifies that the defensive sensor is connected to the correct secure SSID"
+        },
+        {
+            "id": 74,
+            "category": "Blue Team Workflow",
+            "command": "iw list",
+            "example": "iw list",
+            "explanation": "Audits supported ciphers and interface combinations to ensure hardware compliance"
+        },
+        {
+            "id": 75,
+            "category": "Blue Team Workflow",
+            "command": "iw reg get",
+            "example": "iw reg get",
+            "explanation": "Checks if the regulatory domain has been tampered with or misconfigured"
+        },
+        {
+            "id": 76,
+            "category": "Purple Team Workflow",
+            "command": "iw phy <phyname> wowlan show",
+            "example": "iw phy phy0 wowlan show",
+            "explanation": "Inspects Wake-on-WLAN capabilities to test power management attacks"
+        },
+        {
+            "id": 77,
+            "category": "Purple Team Workflow",
+            "command": "iw dev <devname> get mesh_param",
+            "example": "iw dev wlan0 get mesh_param",
+            "explanation": "Audits mesh parameters to validate routing security settings"
+        },
+        {
+            "id": 78,
+            "category": "Purple Team Workflow",
+            "command": "iw dev <devname> survey dump",
+            "example": "iw dev wlan0 survey dump",
+            "explanation": "Dumps channel survey data to analyze noise floor and channel interference"
+        },
+        {
+            "id": 79,
+            "category": "Purple Team Workflow",
+            "command": "iw dev <devname> set type managed",
+            "example": "iw dev mon0 set type managed",
+            "explanation": "Reverts monitor interface to managed to test defense recovery time"
+        },
+        {
+            "id": 80,
+            "category": "Automation & Cleanup",
+            "command": "iw dev <devname> del",
+            "example": "iw dev mon0 del",
+            "explanation": "Removes temporary monitor interfaces created during the testing session"
+        },
+        {
+            "id": 81,
+            "category": "Automation & Cleanup",
+            "command": "iw dev <devname> set txpower auto",
+            "example": "iw dev wlan0 set txpower auto",
+            "explanation": "Resets transmit power to default hardware control after testing"
+        },
+        {
+            "id": 82,
+            "category": "Automation & Cleanup",
+            "command": "iw reg set 00",
+            "example": "iw reg set 00",
+            "explanation": "Resets regulatory domain to the world regulatory domain"
+        },
+        {
+            "id": 83,
+            "category": "Advanced PHY Info",
+            "command": "iw phy <phyname> channels",
+            "example": "iw phy phy0 channels",
+            "explanation": "Shows detailed frequency and channel mapping for the hardware"
+        },
+        {
+            "id": 84,
+            "category": "Advanced PHY Info",
+            "command": "iw phy <phyname> info",
+            "example": "iw phy phy0 info",
+            "explanation": "Displays exhaustive capabilities including VHT/HE support and antenna chains"
+        },
+        {
+            "id": 85,
+            "category": "Access Point Config",
+            "command": "iw dev <devname> set channel <chan> <width> <center1> <center2>",
+            "example": "iw dev wlan0 set channel 36 80MHz 42",
+            "explanation": "Sets complex channel width with center frequencies for VHT AP setup"
+        },
+        {
+            "id": 86,
+            "category": "Debugging",
+            "command": "iw dev <devname> dump",
+            "example": "iw dev wlan0 dump",
+            "explanation": "Dumps internal interface state for debugging driver issues"
+        },
+        {
+            "id": 87,
+            "category": "Packet Injection Prep",
+            "command": "iw dev <devname> set type monitor flags fcsfail",
+            "example": "iw dev wlan0 set type monitor flags fcsfail",
+            "explanation": "Sets monitor mode and allows bad FCS frames to improve injection analysis"
+        },
+        {
+            "id": 88,
+            "category": "Off-Channel Operation",
+            "command": "iw dev <devname> roc <freq> <time>",
+            "example": "iw dev wlan0 roc 2412 500",
+            "explanation": "Remains on channel (ROC) for a specific duration in milliseconds"
+        },
+        {
+            "id": 89,
+            "category": "Antenna Configuration",
+            "command": "iw phy <phyname> set antenna <bitmap> <bitmap>",
+            "example": "iw phy phy0 set antenna 0x1 0x1",
+            "explanation": "Configures active TX and RX antennas using bitmaps"
+        },
+        {
+            "id": 90,
+            "category": "Coexistence",
+            "command": "iw phy <phyname> set sar_specs <specs>",
+            "example": "iw phy phy0 set sar_specs 1",
+            "explanation": "Configures Specific Absorption Rate (SAR) limitations"
+        },
+        {
+            "id": 91,
+            "category": "Power Management",
+            "command": "iw dev <devname> set power_save_scheme <scheme>",
+            "example": "iw dev wlan0 set power_save_scheme 1",
+            "explanation": "Sets the specific power save scheme (1=min, 2=max)"
+        },
+        {
+            "id": 92,
+            "category": "Link Measurement",
+            "command": "iw dev <devname> measurement request <meas_type>",
+            "example": "iw dev wlan0 measurement request beacon",
+            "explanation": "Requests 802.11k radio measurement reports from peers"
+        },
+        {
+            "id": 93,
+            "category": "FT Roaming",
+            "command": "iw dev <devname> ft_auth <bssid> <over_ds>",
+            "example": "iw dev wlan0 ft_auth 00:11:22:33:44:55 1",
+            "explanation": "Triggers Fast Transition (802.11r) authentication"
+        },
+        {
+            "id": 94,
+            "category": "VLAN Config",
+            "command": "iw dev <devname> set vlan <vlanid>",
+            "example": "iw dev wlan0 set vlan 10",
+            "explanation": "Assigns a VLAN ID to the wireless interface packets"
+        },
+        {
+            "id": 95,
+            "category": "Scanning Config",
+            "command": "iw dev <devname> scan abort",
+            "example": "iw dev wlan0 scan abort",
+            "explanation": "Aborts an ongoing scan operation immediately"
+        },
+        {
+            "id": 96,
+            "category": "Peer Management",
+            "command": "iw dev <devname> peer dump",
+            "example": "iw dev wlan0 peer dump",
+            "explanation": "Dumps information about mesh peers"
+        },
+        {
+            "id": 97,
+            "category": "Wiphy Params",
+            "command": "iw phy <phyname> set retry <short> <long>",
+            "example": "iw phy phy0 set retry 7 4",
+            "explanation": "Sets the hardware retry limit for short and long packets"
+        },
+        {
+            "id": 98,
+            "category": "Wiphy Params",
+            "command": "iw phy <phyname> set temp_threshold <val>",
+            "example": "iw phy phy0 set temp_threshold 80",
+            "explanation": "Sets the temperature threshold for the wireless card"
+        },
+        {
+            "id": 99,
+            "category": "Device Cleanup",
+            "command": "iw phy <phyname> interface add <name> type managed",
+            "example": "iw phy phy0 interface add wlan0 type managed",
+            "explanation": "Restores a standard managed interface after deleting a monitor interface"
+        },
+        {
+            "id": 100,
+            "category": "End of Workflow",
+            "command": "iw dev <devname> disconnect",
+            "example": "iw dev wlan0 disconnect",
+            "explanation": "Final disconnect command to ensure clean state at end of lab"
+        }
+    ]
+}

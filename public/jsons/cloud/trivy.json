@@ -1,0 +1,707 @@
+{
+    "tool": "trivy",
+    "description": "Complete Trivy command and workflow reference from basic to advanced cloud and container security scanning",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Usage",
+            "command": "trivy --help",
+            "example": "trivy --help",
+            "explanation": "Displays the main help menu and available subcommands for Trivy."
+        },
+        {
+            "id": 2,
+            "category": "Basic Usage",
+            "command": "trivy version",
+            "example": "trivy version",
+            "explanation": "Checks the installed version of Trivy to ensure it is up to date."
+        },
+        {
+            "id": 3,
+            "category": "Basic Image Scan",
+            "command": "trivy image [IMAGE_NAME]",
+            "example": "trivy image alpine:latest",
+            "explanation": "Performs a standard vulnerability scan on a container image using the default database."
+        },
+        {
+            "id": 4,
+            "category": "Basic Image Scan",
+            "command": "trivy image [IMAGE_ID]",
+            "example": "trivy image 9c6f07244728",
+            "explanation": "Scans a local container image referenced by its specific Image ID."
+        },
+        {
+            "id": 5,
+            "category": "Filesystem Scan",
+            "command": "trivy fs [DIRECTORY]",
+            "example": "trivy fs .",
+            "explanation": "Scans the current directory and subdirectories for dependencies and lock files."
+        },
+        {
+            "id": 6,
+            "category": "Repository Scan",
+            "command": "trivy repo [REPO_URL]",
+            "example": "trivy repo https://github.com/knqyf263/trivy-ci-test",
+            "explanation": "Clones and scans a remote Git repository for vulnerabilities in one step."
+        },
+        {
+            "id": 7,
+            "category": "Configuration Scan",
+            "command": "trivy config [DIRECTORY]",
+            "example": "trivy config ./k8s-manifests",
+            "explanation": "Scans Infrastructure as Code (IaC) files like Terraform and Kubernetes manifests for misconfigurations."
+        },
+        {
+            "id": 8,
+            "category": "Severity Filtering",
+            "command": "trivy image --severity [LEVELS] [IMAGE]",
+            "example": "trivy image --severity HIGH,CRITICAL nginx:latest",
+            "explanation": "Filters scan results to show only vulnerabilities matching the specified severity levels."
+        },
+        {
+            "id": 9,
+            "category": "Vulnerability Filtering",
+            "command": "trivy image --ignore-unfixed [IMAGE]",
+            "example": "trivy image --ignore-unfixed python:3.9",
+            "explanation": "Hides vulnerabilities that do not yet have a patch or fix available."
+        },
+        {
+            "id": 10,
+            "category": "Vulnerability Types",
+            "command": "trivy image --vuln-type [TYPES] [IMAGE]",
+            "example": "trivy image --vuln-type os debian:buster",
+            "explanation": "Restricts the scan to Operating System package vulnerabilities only."
+        },
+        {
+            "id": 11,
+            "category": "Vulnerability Types",
+            "command": "trivy image --vuln-type library [IMAGE]",
+            "example": "trivy image --vuln-type library node:14",
+            "explanation": "Restricts the scan to application dependency vulnerabilities (e.g., npm, pip, gomod)."
+        },
+        {
+            "id": 12,
+            "category": "Secrets Scanning",
+            "command": "trivy fs --scanners secret [DIRECTORY]",
+            "example": "trivy fs --scanners secret ./src",
+            "explanation": "Scans the filesystem specifically for hardcoded secrets, keys, and passwords."
+        },
+        {
+            "id": 13,
+            "category": "License Scanning",
+            "command": "trivy fs --scanners license [DIRECTORY]",
+            "example": "trivy fs --scanners license ./src",
+            "explanation": "Scans the filesystem to classify and detect software licenses in dependencies."
+        },
+        {
+            "id": 14,
+            "category": "Combined Scanners",
+            "command": "trivy image --scanners vuln,secret,misconfig [IMAGE]",
+            "example": "trivy image --scanners vuln,secret,misconfig my-app:latest",
+            "explanation": "Runs vulnerability, secret detection, and misconfiguration scans simultaneously on an image."
+        },
+        {
+            "id": 15,
+            "category": "Output Formatting",
+            "command": "trivy image --format json --output [FILE] [IMAGE]",
+            "example": "trivy image --format json --output result.json alpine:latest",
+            "explanation": "Outputs the scan results in raw JSON format to a specified file."
+        },
+        {
+            "id": 16,
+            "category": "Output Formatting",
+            "command": "trivy image --format table [IMAGE]",
+            "example": "trivy image --format table alpine:latest",
+            "explanation": "Displays scan results in a human-readable table format in the terminal (default)."
+        },
+        {
+            "id": 17,
+            "category": "Output Formatting",
+            "command": "trivy image --format sarif --output [FILE] [IMAGE]",
+            "example": "trivy image --format sarif --output results.sarif golang:1.16",
+            "explanation": "Generates a SARIF report suitable for integration with GitHub Security code scanning."
+        },
+        {
+            "id": 18,
+            "category": "SBOM Generation",
+            "command": "trivy image --format cyclonedx --output [FILE] [IMAGE]",
+            "example": "trivy image --format cyclonedx --output sbom.json node:lts",
+            "explanation": "Generates a CycloneDX Software Bill of Materials (SBOM) from a container image."
+        },
+        {
+            "id": 19,
+            "category": "SBOM Generation",
+            "command": "trivy image --format spdx-json --output [FILE] [IMAGE]",
+            "example": "trivy image --format spdx-json --output sbom.spdx.json python:3.8",
+            "explanation": "Generates an SPDX JSON Software Bill of Materials (SBOM) from a container image."
+        },
+        {
+            "id": 20,
+            "category": "SBOM Scanning",
+            "command": "trivy sbom [FILE]",
+            "example": "trivy sbom ./sbom.json",
+            "explanation": "Scans a pre-generated SBOM file for vulnerabilities without re-analyzing the original image."
+        },
+        {
+            "id": 21,
+            "category": "CI/CD Integration",
+            "command": "trivy image --exit-code 1 --severity CRITICAL [IMAGE]",
+            "example": "trivy image --exit-code 1 --severity CRITICAL web-app:v1",
+            "explanation": "Forces the process to exit with code 1 if CRITICAL vulnerabilities are found, breaking the build."
+        },
+        {
+            "id": 22,
+            "category": "CI/CD Integration",
+            "command": "trivy image --exit-code 0 --severity HIGH [IMAGE]",
+            "example": "trivy image --exit-code 0 --severity HIGH web-app:v1",
+            "explanation": "Logs HIGH severity vulnerabilities but exits with code 0 to allow the build pipeline to continue."
+        },
+        {
+            "id": 23,
+            "category": "Ignore Files",
+            "command": "trivy image --ignorefile [FILE] [IMAGE]",
+            "example": "trivy image --ignorefile .trivyignore alpine:latest",
+            "explanation": "Scans an image while excluding specific vulnerabilities defined in a .trivyignore file."
+        },
+        {
+            "id": 24,
+            "category": "Database Management",
+            "command": "trivy image --download-db-only",
+            "example": "trivy image --download-db-only",
+            "explanation": "Downloads the vulnerability database to the cache without performing a scan."
+        },
+        {
+            "id": 25,
+            "category": "Database Management",
+            "command": "trivy image --reset",
+            "example": "trivy image --reset",
+            "explanation": "Resets the vulnerability database and clears the cache to fix corruption or force an update."
+        },
+        {
+            "id": 26,
+            "category": "Offline Scanning",
+            "command": "trivy image --offline-scan [IMAGE]",
+            "example": "trivy image --offline-scan centos:7",
+            "explanation": "Scans using the currently cached database without attempting to reach the internet."
+        },
+        {
+            "id": 27,
+            "category": "Skipping Resources",
+            "command": "trivy image --skip-db-update [IMAGE]",
+            "example": "trivy image --skip-db-update redis:alpine",
+            "explanation": "Skips the vulnerability database update step to speed up repeated scans."
+        },
+        {
+            "id": 28,
+            "category": "Skipping Resources",
+            "command": "trivy fs --skip-dirs [DIRS] [PATH]",
+            "example": "trivy fs --skip-dirs node_modules,dist .",
+            "explanation": "Excludes specified directories from the filesystem scan to reduce noise and time."
+        },
+        {
+            "id": 29,
+            "category": "Skipping Resources",
+            "command": "trivy fs --skip-files [FILES] [PATH]",
+            "example": "trivy fs --skip-files package-lock.json .",
+            "explanation": "Excludes specific files from being parsed during a filesystem scan."
+        },
+        {
+            "id": 30,
+            "category": "Archive Scanning",
+            "command": "trivy image --input [FILE]",
+            "example": "trivy image --input image.tar",
+            "explanation": "Scans a container image exported as a tar archive (e.g., from docker save)."
+        },
+        {
+            "id": 31,
+            "category": "Private Registry",
+            "command": "trivy image [REGISTRY_IMAGE]",
+            "example": "export TRIVY_USERNAME=user TRIVY_PASSWORD=pass; trivy image private.registry.com/app:v1",
+            "explanation": "Scans an image from a private registry using environment variables for authentication."
+        },
+        {
+            "id": 32,
+            "category": "Kubernetes Scanning",
+            "command": "trivy k8s cluster --report summary",
+            "example": "trivy k8s cluster --report summary",
+            "explanation": "Scans the entire connected Kubernetes cluster and outputs a summary report."
+        },
+        {
+            "id": 33,
+            "category": "Kubernetes Scanning",
+            "command": "trivy k8s --namespace [NS] all",
+            "example": "trivy k8s --namespace kube-system all",
+            "explanation": "Scans all resources (pods, deployments, services) within a specific Kubernetes namespace."
+        },
+        {
+            "id": 34,
+            "category": "Kubernetes Scanning",
+            "command": "trivy k8s --include-namespaces [NS] cluster",
+            "example": "trivy k8s --include-namespaces prod,staging cluster",
+            "explanation": "Restricts the cluster scan to only the specified namespaces."
+        },
+        {
+            "id": 35,
+            "category": "Kubernetes Scanning",
+            "command": "trivy k8s resource [KIND]/[NAME]",
+            "example": "trivy k8s resource deployment/nginx-app",
+            "explanation": "Scans a specific Kubernetes resource type and name found in the active cluster."
+        },
+        {
+            "id": 36,
+            "category": "AWS Cloud Scanning",
+            "command": "trivy aws --region [REGION] --service [SERVICE]",
+            "example": "trivy aws --region us-east-1 --service s3",
+            "explanation": "Scans AWS S3 bucket configurations in the specified region for security issues."
+        },
+        {
+            "id": 37,
+            "category": "AWS Cloud Scanning",
+            "command": "trivy aws --service ec2",
+            "example": "trivy aws --service ec2",
+            "explanation": "Scans AWS EC2 instances and security groups for misconfigurations."
+        },
+        {
+            "id": 38,
+            "category": "AWS Cloud Scanning",
+            "command": "trivy aws --arn [ARN]",
+            "example": "trivy aws --arn arn:aws:s3:::my-bucket",
+            "explanation": "Scans a specific AWS resource identified by its Amazon Resource Name (ARN)."
+        },
+        {
+            "id": 39,
+            "category": "VM Scanning",
+            "command": "trivy vm [IMAGE_FILE]",
+            "example": "trivy vm disk.qcow2",
+            "explanation": "Scans a virtual machine disk image (QCOW2, VMDK, etc.) for OS vulnerabilities."
+        },
+        {
+            "id": 40,
+            "category": "Detailed Output",
+            "command": "trivy image --list-all-pkgs [IMAGE]",
+            "example": "trivy image --list-all-pkgs ubuntu:20.04",
+            "explanation": "Outputs all detected packages in the image, regardless of whether they have vulnerabilities."
+        },
+        {
+            "id": 41,
+            "category": "Template Reporting",
+            "command": "trivy image --format template --template \"@[PATH]\" [IMAGE]",
+            "example": "trivy image --format template --template \"@contrib/html.tpl\" -o report.html alpine",
+            "explanation": "Generates a report using a custom Go template (e.g., HTML) for visualization."
+        },
+        {
+            "id": 42,
+            "category": "Policy Check",
+            "command": "trivy config --policy [DIR] [TARGET]",
+            "example": "trivy config --policy ./policies ./terraform",
+            "explanation": "Applies custom Rego policies located in a directory to the configuration scan."
+        },
+        {
+            "id": 43,
+            "category": "Policy Namespaces",
+            "command": "trivy config --policy-namespaces [NS] [TARGET]",
+            "example": "trivy config --policy-namespaces user.kubernetes .",
+            "explanation": "Restricts custom policy evaluation to specific Rego namespaces."
+        },
+        {
+            "id": 44,
+            "category": "Module Scanning",
+            "command": "trivy rootfs [DIR]",
+            "example": "trivy rootfs /mnt/host-root",
+            "explanation": "Scans an unpacked root filesystem directly, often used for host OS scanning."
+        },
+        {
+            "id": 45,
+            "category": "Cache Management",
+            "command": "trivy clean --scan-cache",
+            "example": "trivy clean --scan-cache",
+            "explanation": "Clears the artifact scan cache to force re-analysis of previously scanned images."
+        },
+        {
+            "id": 46,
+            "category": "Cache Management",
+            "command": "trivy clean --all",
+            "example": "trivy clean --all",
+            "explanation": "Removes all caches, including the vulnerability database and scan results."
+        },
+        {
+            "id": 47,
+            "category": "Server Mode",
+            "command": "trivy server --listen [ADDRESS]",
+            "example": "trivy server --listen 0.0.0.0:8080",
+            "explanation": "Starts Trivy in server mode to handle scan requests from remote clients."
+        },
+        {
+            "id": 48,
+            "category": "Client Mode",
+            "command": "trivy client --remote [URL] [IMAGE]",
+            "example": "trivy client --remote http://localhost:8080 alpine:latest",
+            "explanation": "Sends a scan request to a remote Trivy server instead of using a local database."
+        },
+        {
+            "id": 49,
+            "category": "Client Mode Authentication",
+            "command": "trivy client --token [TOKEN] --remote [URL] [IMAGE]",
+            "example": "trivy client --token MySecretToken --remote http://localhost:8080 alpine",
+            "explanation": "Connects to a protected Trivy server using a token header for authentication."
+        },
+        {
+            "id": 50,
+            "category": "Containerized Scan",
+            "command": "docker run aquasec/trivy [COMMAND]",
+            "example": "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image python:3",
+            "explanation": "Runs Trivy itself inside a Docker container, mounting the host's Docker socket to scan sibling containers."
+        },
+        {
+            "id": 51,
+            "category": "History Filtering",
+            "command": "trivy image --history [IMAGE]",
+            "example": "trivy image --history my-app:latest",
+            "explanation": "Analyzes the build history of the container image to associate vulnerabilities with specific layers."
+        },
+        {
+            "id": 52,
+            "category": "Compliance Scanning",
+            "command": "trivy k8s --compliance [STANDARD] --report summary",
+            "example": "trivy k8s --compliance nsa --report summary",
+            "explanation": "Scans the Kubernetes cluster against a specific compliance standard like NSA or CIS."
+        },
+        {
+            "id": 53,
+            "category": "Insecure Registry",
+            "command": "trivy image --insecure [IMAGE]",
+            "example": "trivy image --insecure internal-registry.local/image:tag",
+            "explanation": "Allows scanning images from a registry that uses self-signed SSL certificates or HTTP."
+        },
+        {
+            "id": 54,
+            "category": "Timeout Control",
+            "command": "trivy image --timeout [DURATION] [IMAGE]",
+            "example": "trivy image --timeout 15m node:latest",
+            "explanation": "Sets a custom timeout duration for the scan operation to prevent hanging in pipelines."
+        },
+        {
+            "id": 55,
+            "category": "Java DB",
+            "command": "trivy image --download-java-db-only",
+            "example": "trivy image --download-java-db-only",
+            "explanation": "Downloads only the Java index database used for scanning JAR/WAR files."
+        },
+        {
+            "id": 56,
+            "category": "Secrets Config",
+            "command": "trivy fs --secret-config [FILE] [DIR]",
+            "example": "trivy fs --secret-config trivy-secret.yaml .",
+            "explanation": "Uses a custom configuration file to define regex patterns for secret detection."
+        },
+        {
+            "id": 57,
+            "category": "Output Suppression",
+            "command": "trivy image --quiet [IMAGE]",
+            "example": "trivy image --quiet alpine:latest",
+            "explanation": "Suppresses the progress bar and log messages, outputting only the final report."
+        },
+        {
+            "id": 58,
+            "category": "Helm Chart Scanning",
+            "command": "trivy config [CHART_DIR]",
+            "example": "trivy config ./my-helm-chart",
+            "explanation": "Scans Helm chart templates for security misconfigurations and best practice violations."
+        },
+        {
+            "id": 59,
+            "category": "Cloud Formation Scanning",
+            "command": "trivy config [TEMPLATE_FILE]",
+            "example": "trivy config template.yaml",
+            "explanation": "Scans AWS CloudFormation templates for infrastructure security risks."
+        },
+        {
+            "id": 60,
+            "category": "Vulnerability Database URL",
+            "command": "trivy image --db-repository [URL] [IMAGE]",
+            "example": "trivy image --db-repository ghcr.io/aquasecurity/trivy-db alpine",
+            "explanation": "Specifies a custom OCI registry URL to download the vulnerability database from."
+        },
+        {
+            "id": 61,
+            "category": "Rekor Attestation",
+            "command": "trivy image --rekor-url [URL] [IMAGE]",
+            "example": "trivy image --rekor-url https://rekor.sigstore.dev alpine",
+            "explanation": "Verifies the image attestation against a specified Rekor transparency log server."
+        },
+        {
+            "id": 62,
+            "category": "Vulnerability Prioritization",
+            "command": "trivy image --vex [FILE] [IMAGE]",
+            "example": "trivy image --vex openvex.json alpine",
+            "explanation": "Uses a VEX (Vulnerability Exploitability Exchange) file to filter out non-exploitable vulnerabilities."
+        },
+        {
+            "id": 63,
+            "category": "Module Scan - Go",
+            "command": "trivy fs --scanners vuln [GO_PROJECT]",
+            "example": "trivy fs --scanners vuln ./go-app",
+            "explanation": "Scans a Go project directory, parsing go.mod and go.sum for dependency vulnerabilities."
+        },
+        {
+            "id": 64,
+            "category": "Module Scan - Python",
+            "command": "trivy fs [PYTHON_PROJECT]",
+            "example": "trivy fs ./python-app",
+            "explanation": "Scans a Python project, identifying vulnerabilities in requirements.txt, Pipfile.lock, or poetry.lock."
+        },
+        {
+            "id": 65,
+            "category": "Custom Cache Dir",
+            "command": "trivy image --cache-dir [DIR] [IMAGE]",
+            "example": "trivy image --cache-dir /tmp/trivy-cache alpine",
+            "explanation": "Specifies a custom directory for storing the vulnerability database and artifact cache."
+        },
+        {
+            "id": 66,
+            "category": "Docker Archive Scan",
+            "command": "trivy image --input [TAR] --format json",
+            "example": "trivy image --input app.tar --format json -o analysis.json",
+            "explanation": "Scans a tarballed Docker image and outputs JSON, useful for air-gapped pipeline stages."
+        },
+        {
+            "id": 67,
+            "category": "Interactive Mode Debug",
+            "command": "trivy image --debug [IMAGE]",
+            "example": "trivy image --debug alpine",
+            "explanation": "Runs the scan with verbose debug logging to troubleshoot detection or network issues."
+        },
+        {
+            "id": 68,
+            "category": "Remote Repo Branch",
+            "command": "trivy repo --branch [BRANCH] [URL]",
+            "example": "trivy repo --branch develop https://github.com/org/repo",
+            "explanation": "Scans a specific branch of a remote Git repository instead of the default branch."
+        },
+        {
+            "id": 69,
+            "category": "Remote Repo Commit",
+            "command": "trivy repo --commit [HASH] [URL]",
+            "example": "trivy repo --commit 8f9d12a https://github.com/org/repo",
+            "explanation": "Scans a specific commit hash within a remote Git repository."
+        },
+        {
+            "id": 70,
+            "category": "Kubernetes Context",
+            "command": "trivy k8s --context [CTX] cluster",
+            "example": "trivy k8s --context production-cluster cluster",
+            "explanation": "Specifies which kubeconfig context to use when scanning a Kubernetes cluster."
+        },
+        {
+            "id": 71,
+            "category": "Dependency Tree",
+            "command": "trivy image --dependency-tree [IMAGE]",
+            "example": "trivy image --dependency-tree node:alpine",
+            "explanation": "Displays the hierarchy of dependencies to show which root package brought in a vulnerability."
+        },
+        {
+            "id": 72,
+            "category": "Parallel Scanning",
+            "command": "trivy k8s --parallel [N] cluster",
+            "example": "trivy k8s --parallel 5 cluster",
+            "explanation": "Sets the number of concurrent scan jobs when scanning Kubernetes resources to improve speed."
+        },
+        {
+            "id": 73,
+            "category": "Misconfiguration IDs",
+            "command": "trivy config --include-non-failures [DIR]",
+            "example": "trivy config --include-non-failures .",
+            "explanation": "Reports all configuration checks, including those that passed, for audit purposes."
+        },
+        {
+            "id": 74,
+            "category": "Force Update",
+            "command": "trivy image --refresh [IMAGE]",
+            "example": "trivy image --refresh alpine",
+            "explanation": "Forces a refresh of the cached layer information for the image before scanning."
+        },
+        {
+            "id": 75,
+            "category": "Specific Check IDs",
+            "command": "trivy config --check-namespaces [NS] [DIR]",
+            "example": "trivy config --check-namespaces appshield .",
+            "explanation": "Runs only specific Rego checks from a given namespace against the configuration."
+        },
+        {
+            "id": 76,
+            "category": "Ignore Status",
+            "command": "trivy image --ignore-status [STATUS] [IMAGE]",
+            "example": "trivy image --ignore-status fixed alpine",
+            "explanation": "Ignores vulnerabilities that have a specific status in the vulnerability database."
+        },
+        {
+            "id": 77,
+            "category": "Platform selection",
+            "command": "trivy image --platform [PLATFORM] [IMAGE]",
+            "example": "trivy image --platform linux/arm64 python:3.9",
+            "explanation": "Scans the image architecture variant specifically for ARM64 or other platforms."
+        },
+        {
+            "id": 78,
+            "category": "Plugin Installation",
+            "command": "trivy plugin install [URL]",
+            "example": "trivy plugin install github.com/aquasecurity/trivy-plugin-kubectl",
+            "explanation": "Installs a Trivy plugin from a Git repository to extend functionality."
+        },
+        {
+            "id": 79,
+            "category": "Plugin Usage",
+            "command": "trivy [PLUGIN_NAME] [ARGS]",
+            "example": "trivy kubectl pod my-pod",
+            "explanation": "Executes an installed plugin command, such as the kubectl plugin for pod scanning."
+        },
+        {
+            "id": 80,
+            "category": "Attestation Scan",
+            "command": "trivy image --sbom-sources [SOURCE] [IMAGE]",
+            "example": "trivy image --sbom-sources rekor alpine",
+            "explanation": "Retrieves the SBOM from a signing transparency log (Rekor) rather than generating it."
+        },
+        {
+            "id": 81,
+            "category": "Redis Cache Backend",
+            "command": "trivy image --cache-backend redis://[HOST]",
+            "example": "trivy image --cache-backend redis://localhost:6379 alpine",
+            "explanation": "Uses a Redis instance as the cache backend instead of the local filesystem for distributed scanning."
+        },
+        {
+            "id": 82,
+            "category": "Advanced Filtering",
+            "command": "trivy image --severity HIGH,CRITICAL --ignore-unfixed --vuln-type os [IMAGE]",
+            "example": "trivy image --severity HIGH,CRITICAL --ignore-unfixed --vuln-type os centos:7",
+            "explanation": "Combines multiple filters to find only fixable, high-risk OS vulnerabilities."
+        },
+        {
+            "id": 83,
+            "category": "Azure Cloud",
+            "command": "trivy azure --service [SERVICE]",
+            "example": "export AZURE_AUTH_LOCATION=auth.json; trivy azure --service blob",
+            "explanation": "Scans Azure Blob Storage configurations for public access risks (experimental/preview)."
+        },
+        {
+            "id": 84,
+            "category": "GCP Cloud",
+            "command": "trivy google --project [PROJECT]",
+            "example": "trivy google --project my-gcp-project",
+            "explanation": "Scans Google Cloud Platform resources within a specific project for misconfigurations (experimental)."
+        },
+        {
+            "id": 85,
+            "category": "Cloud Snapshot Scan",
+            "command": "trivy vm --scanners vuln [SNAPSHOT_ID]",
+            "example": "trivy vm --scanners vuln snap-12345678",
+            "explanation": "Scans an AWS EBS snapshot directly by mounting it securely (requires proper IAM permissions)."
+        },
+        {
+            "id": 86,
+            "category": "Output Template - HTML",
+            "command": "trivy image --format template --template \"@contrib/html.tpl\" --output report.html [IMAGE]",
+            "example": "trivy image --format template --template \"@contrib/html.tpl\" --output report.html nginx",
+            "explanation": "Generates a visual HTML report using the contrib template for stakeholder presentation."
+        },
+        {
+            "id": 87,
+            "category": "Output Template - JUnit",
+            "command": "trivy image --format template --template \"@contrib/junit.tpl\" --output junit.xml [IMAGE]",
+            "example": "trivy image --format template --template \"@contrib/junit.tpl\" --output junit.xml nginx",
+            "explanation": "Generates a JUnit XML report for parsing by CI systems like Jenkins or GitLab."
+        },
+        {
+            "id": 88,
+            "category": "Helm Value Overrides",
+            "command": "trivy config --helm-values [FILE] [CHART]",
+            "example": "trivy config --helm-values prod-values.yaml ./my-chart",
+            "explanation": "Scans a Helm chart while applying a specific values.yaml file to render the templates accurately."
+        },
+        {
+            "id": 89,
+            "category": "Terraform Variables",
+            "command": "trivy config --tf-vars [FILE] [DIR]",
+            "example": "trivy config --tf-vars prod.tfvars ./terraform",
+            "explanation": "Scans Terraform code while applying variables from a tfvars file to resolve dynamic blocks."
+        },
+        {
+            "id": 90,
+            "category": "GitLab CI Workflow",
+            "command": "trivy image --no-progress --format template --template \"@contrib/gitlab.tpl\" -o gl-container-scanning-report.json [IMAGE]",
+            "example": "trivy image --no-progress --format template --template \"@contrib/gitlab.tpl\" -o gl-container-scanning-report.json app:latest",
+            "explanation": "Generates a JSON report formatted specifically for GitLab's Container Scanning dashboard integration."
+        },
+        {
+            "id": 91,
+            "category": "Diff Scans",
+            "command": "trivy image --diff-id [ID1] --diff-id [ID2]",
+            "example": "trivy image --diff-id sha256:old --diff-id sha256:new",
+            "explanation": "Compares two scans by Image ID to identify new vulnerabilities introduced between versions."
+        },
+        {
+            "id": 92,
+            "category": "Registry Token Auth",
+            "command": "trivy image --registry-token [TOKEN] [IMAGE]",
+            "example": "trivy image --registry-token $REGISTRY_TOKEN private.io/image:tag",
+            "explanation": "Uses a bearer token directly for registry authentication instead of username/password."
+        },
+        {
+            "id": 93,
+            "category": "Custom Rego Data",
+            "command": "trivy config --data [DIR] [TARGET]",
+            "example": "trivy config --data ./rego-data ./k8s",
+            "explanation": "Passes external data files (JSON/YAML) to Rego policies for context-aware configuration scanning."
+        },
+        {
+            "id": 94,
+            "category": "Removed Packages",
+            "command": "trivy image --removed-pkgs [IMAGE]",
+            "example": "trivy image --removed-pkgs alpine:latest",
+            "explanation": "Detects vulnerabilities in packages that were removed but might still leave artifacts or traces."
+        },
+        {
+            "id": 95,
+            "category": "Scan Distroless",
+            "command": "trivy image [DISTROLESS_IMAGE]",
+            "example": "trivy image gcr.io/distroless/static:nonroot",
+            "explanation": "Scans Google Distroless images by analyzing the /var/lib/dpkg/status file or binary headers."
+        },
+        {
+            "id": 96,
+            "category": "Air-Gapped Workflow",
+            "command": "tar -cf db.tar db/ && trivy image --cache-dir . --offline-scan [IMAGE]",
+            "example": "tar -cf db.tar db/ && trivy image --cache-dir . --offline-scan alpine",
+            "explanation": "Simulates an air-gapped workflow where the DB is manually transported and used for offline scanning."
+        },
+        {
+            "id": 97,
+            "category": "Compliance Report - CIS",
+            "command": "trivy k8s --compliance k8s-cis-1.23 --report summary",
+            "example": "trivy k8s --compliance k8s-cis-1.23 --report summary",
+            "explanation": "Checks the cluster specifically against the CIS Kubernetes Benchmark v1.23."
+        },
+        {
+            "id": 98,
+            "category": "Suppress Exit on Error",
+            "command": "trivy image --exit-on-eol [INT] [IMAGE]",
+            "example": "trivy image --exit-on-eol 1 python:2.7",
+            "explanation": "Exits with a specific error code if the OS version of the image has reached End of Life (EOL)."
+        },
+        {
+            "id": 99,
+            "category": "Config File Params",
+            "command": "trivy --config [CONFIG_YAML] image [IMAGE]",
+            "example": "trivy --config trivy.yaml image alpine",
+            "explanation": "Runs a scan using global parameters (cache, timeout, format) defined in a YAML configuration file."
+        },
+        {
+            "id": 100,
+            "category": "Full Pipeline Simulation",
+            "command": "trivy image --exit-code 1 --severity CRITICAL --no-progress --format sarif -o report.sarif [IMAGE]",
+            "example": "trivy image --exit-code 1 --severity CRITICAL --no-progress --format sarif -o report.sarif my-app:build-123",
+            "explanation": "A complete pipeline command: checks criticals, fails build on hit, stays silent, and saves SARIF artifacts."
+        }
+    ]
+}

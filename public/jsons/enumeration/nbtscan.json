@@ -1,0 +1,217 @@
+{
+    "tool": "nbtscan",
+    "description": "Complete nbtscan command reference covering all options from basic to advanced",
+    "total_commands": 30,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic NetBIOS Host Discovery",
+            "command": "nbtscan 192.168.1.0/24",
+            "example": "nbtscan 192.168.1.0/24",
+            "explanation": "Scans the entire CIDR subnet to discover hosts sharing NetBIOS information."
+        },
+        {
+            "id": 2,
+            "category": "Single Host Scanning",
+            "command": "nbtscan 10.10.10.55",
+            "example": "nbtscan 10.10.10.55",
+            "explanation": "Queries a specific IP address to identify its NetBIOS name and MAC address."
+        },
+        {
+            "id": 3,
+            "category": "Range Based Scanning",
+            "command": "nbtscan 192.168.1.1-100",
+            "example": "nbtscan 192.168.1.1-100",
+            "explanation": "Scans a specific range of IP addresses within a subnet."
+        },
+        {
+            "id": 4,
+            "category": "Multiple Target Scanning",
+            "command": "nbtscan 192.168.1.50 192.168.1.55 192.168.1.60",
+            "example": "nbtscan 192.168.1.50 192.168.1.55 192.168.1.60",
+            "explanation": "Scans multiple individually specified IP addresses in a single command."
+        },
+        {
+            "id": 5,
+            "category": "Verbose Output Modes",
+            "command": "nbtscan -v 192.168.1.0/24",
+            "example": "nbtscan -v 192.168.1.0/24",
+            "explanation": "Enables verbose mode to display names and services for each discovered host."
+        },
+        {
+            "id": 6,
+            "category": "OS and Server Type Identification",
+            "command": "nbtscan -h 192.168.1.0/24",
+            "example": "nbtscan -h 192.168.1.0/24",
+            "explanation": "Displays human-readable names for NetBIOS services to help identify server roles."
+        },
+        {
+            "id": 7,
+            "category": "Combined Verbose Enumeration",
+            "command": "nbtscan -vh 192.168.1.0/24",
+            "example": "nbtscan -vh 192.168.1.0/24",
+            "explanation": "Combines verbose output with human-readable descriptions for detailed analysis."
+        },
+        {
+            "id": 8,
+            "category": "Quiet and Minimal Output",
+            "command": "nbtscan -q 10.10.10.0/24",
+            "example": "nbtscan -q 10.10.10.0/24",
+            "explanation": "Suppresses headers and banners for cleaner output suitable for lists."
+        },
+        {
+            "id": 9,
+            "category": "Script Friendly Output",
+            "command": "nbtscan -s \",\" 192.168.1.0/24",
+            "example": "nbtscan -s \",\" 192.168.1.0/24",
+            "explanation": "Uses a comma separator between fields to generate CSV-style output."
+        },
+        {
+            "id": 10,
+            "category": "Custom Delimiter Parsing",
+            "command": "nbtscan -s \"|\" 192.168.1.0/24",
+            "example": "nbtscan -s \"|\" 192.168.1.0/24",
+            "explanation": "Uses a pipe character as a separator for easy parsing in shell scripts."
+        },
+        {
+            "id": 11,
+            "category": "Format for ETC Hosts",
+            "command": "nbtscan -e 192.168.1.0/24",
+            "example": "nbtscan -e 192.168.1.0/24",
+            "explanation": "Formats the output to be compatible with the /etc/hosts file format."
+        },
+        {
+            "id": 12,
+            "category": "Format for LMHOSTS",
+            "command": "nbtscan -l 192.168.1.0/24",
+            "example": "nbtscan -l 192.168.1.0/24",
+            "explanation": "Formats the output to be compatible with the Windows LMHOSTS file format."
+        },
+        {
+            "id": 13,
+            "category": "Input from File",
+            "command": "nbtscan -f targets.txt",
+            "example": "nbtscan -f targets.txt",
+            "explanation": "Reads a list of IP addresses or subnets from a text file for scanning."
+        },
+        {
+            "id": 14,
+            "category": "Broadcast and Unicast Scanning",
+            "command": "nbtscan -r 192.168.1.0/24",
+            "example": "nbtscan -r 192.168.1.0/24",
+            "explanation": "Forces the scan to use local source port 137 to bypass some firewall filters."
+        },
+        {
+            "id": 15,
+            "category": "Timeout Control",
+            "command": "nbtscan -t 2000 192.168.1.0/24",
+            "example": "nbtscan -t 2000 192.168.1.0/24",
+            "explanation": "Sets the wait time for responses to 2000 milliseconds (2 seconds)."
+        },
+        {
+            "id": 16,
+            "category": "Fast Scanning",
+            "command": "nbtscan -t 500 192.168.1.0/24",
+            "example": "nbtscan -t 500 192.168.1.0/24",
+            "explanation": "Reduces the timeout to 500ms for a faster scan on low-latency local networks."
+        },
+        {
+            "id": 17,
+            "category": "Retry Control",
+            "command": "nbtscan -m 3 192.168.1.0/24",
+            "example": "nbtscan -m 3 192.168.1.0/24",
+            "explanation": "Retransmits the query 3 times if no response is received."
+        },
+        {
+            "id": 18,
+            "category": "Reliable Deep Scan",
+            "command": "nbtscan -m 5 -t 3000 192.168.1.0/24",
+            "example": "nbtscan -m 5 -t 3000 192.168.1.0/24",
+            "explanation": "Increases retries and timeouts to maximize discovery on congested networks."
+        },
+        {
+            "id": 19,
+            "category": "Packet Dump Debugging",
+            "command": "nbtscan -d 10.10.10.50",
+            "example": "nbtscan -d 10.10.10.50",
+            "explanation": "Dumps the full packet contents received for debugging protocol issues."
+        },
+        {
+            "id": 20,
+            "category": "Red Team Internal Reconnaissance",
+            "command": "nbtscan -q -s \":\" 192.168.1.0/24",
+            "example": "nbtscan -q -s \":\" 192.168.1.0/24",
+            "explanation": "Produces quiet, colon-separated output ideal for feeding into other attack tools."
+        },
+        {
+            "id": 21,
+            "category": "Blue Team Asset Inventory",
+            "command": "nbtscan -e 192.168.1.0/24 > inventory.txt",
+            "example": "nbtscan -e 192.168.1.0/24 > inventory.txt",
+            "explanation": "Generates a hostname-to-IP mapping file for network inventory documentation."
+        },
+        {
+            "id": 22,
+            "category": "Firewall Evasion Attempt",
+            "command": "nbtscan -r -t 1500 10.10.10.0/24",
+            "example": "nbtscan -r -t 1500 10.10.10.0/24",
+            "explanation": "Uses source port 137 with a moderate timeout to traverse strict ACLs."
+        },
+        {
+            "id": 23,
+            "category": "DHCP Scope Discovery",
+            "command": "nbtscan 192.168.1.100-200",
+            "example": "nbtscan 192.168.1.100-200",
+            "explanation": "Scans a specific DHCP pool range to find active Windows leases."
+        },
+        {
+            "id": 24,
+            "category": "Domain Controller Identification",
+            "command": "nbtscan -hv 192.168.1.0/24 | grep \"DC\"",
+            "example": "nbtscan -hv 192.168.1.0/24 | grep \"DC\"",
+            "explanation": "Scans with service descriptions and filters for Domain Controller indicators."
+        },
+        {
+            "id": 25,
+            "category": "MAC Address Discovery",
+            "command": "nbtscan -s \" \" 192.168.1.0/24",
+            "example": "nbtscan -s \" \" 192.168.1.0/24",
+            "explanation": "Uses a space separator to cleanly expose the MAC address column."
+        },
+        {
+            "id": 26,
+            "category": "Incident Response Snapshot",
+            "command": "nbtscan -v -s \",\" 192.168.1.0/24",
+            "example": "nbtscan -v -s \",\" 192.168.1.0/24",
+            "explanation": "Captures verbose details in a CSV format for forensic timeline analysis."
+        },
+        {
+            "id": 27,
+            "category": "Legacy Network Mapping",
+            "command": "nbtscan -l 10.0.0.0/8",
+            "example": "nbtscan -l 10.0.0.0/8",
+            "explanation": "Scans a large Class A network (slow) and outputs in LMHOSTS format."
+        },
+        {
+            "id": 28,
+            "category": "No Header Scripting",
+            "command": "nbtscan -q -e 192.168.1.0/24",
+            "example": "nbtscan -q -e 192.168.1.0/24",
+            "explanation": "Outputs only the host definitions without table headers for immediate processing."
+        },
+        {
+            "id": 29,
+            "category": "Aggressive Discovery",
+            "command": "nbtscan -r -m 10 192.168.1.0/24",
+            "example": "nbtscan -r -m 10 192.168.1.0/24",
+            "explanation": "Uses root-level source ports and high retries for stubborn hosts."
+        },
+        {
+            "id": 30,
+            "category": "Full Comprehensive Scan",
+            "command": "nbtscan -v -h -r -t 2000 192.168.1.0/24",
+            "example": "nbtscan -v -h -r -t 2000 192.168.1.0/24",
+            "explanation": "Maximizes information gathering with verbose, readable, robust settings."
+        }
+    ]
+}

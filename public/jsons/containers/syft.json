@@ -1,0 +1,77 @@
+{
+    "tool": "syft",
+    "description": "Syft: The premier specialized dependency analyzer. It strictly parses deeply encrypted structural packages explicitly mapping absolutely enormous accurate Software Bill of Materials natively out of container payloads.",
+    "total_commands": 10,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Image Parsing",
+            "command": "syft <image>",
+            "example": "syft node:14",
+            "explanation": "Dives internally deeply analyzing native OCI layers extracting foundational absolute localized systemic packages natively tracking explicitly exact installed historical module versions."
+        },
+        {
+            "id": 2,
+            "category": "SBOM Execution",
+            "command": "syft <image> -o spdx-json",
+            "example": "syft my_app:latest -o spdx-json",
+            "explanation": "Serializes complex analytical data natively enforcing massive global SPDX standard architecture structures fundamentally allowing precise external vendor vulnerability tracking."
+        },
+        {
+            "id": 3,
+            "category": "Filesystem Syfting",
+            "command": "syft dir:<path>",
+            "example": "syft dir:.",
+            "explanation": "Unlinks baseline Docker constraints actively probing inherent flat-file local explicit physical source code repositories explicitly identifying localized deeply embedded `package.json` logic."
+        },
+        {
+            "id": 4,
+            "category": "File Classifications",
+            "command": "syft file:<file>",
+            "example": "syft file:payload.jar",
+            "explanation": "Overrides standard OS extraction loops directly analyzing massive single-packaged monolithic archives completely breaking apart internal logic structures directly inside standalone JARs."
+        },
+        {
+            "id": 5,
+            "category": "Exclude Tracking",
+            "command": "syft dir:<path> --exclude <regex>",
+            "example": "syft dir:. --exclude '**/node_modules/**'",
+            "explanation": "Enhances inherently immense recursive indexing dynamically filtering logic skipping vast complex local explicitly noisy development libraries reducing execution times exponentially."
+        },
+        {
+            "id": 6,
+            "category": "Layer Extractions",
+            "command": "syft <image> --scope all-layers",
+            "example": "syft base:v1 --scope all-layers",
+            "explanation": "Dissects incredibly complex inherited cached overlay variables completely unearthing deeply historically established packages completely decoupled actively bypassing container runtime masking."
+        },
+        {
+            "id": 7,
+            "category": "Output File",
+            "command": "syft <image> --file <path>",
+            "example": "syft app:latest --file sbom.txt",
+            "explanation": "Automates execution streams automatically capturing enormous explicit multi-line analytical arrays seamlessly writing securely completely to localized targeted filesystem paths."
+        },
+        {
+            "id": 8,
+            "category": "Output CYCLONEDX",
+            "command": "syft <image> -o cyclonedx-xml",
+            "example": "syft ubuntu:latest -o cyclonedx-xml",
+            "explanation": "Converts extraction logic natively aligning universally integrated OWASP CycloneDX methodologies cleanly targeting extensive enterprise-level cybersecurity tracking mandates."
+        },
+        {
+            "id": 9,
+            "category": "Config Management",
+            "command": "syft -c <file>",
+            "example": "syft -c syft.yaml app:latest",
+            "explanation": "Integrates natively executing parameters referencing external completely detailed explicit YAML architectures overriding standardized inherent systemic package matching bounds."
+        },
+        {
+            "id": 10,
+            "category": "Verbose Routing",
+            "command": "syft <image> -v",
+            "example": "syft target:latest -v",
+            "explanation": "Appends explicit live output streaming dynamically unmasking deeply processed local background executions structurally analyzing explicit tracking parsing operations dynamically."
+        }
+    ]
+}

@@ -1,0 +1,532 @@
+{
+    "tool": "xsser",
+    "description": "Complete xsser command reference covering all options from basic to advanced",
+    "total_commands": 75,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic XSS Detection",
+            "command": "xsser -u \"http://example.com\"",
+            "example": "xsser -u \"http://example.com\"",
+            "explanation": "Initiates a basic scan against the specified target URL"
+        },
+        {
+            "id": 2,
+            "category": "Basic XSS Detection",
+            "command": "xsser -u \"http://example.com/search.php?q=test\"",
+            "example": "xsser -u \"http://example.com/search.php?q=test\"",
+            "explanation": "Targets a specific URL with query parameters to test for vulnerabilities"
+        },
+        {
+            "id": 3,
+            "category": "Basic XSS Detection",
+            "command": "xsser --all-tests -u \"http://example.com\"",
+            "example": "xsser --all-tests -u \"http://example.com\"",
+            "explanation": "Runs all available heuristics and payload tests against the target"
+        },
+        {
+            "id": 4,
+            "category": "GET and POST Parameter Injection",
+            "command": "xsser -u \"http://example.com\" -g \"/search?q=\"",
+            "example": "xsser -u \"http://example.com\" -g \"/search?q=\"",
+            "explanation": "Manually defines the GET parameter to test for XSS"
+        },
+        {
+            "id": 5,
+            "category": "GET and POST Parameter Injection",
+            "command": "xsser -u \"http://example.com\" -p \"user=test&pass=test\"",
+            "example": "xsser -u \"http://example.com\" -p \"user=test&pass=test\"",
+            "explanation": "Injects payloads into POST data parameters to test for XSS in form submissions"
+        },
+        {
+            "id": 6,
+            "category": "GET and POST Parameter Injection",
+            "command": "xsser -u \"http://example.com\" --auto",
+            "example": "xsser -u \"http://example.com\" --auto",
+            "explanation": "Automatically analyzes the URL and attempts to inject into all discovered parameters"
+        },
+        {
+            "id": 7,
+            "category": "Header and Cookie Injection",
+            "command": "xsser -u \"http://example.com\" --cookie=\"SessionId=12345\"",
+            "example": "xsser -u \"http://example.com\" --cookie=\"SessionId=12345\"",
+            "explanation": "Sets a specific cookie for the session during the XSS scan"
+        },
+        {
+            "id": 8,
+            "category": "Header and Cookie Injection",
+            "command": "xsser -u \"http://example.com\" --drop-cookie",
+            "example": "xsser -u \"http://example.com\" --drop-cookie",
+            "explanation": "Tests if the application is vulnerable to XSS via cookie dropping"
+        },
+        {
+            "id": 9,
+            "category": "Header and Cookie Injection",
+            "command": "xsser -u \"http://example.com\" --user-agent",
+            "example": "xsser -u \"http://example.com\" --user-agent",
+            "explanation": "Attempts to inject XSS payloads into the HTTP User-Agent header"
+        },
+        {
+            "id": 10,
+            "category": "Header and Cookie Injection",
+            "command": "xsser -u \"http://example.com\" --referer",
+            "example": "xsser -u \"http://example.com\" --referer",
+            "explanation": "Attempts to inject XSS payloads into the HTTP Referer header"
+        },
+        {
+            "id": 11,
+            "category": "Header and Cookie Injection",
+            "command": "xsser -u \"http://example.com\" --headers",
+            "example": "xsser -u \"http://example.com\" --headers",
+            "explanation": "Performs injection testing across all standard HTTP headers"
+        },
+        {
+            "id": 12,
+            "category": "Authentication and Session Handling",
+            "command": "xsser -u \"http://example.com\" --auth-type=Basic --auth-cred=\"user:pass\"",
+            "example": "xsser -u \"http://example.com\" --auth-type=Basic --auth-cred=\"user:pass\"",
+            "explanation": "Scans a target requiring Basic HTTP Authentication"
+        },
+        {
+            "id": 13,
+            "category": "Authentication and Session Handling",
+            "command": "xsser -u \"http://example.com\" --auth-type=Digest --auth-cred=\"user:pass\"",
+            "example": "xsser -u \"http://example.com\" --auth-type=Digest --auth-cred=\"user:pass\"",
+            "explanation": "Scans a target requiring Digest HTTP Authentication"
+        },
+        {
+            "id": 14,
+            "category": "Proxy, Tor, and Network Configuration",
+            "command": "xsser -u \"http://example.com\" --proxy=\"http://127.0.0.1:8080\"",
+            "example": "xsser -u \"http://example.com\" --proxy=\"http://127.0.0.1:8080\"",
+            "explanation": "Routes scan traffic through a specified HTTP proxy like Burp Suite"
+        },
+        {
+            "id": 15,
+            "category": "Proxy, Tor, and Network Configuration",
+            "command": "xsser -u \"http://example.com\" --tor",
+            "example": "xsser -u \"http://example.com\" --tor",
+            "explanation": "Routes traffic through the Tor network for anonymity"
+        },
+        {
+            "id": 16,
+            "category": "Timing, Delay, and Performance Tuning",
+            "command": "xsser -u \"http://example.com\" --timeout=30",
+            "example": "xsser -u \"http://example.com\" --timeout=30",
+            "explanation": "Sets the connection timeout to 30 seconds for slow responses"
+        },
+        {
+            "id": 17,
+            "category": "Timing, Delay, and Performance Tuning",
+            "command": "xsser -u \"http://example.com\" --delay=2",
+            "example": "xsser -u \"http://example.com\" --delay=2",
+            "explanation": "Adds a 2-second delay between requests to avoid rate limiting"
+        },
+        {
+            "id": 18,
+            "category": "Timing, Delay, and Performance Tuning",
+            "command": "xsser -u \"http://example.com\" --threads=5",
+            "example": "xsser -u \"http://example.com\" --threads=5",
+            "explanation": "Runs the scan using 5 concurrent threads for faster results"
+        },
+        {
+            "id": 19,
+            "category": "Timing, Delay, and Performance Tuning",
+            "command": "xsser -u \"http://example.com\" --retries=3",
+            "example": "xsser -u \"http://example.com\" --retries=3",
+            "explanation": "Retries failed connection attempts up to 3 times"
+        },
+        {
+            "id": 20,
+            "category": "Crawling and Automatic Discovery",
+            "command": "xsser -u \"http://example.com\" --crawl",
+            "example": "xsser -u \"http://example.com\" --crawl",
+            "explanation": "Spiders the website to discover links and injection points automatically"
+        },
+        {
+            "id": 21,
+            "category": "Crawling and Automatic Discovery",
+            "command": "xsser -u \"http://example.com\" --crawl --depth=3",
+            "example": "xsser -u \"http://example.com\" --crawl --depth=3",
+            "explanation": "Crawls the target website up to a depth of 3 links deep"
+        },
+        {
+            "id": 22,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Str",
+            "example": "xsser -u \"http://example.com\" --Str",
+            "explanation": "Uses the String injection method for payloads"
+        },
+        {
+            "id": 23,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Hex",
+            "example": "xsser -u \"http://example.com\" --Hex",
+            "explanation": "Encodes payloads using Hexadecimal to bypass filters"
+        },
+        {
+            "id": 24,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Hes",
+            "example": "xsser -u \"http://example.com\" --Hes",
+            "explanation": "Uses Hexadecimal String encoding for payload obfuscation"
+        },
+        {
+            "id": 25,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Dwo",
+            "example": "xsser -u \"http://example.com\" --Dwo",
+            "explanation": "Encodes IP addresses in payloads as DWORD (double word) format"
+        },
+        {
+            "id": 26,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Doo",
+            "example": "xsser -u \"http://example.com\" --Doo",
+            "explanation": "Encodes IP addresses in payloads using Octal representation"
+        },
+        {
+            "id": 27,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Coo",
+            "example": "xsser -u \"http://example.com\" --Coo",
+            "explanation": "Injects payloads specifically via Cookie manipulation techniques"
+        },
+        {
+            "id": 28,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Base64",
+            "example": "xsser -u \"http://example.com\" --Base64",
+            "explanation": "Encodes the payload in Base64 to bypass WAFs that filter cleartext scripts"
+        },
+        {
+            "id": 29,
+            "category": "Payload Selection and Custom Payloads",
+            "command": "xsser -u \"http://example.com\" --payload=\"<script>alert(1)</script>\"",
+            "example": "xsser -u \"http://example.com\" --payload=\"<script>alert(1)</script>\"",
+            "explanation": "Injects a specific manual payload instead of using the built-in dictionary"
+        },
+        {
+            "id": 30,
+            "category": "Payload Selection and Custom Payloads",
+            "command": "xsser -u \"http://example.com\" --auto-payloads",
+            "example": "xsser -u \"http://example.com\" --auto-payloads",
+            "explanation": "Uses all available automatic vector payloads derived from the internal database"
+        },
+        {
+            "id": 31,
+            "category": "Payload Selection and Custom Payloads",
+            "command": "xsser -u \"http://example.com\" --fuzzer",
+            "example": "xsser -u \"http://example.com\" --fuzzer",
+            "explanation": "Injects a fuzzing vector to test input validation boundaries"
+        },
+        {
+            "id": 32,
+            "category": "DOM Based XSS Analysis",
+            "command": "xsser -u \"http://example.com\" --dom",
+            "example": "xsser -u \"http://example.com\" --dom",
+            "explanation": "Specifically checks for DOM-based XSS vulnerabilities in client-side code"
+        },
+        {
+            "id": 33,
+            "category": "DOM Based XSS Analysis",
+            "command": "xsser -u \"http://example.com\" --check-at=\"/search.php?q=\" --dom",
+            "example": "xsser -u \"http://example.com\" --check-at=\"/search.php?q=\" --dom",
+            "explanation": "Verifies DOM XSS injection at a specific path and parameter"
+        },
+        {
+            "id": 34,
+            "category": "Advanced Injection Vectors",
+            "command": "xsser -u \"http://example.com\" --imx",
+            "example": "xsser -u \"http://example.com\" --imx",
+            "explanation": "Tests for Image Metadata XSS (injecting payloads into image tags)"
+        },
+        {
+            "id": 35,
+            "category": "Advanced Injection Vectors",
+            "command": "xsser -u \"http://example.com\" --fla",
+            "example": "xsser -u \"http://example.com\" --fla",
+            "explanation": "Tests for vulnerabilities related to Flash (SWF) object embedding"
+        },
+        {
+            "id": 36,
+            "category": "Advanced Injection Vectors",
+            "command": "xsser -u \"http://example.com\" --simple",
+            "example": "xsser -u \"http://example.com\" --simple",
+            "explanation": "Uses simple, less aggressive injection vectors to test basic filtering"
+        },
+        {
+            "id": 37,
+            "category": "HTTP Method Control",
+            "command": "xsser -u \"http://example.com\" --head",
+            "example": "xsser -u \"http://example.com\" --head",
+            "explanation": "Uses the HTTP HEAD method for checking target reachability before scanning"
+        },
+        {
+            "id": 38,
+            "category": "Validation and Verification",
+            "command": "xsser -u \"http://example.com\" --check=\"/search.php?q=\"",
+            "example": "xsser -u \"http://example.com\" --check=\"/search.php?q=\"",
+            "explanation": "Performs a stability check on a specific URL to see if it returns a 200 OK"
+        },
+        {
+            "id": 39,
+            "category": "Validation and Verification",
+            "command": "xsser -u \"http://example.com\" --reverse-check",
+            "example": "xsser -u \"http://example.com\" --reverse-check",
+            "explanation": "Establishes a connection from the target back to xsser to verify vulnerability execution"
+        },
+        {
+            "id": 40,
+            "category": "Filter and WAF Evasion Options",
+            "command": "xsser -u \"http://example.com\" --Bypass=403",
+            "example": "xsser -u \"http://example.com\" --Bypass=403",
+            "explanation": "Attempts to bypass WAF protections when a 403 Forbidden error is encountered"
+        },
+        {
+            "id": 41,
+            "category": "Output Formats and Logging",
+            "command": "xsser -u \"http://example.com\" --verbose",
+            "example": "xsser -u \"http://example.com\" --verbose",
+            "explanation": "Enables verbose output to see detailed request and response data"
+        },
+        {
+            "id": 42,
+            "category": "Output Formats and Logging",
+            "command": "xsser -u \"http://example.com\" --save",
+            "example": "xsser -u \"http://example.com\" --save",
+            "explanation": "Saves the scanning results to a file for later analysis"
+        },
+        {
+            "id": 43,
+            "category": "Output Formats and Logging",
+            "command": "xsser -u \"http://example.com\" --xml=\"report.xml\"",
+            "example": "xsser -u \"http://example.com\" --xml=\"report.xml\"",
+            "explanation": "Exports the scan results into an XML formatted report"
+        },
+        {
+            "id": 44,
+            "category": "Output Formats and Logging",
+            "command": "xsser -u \"http://example.com\" --statistics",
+            "example": "xsser -u \"http://example.com\" --statistics",
+            "explanation": "Displays statistical information about the scan progress and results"
+        },
+        {
+            "id": 45,
+            "category": "Multi Target Scanning",
+            "command": "xsser -i \"targets.txt\"",
+            "example": "xsser -i \"targets.txt\"",
+            "explanation": "Reads a list of target URLs from a file to perform bulk scanning"
+        },
+        {
+            "id": 46,
+            "category": "Multi Target Scanning",
+            "command": "xsser --dork=\"inurl:search.php?q=\"",
+            "example": "xsser --dork=\"inurl:search.php?q=\"",
+            "explanation": "Uses a search engine dork to find and scan multiple targets matching the pattern"
+        },
+        {
+            "id": 47,
+            "category": "Reflected XSS Scanning",
+            "command": "xsser -u \"http://example.com\" --heuristic",
+            "example": "xsser -u \"http://example.com\" --heuristic",
+            "explanation": "Uses heuristic analysis to determine if parameters are reflected in the response"
+        },
+        {
+            "id": 48,
+            "category": "Output Formats and Logging",
+            "command": "xsser -u \"http://example.com\" --no-head",
+            "example": "xsser -u \"http://example.com\" --no-head",
+            "explanation": "Disables the output banner for cleaner logs in automated pipelines"
+        },
+        {
+            "id": 49,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Xss",
+            "example": "xsser -u \"http://example.com\" --Xss",
+            "explanation": "Injects typical XSS vectors to test standard filter responses"
+        },
+        {
+            "id": 50,
+            "category": "Red Team XSS Operations",
+            "command": "xsser -u \"http://example.com\" --follow-redirects",
+            "example": "xsser -u \"http://example.com\" --follow-redirects",
+            "explanation": "Follows HTTP 3xx redirects to ensure the payload reaches the final destination"
+        },
+        {
+            "id": 51,
+            "category": "Advanced and Combined Real World Attacks",
+            "command": "xsser -u \"http://example.com\" --crawl --depth=2 --auto --threads=3",
+            "example": "xsser -u \"http://example.com\" --crawl --depth=2 --auto --threads=3",
+            "explanation": "Combines crawling, automatic injection, and multi-threading for a full site assessment"
+        },
+        {
+            "id": 52,
+            "category": "Advanced and Combined Real World Attacks",
+            "command": "xsser -u \"http://example.com\" --headers --cookie=\"auth=1\" --proxy=\"http://127.0.0.1:8080\"",
+            "example": "xsser -u \"http://example.com\" --headers --cookie=\"auth=1\" --proxy=\"http://127.0.0.1:8080\"",
+            "explanation": "Tests header injection on an authenticated session while routing through a proxy"
+        },
+        {
+            "id": 53,
+            "category": "Advanced and Combined Real World Attacks",
+            "command": "xsser -u \"http://example.com\" --Hex --Hes --Base64",
+            "example": "xsser -u \"http://example.com\" --Hex --Hes --Base64",
+            "explanation": "Combines multiple encoding techniques to bypass complex WAF rules"
+        },
+        {
+            "id": 54,
+            "category": "Web Application Reconnaissance",
+            "command": "xsser -u \"http://example.com\" --alive",
+            "example": "xsser -u \"http://example.com\" --alive",
+            "explanation": "Checks if the target URL is alive and reachable before starting any tests"
+        },
+        {
+            "id": 55,
+            "category": "Advanced Injection Vectors",
+            "command": "xsser -u \"http://example.com\" --final=\"<script>alert(1)</script>\"",
+            "example": "xsser -u \"http://example.com\" --final=\"<script>alert(1)</script>\"",
+            "explanation": "Injects the payload specifically into the final parameter found in the URL"
+        },
+        {
+            "id": 56,
+            "category": "Advanced Injection Vectors",
+            "command": "xsser -u \"http://example.com\" --first=\"<script>alert(1)</script>\"",
+            "example": "xsser -u \"http://example.com\" --first=\"<script>alert(1)</script>\"",
+            "explanation": "Injects the payload specifically into the first parameter found in the URL"
+        },
+        {
+            "id": 57,
+            "category": "Blue Team Detection and Validation",
+            "command": "xsser -u \"http://example.com\" --short=5",
+            "example": "xsser -u \"http://example.com\" --short=5",
+            "explanation": "Displays only the first 5 characters of the vulnerable response for quick validation"
+        },
+        {
+            "id": 58,
+            "category": "Red Team XSS Operations",
+            "command": "xsser -u \"http://example.com\" --launch",
+            "example": "xsser -u \"http://example.com\" --launch",
+            "explanation": "Launches a browser instance to manually verify the XSS upon discovery"
+        },
+        {
+            "id": 59,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Unescape",
+            "example": "xsser -u \"http://example.com\" --Unescape",
+            "explanation": "Attempts to inject payloads by unescaping characters to bypass sanitization"
+        },
+        {
+            "id": 60,
+            "category": "Payload Selection and Custom Payloads",
+            "command": "xsser -u \"http://example.com\" --phpids",
+            "example": "xsser -u \"http://example.com\" --phpids",
+            "explanation": "Uses specific vectors designed to bypass the PHPIDS intrusion detection system"
+        },
+        {
+            "id": 61,
+            "category": "SSL and HTTPS Configuration",
+            "command": "xsser -u \"https://example.com\"",
+            "example": "xsser -u \"https://example.com\"",
+            "explanation": "Automatically handles SSL/HTTPS connections when the target scheme is https"
+        },
+        {
+            "id": 62,
+            "category": "Batch Mode and Automation",
+            "command": "xsser -i \"urls.txt\" --auto --save --xml=\"scan_results.xml\"",
+            "example": "xsser -i \"urls.txt\" --auto --save --xml=\"scan_results.xml\"",
+            "explanation": "Runs an automated batch scan on a list of URLs and saves results to XML"
+        },
+        {
+            "id": 63,
+            "category": "Advanced and Combined Real World Attacks",
+            "command": "xsser -u \"http://example.com\" --post=\"data=1\" --p=\"q=\"",
+            "example": "xsser -u \"http://example.com\" --post=\"data=1\" --p=\"q=\"",
+            "explanation": "Combines raw POST data with a specific POST parameter definition"
+        },
+        {
+            "id": 64,
+            "category": "Incident Response and Assessment Scenarios",
+            "command": "xsser -u \"http://example.com\" --dns-timeout=5",
+            "example": "xsser -u \"http://example.com\" --dns-timeout=5",
+            "explanation": "Sets a specific timeout for DNS resolution to handle network instability"
+        },
+        {
+            "id": 65,
+            "category": "Filter and WAF Evasion Options",
+            "command": "xsser -u \"http://example.com\" --Cw=\"10\"",
+            "example": "xsser -u \"http://example.com\" --Cw=\"10\"",
+            "explanation": "Sets the crawling width to 10 to limit horizontal scanning of the site structure"
+        },
+        {
+            "id": 66,
+            "category": "Filter and WAF Evasion Options",
+            "command": "xsser -u \"http://example.com\" --Cl",
+            "example": "xsser -u \"http://example.com\" --Cl",
+            "explanation": "Cleans the target URL parameters before starting the injection process"
+        },
+        {
+            "id": 67,
+            "category": "Red Team XSS Operations",
+            "command": "xsser -u \"http://example.com\" --xss-platform=\"http://my-xss-platform.com\"",
+            "example": "xsser -u \"http://example.com\" --xss-platform=\"http://my-xss-platform.com\"",
+            "explanation": "Integrates with an external XSS receiver platform to detect blind XSS execution"
+        },
+        {
+            "id": 68,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Mix",
+            "example": "xsser -u \"http://example.com\" --Mix",
+            "explanation": "Mixes multiple encoding types (String, Hex, Octal) in a single payload"
+        },
+        {
+            "id": 69,
+            "category": "Encoding and Filter Evasion",
+            "command": "xsser -u \"http://example.com\" --Dec",
+            "example": "xsser -u \"http://example.com\" --Dec",
+            "explanation": "Uses Decimal encoding for characters in the XSS payload"
+        },
+        {
+            "id": 70,
+            "category": "Web Application Reconnaissance",
+            "command": "xsser -u \"http://example.com\" --server-info",
+            "example": "xsser -u \"http://example.com\" --server-info",
+            "explanation": "Retrieves and displays information about the target web server banner"
+        },
+        {
+            "id": 71,
+            "category": "Basic XSS Detection",
+            "command": "xsser --gtk",
+            "example": "xsser --gtk",
+            "explanation": "Launches the graphical user interface (GUI) version of xsser"
+        },
+        {
+            "id": 72,
+            "category": "Batch Mode and Automation",
+            "command": "xsser -u \"http://example.com\" --silent",
+            "example": "xsser -u \"http://example.com\" --silent",
+            "explanation": "Runs the scan in silent mode, suppressing most output except errors"
+        },
+        {
+            "id": 73,
+            "category": "Output Formats and Logging",
+            "command": "xsser -u \"http://example.com\" --update",
+            "example": "xsser -u \"http://example.com\" --update",
+            "explanation": "Updates the xsser tool and its internal database to the latest version"
+        },
+        {
+            "id": 74,
+            "category": "Advanced and Combined Real World Attacks",
+            "command": "xsser -u \"http://example.com\" --ignore-proxy",
+            "example": "xsser -u \"http://example.com\" --ignore-proxy",
+            "explanation": "Ignores system proxy settings and connects directly to the target"
+        },
+        {
+            "id": 75,
+            "category": "Incident Response and Assessment Scenarios",
+            "command": "xsser -u \"http://example.com\" --destroy-cookie",
+            "example": "xsser -u \"http://example.com\" --destroy-cookie",
+            "explanation": "Tests for the ability to overwrite or destroy existing session cookies"
+        }
+    ]
+}

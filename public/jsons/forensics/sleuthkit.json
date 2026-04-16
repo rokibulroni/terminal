@@ -1,0 +1,707 @@
+{
+    "tool": "sleuthkit",
+    "description": "Complete Sleuth Kit command and workflow reference from basic to advanced disk and file system forensics",
+    "total_commands": 100,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Syntax & Help",
+            "command": "fls",
+            "example": "fls",
+            "explanation": "Displays the basic usage syntax and available flags for the file listing tool."
+        },
+        {
+            "id": 2,
+            "category": "Basic Syntax & Help",
+            "command": "mmls -h",
+            "example": "mmls -h",
+            "explanation": "Shows help documentation for the media management listing tool used for partition analysis."
+        },
+        {
+            "id": 3,
+            "category": "Disk Image Identification",
+            "command": "img_stat image.dd",
+            "example": "img_stat evidence.dd",
+            "explanation": "Displays details about the image format and size for a raw disk image."
+        },
+        {
+            "id": 4,
+            "category": "Disk Image Identification",
+            "command": "img_stat -i ewf image.E01",
+            "example": "img_stat -i ewf suspect_drive.E01",
+            "explanation": "Identifies image details specifically for an Expert Witness Format (E01) file."
+        },
+        {
+            "id": 5,
+            "category": "Disk Image Identification",
+            "command": "img_cat image.E01",
+            "example": "img_cat evidence.E01 > raw_convert.dd",
+            "explanation": "Outputs the raw content of an image file, useful for converting E01 to raw DD format."
+        },
+        {
+            "id": 6,
+            "category": "Partition Analysis",
+            "command": "mmls image.dd",
+            "example": "mmls disk.dd",
+            "explanation": "Lists the partition table layout to identify starting sectors of volumes."
+        },
+        {
+            "id": 7,
+            "category": "Partition Analysis",
+            "command": "mmls -t dos image.dd",
+            "example": "mmls -t dos legacy_disk.dd",
+            "explanation": "Forces the interpretation of the partition table as a DOS MBR type."
+        },
+        {
+            "id": 8,
+            "category": "Partition Analysis",
+            "command": "mmls -t gpt image.dd",
+            "example": "mmls -t gpt modern_disk.dd",
+            "explanation": "Forces the interpretation of the partition table as a GPT type."
+        },
+        {
+            "id": 9,
+            "category": "Partition Analysis",
+            "command": "mmls -B image.dd",
+            "example": "mmls -B disk.dd",
+            "explanation": "Displays the partition table size values in bytes instead of sectors."
+        },
+        {
+            "id": 10,
+            "category": "Partition Analysis",
+            "command": "mmstat image.dd",
+            "example": "mmstat image.dd",
+            "explanation": "Displays statistics about the volume system and partition layout."
+        },
+        {
+            "id": 11,
+            "category": "Partition Analysis",
+            "command": "mmcat -o 2048 image.dd",
+            "example": "mmcat -o 2048 disk.dd > partition1.dd",
+            "explanation": "Extracts a specific partition starting at the given offset into a separate file."
+        },
+        {
+            "id": 12,
+            "category": "File System Detection",
+            "command": "fsstat -o 2048 image.dd",
+            "example": "fsstat -o 2048 disk.dd",
+            "explanation": "Displays general details of the file system located at the specified offset."
+        },
+        {
+            "id": 13,
+            "category": "File System Detection",
+            "command": "fsstat -f ntfs -o 2048 image.dd",
+            "example": "fsstat -f ntfs -o 2048 disk.dd",
+            "explanation": "Forces the analysis of the file system as NTFS at the specified offset."
+        },
+        {
+            "id": 14,
+            "category": "File System Detection",
+            "command": "fsstat -f fat32 -o 63 image.dd",
+            "example": "fsstat -f fat32 -o 63 usb_dump.dd",
+            "explanation": "Forces the analysis of the file system as FAT32 at the specified offset."
+        },
+        {
+            "id": 15,
+            "category": "File & Directory Analysis",
+            "command": "fls -o 2048 image.dd",
+            "example": "fls -o 2048 disk.dd",
+            "explanation": "Lists files and directories in the root directory of the file system."
+        },
+        {
+            "id": 16,
+            "category": "File & Directory Analysis",
+            "command": "fls -r -o 2048 image.dd",
+            "example": "fls -r -o 2048 disk.dd",
+            "explanation": "Recursively lists all files and directories starting from the root."
+        },
+        {
+            "id": 17,
+            "category": "File & Directory Analysis",
+            "command": "fls -d -o 2048 image.dd",
+            "example": "fls -d -o 2048 disk.dd",
+            "explanation": "Lists only deleted file entries from the file system."
+        },
+        {
+            "id": 18,
+            "category": "File & Directory Analysis",
+            "command": "fls -u -o 2048 image.dd",
+            "example": "fls -u -o 2048 disk.dd",
+            "explanation": "Lists only undeleted (active) file entries."
+        },
+        {
+            "id": 19,
+            "category": "File & Directory Analysis",
+            "command": "fls -p -o 2048 image.dd",
+            "example": "fls -p -o 2048 disk.dd",
+            "explanation": "Displays full paths for every file listed."
+        },
+        {
+            "id": 20,
+            "category": "File & Directory Analysis",
+            "command": "fls -F -o 2048 image.dd",
+            "example": "fls -F -o 2048 disk.dd",
+            "explanation": "Lists only file entries, excluding directory entries."
+        },
+        {
+            "id": 21,
+            "category": "File & Directory Analysis",
+            "command": "fls -D -o 2048 image.dd",
+            "example": "fls -D -o 2048 disk.dd",
+            "explanation": "Lists only directory entries, excluding file entries."
+        },
+        {
+            "id": 22,
+            "category": "File & Directory Analysis",
+            "command": "ffind -o 2048 image.dd 12345",
+            "example": "ffind -o 2048 disk.dd 12345",
+            "explanation": "Finds the filename associated with a specific inode number."
+        },
+        {
+            "id": 23,
+            "category": "File & Directory Analysis",
+            "command": "ffind -a -o 2048 image.dd 12345",
+            "example": "ffind -a -o 2048 disk.dd 12345",
+            "explanation": "Finds all occurrences of filenames pointing to a specific inode."
+        },
+        {
+            "id": 24,
+            "category": "Metadata & Inode Analysis",
+            "command": "istat -o 2048 image.dd 12345",
+            "example": "istat -o 2048 disk.dd 12345",
+            "explanation": "Displays detailed metadata structures for a specific inode, including MAC times and block addresses."
+        },
+        {
+            "id": 25,
+            "category": "Metadata & Inode Analysis",
+            "command": "ils -o 2048 image.dd",
+            "example": "ils -o 2048 disk.dd",
+            "explanation": "Lists all inode entries in the file system."
+        },
+        {
+            "id": 26,
+            "category": "Metadata & Inode Analysis",
+            "command": "ils -e -o 2048 image.dd",
+            "example": "ils -e -o 2048 disk.dd",
+            "explanation": "Lists all inode entries including those in the simplified body file format."
+        },
+        {
+            "id": 27,
+            "category": "Metadata & Inode Analysis",
+            "command": "ifind -o 2048 -d 5000 image.dd",
+            "example": "ifind -o 2048 -d 5000 disk.dd",
+            "explanation": "Finds the meta-data structure that has allocated a specific data unit (block)."
+        },
+        {
+            "id": 28,
+            "category": "Content Extraction",
+            "command": "icat -o 2048 image.dd 12345",
+            "example": "icat -o 2048 disk.dd 12345 > suspect_document.pdf",
+            "explanation": "Extracts the content of a file based on its inode number."
+        },
+        {
+            "id": 29,
+            "category": "Content Extraction",
+            "command": "icat -r -o 2048 image.dd 12345",
+            "example": "icat -r -o 2048 disk.dd 12345 > recovered_deleted.txt",
+            "explanation": "Attempts to recover the content of a deleted file by inode number."
+        },
+        {
+            "id": 30,
+            "category": "Content Extraction",
+            "command": "icat -s -o 2048 image.dd 12345",
+            "example": "icat -s -o 2048 disk.dd 12345",
+            "explanation": "Displays the slack space (unused bytes at end of last block) for a specific inode."
+        },
+        {
+            "id": 31,
+            "category": "Block & Data Unit Analysis",
+            "command": "blkstat -o 2048 image.dd 5000",
+            "example": "blkstat -o 2048 disk.dd 5000",
+            "explanation": "Displays the allocation status of a specific data block."
+        },
+        {
+            "id": 32,
+            "category": "Block & Data Unit Analysis",
+            "command": "blkcat -o 2048 image.dd 5000",
+            "example": "blkcat -o 2048 disk.dd 5000 > block_dump.bin",
+            "explanation": "Dumps the raw contents of a specific data block."
+        },
+        {
+            "id": 33,
+            "category": "Block & Data Unit Analysis",
+            "command": "blkcat -h -o 2048 image.dd 5000",
+            "example": "blkcat -h -o 2048 disk.dd 5000",
+            "explanation": "Dumps the raw contents of a block in a human-readable hex dump format."
+        },
+        {
+            "id": 34,
+            "category": "Block & Data Unit Analysis",
+            "command": "blkls -o 2048 image.dd",
+            "example": "blkls -o 2048 disk.dd > unallocated_space.dd",
+            "explanation": "Extracts all unallocated blocks to a single file for carving."
+        },
+        {
+            "id": 35,
+            "category": "Block & Data Unit Analysis",
+            "command": "blkls -s -o 2048 image.dd",
+            "example": "blkls -s -o 2048 disk.dd > slack_space.dd",
+            "explanation": "Copies only the slack space of allocated files."
+        },
+        {
+            "id": 36,
+            "category": "Block & Data Unit Analysis",
+            "command": "blkcalc -o 2048 -u 5000 image.dd",
+            "example": "blkcalc -o 2048 -u 5000 disk.dd",
+            "explanation": "Calculates the unallocated block address from a file system block address."
+        },
+        {
+            "id": 37,
+            "category": "Block & Data Unit Analysis",
+            "command": "blkcalc -o 2048 -d 1000 image.dd",
+            "example": "blkcalc -o 2048 -d 1000 disk.dd",
+            "explanation": "Calculates the file system block address from an unallocated image block address."
+        },
+        {
+            "id": 38,
+            "category": "Timeline Generation",
+            "command": "fls -m / -r -o 2048 image.dd",
+            "example": "fls -m / -r -o 2048 disk.dd > bodyfile.txt",
+            "explanation": "Generates a body file required for timeline creation using recursion from root."
+        },
+        {
+            "id": 39,
+            "category": "Timeline Generation",
+            "command": "tsk_gettimes -o 2048 image.dd",
+            "example": "tsk_gettimes -o 2048 disk.dd > bodyfile.txt",
+            "explanation": "Collects MAC times from a file system image and outputs a body file (more robust than fls)."
+        },
+        {
+            "id": 40,
+            "category": "Timeline Generation",
+            "command": "mactime -b bodyfile.txt",
+            "example": "mactime -b bodyfile.txt > timeline.csv",
+            "explanation": "Parses a body file to create a human-readable timeline of file activity."
+        },
+        {
+            "id": 41,
+            "category": "Timeline Generation",
+            "command": "mactime -b bodyfile.txt -d",
+            "example": "mactime -b bodyfile.txt -d > timeline.csv",
+            "explanation": "Parses a body file and outputs the timeline in comma-delimited (CSV) format."
+        },
+        {
+            "id": 42,
+            "category": "Timeline Generation",
+            "command": "mactime -b bodyfile.txt -y",
+            "example": "mactime -b bodyfile.txt -y > timeline_iso.txt",
+            "explanation": "Outputs the timeline with timestamps in ISO 8601 format."
+        },
+        {
+            "id": 43,
+            "category": "Timeline Generation",
+            "command": "mactime -b bodyfile.txt -z UTC",
+            "example": "mactime -b bodyfile.txt -z EST5EDT > timeline_est.txt",
+            "explanation": "Specifies the timezone for the timeline output."
+        },
+        {
+            "id": 44,
+            "category": "Timeline Generation",
+            "command": "mactime -b bodyfile.txt 2023-01-01",
+            "example": "mactime -b bodyfile.txt 2023-01-01 > timeline_2023.txt",
+            "explanation": "Filters the timeline to show only events occurring after a specific date."
+        },
+        {
+            "id": 45,
+            "category": "Journal Analysis",
+            "command": "jls -o 2048 image.dd",
+            "example": "jls -o 2048 disk.dd",
+            "explanation": "Lists the journal entries in a file system (e.g., Ext3/4 journal)."
+        },
+        {
+            "id": 46,
+            "category": "Journal Analysis",
+            "command": "jcat -o 2048 image.dd 100",
+            "example": "jcat -o 2048 disk.dd 100 > journal_entry.bin",
+            "explanation": "Extracts the content of a specific journal block."
+        },
+        {
+            "id": 47,
+            "category": "Journal Analysis",
+            "command": "jcat -f ext -o 2048 image.dd 100",
+            "example": "jcat -f ext -o 2048 disk.dd 100",
+            "explanation": "Forces the interpretation of the journal as an Ext file system journal."
+        },
+        {
+            "id": 48,
+            "category": "Hash Analysis",
+            "command": "hfind -i nsrl hash.db 1234567890ABCDEF",
+            "example": "hfind -i nsrl NSRLFile.txt 1234567890ABCDEF",
+            "explanation": "Looks up a specific MD5/SHA1 hash in an NSRL formatted hash database."
+        },
+        {
+            "id": 49,
+            "category": "Hash Analysis",
+            "command": "hfind -i md5sum hash.db 123456...",
+            "example": "hfind -i md5sum known_bad.txt 123456...",
+            "explanation": "Looks up a hash in an md5sum formatted text file database."
+        },
+        {
+            "id": 50,
+            "category": "Signature Search",
+            "command": "sigfind -o 2048 -t 1234 image.dd",
+            "example": "sigfind -o 2048 -t 4d5a disk.dd",
+            "explanation": "Searches for a binary signature (hex) at a specific offset within the image."
+        },
+        {
+            "id": 51,
+            "category": "Signature Search",
+            "command": "sigfind -o 2048 -b 512 image.dd",
+            "example": "sigfind -o 2048 -b 512 disk.dd",
+            "explanation": "Searches for a signature but changes the block size used for the search."
+        },
+        {
+            "id": 52,
+            "category": "Automation & Workflow",
+            "command": "tsk_loaddb -d case.db image.dd",
+            "example": "tsk_loaddb -d investigation.db disk.dd",
+            "explanation": "Parses the disk image and populates a SQLite database with the metadata."
+        },
+        {
+            "id": 53,
+            "category": "Automation & Workflow",
+            "command": "tsk_loaddb -i ewf -d case.db image.E01",
+            "example": "tsk_loaddb -i ewf -d case.db evidence.E01",
+            "explanation": "Populates a SQLite database from an E01 image file."
+        },
+        {
+            "id": 54,
+            "category": "Automation & Workflow",
+            "command": "tsk_recover -o 2048 image.dd output_dir",
+            "example": "tsk_recover -o 2048 disk.dd recovered_files",
+            "explanation": "Automatically recovers files from the image to a local directory."
+        },
+        {
+            "id": 55,
+            "category": "Automation & Workflow",
+            "command": "tsk_recover -a -o 2048 image.dd output_dir",
+            "example": "tsk_recover -a -o 2048 disk.dd recovered_files",
+            "explanation": "Recovers only allocated files from the image to a directory."
+        },
+        {
+            "id": 56,
+            "category": "Automation & Workflow",
+            "command": "tsk_recover -o 2048 -i raw -d 12345 image.dd output_dir",
+            "example": "tsk_recover -o 2048 -d 12345 disk.dd recovered_dir",
+            "explanation": "Recovers files starting specifically from a given directory inode."
+        },
+        {
+            "id": 57,
+            "category": "Automation & Workflow",
+            "command": "tsk_comparedir -o 2048 image.dd local_dir",
+            "example": "tsk_comparedir -o 2048 disk.dd /mnt/comparison",
+            "explanation": "Compares the contents of a disk image directory with a local directory."
+        },
+        {
+            "id": 58,
+            "category": "Automation & Workflow",
+            "command": "tsk_comparedir -n 12345 -o 2048 image.dd local_dir",
+            "example": "tsk_comparedir -n 12345 -o 2048 disk.dd /mnt/comparison",
+            "explanation": "Compares a specific inode directory in the image with a local directory."
+        },
+        {
+            "id": 59,
+            "category": "Automation & Workflow",
+            "command": "tsk_imageinfo image.dd",
+            "example": "tsk_imageinfo disk.dd",
+            "explanation": "Calculates and displays the SHA-1 and MD5 hashes of the entire image."
+        },
+        {
+            "id": 60,
+            "category": "Advanced Metadata",
+            "command": "istat -z UTC -o 2048 image.dd 12345",
+            "example": "istat -z EST5EDT -o 2048 disk.dd 12345",
+            "explanation": "Displays inode stats with times converted to a specific timezone."
+        },
+        {
+            "id": 61,
+            "category": "Advanced Metadata",
+            "command": "ifind -p 12345 -o 2048 image.dd",
+            "example": "ifind -p 12345 -o 2048 disk.dd",
+            "explanation": "Finds the unallocated inode that points to a specific data unit (orphan checking)."
+        },
+        {
+            "id": 62,
+            "category": "Advanced Metadata",
+            "command": "ifind -n \"file.txt\" -o 2048 image.dd",
+            "example": "ifind -n \"malware.exe\" -o 2048 disk.dd",
+            "explanation": "Finds the inode number associated with a specific file name."
+        },
+        {
+            "id": 63,
+            "category": "Incident Response",
+            "command": "fls -r -o 2048 image.dd | grep \".exe\"",
+            "example": "fls -r -o 2048 disk.dd | grep \".exe\" > executables.txt",
+            "explanation": "Filters recursive file listing to identify all executable files for malware hunting."
+        },
+        {
+            "id": 64,
+            "category": "Incident Response",
+            "command": "fls -r -d -o 2048 image.dd | grep \"User\"",
+            "example": "fls -r -d -o 2048 disk.dd | grep \"User\"",
+            "explanation": "Searches for deleted files specifically within User directories."
+        },
+        {
+            "id": 65,
+            "category": "Incident Response",
+            "command": "icat -o 2048 image.dd 12345 | strings",
+            "example": "icat -o 2048 disk.dd 12345 | strings | grep \"http\"",
+            "explanation": "Extracts file content and pipes to strings to find text indicators like URLs."
+        },
+        {
+            "id": 66,
+            "category": "Incident Response",
+            "command": "blkls -o 2048 image.dd | strings -a",
+            "example": "blkls -o 2048 disk.dd | strings -a > unallocated_strings.txt",
+            "explanation": "Extracts strings from all unallocated space to find evidence in deleted data."
+        },
+        {
+            "id": 67,
+            "category": "Incident Response",
+            "command": "tsk_gettimes -o 2048 image.dd | grep \"2023-10-15\"",
+            "example": "tsk_gettimes -o 2048 disk.dd | grep \"2023-10-15\" > incident_day.body",
+            "explanation": "Extracts timeline data and filters immediately for a specific incident date."
+        },
+        {
+            "id": 68,
+            "category": "Blue Team Validation",
+            "command": "sorter -d case_logs -s -o 2048 image.dd",
+            "example": "sorter -d sort_output -s -o 2048 disk.dd",
+            "explanation": "Sorts files in the image based on file type signatures and saves to a directory."
+        },
+        {
+            "id": 69,
+            "category": "Blue Team Validation",
+            "command": "sorter -h -o 2048 image.dd",
+            "example": "sorter -h -o 2048 disk.dd",
+            "explanation": "Outputs the sorter results in HTML format for easier reporting."
+        },
+        {
+            "id": 70,
+            "category": "Blue Team Validation",
+            "command": "sorter -e -o 2048 image.dd",
+            "example": "sorter -e -o 2048 disk.dd",
+            "explanation": "Performs an extension mismatch check during the sorting process."
+        },
+        {
+            "id": 71,
+            "category": "Advanced File Systems",
+            "command": "fsstat -f hfs -o 2048 image.dd",
+            "example": "fsstat -f hfs -o 2048 mac_disk.dd",
+            "explanation": "Analyzes HFS+ file system specific metadata."
+        },
+        {
+            "id": 72,
+            "category": "Advanced File Systems",
+            "command": "fsstat -f iso9660 -o 0 image.iso",
+            "example": "fsstat -f iso9660 -o 0 cd_dump.iso",
+            "explanation": "Analyzes an ISO 9660 file system typically found on optical media."
+        },
+        {
+            "id": 73,
+            "category": "Complex Carving Prep",
+            "command": "blkls -A -o 2048 image.dd",
+            "example": "blkls -A -o 2048 disk.dd > all_blocks.dd",
+            "explanation": "Extracts all blocks (allocated and unallocated) primarily for verification purposes."
+        },
+        {
+            "id": 74,
+            "category": "Complex Carving Prep",
+            "command": "blkls -l -o 2048 image.dd",
+            "example": "blkls -l -o 2048 disk.dd",
+            "explanation": "Lists details about data units rather than dumping their contents."
+        },
+        {
+            "id": 75,
+            "category": "Forensic Scripting",
+            "command": "tsk_loaddb -k -d case.db image.dd",
+            "example": "tsk_loaddb -k -d case.db disk.dd",
+            "explanation": "Creates the database but does not create tables for block data, saving space."
+        },
+        {
+            "id": 76,
+            "category": "Forensic Scripting",
+            "command": "mmstat -t dos image.dd",
+            "example": "mmstat -t dos disk.dd",
+            "explanation": "Displays stats specifically for a DOS partition table type."
+        },
+        {
+            "id": 77,
+            "category": "Reporting",
+            "command": "fls -l -r -o 2048 image.dd",
+            "example": "fls -l -r -o 2048 disk.dd > long_listing.txt",
+            "explanation": "Produces a long-format listing of files including permissions and size."
+        },
+        {
+            "id": 78,
+            "category": "Reporting",
+            "command": "mactime -b bodyfile.txt -ggroup",
+            "example": "mactime -b bodyfile.txt -ggroup_file.txt",
+            "explanation": "Uses a group definition file to map GIDs to group names in the timeline."
+        },
+        {
+            "id": 79,
+            "category": "Reporting",
+            "command": "mactime -b bodyfile.txt -ppasswd",
+            "example": "mactime -b bodyfile.txt -ppasswd_file.txt",
+            "explanation": "Uses a password definition file to map UIDs to usernames in the timeline."
+        },
+        {
+            "id": 80,
+            "category": "Advanced Hashing",
+            "command": "hfind -q hash.db 12345...",
+            "example": "hfind -q known_bad.db 12345...",
+            "explanation": "Performs a 'quick' lookup in the hash database."
+        },
+        {
+            "id": 81,
+            "category": "Internal Debugging",
+            "command": "fsstat -v -o 2048 image.dd",
+            "example": "fsstat -v -o 2048 disk.dd",
+            "explanation": "Runs file system statistics in verbose mode for debugging parsing errors."
+        },
+        {
+            "id": 82,
+            "category": "Internal Debugging",
+            "command": "mmls -v image.dd",
+            "example": "mmls -v disk.dd",
+            "explanation": "Runs partition listing in verbose mode to diagnose table corruption."
+        },
+        {
+            "id": 83,
+            "category": "Volume System Analysis",
+            "command": "mmls -a image.dd",
+            "example": "mmls -a disk.dd",
+            "explanation": "Lists all volumes including those that are unallocated in the partition table."
+        },
+        {
+            "id": 84,
+            "category": "File Name Analysis",
+            "command": "fls -o 2048 -f ntfs image.dd",
+            "example": "fls -o 2048 -f ntfs disk.dd",
+            "explanation": "Explicitly declares the file system type for listing files to avoid auto-detection errors."
+        },
+        {
+            "id": 85,
+            "category": "Inode Analysis",
+            "command": "istat -f ext4 -o 2048 image.dd 12345",
+            "example": "istat -f ext4 -o 2048 disk.dd 12345",
+            "explanation": "Displays inode stats forcing Ext4 interpretation."
+        },
+        {
+            "id": 86,
+            "category": "Threat Hunting",
+            "command": "fls -o 2048 -r image.dd | grep -i \"\\.ps1$\"",
+            "example": "fls -o 2048 -r disk.dd | grep -i \"\\.ps1$\"",
+            "explanation": "Hunts for PowerShell scripts across the file system using recursive listing."
+        },
+        {
+            "id": 87,
+            "category": "Threat Hunting",
+            "command": "fls -o 2048 -r image.dd | grep -i \"temp\"",
+            "example": "fls -o 2048 -r disk.dd | grep -i \"temp\"",
+            "explanation": "Identifies files located in temporary directories often used for malware staging."
+        },
+        {
+            "id": 88,
+            "category": "Data Recovery",
+            "command": "tsk_recover -e -o 2048 image.dd output_dir",
+            "example": "tsk_recover -e -o 2048 disk.dd output_dir",
+            "explanation": "Recovers files and exports them, including unallocated (deleted) files if possible."
+        },
+        {
+            "id": 89,
+            "category": "Disk Geometry",
+            "command": "img_stat -v image.dd",
+            "example": "img_stat -v disk.dd",
+            "explanation": "Provides verbose image statistics including block size and count."
+        },
+        {
+            "id": 90,
+            "category": "Block Analysis",
+            "command": "blkcat -f ntfs -o 2048 image.dd 100",
+            "example": "blkcat -f ntfs -o 2048 disk.dd 100",
+            "explanation": "Dumps a block forcing NTFS interpretation."
+        },
+        {
+            "id": 91,
+            "category": "Timeline Analysis",
+            "command": "mactime -b bodyfile.txt -i day",
+            "example": "mactime -b bodyfile.txt -i day > timeline.txt",
+            "explanation": "Creates a timeline summary grouped by day."
+        },
+        {
+            "id": 92,
+            "category": "Timeline Analysis",
+            "command": "mactime -b bodyfile.txt -i hour",
+            "example": "mactime -b bodyfile.txt -i hour > timeline.txt",
+            "explanation": "Creates a timeline summary grouped by hour for high-precision analysis."
+        },
+        {
+            "id": 93,
+            "category": "Partition Analysis",
+            "command": "mmls -i raw image.dd",
+            "example": "mmls -i raw disk.dd",
+            "explanation": "Specifies the image type as raw explicitly during partition analysis."
+        },
+        {
+            "id": 94,
+            "category": "Partition Analysis",
+            "command": "mmls -i ewf image.E01",
+            "example": "mmls -i ewf disk.E01",
+            "explanation": "Specifies the image type as EWF explicitly during partition analysis."
+        },
+        {
+            "id": 95,
+            "category": "Data Unit Analysis",
+            "command": "blkcalc -f ntfs -o 2048 -u 1000 image.dd",
+            "example": "blkcalc -f ntfs -o 2048 -u 1000 disk.dd",
+            "explanation": "Calculates unallocated address forcing NTFS context."
+        },
+        {
+            "id": 96,
+            "category": "Metadata Analysis",
+            "command": "ils -f ntfs -o 2048 image.dd",
+            "example": "ils -f ntfs -o 2048 disk.dd",
+            "explanation": "Lists inodes forcing NTFS interpretation."
+        },
+        {
+            "id": 97,
+            "category": "Metadata Analysis",
+            "command": "ils -m -o 2048 image.dd",
+            "example": "ils -m -o 2048 disk.dd",
+            "explanation": "Lists inodes in machine readable format."
+        },
+        {
+            "id": 98,
+            "category": "Journal Analysis",
+            "command": "jls -f ext -o 2048 image.dd",
+            "example": "jls -f ext -o 2048 disk.dd",
+            "explanation": "Lists journal entries forcing Ext file system context."
+        },
+        {
+            "id": 99,
+            "category": "Signature Analysis",
+            "command": "sigfind -o 2048 -t 55AA image.dd",
+            "example": "sigfind -o 2048 -t 55AA disk.dd",
+            "explanation": "Searches for the boot signature (0x55AA) to find boot sectors manually."
+        },
+        {
+            "id": 100,
+            "category": "Cleanup",
+            "command": "rm bodyfile.txt timeline.csv",
+            "example": "rm bodyfile.txt timeline.csv",
+            "explanation": "Removes temporary analysis files after the investigation is complete."
+        }
+    ]
+}

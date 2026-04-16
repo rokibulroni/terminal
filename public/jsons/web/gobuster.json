@@ -1,0 +1,497 @@
+{
+    "tool": "gobuster",
+    "description": "Complete gobuster command reference covering all modes from basic to advanced including dir, dns, vhost, fuzz, s3, and gcs.",
+    "total_commands": 70,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Directory Enumeration (Basic)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt",
+            "example": "gobuster dir -u https://example.com -w /usr/share/wordlists/dirb/common.txt",
+            "explanation": "Performs a basic directory brute-force scan against the target URL using a specified wordlist."
+        },
+        {
+            "id": 2,
+            "category": "Directory Enumeration (Extensions)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -x php,html,txt",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -x php,html,txt",
+            "explanation": "Searches for specific file extensions in addition to directories."
+        },
+        {
+            "id": 3,
+            "category": "Directory Enumeration (Extensions File)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -X extensions.txt",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -X extensions_list.txt",
+            "explanation": "Reads the list of extensions to search for from a file."
+        },
+        {
+            "id": 4,
+            "category": "Directory Enumeration (Recursive)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -r",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -r",
+            "explanation": "Enables recursive mode to scan discovered directories immediately."
+        },
+        {
+            "id": 5,
+            "category": "Directory Enumeration (No Recursion)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --no-recursion",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --no-recursion",
+            "explanation": "Explicitly disables recursive scanning if it was enabled by default configurations."
+        },
+        {
+            "id": 6,
+            "category": "Directory Enumeration (Status Codes)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -s 200,301,302",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -s 200,301,302",
+            "explanation": "Whitelists specific status codes to display, ignoring all others."
+        },
+        {
+            "id": 7,
+            "category": "Directory Enumeration (Blacklist Status)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -b 404,403",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -b 404,403",
+            "explanation": "Blacklists specific status codes to hide them from the output."
+        },
+        {
+            "id": 8,
+            "category": "Directory Enumeration (Skip SSL)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -k",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -k",
+            "explanation": "Skips TLS/SSL certificate verification, useful for self-signed certificates."
+        },
+        {
+            "id": 9,
+            "category": "Directory Enumeration (Expanded)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -e",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -e",
+            "explanation": "Prints the full URL for each result instead of just the path."
+        },
+        {
+            "id": 10,
+            "category": "Directory Enumeration (No Status)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -n",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -n",
+            "explanation": "Hides the status code from the printed output."
+        },
+        {
+            "id": 11,
+            "category": "Directory Enumeration (Performance)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -t 50",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -t 50",
+            "explanation": "Sets the number of concurrent threads to 50 for faster scanning."
+        },
+        {
+            "id": 12,
+            "category": "Directory Enumeration (Slow Scan)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --delay 1000ms",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --delay 1000ms",
+            "explanation": "Adds a delay of 1000ms between requests to avoid rate limiting."
+        },
+        {
+            "id": 13,
+            "category": "Directory Enumeration (Timeout)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --timeout 10s",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --timeout 10s",
+            "explanation": "Sets the HTTP request timeout to 10 seconds."
+        },
+        {
+            "id": 14,
+            "category": "Directory Enumeration (User Agent)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -a \"Mozilla/5.0\"",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -a \"Mozilla/5.0 (Windows NT 10.0; Win64; x64)\"",
+            "explanation": "Sets a custom User-Agent string to bypass filters or simulate a browser."
+        },
+        {
+            "id": 15,
+            "category": "Directory Enumeration (Headers)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -H \"Authorization: Bearer token\"",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -H \"Authorization: Bearer 12345\" -H \"X-Custom: Value\"",
+            "explanation": "Adds custom HTTP headers to every request."
+        },
+        {
+            "id": 16,
+            "category": "Directory Enumeration (Cookies)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -c \"sessionid=12345\"",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -c \"sessionid=12345; user=admin\"",
+            "explanation": "Sets the cookie string to use for authenticated scanning."
+        },
+        {
+            "id": 17,
+            "category": "Directory Enumeration (Basic Auth)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -U username -P password",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -U admin -P secret",
+            "explanation": "Uses HTTP Basic Authentication with the provided credentials."
+        },
+        {
+            "id": 18,
+            "category": "Directory Enumeration (Proxy)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --proxy http://127.0.0.1:8080",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --proxy http://127.0.0.1:8080",
+            "explanation": "Routes all traffic through a specified proxy, such as Burp Suite."
+        },
+        {
+            "id": 19,
+            "category": "Directory Enumeration (Output File)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -o result.txt",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -o scan_results.txt",
+            "explanation": "Saves the scan output to a file."
+        },
+        {
+            "id": 20,
+            "category": "Directory Enumeration (Quiet Mode)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -q",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -q",
+            "explanation": "Enables quiet mode, printing only the positive results and suppressing banner/errors."
+        },
+        {
+            "id": 21,
+            "category": "Directory Enumeration (Verbose)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -v",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -v",
+            "explanation": "Enables verbose output for detailed logging."
+        },
+        {
+            "id": 22,
+            "category": "Directory Enumeration (Hide Length)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --hide-length",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --hide-length",
+            "explanation": "Hides the length of the response body in the output."
+        },
+        {
+            "id": 23,
+            "category": "Directory Enumeration (Exclude Length)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --exclude-length 1234",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --exclude-length 1234,0",
+            "explanation": "Excludes results that match a specific response content length."
+        },
+        {
+            "id": 24,
+            "category": "Directory Enumeration (Follow Redirects)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -r",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -r",
+            "explanation": "Follows HTTP redirects to determine the final destination."
+        },
+        {
+            "id": 25,
+            "category": "Directory Enumeration (Method)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --method POST",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --method POST",
+            "explanation": "Uses a different HTTP method (e.g., POST) instead of the default GET."
+        },
+        {
+            "id": 26,
+            "category": "Directory Enumeration (Regex Filter)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --exclude-content-pattern \"Error\"",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --exclude-content-pattern \"Access Denied\"",
+            "explanation": "Excludes results where the response body matches the given regex pattern."
+        },
+        {
+            "id": 27,
+            "category": "Directory Enumeration (Pattern File)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -p patterns.txt",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -p patterns.txt",
+            "explanation": "Uses a pattern file to apply replacements to the wordlist (e.g., {GOBUSTER})."
+        },
+        {
+            "id": 28,
+            "category": "Directory Enumeration (Client Cert)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --client-cert-p12 cert.p12 --client-cert-p12-password pass",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --client-cert-p12 client.p12 --client-cert-p12-password secret",
+            "explanation": "Uses a P12 client certificate for mutual TLS (mTLS) authentication."
+        },
+        {
+            "id": 29,
+            "category": "Directory Enumeration (Retry)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --retry",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --retry",
+            "explanation": "Retries requests on timeout or error."
+        },
+        {
+            "id": 30,
+            "category": "Directory Enumeration (Retry Attempts)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --retry-attempts 3",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --retry-attempts 3",
+            "explanation": "Specifies the number of times to retry a failed request."
+        },
+        {
+            "id": 31,
+            "category": "DNS Enumeration (Basic)",
+            "command": "gobuster dns -d example.com -w subdomains.txt",
+            "example": "gobuster dns -d example.com -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt",
+            "explanation": "Enumerates subdomains for the target domain using a wordlist."
+        },
+        {
+            "id": 32,
+            "category": "DNS Enumeration (Show IP)",
+            "command": "gobuster dns -d example.com -w subdomains.txt -i",
+            "example": "gobuster dns -d example.com -w subdomains.txt -i",
+            "explanation": "Displays the resolved IP address for each discovered subdomain."
+        },
+        {
+            "id": 33,
+            "category": "DNS Enumeration (Wildcard)",
+            "command": "gobuster dns -d example.com -w subdomains.txt --wildcard",
+            "example": "gobuster dns -d example.com -w subdomains.txt --wildcard",
+            "explanation": "Forces scanning even if a wildcard DNS record is detected."
+        },
+        {
+            "id": 34,
+            "category": "DNS Enumeration (Custom Server)",
+            "command": "gobuster dns -d example.com -w subdomains.txt -r 8.8.8.8",
+            "example": "gobuster dns -d example.com -w subdomains.txt -r 1.1.1.1",
+            "explanation": "Uses a specific DNS server for resolution instead of the system default."
+        },
+        {
+            "id": 35,
+            "category": "DNS Enumeration (CNAME)",
+            "command": "gobuster dns -d example.com -w subdomains.txt --show-cname",
+            "example": "gobuster dns -d example.com -w subdomains.txt --show-cname",
+            "explanation": "Displays CNAME records for discovered subdomains."
+        },
+        {
+            "id": 36,
+            "category": "DNS Enumeration (Timeout)",
+            "command": "gobuster dns -d example.com -w subdomains.txt --timeout 2s",
+            "example": "gobuster dns -d example.com -w subdomains.txt --timeout 2s",
+            "explanation": "Sets the DNS query timeout to 2 seconds."
+        },
+        {
+            "id": 37,
+            "category": "DNS Enumeration (Threads)",
+            "command": "gobuster dns -d example.com -w subdomains.txt -t 100",
+            "example": "gobuster dns -d example.com -w subdomains.txt -t 100",
+            "explanation": "Increases DNS enumeration threads to 100 for high-speed scanning."
+        },
+        {
+            "id": 38,
+            "category": "VHost Enumeration (Basic)",
+            "command": "gobuster vhost -u https://example.com -w vhosts.txt",
+            "example": "gobuster vhost -u https://example.com -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt",
+            "explanation": "Enumerates virtual hosts by brute-forcing the Host header."
+        },
+        {
+            "id": 39,
+            "category": "VHost Enumeration (Append Domain)",
+            "command": "gobuster vhost -u https://example.com -w subdomains.txt --append-domain",
+            "example": "gobuster vhost -u https://example.com -w subdomains.txt --append-domain",
+            "explanation": "Appends the base domain to each word in the wordlist (e.g., word.example.com)."
+        },
+        {
+            "id": 40,
+            "category": "VHost Enumeration (Exclude Length)",
+            "command": "gobuster vhost -u https://example.com -w vhosts.txt --exclude-length 300",
+            "example": "gobuster vhost -u https://example.com -w vhosts.txt --exclude-length 300",
+            "explanation": "Excludes virtual host results that match a specific response size."
+        },
+        {
+            "id": 41,
+            "category": "VHost Enumeration (Method)",
+            "command": "gobuster vhost -u https://example.com -w vhosts.txt -m HEAD",
+            "example": "gobuster vhost -u https://example.com -w vhosts.txt -m HEAD",
+            "explanation": "Uses the HEAD method for virtual host enumeration to reduce traffic."
+        },
+        {
+            "id": 42,
+            "category": "VHost Enumeration (Proxy)",
+            "command": "gobuster vhost -u https://example.com -w vhosts.txt --proxy http://127.0.0.1:8080",
+            "example": "gobuster vhost -u https://example.com -w vhosts.txt --proxy http://127.0.0.1:8080",
+            "explanation": "Routes virtual host enumeration traffic through a proxy."
+        },
+        {
+            "id": 43,
+            "category": "Fuzzing Mode (Basic)",
+            "command": "gobuster fuzz -u https://example.com/FUZZ -w wordlist.txt",
+            "example": "gobuster fuzz -u https://example.com/FUZZ -w wordlist.txt",
+            "explanation": "Fuzzes the URL by replacing the FUZZ keyword with words from the wordlist."
+        },
+        {
+            "id": 44,
+            "category": "Fuzzing Mode (Query Param)",
+            "command": "gobuster fuzz -u https://example.com?id=FUZZ -w numbers.txt",
+            "example": "gobuster fuzz -u https://example.com?id=FUZZ -w numbers.txt",
+            "explanation": "Fuzzes a specific query parameter in the URL."
+        },
+        {
+            "id": 45,
+            "category": "Fuzzing Mode (Exclude Length)",
+            "command": "gobuster fuzz -u https://example.com/FUZZ -w wordlist.txt --exclude-length 0",
+            "example": "gobuster fuzz -u https://example.com/FUZZ -w wordlist.txt --exclude-length 0",
+            "explanation": "Hides fuzzing results that return an empty response body."
+        },
+        {
+            "id": 46,
+            "category": "Fuzzing Mode (Headers)",
+            "command": "gobuster fuzz -u https://example.com -H \"User-Agent: FUZZ\" -w user_agents.txt",
+            "example": "gobuster fuzz -u https://example.com -H \"User-Agent: FUZZ\" -w user_agents.txt",
+            "explanation": "Fuzzes HTTP headers by placing the FUZZ keyword in the header value."
+        },
+        {
+            "id": 47,
+            "category": "Fuzzing Mode (Post Body)",
+            "command": "gobuster fuzz -u https://example.com -d \"data=FUZZ\" -w wordlist.txt -m POST",
+            "example": "gobuster fuzz -u https://example.com -d \"data=FUZZ\" -w wordlist.txt -m POST",
+            "explanation": "Fuzzes the POST data body using the FUZZ keyword."
+        },
+        {
+            "id": 48,
+            "category": "Fuzzing Mode (Basic Auth)",
+            "command": "gobuster fuzz -u https://example.com -w wordlist.txt -U admin -P FUZZ",
+            "example": "gobuster fuzz -u https://example.com -w wordlist.txt -U admin -P FUZZ",
+            "explanation": "Brute-forces the Basic Auth password field using the FUZZ keyword."
+        },
+        {
+            "id": 49,
+            "category": "S3 Enumeration (Basic)",
+            "command": "gobuster s3 -w buckets.txt",
+            "example": "gobuster s3 -w buckets.txt",
+            "explanation": "Enumerates AWS S3 buckets using a specified wordlist."
+        },
+        {
+            "id": 50,
+            "category": "S3 Enumeration (Max Files)",
+            "command": "gobuster s3 -w buckets.txt --max-files 5",
+            "example": "gobuster s3 -w buckets.txt --max-files 5",
+            "explanation": "Limits the number of files listed from each discovered bucket to 5."
+        },
+        {
+            "id": 51,
+            "category": "S3 Enumeration (User Agent)",
+            "command": "gobuster s3 -w buckets.txt -a \"CustomAgent\"",
+            "example": "gobuster s3 -w buckets.txt -a \"BugBountyScanner\"",
+            "explanation": "Sets a custom User-Agent for S3 enumeration requests."
+        },
+        {
+            "id": 52,
+            "category": "S3 Enumeration (Proxy)",
+            "command": "gobuster s3 -w buckets.txt --proxy http://127.0.0.1:8080",
+            "example": "gobuster s3 -w buckets.txt --proxy http://127.0.0.1:8080",
+            "explanation": "Routes S3 enumeration traffic through a proxy."
+        },
+        {
+            "id": 53,
+            "category": "GCS Enumeration (Basic)",
+            "command": "gobuster gcs -w buckets.txt",
+            "example": "gobuster gcs -w buckets.txt",
+            "explanation": "Enumerates Google Cloud Storage (GCS) buckets using a wordlist."
+        },
+        {
+            "id": 54,
+            "category": "GCS Enumeration (Max Files)",
+            "command": "gobuster gcs -w buckets.txt --max-files 10",
+            "example": "gobuster gcs -w buckets.txt --max-files 10",
+            "explanation": "Limits listing of files in GCS buckets to the first 10."
+        },
+        {
+            "id": 55,
+            "category": "TFTP Enumeration (Basic)",
+            "command": "gobuster tftp -s tftp.example.com -w files.txt",
+            "example": "gobuster tftp -s tftp.example.com -w files.txt",
+            "explanation": "Brute-forces filenames on a TFTP server."
+        },
+        {
+            "id": 56,
+            "category": "Global (Quiet & No Color)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -q --no-color",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -q --no-color",
+            "explanation": "Runs a clean, uncolored scan suitable for parsing in scripts."
+        },
+        {
+            "id": 57,
+            "category": "Global (Debug)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt --debug",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt --debug",
+            "explanation": "Runs gobuster in debug mode to troubleshoot errors."
+        },
+        {
+            "id": 58,
+            "category": "Advanced (Combined Auth & Proxy)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -U user -P pass --proxy http://127.0.0.1:8080 -k",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -U user -P pass --proxy http://127.0.0.1:8080 -k",
+            "explanation": "Combines Basic Auth, Proxy, and SSL skipping for a complex target environment."
+        },
+        {
+            "id": 59,
+            "category": "Advanced (Precise Status Filtering)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -s 200 -b 404 --exclude-length 0",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -s 200 -b 404 --exclude-length 0",
+            "explanation": "Highly filtered scan allowing only status 200 and removing empty responses."
+        },
+        {
+            "id": 60,
+            "category": "Advanced (API Fuzzing JSON)",
+            "command": "gobuster fuzz -u https://api.example.com/v1/user -m POST -H \"Content-Type: application/json\" -d '{\"id\": \"FUZZ\"}' -w ids.txt",
+            "example": "gobuster fuzz -u https://api.example.com/v1/user -m POST -H \"Content-Type: application/json\" -d '{\"id\": \"FUZZ\"}' -w ids.txt",
+            "explanation": "Fuzzes a JSON POST body field, essential for API penetration testing."
+        },
+        {
+            "id": 61,
+            "category": "Advanced (VHost with Cookie)",
+            "command": "gobuster vhost -u https://staging.example.com -w subdomains.txt -c \"dev_access=true\"",
+            "example": "gobuster vhost -u https://staging.example.com -w subdomains.txt -c \"dev_access=true\"",
+            "explanation": "Enumerates virtual hosts on a staging server that requires an access cookie."
+        },
+        {
+            "id": 62,
+            "category": "Advanced (Recursive Extensions)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -x php,txt -r --timeout 5s",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -x php,txt -r --timeout 5s",
+            "explanation": "Recursively scans for directories and specific file extensions with a short timeout."
+        },
+        {
+            "id": 63,
+            "category": "Advanced (Pattern Based)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -p patterns.txt -t 60",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -p patterns.txt -t 60",
+            "explanation": "Uses a pattern file to mutate the wordlist for smarter enumeration."
+        },
+        {
+            "id": 64,
+            "category": "Advanced (Redirect Analysis)",
+            "command": "gobuster dir -u https://example.com -w wordlist.txt -r -s 301,302,307 -e",
+            "example": "gobuster dir -u https://example.com -w wordlist.txt -r -s 301,302,307 -e",
+            "explanation": "Focuses on identifying and following redirects, showing full URLs."
+        },
+        {
+            "id": 65,
+            "category": "Advanced (DNS High Volume)",
+            "command": "gobuster dns -d example.com -w massive_subs.txt -t 100 --timeout 1s --no-error",
+            "example": "gobuster dns -d example.com -w massive_subs.txt -t 100 --timeout 1s --no-error",
+            "explanation": "Optimized high-speed DNS scan that suppresses error messages."
+        },
+        {
+            "id": 66,
+            "category": "Advanced (Fuzzing Auth Headers)",
+            "command": "gobuster fuzz -u https://api.example.com -H \"Authorization: Bearer FUZZ\" -w tokens.txt -b 401",
+            "example": "gobuster fuzz -u https://api.example.com -H \"Authorization: Bearer FUZZ\" -w tokens.txt -b 401",
+            "explanation": "Fuzzes the Bearer token header and hides 'Unauthorized' responses to find valid tokens."
+        },
+        {
+            "id": 67,
+            "category": "Advanced (Dir with Cookies & UserAgent)",
+            "command": "gobuster dir -u https://internal.example.com -w common.txt -c \"PHPSESSID=xyz\" -a \"AdminBrowser\" -k",
+            "example": "gobuster dir -u https://internal.example.com -w common.txt -c \"PHPSESSID=xyz\" -a \"AdminBrowser\" -k",
+            "explanation": "Simulates an authenticated internal browser session ignoring SSL errors."
+        },
+        {
+            "id": 68,
+            "category": "Advanced (S3 Max Listing)",
+            "command": "gobuster s3 -w buckets.txt --max-files 50 --no-color -v",
+            "example": "gobuster s3 -w buckets.txt --max-files 50 --no-color -v",
+            "explanation": "Verbose S3 enumeration listing up to 50 files per bucket without color codes."
+        },
+        {
+            "id": 69,
+            "category": "Advanced (GCS with Timeout)",
+            "command": "gobuster gcs -w buckets.txt --timeout 5s -t 20",
+            "example": "gobuster gcs -w buckets.txt --timeout 5s -t 20",
+            "explanation": "GCS bucket enumeration with adjusted timeout and concurrency."
+        },
+        {
+            "id": 70,
+            "category": "Advanced (Full Recon Pipeline)",
+            "command": "gobuster dir -u https://target.com -w wordlist.txt -x php,html,js,json -r -k -t 50 -o full_scan.txt",
+            "example": "gobuster dir -u https://target.com -w wordlist.txt -x php,html,js,json -r -k -t 50 -o full_scan.txt",
+            "explanation": "A comprehensive 'all-in-one' style command for initial web reconnaissance."
+        }
+    ]
+}

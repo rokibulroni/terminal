@@ -1,0 +1,357 @@
+{
+    "tool": "bully",
+    "description": "Complete Bully command and workflow reference from basic to advanced WPS security auditing",
+    "total_commands": 50,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Bully Syntax",
+            "command": "bully",
+            "example": "bully",
+            "explanation": "Displays the help menu and list of available options for the tool"
+        },
+        {
+            "id": 2,
+            "category": "Basic Bully Syntax",
+            "command": "bully wlan0mon",
+            "example": "bully wlan0mon",
+            "explanation": "Starts scanning for WPS-enabled access points using the specified monitor mode interface"
+        },
+        {
+            "id": 3,
+            "category": "Interface and Target Specification",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55",
+            "explanation": "Targets a specific access point by its BSSID for WPS PIN testing"
+        },
+        {
+            "id": 4,
+            "category": "Interface and Target Specification",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -c 6",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -c 6",
+            "explanation": "Locks the wireless card to a specific channel to improve attack stability"
+        },
+        {
+            "id": 5,
+            "category": "Interface and Target Specification",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -e MyTargetAP",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -e MyTargetAP",
+            "explanation": "Specifies the ESSID of the target AP to ensure correct association"
+        },
+        {
+            "id": 6,
+            "category": "WPS PIN Attack Workflows",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -B",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -B",
+            "explanation": "Forces the brute force mode to exhaustively test all possible PIN combinations"
+        },
+        {
+            "id": 7,
+            "category": "WPS PIN Attack Workflows",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -S",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -S",
+            "explanation": "Uses sequential PIN generation instead of randomized testing order"
+        },
+        {
+            "id": 8,
+            "category": "WPS PIN Attack Workflows",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -p 12345670",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -p 12345670",
+            "explanation": "Tests a specific 8-digit static PIN against the target access point"
+        },
+        {
+            "id": 9,
+            "category": "WPS PIN Attack Workflows",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -p 1234",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -p 1234",
+            "explanation": "Tests a specific 4-digit PIN prefix to check for partial validation"
+        },
+        {
+            "id": 10,
+            "category": "Timing and Rate Control",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -1 2 -2 10",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -1 2 -2 10",
+            "explanation": "Sets custom delay times between M5/M7 message exchanges to evade detection"
+        },
+        {
+            "id": 11,
+            "category": "Timing and Rate Control",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -l 300",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -l 300",
+            "explanation": "Sets the lock wait time to 300 seconds when the AP reports a locked state"
+        },
+        {
+            "id": 12,
+            "category": "Timing and Rate Control",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -L",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -L",
+            "explanation": "Ignores the WPS locked status reported by the AP and continues testing"
+        },
+        {
+            "id": 13,
+            "category": "Timing and Rate Control",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -r 3",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -r 3",
+            "explanation": "Sets the number of retries for failed packets to 3 before moving on"
+        },
+        {
+            "id": 14,
+            "category": "Output and Logging",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -v 3",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -v 3",
+            "explanation": "Increases verbosity level to 3 to display detailed transaction information"
+        },
+        {
+            "id": 15,
+            "category": "Output and Logging",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -v 4",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -v 4",
+            "explanation": "Sets maximum verbosity to debug connection issues and protocol exchanges"
+        },
+        {
+            "id": 16,
+            "category": "Output and Logging",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -o scan_results.txt",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -o scan_results.txt",
+            "explanation": "Logs the output of the session to a specified text file for analysis"
+        },
+        {
+            "id": 17,
+            "category": "Advanced Configuration",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -F",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -F",
+            "explanation": "Forces the attack to proceed despite warnings or initial errors"
+        },
+        {
+            "id": 18,
+            "category": "Advanced Configuration",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -A",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -A",
+            "explanation": "Disables the random checksum calculation for testing specific non-standard APs"
+        },
+        {
+            "id": 19,
+            "category": "Advanced Configuration",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -C",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -C",
+            "explanation": "Skips the checksum digit validation when processing PINs"
+        },
+        {
+            "id": 20,
+            "category": "Advanced Configuration",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -d",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -d",
+            "explanation": "Disables signal strength checks to force attempts on weak signals"
+        },
+        {
+            "id": 21,
+            "category": "Red Team Attack Simulation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -B -v 3 -o audit.log",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -B -v 3 -o audit.log",
+            "explanation": "Runs a logged brute force attack to simulate a persistent threat actor"
+        },
+        {
+            "id": 22,
+            "category": "Red Team Attack Simulation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -p 1234 -F",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -p 1234 -F",
+            "explanation": "Simulates a targeted attack using a known PIN prefix with forced execution"
+        },
+        {
+            "id": 23,
+            "category": "Purple Team Detection",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -1 1 -2 1",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -1 1 -2 1",
+            "explanation": "Sends packets rapidly to test if the IPS generates a rate-limiting alert"
+        },
+        {
+            "id": 24,
+            "category": "Purple Team Detection",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -l 5 -r 10",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -l 5 -r 10",
+            "explanation": "Triggers rapid lockouts to verify the blue team's monitoring visibility"
+        },
+        {
+            "id": 25,
+            "category": "Blue Team Defensive Validation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -p 00000000",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -p 00000000",
+            "explanation": "Validates if the AP is vulnerable to default or empty PINs"
+        },
+        {
+            "id": 26,
+            "category": "Blue Team Defensive Validation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -c 1 -v 3",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -c 1 -v 3",
+            "explanation": "Monitors the AP response behavior on channel 1 with high verbosity"
+        },
+        {
+            "id": 27,
+            "category": "Pixie Dust Workflows",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -d -v 3",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -d -v 3",
+            "explanation": "Uses the disable checks flag often utilized in Pixie Dust scripts for data gathering"
+        },
+        {
+            "id": 28,
+            "category": "Resume and Recovery",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -p <last_pin>",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -p 12345670",
+            "explanation": "Resumes a previous session by starting manually from the last tested PIN"
+        },
+        {
+            "id": 29,
+            "category": "Resume and Recovery",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -S -p 50000000",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -S -p 50000000",
+            "explanation": "Resumes a sequential attack starting from the halfway point of the keyspace"
+        },
+        {
+            "id": 30,
+            "category": "Signal Handling",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -5",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -5",
+            "explanation": "Uses 5GHz band specific settings if supported by the wireless card and fork"
+        },
+        {
+            "id": 31,
+            "category": "Combined Workflows",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -c 6 -v 4 -l 360",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -c 6 -v 4 -l 360",
+            "explanation": "Combines channel locking, debug output, and long lock waits for unstable APs"
+        },
+        {
+            "id": 32,
+            "category": "Combined Workflows",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -L -F -v 3",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -L -F -v 3",
+            "explanation": "Aggressive mode ignoring locks and forcing execution with detailed logs"
+        },
+        {
+            "id": 33,
+            "category": "Automation Pipeline",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -c 11 -r 2 -1 0 -2 0",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -c 11 -r 2 -1 0 -2 0",
+            "explanation": "Zero delay configuration for high-speed automated testing environments"
+        },
+        {
+            "id": 34,
+            "category": "Automation Pipeline",
+            "command": "timeout 300s bully wlan0mon -b 00:11:22:33:44:55",
+            "example": "timeout 300s bully wlan0mon -b 00:11:22:33:44:55",
+            "explanation": "Wraps bully in a timeout command to limit execution time in scripts"
+        },
+        {
+            "id": 35,
+            "category": "Advanced Troubleshooting",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -w",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -w",
+            "explanation": "Detects and waits for Windows 7 registrar behavior quirks"
+        },
+        {
+            "id": 36,
+            "category": "Advanced Troubleshooting",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -Z",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -Z",
+            "explanation": "Suppresses the use of multicast frames during the association phase"
+        },
+        {
+            "id": 37,
+            "category": "Custom PIN Testing",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -p 1234567",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -p 1234567",
+            "explanation": "Tests a 7-digit PIN trusting Bully to calculate the final checksum digit"
+        },
+        {
+            "id": 38,
+            "category": "Performance Tuning",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -1 0.5 -2 0.5",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -1 0.5 -2 0.5",
+            "explanation": "Uses sub-second delays to fine-tune packet injection rates"
+        },
+        {
+            "id": 39,
+            "category": "Identity Obfuscation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -s 00:aa:bb:cc:dd:ee",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -s 00:aa:bb:cc:dd:ee",
+            "explanation": "Spoofs the source MAC address to bypass simple filters or hide identity"
+        },
+        {
+            "id": 40,
+            "category": "Detection Evasion",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -l 600 -r 1",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -l 600 -r 1",
+            "explanation": "Sets extremely long lock waits and low retries to operate stealthily"
+        },
+        {
+            "id": 41,
+            "category": "Incident Response Simulation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -B -v 1",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -B -v 1",
+            "explanation": "Runs a low-noise brute force to test if IR teams detect subtle anomalies"
+        },
+        {
+            "id": 42,
+            "category": "Incident Response Simulation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -F -L -v 4",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -F -L -v 4",
+            "explanation": "Generates a noisy, aggressive attack profile for IR alert validation"
+        },
+        {
+            "id": 43,
+            "category": "Manual Indexing",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -i 2",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -i 2",
+            "explanation": "Selects a specific interface index when multiple cards are present"
+        },
+        {
+            "id": 44,
+            "category": "Advanced Targeting",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -c 6 -e TARGET_AP -B",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -c 6 -e TARGET_AP -B",
+            "explanation": "Fully specified target lock ensuring no accidental adjacency attacks"
+        },
+        {
+            "id": 45,
+            "category": "Exhaustive Testing",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -S -p 00000000 -v 2",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -S -p 00000000 -v 2",
+            "explanation": "Sequential test starting from the beginning with moderate logging"
+        },
+        {
+            "id": 46,
+            "category": "Protocol Fuzzing",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -A -C -F",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -A -C -F",
+            "explanation": "Disables all checksums and safety checks to fuzz the AP's WPS handler"
+        },
+        {
+            "id": 47,
+            "category": "No Monitor Check",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 --no-monitor-check",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 --no-monitor-check",
+            "explanation": "Skips the check for monitor mode (supported in some forks)"
+        },
+        {
+            "id": 48,
+            "category": "Version Check",
+            "command": "bully -V",
+            "example": "bully -V",
+            "explanation": "Displays the program version number for audit reporting"
+        },
+        {
+            "id": 49,
+            "category": "Help Display",
+            "command": "bully -h",
+            "example": "bully -h",
+            "explanation": "Prints the detailed help message and usage syntax"
+        },
+        {
+            "id": 50,
+            "category": "Full Automation",
+            "command": "bully wlan0mon -b 00:11:22:33:44:55 -c 1 -S -v 3 -o report.txt -l 60 -r 2",
+            "example": "bully wlan0mon -b 00:11:22:33:44:55 -c 1 -S -v 3 -o report.txt -l 60 -r 2",
+            "explanation": "A complete audit command with channel lock, logging, and timing controls"
+        }
+    ]
+}

