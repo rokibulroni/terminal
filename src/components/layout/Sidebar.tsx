@@ -123,7 +123,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <ScrollArea className="h-full py-4 px-3 custom-scrollbar">
+        <div className="h-full overflow-y-auto py-4 px-3 pb-20 custom-scrollbar">
           {/* Navigation Links */}
           <div className="space-y-1 mb-4">
             <Link
@@ -229,7 +229,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               terminal.rokibulroni.com
             </p>
           </div>
-        </ScrollArea>
+        </div>
       </aside>
     </>
   );
