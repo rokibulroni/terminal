@@ -27,6 +27,7 @@ Terminal Command Hub is an elite web application built for developers, security 
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=rokibulroni&repo=terminal&theme=radical&bg_color=1F222E&hide_border=true&cache_seconds=86400&v=1" />
 </p>
 
+<a id="features"></a>
 ## ✨ Features
 
 - **Extensive Multi-Vector Database:** Pre-configured with thousands of exhaustively detailed commands spanning strictly across 18 unique operational vectors:
@@ -41,6 +42,7 @@ Terminal Command Hub is an elite web application built for developers, security 
 - **Persistent Favorites:** Find an important command? Bookmark it instantly! Favorites stay synced locally.
 - **Responsive Architecture:** Fully optimized for mobile, tablet, and desktop viewports.
 
+<a id="quick-start"></a>
 ## 🚀 Quick Start
 
 Ensure you have [Node.js](https://nodejs.org/) installed, then follow these steps:
@@ -61,6 +63,7 @@ npm run dev
 ```
 Open up [http://localhost:5173](http://localhost:5173) in your browser!
 
+<a id="contributing"></a>
 ## 🤝 Contributing
 
 We love contributions! Open-source relies on awesome people like you.
@@ -77,6 +80,7 @@ We love contributions! Open-source relies on awesome people like you.
 * Translating text and accessibility improvements.
 * Adding completely new features or fixing existing UI bugs.
 
+<a id="license"></a>
 ## 🪪 License & Credit
 
 This project is open-sourced under the **[MIT License](LICENSE)**. 
