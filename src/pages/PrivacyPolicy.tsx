@@ -21,7 +21,7 @@ export function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold">Data Collection</h2>
           </div>
           <p className="text-muted-foreground leading-relaxed">
-            Terminal is a static website that does not collect, store, or transmit any personal 
+            Terminal is a static website currently indexing over 9,391 commands across 18 unique operational vectors. We do not collect, store, or transmit any personal 
             information to external servers. All data including your favorites and recent tools 
             are stored locally in your browser's localStorage.
           </p>

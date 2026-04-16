@@ -23,7 +23,7 @@ export function DisclaimerPage() {
           <p className="text-muted-foreground leading-relaxed">
             All information, commands, and techniques provided on Terminal are intended 
             <strong className="text-foreground"> solely for educational purposes</strong>. 
-            This website serves as a reference for cybersecurity professionals, students, 
+            This website serves as an expansive reference hub housing an active index of over 9,391 automated commands bridging 18 unique deployment platforms for cybersecurity professionals, students, 
             and researchers who are learning about security tools and techniques.
           </p>
         </section>

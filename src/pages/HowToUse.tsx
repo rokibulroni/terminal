@@ -7,7 +7,7 @@ export function HowToUsePage() {
     {
       icon: FolderTree,
       title: 'Browse Categories',
-      description: 'Use the sidebar to navigate through 12 security categories including Network, Web, Exploitation, Forensics, and more. Each category contains multiple tools.',
+      description: 'Use the sidebar to navigate through 18 security categories including Cloud, Mobile, Reverse Engineering, Network, Web, and more. Each category contains multiple tools representing over 9,391 completely automated commands.',
     },
     {
       icon: Search,

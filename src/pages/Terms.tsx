@@ -21,7 +21,7 @@ export function TermsPage() {
             <h2 className="text-xl font-semibold">Acceptance of Terms</h2>
           </div>
           <p className="text-muted-foreground leading-relaxed">
-            By accessing and using Terminal, you accept and agree to be bound by the terms and 
+            By accessing and using Terminal—an open-source reference hub indexing over 9,391 cybersecurity commands across 18 categories—you accept and agree to be bound by the terms and 
             provisions of this agreement. If you do not agree to these terms, please do not 
             use this website.
           </p>

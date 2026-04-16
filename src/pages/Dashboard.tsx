@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Terminal, Network, Globe, Search, Bug, Key, GitBranch, Wifi, FileSearch, Activity, Cloud, Radio, Wrench, ArrowRight, Zap, Star, Clock, Sparkles, Shield, Code2 } from 'lucide-react';
+import { Terminal, Network, Globe, Search, Bug, Key, GitBranch, Wifi, FileSearch, Activity, Cloud, Radio, Wrench, ArrowRight, Zap, Star, Clock, Sparkles, Shield, Code2, Eye, Smartphone, Box, Cpu, TerminalSquare, CircuitBoard } from 'lucide-react';
 import { getTotalToolCount, CATEGORY_TOOLS } from '@/hooks/useCategoryTools';
 import { useFavorites, useRecentTools } from '@/hooks/useFavorites';
 import { useCommandCount } from '@/hooks/useCommandCount';
@@ -58,6 +58,30 @@ const CATEGORY_STYLES: Record<string, { bg: string; border: string }> = {
     bg: 'bg-gradient-to-br from-lime-100 via-green-50 to-emerald-50 dark:from-lime-950/50 dark:via-green-950/30 dark:to-emerald-950/40',
     border: 'hover:border-lime-400 dark:hover:border-lime-500',
   },
+  osint: {
+    bg: 'bg-gradient-to-br from-zinc-100 via-stone-50 to-neutral-50 dark:from-zinc-950/50 dark:via-stone-950/30 dark:to-neutral-950/40',
+    border: 'hover:border-zinc-400 dark:hover:border-zinc-500',
+  },
+  mobile: {
+    bg: 'bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-50 dark:from-slate-950/50 dark:via-indigo-950/30 dark:to-blue-950/40',
+    border: 'hover:border-slate-400 dark:hover:border-slate-500',
+  },
+  containers: {
+    bg: 'bg-gradient-to-br from-sky-100 via-cyan-50 to-teal-50 dark:from-sky-950/50 dark:via-cyan-950/30 dark:to-teal-950/40',
+    border: 'hover:border-sky-400 dark:hover:border-sky-500',
+  },
+  reversing: {
+    bg: 'bg-gradient-to-br from-red-100 via-rose-50 to-orange-50 dark:from-red-950/50 dark:via-rose-950/30 dark:to-orange-950/40',
+    border: 'hover:border-red-400 dark:hover:border-red-500',
+  },
+  linux: {
+    bg: 'bg-gradient-to-br from-yellow-100 via-amber-50 to-orange-50 dark:from-yellow-950/50 dark:via-amber-950/30 dark:to-orange-950/40',
+    border: 'hover:border-yellow-400 dark:hover:border-yellow-500',
+  },
+  iot: {
+    bg: 'bg-gradient-to-br from-emerald-100 via-green-50 to-teal-50 dark:from-emerald-950/50 dark:via-green-950/30 dark:to-teal-950/40',
+    border: 'hover:border-emerald-400 dark:hover:border-emerald-500',
+  },
 };
 
 const CATEGORY_CONFIG = [
@@ -73,6 +97,12 @@ const CATEGORY_CONFIG = [
   { id: 'cloud', name: 'Cloud', icon: Cloud, description: 'AWS, GCP, Azure, container security' },
   { id: 'traffic', name: 'Traffic', icon: Radio, description: 'Packet capture, protocol analysis' },
   { id: 'utilities', name: 'Utilities', icon: Wrench, description: 'Essential tools, data processing' },
+  { id: 'osint', name: 'OSINT', icon: Eye, description: 'Open-source intelligence, deep recon' },
+  { id: 'mobile', name: 'Mobile', icon: Smartphone, description: 'Android/iOS app hooking, emulation constraints' },
+  { id: 'containers', name: 'Containers', icon: Box, description: 'Docker escapes, image vulnerabilities' },
+  { id: 'reversing', name: 'Reversing', icon: Cpu, description: 'Decompilation, binary analytics, GDB checks' },
+  { id: 'linux', name: 'Linux OS', icon: TerminalSquare, description: 'System administration, chron-jobs, daemons' },
+  { id: 'iot', name: 'IoT / Hardware', icon: CircuitBoard, description: 'Physical Pi pinouts, serial terminal drops' },
 ];
 
 export function Dashboard() {
