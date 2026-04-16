@@ -1,0 +1,40 @@
+{
+  "tool": "awk",
+  "category": "linux",
+  "description": "[awk] - Pattern scanning and processing language. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "awk_01",
+      "command": "awk '{print $1}' file1",
+      "description": "Print the first column of the text file",
+      "category": "linux",
+      "explanation": "Executes the awk routine logically to process: print the first column of the text file",
+      "example": "awk '{print $1}' file1"
+    },
+    {
+      "id": "awk_02",
+      "command": "awk -F: '{print $1}' /etc/passwd",
+      "description": "Print the first column using colon as a delimiter",
+      "category": "linux",
+      "explanation": "Executes the awk routine logically to process: print the first column using colon as a delimiter",
+      "example": "awk -F: '{print $1}' /etc/passwd"
+    },
+    {
+      "id": "awk_03",
+      "command": "awk '/pattern/ {print $0}' file1",
+      "description": "Print the entire line if it matches the regex pattern",
+      "category": "linux",
+      "explanation": "Executes the awk routine logically to process: print the entire line if it matches the regex pattern",
+      "example": "awk '/pattern/ {print $0}' file1"
+    },
+    {
+      "id": "awk_04",
+      "command": "awk '{sum+=$1} END {print sum}' file1",
+      "description": "Calculate the sum of all numbers in the first column",
+      "category": "linux",
+      "explanation": "Executes the awk routine logically to process: calculate the sum of all numbers in the first column",
+      "example": "awk '{sum+=$1} END {print sum}' file1"
+    }
+  ],
+  "total_commands": 4
+}

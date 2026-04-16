@@ -1,0 +1,40 @@
+{
+  "tool": "cat",
+  "category": "linux",
+  "description": "[cat] - Concatenate files and print on the standard output. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "cat_01",
+      "command": "cat file1",
+      "description": "Output contents of a file to terminal",
+      "category": "linux",
+      "explanation": "Executes the cat routine logically to process: output contents of a file to terminal",
+      "example": "cat file1"
+    },
+    {
+      "id": "cat_02",
+      "command": "cat -n file1",
+      "description": "Output contents with line numbers",
+      "category": "linux",
+      "explanation": "Executes the cat routine logically to process: output contents with line numbers",
+      "example": "cat -n file1"
+    },
+    {
+      "id": "cat_03",
+      "command": "cat file1 file2 > newfile",
+      "description": "Concatenate multiple files into a single new file",
+      "category": "linux",
+      "explanation": "Executes the cat routine logically to process: concatenate multiple files into a single new file",
+      "example": "cat file1 file2 > newfile"
+    },
+    {
+      "id": "cat_04",
+      "command": "cat file1 >> existingfile",
+      "description": "Append configuration lines to an existing file",
+      "category": "linux",
+      "explanation": "Executes the cat routine logically to process: append configuration lines to an existing file",
+      "example": "cat file1 >> existingfile"
+    }
+  ],
+  "total_commands": 4
+}

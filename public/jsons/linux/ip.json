@@ -1,0 +1,40 @@
+{
+  "tool": "ip",
+  "category": "linux",
+  "description": "[ip] - Show or manipulate routing, network devices, interfaces and tunnels. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "ip_01",
+      "command": "ip a",
+      "description": "Display IP addresses and property info for all active interfaces",
+      "category": "linux",
+      "explanation": "Executes the ip routine logically to process: display ip addresses and property info for all active interfaces",
+      "example": "ip a"
+    },
+    {
+      "id": "ip_02",
+      "command": "ip link show",
+      "description": "Display link layer information",
+      "category": "linux",
+      "explanation": "Executes the ip routine logically to process: display link layer information",
+      "example": "ip link show"
+    },
+    {
+      "id": "ip_03",
+      "command": "ip route show",
+      "description": "Display the IP routing table details",
+      "category": "linux",
+      "explanation": "Executes the ip routine logically to process: display the ip routing table details",
+      "example": "ip route show"
+    },
+    {
+      "id": "ip_04",
+      "command": "ip neigh",
+      "description": "Display local ARP/neighbor tables for the network segment",
+      "category": "linux",
+      "explanation": "Executes the ip routine logically to process: display local arp/neighbor tables for the network segment",
+      "example": "ip neigh"
+    }
+  ],
+  "total_commands": 4
+}

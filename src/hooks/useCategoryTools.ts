@@ -18,7 +18,7 @@ export const CATEGORY_TOOLS: Record<string, string[]> = {
   'mobile': ['adb', 'frida', 'objection', 'drozer', 'apktool'],
   'containers': ['grype', 'syft', 'clair', 'trivy'],
   'reversing': ['gdb', 'ghidra', 'objdump', 'strace', 'radare2'],
-  'linux': ['apt', 'dnf', 'pacman', 'systemctl', 'journalctl', 'tar', 'chmod', 'chown', 'find', 'grep'],
+  'linux': ['apt', 'dnf', 'pacman', 'systemctl', 'journalctl', 'tar', 'chmod', 'chown', 'find', 'grep', 'ls', 'cd', 'pwd', 'cp', 'mv', 'rm', 'mkdir', 'cat', 'less', 'tail', 'head', 'top', 'ps', 'kill', 'df', 'du', 'free', 'awk', 'sed', 'cut', 'sort', 'uniq', 'wc', 'ping', 'ip', 'whoami', 'su', 'history'],
   'iot': ['raspi-config', 'vcgencmd', 'gpio', 'i2c-tools', 'libcamera'],
 };
 

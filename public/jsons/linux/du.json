@@ -1,0 +1,32 @@
+{
+  "tool": "du",
+  "category": "linux",
+  "description": "[du] - Estimate file space usage. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "du_01",
+      "command": "du -sh directory/",
+      "description": "Show absolute total disk usage for a specific directory",
+      "category": "linux",
+      "explanation": "Executes the du routine logically to process: show absolute total disk usage for a specific directory",
+      "example": "du -sh directory/"
+    },
+    {
+      "id": "du_02",
+      "command": "du -ah /path | sort -rh | head -n 10",
+      "description": "Find the top 10 largest files/directories starting at path",
+      "category": "linux",
+      "explanation": "Executes the du routine logically to process: find the top 10 largest files/directories starting at path",
+      "example": "du -ah /path | sort -rh | head -n 10"
+    },
+    {
+      "id": "du_03",
+      "command": "du -sk * | sort -n",
+      "description": "List directories sorted by size incrementally",
+      "category": "linux",
+      "explanation": "Executes the du routine logically to process: list directories sorted by size incrementally",
+      "example": "du -sk * | sort -n"
+    }
+  ],
+  "total_commands": 3
+}

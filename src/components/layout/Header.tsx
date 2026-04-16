@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useGlobalIP } from '@/hooks/useGlobalIP';
+import { useDeviceOS } from '@/hooks/useDeviceOS';
 import { Input } from '@/components/ui/input';
 import {
   Popover,
@@ -45,6 +46,7 @@ export function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
   const { globalIP, setGlobalIP, clearGlobalIP } = useGlobalIP();
   const [ipInput, setIpInput] = useState(globalIP);
   const [isIpPopoverOpen, setIsIpPopoverOpen] = useState(false);
+  const { os } = useDeviceOS();
 
   useEffect(() => {
     setIpInput(globalIP);
@@ -193,7 +195,11 @@ export function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
               Search commands...
             </span>
             <div className="hidden md:flex items-center gap-1 bg-background/80 px-2 py-1 rounded-md border border-border/50">
-              <Command className="h-3 w-3 text-muted-foreground" />
+              {os === 'mac' || os === 'ios' || os === 'unknown' ? (
+                <Command className="h-3 w-3 text-muted-foreground" />
+              ) : (
+                <span className="text-[10px] font-medium text-muted-foreground">Ctrl</span>
+              )}
               <span className="text-[10px] font-medium text-muted-foreground">K</span>
             </div>
           </button>

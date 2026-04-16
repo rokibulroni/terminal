@@ -1,0 +1,40 @@
+{
+  "tool": "sed",
+  "category": "linux",
+  "description": "[sed] - Stream editor for filtering and transforming text. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "sed_01",
+      "command": "sed 's/old/new/g' file1",
+      "description": "Replace all occurrences of 'old' with 'new' in standard output",
+      "category": "linux",
+      "explanation": "Executes the sed routine logically to process: replace all occurrences of 'old' with 'new' in standard output",
+      "example": "sed 's/old/new/g' file1"
+    },
+    {
+      "id": "sed_02",
+      "command": "sed -i 's/old/new/g' file1",
+      "description": "Edit the file exactly in-place (dangerous)",
+      "category": "linux",
+      "explanation": "Executes the sed routine logically to process: edit the file exactly in-place (dangerous)",
+      "example": "sed -i 's/old/new/g' file1"
+    },
+    {
+      "id": "sed_03",
+      "command": "sed '/pattern/d' file1",
+      "description": "Delete lines matching the specified pattern",
+      "category": "linux",
+      "explanation": "Executes the sed routine logically to process: delete lines matching the specified pattern",
+      "example": "sed '/pattern/d' file1"
+    },
+    {
+      "id": "sed_04",
+      "command": "sed -n '5,10p' file1",
+      "description": "Print only lines 5 through 10",
+      "category": "linux",
+      "explanation": "Executes the sed routine logically to process: print only lines 5 through 10",
+      "example": "sed -n '5,10p' file1"
+    }
+  ],
+  "total_commands": 4
+}

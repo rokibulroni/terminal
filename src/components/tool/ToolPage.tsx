@@ -26,7 +26,6 @@ export function ToolPage() {
   
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [showRawJson, setShowRawJson] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Track recent view
@@ -175,16 +174,6 @@ export function ToolPage() {
             ))}
           </SelectContent>
         </Select>
-
-        {/* Raw JSON Toggle */}
-        <Button
-          variant={showRawJson ? "default" : "outline"}
-          onClick={() => setShowRawJson(!showRawJson)}
-          className="shrink-0"
-        >
-          <FileJson className="h-4 w-4 mr-2" />
-          JSON
-        </Button>
       </div>
 
       {/* Results Count */}
@@ -199,15 +188,7 @@ export function ToolPage() {
       </div>
 
       {/* Content */}
-      {showRawJson ? (
-        <div className="terminal-card p-4 overflow-x-auto">
-          <pre className="font-mono text-sm text-foreground whitespace-pre-wrap break-all">
-            {JSON.stringify(tool, null, 2)}
-          </pre>
-        </div>
-      ) : (
-        <>
-          <div className="grid gap-4">
+      <div className="grid gap-4">
             {paginatedCommands.length === 0 ? (
               <div className="text-center py-12">
                 <Search className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
@@ -284,8 +265,6 @@ export function ToolPage() {
               </Button>
             </div>
           )}
-        </>
-      )}
     </div>
   );
 }

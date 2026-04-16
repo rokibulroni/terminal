@@ -1,0 +1,32 @@
+{
+  "tool": "kill",
+  "category": "linux",
+  "description": "[kill] - Send a signal to a process. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "kill_01",
+      "command": "kill 1234",
+      "description": "Send SIGTERM (15) to process ID 1234 (graceful stop)",
+      "category": "linux",
+      "explanation": "Executes the kill routine logically to process: send sigterm (15) to process id 1234 (graceful stop)",
+      "example": "kill 1234"
+    },
+    {
+      "id": "kill_02",
+      "command": "kill -9 1234",
+      "description": "Send SIGKILL (9) to gracefully force stop a process",
+      "category": "linux",
+      "explanation": "Executes the kill routine logically to process: send sigkill (9) to gracefully force stop a process",
+      "example": "kill -9 1234"
+    },
+    {
+      "id": "kill_03",
+      "command": "kill -HUP 1234",
+      "description": "Send SIGHUP (1) to restart/reload the process",
+      "category": "linux",
+      "explanation": "Executes the kill routine logically to process: send sighup (1) to restart/reload the process",
+      "example": "kill -HUP 1234"
+    }
+  ],
+  "total_commands": 3
+}

@@ -1,0 +1,32 @@
+{
+  "tool": "mkdir",
+  "category": "linux",
+  "description": "[mkdir] - Make directories. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "mkdir_01",
+      "command": "mkdir dir1",
+      "description": "Create a new directory",
+      "category": "linux",
+      "explanation": "Executes the mkdir routine logically to process: create a new directory",
+      "example": "mkdir dir1"
+    },
+    {
+      "id": "mkdir_02",
+      "command": "mkdir -p dir1/dir2/dir3",
+      "description": "Create parent directories as needed (no error if existing)",
+      "category": "linux",
+      "explanation": "Executes the mkdir routine logically to process: create parent directories as needed (no error if existing)",
+      "example": "mkdir -p dir1/dir2/dir3"
+    },
+    {
+      "id": "mkdir_03",
+      "command": "mkdir -m 755 dir1",
+      "description": "Create directory and set permissions simultaneously",
+      "category": "linux",
+      "explanation": "Executes the mkdir routine logically to process: create directory and set permissions simultaneously",
+      "example": "mkdir -m 755 dir1"
+    }
+  ],
+  "total_commands": 3
+}

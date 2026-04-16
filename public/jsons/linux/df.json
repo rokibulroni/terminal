@@ -1,0 +1,32 @@
+{
+  "tool": "df",
+  "category": "linux",
+  "description": "[df] - Report file system disk space usage. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "df_01",
+      "command": "df -h",
+      "description": "Show disk space in human-readable format (MB, GB)",
+      "category": "linux",
+      "explanation": "Executes the df routine logically to process: show disk space in human-readable format (mb, gb)",
+      "example": "df -h"
+    },
+    {
+      "id": "df_02",
+      "command": "df -T",
+      "description": "Show file system types alongside usage",
+      "category": "linux",
+      "explanation": "Executes the df routine logically to process: show file system types alongside usage",
+      "example": "df -T"
+    },
+    {
+      "id": "df_03",
+      "command": "df -i",
+      "description": "Show inode usage information",
+      "category": "linux",
+      "explanation": "Executes the df routine logically to process: show inode usage information",
+      "example": "df -i"
+    }
+  ],
+  "total_commands": 3
+}

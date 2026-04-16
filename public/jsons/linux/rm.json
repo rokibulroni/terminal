@@ -1,0 +1,48 @@
+{
+  "tool": "rm",
+  "category": "linux",
+  "description": "[rm] - Remove files or directories. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "rm_01",
+      "command": "rm file1",
+      "description": "Remove a specific file",
+      "category": "linux",
+      "explanation": "Executes the rm routine logically to process: remove a specific file",
+      "example": "rm file1"
+    },
+    {
+      "id": "rm_02",
+      "command": "rm -i file1",
+      "description": "Prompt for confirmation before removal",
+      "category": "linux",
+      "explanation": "Executes the rm routine logically to process: prompt for confirmation before removal",
+      "example": "rm -i file1"
+    },
+    {
+      "id": "rm_03",
+      "command": "rm -r dir1",
+      "description": "Recursively remove a directory and its contents",
+      "category": "linux",
+      "explanation": "Executes the rm routine logically to process: recursively remove a directory and its contents",
+      "example": "rm -r dir1"
+    },
+    {
+      "id": "rm_04",
+      "command": "rm -rf dir1",
+      "description": "Forcefully and recursively remove a directory without prompting",
+      "category": "linux",
+      "explanation": "Executes the rm routine logically to process: forcefully and recursively remove a directory without prompting",
+      "example": "rm -rf dir1"
+    },
+    {
+      "id": "rm_05",
+      "command": "rm -d dir1",
+      "description": "Remove an empty directory",
+      "category": "linux",
+      "explanation": "Executes the rm routine logically to process: remove an empty directory",
+      "example": "rm -d dir1"
+    }
+  ],
+  "total_commands": 5
+}

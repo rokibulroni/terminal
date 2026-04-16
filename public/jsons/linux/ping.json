@@ -1,0 +1,32 @@
+{
+  "tool": "ping",
+  "category": "linux",
+  "description": "[ping] - Default Linux Journey network diagnostsics packet test. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "ping_01",
+      "command": "ping 8.8.8.8",
+      "description": "Send continuous ICMP echo requests to target host",
+      "category": "linux",
+      "explanation": "Executes the ping routine logically to process: send continuous icmp echo requests to target host",
+      "example": "ping 8.8.8.8"
+    },
+    {
+      "id": "ping_02",
+      "command": "ping -c 4 8.8.8.8",
+      "description": "Send exactly 4 pings and exit automatically",
+      "category": "linux",
+      "explanation": "Executes the ping routine logically to process: send exactly 4 pings and exit automatically",
+      "example": "ping -c 4 8.8.8.8"
+    },
+    {
+      "id": "ping_03",
+      "command": "ping -i 0.5 8.8.8.8",
+      "description": "Ping with an interval of half a second",
+      "category": "linux",
+      "explanation": "Executes the ping routine logically to process: ping with an interval of half a second",
+      "example": "ping -i 0.5 8.8.8.8"
+    }
+  ],
+  "total_commands": 3
+}

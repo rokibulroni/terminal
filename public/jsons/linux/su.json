@@ -1,0 +1,24 @@
+{
+  "tool": "su",
+  "category": "linux",
+  "description": "[su] - Run a command with substitute user and group ID. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "su_01",
+      "command": "su - username",
+      "description": "Switch session fully to 'username' and initialize their environment",
+      "category": "linux",
+      "explanation": "Executes the su routine logically to process: switch session fully to 'username' and initialize their environment",
+      "example": "su - username"
+    },
+    {
+      "id": "su_02",
+      "command": "su root",
+      "description": "Switch cleanly to the root administrator",
+      "category": "linux",
+      "explanation": "Executes the su routine logically to process: switch cleanly to the root administrator",
+      "example": "su root"
+    }
+  ],
+  "total_commands": 2
+}

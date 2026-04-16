@@ -4,6 +4,7 @@ import { Terminal, Network, Globe, Search, Bug, Key, GitBranch, Wifi, FileSearch
 import { getTotalToolCount, CATEGORY_TOOLS } from '@/hooks/useCategoryTools';
 import { useFavorites, useRecentTools } from '@/hooks/useFavorites';
 import { useCommandCount } from '@/hooks/useCommandCount';
+import { useDeviceOS } from '@/hooks/useDeviceOS';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -110,6 +111,7 @@ export function Dashboard() {
   const { count: favoritesCount } = useFavorites();
   const { recent } = useRecentTools();
   const { totalCommands, loading: commandsLoading } = useCommandCount();
+  const { isMobile, getShortcutText } = useDeviceOS();
   return (
     <div className="space-y-10 animate-fade-in">
       {/* Hero Section */}
@@ -156,7 +158,7 @@ export function Dashboard() {
           <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed mb-8">
             Your centralized command reference for cybersecurity tools.
             Searchable, categorized, and built for security professionals.
-            <span className="text-primary"> Press ⌘K to search.</span>
+            {!isMobile && <span className="text-primary"> {`Press ${getShortcutText()} to search.`}</span>}
           </p>
 
           {/* Stats */}
@@ -307,27 +309,29 @@ export function Dashboard() {
       </section>
 
       {/* Keyboard Shortcuts */}
-      <section className="terminal-card p-6">
-        <h2 className="text-lg font-semibold mb-4">Keyboard Shortcuts</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-          <div className="flex items-center gap-3">
-            <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">⌘K</kbd>
-            <span className="text-muted-foreground">Search</span>
+      {!isMobile && (
+        <section className="terminal-card p-6">
+          <h2 className="text-lg font-semibold mb-4">Keyboard Shortcuts</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+            <div className="flex items-center gap-3">
+              <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">{getShortcutText()}</kbd>
+              <span className="text-muted-foreground">Search</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">/</kbd>
+              <span className="text-muted-foreground">Quick search</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">↑↓</kbd>
+              <span className="text-muted-foreground">Navigate</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">ESC</kbd>
+              <span className="text-muted-foreground">Close</span>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">/</kbd>
-            <span className="text-muted-foreground">Quick search</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">↑↓</kbd>
-            <span className="text-muted-foreground">Navigate</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <kbd className="px-2 py-1 rounded border border-border bg-muted font-mono text-xs">ESC</kbd>
-            <span className="text-muted-foreground">Close</span>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }

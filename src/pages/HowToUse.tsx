@@ -1,8 +1,11 @@
 import { BookOpen, Search, Star, Copy, Keyboard, FolderTree, Terminal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useDeviceOS } from '@/hooks/useDeviceOS';
 
 export function HowToUsePage() {
+  const { getShortcutText } = useDeviceOS();
+
   const steps = [
     {
       icon: FolderTree,
@@ -12,7 +15,7 @@ export function HowToUsePage() {
     {
       icon: Search,
       title: 'Global Search',
-      description: 'Press ⌘K (or Ctrl+K on Windows) to open the command palette. Search across all tools and commands instantly with fuzzy matching.',
+      description: `Press ${getShortcutText()} to open the command palette. Search across all tools and commands instantly with fuzzy matching.`,
     },
     {
       icon: Terminal,
@@ -80,7 +83,7 @@ export function HowToUsePage() {
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="flex items-center justify-between p-3 rounded-md bg-muted/50">
             <span className="text-sm">Open search</span>
-            <kbd className="px-2 py-1 rounded border border-border bg-background font-mono text-xs">⌘K</kbd>
+            <kbd className="px-2 py-1 rounded border border-border bg-background font-mono text-xs">{getShortcutText()}</kbd>
           </div>
           <div className="flex items-center justify-between p-3 rounded-md bg-muted/50">
             <span className="text-sm">Close dialog</span>

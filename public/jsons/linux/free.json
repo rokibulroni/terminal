@@ -1,0 +1,32 @@
+{
+  "tool": "free",
+  "category": "linux",
+  "description": "[free] - Display amount of free and used memory in the system. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "free_01",
+      "command": "free -h",
+      "description": "Show memory stats in human-readable format",
+      "category": "linux",
+      "explanation": "Executes the free routine logically to process: show memory stats in human-readable format",
+      "example": "free -h"
+    },
+    {
+      "id": "free_02",
+      "command": "free -m",
+      "description": "Show memory stats specifically in Megabytes",
+      "category": "linux",
+      "explanation": "Executes the free routine logically to process: show memory stats specifically in megabytes",
+      "example": "free -m"
+    },
+    {
+      "id": "free_03",
+      "command": "free -s 5",
+      "description": "Continuously display memory stats updating every 5 seconds",
+      "category": "linux",
+      "explanation": "Executes the free routine logically to process: continuously display memory stats updating every 5 seconds",
+      "example": "free -s 5"
+    }
+  ],
+  "total_commands": 3
+}

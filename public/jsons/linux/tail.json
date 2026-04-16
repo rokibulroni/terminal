@@ -1,0 +1,32 @@
+{
+  "tool": "tail",
+  "category": "linux",
+  "description": "[tail] - Output the last part of files. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "tail_01",
+      "command": "tail file1",
+      "description": "Output the last 10 lines of a file",
+      "category": "linux",
+      "explanation": "Executes the tail routine logically to process: output the last 10 lines of a file",
+      "example": "tail file1"
+    },
+    {
+      "id": "tail_02",
+      "command": "tail -n 20 file1",
+      "description": "Output the last N lines of a file",
+      "category": "linux",
+      "explanation": "Executes the tail routine logically to process: output the last n lines of a file",
+      "example": "tail -n 20 file1"
+    },
+    {
+      "id": "tail_03",
+      "command": "tail -f file1",
+      "description": "Output appended data as the file grows (e.g. following logs)",
+      "category": "linux",
+      "explanation": "Executes the tail routine logically to process: output appended data as the file grows (e.g. following logs)",
+      "example": "tail -f file1"
+    }
+  ],
+  "total_commands": 3
+}

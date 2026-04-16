@@ -1,0 +1,48 @@
+{
+  "tool": "cp",
+  "category": "linux",
+  "description": "[cp] - Copy files and directories. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "cp_01",
+      "command": "cp file1 file2",
+      "description": "Copy source file to destination",
+      "category": "linux",
+      "explanation": "Executes the cp routine logically to process: copy source file to destination",
+      "example": "cp file1 file2"
+    },
+    {
+      "id": "cp_02",
+      "command": "cp -r dir1 dir2",
+      "description": "Recursively copy directories and their contents",
+      "category": "linux",
+      "explanation": "Executes the cp routine logically to process: recursively copy directories and their contents",
+      "example": "cp -r dir1 dir2"
+    },
+    {
+      "id": "cp_03",
+      "command": "cp -i file1 dir/",
+      "description": "Copy interactively (prompt before overwrite)",
+      "category": "linux",
+      "explanation": "Executes the cp routine logically to process: copy interactively (prompt before overwrite)",
+      "example": "cp -i file1 dir/"
+    },
+    {
+      "id": "cp_04",
+      "command": "cp -u file1 dir/",
+      "description": "Copy only if source is newer than destination or destination is missing",
+      "category": "linux",
+      "explanation": "Executes the cp routine logically to process: copy only if source is newer than destination or destination is missing",
+      "example": "cp -u file1 dir/"
+    },
+    {
+      "id": "cp_05",
+      "command": "cp -v file1 file2",
+      "description": "Verbose output explaining what is being copied",
+      "category": "linux",
+      "explanation": "Executes the cp routine logically to process: verbose output explaining what is being copied",
+      "example": "cp -v file1 file2"
+    }
+  ],
+  "total_commands": 5
+}

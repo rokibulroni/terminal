@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/compone
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { useDeviceOS } from '@/hooks/useDeviceOS';
 
 interface CommandPaletteProps {
   open: boolean;
@@ -16,6 +17,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { search, isLoading } = useGlobalSearch();
+  const { getShortcutKey } = useDeviceOS();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -207,7 +209,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-muted/30 text-xs text-muted-foreground">
           <span>Terminal - Cybersecurity Command Reference</span>
           <span className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 rounded border border-border bg-background">⌘K</kbd>
+            <kbd className="px-1.5 py-0.5 rounded border border-border bg-background">{getShortcutKey()}K</kbd>
             to open
           </span>
         </div>

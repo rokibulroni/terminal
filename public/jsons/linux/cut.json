@@ -1,0 +1,32 @@
+{
+  "tool": "cut",
+  "category": "linux",
+  "description": "[cut] - Remove sections from each line of files. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "cut_01",
+      "command": "cut -d':' -f1 /etc/passwd",
+      "description": "Extract the first field using colon as delimiter (get usernames)",
+      "category": "linux",
+      "explanation": "Executes the cut routine logically to process: extract the first field using colon as delimiter (get usernames)",
+      "example": "cut -d':' -f1 /etc/passwd"
+    },
+    {
+      "id": "cut_02",
+      "command": "cut -c 1-5 file1",
+      "description": "Extract characters 1 through 5 from each line",
+      "category": "linux",
+      "explanation": "Executes the cut routine logically to process: extract characters 1 through 5 from each line",
+      "example": "cut -c 1-5 file1"
+    },
+    {
+      "id": "cut_03",
+      "command": "cut -f2-4 file1",
+      "description": "Extract fields 2 through 4 (tab delimited default)",
+      "category": "linux",
+      "explanation": "Executes the cut routine logically to process: extract fields 2 through 4 (tab delimited default)",
+      "example": "cut -f2-4 file1"
+    }
+  ],
+  "total_commands": 3
+}

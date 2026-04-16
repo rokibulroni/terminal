@@ -1,0 +1,24 @@
+{
+  "tool": "pwd",
+  "category": "linux",
+  "description": "[pwd] - Print name of current/working directory. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "pwd_01",
+      "command": "pwd",
+      "description": "Print the current working directory path",
+      "category": "linux",
+      "explanation": "Executes the pwd routine logically to process: print the current working directory path",
+      "example": "pwd"
+    },
+    {
+      "id": "pwd_02",
+      "command": "pwd -P",
+      "description": "Print the physical directory, resolving all symlinks",
+      "category": "linux",
+      "explanation": "Executes the pwd routine logically to process: print the physical directory, resolving all symlinks",
+      "example": "pwd -P"
+    }
+  ],
+  "total_commands": 2
+}

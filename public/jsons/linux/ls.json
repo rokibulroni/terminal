@@ -1,0 +1,56 @@
+{
+  "tool": "ls",
+  "category": "linux",
+  "description": "[ls] - List directory contents. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "ls_01",
+      "command": "ls -la",
+      "description": "List all files in long format including hidden",
+      "category": "linux",
+      "explanation": "Executes the ls routine logically to process: list all files in long format including hidden",
+      "example": "ls -la"
+    },
+    {
+      "id": "ls_02",
+      "command": "ls -lh",
+      "description": "List files with human-readable file sizes",
+      "category": "linux",
+      "explanation": "Executes the ls routine logically to process: list files with human-readable file sizes",
+      "example": "ls -lh"
+    },
+    {
+      "id": "ls_03",
+      "command": "ls -lt",
+      "description": "List files sorted by modification time (newest first)",
+      "category": "linux",
+      "explanation": "Executes the ls routine logically to process: list files sorted by modification time (newest first)",
+      "example": "ls -lt"
+    },
+    {
+      "id": "ls_04",
+      "command": "ls -lS",
+      "description": "List files sorted by size (largest first)",
+      "category": "linux",
+      "explanation": "Executes the ls routine logically to process: list files sorted by size (largest first)",
+      "example": "ls -lS"
+    },
+    {
+      "id": "ls_05",
+      "command": "ls -ld */",
+      "description": "List only directories",
+      "category": "linux",
+      "explanation": "Executes the ls routine logically to process: list only directories",
+      "example": "ls -ld */"
+    },
+    {
+      "id": "ls_06",
+      "command": "ls -1",
+      "description": "List one file per line",
+      "category": "linux",
+      "explanation": "Executes the ls routine logically to process: list one file per line",
+      "example": "ls -1"
+    }
+  ],
+  "total_commands": 6
+}

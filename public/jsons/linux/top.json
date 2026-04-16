@@ -1,0 +1,32 @@
+{
+  "tool": "top",
+  "category": "linux",
+  "description": "[top] - Display Linux processes. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": "top_01",
+      "command": "top",
+      "description": "Launch the interactive process viewer",
+      "category": "linux",
+      "explanation": "Executes the top routine logically to process: launch the interactive process viewer",
+      "example": "top"
+    },
+    {
+      "id": "top_02",
+      "command": "top -u username",
+      "description": "View processes for a specific user only",
+      "category": "linux",
+      "explanation": "Executes the top routine logically to process: view processes for a specific user only",
+      "example": "top -u username"
+    },
+    {
+      "id": "top_03",
+      "command": "top -d 1",
+      "description": "Set the delay interval to 1 second",
+      "category": "linux",
+      "explanation": "Executes the top routine logically to process: set the delay interval to 1 second",
+      "example": "top -d 1"
+    }
+  ],
+  "total_commands": 3
+}
