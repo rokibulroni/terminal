@@ -127,8 +127,8 @@ export function CommandCard({ command, toolName, toolDisplayName, category }: Co
       </div>
 
       {/* Command */}
-      <div className="command-block mb-3 overflow-x-auto relative group/cmd">
-        <code className="text-primary whitespace-pre text-sm">{displayCommand}</code>
+      <div className="command-block mb-3 relative group/cmd break-words">
+        <code className="text-primary whitespace-pre-wrap break-all text-sm">{displayCommand}</code>
       </div>
 
       {/* Explanation (always visible) */}
@@ -157,7 +157,7 @@ export function CommandCard({ command, toolName, toolDisplayName, category }: Co
           {expanded && (
             <div className="mt-2 p-3 rounded-md bg-accent/5 border border-accent/20 animate-fade-in">
               <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Example:</p>
-              <code className="font-mono text-sm text-accent">{displayExample}</code>
+              <code className="font-mono text-sm text-accent whitespace-pre-wrap break-all">{displayExample}</code>
             </div>
           )}
         </div>
