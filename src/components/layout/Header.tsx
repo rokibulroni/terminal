@@ -151,7 +151,7 @@ export function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
           : "border-border/50 bg-background/80 backdrop-blur-md",
         !isVisible && "-translate-y-full"
       )}>
-        <div className="flex h-16 items-center px-4 lg:px-6 gap-4">
+        <div className="flex h-16 items-center px-2 sm:px-4 lg:px-6 gap-2 sm:gap-4">
           {/* Menu Toggle */}
           <Button
             variant="ghost"
@@ -164,8 +164,8 @@ export function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
           </Button>
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative p-2 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
+            <div className="relative p-1.5 sm:p-2 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
               <Terminal className="h-5 w-5 text-primary transition-transform group-hover:scale-110" />
               <div className="absolute inset-0 rounded-xl blur-lg bg-primary/20 -z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -183,17 +183,14 @@ export function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
           <button
             onClick={() => setCommandPaletteOpen(true)}
             className={cn(
-              "flex-1 max-w-md mx-auto flex items-center gap-3 px-4 py-2.5 rounded-xl",
+              "flex-1 max-w-md mx-auto flex items-center justify-center sm:justify-start gap-2 sm:gap-3 p-2 sm:px-4 sm:py-2.5 rounded-xl",
               "bg-muted/30 border border-border/50 hover:border-primary/40 hover:bg-muted/50",
               "transition-all duration-200 group shadow-sm hover:shadow-md"
             )}
           >
-            <Search className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <Search className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
             <span className="text-sm text-muted-foreground flex-1 text-left hidden sm:inline">
               Search commands...
-            </span>
-            <span className="text-sm text-muted-foreground flex-1 text-left sm:hidden">
-              Search...
             </span>
             <div className="hidden md:flex items-center gap-1 bg-background/80 px-2 py-1 rounded-md border border-border/50">
               <Command className="h-3 w-3 text-muted-foreground" />
@@ -202,13 +199,13 @@ export function Header({ onMenuClick, isSidebarOpen }: HeaderProps) {
           </button>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">
             {/* Favorites */}
             <Link to="/favorites">
               <Button
                 variant="ghost"
                 size="icon"
-                className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-xl hover:bg-primary/10 transition-colors"
+                className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-xl hover:bg-primary/10 transition-colors"
               >
                 <Star className={cn(
                   "h-4 w-4 sm:h-5 sm:w-5 transition-colors",
