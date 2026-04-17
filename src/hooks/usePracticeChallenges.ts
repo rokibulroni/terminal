@@ -27,38 +27,40 @@ export function usePracticeChallenges(): UsePracticeChallengesReturn {
                 const allChallenges: Challenge[] = [];
                 const fetchPromises: Promise<void>[] = [];
 
-                // Iterate through all categories and tools to fetch JSONs
-                for (const [category, tools] of Object.entries(CATEGORY_TOOLS)) {
-                    for (const tool of tools) {
-                        fetchPromises.push(
-                            fetch(`/jsons/${category}/${tool}.json`)
-                                .then(res => {
-                                    if (!res.ok) throw new Error(`Failed to load ${tool}`);
-                                    return res.json();
-                                })
-                                .then(data => {
-                                    if (data.commands && Array.isArray(data.commands)) {
-                                        data.commands.forEach((cmd: any) => {
-                                            // Filter out extremely simple commands if needed, or keep all
-                                            // For now, keeping all valid commands with an explanation
-                                            if (cmd.command && cmd.explanation) {
-                                                allChallenges.push({
-                                                    id: `${tool}-${cmd.id}`,
-                                                    tool: tool,
-                                                    category: category,
-                                                    command: cmd.command,
-                                                    explanation: cmd.explanation,
-                                                    difficulty: 'standard' // Default for now
-                                                });
-                                            }
-                                        });
-                                    }
-                                })
-                                .catch(err => {
-                                    console.warn(`Skipping tool ${tool}:`, err);
-                                    // Don't fail entire load for individual tool failures
-                                })
-                        );
+                // Iterate through all categories, groups, and tools to fetch JSONs
+                for (const [category, groups] of Object.entries(CATEGORY_TOOLS)) {
+                    for (const group of groups as unknown as { groupName: string, tools: string[] }[]) {
+                        for (const tool of group.tools) {
+                            fetchPromises.push(
+                                fetch(`/jsons/${category}/${tool}.json`)
+                                    .then(res => {
+                                        if (!res.ok) throw new Error(`Failed to load ${tool}`);
+                                        return res.json();
+                                    })
+                                    .then(data => {
+                                        if (data.commands && Array.isArray(data.commands)) {
+                                            data.commands.forEach((cmd: any) => {
+                                                // Filter out extremely simple commands if needed, or keep all
+                                                // For now, keeping all valid commands with an explanation
+                                                if (cmd.command && cmd.explanation) {
+                                                    allChallenges.push({
+                                                        id: `${tool}-${cmd.id}`,
+                                                        tool: tool,
+                                                        category: category,
+                                                        command: cmd.command,
+                                                        explanation: cmd.explanation,
+                                                        difficulty: 'standard' // Default for now
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.warn(`Skipping tool ${tool}:`, err);
+                                        // Don't fail entire load for individual tool failures
+                                    })
+                            );
+                        }
                     }
                 }
 
