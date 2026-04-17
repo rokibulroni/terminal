@@ -39,34 +39,36 @@ export function useGlobalSearch() {
       const items: SearchItem[] = [];
       
       // Add all tools to index
-      for (const [category, tools] of Object.entries(CATEGORY_TOOLS)) {
-        for (const tool of tools) {
-          items.push({
-            type: 'tool',
-            category,
-            tool,
-          });
+      for (const [category, groups] of Object.entries(CATEGORY_TOOLS)) {
+        for (const group of groups) {
+          for (const tool of group.tools) {
+            items.push({
+              type: 'tool',
+              category,
+              tool,
+            });
 
-          // Try to fetch and add commands
-          try {
-            const response = await fetch(`/jsons/${category}/${tool}.json`);
-            if (response.ok) {
-              const data = await response.json();
-              if (data.commands) {
-                for (const cmd of data.commands) {
-                  items.push({
-                    type: 'command',
-                    category,
-                    tool,
-                    command: cmd.command,
-                    explanation: cmd.explanation,
-                    commandId: cmd.id,
-                  });
+            // Try to fetch and add commands
+            try {
+              const response = await fetch(`/jsons/${category}/${tool}.json`);
+              if (response.ok) {
+                const data = await response.json();
+                if (data.commands) {
+                  for (const cmd of data.commands) {
+                    items.push({
+                      type: 'command',
+                      category,
+                      tool,
+                      command: cmd.command,
+                      explanation: cmd.explanation,
+                      commandId: cmd.id,
+                    });
+                  }
                 }
               }
+            } catch (e) {
+              // Tool JSON not available yet, skip commands
             }
-          } catch (e) {
-            // Tool JSON not available yet, skip commands
           }
         }
       }
