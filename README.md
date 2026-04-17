@@ -4,8 +4,8 @@
 
 **A sleek, modern, and lightning-fast command reference platform.**
 
-[![GitHub stars](https://img.shields.io/github/stars/rokibulroni/terminal?style=social)](https://github.com/rokibulroni/terminal/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/rokibulroni/terminal?style=social)](https://github.com/rokibulroni/terminal/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/rokibulroni/terminal?style=flat&label=Stars&cacheSeconds=3600)](https://github.com/rokibulroni/terminal/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/rokibulroni/terminal?style=flat&label=Forks&cacheSeconds=3600)](https://github.com/rokibulroni/terminal/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](#)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](#)
