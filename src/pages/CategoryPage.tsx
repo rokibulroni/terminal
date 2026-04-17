@@ -35,17 +35,18 @@ export function CategoryPage() {
   const [tools, setTools] = useState<ToolInfo[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const categoryTools = CATEGORY_TOOLS[category || ''] || [];
+  const categoryGroups = CATEGORY_TOOLS[category || ''] || [];
+  const flatToolSlugs = categoryGroups.flatMap((group: any) => group.tools || []);
   const categoryMeta = CATEGORY_META[category || ''] || { name: category, description: '' };
 
   useEffect(() => {
     async function loadToolsInfo() {
-      if (!category || categoryTools.length === 0) {
+      if (!category || flatToolSlugs.length === 0) {
         setLoading(false);
         return;
       }
       
-      const toolPromises = categoryTools.map(async (toolSlug) => {
+      const toolPromises = flatToolSlugs.map(async (toolSlug: string) => {
         try {
           const response = await fetch(`/jsons/${category}/${toolSlug}.json`);
           const data = await response.json();
@@ -113,7 +114,7 @@ export function CategoryPage() {
             <span className="gradient-text">{categoryMeta.name}</span>
           </h1>
           <Badge variant="secondary" className="font-mono text-sm">
-            {categoryTools.length} tools
+            {flatToolSlugs.length} tools
           </Badge>
         </div>
         <p className="text-muted-foreground max-w-2xl leading-relaxed">
@@ -124,7 +125,7 @@ export function CategoryPage() {
       {/* Tools Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {categoryTools.map((_, i) => (
+          {flatToolSlugs.map((_, i) => (
             <Card key={i} className="animate-pulse">
               <CardHeader>
                 <div className="h-6 bg-muted rounded w-1/2 mb-2" />

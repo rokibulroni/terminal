@@ -1,9 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { cn } from '@/lib/utils';
-import { Terminal, Shield, Mail, Info, Github, Heart, Linkedin, Globe, BookOpen, FileText, AlertTriangle, GitPullRequest, Scale } from 'lucide-react';
+import { Terminal, Shield, Mail, Info, Github, Heart, Linkedin, Globe, BookOpen, FileText, AlertTriangle, GitPullRequest, Scale, ChevronRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 interface LayoutProps {
@@ -18,24 +18,63 @@ const getEmail = () => {
 
 export function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
+  const [isUserPinned, setIsUserPinned] = useState(false);
+
+  // Auto-hide left sidebar on desktop after 10s if not manually pinned
+  useEffect(() => {
+    if (!isUserPinned && isDesktopSidebarOpen) {
+      const timer = setTimeout(() => {
+        setIsDesktopSidebarOpen(false);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [isUserPinned, isDesktopSidebarOpen]);
 
   const handleEmailClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     window.location.href = `mailto:${getEmail()}`;
   }, []);
 
+  const handlePinDesktop = () => {
+    setIsDesktopSidebarOpen(true);
+    setIsUserPinned(true);
+  };
+
+  const handleCloseDesktop = () => {
+    setIsDesktopSidebarOpen(false);
+    setIsUserPinned(false);
+  };
+
   return (
-    <div className="min-h-screen bg-background flex flex-col w-full max-w-[100vw] overflow-x-hidden">
+    <div className="min-h-screen bg-background flex flex-col w-full max-w-[100vw] overflow-x-clip">
       <Header
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         isSidebarOpen={sidebarOpen}
       />
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar 
+        isOpen={sidebarOpen} 
+        onClose={() => setSidebarOpen(false)} 
+        isDesktopOpen={isDesktopSidebarOpen}
+        onCloseDesktop={handleCloseDesktop}
+        isPinned={isUserPinned}
+      />
       
+      {/* Floating Expand Arrow for Desktop Sidebar */}
+      {!isDesktopSidebarOpen && (
+        <button
+          onClick={handlePinDesktop}
+          className="hidden lg:flex fixed top-1/2 left-0 z-40 -translate-y-1/2 p-2 bg-sidebar border border-sidebar-border border-l-0 rounded-r-xl shadow-lg hover:bg-sidebar-accent transition-colors group"
+          aria-label="Expand Sidebar"
+        >
+          <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary" />
+        </button>
+      )}
+
       <main
         className={cn(
           "transition-all duration-300 pt-4 pb-8 flex-1",
-          "lg:ml-64"
+          isDesktopSidebarOpen ? "lg:ml-64" : "lg:ml-0"
         )}
       >
         <div className="container mx-auto px-4 max-w-6xl">
@@ -46,7 +85,7 @@ export function Layout({ children }: LayoutProps) {
       {/* Professional Footer */}
       <footer className={cn(
         "border-t border-border bg-card transition-all duration-300",
-        "lg:ml-64"
+        isDesktopSidebarOpen ? "lg:ml-64" : "lg:ml-0"
       )}>
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Main Footer Content */}

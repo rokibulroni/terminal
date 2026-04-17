@@ -18,29 +18,31 @@ export function useCommandCount(): CommandCountData {
       let total = 0;
       const fetchPromises: Promise<void>[] = [];
 
-      for (const [category, tools] of Object.entries(CATEGORY_TOOLS)) {
-        for (const tool of tools) {
-          const cacheKey = `${category}/${tool}`;
-          
-          if (commandCountCache[cacheKey] !== undefined) {
-            total += commandCountCache[cacheKey];
-          } else {
-            fetchPromises.push(
-              fetch(`/jsons/${category}/${tool}.json`)
-                .then(res => res.json())
-                .then(data => {
-                  const count = data.commands?.length || 0;
-                  commandCountCache[cacheKey] = count;
-                  return count;
-                })
-                .catch(() => {
-                  commandCountCache[cacheKey] = 0;
-                  return 0;
-                })
-                .then(count => {
-                  total += count;
-                })
-            );
+      for (const [category, groups] of Object.entries(CATEGORY_TOOLS)) {
+        for (const group of groups) {
+          for (const tool of group.tools) {
+            const cacheKey = `${category}/${tool}`;
+            
+            if (commandCountCache[cacheKey] !== undefined) {
+              total += commandCountCache[cacheKey];
+            } else {
+              fetchPromises.push(
+                fetch(`/jsons/${category}/${tool}.json`)
+                  .then(res => res.json())
+                  .then(data => {
+                    const count = data.commands?.length || 0;
+                    commandCountCache[cacheKey] = count;
+                    return count;
+                  })
+                  .catch(() => {
+                    commandCountCache[cacheKey] = 0;
+                    return 0;
+                  })
+                  .then(count => {
+                    total += count;
+                  })
+              );
+            }
           }
         }
       }
@@ -55,3 +57,4 @@ export function useCommandCount(): CommandCountData {
 
   return { totalCommands, loading };
 }
+

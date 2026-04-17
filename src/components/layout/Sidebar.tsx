@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { ChevronRight, Network, Globe, Search, Bug, Key, GitBranch, Wifi, FileSearch, Activity, Cloud, Radio, Wrench, Home, Star, Info, BookOpen, Mail, FileText, AlertTriangle, Shield, Smartphone, Box, Cpu, Eye, TerminalSquare, CircuitBoard } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Network, Globe, Search, Bug, Key, GitBranch, Wifi, FileSearch, Activity, Cloud, Radio, Wrench, Home, Star, Info, BookOpen, Mail, FileText, AlertTriangle, Shield, Smartphone, Box, Cpu, Eye, TerminalSquare, CircuitBoard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCategoryTools } from '@/hooks/useCategoryTools';
 import { useFavorites } from '@/hooks/useFavorites';
@@ -9,6 +9,9 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  isDesktopOpen?: boolean;
+  onCloseDesktop?: () => void;
+  isPinned?: boolean;
 }
 
 const CATEGORY_CONFIG = [
@@ -49,7 +52,7 @@ interface CategoryItemProps {
 
 function CategoryItem({ category, isActive, activeTool, onToolClick }: CategoryItemProps) {
   const [isExpanded, setIsExpanded] = useState(isActive);
-  const { tools } = useCategoryTools(category.id);
+  const { groups, totalCount } = useCategoryTools(category.id);
   const Icon = category.icon;
 
   return (
@@ -64,7 +67,7 @@ function CategoryItem({ category, isActive, activeTool, onToolClick }: CategoryI
       >
         <Icon className="h-4 w-4 shrink-0" />
         <span className="flex-1 text-left">{category.name}</span>
-        <span className="text-xs text-muted-foreground font-mono">{tools.length}</span>
+        <span className="text-xs text-muted-foreground font-mono">{totalCount}</span>
         <div className={cn(
           "transition-transform duration-200",
           isExpanded && "rotate-90"
@@ -77,20 +80,30 @@ function CategoryItem({ category, isActive, activeTool, onToolClick }: CategoryI
         "overflow-hidden transition-all duration-200",
         isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
       )}>
-        <div className="ml-4 mt-1 space-y-0.5 border-l border-sidebar-border pl-3 py-1">
-          {tools.map((tool) => (
-            <Link
-              key={tool}
-              to={`/tool/${category.id}/${tool}`}
-              onClick={onToolClick}
-              className={cn(
-                "block px-2 py-1.5 text-sm rounded-md transition-all font-mono",
-                "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                activeTool === tool && "bg-primary/10 text-primary font-medium border-l-2 border-primary -ml-px pl-[7px]"
-              )}
-            >
-              {tool}
-            </Link>
+        <div className="ml-4 mt-1 space-y-2 border-l border-sidebar-border pl-3 py-1">
+          {groups.map((group) => (
+            <div key={group.groupName} className="space-y-0.5">
+              <div className="px-2 pt-3 pb-1.5 flex items-center gap-3">
+                <span className="text-xs font-bold uppercase tracking-widest gradient-text opacity-90">
+                  {group.groupName}
+                </span>
+                <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
+              </div>
+              {group.tools.map((tool) => (
+                <Link
+                  key={tool}
+                  to={`/tool/${category.id}/${tool}`}
+                  onClick={onToolClick}
+                  className={cn(
+                    "block px-2 py-1.5 text-sm rounded-md transition-all font-mono",
+                    "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    activeTool === tool && "bg-primary/10 text-primary font-medium border-l-2 border-primary -ml-px pl-[7px]"
+                  )}
+                >
+                  {tool}
+                </Link>
+              ))}
+            </div>
           ))}
         </div>
       </div>
@@ -98,7 +111,7 @@ function CategoryItem({ category, isActive, activeTool, onToolClick }: CategoryI
   );
 }
 
-export function Sidebar({ isOpen, onClose }: SidebarProps) {
+export function Sidebar({ isOpen, onClose, isDesktopOpen = true, onCloseDesktop, isPinned = false }: SidebarProps) {
   const location = useLocation();
   const params = useParams();
   const currentCategory = params.category;
@@ -119,11 +132,31 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside
         className={cn(
           "fixed top-14 left-0 z-40 h-[calc(100vh-3.5rem)] w-64 border-r border-sidebar-border bg-sidebar/95 backdrop-blur-xl transition-transform duration-300",
-          "lg:translate-x-0",
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? "translate-x-0" : "-translate-x-full",
+          isDesktopOpen ? "lg:translate-x-0" : "lg:-translate-x-full"
         )}
       >
         <div className="h-full overflow-y-auto py-4 px-3 pb-20 custom-scrollbar">
+          {/* Desktop Controls */}
+          {onCloseDesktop && (
+            <div className="hidden lg:flex items-center justify-between px-3 pb-2 mb-2 border-b border-sidebar-border">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                {isPinned ? (
+                  <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> Pinned</span>
+                ) : (
+                  "Auto-Hide Mode"
+                )}
+              </span>
+              <button
+                onClick={onCloseDesktop}
+                className="p-1 rounded-md hover:bg-sidebar-accent text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Collapse Sidebar"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+
           {/* Navigation Links */}
           <div className="space-y-1 mb-4">
             <Link

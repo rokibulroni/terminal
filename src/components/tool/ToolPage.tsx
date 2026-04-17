@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Search, Filter, FileJson, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Search, FileJson, ChevronRight, ChevronLeft, ListTree } from 'lucide-react';
 import { useToolData } from '@/hooks/useToolData';
 import { useRecentTools } from '@/hooks/useFavorites';
 import { CommandCard } from './CommandCard';
@@ -9,15 +9,16 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
 import { cn } from '@/lib/utils';
-
-const ITEMS_PER_PAGE = 20;
+import { createPortal } from 'react-dom';
 
 export function ToolPage() {
   const { category, tool: toolName } = useParams<{ category: string; tool: string }>();
@@ -25,8 +26,20 @@ export function ToolPage() {
   const { addRecent } = useRecentTools();
   
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [activeCategory, setActiveCategory] = useState<string>('');
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Auto-scroll Drawer to active category when opened
+  useEffect(() => {
+    if (drawerOpen && activeCategory) {
+      setTimeout(() => {
+        const activeItem = document.getElementById(`drawer-item-${activeCategory}`);
+        if (activeItem) {
+          activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 200); // wait for drawer animation to finish (vaul uses ~150-200ms)
+    }
+  }, [drawerOpen, activeCategory]);
 
   // Track recent view
   useEffect(() => {
@@ -35,46 +48,37 @@ export function ToolPage() {
     }
   }, [category, toolName, tool, addRecent]);
 
-  // Reset page on filter change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedCategory]);
-
-  // Reset filters when switching to a new tool
-  useEffect(() => {
-    setSelectedCategory('all');
-    setSearchQuery('');
-  }, [toolName]);
-
-  // Get unique categories from commands
-  const commandCategories = useMemo(() => {
-    if (!tool) return [];
-    const cats = new Set(tool.commands.map(cmd => cmd.category));
-    return Array.from(cats).sort();
-  }, [tool]);
-
-  // Filter commands
-  const filteredCommands = useMemo(() => {
-    if (!tool) return [];
+  // Group commands by category based on search
+  const groupedCommands = useMemo(() => {
+    if (!tool) return {};
     
-    return tool.commands.filter(cmd => {
-      const matchesSearch = searchQuery === '' || 
+    const filtered = tool.commands.filter(cmd => {
+      return searchQuery === '' || 
         cmd.command.toLowerCase().includes(searchQuery.toLowerCase()) ||
         cmd.explanation.toLowerCase().includes(searchQuery.toLowerCase()) ||
         cmd.category.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      const matchesCategory = selectedCategory === 'all' || cmd.category === selectedCategory;
-      
-      return matchesSearch && matchesCategory;
     });
-  }, [tool, searchQuery, selectedCategory]);
 
-  // Pagination
-  const totalPages = Math.ceil(filteredCommands.length / ITEMS_PER_PAGE);
-  const paginatedCommands = filteredCommands.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+    const groups: Record<string, typeof tool.commands> = {};
+    filtered.forEach(cmd => {
+      if (!groups[cmd.category]) groups[cmd.category] = [];
+      groups[cmd.category].push(cmd);
+    });
+    
+    return groups;
+  }, [tool, searchQuery]);
+
+  // Extract ordered categories
+  const displayCategories = useMemo(() => {
+    return Object.keys(groupedCommands).sort();
+  }, [groupedCommands]);
+
+  // Initialize first category as active by default if none clicked
+  useEffect(() => {
+    if (displayCategories.length > 0 && !activeCategory) {
+      setActiveCategory(`category-${displayCategories[0].replace(/[^a-zA-Z0-9]/g, '-')}`);
+    }
+  }, [displayCategories, activeCategory]);
 
   if (loading) {
     return (
@@ -88,7 +92,6 @@ export function ToolPage() {
         <Skeleton className="h-4 w-96" />
         <div className="flex gap-4">
           <Skeleton className="h-10 flex-1" />
-          <Skeleton className="h-10 w-48" />
         </div>
         <div className="grid gap-4">
           {[1, 2, 3].map(i => (
@@ -122,7 +125,7 @@ export function ToolPage() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in relative">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm">
         <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
@@ -147,124 +150,167 @@ export function ToolPage() {
         <p className="text-muted-foreground max-w-2xl leading-relaxed">{tool.description}</p>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        {/* Search */}
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Filter commands..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 bg-muted/30"
-          />
-        </div>
+      <div className="flex flex-col lg:flex-row gap-8 items-start relative">
+        <div className="flex-1 w-full min-w-0 space-y-8">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search in commands or explanations..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 bg-muted/30"
+            />
+          </div>
 
-        {/* Category Filter */}
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger className="w-full sm:w-fit sm:min-w-[200px] sm:max-w-[400px] bg-muted/30">
-            <Filter className="h-4 w-4 mr-2 text-muted-foreground" />
-            <SelectValue placeholder="All Categories" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
-            {commandCategories.map(cat => (
-              <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+          {/* Mobile TOC - Edge Floating Drawer Trigger */}
+          {displayCategories.length > 0 && typeof document !== 'undefined' && createPortal(
+            <div className="lg:hidden fixed top-1/2 right-0 z-[100] -translate-y-1/2">
+              <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+                <DrawerTrigger asChild>
+                  <button 
+                    className="p-2.5 bg-sidebar border border-sidebar-border border-r-0 rounded-l-xl shadow-2xl hover:bg-sidebar-accent transition-colors group flex items-center justify-center outline-none"
+                    aria-label="Expand Table of Contents"
+                  >
+                    <ChevronLeft className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </button>
+                </DrawerTrigger>
+                <DrawerContent className="max-h-[85vh]">
+                  <DrawerHeader className="border-b border-border/50 pb-4 text-left">
+                    <DrawerTitle>On this page</DrawerTitle>
+                    <DrawerDescription>Jump directly to a specific command category.</DrawerDescription>
+                  </DrawerHeader>
+                  <div className="overflow-y-auto p-4 custom-scrollbar">
+                    <div className="grid gap-2 mb-8">
+                       {displayCategories.map(cat => {
+                         const catId = `category-${cat.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                         const isActive = activeCategory === catId;
 
-      {/* Results Count */}
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>
-          Showing {paginatedCommands.length} of {filteredCommands.length} commands
-          {filteredCommands.length !== tool.total_commands && ` (filtered from ${tool.total_commands})`}
-        </span>
-        {totalPages > 1 && (
-          <span>Page {currentPage} of {totalPages}</span>
-        )}
-      </div>
+                         return (
+                           <DrawerClose key={cat} asChild>
+                             <Button 
+                               id={`drawer-item-${catId}`}
+                               variant="outline"
+                               className={cn(
+                                 "justify-between w-full h-auto py-3.5 px-4 transition-all shadow-sm",
+                                 isActive 
+                                   ? "bg-primary/10 text-primary border-primary/50 border-l-4 font-bold" 
+                                   : "font-normal hover:bg-primary/10 hover:text-primary border-border bg-card"
+                               )}
+                               onClick={() => {
+                                 setActiveCategory(catId);
+                                 setTimeout(() => {
+                                   document.getElementById(catId)?.scrollIntoView({ behavior: 'smooth' });
+                                 }, 150);
+                               }}
+                             >
+                               <span className="truncate pr-4 text-sm">{cat}</span>
+                               <Badge variant={isActive ? "default" : "secondary"} className="shrink-0">
+                                 {groupedCommands[cat].length}
+                               </Badge>
+                             </Button>
+                           </DrawerClose>
+                         );
+                       })}
+                    </div>
+                  </div>
+                </DrawerContent>
+              </Drawer>
+            </div>,
+            document.body
+          )}
 
-      {/* Content */}
-      <div className="grid gap-4">
-            {paginatedCommands.length === 0 ? (
-              <div className="text-center py-12">
-                <Search className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
-                <p className="text-muted-foreground">No commands match your filters.</p>
-                <Button 
-                  variant="link" 
-                  onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
-                  className="mt-2"
-                >
-                  Clear filters
-                </Button>
-              </div>
-            ) : (
-              paginatedCommands.map(cmd => (
-                <CommandCard 
-                  key={cmd.id} 
-                  command={cmd} 
-                  toolName={toolName || ''}
-                  toolDisplayName={tool.tool}
-                  category={category || ''}
-                />
-              ))
+          {/* Results Count */}
+          <div className="text-sm text-muted-foreground">
+            {searchQuery && (
+              <span>
+                Found {Object.values(groupedCommands).reduce((acc, cmds) => acc + cmds.length, 0)} commands matching your search
+              </span>
             )}
           </div>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-              >
-                <ChevronLeft className="h-4 w-4" />
-                Previous
-              </Button>
-              
-              <div className="flex items-center gap-1">
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  let pageNum;
-                  if (totalPages <= 5) {
-                    pageNum = i + 1;
-                  } else if (currentPage <= 3) {
-                    pageNum = i + 1;
-                  } else if (currentPage >= totalPages - 2) {
-                    pageNum = totalPages - 4 + i;
-                  } else {
-                    pageNum = currentPage - 2 + i;
-                  }
-                  
+          {/* Content Grouped by Category */}
+          <div className="space-y-12">
+            {displayCategories.length === 0 ? (
+              <div className="text-center py-12 border rounded-xl bg-card/50">
+                <Search className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
+                <p className="text-muted-foreground">No commands match your search.</p>
+                <Button 
+                  variant="link" 
+                  onClick={() => setSearchQuery('')}
+                  className="mt-2"
+                >
+                  Clear search
+                </Button>
+              </div>
+            ) : (
+              displayCategories.map(cat => (
+                <div key={cat} id={`category-${cat.replace(/[^a-zA-Z0-9]/g, '-')}`} className="scroll-mt-24 space-y-4">
+                  <h2 className="text-xl font-bold font-mono pb-2 border-b border-border text-foreground">
+                    <span className="text-primary mr-2">#</span>{cat}
+                  </h2>
+                  <div className="grid gap-4">
+                    {groupedCommands[cat].map(cmd => (
+                      <CommandCard 
+                        key={cmd.id} 
+                        command={cmd} 
+                        toolName={toolName || ''}
+                        toolDisplayName={tool.tool}
+                        category={category || ''}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
+        {/* Right Sidebar TOC - Hidden on Mobile */}
+        {displayCategories.length > 0 && (
+          <div className="hidden lg:block w-64 shrink-0 sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto custom-scrollbar pb-8">
+            <div className="p-4 rounded-xl border border-border bg-card/50 backdrop-blur-sm">
+              <h3 className="font-bold mb-4 flex items-center text-sm uppercase tracking-widest text-muted-foreground">
+                On this page
+              </h3>
+              <nav className="space-y-1">
+                {displayCategories.map(cat => {
+                  const catId = `category-${cat.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                  const isActive = activeCategory === catId;
+
                   return (
-                    <Button
-                      key={pageNum}
-                      variant={currentPage === pageNum ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setCurrentPage(pageNum)}
-                      className="w-9"
+                    <a 
+                      key={cat} 
+                      href={`#${catId}`}
+                      className={cn(
+                        "group flex gap-2 items-center px-2 py-1.5 text-sm rounded-md transition-colors",
+                        isActive 
+                          ? "bg-primary/10 text-primary font-bold relative after:absolute after:left-0 after:top-1/2 after:-translate-y-1/2 after:h-4 after:w-1.5 after:bg-primary after:rounded-r-md"
+                          : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
+                      )}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveCategory(catId);
+                        document.getElementById(catId)?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                     >
-                      {pageNum}
-                    </Button>
+                      <ChevronRight className={cn(
+                        "h-3 w-3 transition-all",
+                        isActive ? "opacity-100 ml-0" : "opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0"
+                      )} />
+                      <span className="flex-1 truncate">{cat}</span>
+                      <Badge variant={isActive ? "default" : "secondary"} className="text-[10px] px-1.5 py-0 min-w-5 justify-center">
+                        {groupedCommands[cat].length}
+                      </Badge>
+                    </a>
                   );
                 })}
-              </div>
-              
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-              >
-                Next
-                <ChevronRight className="h-4 w-4" />
-              </Button>
+              </nav>
             </div>
-          )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

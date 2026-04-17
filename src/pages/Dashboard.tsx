@@ -231,7 +231,7 @@ export function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {CATEGORY_CONFIG.map(category => {
             const Icon = category.icon;
-            const toolCount = CATEGORY_TOOLS[category.id]?.length || 0;
+            const toolCount = CATEGORY_TOOLS[category.id]?.reduce((acc, group) => acc + group.tools.length, 0) || 0;
             const style = CATEGORY_STYLES[category.id];
 
             return (
@@ -287,8 +287,8 @@ export function Dashboard() {
         </div>
         <div className="flex flex-wrap gap-2">
           {['nmap', 'gobuster', 'john', 'metasploit', 'sqlmap', 'hydra', 'nikto', 'wireshark-cli', 'burpsuite', 'hashcat', 'nuclei', 'ffuf'].map(tool => {
-            const category = Object.entries(CATEGORY_TOOLS).find(([_, tools]) =>
-              tools.includes(tool)
+            const category = Object.entries(CATEGORY_TOOLS).find(([_, groups]) =>
+              groups.some(group => group.tools.includes(tool))
             )?.[0] || 'network';
 
             return (
