@@ -74,6 +74,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   // Highlight matched text
   const highlightMatch = (text: string, searchQuery: string) => {
+    if (!text || typeof text !== 'string') return text;
     if (!searchQuery) return text;
     const regex = new RegExp(`(${searchQuery})`, 'gi');
     const parts = text.split(regex);

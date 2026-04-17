@@ -54,9 +54,9 @@ export function ToolPage() {
     
     const filtered = tool.commands.filter(cmd => {
       return searchQuery === '' || 
-        cmd.command.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        cmd.explanation.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        cmd.category.toLowerCase().includes(searchQuery.toLowerCase());
+        (cmd.command || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (cmd.explanation || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (cmd.category || '').toLowerCase().includes(searchQuery.toLowerCase());
     });
 
     const groups: Record<string, typeof tool.commands> = {};
