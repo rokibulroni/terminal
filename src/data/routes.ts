@@ -14,6 +14,7 @@ export const STATIC_ROUTES: StaticRoute[] = [
   { path: '/glossary', index: true, priority: 0.6, changefreq: 'monthly' },
   { path: '/practice', index: true, priority: 0.6, changefreq: 'monthly' },
   { path: '/developers', index: true, priority: 0.5, changefreq: 'monthly' },
+  { path: '/agents', index: true, priority: 0.6, changefreq: 'monthly' },
   { path: '/how-to-use', index: true, priority: 0.5, changefreq: 'monthly' },
   { path: '/about', index: true, priority: 0.4, changefreq: 'yearly' },
   { path: '/contribute', index: true, priority: 0.4, changefreq: 'yearly' },
@@ -30,3 +31,14 @@ export const categoryPath = (id: string) => `/category/${id}`;
 export const guidePath = (slug: string) => `/guide/${slug}`;
 export const toolApiPath = (category: string, slug: string) => `/api/v1/tools/${category}/${slug}.json`;
 export const toolMarkdownPath = (category: string, slug: string) => `/api/v1/tools/${category}/${slug}.md`;
+export const guideApiPath = (slug: string) => `/api/v1/guides/${slug}.json`;
+export const guideMarkdownPath = (slug: string) => `/api/v1/guides/${slug}.md`;
+
+/** Agent skills (Agent Skills format: a folder with SKILL.md). */
+export const MASTER_SKILL = 'terminal-hub';
+export const skillName = (categoryId: string) => `${MASTER_SKILL}-${categoryId}`;
+export const ALL_SKILLS_ARCHIVE = `${MASTER_SKILL}-all`;
+export const skillZipPath = (name: string) => `/skills/archives/${name}.zip`;
+export const skillTarPath = (name: string) => `/skills/archives/${name}.tar.gz`;
+export const SKILL_INSTALLER_PATH = '/skills/install.sh';
+export const MCP_PATH = '/mcp';

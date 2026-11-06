@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronRight, Home, Star, BookOpen, GraduationCap, BookA, PanelLeftClose } from 'lucide-react';
+import { ChevronRight, Home, Star, BookOpen, GraduationCap, BookA, Bot, PanelLeftClose } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { manifest } from '@/lib/data';
 import { useFavorites } from '@/hooks/useFavorites';
@@ -21,6 +21,7 @@ const PRIMARY_LINKS = [
   { to: '/guides', label: 'Guides', icon: BookOpen },
   { to: '/practice', label: 'Practice', icon: GraduationCap },
   { to: '/glossary', label: 'Glossary', icon: BookA },
+  { to: '/agents', label: 'AI agents', icon: Bot },
 ];
 
 /** Parse /category/:id and /tool/:category/:slug from the path (Sidebar lives outside <Routes>). */

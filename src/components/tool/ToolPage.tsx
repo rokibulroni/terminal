@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { Search, X, ExternalLink, BookOpen, FileText, Braces, ListTree, ChevronLeft, ChevronRight, RotateCw, AlertTriangle } from 'lucide-react';
+import { Search, X, ExternalLink, BookOpen, FileText, Braces, ListTree, ChevronLeft, ChevronRight, RotateCw, AlertTriangle, Bot } from 'lucide-react';
 import { useTool, getCategory, getToolSummary, getAdjacentTools, getRelatedTools } from '@/lib/data';
 import { useRecentTools } from '@/hooks/useFavorites';
 import { CommandCard } from './CommandCard';
@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger, DrawerClose } from '@/components/ui/drawer';
 import { breadcrumbLd, techArticleLd } from '@/lib/structured-data';
-import { toolApiPath, toolMarkdownPath } from '@/data/routes';
+import { skillName, toolApiPath, toolMarkdownPath } from '@/data/routes';
 import { GUIDES } from '@/data/guides';
 import NotFound from '@/pages/NotFound';
 import { cn } from '@/lib/utils';
@@ -184,6 +184,11 @@ function ToolPageInner({ category, slug }: { category: string; slug: string }) {
             <a href={toolApiPath(category, slug)} title="This page as JSON">
               <Braces className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" /> JSON
             </a>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="rounded-lg text-muted-foreground">
+            <Link to="/agents#skills" title={`Use ${summary.name} in Claude Code, Codex or Cursor via the ${skillName(category)} skill or MCP`}>
+              <Bot className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" /> Use with AI agents
+            </Link>
           </Button>
         </div>
       </header>

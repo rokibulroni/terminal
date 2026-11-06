@@ -7,6 +7,9 @@
  *   public/api/v1/tools/<cat>/<slug>.json full tool data
  *   public/api/v1/tools/<cat>/<slug>.md   markdown alternate (for agents)
  *   public/api/v1/search-index.json       compact client search index
+ *   public/api/v1/guides/*, public/api/v1/glossary.{json,md}
+ *   public/skills/**                      Agent Skills + archives + installer
+ *   public/.well-known/mcp.json           MCP server discovery card
  *   public/sitemap.xml, public/llms.txt, public/llms-full.txt
  *
  * Usage: node scripts/build-data.ts [--check]
@@ -20,7 +23,12 @@ import { z } from 'zod';
 import { CATEGORIES, SITE, FEATURED_TOOLS, REDIRECTS } from '../src/data/registry.ts';
 import { GUIDES } from '../src/data/guides.ts';
 import { GLOSSARY } from '../src/data/glossary.ts';
-import { STATIC_ROUTES, toolPath, categoryPath, guidePath, toolApiPath, toolMarkdownPath } from '../src/data/routes.ts';
+import {
+  STATIC_ROUTES, toolPath, categoryPath, guidePath, toolApiPath, toolMarkdownPath, guideApiPath, guideMarkdownPath,
+  MASTER_SKILL, ALL_SKILLS_ARCHIVE, skillZipPath, skillTarPath, SKILL_INSTALLER_PATH, MCP_PATH,
+} from '../src/data/routes.ts';
+import { buildSkills, validateSkills, guideToMarkdown, glossaryToMarkdown } from './lib/agents.ts';
+import { zip, tarGz, type ArchiveEntry } from './lib/archive.ts';
 import type { Manifest, SearchIndex, Tool, ToolSource, ToolSummary } from '../src/data/types.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -223,14 +231,14 @@ const manifest: Manifest = {
 };
 
 // ───────────────────────────── Writers ─────────────────────────────
-const write = (rel: string, content: string) => {
+const write = (rel: string, content: string | Uint8Array) => {
   const abs = join(ROOT, rel);
   mkdirSync(dirname(abs), { recursive: true });
   writeFileSync(abs, content);
 };
 const json = (v: unknown) => JSON.stringify(v);
 
-if (existsSync(join(ROOT, 'public/api/v1'))) rmSync(join(ROOT, 'public/api/v1'), { recursive: true });
+for (const dir of ['public/api/v1', 'public/skills']) if (existsSync(join(ROOT, dir))) rmSync(join(ROOT, dir), { recursive: true });
 
 write('src/data/generated/manifest.json', json(manifest));
 write('public/api/v1/manifest.json', JSON.stringify(manifest, null, 2));
@@ -281,6 +289,94 @@ for (const t of tools.values()) {
   write(`public${toolMarkdownPath(t.category, t.slug)}`, toMarkdown(t));
 }
 
+// Guides + glossary API
+write(
+  'public/api/v1/guides/index.json',
+  JSON.stringify(
+    GUIDES.map(({ steps, intro: _i, outro: _o, ...g }) => ({
+      ...g,
+      steps: steps.length,
+      url: SITE.url + guidePath(g.slug),
+      json: SITE.url + guideApiPath(g.slug),
+      markdown: SITE.url + guideMarkdownPath(g.slug),
+    })),
+    null,
+    2,
+  ),
+);
+for (const g of GUIDES) {
+  write(`public${guideApiPath(g.slug)}`, JSON.stringify({ ...g, url: SITE.url + guidePath(g.slug), markdown: SITE.url + guideMarkdownPath(g.slug) }));
+  write(`public${guideMarkdownPath(g.slug)}`, guideToMarkdown(g, SITE, tools));
+}
+const glossaryMd = glossaryToMarkdown(GLOSSARY, SITE, tools);
+write('public/api/v1/glossary.json', JSON.stringify(GLOSSARY.map((t) => ({ ...t, url: `${SITE.url}/glossary#${t.slug}` }))));
+write('public/api/v1/glossary.md', glossaryMd);
+
+// Agent Skills: one folder per skill, plus .zip (for upload) and .tar.gz (for the installer)
+const skills = buildSkills({ site: SITE, manifest, tools, guides: GUIDES, glossary: GLOSSARY, toMarkdown });
+const skillErrors = validateSkills(skills);
+if (skillErrors.length) {
+  for (const e of skillErrors) console.error(`  error ${e}`);
+  process.exit(1);
+}
+const allEntries: ArchiveEntry[] = [];
+for (const s of skills) {
+  const entries = s.files.map((f) => ({ path: `${s.name}/${f.path}`, content: f.content }));
+  allEntries.push(...entries);
+  for (const e of entries) write(`public/skills/${e.path}`, e.content);
+  write(`public${skillZipPath(s.name)}`, zip(entries));
+  write(`public${skillTarPath(s.name)}`, tarGz(entries));
+}
+write(`public${skillZipPath(ALL_SKILLS_ARCHIVE)}`, zip(allEntries));
+write(`public${skillTarPath(ALL_SKILLS_ARCHIVE)}`, tarGz(allEntries));
+write(
+  'public/skills/index.json',
+  JSON.stringify(
+    {
+      version: 1,
+      format: 'https://agentskills.io/specification',
+      installer: SITE.url + SKILL_INSTALLER_PATH,
+      all: { zip: SITE.url + skillZipPath(ALL_SKILLS_ARCHIVE), tar: SITE.url + skillTarPath(ALL_SKILLS_ARCHIVE) },
+      skills: skills.map((s) => ({
+        name: s.name,
+        title: s.title,
+        description: s.description,
+        ...(s.category && { category: s.category }),
+        tools: s.toolCount,
+        commands: s.commandCount,
+        files: s.files.map((f) => `${SITE.url}/skills/${s.name}/${f.path}`),
+        zip: SITE.url + skillZipPath(s.name),
+        tar: SITE.url + skillTarPath(s.name),
+      })),
+    },
+    null,
+    2,
+  ),
+);
+const skillOrder = [MASTER_SKILL, ...skills.map((s) => s.name).filter((n) => n !== MASTER_SKILL)];
+write(
+  `public${SKILL_INSTALLER_PATH}`,
+  readFileSync(join(ROOT, 'scripts/templates/install-skills.sh'), 'utf8').replaceAll('__BASE_URL__', SITE.url).replace('__SKILLS__', skillOrder.join(' ')),
+);
+
+// MCP discovery card
+write(
+  'public/.well-known/mcp.json',
+  JSON.stringify(
+    {
+      name: MASTER_SKILL,
+      title: `${SITE.name} command reference`,
+      description: SITE.description,
+      url: SITE.url + MCP_PATH,
+      transport: 'streamable-http',
+      authentication: 'none',
+      documentation: `${SITE.url}/agents`,
+    },
+    null,
+    2,
+  ),
+);
+
 // Search index
 const toolList = [...tools.values()];
 const index: SearchIndex = {
@@ -325,10 +421,18 @@ const llms = [
   `- Tool data: \`${SITE.url}/api/v1/tools/{category}/{slug}.json\` (JSON) or \`.md\` (Markdown)`,
   `- [OpenAPI description](${SITE.url}/api/openapi.json)`,
   `- [Full text for LLMs](${SITE.url}/llms-full.txt)`,
+  `- Guides: [index](${SITE.url}/api/v1/guides/index.json), each as \`${SITE.url}/api/v1/guides/{slug}.md\``,
+  `- [Glossary](${SITE.url}/api/v1/glossary.md)`,
+  '',
+  'Agent integrations:',
+  '',
+  `- MCP server (streamable HTTP, no auth): \`${SITE.url}${MCP_PATH}\``,
+  `- [Agent Skills](${SITE.url}/skills/index.json): install with \`curl -fsSL ${SITE.url}${SKILL_INSTALLER_PATH} | sh\``,
+  `- [Setup guide for Claude Code, Codex, Cursor and VS Code](${SITE.url}/agents)`,
   '',
   '## Guides',
   '',
-  ...GUIDES.map((g) => `- [${g.title}](${SITE.url}${guidePath(g.slug)}): ${g.description}`),
+  ...GUIDES.map((g) => `- [${g.title}](${SITE.url}${guideMarkdownPath(g.slug)}): ${g.description}`),
   ...(GUIDES.length ? [] : ['- (none yet)']),
   '',
   ...manifest.categories.flatMap((c) => [
@@ -344,7 +448,7 @@ const llms = [
   ]),
   '## Optional',
   '',
-  `- [Glossary](${SITE.url}/glossary): definitions of security and networking terms`,
+  `- [Glossary](${SITE.url}/api/v1/glossary.md): definitions of security and networking terms`,
   `- [Developers](${SITE.url}/developers): API documentation`,
   `- [Source code](${SITE.repo})`,
   '',
@@ -359,6 +463,8 @@ const llmsFull = [
   `Generated ${today}. ${tools.size} tools, ${commandTotal} commands. Source: ${SITE.url}`,
   '',
   ...toolList.map((t) => toMarkdown(t).replace(/^# /, '# Tool: ')),
+  ...GUIDES.map((g) => guideToMarkdown(g, SITE, tools).replace(/^# /, '# Guide: ')),
+  glossaryMd,
 ].join('\n');
 write('public/llms-full.txt', llmsFull);
 
@@ -374,4 +480,6 @@ const redirects = [
 ].join('\n');
 write('public/_redirects', redirects);
 
-console.log(`data: wrote manifest, ${tools.size} tool files (+markdown), search index, sitemap (${urls.length} urls), llms.txt`);
+console.log(
+  `data: wrote manifest, ${tools.size} tool files (+markdown), ${GUIDES.length} guides, glossary, ${skills.length} skills, search index, sitemap (${urls.length} urls), llms.txt`,
+);
