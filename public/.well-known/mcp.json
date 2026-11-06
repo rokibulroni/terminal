@@ -1,0 +1,9 @@
+{
+  "name": "terminal-hub",
+  "title": "Terminal command reference",
+  "description": "Searchable, copy-ready command references for penetration testing, network analysis, forensics, cloud security and Linux administration — with explanations for every command.",
+  "url": "https://terminal.rokibulroni.com/mcp",
+  "transport": "streamable-http",
+  "authentication": "none",
+  "documentation": "https://terminal.rokibulroni.com/agents"
+}
