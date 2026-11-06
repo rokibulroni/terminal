@@ -1,139 +1,45 @@
 import { Link } from 'react-router-dom';
-import { Terminal, Github, ExternalLink, Shield, Zap, Heart, Code2, Users, GitPullRequest } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { StaticPage } from '@/components/common/StaticPage';
+import { manifest } from '@/lib/data';
+import { SITE } from '@/data/registry';
 
 export function AboutPage() {
+  const { tools, commands, categories } = manifest.totals;
   return (
-    <div className="space-y-12 animate-fade-in max-w-3xl mx-auto">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex justify-center">
-          <div className="relative p-4 rounded-2xl bg-primary/10 border border-primary/20">
-            <Terminal className="h-12 w-12 text-primary" />
-            <div className="absolute inset-0 blur-xl bg-primary/20 -z-10" />
-          </div>
-        </div>
-        <h1 className="text-4xl font-bold font-mono gradient-text">Terminal</h1>
-        <p className="text-xl text-muted-foreground">
-          Cybersecurity Command Reference Hub
-        </p>
-      </div>
+    <StaticPage
+      seo={{ title: 'About', description: `Terminal is a free, open-source reference of ${commands.toLocaleString('en-US')} explained commands for security work, built by ${SITE.author.name}.`, path: '/about' }}
+      eyebrow="About"
+      title="A reference you can actually read"
+      lead="Terminal collects the commands security people reach for every day and explains each one in plain English — so you understand what you are about to run, not just how to type it."
+    >
+      <h2>What’s here</h2>
+      <p>
+        {commands.toLocaleString('en-US')} commands across {tools} tools in {categories} categories, from network discovery and web testing to memory forensics,
+        cloud auditing and everyday Linux. Every command has a copy-ready form, an example and an explanation. <Link to="/guides">Guides</Link> string tools into
+        complete workflows, the <Link to="/glossary">glossary</Link> defines the jargon, and <Link to="/practice">practice mode</Link> helps it stick.
+      </p>
 
-      {/* Description */}
-      <div className="terminal-card p-6 space-y-4">
-        <p className="text-muted-foreground leading-relaxed">
-          <strong className="text-foreground">Terminal</strong> is a professional-grade cybersecurity command reference 
-          website designed for security students, professionals, red teamers, blue teamers, 
-          SOC analysts, and DevSecOps engineers.
-        </p>
-        <p className="text-muted-foreground leading-relaxed">
-          Built with a cyberpunk hacker aesthetic while maintaining professional readability, 
-          Terminal serves as your centralized hub for discovering, learning, and referencing 
-          security tool commands.
-        </p>
-      </div>
+      <h2>Who it’s for</h2>
+      <ul>
+        <li>Penetration testers and red teamers who want a fast, searchable cheat sheet.</li>
+        <li>SOC analysts, incident responders and blue teamers who need to know what an attacker’s command does.</li>
+        <li>Students and CTF players building muscle memory.</li>
+        <li>System administrators and DevSecOps engineers working in the terminal all day.</li>
+      </ul>
 
-      {/* Features */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="terminal-card p-5 space-y-2">
-          <div className="flex items-center gap-2 text-primary">
-            <Zap className="h-5 w-5" />
-            <h3 className="font-semibold">Fast Search</h3>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Fuzzy search across all tools and commands with keyboard navigation support.
-          </p>
-        </div>
-        
-        <div className="terminal-card p-5 space-y-2">
-          <div className="flex items-center gap-2 text-accent">
-            <Code2 className="h-5 w-5" />
-            <h3 className="font-semibold">JSON Driven</h3>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            All content loaded from structured JSON files. Easy to extend and maintain.
-          </p>
-        </div>
-        
-        <div className="terminal-card p-5 space-y-2">
-          <div className="flex items-center gap-2 text-success">
-            <Shield className="h-5 w-5" />
-            <h3 className="font-semibold">18 Categories</h3>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Organized coverage of Cloud, IoT, Mobile, Reverse Engineering, OSINT, and more.
-          </p>
-        </div>
-        
-        <div className="terminal-card p-5 space-y-2">
-          <div className="flex items-center gap-2 text-warning">
-            <Heart className="h-5 w-5" />
-            <h3 className="font-semibold">Favorites</h3>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Bookmark frequently used commands for quick access. Stored locally.
-          </p>
-        </div>
-      </div>
+      <h2>Principles</h2>
+      <ul>
+        <li><strong>Explain, don’t just list.</strong> A command without context is a liability.</li>
+        <li><strong>Fast and private.</strong> No accounts, no tracking, no ads. Favourites and settings stay in your browser.</li>
+        <li><strong>Open.</strong> The content and code are MIT-licensed, and every page is also available as <Link to="/developers">JSON and Markdown</Link>.</li>
+        <li><strong>Responsible.</strong> Everything here is for learning and authorised testing — see the <Link to="/disclaimer">disclaimer</Link>.</li>
+      </ul>
 
-      {/* Target Audience */}
-      <div className="terminal-card p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <Users className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-semibold">Built For</h2>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {[
-            'Penetration Testers',
-            'Security Researchers',
-            'SOC Analysts',
-            'Red Team Operators',
-            'Blue Team Defenders',
-            'DevSecOps Engineers',
-            'CTF Players',
-            'Security Students',
-          ].map(role => (
-            <span 
-              key={role}
-              className="px-3 py-1.5 rounded-full bg-muted text-sm border border-border"
-            >
-              {role}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Contribute Section */}
-      <div className="terminal-card p-8 border-l-4 border-l-accent flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <GitPullRequest className="h-6 w-6 text-accent" />
-            <h2 className="text-xl font-bold">Open Source & Community Driven</h2>
-          </div>
-          <p className="text-muted-foreground text-sm max-w-lg">
-            Terminal is fully open-source and welcomes contributions! Learn how you can append new command arrays or build upon the frontend architecture to support the cybersecurity community.
-          </p>
-        </div>
-        <Link to="/contribute" className="shrink-0">
-          <Button variant="outline" className="font-mono">
-            <Code2 className="h-4 w-4 mr-2" />
-            How to Contribute
-          </Button>
-        </Link>
-      </div>
-
-      {/* Footer CTA */}
-      <div className="text-center space-y-4">
-        <Link to="/">
-          <Button size="lg" className="font-mono">
-            <Terminal className="h-4 w-4 mr-2" />
-            Start Exploring
-          </Button>
-        </Link>
-        <p className="text-sm text-muted-foreground">
-          terminal.rokibulroni.com
-        </p>
-      </div>
-    </div>
+      <h2>Who builds it</h2>
+      <p>
+        Terminal is created and maintained by <a href={SITE.author.url} target="_blank" rel="noopener noreferrer">{SITE.author.name}</a>, with contributions from the
+        community on <a href={SITE.repo} target="_blank" rel="noopener noreferrer">GitHub</a>. Found an error or want to add a tool? <Link to="/contribute">Here’s how</Link>.
+      </p>
+    </StaticPage>
   );
 }

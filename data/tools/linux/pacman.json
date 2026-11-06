@@ -1,0 +1,123 @@
+{
+  "tool": "pacman",
+  "name": "pacman",
+  "description": "Arch Linux’s package manager: sync, install, upgrade, query and clean packages.",
+  "tags": [
+    "packages",
+    "Arch Linux"
+  ],
+  "homepage": "https://archlinux.org/pacman/",
+  "docs": "https://archlinux.org/pacman/pacman.8.html",
+  "related": [
+    "apt",
+    "dnf"
+  ],
+  "total_commands": 15,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Installing",
+      "command": "sudo pacman -Syu",
+      "example": "sudo pacman -Syu",
+      "explanation": "Synchronises package databases and upgrades the whole system. Arch does not support partial upgrades."
+    },
+    {
+      "id": 12,
+      "category": "Installing",
+      "command": "sudo pacman -S <package>",
+      "example": "sudo pacman -S nmap",
+      "explanation": "Installs a package."
+    },
+    {
+      "id": 13,
+      "category": "Installing",
+      "command": "sudo pacman -S --needed <packages>",
+      "example": "sudo pacman -S --needed git base-devel",
+      "explanation": "Skips packages that are already up to date."
+    },
+    {
+      "id": 14,
+      "category": "Installing",
+      "command": "sudo pacman -U <file>",
+      "example": "sudo pacman -U ./tool-1.0-1-x86_64.pkg.tar.zst",
+      "explanation": "Installs a local package file."
+    },
+    {
+      "id": 15,
+      "category": "Removing",
+      "command": "sudo pacman -R <package>",
+      "example": "sudo pacman -R telnet",
+      "explanation": "Removes a package."
+    },
+    {
+      "id": 16,
+      "category": "Removing",
+      "command": "sudo pacman -Rns <package>",
+      "example": "sudo pacman -Rns apache",
+      "explanation": "Removes it with unneeded dependencies and saved configuration."
+    },
+    {
+      "id": 17,
+      "category": "Removing",
+      "command": "sudo pacman -Rns $(pacman -Qtdq)",
+      "example": "sudo pacman -Rns $(pacman -Qtdq)",
+      "explanation": "Removes orphaned dependencies."
+    },
+    {
+      "id": 18,
+      "category": "Removing",
+      "command": "sudo pacman -Sc",
+      "example": "sudo pacman -Sc",
+      "explanation": "Cleans old packages from the cache."
+    },
+    {
+      "id": 19,
+      "category": "Querying",
+      "command": "pacman -Ss <term>",
+      "example": "pacman -Ss wireshark",
+      "explanation": "Searches the repositories."
+    },
+    {
+      "id": 20,
+      "category": "Querying",
+      "command": "pacman -Si <package>",
+      "example": "pacman -Si hashcat",
+      "explanation": "Repository package details."
+    },
+    {
+      "id": 21,
+      "category": "Querying",
+      "command": "pacman -Qi <package>",
+      "example": "pacman -Qi openssh",
+      "explanation": "Installed package details."
+    },
+    {
+      "id": 22,
+      "category": "Querying",
+      "command": "pacman -Ql <package>",
+      "example": "pacman -Ql openssh",
+      "explanation": "Files installed by a package."
+    },
+    {
+      "id": 23,
+      "category": "Querying",
+      "command": "pacman -Qo <path>",
+      "example": "pacman -Qo /usr/bin/ssh",
+      "explanation": "Which package owns a file."
+    },
+    {
+      "id": 24,
+      "category": "Querying",
+      "command": "pacman -Qe",
+      "example": "pacman -Qe",
+      "explanation": "Explicitly installed packages."
+    },
+    {
+      "id": 25,
+      "category": "Querying",
+      "command": "pacman -Qkk <package>",
+      "example": "pacman -Qkk openssh",
+      "explanation": "Checks installed files against package metadata."
+    }
+  ]
+}

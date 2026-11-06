@@ -1,0 +1,157 @@
+{
+  "tool": "grype",
+  "name": "Grype",
+  "description": "Anchore’s vulnerability scanner for container images and filesystems; pairs naturally with Syft SBOMs.",
+  "tags": [
+    "vulnerability scanning",
+    "containers",
+    "SBOM"
+  ],
+  "homepage": "https://github.com/anchore/grype",
+  "docs": "https://github.com/anchore/grype#readme",
+  "install": {
+    "brew": "brew install grype",
+    "other": "curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin"
+  },
+  "related": [
+    "syft",
+    "trivy",
+    "clair"
+  ],
+  "total_commands": 19,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Scanning",
+      "command": "grype <image>",
+      "example": "grype nginx:1.27",
+      "explanation": "Scans a container image (pulled from a registry or the local Docker daemon) and lists vulnerable packages with severity and fixed versions."
+    },
+    {
+      "id": 4,
+      "category": "Scanning",
+      "command": "grype dir:<path>",
+      "example": "grype dir:./app",
+      "explanation": "Scans a directory on disk, such as a project with lock files."
+    },
+    {
+      "id": 5,
+      "category": "Scanning",
+      "command": "grype sbom:<file>",
+      "example": "grype sbom:./sbom.spdx.json",
+      "explanation": "Scans an existing SBOM instead of the image — fast and repeatable."
+    },
+    {
+      "id": 11,
+      "category": "Scanning",
+      "command": "grype docker-archive:<file>",
+      "example": "grype docker-archive:image.tar",
+      "explanation": "Scans an image saved with docker save."
+    },
+    {
+      "id": 12,
+      "category": "Scanning",
+      "command": "grype registry:<image>",
+      "example": "grype registry:ghcr.io/org/app:latest",
+      "explanation": "Pulls directly from a registry without needing a Docker daemon."
+    },
+    {
+      "id": 13,
+      "category": "Scanning",
+      "command": "grype <image> --scope all-layers",
+      "example": "grype python:3.12 --scope all-layers",
+      "explanation": "Also reports packages removed in later layers but still present in the image."
+    },
+    {
+      "id": 14,
+      "category": "Scanning",
+      "command": "grype <image> --platform <os/arch>",
+      "example": "grype alpine:3.20 --platform linux/arm64",
+      "explanation": "Scans a specific platform variant of a multi-arch image."
+    },
+    {
+      "id": 15,
+      "category": "Filtering and CI",
+      "command": "grype <image> --only-fixed",
+      "example": "grype node:20 --only-fixed",
+      "explanation": "Shows only vulnerabilities that already have a fix available — the actionable list."
+    },
+    {
+      "id": 3,
+      "category": "Filtering and CI",
+      "command": "grype <image> --fail-on <severity>",
+      "example": "grype app:latest --fail-on high",
+      "explanation": "Exits with status 1 if anything at or above the severity is found, failing a CI job."
+    },
+    {
+      "id": 16,
+      "category": "Filtering and CI",
+      "command": "grype <image> --ignore-states <states>",
+      "example": "grype app:latest --ignore-states wont-fix,unknown",
+      "explanation": "Hides findings whose fix state you have accepted."
+    },
+    {
+      "id": 17,
+      "category": "Filtering and CI",
+      "command": "grype <image> -c <config>",
+      "example": "grype app:latest -c .grype.yaml",
+      "explanation": "Uses a config file, for example with an ignore list of accepted CVEs."
+    },
+    {
+      "id": 2,
+      "category": "Output",
+      "command": "grype <image> -o json",
+      "example": "grype app:latest -o json > grype.json",
+      "explanation": "Machine-readable JSON with full match details."
+    },
+    {
+      "id": 18,
+      "category": "Output",
+      "command": "grype <image> -o sarif",
+      "example": "grype app:latest -o sarif > grype.sarif",
+      "explanation": "SARIF for GitHub code scanning and other tools."
+    },
+    {
+      "id": 19,
+      "category": "Output",
+      "command": "grype <image> -o cyclonedx",
+      "example": "grype app:latest -o cyclonedx",
+      "explanation": "A CycloneDX document with vulnerability data."
+    },
+    {
+      "id": 20,
+      "category": "Output",
+      "command": "grype <image> -o template -t <file>",
+      "example": "grype app:latest -o template -t html.tmpl > report.html",
+      "explanation": "Renders a custom Go template, for example an HTML report."
+    },
+    {
+      "id": 21,
+      "category": "Database",
+      "command": "grype db status",
+      "example": "grype db status",
+      "explanation": "Shows the vulnerability database version and when it was built."
+    },
+    {
+      "id": 6,
+      "category": "Database",
+      "command": "grype db update",
+      "example": "grype db update",
+      "explanation": "Downloads the latest database."
+    },
+    {
+      "id": 22,
+      "category": "Database",
+      "command": "grype db check",
+      "example": "grype db check",
+      "explanation": "Reports whether a newer database is available."
+    },
+    {
+      "id": 23,
+      "category": "Database",
+      "command": "grype explain --id <cve> < <json>",
+      "example": "grype app:latest -o json | grype explain --id CVE-2024-3094",
+      "explanation": "Explains why a CVE matched and which packages it affects."
+    }
+  ]
+}

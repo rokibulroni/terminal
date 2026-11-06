@@ -1,0 +1,104 @@
+{
+  "tool": "katana",
+  "name": "Katana",
+  "description": "A fast web crawler from ProjectDiscovery with standard and headless modes and JavaScript parsing, built to feed URLs into the rest of a testing pipeline.",
+  "tags": [
+    "crawling",
+    "web",
+    "recon",
+    "ProjectDiscovery"
+  ],
+  "homepage": "https://github.com/projectdiscovery/katana",
+  "docs": "https://docs.projectdiscovery.io/tools/katana/overview",
+  "install": {
+    "go": "go install github.com/projectdiscovery/katana/cmd/katana@latest",
+    "brew": "brew install katana",
+    "docker": "docker run -it projectdiscovery/katana -u https://example.com"
+  },
+  "related": [
+    "httpx",
+    "gau",
+    "waybackurls",
+    "ffuf"
+  ],
+  "total_commands": 11,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Crawling",
+      "command": "katana -u <url>",
+      "example": "katana -u https://example.com",
+      "explanation": "Crawls a site and prints the URLs it finds."
+    },
+    {
+      "id": 2,
+      "category": "Crawling",
+      "command": "katana -u <url> -d <depth>",
+      "example": "katana -u https://example.com -d 5",
+      "explanation": "Sets how deep the crawl goes."
+    },
+    {
+      "id": 3,
+      "category": "Crawling",
+      "command": "katana -list <file>",
+      "example": "katana -list urls.txt",
+      "explanation": "Crawls several starting URLs."
+    },
+    {
+      "id": 4,
+      "category": "Crawling",
+      "command": "katana -u <url> -jc",
+      "example": "katana -u https://example.com -jc",
+      "explanation": "Also parses JavaScript files for endpoints."
+    },
+    {
+      "id": 5,
+      "category": "Crawling",
+      "command": "katana -u <url> -kf <filter>",
+      "example": "katana -u https://example.com -kf robotstxt,sitemapxml",
+      "explanation": "Seeds the crawl from known files like robots.txt and sitemap.xml."
+    },
+    {
+      "id": 6,
+      "category": "Headless",
+      "command": "katana -u <url> -headless",
+      "example": "katana -u https://example.com -headless",
+      "explanation": "Uses a headless browser to capture URLs built by JavaScript."
+    },
+    {
+      "id": 7,
+      "category": "Headless",
+      "command": "katana -u <url> -headless -no-sandbox",
+      "example": "katana -u https://example.com -headless -no-sandbox",
+      "explanation": "Headless mode without the Chromium sandbox, needed in some containers."
+    },
+    {
+      "id": 8,
+      "category": "Filtering & output",
+      "command": "katana -u <url> -f <field>",
+      "example": "katana -u https://example.com -f qurl",
+      "explanation": "Shows only URLs that carry query parameters — good fuzzing candidates."
+    },
+    {
+      "id": 9,
+      "category": "Filtering & output",
+      "command": "katana -u <url> -em <ext>",
+      "example": "katana -u https://example.com -em js,php,json",
+      "explanation": "Matches only certain extensions; -ef excludes them."
+    },
+    {
+      "id": 10,
+      "category": "Filtering & output",
+      "command": "katana -u <url> -o <file>",
+      "example": "katana -u https://example.com -o urls.txt",
+      "explanation": "Writes results to a file."
+    },
+    {
+      "id": 11,
+      "category": "Filtering & output",
+      "command": "katana -u <url> -silent | httpx -silent -mc 200",
+      "example": "katana -u https://example.com -silent | httpx -silent -mc 200",
+      "explanation": "Crawls, then keeps only live URLs returning 200."
+    }
+  ]
+}

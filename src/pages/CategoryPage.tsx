@@ -1,182 +1,131 @@
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Terminal, ChevronRight } from 'lucide-react';
-import { CATEGORY_TOOLS } from '@/hooks/useCategoryTools';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
-import { useState, useEffect } from 'react';
-
-// Category metadata
-const CATEGORY_META: Record<string, { name: string; description: string }> = {
-  network: { name: 'Network', description: 'Port scanning, host discovery, and network mapping tools' },
-  web: { name: 'Web', description: 'Web application testing, directory enumeration, and vulnerability scanning' },
-  enumeration: { name: 'Enumeration', description: 'Service enumeration, SMB, LDAP, and directory discovery' },
-  exploitation: { name: 'Exploitation', description: 'Exploit frameworks, payload generation, and attack tools' },
-  credentials: { name: 'Credentials', description: 'Password cracking, hash attacks, and wordlist generation' },
-  lateral: { name: 'Lateral Movement', description: 'Network pivoting, remote execution, and lateral movement' },
-  wireless: { name: 'Wireless', description: 'WiFi auditing, WPA/WPA2 cracking, and wireless analysis' },
-  forensics: { name: 'Forensics', description: 'Memory analysis, disk forensics, and evidence recovery' },
-  monitoring: { name: 'Monitoring', description: 'IDS/IPS, log analysis, and intrusion detection' },
-  cloud: { name: 'Cloud', description: 'AWS, GCP, Azure security, and container analysis' },
-  traffic: { name: 'Traffic', description: 'Packet capture, protocol analysis, and network traffic inspection' },
-  utilities: { name: 'Utilities', description: 'Essential command-line tools and data processing utilities' },
-};
-
-interface ToolInfo {
-  name: string;
-  slug: string;
-  commandCount: number;
-  description: string;
-}
+import { Link, useParams } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { getCategory, manifest } from '@/lib/data';
+import { GUIDES } from '@/data/guides';
+import { CategoryIcon } from '@/components/CategoryIcon';
+import { Seo } from '@/components/Seo';
+import { Breadcrumbs } from '@/components/common/Breadcrumbs';
+import { breadcrumbLd, itemListLd } from '@/lib/structured-data';
+import NotFound from '@/pages/NotFound';
 
 export function CategoryPage() {
-  const { category } = useParams<{ category: string }>();
-  const [tools, setTools] = useState<ToolInfo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { category } = useParams();
+  const cat = getCategory(category);
+  if (!cat) return <NotFound what="category" />;
 
-  const categoryGroups = CATEGORY_TOOLS[category || ''] || [];
-  const flatToolSlugs = categoryGroups.flatMap((group: any) => group.tools || []);
-  const categoryMeta = CATEGORY_META[category || ''] || { name: category, description: '' };
-
-  useEffect(() => {
-    async function loadToolsInfo() {
-      if (!category || flatToolSlugs.length === 0) {
-        setLoading(false);
-        return;
-      }
-      
-      const toolPromises = flatToolSlugs.map(async (toolSlug: string) => {
-        try {
-          const response = await fetch(`/jsons/${category}/${toolSlug}.json`);
-          const data = await response.json();
-          return {
-            name: data.tool || toolSlug,
-            slug: toolSlug,
-            commandCount: data.commands?.length || 0,
-            description: data.description || '',
-          };
-        } catch {
-          return {
-            name: toolSlug,
-            slug: toolSlug,
-            commandCount: 0,
-            description: 'Tool information unavailable',
-          };
-        }
-      });
-      
-      const toolInfos = await Promise.all(toolPromises);
-      setTools(toolInfos);
-      setLoading(false);
-    }
-    
-    loadToolsInfo();
-  }, [category]);
-
-  if (!category || !CATEGORY_TOOLS[category]) {
-    return (
-      <div className="flex flex-col items-center justify-center py-16 animate-fade-in">
-        <div className="text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mx-auto">
-            <Terminal className="h-8 w-8 text-destructive" />
-          </div>
-          <h2 className="text-2xl font-bold">Category Not Found</h2>
-          <p className="text-muted-foreground max-w-md">
-            The requested category does not exist.
-          </p>
-          <Link to="/">
-            <Button variant="outline" className="mt-4">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const path = `/category/${cat.id}`;
+  const allTools = [...new Set(cat.groups.flatMap((g) => g.tools))].map((s) => manifest.tools[s]).filter(Boolean);
+  const guides = GUIDES.filter((g) => g.steps.some((s) => s.tool && allTools.some((t) => t.slug === s.tool))).slice(0, 4);
+  const others = manifest.categories.filter((c) => c.id !== cat.id);
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm">
-        <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
-          Home
-        </Link>
-        <span className="text-muted-foreground">/</span>
-        <span className="text-foreground font-medium capitalize">{categoryMeta.name}</span>
-      </nav>
+    <div className="animate-fade-in">
+      <Seo
+        title={`${cat.name} tools & commands`}
+        description={`${cat.description} ${cat.toolCount} tools and ${cat.commandCount.toLocaleString('en-US')} explained commands: ${allTools
+          .slice(0, 8)
+          .map((t) => t.name)
+          .join(', ')} and more.`}
+        path={path}
+        jsonLd={[
+          breadcrumbLd([
+            { name: 'Home', path: '/' },
+            { name: cat.name, path },
+          ]),
+          itemListLd(
+            `${cat.name} tools`,
+            allTools.map((t) => ({ name: t.name, path: `/tool/${t.category}/${t.slug}` })),
+          ),
+        ]}
+      />
 
-      {/* Header */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="text-3xl sm:text-4xl font-bold">
-            <span className="gradient-text">{categoryMeta.name}</span>
-          </h1>
-          <Badge variant="secondary" className="font-mono text-sm">
-            {flatToolSlugs.length} tools
-          </Badge>
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: cat.name }]} />
+
+      <header className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-start">
+        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+          <CategoryIcon name={cat.icon} className="h-7 w-7" />
+        </span>
+        <div className="space-y-3">
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{cat.name}</h1>
+          <p className="max-w-3xl text-[15px] leading-7 text-muted-foreground">{cat.intro}</p>
+          <p className="font-mono text-xs tabular-nums text-muted-foreground">
+            {cat.toolCount} tools · {cat.commandCount.toLocaleString('en-US')} commands
+          </p>
         </div>
-        <p className="text-muted-foreground max-w-2xl leading-relaxed">
-          {categoryMeta.description}
-        </p>
+      </header>
+
+      <div className="space-y-12">
+        {cat.groups.map((group) => (
+          <section key={group.name} aria-labelledby={`g-${group.name}`}>
+            <h2 id={`g-${group.name}`} className="eyebrow mb-4">
+              {group.name}
+            </h2>
+            <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {group.tools.map((slug) => {
+                const t = manifest.tools[slug];
+                if (!t) return null;
+                const crossListed = t.category !== cat.id;
+                return (
+                  <li key={slug}>
+                    <Link to={`/tool/${t.category}/${t.slug}`} className="surface-interactive group flex h-full flex-col p-5">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="font-mono text-[15px] font-semibold">{t.name}</h3>
+                        <ArrowRight className="h-4 w-4 -translate-x-1 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true" />
+                      </div>
+                      <p className="mt-2 line-clamp-3 flex-1 text-sm leading-6 text-muted-foreground">{t.description}</p>
+                      <div className="mt-4 flex flex-wrap items-center gap-1.5">
+                        <span className="font-mono text-[11px] tabular-nums text-muted-foreground">{t.commandCount} commands</span>
+                        {crossListed && (
+                          <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                            in {getCategory(t.category)?.name}
+                          </span>
+                        )}
+                        {t.tags.slice(0, 2).map((tag) => (
+                          <span key={tag} className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))}
       </div>
 
-      {/* Tools Grid */}
-      {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {flatToolSlugs.map((_, i) => (
-            <Card key={i} className="animate-pulse">
-              <CardHeader>
-                <div className="h-6 bg-muted rounded w-1/2 mb-2" />
-                <div className="h-4 bg-muted rounded w-full" />
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tools.map((tool) => (
-            <Link
-              key={tool.slug}
-              to={`/tool/${category}/${tool.slug}`}
-              className="group"
-            >
-              <Card className={cn(
-                "h-full transition-all duration-300 border-2",
-                "hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
-              )}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-mono text-primary group-hover:text-primary/80 transition-colors">
-                      {tool.name}
-                    </CardTitle>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="font-mono text-xs">
-                        {tool.commandCount} cmds
-                      </Badge>
-                      <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                    </div>
-                  </div>
-                  <CardDescription className="line-clamp-2 mt-2">
-                    {tool.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
-        </div>
+      {guides.length > 0 && (
+        <section aria-labelledby="cat-guides" className="mt-16">
+          <h2 id="cat-guides" className="mb-4 text-lg font-semibold tracking-tight">Guides using these tools</h2>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {guides.map((g) => (
+              <li key={g.slug}>
+                <Link to={`/guide/${g.slug}`} className="surface-interactive block p-4">
+                  <p className="font-medium">{g.title}</p>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{g.description}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
-      {/* Back Button */}
-      <div className="pt-4">
-        <Link to="/">
-          <Button variant="outline">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Dashboard
-          </Button>
-        </Link>
-      </div>
+      <nav aria-labelledby="other-cats" className="mt-16 border-t border-border pt-8">
+        <h2 id="other-cats" className="eyebrow mb-4">
+          Other categories
+        </h2>
+        <ul className="flex flex-wrap gap-2">
+          {others.map((c) => (
+            <li key={c.id}>
+              <Link to={`/category/${c.id}`} className="flex items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm transition-colors hover:border-primary/40 hover:text-primary">
+                <CategoryIcon name={c.icon} className="h-3.5 w-3.5" />
+                {c.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }

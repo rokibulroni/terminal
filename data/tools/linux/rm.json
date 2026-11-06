@@ -1,0 +1,99 @@
+{
+  "tool": "rm",
+  "name": "rm",
+  "description": "Removes files and directories. There is no recycle bin — deletion is immediate.",
+  "tags": [
+    "files",
+    "deletion"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/rm.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "mv",
+    "find"
+  ],
+  "total_commands": 11,
+  "commands": [
+    {
+      "id": 6,
+      "category": "Files",
+      "command": "rm <file>",
+      "example": "rm old.log",
+      "explanation": "Deletes a file. There is no undo."
+    },
+    {
+      "id": 7,
+      "category": "Files",
+      "command": "rm -i <file>",
+      "example": "rm -i <file>",
+      "explanation": "Asks for confirmation for each file."
+    },
+    {
+      "id": 8,
+      "category": "Files",
+      "command": "rm -I <files>",
+      "example": "rm -I *.tmp",
+      "explanation": "Asks once before deleting more than three files."
+    },
+    {
+      "id": 9,
+      "category": "Files",
+      "command": "rm -f <file>",
+      "example": "rm -f <file>",
+      "explanation": "Forces deletion without prompts and ignores missing files."
+    },
+    {
+      "id": 10,
+      "category": "Files",
+      "command": "rm -- <file>",
+      "example": "rm -- -weird-name",
+      "explanation": "Use -- to delete a file whose name starts with a dash."
+    },
+    {
+      "id": 11,
+      "category": "Files",
+      "command": "rm -v <files>",
+      "example": "rm -v <files>",
+      "explanation": "Prints each file as it is removed."
+    },
+    {
+      "id": 12,
+      "category": "Directories",
+      "command": "rmdir <dir>",
+      "example": "rmdir empty-folder",
+      "explanation": "Removes an empty directory only — a safe choice."
+    },
+    {
+      "id": 13,
+      "category": "Directories",
+      "command": "rm -r <dir>",
+      "example": "rm -r build/",
+      "explanation": "Removes a directory and everything inside it."
+    },
+    {
+      "id": 14,
+      "category": "Directories",
+      "command": "rm -rf <dir>",
+      "example": "rm -rf node_modules",
+      "explanation": "Recursive and forced. Double-check the path; never run it with an unquoted variable that might be empty."
+    },
+    {
+      "id": 15,
+      "category": "Directories",
+      "command": "find <dir> -name \"<pattern>\" -delete",
+      "example": "find . -name \".DS_Store\" -delete",
+      "explanation": "Deletes matching files anywhere in a tree."
+    },
+    {
+      "id": 16,
+      "category": "Secure deletion",
+      "command": "shred -u -n <passes> <file>",
+      "example": "shred -u -n 3 secrets.txt",
+      "explanation": "Overwrites a file before deleting it. Not reliable on SSDs, copy-on-write or journaled file systems."
+    }
+  ]
+}

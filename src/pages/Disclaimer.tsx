@@ -1,88 +1,48 @@
-import { AlertTriangle, Shield, Scale, Info } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { StaticPage } from '@/components/common/StaticPage';
 
 export function DisclaimerPage() {
   return (
-    <div className="space-y-8 animate-fade-in max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex justify-center">
-          <div className="p-3 rounded-xl bg-warning/10 border border-warning/20">
-            <AlertTriangle className="h-10 w-10 text-warning" />
-          </div>
-        </div>
-        <h1 className="text-3xl font-bold font-mono">Disclaimer</h1>
-        <p className="text-muted-foreground">Important legal information</p>
-      </div>
+    <StaticPage
+      seo={{ title: 'Disclaimer', description: 'Terminal is for education and authorised security testing only. Read before using any command.', path: '/disclaimer' }}
+      eyebrow="Legal"
+      title="Disclaimer"
+      lead="Read this before you run anything you find here."
+      updated="6 November 2026"
+    >
+      <h2>Education and authorised use only</h2>
+      <p>
+        The commands and techniques on Terminal are published for learning, system administration, defence and <strong>authorised</strong> security testing. Only use
+        them:
+      </p>
+      <ul>
+        <li>on systems and networks you own, or</li>
+        <li>where you have explicit, written permission from the owner that covers the activity, or</li>
+        <li>in lab environments, CTFs and training platforms designed for it.</li>
+      </ul>
 
-      <div className="space-y-6">
-        <section className="terminal-card p-6 space-y-4 border-l-4 border-warning">
-          <div className="flex items-center gap-3">
-            <AlertTriangle className="h-5 w-5 text-warning" />
-            <h2 className="text-xl font-semibold">Educational Purpose Only</h2>
-          </div>
-          <p className="text-muted-foreground leading-relaxed">
-            All information, commands, and techniques provided on Terminal are intended 
-            <strong className="text-foreground"> solely for educational purposes</strong>. 
-            This website serves as an expansive reference hub housing an active index of over 9,391 automated commands bridging 18 unique deployment platforms for cybersecurity professionals, students, 
-            and researchers who are learning about security tools and techniques.
-          </p>
-        </section>
+      <h2>Unauthorised access is illegal</h2>
+      <p>
+        Accessing, scanning or disrupting systems without permission is a crime in most countries — for example under the US Computer Fraud and Abuse Act, the UK
+        Computer Misuse Act and equivalent laws elsewhere. Consequences can include criminal charges, civil liability and loss of employment.
+      </p>
 
-        <section className="terminal-card p-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <Shield className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">Authorized Use Only</h2>
-          </div>
-          <p className="text-muted-foreground leading-relaxed">
-            The tools and commands documented here should only be used:
-          </p>
-          <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
-            <li>On systems you own or have explicit written permission to test</li>
-            <li>In controlled lab environments for learning purposes</li>
-            <li>As part of authorized security assessments and penetration tests</li>
-            <li>For defensive purposes to secure your own infrastructure</li>
-          </ul>
-        </section>
+      <h2>No warranty</h2>
+      <p>
+        Content is provided “as is”. Commands can behave differently across versions and platforms, and some are destructive (they delete data, crash services or
+        lock accounts). Read the explanation, understand what a command does, and test in a safe environment first. The authors and contributors are not liable
+        for any damage or loss caused by using this material.
+      </p>
 
-        <section className="terminal-card p-6 space-y-4 border-l-4 border-destructive">
-          <div className="flex items-center gap-3">
-            <Scale className="h-5 w-5 text-destructive" />
-            <h2 className="text-xl font-semibold">Legal Warning</h2>
-          </div>
-          <p className="text-muted-foreground leading-relaxed">
-            Unauthorized access to computer systems is <strong className="text-destructive">illegal</strong> in 
-            most jurisdictions worldwide. Using these tools against systems without proper 
-            authorization may result in:
-          </p>
-          <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
-            <li>Criminal prosecution and imprisonment</li>
-            <li>Civil lawsuits and significant financial penalties</li>
-            <li>Permanent damage to your professional reputation</li>
-            <li>Violation of laws such as CFAA, Computer Misuse Act, and GDPR</li>
-          </ul>
-        </section>
+      <h2>Third-party tools</h2>
+      <p>
+        Terminal documents tools made by others. Their names and trademarks belong to their owners, and their own licences and terms apply. Links to external
+        sites are provided for convenience and are not endorsements.
+      </p>
 
-        <section className="terminal-card p-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <Info className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">No Liability</h2>
-          </div>
-          <p className="text-muted-foreground leading-relaxed">
-            The creators and maintainers of Terminal assume no responsibility for any 
-            misuse of the information provided. Users are solely responsible for ensuring 
-            their activities comply with applicable laws and regulations. By using this 
-            website, you acknowledge that you understand and accept these terms.
-          </p>
-        </section>
-
-        <section className="terminal-card p-6 space-y-4 bg-primary/5 border-primary/20">
-          <h2 className="text-lg font-semibold text-center">Remember</h2>
-          <p className="text-center text-muted-foreground italic">
-            "With great power comes great responsibility. Use your skills ethically 
-            and always obtain proper authorization before testing any system."
-          </p>
-        </section>
-      </div>
-    </div>
+      <p>
+        See also the <Link to="/terms">terms of use</Link> and <Link to="/privacy">privacy policy</Link>.
+      </p>
+    </StaticPage>
   );
 }

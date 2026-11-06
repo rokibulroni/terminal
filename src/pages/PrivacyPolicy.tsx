@@ -1,70 +1,60 @@
-import { Shield, Lock, Eye, Database } from 'lucide-react';
+import { StaticPage } from '@/components/common/StaticPage';
+import { SITE } from '@/data/registry';
+
+const STORAGE = [
+  ['terminal-favorites', 'Commands you starred'],
+  ['terminal-recent', 'The last few tools you opened'],
+  ['terminal-global-ip', 'The target host you set in the header'],
+  ['terminal-mode / terminal-color-theme', 'Light or dark mode and accent colour'],
+  ['terminal-sidebar', 'Whether the desktop sidebar is collapsed'],
+  ['practice_completed_ids', 'Practice cards you marked as mastered'],
+];
 
 export function PrivacyPolicyPage() {
   return (
-    <div className="space-y-8 animate-fade-in max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex justify-center">
-          <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-            <Shield className="h-10 w-10 text-primary" />
-          </div>
-        </div>
-        <h1 className="text-3xl font-bold font-mono">Privacy Policy</h1>
-        <p className="text-muted-foreground">Last updated: December 2024</p>
-      </div>
+    <StaticPage
+      seo={{ title: 'Privacy policy', description: 'Terminal has no accounts, analytics, advertising or tracking cookies. Preferences stay in your browser.', path: '/privacy' }}
+      eyebrow="Legal"
+      title="Privacy policy"
+      lead="Short version: we don’t collect personal data, and there is nothing to sign up for."
+      updated="6 November 2026"
+    >
+      <h2>What we don’t do</h2>
+      <ul>
+        <li>No accounts, sign-ups or forms.</li>
+        <li>No analytics, advertising or tracking scripts.</li>
+        <li>No cookies.</li>
+        <li>No third-party fonts or embeds — everything is served from this domain.</li>
+      </ul>
 
-      <div className="space-y-6">
-        <section className="terminal-card p-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <Lock className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">Data Collection</h2>
-          </div>
-          <p className="text-muted-foreground leading-relaxed">
-            Terminal is a static website currently indexing over 9,391 commands across 18 unique operational vectors. We do not collect, store, or transmit any personal 
-            information to external servers. All data including your favorites and recent tools 
-            are stored locally in your browser's localStorage.
-          </p>
-        </section>
+      <h2>What stays in your browser</h2>
+      <p>To remember your preferences, the site uses your browser’s local storage. This data never leaves your device and is not sent to us:</p>
+      <ul>
+        {STORAGE.map(([key, what]) => (
+          <li key={key}>
+            <code>{key}</code> — {what}
+          </li>
+        ))}
+      </ul>
+      <p>You can remove it at any time by clearing this site’s data in your browser settings. Favourites can be exported first from the Favorites page.</p>
 
-        <section className="terminal-card p-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <Database className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">Local Storage</h2>
-          </div>
-          <p className="text-muted-foreground leading-relaxed">
-            We use browser localStorage to store:
-          </p>
-          <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
-            <li>Your favorited commands for quick access</li>
-            <li>Recently viewed tools for convenience</li>
-            <li>Theme preference (dark/light mode)</li>
-          </ul>
-          <p className="text-muted-foreground leading-relaxed">
-            This data never leaves your device and can be cleared at any time through your browser settings.
-          </p>
-        </section>
+      <h2>Hosting</h2>
+      <p>
+        The site is served by Cloudflare. Like any web host, Cloudflare processes technical data such as IP addresses and request logs to deliver the site and
+        protect it from abuse. See{' '}
+        <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">
+          Cloudflare’s privacy policy
+        </a>
+        .
+      </p>
 
-        <section className="terminal-card p-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <Eye className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">Third-Party Services</h2>
-          </div>
-          <p className="text-muted-foreground leading-relaxed">
-            Terminal does not use any third-party analytics, tracking, or advertising services. 
-            We do not share any information with third parties because we don't collect any 
-            information in the first place.
-          </p>
-        </section>
+      <h2>External links</h2>
+      <p>Pages link to official tool documentation, GitHub and other sites. Their own privacy policies apply once you follow a link.</p>
 
-        <section className="terminal-card p-6 space-y-4">
-          <h2 className="text-xl font-semibold">Contact</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            If you have any questions about this Privacy Policy, please contact us through 
-            the contact page.
-          </p>
-        </section>
-      </div>
-    </div>
+      <h2>Contact</h2>
+      <p>
+        Questions? Open an issue on <a href={SITE.repo} target="_blank" rel="noopener noreferrer">GitHub</a> or use the contact page.
+      </p>
+    </StaticPage>
   );
 }

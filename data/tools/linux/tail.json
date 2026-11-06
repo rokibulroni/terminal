@@ -1,0 +1,86 @@
+{
+  "tool": "tail",
+  "name": "tail",
+  "description": "Prints the last lines of files and follows them as they grow — the standard way to watch logs.",
+  "tags": [
+    "logs",
+    "text"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/tail.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "head",
+    "less",
+    "journalctl"
+  ],
+  "total_commands": 9,
+  "commands": [
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "tail <file>",
+      "example": "tail /var/log/syslog",
+      "explanation": "Prints the last 10 lines."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "tail -n <n> <file>",
+      "example": "tail -n 50 error.log",
+      "explanation": "Prints the last n lines."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "tail -n +<n> <file>",
+      "example": "tail -n +2 data.csv",
+      "explanation": "Prints from line n onward — here, everything after a CSV header."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "tail -c <bytes> <file>",
+      "example": "tail -c 200 output.bin",
+      "explanation": "Prints the last n bytes."
+    },
+    {
+      "id": 8,
+      "category": "Following logs",
+      "command": "tail -f <file>",
+      "example": "tail -f /var/log/nginx/access.log",
+      "explanation": "Follows a file as new lines are written. Ctrl-C to stop."
+    },
+    {
+      "id": 9,
+      "category": "Following logs",
+      "command": "tail -F <file>",
+      "example": "tail -F /var/log/auth.log",
+      "explanation": "Follows by name and reopens the file when it is rotated — use this for long-running watches."
+    },
+    {
+      "id": 10,
+      "category": "Following logs",
+      "command": "tail -f <file1> <file2>",
+      "example": "tail -f access.log error.log",
+      "explanation": "Follows several files at once with headers."
+    },
+    {
+      "id": 11,
+      "category": "Following logs",
+      "command": "tail -f <file> | grep --line-buffered <pattern>",
+      "example": "tail -f /var/log/auth.log | grep --line-buffered \"Failed password\"",
+      "explanation": "Watches only for matching lines, such as failed SSH logins, as they happen."
+    },
+    {
+      "id": 12,
+      "category": "Following logs",
+      "command": "tail -f --pid=<pid> <file>",
+      "example": "tail -f --pid=4120 build.log",
+      "explanation": "Stops following when the given process exits."
+    }
+  ]
+}

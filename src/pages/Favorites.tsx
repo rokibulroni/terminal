@@ -1,145 +1,189 @@
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, Trash2, Copy, ArrowRight, Terminal } from 'lucide-react';
-import { useFavorites, FavoriteCommand } from '@/hooks/useFavorites';
+import { Star, Trash2, Copy, ArrowRight, Download, Upload, Terminal } from 'lucide-react';
+import { useFavorites, type FavoriteCommand } from '@/hooks/useFavorites';
 import { useGlobalIP } from '@/hooks/useGlobalIP';
+import { withTarget } from '@/lib/target';
+import { getToolSummary, getCategory } from '@/lib/data';
+import { Seo } from '@/components/Seo';
+import { PageHeader } from '@/components/common/PageHeader';
+import { EmptyState } from '@/components/common/EmptyState';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
 
 export function FavoritesPage() {
-  const { favorites, removeFavorite } = useFavorites();
+  const { favorites, removeFavorite, importFavorites, clearFavorites } = useFavorites();
   const { globalIP } = useGlobalIP();
+  const [confirmClear, setConfirmClear] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  const getDisplayCommand = (cmd: string) => {
-    if (!globalIP) return cmd;
-    return cmd.replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b|<ip>|\[ip\]|<target_ip>/gi, globalIP);
-  };
-
-  const handleCopy = async (command: string) => {
+  const copy = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(command);
-      toast.success('Command copied to clipboard');
-    } catch (err) {
-      toast.error('Failed to copy command');
+      await navigator.clipboard.writeText(text);
+      toast.success('Command copied');
+    } catch {
+      toast.error('Couldn’t copy');
     }
   };
 
-  const handleRemove = (id: string) => {
-    removeFavorite(id);
-    toast.success('Removed from favorites');
+  const exportFile = () => {
+    const blob = new Blob([JSON.stringify(favorites, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `terminal-favorites-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
-  type FavoriteGroup = { category: string; tool: string; toolDisplayName?: string; commands: FavoriteCommand[] };
-
-  const groupedByTool = favorites.reduce((acc, fav) => {
-    const key = `${fav.category}/${fav.toolName}`;
-    if (!acc[key]) {
-      acc[key] = {
-        category: fav.category,
-        tool: fav.toolName,
-        toolDisplayName: fav.toolDisplayName,
-        commands: [],
-      };
+  const importFile = async (file: File) => {
+    try {
+      const added = importFavorites(JSON.parse(await file.text()));
+      toast.success(added ? `Imported ${added} favorite${added === 1 ? '' : 's'}` : 'Nothing new to import');
+    } catch {
+      toast.error('That file isn’t a valid favorites export.');
     }
-    acc[key].commands.push(fav);
-    return acc;
-  }, {} as Record<string, FavoriteGroup>);
+  };
 
-  const groups = Object.entries(groupedByTool) as [string, FavoriteGroup][];
+  const groups = new Map<string, { category: string; tool: string; name: string; items: FavoriteCommand[] }>();
+  for (const f of [...favorites].sort((a, b) => b.addedAt - a.addedAt)) {
+    const key = `${f.category}/${f.toolName}`;
+    if (!groups.has(key)) {
+      const summary = getToolSummary(f.toolName);
+      groups.set(key, {
+        category: summary?.category ?? f.category,
+        tool: f.toolName,
+        name: summary?.name ?? f.toolDisplayName ?? f.toolName,
+        items: [],
+      });
+    }
+    groups.get(key)!.items.push(f);
+  }
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      {/* Header */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-warning/10">
-            <Star className="h-6 w-6 text-warning fill-warning" />
-          </div>
-          <h1 className="text-3xl font-bold">Favorites</h1>
-          <span className="text-muted-foreground">({favorites.length} saved)</span>
-        </div>
-        <p className="text-muted-foreground">
-          Your bookmarked commands for quick access. Favorites are stored locally in your browser.
-        </p>
-      </div>
-
-      {/* Content */}
-      {favorites.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="w-20 h-20 rounded-full bg-muted/50 flex items-center justify-center mb-4">
-            <Star className="h-10 w-10 text-muted-foreground/50" />
-          </div>
-          <h2 className="text-xl font-semibold mb-2">No favorites yet</h2>
-          <p className="text-muted-foreground max-w-md mb-6">
-            Click the star icon on any command to add it to your favorites for quick access.
-          </p>
-          <Link to="/">
-            <Button>
-              <Terminal className="h-4 w-4 mr-2" />
-              Browse Tools
+    <div className="animate-fade-in">
+      <Seo title="Favorites" description="Your saved commands, stored privately in this browser." path="/favorites" noindex />
+      <PageHeader
+        eyebrow="Saved in this browser"
+        title="Favorites"
+        description={
+          favorites.length
+            ? `${favorites.length} saved command${favorites.length === 1 ? '' : 's'}. Favorites never leave your device — export them to move between browsers.`
+            : 'Star any command to keep it here. Favorites never leave your device.'
+        }
+        actions={
+          <>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="application/json,.json"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) importFile(f);
+                e.target.value = '';
+              }}
+            />
+            <Button variant="outline" size="sm" className="rounded-lg" onClick={() => fileRef.current?.click()}>
+              <Upload className="mr-1.5 h-4 w-4" aria-hidden="true" /> Import
             </Button>
-          </Link>
-        </div>
+            {favorites.length > 0 && (
+              <Button variant="outline" size="sm" className="rounded-lg" onClick={exportFile}>
+                <Download className="mr-1.5 h-4 w-4" aria-hidden="true" /> Export
+              </Button>
+            )}
+          </>
+        }
+      />
+
+      {favorites.length === 0 ? (
+        <EmptyState
+          icon={Star}
+          title="No favorites yet"
+          description="Tap the star on any command card to save it here for quick access."
+          action={
+            <Button asChild>
+              <Link to="/">
+                <Terminal className="mr-2 h-4 w-4" aria-hidden="true" /> Browse tools
+              </Link>
+            </Button>
+          }
+        />
       ) : (
         <div className="space-y-6">
-          {groups.map(([key, group]) => (
-            <div key={key} className="terminal-card p-4 space-y-4">
-              {/* Tool Header */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono font-bold text-lg text-primary">
-                    {group.toolDisplayName || group.tool}
-                  </span>
-                  <span className="text-xs text-muted-foreground capitalize bg-muted px-2 py-0.5 rounded">
-                    {group.category}
-                  </span>
+          {[...groups.entries()].map(([key, g]) => (
+            <section key={key} aria-labelledby={`fav-${key}`} className="surface overflow-hidden">
+              <div className="flex items-center justify-between gap-3 border-b border-border bg-muted/30 px-4 py-3 sm:px-5">
+                <div className="flex min-w-0 items-center gap-2">
+                  <h2 id={`fav-${key}`} className="truncate font-mono font-semibold">
+                    {g.name}
+                  </h2>
+                  <span className="rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">{getCategory(g.category)?.name ?? g.category}</span>
                 </div>
-                <Link to={`/tool/${group.category}/${group.tool}`}>
-                  <Button variant="ghost" size="sm">
-                    View all
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  </Button>
+                <Link to={`/tool/${g.category}/${g.tool}`} className="flex shrink-0 items-center gap-1 text-sm text-primary hover:underline">
+                  Open <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                 </Link>
               </div>
-
-              {/* Commands */}
-              <div className="space-y-3">
-                {group.commands.map((fav) => (
-                  <div 
-                    key={fav.id}
-                    className="group flex items-start gap-3 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <code className="text-sm text-primary font-mono block truncate">
-                        {getDisplayCommand(fav.command)}
-                      </code>
-                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                        {fav.explanation}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-1 shrink-0">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={() => handleCopy(getDisplayCommand(fav.command))}
-                      >
-                        <Copy className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:text-destructive"
-                        onClick={() => handleRemove(fav.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+              <ul className="divide-y divide-border">
+                {g.items.map((f) => {
+                  const cmd = withTarget(f.command, globalIP);
+                  const anchor = f.id.split('-').pop();
+                  return (
+                    <li key={f.id} className="flex items-start gap-3 px-4 py-3.5 sm:px-5">
+                      <div className="min-w-0 flex-1">
+                        <Link to={`/tool/${g.category}/${g.tool}#cmd-${anchor}`} className="block">
+                          <code className="block whitespace-pre-wrap break-words text-[13px] leading-6 text-primary">{cmd}</code>
+                        </Link>
+                        <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{f.explanation}</p>
+                      </div>
+                      <div className="flex shrink-0 gap-0.5">
+                        <button type="button" onClick={() => copy(cmd)} aria-label="Copy command" title="Copy" className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground">
+                          <Copy className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            removeFavorite(f.id);
+                            toast('Removed from favorites');
+                          }}
+                          aria-label="Remove from favorites"
+                          title="Remove"
+                          className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
           ))}
+
+          <div className="flex justify-end">
+            {confirmClear ? (
+              <div className="flex items-center gap-2 text-sm" role="alert">
+                <span className="text-muted-foreground">Remove all {favorites.length} favorites?</span>
+                <Button size="sm" variant="ghost" onClick={() => setConfirmClear(false)}>
+                  Cancel
+                </Button>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={() => {
+                    clearFavorites();
+                    setConfirmClear(false);
+                  }}
+                >
+                  Remove all
+                </Button>
+              </div>
+            ) : (
+              <Button size="sm" variant="ghost" className="text-muted-foreground" onClick={() => setConfirmClear(true)}>
+                Clear all
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </div>

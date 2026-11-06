@@ -1,0 +1,12 @@
+{
+  "name": "Terminal — Cybersecurity Command Reference",
+  "short_name": "Terminal",
+  "description": "Searchable, copy-ready command references for security work.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#18120e",
+  "theme_color": "#18120e",
+  "icons": [{ "src": "/fav.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }],
+  "categories": ["education", "developer", "utilities"]
+}

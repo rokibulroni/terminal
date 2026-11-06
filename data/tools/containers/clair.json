@@ -1,0 +1,113 @@
+{
+  "tool": "clair",
+  "name": "Clair",
+  "description": "An open-source service for static analysis of vulnerabilities in container images, typically used with registries via clairctl.",
+  "tags": [
+    "vulnerability scanning",
+    "containers",
+    "registry"
+  ],
+  "homepage": "https://github.com/quay/clair",
+  "docs": "https://quay.github.io/clair/",
+  "install": {
+    "docker": "docker pull quay.io/projectquay/clair:latest"
+  },
+  "related": [
+    "trivy",
+    "grype"
+  ],
+  "total_commands": 13,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Reports",
+      "command": "clairctl report <image>",
+      "example": "clairctl report quay.io/org/app:latest",
+      "explanation": "Submits an image’s manifest to a Clair server and prints the vulnerabilities it finds."
+    },
+    {
+      "id": 11,
+      "category": "Reports",
+      "command": "clairctl report -o json <image>",
+      "example": "clairctl report -o json quay.io/org/app:latest",
+      "explanation": "JSON output for scripting."
+    },
+    {
+      "id": 12,
+      "category": "Reports",
+      "command": "clairctl report -o xml <image>",
+      "example": "clairctl report -o xml app:latest",
+      "explanation": "XML output (for example for older CI plug-ins)."
+    },
+    {
+      "id": 13,
+      "category": "Reports",
+      "command": "clairctl --host <url> report <image>",
+      "example": "clairctl --host http://clair.internal:6060 report app:latest",
+      "explanation": "Points at a specific Clair instance."
+    },
+    {
+      "id": 14,
+      "category": "Reports",
+      "command": "clairctl -D report <image>",
+      "example": "clairctl -D report <image>",
+      "explanation": "Debug logging, useful when an image fails to index."
+    },
+    {
+      "id": 15,
+      "category": "Server",
+      "command": "clair -conf <config>",
+      "example": "clair -conf /etc/clair/config.yaml",
+      "explanation": "Starts Clair. The mode setting (combo, indexer, matcher, notifier) decides which services run."
+    },
+    {
+      "id": 16,
+      "category": "Server",
+      "command": "docker run -p 6060:6060 -v <dir>:/config quay.io/projectquay/clair:<version> -conf /config/config.yaml",
+      "example": "docker run -p 6060:6060 -v $PWD:/config quay.io/projectquay/clair:4.8.0 -conf /config/config.yaml",
+      "explanation": "Runs Clair in a container. It needs a PostgreSQL database configured in config.yaml."
+    },
+    {
+      "id": 17,
+      "category": "Server",
+      "command": "curl http://<host>:6061/healthz",
+      "example": "curl http://localhost:6061/healthz",
+      "explanation": "Checks the introspection health endpoint."
+    },
+    {
+      "id": 18,
+      "category": "Server",
+      "command": "curl http://<host>:6061/metrics",
+      "example": "curl http://localhost:6061/metrics",
+      "explanation": "Prometheus metrics, including indexing and matching latency."
+    },
+    {
+      "id": 19,
+      "category": "Offline databases",
+      "command": "clairctl export-updaters <file>",
+      "example": "clairctl export-updaters updates.json.gz",
+      "explanation": "Downloads vulnerability data on a connected machine for an air-gapped install."
+    },
+    {
+      "id": 8,
+      "category": "Offline databases",
+      "command": "clairctl import-updaters <file>",
+      "example": "clairctl import-updaters updates.json.gz",
+      "explanation": "Imports exported vulnerability data into an offline Clair database."
+    },
+    {
+      "id": 20,
+      "category": "API",
+      "command": "curl -X POST http://<host>:6060/indexer/api/v1/index_report -d @<manifest>",
+      "example": "curl -X POST http://localhost:6060/indexer/api/v1/index_report -d @manifest.json",
+      "explanation": "Indexes an image manifest directly through the API."
+    },
+    {
+      "id": 21,
+      "category": "API",
+      "command": "curl http://<host>:6060/matcher/api/v1/vulnerability_report/<digest>",
+      "example": "curl http://localhost:6060/matcher/api/v1/vulnerability_report/sha256:abc…",
+      "explanation": "Fetches the vulnerability report for an indexed manifest digest."
+    }
+  ]
+}

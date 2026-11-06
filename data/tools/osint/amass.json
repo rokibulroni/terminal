@@ -1,0 +1,144 @@
+{
+  "tool": "amass",
+  "name": "OWASP Amass",
+  "description": "In-depth attack-surface mapping: discovers subdomains through passive sources, DNS brute-forcing and permutation, and graphs the results.",
+  "tags": [
+    "subdomains",
+    "DNS",
+    "attack surface"
+  ],
+  "homepage": "https://github.com/owasp-amass/amass",
+  "docs": "https://github.com/owasp-amass/amass/blob/master/doc/user_guide.md",
+  "install": {
+    "apt": "sudo apt install amass",
+    "brew": "brew install amass",
+    "go": "go install -v github.com/owasp-amass/amass/v4/...@master"
+  },
+  "related": [
+    "theHarvester",
+    "spiderfoot",
+    "gobuster"
+  ],
+  "total_commands": 17,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Enumeration",
+      "command": "amass enum -passive -d <domain>",
+      "example": "amass enum -passive -d example.com",
+      "explanation": "Passive subdomain discovery from certificate logs, DNS datasets and APIs — no traffic reaches the target."
+    },
+    {
+      "id": 11,
+      "category": "Enumeration",
+      "command": "amass enum -d <domain>",
+      "example": "amass enum -d example.com",
+      "explanation": "Default enumeration: passive sources plus DNS resolution of what it finds."
+    },
+    {
+      "id": 2,
+      "category": "Enumeration",
+      "command": "amass enum -active -d <domain>",
+      "example": "amass enum -active -d example.com -p 443,8443",
+      "explanation": "Active mode: zone-transfer attempts and TLS certificate grabbing on the given ports."
+    },
+    {
+      "id": 12,
+      "category": "Enumeration",
+      "command": "amass enum -brute -d <domain>",
+      "example": "amass enum -brute -d example.com",
+      "explanation": "Adds DNS brute-forcing with the built-in wordlist."
+    },
+    {
+      "id": 13,
+      "category": "Enumeration",
+      "command": "amass enum -brute -w <wordlist> -d <domain>",
+      "example": "amass enum -brute -w subdomains-top1million-5000.txt -d example.com",
+      "explanation": "Brute-forces with your own wordlist."
+    },
+    {
+      "id": 14,
+      "category": "Enumeration",
+      "command": "amass enum -df <file>",
+      "example": "amass enum -df domains.txt",
+      "explanation": "Enumerates many root domains from a file."
+    },
+    {
+      "id": 15,
+      "category": "Enumeration",
+      "command": "amass enum -d <domain> -o <file>",
+      "example": "amass enum -d example.com -o subs.txt",
+      "explanation": "Writes discovered names to a file."
+    },
+    {
+      "id": 16,
+      "category": "Enumeration",
+      "command": "amass enum -d <domain> -timeout <minutes>",
+      "example": "amass enum -d example.com -timeout 30",
+      "explanation": "Stops after a time limit."
+    },
+    {
+      "id": 17,
+      "category": "Enumeration",
+      "command": "amass enum -d <domain> -rf <resolvers>",
+      "example": "amass enum -d example.com -rf resolvers.txt",
+      "explanation": "Uses a trusted resolver list for more reliable results."
+    },
+    {
+      "id": 18,
+      "category": "Enumeration",
+      "command": "amass enum -d <domain> -config <file>",
+      "example": "amass enum -d example.com -config config.yaml",
+      "explanation": "Loads API keys for sources such as Shodan, Censys and SecurityTrails, which greatly improves passive coverage."
+    },
+    {
+      "id": 19,
+      "category": "Intelligence",
+      "command": "amass intel -org \"<name>\"",
+      "example": "amass intel -org \"Example Corp\"",
+      "explanation": "Finds ASNs and network ranges registered to an organisation."
+    },
+    {
+      "id": 20,
+      "category": "Intelligence",
+      "command": "amass intel -asn <asn>",
+      "example": "amass intel -asn 13335",
+      "explanation": "Finds root domains hosted in an autonomous system."
+    },
+    {
+      "id": 21,
+      "category": "Intelligence",
+      "command": "amass intel -cidr <cidr>",
+      "example": "amass intel -cidr 203.0.113.0/24",
+      "explanation": "Reverse lookups across a network range to find domains."
+    },
+    {
+      "id": 22,
+      "category": "Intelligence",
+      "command": "amass intel -d <domain> -whois",
+      "example": "amass intel -d example.com -whois",
+      "explanation": "Finds related domains through reverse WHOIS."
+    },
+    {
+      "id": 23,
+      "category": "Results",
+      "command": "amass subs -names -d <domain>",
+      "example": "amass subs -names -d example.com",
+      "explanation": "Lists names stored in the local Amass database from earlier runs (v4+)."
+    },
+    {
+      "id": 24,
+      "category": "Results",
+      "command": "amass viz -d3 -d <domain>",
+      "example": "amass viz -d3 -d example.com",
+      "explanation": "Renders the discovered graph as an interactive HTML visualisation."
+    },
+    {
+      "id": 25,
+      "category": "Results",
+      "command": "amass enum -passive -d <domain> | httpx -silent",
+      "example": "amass enum -passive -d example.com | httpx -silent",
+      "explanation": "Pipes subdomains into httpx to find live web servers."
+    }
+  ]
+}

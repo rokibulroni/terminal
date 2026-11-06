@@ -1,0 +1,199 @@
+{
+  "tool": "radare2",
+  "name": "radare2",
+  "description": "A complete command-line reverse-engineering framework: disassemble, debug, patch and analyse binaries for many architectures.",
+  "tags": [
+    "disassembly",
+    "debugging",
+    "binary analysis"
+  ],
+  "homepage": "https://rada.re",
+  "docs": "https://book.rada.re",
+  "install": {
+    "apt": "sudo apt install radare2",
+    "brew": "brew install radare2"
+  },
+  "related": [
+    "ghidra",
+    "gdb",
+    "objdump"
+  ],
+  "total_commands": 25,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Opening",
+      "command": "r2 <binary>",
+      "example": "r2 ./crackme",
+      "explanation": "Opens a binary read-only."
+    },
+    {
+      "id": 2,
+      "category": "Opening",
+      "command": "r2 -A <binary>",
+      "example": "r2 -A ./crackme",
+      "explanation": "Opens and runs full analysis (same as aaa) — slower but finds functions and references."
+    },
+    {
+      "id": 3,
+      "category": "Opening",
+      "command": "r2 -d <binary>",
+      "example": "r2 -d ./crackme",
+      "explanation": "Opens in debug mode."
+    },
+    {
+      "id": 16,
+      "category": "Opening",
+      "command": "r2 -w <binary>",
+      "example": "r2 -w ./crackme",
+      "explanation": "Opens writable so you can patch bytes."
+    },
+    {
+      "id": 17,
+      "category": "Opening",
+      "command": "rabin2 -I <binary>",
+      "example": "rabin2 -I ./crackme",
+      "explanation": "Binary info without the shell: architecture, protections, language."
+    },
+    {
+      "id": 18,
+      "category": "Opening",
+      "command": "rabin2 -z <binary>",
+      "example": "rabin2 -z ./crackme",
+      "explanation": "Strings from the data sections."
+    },
+    {
+      "id": 19,
+      "category": "Opening",
+      "command": "rabin2 -i <binary>",
+      "example": "rabin2 -i ./crackme",
+      "explanation": "Imported functions."
+    },
+    {
+      "id": 20,
+      "category": "Analysis",
+      "command": "aaa",
+      "example": "aaa",
+      "explanation": "Analyses everything: functions, references and names."
+    },
+    {
+      "id": 5,
+      "category": "Analysis",
+      "command": "afl",
+      "example": "afl",
+      "explanation": "Lists functions with addresses and sizes."
+    },
+    {
+      "id": 21,
+      "category": "Analysis",
+      "command": "s <addr|symbol>",
+      "example": "s main",
+      "explanation": "Seeks to an address or symbol."
+    },
+    {
+      "id": 8,
+      "category": "Analysis",
+      "command": "pdf",
+      "example": "pdf",
+      "explanation": "Prints the disassembly of the current function."
+    },
+    {
+      "id": 22,
+      "category": "Analysis",
+      "command": "pdf @ <symbol>",
+      "example": "pdf @ sym.check_password",
+      "explanation": "Disassembles a function without seeking."
+    },
+    {
+      "id": 23,
+      "category": "Analysis",
+      "command": "axt <addr>",
+      "example": "axt @ str.Correct_password",
+      "explanation": "Cross-references to an address — who uses this string or calls this function."
+    },
+    {
+      "id": 13,
+      "category": "Analysis",
+      "command": "iz",
+      "example": "iz",
+      "explanation": "Strings in data sections; izz searches the whole binary."
+    },
+    {
+      "id": 24,
+      "category": "Analysis",
+      "command": "pdc",
+      "example": "pdc",
+      "explanation": "A pseudo-C view of the current function."
+    },
+    {
+      "id": 10,
+      "category": "Analysis",
+      "command": "/ <string>",
+      "example": "/ flag{",
+      "explanation": "Searches for a string; /x searches hex bytes."
+    },
+    {
+      "id": 25,
+      "category": "Visual modes",
+      "command": "V",
+      "example": "V",
+      "explanation": "Visual mode; press p to cycle views and q to leave."
+    },
+    {
+      "id": 6,
+      "category": "Visual modes",
+      "command": "VV",
+      "example": "VV",
+      "explanation": "Graph view of the current function’s control flow."
+    },
+    {
+      "id": 26,
+      "category": "Debugging and patching",
+      "command": "db <addr>",
+      "example": "db main",
+      "explanation": "Sets a breakpoint."
+    },
+    {
+      "id": 27,
+      "category": "Debugging and patching",
+      "command": "dc",
+      "example": "dc",
+      "explanation": "Continues execution."
+    },
+    {
+      "id": 28,
+      "category": "Debugging and patching",
+      "command": "ds",
+      "example": "ds",
+      "explanation": "Steps one instruction; dso steps over."
+    },
+    {
+      "id": 29,
+      "category": "Debugging and patching",
+      "command": "dr",
+      "example": "dr",
+      "explanation": "Shows registers; dr rax=0 sets one."
+    },
+    {
+      "id": 30,
+      "category": "Debugging and patching",
+      "command": "px <n> @ <addr>",
+      "example": "px 64 @ rsp",
+      "explanation": "Hex dump of memory."
+    },
+    {
+      "id": 31,
+      "category": "Debugging and patching",
+      "command": "wa <asm> @ <addr>",
+      "example": "wa nop @ 0x08048456",
+      "explanation": "Writes assembled instructions (in -w mode)."
+    },
+    {
+      "id": 32,
+      "category": "Debugging and patching",
+      "command": "wx <hex> @ <addr>",
+      "example": "wx 9090 @ 0x08048456",
+      "explanation": "Writes raw bytes."
+    }
+  ]
+}

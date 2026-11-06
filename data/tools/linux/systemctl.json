@@ -1,0 +1,152 @@
+{
+  "tool": "systemctl",
+  "name": "systemctl",
+  "description": "Controls systemd: start, stop, enable and inspect services, timers and the boot target.",
+  "tags": [
+    "services",
+    "systemd",
+    "persistence"
+  ],
+  "homepage": "https://systemd.io",
+  "docs": "https://www.freedesktop.org/software/systemd/man/latest/systemctl.html",
+  "related": [
+    "journalctl",
+    "ps"
+  ],
+  "total_commands": 19,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Services",
+      "command": "systemctl status <unit>",
+      "example": "systemctl status ssh",
+      "explanation": "State, main PID, memory use and the latest log lines for a service."
+    },
+    {
+      "id": 12,
+      "category": "Services",
+      "command": "sudo systemctl start <unit>",
+      "example": "sudo systemctl start nginx",
+      "explanation": "Starts a service now."
+    },
+    {
+      "id": 13,
+      "category": "Services",
+      "command": "sudo systemctl stop <unit>",
+      "example": "sudo systemctl stop nginx",
+      "explanation": "Stops a service."
+    },
+    {
+      "id": 14,
+      "category": "Services",
+      "command": "sudo systemctl restart <unit>",
+      "example": "sudo systemctl restart ssh",
+      "explanation": "Stops and starts it again."
+    },
+    {
+      "id": 15,
+      "category": "Services",
+      "command": "sudo systemctl reload <unit>",
+      "example": "sudo systemctl reload nginx",
+      "explanation": "Reloads configuration without dropping connections, if the service supports it."
+    },
+    {
+      "id": 16,
+      "category": "Services",
+      "command": "sudo systemctl enable --now <unit>",
+      "example": "sudo systemctl enable --now fail2ban",
+      "explanation": "Starts the service and makes it start at boot."
+    },
+    {
+      "id": 17,
+      "category": "Services",
+      "command": "sudo systemctl disable --now <unit>",
+      "example": "sudo systemctl disable --now telnet.socket",
+      "explanation": "Stops it and removes it from boot."
+    },
+    {
+      "id": 18,
+      "category": "Services",
+      "command": "sudo systemctl mask <unit>",
+      "example": "sudo systemctl mask rpcbind",
+      "explanation": "Prevents a unit from being started at all, even as a dependency."
+    },
+    {
+      "id": 19,
+      "category": "Inspecting",
+      "command": "systemctl list-units --type=service --state=running",
+      "example": "systemctl list-units --type=service --state=running",
+      "explanation": "Every running service."
+    },
+    {
+      "id": 20,
+      "category": "Inspecting",
+      "command": "systemctl list-unit-files --state=enabled",
+      "example": "systemctl list-unit-files --state=enabled",
+      "explanation": "Everything set to start at boot — a key persistence check."
+    },
+    {
+      "id": 21,
+      "category": "Inspecting",
+      "command": "systemctl --failed",
+      "example": "systemctl --failed",
+      "explanation": "Units that failed to start."
+    },
+    {
+      "id": 22,
+      "category": "Inspecting",
+      "command": "systemctl list-timers --all",
+      "example": "systemctl list-timers --all",
+      "explanation": "systemd timers, the modern replacement for cron and another persistence location."
+    },
+    {
+      "id": 23,
+      "category": "Inspecting",
+      "command": "systemctl cat <unit>",
+      "example": "systemctl cat ssh",
+      "explanation": "Prints the unit file plus any drop-in overrides."
+    },
+    {
+      "id": 24,
+      "category": "Inspecting",
+      "command": "systemctl show <unit> -p ExecStart,User,FragmentPath",
+      "example": "systemctl show nginx -p ExecStart,User,FragmentPath",
+      "explanation": "Specific properties: the command it runs, the user and where the unit file lives."
+    },
+    {
+      "id": 25,
+      "category": "Inspecting",
+      "command": "systemctl list-dependencies <unit>",
+      "example": "systemctl list-dependencies multi-user.target",
+      "explanation": "What a unit pulls in."
+    },
+    {
+      "id": 26,
+      "category": "Editing and system",
+      "command": "sudo systemctl edit <unit>",
+      "example": "sudo systemctl edit nginx",
+      "explanation": "Creates a drop-in override instead of editing the vendor unit file."
+    },
+    {
+      "id": 27,
+      "category": "Editing and system",
+      "command": "sudo systemctl daemon-reload",
+      "example": "sudo systemctl daemon-reload",
+      "explanation": "Reloads unit files after you change them."
+    },
+    {
+      "id": 28,
+      "category": "Editing and system",
+      "command": "systemctl --user list-units",
+      "example": "systemctl --user list-units",
+      "explanation": "Per-user services, which run without root and are easy to overlook."
+    },
+    {
+      "id": 29,
+      "category": "Editing and system",
+      "command": "systemctl get-default",
+      "example": "systemctl get-default",
+      "explanation": "The target the system boots into (graphical or multi-user)."
+    }
+  ]
+}

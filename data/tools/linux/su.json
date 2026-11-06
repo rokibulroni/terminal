@@ -1,0 +1,105 @@
+{
+  "tool": "su",
+  "name": "su",
+  "description": "Switches to another user (root by default) in a new shell, optionally as a login shell or for a single command.",
+  "tags": [
+    "users",
+    "privilege"
+  ],
+  "homepage": "https://github.com/util-linux/util-linux",
+  "docs": "https://man7.org/linux/man-pages/man1/su.1.html",
+  "install": {
+    "apt": "sudo apt install util-linux"
+  },
+  "related": [
+    "whoami",
+    "chown"
+  ],
+  "total_commands": 12,
+  "commands": [
+    {
+      "id": 3,
+      "category": "Switching users",
+      "command": "su",
+      "example": "su",
+      "explanation": "Becomes root in the current environment after entering root’s password."
+    },
+    {
+      "id": 4,
+      "category": "Switching users",
+      "command": "su -",
+      "example": "su -",
+      "explanation": "A full root login shell: resets the environment and changes to /root. Usually what you want."
+    },
+    {
+      "id": 5,
+      "category": "Switching users",
+      "command": "su - <user>",
+      "example": "su - postgres",
+      "explanation": "A login shell as another user."
+    },
+    {
+      "id": 6,
+      "category": "Switching users",
+      "command": "su -c \"<command>\" <user>",
+      "example": "su -c \"whoami\" alice",
+      "explanation": "Runs one command as another user."
+    },
+    {
+      "id": 7,
+      "category": "Switching users",
+      "command": "su -s <shell> <user>",
+      "example": "sudo su -s /bin/bash www-data",
+      "explanation": "Uses a specific shell, needed for service accounts whose shell is /usr/sbin/nologin."
+    },
+    {
+      "id": 8,
+      "category": "Switching users",
+      "command": "su -p <user>",
+      "example": "su -p <user>",
+      "explanation": "Keeps the current environment variables."
+    },
+    {
+      "id": 9,
+      "category": "Switching users",
+      "command": "exit",
+      "example": "exit",
+      "explanation": "Leaves the su shell and returns to your own user."
+    },
+    {
+      "id": 10,
+      "category": "Compared with sudo",
+      "command": "sudo -i",
+      "example": "sudo -i",
+      "explanation": "A root login shell using your own password and sudo rights."
+    },
+    {
+      "id": 11,
+      "category": "Compared with sudo",
+      "command": "sudo -u <user> <command>",
+      "example": "sudo -u www-data id",
+      "explanation": "Runs one command as another user via sudo."
+    },
+    {
+      "id": 12,
+      "category": "Compared with sudo",
+      "command": "sudo -s",
+      "example": "sudo -s",
+      "explanation": "A root shell that keeps your environment."
+    },
+    {
+      "id": 13,
+      "category": "Auditing",
+      "command": "grep -E \"su(\\[|:)\" /var/log/auth.log",
+      "example": "grep -E \"su(\\[|:)\" /var/log/auth.log",
+      "explanation": "Successful and failed su attempts on Debian and Ubuntu (/var/log/secure on RHEL)."
+    },
+    {
+      "id": 14,
+      "category": "Auditing",
+      "command": "cat /etc/pam.d/su",
+      "example": "cat /etc/pam.d/su",
+      "explanation": "PAM rules for su — for example, whether only the wheel group may use it."
+    }
+  ]
+}

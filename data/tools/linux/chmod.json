@@ -1,0 +1,142 @@
+{
+  "tool": "chmod",
+  "name": "chmod",
+  "description": "Changes file permissions using symbolic or octal modes, including setuid, setgid and sticky bits.",
+  "tags": [
+    "permissions",
+    "security"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "chown",
+    "ls",
+    "find"
+  ],
+  "total_commands": 17,
+  "commands": [
+    {
+      "id": 4,
+      "category": "Symbolic modes",
+      "command": "chmod +x <file>",
+      "example": "chmod +x exploit.sh",
+      "explanation": "Makes a file executable."
+    },
+    {
+      "id": 11,
+      "category": "Symbolic modes",
+      "command": "chmod u+x <file>",
+      "example": "chmod u+x run.sh",
+      "explanation": "Executable for the owner only."
+    },
+    {
+      "id": 12,
+      "category": "Symbolic modes",
+      "command": "chmod go-rwx <file>",
+      "example": "chmod go-rwx id_rsa",
+      "explanation": "Removes all access for group and others."
+    },
+    {
+      "id": 13,
+      "category": "Symbolic modes",
+      "command": "chmod a+r <file>",
+      "example": "chmod a+r index.html",
+      "explanation": "Readable by everyone."
+    },
+    {
+      "id": 14,
+      "category": "Symbolic modes",
+      "command": "chmod u=rw,go=r <file>",
+      "example": "chmod u=rw,go=r notes.txt",
+      "explanation": "Sets exact permissions per class."
+    },
+    {
+      "id": 15,
+      "category": "Octal modes",
+      "command": "chmod 644 <file>",
+      "example": "chmod 644 index.html",
+      "explanation": "rw-r--r--: owner reads and writes, everyone else reads. Typical for files."
+    },
+    {
+      "id": 16,
+      "category": "Octal modes",
+      "command": "chmod 755 <dir>",
+      "example": "chmod 755 /var/www/html",
+      "explanation": "rwxr-xr-x: typical for directories and scripts."
+    },
+    {
+      "id": 3,
+      "category": "Octal modes",
+      "command": "chmod 600 <file>",
+      "example": "chmod 600 ~/.ssh/id_ed25519",
+      "explanation": "rw-------: private keys must be this strict or SSH refuses them."
+    },
+    {
+      "id": 17,
+      "category": "Octal modes",
+      "command": "chmod 700 <dir>",
+      "example": "chmod 700 ~/.ssh",
+      "explanation": "Only the owner can enter or list."
+    },
+    {
+      "id": 8,
+      "category": "Special bits",
+      "command": "chmod u+s <file>",
+      "example": "chmod u+s /usr/local/bin/tool",
+      "explanation": "Sets SUID: the program runs with its owner’s privileges. Dangerous on root-owned binaries."
+    },
+    {
+      "id": 18,
+      "category": "Special bits",
+      "command": "chmod g+s <dir>",
+      "example": "chmod g+s /srv/shared",
+      "explanation": "SGID on a directory: new files inherit the directory’s group."
+    },
+    {
+      "id": 19,
+      "category": "Special bits",
+      "command": "chmod +t <dir>",
+      "example": "chmod +t /srv/upload",
+      "explanation": "Sticky bit: users can delete only their own files, as in /tmp."
+    },
+    {
+      "id": 20,
+      "category": "Special bits",
+      "command": "chmod 4755 <file>",
+      "example": "chmod 4755 <file>",
+      "explanation": "Octal SUID plus 755. The leading digit is 4 for SUID, 2 for SGID and 1 for sticky."
+    },
+    {
+      "id": 21,
+      "category": "Recursive",
+      "command": "chmod -R <mode> <dir>",
+      "example": "chmod -R go-w /var/www",
+      "explanation": "Applies a mode to a whole tree."
+    },
+    {
+      "id": 22,
+      "category": "Recursive",
+      "command": "find <dir> -type d -exec chmod 755 {} +",
+      "example": "find /var/www -type d -exec chmod 755 {} +",
+      "explanation": "Sets directories and files differently — usually what you want instead of chmod -R."
+    },
+    {
+      "id": 23,
+      "category": "Recursive",
+      "command": "find <dir> -type f -exec chmod 644 {} +",
+      "example": "find /var/www -type f -exec chmod 644 {} +",
+      "explanation": "Sets every file to 644."
+    },
+    {
+      "id": 24,
+      "category": "Recursive",
+      "command": "chmod --reference=<ref> <file>",
+      "example": "chmod --reference=good.conf broken.conf",
+      "explanation": "Copies permissions from another file (GNU)."
+    }
+  ]
+}

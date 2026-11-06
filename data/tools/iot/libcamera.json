@@ -1,0 +1,112 @@
+{
+  "tool": "libcamera",
+  "name": "libcamera apps",
+  "description": "Capture stills and video from Raspberry Pi camera modules with rpicam-still, rpicam-vid and friends (formerly libcamera-*).",
+  "tags": [
+    "camera",
+    "Raspberry Pi"
+  ],
+  "homepage": "https://libcamera.org",
+  "docs": "https://www.raspberrypi.com/documentation/computers/camera_software.html",
+  "install": {
+    "apt": "sudo apt install rpicam-apps"
+  },
+  "related": [
+    "raspi-config",
+    "vcgencmd"
+  ],
+  "total_commands": 13,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Detecting",
+      "command": "rpicam-hello --list-cameras",
+      "example": "rpicam-hello --list-cameras",
+      "explanation": "Lists connected cameras with their sensor modes and resolutions."
+    },
+    {
+      "id": 12,
+      "category": "Detecting",
+      "command": "rpicam-hello -t 0",
+      "example": "rpicam-hello -t 0",
+      "explanation": "Shows a live preview until you stop it. On older releases the command is libcamera-hello."
+    },
+    {
+      "id": 13,
+      "category": "Stills",
+      "command": "rpicam-still -o <file>",
+      "example": "rpicam-still -o photo.jpg",
+      "explanation": "Takes a JPEG after a short preview for auto-exposure."
+    },
+    {
+      "id": 14,
+      "category": "Stills",
+      "command": "rpicam-still -n -t 1 -o <file>",
+      "example": "rpicam-still -n -t 1 -o quick.jpg",
+      "explanation": "No preview and minimal delay — useful in scripts."
+    },
+    {
+      "id": 15,
+      "category": "Stills",
+      "command": "rpicam-still --width <w> --height <h> -o <file>",
+      "example": "rpicam-still --width 1920 --height 1080 -o hd.jpg",
+      "explanation": "Sets the resolution."
+    },
+    {
+      "id": 16,
+      "category": "Stills",
+      "command": "rpicam-still -r -o <file>",
+      "example": "rpicam-still -r -o raw.jpg",
+      "explanation": "Also saves a DNG raw file."
+    },
+    {
+      "id": 17,
+      "category": "Stills",
+      "command": "rpicam-still --timelapse <ms> -t <ms> -o <pattern>",
+      "example": "rpicam-still --timelapse 60000 -t 3600000 -o tl_%04d.jpg",
+      "explanation": "One frame a minute for an hour."
+    },
+    {
+      "id": 18,
+      "category": "Stills",
+      "command": "rpicam-still --shutter <us> --gain <g> -o <file>",
+      "example": "rpicam-still --shutter 2000000 --gain 1 -o night.jpg",
+      "explanation": "Manual exposure: a 2-second shutter at base gain."
+    },
+    {
+      "id": 19,
+      "category": "Stills",
+      "command": "rpicam-still --hflip --vflip -o <file>",
+      "example": "rpicam-still --hflip --vflip -o <file>",
+      "explanation": "Flips the image when the camera is mounted upside down."
+    },
+    {
+      "id": 20,
+      "category": "Video",
+      "command": "rpicam-vid -t <ms> -o <file>",
+      "example": "rpicam-vid -t 10000 -o clip.h264",
+      "explanation": "Records raw H.264 for the given milliseconds."
+    },
+    {
+      "id": 21,
+      "category": "Video",
+      "command": "rpicam-vid -t <ms> --codec libav -o <file>.mp4",
+      "example": "rpicam-vid -t 10000 --codec libav -o clip.mp4",
+      "explanation": "Records straight to MP4."
+    },
+    {
+      "id": 22,
+      "category": "Video",
+      "command": "rpicam-vid -t 0 --inline --listen -o tcp://0.0.0.0:<port>",
+      "example": "rpicam-vid -t 0 --inline --listen -o tcp://0.0.0.0:8888",
+      "explanation": "Streams video over TCP; open tcp://<pi>:8888 in VLC or ffplay."
+    },
+    {
+      "id": 23,
+      "category": "Video",
+      "command": "rpicam-vid --framerate <fps> --width <w> --height <h> -o <file>",
+      "example": "rpicam-vid --framerate 60 --width 1280 --height 720 -t 5000 -o fast.h264",
+      "explanation": "Sets resolution and frame rate."
+    }
+  ]
+}

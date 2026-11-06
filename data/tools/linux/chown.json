@@ -1,0 +1,92 @@
+{
+  "tool": "chown",
+  "name": "chown",
+  "description": "Changes the owner and group of files and directories.",
+  "tags": [
+    "permissions",
+    "ownership"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/chown.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "chmod",
+    "ls"
+  ],
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basics",
+      "command": "chown <user> <file>",
+      "example": "sudo chown alice report.txt",
+      "explanation": "Changes the owner."
+    },
+    {
+      "id": 3,
+      "category": "Basics",
+      "command": "chown <user>:<group> <file>",
+      "example": "sudo chown www-data:www-data index.php",
+      "explanation": "Changes owner and group together."
+    },
+    {
+      "id": 2,
+      "category": "Basics",
+      "command": "chown :<group> <file>",
+      "example": "sudo chown :developers app.py",
+      "explanation": "Changes only the group (same as chgrp)."
+    },
+    {
+      "id": 11,
+      "category": "Basics",
+      "command": "chown <user>: <file>",
+      "example": "sudo chown bob: notes.txt",
+      "explanation": "Sets the owner and the owner’s login group."
+    },
+    {
+      "id": 12,
+      "category": "Basics",
+      "command": "chown -R <user>:<group> <dir>",
+      "example": "sudo chown -R www-data:www-data /var/www/site",
+      "explanation": "Changes ownership recursively."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "chown -v <user> <file>",
+      "example": "chown -v <user> <file>",
+      "explanation": "Prints every change."
+    },
+    {
+      "id": 13,
+      "category": "Basics",
+      "command": "chown -h <user> <link>",
+      "example": "chown -h <user> <link>",
+      "explanation": "Changes the symbolic link itself rather than its target."
+    },
+    {
+      "id": 14,
+      "category": "Basics",
+      "command": "chown --reference=<ref> <file>",
+      "example": "sudo chown --reference=/var/www /var/www/new",
+      "explanation": "Copies ownership from another file (GNU)."
+    },
+    {
+      "id": 15,
+      "category": "Basics",
+      "command": "chown <uid>:<gid> <file>",
+      "example": "sudo chown 1001:1001 data/",
+      "explanation": "Numeric IDs, useful in containers where names do not match."
+    },
+    {
+      "id": 16,
+      "category": "Basics",
+      "command": "chgrp <group> <file>",
+      "example": "sudo chgrp adm /var/log/app.log",
+      "explanation": "Changes only the group."
+    }
+  ]
+}

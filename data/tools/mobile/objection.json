@@ -1,0 +1,155 @@
+{
+  "tool": "objection",
+  "name": "objection",
+  "description": "A runtime mobile-exploration toolkit powered by Frida: bypass SSL pinning, explore the file system and dump keychains without a jailbreak.",
+  "tags": [
+    "mobile",
+    "Frida",
+    "SSL pinning"
+  ],
+  "homepage": "https://github.com/sensepost/objection",
+  "docs": "https://github.com/sensepost/objection/wiki",
+  "install": {
+    "pipx": "pipx install objection"
+  },
+  "related": [
+    "frida",
+    "adb"
+  ],
+  "total_commands": 19,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Starting",
+      "command": "objection -g <package> explore",
+      "example": "objection -g com.example.app explore",
+      "explanation": "Attaches to a running app through Frida and opens the objection REPL."
+    },
+    {
+      "id": 11,
+      "category": "Starting",
+      "command": "objection -g <package> explore -s \"<command>\"",
+      "example": "objection -g com.example.app explore -s \"android sslpinning disable\"",
+      "explanation": "Runs a startup command right after attaching."
+    },
+    {
+      "id": 12,
+      "category": "Starting",
+      "command": "objection patchapk -s <apk>",
+      "example": "objection patchapk -s app.apk",
+      "explanation": "Embeds the Frida gadget into an APK so it works on non-rooted devices."
+    },
+    {
+      "id": 13,
+      "category": "Starting",
+      "command": "objection patchipa -s <ipa> -c <codesign-id>",
+      "example": "objection patchipa -s app.ipa -c \"Apple Development: …\"",
+      "explanation": "Embeds the gadget into an iOS IPA and re-signs it."
+    },
+    {
+      "id": 2,
+      "category": "Bypasses",
+      "command": "android sslpinning disable",
+      "example": "android sslpinning disable",
+      "explanation": "Hooks common pinning implementations (OkHttp, TrustManager and others) so a proxy can intercept TLS."
+    },
+    {
+      "id": 3,
+      "category": "Bypasses",
+      "command": "android root disable",
+      "example": "android root disable",
+      "explanation": "Defeats common root-detection checks."
+    },
+    {
+      "id": 14,
+      "category": "Bypasses",
+      "command": "ios sslpinning disable",
+      "example": "ios sslpinning disable",
+      "explanation": "Bypasses pinning on iOS."
+    },
+    {
+      "id": 15,
+      "category": "Bypasses",
+      "command": "ios jailbreak disable",
+      "example": "ios jailbreak disable",
+      "explanation": "Defeats common jailbreak checks."
+    },
+    {
+      "id": 16,
+      "category": "Exploring",
+      "command": "env",
+      "example": "env",
+      "explanation": "The app’s data, cache and files directories."
+    },
+    {
+      "id": 17,
+      "category": "Exploring",
+      "command": "ls",
+      "example": "ls",
+      "explanation": "Lists files in the current directory on the device; cd and file download work too."
+    },
+    {
+      "id": 18,
+      "category": "Exploring",
+      "command": "file download <remote> <local>",
+      "example": "file download shared_prefs/prefs.xml prefs.xml",
+      "explanation": "Downloads a file from the app sandbox."
+    },
+    {
+      "id": 19,
+      "category": "Exploring",
+      "command": "android hooking list activities",
+      "example": "android hooking list activities",
+      "explanation": "Lists activities."
+    },
+    {
+      "id": 20,
+      "category": "Exploring",
+      "command": "android intent launch_activity <activity>",
+      "example": "android intent launch_activity com.example.app.AdminActivity",
+      "explanation": "Launches an activity directly, bypassing the normal flow."
+    },
+    {
+      "id": 21,
+      "category": "Exploring",
+      "command": "android hooking search classes <pattern>",
+      "example": "android hooking search classes crypto",
+      "explanation": "Finds loaded classes by name."
+    },
+    {
+      "id": 22,
+      "category": "Exploring",
+      "command": "android hooking watch class_method <method> --dump-args --dump-return",
+      "example": "android hooking watch class_method com.example.Auth.check --dump-args --dump-return",
+      "explanation": "Logs every call to a method with arguments and return value."
+    },
+    {
+      "id": 23,
+      "category": "Exploring",
+      "command": "android hooking set return_value <method> <bool>",
+      "example": "android hooking set return_value com.example.License.isValid true",
+      "explanation": "Forces a method’s return value."
+    },
+    {
+      "id": 4,
+      "category": "Exploring",
+      "command": "android keystore list",
+      "example": "android keystore list",
+      "explanation": "Lists entries in the Android keystore."
+    },
+    {
+      "id": 24,
+      "category": "Exploring",
+      "command": "ios keychain dump",
+      "example": "ios keychain dump",
+      "explanation": "Dumps keychain items accessible to the app."
+    },
+    {
+      "id": 25,
+      "category": "Exploring",
+      "command": "memory search \"<string>\" --string",
+      "example": "memory search \"password\" --string",
+      "explanation": "Searches process memory for a string."
+    }
+  ]
+}

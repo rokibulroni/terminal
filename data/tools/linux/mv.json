@@ -1,0 +1,91 @@
+{
+  "tool": "mv",
+  "name": "mv",
+  "description": "Moves or renames files and directories.",
+  "tags": [
+    "files"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/mv.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "cp",
+    "rm"
+  ],
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "mv <src> <dest>",
+      "example": "mv draft.txt final.txt",
+      "explanation": "Renames a file or moves it to another location."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "mv <file> <dir>/",
+      "example": "mv report.pdf ~/Documents/",
+      "explanation": "Moves a file into a directory."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "mv <file1> <file2> <dir>/",
+      "example": "mv *.jpg photos/",
+      "explanation": "Moves several files."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "mv -i <src> <dest>",
+      "example": "mv -i <src> <dest>",
+      "explanation": "Asks before overwriting."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "mv -n <src> <dest>",
+      "example": "mv -n <src> <dest>",
+      "explanation": "Never overwrites."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "mv -v <src> <dest>",
+      "example": "mv -v <src> <dest>",
+      "explanation": "Prints what was moved."
+    },
+    {
+      "id": 10,
+      "category": "Basics",
+      "command": "mv -b <src> <dest>",
+      "example": "mv -b <src> <dest>",
+      "explanation": "Backs up an existing destination before replacing it (GNU)."
+    },
+    {
+      "id": 11,
+      "category": "Basics",
+      "command": "mv -t <dir> <files>",
+      "example": "mv -t archive/ *.log",
+      "explanation": "Names the target directory first — useful with xargs."
+    },
+    {
+      "id": 12,
+      "category": "Renaming many files",
+      "command": "for f in *.<a>; do mv -- \"$f\" \"${f%.<a>}.<b>\"; done",
+      "example": "for f in *.jpeg; do mv -- \"$f\" \"${f%.jpeg}.jpg\"; done",
+      "explanation": "Renames extensions in bulk using shell parameter expansion."
+    },
+    {
+      "id": 13,
+      "category": "Renaming many files",
+      "command": "rename 's/<old>/<new>/' <files>",
+      "example": "rename 's/ /_/g' *",
+      "explanation": "Perl rename: replaces spaces with underscores in every name."
+    }
+  ]
+}

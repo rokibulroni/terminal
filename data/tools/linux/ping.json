@@ -1,0 +1,99 @@
+{
+  "tool": "ping",
+  "name": "ping",
+  "description": "Sends ICMP echo requests to test reachability and measure round-trip time.",
+  "tags": [
+    "networking",
+    "ICMP",
+    "connectivity"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/ping.8.html",
+  "install": {
+    "apt": "sudo apt install iputils-ping"
+  },
+  "related": [
+    "fping",
+    "ip",
+    "hping3"
+  ],
+  "total_commands": 11,
+  "commands": [
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "ping <host>",
+      "example": "ping example.com",
+      "explanation": "Sends echo requests until Ctrl-C and reports latency and loss."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "ping -c <n> <host>",
+      "example": "ping -c 4 192.168.1.1",
+      "explanation": "Stops after n packets — what you want in scripts."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "ping -i <seconds> <host>",
+      "example": "ping -i 0.2 10.0.0.5",
+      "explanation": "Changes the interval; below 0.2 s needs root."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "ping -W <seconds> -c 1 <host>",
+      "example": "ping -W 1 -c 1 10.0.0.5",
+      "explanation": "Waits at most n seconds for a reply."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "ping -q -c <n> <host>",
+      "example": "ping -q -c 20 1.1.1.1",
+      "explanation": "Prints only the summary."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "ping -6 <host>",
+      "example": "ping -6 google.com",
+      "explanation": "Forces IPv6."
+    },
+    {
+      "id": 10,
+      "category": "Diagnostics",
+      "command": "ping -s <bytes> <host>",
+      "example": "ping -s 1472 -M do 10.0.0.1",
+      "explanation": "Sets payload size. With -M do (do not fragment) this finds the path MTU: 1472 + 28 bytes of headers = 1500."
+    },
+    {
+      "id": 11,
+      "category": "Diagnostics",
+      "command": "ping -D <host>",
+      "example": "ping -D <host>",
+      "explanation": "Prints a timestamp before each line."
+    },
+    {
+      "id": 12,
+      "category": "Diagnostics",
+      "command": "ping -c 1 <host>",
+      "example": "ping -c 1 10.10.10.5",
+      "explanation": "Reads the TTL in the reply to guess the OS: about 64 for Linux and macOS, 128 for Windows, 255 for network gear."
+    },
+    {
+      "id": 13,
+      "category": "Diagnostics",
+      "command": "ping -b <broadcast>",
+      "example": "ping -b 192.168.1.255",
+      "explanation": "Pings a broadcast address; most modern hosts ignore it."
+    },
+    {
+      "id": 14,
+      "category": "Diagnostics",
+      "command": "for i in $(seq 1 254); do ping -c1 -W1 <prefix>.$i | grep \"bytes from\" & done; wait",
+      "example": "for i in $(seq 1 254); do ping -c1 -W1 192.168.1.$i | grep \"bytes from\" & done; wait",
+      "explanation": "A quick ping sweep with nothing but bash — useful on a foothold without nmap."
+    }
+  ]
+}

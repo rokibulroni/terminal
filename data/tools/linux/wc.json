@@ -1,0 +1,92 @@
+{
+  "tool": "wc",
+  "name": "wc",
+  "description": "Counts lines, words, characters and bytes in files or input.",
+  "tags": [
+    "counting",
+    "text"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/wc.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "uniq",
+    "grep"
+  ],
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "wc <file>",
+      "example": "wc report.txt",
+      "explanation": "Prints line, word and byte counts."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "wc -l <file>",
+      "example": "wc -l targets.txt",
+      "explanation": "Counts lines."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "wc -w <file>",
+      "example": "wc -w essay.txt",
+      "explanation": "Counts words."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "wc -c <file>",
+      "example": "wc -c payload.bin",
+      "explanation": "Counts bytes."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "wc -m <file>",
+      "example": "wc -m unicode.txt",
+      "explanation": "Counts characters, which differs from bytes for multi-byte text."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "wc -L <file>",
+      "example": "wc -L app.log",
+      "explanation": "Prints the length of the longest line (GNU)."
+    },
+    {
+      "id": 10,
+      "category": "Basics",
+      "command": "wc -l *.txt",
+      "example": "wc -l *.txt",
+      "explanation": "Counts several files and adds a total."
+    },
+    {
+      "id": 11,
+      "category": "In pipelines",
+      "command": "<command> | wc -l",
+      "example": "ls /etc | wc -l",
+      "explanation": "Counts lines of output."
+    },
+    {
+      "id": 12,
+      "category": "In pipelines",
+      "command": "grep -c \"<pattern>\" <file>",
+      "example": "grep -c \"Failed password\" /var/log/auth.log",
+      "explanation": "Counting matches directly is faster than grep | wc -l."
+    },
+    {
+      "id": 13,
+      "category": "In pipelines",
+      "command": "find <dir> -type f | wc -l",
+      "example": "find /var/www -type f | wc -l",
+      "explanation": "Counts files under a directory."
+    }
+  ]
+}

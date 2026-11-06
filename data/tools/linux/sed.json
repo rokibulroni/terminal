@@ -1,0 +1,135 @@
+{
+  "tool": "sed",
+  "name": "sed",
+  "description": "A stream editor for filtering and transforming text: substitutions, deletions and in-place file edits.",
+  "tags": [
+    "text processing",
+    "regex"
+  ],
+  "homepage": "https://www.gnu.org/software/sed/",
+  "docs": "https://www.gnu.org/software/sed/manual/sed.html",
+  "install": {
+    "apt": "sudo apt install sed",
+    "brew": "brew install gnu-sed"
+  },
+  "related": [
+    "awk",
+    "grep",
+    "cut"
+  ],
+  "total_commands": 16,
+  "commands": [
+    {
+      "id": 5,
+      "category": "Substitution",
+      "command": "sed 's/<old>/<new>/' <file>",
+      "example": "sed 's/http/https/' urls.txt",
+      "explanation": "Replaces the first match on each line and prints the result; the file is unchanged."
+    },
+    {
+      "id": 6,
+      "category": "Substitution",
+      "command": "sed 's/<old>/<new>/g' <file>",
+      "example": "sed 's/foo/bar/g' config.txt",
+      "explanation": "Replaces every match on each line."
+    },
+    {
+      "id": 7,
+      "category": "Substitution",
+      "command": "sed 's/<old>/<new>/gI' <file>",
+      "example": "sed 's/error/ERROR/gI' app.log",
+      "explanation": "Case-insensitive replacement (GNU)."
+    },
+    {
+      "id": 8,
+      "category": "Substitution",
+      "command": "sed 's#<old>#<new>#g' <file>",
+      "example": "sed 's#/var/www#/srv/www#g' site.conf",
+      "explanation": "Use a different delimiter when the pattern contains slashes."
+    },
+    {
+      "id": 9,
+      "category": "Substitution",
+      "command": "sed -E 's/(<regex>)/[\\1]/g' <file>",
+      "example": "sed -E 's/([0-9]+)/[\\1]/g' data.txt",
+      "explanation": "Extended regex with capture groups; \\1 refers to the first group."
+    },
+    {
+      "id": 10,
+      "category": "Editing files",
+      "command": "sed -i 's/<old>/<new>/g' <file>",
+      "example": "sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config",
+      "explanation": "Edits the file in place. On macOS/BSD use sed -i '' instead."
+    },
+    {
+      "id": 11,
+      "category": "Editing files",
+      "command": "sed -i.bak 's/<old>/<new>/g' <file>",
+      "example": "sed -i.bak 's/8080/9090/' app.conf",
+      "explanation": "Edits in place and keeps a backup with the given suffix."
+    },
+    {
+      "id": 12,
+      "category": "Selecting lines",
+      "command": "sed -n '<n>p' <file>",
+      "example": "sed -n '42p' app.log",
+      "explanation": "Prints only line n."
+    },
+    {
+      "id": 13,
+      "category": "Selecting lines",
+      "command": "sed -n '<a>,<b>p' <file>",
+      "example": "sed -n '100,120p' app.log",
+      "explanation": "Prints a range of lines."
+    },
+    {
+      "id": 14,
+      "category": "Selecting lines",
+      "command": "sed -n '/<start>/,/<end>/p' <file>",
+      "example": "sed -n '/BEGIN CERTIFICATE/,/END CERTIFICATE/p' bundle.pem",
+      "explanation": "Prints everything between two patterns, inclusive."
+    },
+    {
+      "id": 15,
+      "category": "Selecting lines",
+      "command": "sed '/<pattern>/d' <file>",
+      "example": "sed '/^#/d' nginx.conf",
+      "explanation": "Deletes matching lines — here, comments."
+    },
+    {
+      "id": 16,
+      "category": "Selecting lines",
+      "command": "sed '/^$/d' <file>",
+      "example": "sed '/^$/d' notes.txt",
+      "explanation": "Deletes empty lines."
+    },
+    {
+      "id": 17,
+      "category": "Selecting lines",
+      "command": "sed '<n>d' <file>",
+      "example": "sed '1d' data.csv",
+      "explanation": "Deletes line n, such as a CSV header."
+    },
+    {
+      "id": 18,
+      "category": "Inserting",
+      "command": "sed '<n>i <text>' <file>",
+      "example": "sed '1i #!/bin/bash' script.sh",
+      "explanation": "Inserts a line before line n."
+    },
+    {
+      "id": 19,
+      "category": "Inserting",
+      "command": "sed '/<pattern>/a <text>' <file>",
+      "example": "sed '/\\[mysqld\\]/a bind-address = 127.0.0.1' my.cnf",
+      "explanation": "Appends a line after each match."
+    },
+    {
+      "id": 20,
+      "category": "Inserting",
+      "command": "sed 's/^[ \\t]*//;s/[ \\t]*$//' <file>",
+      "example": "sed 's/^[ \\t]*//;s/[ \\t]*$//' list.txt",
+      "explanation": "Trims leading and trailing whitespace; several commands are separated by semicolons."
+    }
+  ]
+}

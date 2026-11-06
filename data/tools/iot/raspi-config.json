@@ -1,0 +1,127 @@
+{
+  "tool": "raspi-config",
+  "name": "raspi-config",
+  "description": "The Raspberry Pi configuration tool, interactive or scriptable: enable interfaces, set locale, expand storage and tune boot options.",
+  "tags": [
+    "Raspberry Pi",
+    "configuration"
+  ],
+  "homepage": "https://www.raspberrypi.com/documentation/computers/configuration.html",
+  "docs": "https://www.raspberrypi.com/documentation/computers/configuration.html",
+  "install": {
+    "apt": "sudo apt install raspi-config"
+  },
+  "related": [
+    "vcgencmd",
+    "gpio",
+    "i2c-tools"
+  ],
+  "total_commands": 15,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Interactive",
+      "command": "sudo raspi-config",
+      "example": "sudo raspi-config",
+      "explanation": "Opens the menu-driven configuration tool for interfaces, localisation, display, performance and updates."
+    },
+    {
+      "id": 6,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_ssh 0",
+      "example": "sudo raspi-config nonint do_ssh 0",
+      "explanation": "Enables SSH. In nonint mode 0 means enable and 1 means disable."
+    },
+    {
+      "id": 3,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_i2c 0",
+      "example": "sudo raspi-config nonint do_i2c 0",
+      "explanation": "Enables the I²C interface."
+    },
+    {
+      "id": 4,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_spi 0",
+      "example": "sudo raspi-config nonint do_spi 0",
+      "explanation": "Enables SPI."
+    },
+    {
+      "id": 11,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_serial_hw 0",
+      "example": "sudo raspi-config nonint do_serial_hw 0",
+      "explanation": "Enables the hardware serial port."
+    },
+    {
+      "id": 12,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_serial_cons 1",
+      "example": "sudo raspi-config nonint do_serial_cons 1",
+      "explanation": "Disables the login console on serial so the UART is free for devices."
+    },
+    {
+      "id": 13,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_hostname <name>",
+      "example": "sudo raspi-config nonint do_hostname sensor-01",
+      "explanation": "Sets the hostname."
+    },
+    {
+      "id": 14,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_wifi_country <cc>",
+      "example": "sudo raspi-config nonint do_wifi_country GB",
+      "explanation": "Sets the Wi-Fi regulatory country; Wi-Fi stays blocked until this is set."
+    },
+    {
+      "id": 15,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_change_timezone <tz>",
+      "example": "sudo raspi-config nonint do_change_timezone Europe/London",
+      "explanation": "Sets the timezone."
+    },
+    {
+      "id": 8,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_boot_behaviour B1",
+      "example": "sudo raspi-config nonint do_boot_behaviour B1",
+      "explanation": "Boots to a console without auto-login. B2 is console with auto-login, B3 desktop, B4 desktop with auto-login."
+    },
+    {
+      "id": 2,
+      "category": "Non-interactive",
+      "command": "sudo raspi-config nonint do_expand_rootfs",
+      "example": "sudo raspi-config nonint do_expand_rootfs",
+      "explanation": "Expands the root file system to fill the SD card on the next boot."
+    },
+    {
+      "id": 16,
+      "category": "Querying",
+      "command": "sudo raspi-config nonint get_ssh",
+      "example": "sudo raspi-config nonint get_ssh",
+      "explanation": "Prints 0 if SSH is enabled and 1 if not."
+    },
+    {
+      "id": 17,
+      "category": "Querying",
+      "command": "sudo raspi-config nonint get_i2c",
+      "example": "sudo raspi-config nonint get_i2c",
+      "explanation": "Reports whether I²C is enabled."
+    },
+    {
+      "id": 18,
+      "category": "Querying",
+      "command": "sudo raspi-config nonint get_hostname",
+      "example": "sudo raspi-config nonint get_hostname",
+      "explanation": "Prints the configured hostname."
+    },
+    {
+      "id": 19,
+      "category": "Querying",
+      "command": "cat /boot/firmware/config.txt",
+      "example": "cat /boot/firmware/config.txt",
+      "explanation": "The firmware configuration file most raspi-config options write to (/boot/config.txt on older releases)."
+    }
+  ]
+}

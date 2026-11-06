@@ -1,0 +1,143 @@
+{
+  "tool": "objdump",
+  "name": "objdump",
+  "description": "Displays information about object files: headers, sections, symbols and disassembly. Part of GNU binutils.",
+  "tags": [
+    "disassembly",
+    "ELF",
+    "binutils"
+  ],
+  "homepage": "https://www.gnu.org/software/binutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/objdump.1.html",
+  "install": {
+    "apt": "sudo apt install binutils",
+    "brew": "brew install binutils"
+  },
+  "related": [
+    "strings",
+    "radare2",
+    "gdb"
+  ],
+  "total_commands": 17,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Headers",
+      "command": "objdump -f <binary>",
+      "example": "objdump -f ./a.out",
+      "explanation": "File header: architecture, flags and entry point."
+    },
+    {
+      "id": 9,
+      "category": "Headers",
+      "command": "objdump -h <binary>",
+      "example": "objdump -h ./a.out",
+      "explanation": "Section headers with sizes, addresses and flags."
+    },
+    {
+      "id": 7,
+      "category": "Headers",
+      "command": "objdump -x <binary>",
+      "example": "objdump -x ./a.out",
+      "explanation": "All headers, including program headers and dynamic section."
+    },
+    {
+      "id": 12,
+      "category": "Headers",
+      "command": "objdump -p <binary>",
+      "example": "objdump -p ./a.out | grep NEEDED",
+      "explanation": "Private headers; filtered to NEEDED it lists required shared libraries."
+    },
+    {
+      "id": 3,
+      "category": "Symbols",
+      "command": "objdump -t <binary>",
+      "example": "objdump -t ./a.out",
+      "explanation": "The symbol table (empty if the binary is stripped)."
+    },
+    {
+      "id": 8,
+      "category": "Symbols",
+      "command": "objdump -T <binary>",
+      "example": "objdump -T ./a.out",
+      "explanation": "Dynamic symbols — imported and exported functions."
+    },
+    {
+      "id": 13,
+      "category": "Symbols",
+      "command": "objdump -R <binary>",
+      "example": "objdump -R ./a.out",
+      "explanation": "Dynamic relocations, including GOT entries."
+    },
+    {
+      "id": 1,
+      "category": "Disassembly",
+      "command": "objdump -d <binary>",
+      "example": "objdump -d ./a.out",
+      "explanation": "Disassembles executable sections."
+    },
+    {
+      "id": 14,
+      "category": "Disassembly",
+      "command": "objdump -d -M intel <binary>",
+      "example": "objdump -d -M intel ./a.out",
+      "explanation": "Intel syntax."
+    },
+    {
+      "id": 15,
+      "category": "Disassembly",
+      "command": "objdump -d --disassemble=<symbol> <binary>",
+      "example": "objdump -d --disassemble=main ./a.out",
+      "explanation": "Only one function."
+    },
+    {
+      "id": 10,
+      "category": "Disassembly",
+      "command": "objdump -S <binary>",
+      "example": "objdump -S ./debug_build",
+      "explanation": "Interleaves source code when debug info exists."
+    },
+    {
+      "id": 2,
+      "category": "Disassembly",
+      "command": "objdump -D <binary>",
+      "example": "objdump -D ./a.out",
+      "explanation": "Disassembles every section, including data."
+    },
+    {
+      "id": 16,
+      "category": "Disassembly",
+      "command": "objdump -d --start-address=<a> --stop-address=<b> <binary>",
+      "example": "objdump -d --start-address=0x401000 --stop-address=0x401100 ./a.out",
+      "explanation": "A specific address range."
+    },
+    {
+      "id": 17,
+      "category": "Disassembly",
+      "command": "objdump -D -b binary -m <arch> <file>",
+      "example": "objdump -D -b binary -m i386:x86-64 shellcode.bin",
+      "explanation": "Disassembles raw bytes such as shellcode."
+    },
+    {
+      "id": 18,
+      "category": "Data",
+      "command": "objdump -s -j <section> <binary>",
+      "example": "objdump -s -j .rodata ./a.out",
+      "explanation": "Hex and ASCII dump of one section."
+    },
+    {
+      "id": 19,
+      "category": "Data",
+      "command": "objdump -d <binary> | grep -c \"call\"",
+      "example": "objdump -d <binary> | grep -c \"call\"",
+      "explanation": "Counts call instructions — a crude complexity measure."
+    },
+    {
+      "id": 20,
+      "category": "Data",
+      "command": "objdump -d ./<file>.o | grep -Po \"\\s\\K[a-f0-9]{2}(?=\\s)\" | tr -d \"\\n\"",
+      "example": "objdump -d ./shell.o | grep -Po \"\\s\\K[a-f0-9]{2}(?=\\s)\" | tr -d \"\\n\"",
+      "explanation": "Extracts opcode bytes from an object file as a hex string."
+    }
+  ]
+}

@@ -1,392 +1,304 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { TerminalInputSimple } from '@/components/practise/TerminalInput';
-import { SuccessAnimation } from '@/components/practise/SuccessAnimation';
-import { FailureAnimation } from '@/components/practise/FailureAnimation';
-import { usePracticeChallenges, Challenge } from '@/hooks/usePracticeChallenges';
-import { Loader2, Terminal, AlertCircle, Trophy, History, SkipForward } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState, type FormEvent, type MouseEvent as ReactMouseEvent } from 'react';
+import { Link } from 'react-router-dom';
+import { Loader2, AlertCircle, Trophy, RotateCcw, SkipForward, Check, X, Lightbulb, Flame, ArrowRight } from 'lucide-react';
+import { usePracticeChallenges, type Challenge } from '@/hooks/usePracticeChallenges';
+import { createPersistentStore } from '@/lib/persistent-store';
+import { checkAnswer, type Verdict } from '@/lib/practice';
+import { manifest, getCategory } from '@/lib/data';
+import { Seo } from '@/components/Seo';
+import { PageHeader } from '@/components/common/PageHeader';
+import { EmptyState } from '@/components/common/EmptyState';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
 
-export const PracticePage = () => {
-    const { challenges, isLoading, error } = usePracticeChallenges();
+const isStringArray = (v: unknown): v is string[] => Array.isArray(v) && v.every((x) => typeof x === 'string');
+const EMPTY: string[] = [];
+const masteredStore = createPersistentStore('practice_completed_ids', EMPTY, isStringArray);
 
-    // State
-    const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
-    const [inputValue, setInputValue] = useState("");
-    const [feedbackState, setFeedbackState] = useState<'idle' | 'success' | 'failure'>('idle');
-    const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(null);
+type Phase = 'answering' | 'revealed';
 
-    // Load progress from localStorage
-    useEffect(() => {
-        const saved = localStorage.getItem('practice_completed_ids');
-        if (saved) {
-            try {
-                setCompletedIds(new Set(JSON.parse(saved)));
-            } catch (e) {
-                console.error("Failed to parse saved progress", e);
-            }
-        }
-    }, []);
+export default function PracticePage() {
+  const { challenges, isLoading, error, retry } = usePracticeChallenges();
+  const mastered = masteredStore.useStore();
+  const masteredSet = useMemo(() => new Set(mastered), [mastered]);
 
-    // Compute active challenge
-    // We memorize this calculation to avoid jitter, but we need it to update when challenges load or completedIds change
-    useEffect(() => {
-        if (challenges.length > 0) {
-            // Find the first challenge that hasn't been completed
-            const next = challenges.find(c => !completedIds.has(c.id));
-            setCurrentChallenge(next || null);
-        }
-    }, [challenges, completedIds]);
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [skipped, setSkipped] = useState<Set<string>>(new Set());
+  const [answer, setAnswer] = useState('');
+  const [phase, setPhase] = useState<Phase>('answering');
+  const [result, setResult] = useState<{ verdict: Verdict; missing: string[] } | null>(null);
+  const [hint, setHint] = useState(false);
+  const [streak, setStreak] = useState(0);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    const progressPercentage = useMemo(() => {
-        if (challenges.length === 0) return 0;
-        return Math.round((completedIds.size / challenges.length) * 100);
-    }, [challenges.length, completedIds.size]);
+  const pool = useMemo(
+    () => (categoryFilter === 'all' ? challenges : challenges.filter((c) => c.category === categoryFilter)),
+    [challenges, categoryFilter],
+  );
+  const remaining = pool.filter((c) => !masteredSet.has(c.id));
+  const current: Challenge | undefined = remaining.find((c) => !skipped.has(c.id)) ?? remaining[0];
+  const doneInPool = pool.length - remaining.length;
 
-    // Extract context for display
-    const contextParams = useMemo(() => {
-        if (!currentChallenge) return [];
-        const params: { label: string; value: string }[] = [];
-        const cmd = currentChallenge.command;
+  const reset = () => {
+    setAnswer('');
+    setPhase('answering');
+    setResult(null);
+    setHint(false);
+    requestAnimationFrame(() => inputRef.current?.focus());
+  };
 
-        // Extract IP
-        const ipMatch = cmd.match(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/);
-        if (ipMatch) params.push({ label: 'Target IP', value: ipMatch[0] });
+  useEffect(reset, [categoryFilter]);
 
-        // Extract Interface
-        const ifaceMatch = cmd.match(/\b(eth|wlan|ens|enp|mon|tun|tap|docker|vboxnet)\d+(?:mon)?\b/);
-        if (ifaceMatch) params.push({ label: 'Interface', value: ifaceMatch[0] });
+  const submit = (e: FormEvent | ReactMouseEvent) => {
+    e.preventDefault();
+    if (!current || !answer.trim()) return;
+    const r = checkAnswer(answer, current.command);
+    setResult(r);
+    setPhase('revealed');
+    if (r.verdict === 'exact') {
+      setStreak((s) => s + 1);
+    } else setStreak(0);
+  };
 
-        // Extract MAC Address
-        const macMatch = cmd.match(/([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})/);
-        if (macMatch) params.push({ label: 'Target MAC', value: macMatch[0] });
+  const markMastered = () => {
+    if (!current) return;
+    masteredStore.write([...new Set([...masteredStore.read(), current.id])]);
+    reset();
+  };
 
-        // Extract URL
-        const urlMatch = cmd.match(/(https?:\/\/[^\s]+)/);
-        if (urlMatch) params.push({ label: 'Target URL', value: urlMatch[0] });
+  const skip = () => {
+    if (!current) return;
+    setSkipped((s) => new Set(s).add(current.id));
+    setStreak(0);
+    reset();
+  };
 
-        // Extract Port (heuristic: -p 80 or similar)
-        const portMatch = cmd.match(/-p\s*(\d+(?:-\d+)?(?:,\d+)*)/);
-        if (portMatch) params.push({ label: 'Port', value: portMatch[1] });
+  const firstToken = current?.command.split(/\s+/)[0] ?? '';
 
-        return params;
-    }, [currentChallenge]);
+  return (
+    <div className="animate-fade-in">
+      <Seo
+        title="Practice terminal commands"
+        description="Flashcard-style practice for cybersecurity and Linux commands: read what a command does, type it, and get instant feedback. Progress is saved in your browser."
+        path="/practice"
+      />
+      <PageHeader
+        eyebrow="Practice"
+        title="Learn commands by typing them"
+        description="Read what a command does and type it from memory. Flag order doesn’t matter, and any IP, URL or interface counts as a match."
+      />
 
+      {isLoading && (
+        <div className="flex flex-col items-center gap-3 py-20 text-muted-foreground" role="status">
+          <Loader2 className="h-6 w-6 animate-spin text-primary" aria-hidden="true" />
+          Loading {manifest.totals.commands.toLocaleString('en-US')} commands…
+        </div>
+      )}
 
+      {error && (
+        <EmptyState
+          icon={AlertCircle}
+          tone="error"
+          title="Couldn’t load the practice set"
+          description={error}
+          action={<Button onClick={() => retry()}>Try again</Button>}
+        />
+      )}
 
-    // Command Validation Logic
-    const handleRun = () => {
-        if (!currentChallenge || !inputValue.trim()) return;
-
-        // 1. Normalization Helper
-        const normalizeParams = (str: string) => {
-            let s = str.trim();
-
-            // Normalize IPs (IPv4) -> {{IP}}
-            const ipRegex = /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/g;
-            s = s.replace(ipRegex, '{{IP}}');
-
-            // Normalize Interfaces (eth0, wlan0mon, ens33, tun0) -> {{IFACE}}
-            // Matches common linux interface patterns
-            const ifaceRegex = /\b(eth|wlan|ens|enp|mon|tun|tap|docker|vboxnet)\d+(?:mon)?\b/g;
-            s = s.replace(ifaceRegex, '{{IFACE}}');
-
-            // Normalize common placeholders in the target string
-            // We do this to ensure "nmap <IP>" matches "nmap {{IP}}" (after user input normalization)
-            const placeholderRegex = /<(?:ip|target|host|address|interface|iface|adapter|port|file|path)[^>]*>|\[(?:ip|target|host|address|interface|iface|adapter|port|file|path)[^\]]*\]/gi;
-            s = s.replace(placeholderRegex, (match) => {
-                const lower = match.toLowerCase();
-                if (lower.includes('ip') || lower.includes('target') || lower.includes('host') || lower.includes('address')) return '{{IP}}';
-                if (lower.includes('interface') || lower.includes('iface') || lower.includes('adapter')) return '{{IFACE}}';
-                return match;
-            });
-
-            return s;
-        };
-
-        const normInput = normalizeParams(inputValue);
-        const normTarget = normalizeParams(currentChallenge.command);
-
-        // 2. Tokenization & Set Comparison (Bag of Words)
-        // This handles "nmap -sV -p 80" == "nmap -p 80 -sV"
-
-        const tokenize = (str: string) => str.split(/\s+/).filter(Boolean).sort();
-
-        const inputTokens = tokenize(normInput);
-        const targetTokens = tokenize(normTarget);
-
-        // 3. Exact Array Comparison of Sorted Tokens
-        const isMatch = (
-            inputTokens.length === targetTokens.length &&
-            inputTokens.every((val, index) => val === targetTokens[index])
-        );
-
-        if (isMatch) {
-            setFeedbackState('success');
-        } else {
-            setFeedbackState('failure');
-        }
-    };
-
-    const handleSuccessComplete = () => {
-        if (currentChallenge) {
-            const newSet = new Set(completedIds);
-            newSet.add(currentChallenge.id);
-            setCompletedIds(newSet);
-            localStorage.setItem('practice_completed_ids', JSON.stringify([...newSet]));
-
-            setInputValue("");
-            setFeedbackState('idle');
-            toast.success("Command Mastery Recorded", {
-                description: `Progress: ${newSet.size} / ${challenges.length}`,
-                duration: 2000,
-            });
-        }
-    };
-
-    const handleRetry = () => {
-        setFeedbackState('idle');
-        // Keep input value for editing
-    };
-
-    const handleSkip = () => {
-        if (currentChallenge) {
-            // We just pretend it's completed for this session? 
-            // Or strictly strictly only mark completed if done?
-            // Let's just move to next by adding to a "skipped" session set? 
-            // User asked for "all commands captured".
-            // Let's just mark it as completed but maybe with a flag? 
-            // For simplicity, let's just mark it done to view next, but maybe visually warn.
-            // Or simpler: Just append to completed list to move on.
-            const newSet = new Set(completedIds);
-            newSet.add(currentChallenge.id);
-            setCompletedIds(newSet);
-            localStorage.setItem('practice_completed_ids', JSON.stringify([...newSet]));
-            setInputValue("");
-            setFeedbackState('idle');
-            toast("Challenge Skipped", { icon: <SkipForward className="w-4 h-4 text-amber-500" /> });
-        }
-    };
-
-    const handleResetProgress = () => {
-        if (confirm("Are you sure you want to reset your practice progress?")) {
-            setCompletedIds(new Set());
-            localStorage.removeItem('practice_completed_ids');
-            window.location.reload();
-        }
-    };
-
-    if (isLoading) {
-        return (
-            <div className="flex h-[80vh] items-center justify-center flex-col gap-4">
-                <Loader2 className="h-10 w-10 animate-spin text-primary" />
-                <p className="text-muted-foreground animate-pulse font-mono">Loading command database...</p>
+      {!isLoading && !error && challenges.length > 0 && (
+        <div className="grid gap-6 lg:grid-cols-[1fr_16rem]">
+          <div className="min-w-0 space-y-4">
+            {/* Category filter */}
+            <div className="custom-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="radiogroup" aria-label="Category">
+              {[{ id: 'all', name: 'All' }, ...manifest.categories].map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={categoryFilter === c.id}
+                  onClick={() => setCategoryFilter(c.id)}
+                  className={cn(
+                    'shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors',
+                    categoryFilter === c.id ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground',
+                  )}
+                >
+                  {c.name}
+                </button>
+              ))}
             </div>
-        );
-    }
 
-    if (error) {
-        return (
-            <div className="flex h-[80vh] items-center justify-center flex-col gap-4 text-red-500">
-                <AlertCircle className="h-12 w-12" />
-                <p>Error loading challenges: {error}</p>
-                <Button onClick={() => window.location.reload()}>Retry</Button>
-            </div>
-        );
-    }
-
-    if (!currentChallenge && challenges.length > 0) {
-        return (
-            <div className="flex h-[80vh] items-center justify-center flex-col gap-6 text-center px-4">
-                <Trophy className="h-24 w-24 text-yellow-500 animate-bounce" />
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-500 to-amber-600 bg-clip-text text-transparent">
-                    All Systems Go!
-                </h1>
-                <p className="text-xl text-muted-foreground max-w-md">
-                    You've completed all {challenges.length} available command challenges. Amazing work!
-                </p>
-                <div className="flex gap-4">
-                    <Button variant="outline" onClick={handleResetProgress}>
-                        <History className="mr-2 h-4 w-4" /> Reset Progress
+            {!current ? (
+              <EmptyState
+                icon={Trophy}
+                title="You’ve mastered this set"
+                description={`All ${pool.length.toLocaleString('en-US')} commands in ${categoryFilter === 'all' ? 'the reference' : getCategory(categoryFilter)?.name} are marked as mastered.`}
+                action={
+                  categoryFilter !== 'all' ? (
+                    <Button variant="outline" onClick={() => setCategoryFilter('all')}>
+                      Practise everything
                     </Button>
-                </div>
-            </div>
-        );
-    }
-
-
-
-    // Self-Verify Logic
-    const handleVerify = () => {
-        if (!currentChallenge || !inputValue.trim()) return;
-        setFeedbackState('verifying'); // New state for showing comparison
-    };
-
-    const handleSelfCorrect = (isCorrect: boolean) => {
-        if (isCorrect) {
-            handleSuccessComplete();
-        } else {
-            // "Missed it" - just show next or reset?
-            // Usually "Missed it" means we might want to retry or just move on.
-            // Let's just reset for retry to keep it simple, or skip.
-            // User probably wants to "mark as failed/skipped" or "retry".
-            // Let's treat "Missed it" as a retry opportunity for now, or just close the comparison to try again.
-            setFeedbackState('idle'); // Allow retry
-        }
-    };
-
-    return (
-        <div className="container max-w-5xl mx-auto py-8 px-4 md:px-6 min-h-[calc(100vh-4rem)] flex flex-col">
-            {/* Header Stats */}
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-end mb-8">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight mb-2 flex items-center gap-2">
-                        <Terminal className="w-8 h-8 text-primary" />
-                        Command Practice
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Master {challenges.length} cybersecurity commands in a simulated environment.
+                  ) : undefined
+                }
+              />
+            ) : (
+              <section aria-labelledby="prompt" className="surface overflow-hidden">
+                <div className="space-y-4 p-5 sm:p-7">
+                  <div className="flex flex-wrap items-center gap-2 text-xs">
+                    <Link to={`/tool/${current.category}/${current.tool}`} className="rounded-md bg-primary/10 px-2 py-0.5 font-mono font-medium text-primary hover:underline">
+                      {current.toolName}
+                    </Link>
+                    <span className="text-muted-foreground">{current.section}</span>
+                  </div>
+                  <h2 id="prompt" className="text-lg font-medium leading-8 sm:text-xl">
+                    {current.explanation.split('\n')[0]}
+                  </h2>
+                  {current.explanation.includes('\n') && (
+                    <p className="text-sm leading-6 text-muted-foreground">{current.explanation.split('\n').slice(1).join(' ')}</p>
+                  )}
+                  {hint && phase === 'answering' && (
+                    <p className="text-sm text-muted-foreground" role="status">
+                      Hint: it starts with <code className="rounded bg-muted px-1.5 py-0.5 text-foreground">{firstToken}</code> and has{' '}
+                      {current.command.split(/\s+/).length} parts.
                     </p>
+                  )}
                 </div>
 
-                <div className="w-full md:w-64 space-y-2">
-                    <div className="flex justify-between text-xs font-mono text-muted-foreground">
-                        <span>Progress</span>
-                        <span>{completedIds.size}/{challenges.length}</span>
+                <form onSubmit={submit} className="border-t border-border bg-[hsl(var(--terminal-bg))] p-4 sm:p-5">
+                  <label htmlFor="practice-input" className="sr-only">
+                    Your command
+                  </label>
+                  <div className="flex items-center gap-3 font-mono text-[15px]">
+                    <span className="select-none text-[hsl(var(--terminal-text))]" aria-hidden="true">
+                      $
+                    </span>
+                    <input
+                      id="practice-input"
+                      ref={inputRef}
+                      value={answer}
+                      onChange={(e) => setAnswer(e.target.value)}
+                      disabled={phase === 'revealed'}
+                      autoComplete="off"
+                      autoCapitalize="off"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      placeholder="type the command…"
+                      className="min-w-0 flex-1 bg-transparent text-white caret-[hsl(var(--terminal-text))] outline-none placeholder:text-white/30 disabled:opacity-70"
+                    />
+                  </div>
+                </form>
+
+                {phase === 'revealed' && result && (
+                  <div className="space-y-4 border-t border-border p-5 sm:p-7" role="status" aria-live="polite">
+                    <p
+                      className={cn(
+                        'flex items-center gap-2 font-medium',
+                        result.verdict === 'exact' && 'text-success',
+                        result.verdict === 'close' && 'text-warning',
+                        result.verdict === 'different' && 'text-destructive',
+                      )}
+                    >
+                      {result.verdict === 'exact' ? <Check className="h-5 w-5" aria-hidden="true" /> : result.verdict === 'close' ? <Lightbulb className="h-5 w-5" aria-hidden="true" /> : <X className="h-5 w-5" aria-hidden="true" />}
+                      {result.verdict === 'exact' ? 'Correct!' : result.verdict === 'close' ? 'Very close' : 'Not quite'}
+                    </p>
+                    <div>
+                      <p className="eyebrow mb-1.5">Reference</p>
+                      <pre className="whitespace-pre-wrap break-words rounded-lg bg-[hsl(var(--command-bg))] px-3.5 py-2.5 font-mono text-sm">
+                        <code>{current.command}</code>
+                      </pre>
+                      {result.verdict !== 'exact' && result.missing.length > 0 && (
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          Missing or different: {result.missing.slice(0, 6).map((m) => <code key={m} className="mr-1 rounded bg-muted px-1 py-0.5">{m}</code>)}
+                        </p>
+                      )}
                     </div>
-                    <Progress value={progressPercentage} className="h-2" />
-                </div>
-            </div>
-
-            {/* Main Practice Area */}
-            <div className="flex-1 flex flex-col gap-6 relative">
-                {feedbackState === 'success' && (
-                    <SuccessAnimation onComplete={() => {
-                        setFeedbackState('idle');
-                        // Advance logic handles in handleSuccessComplete
-                    }} />
+                  </div>
                 )}
 
-                {/* Challenge Card */}
-                <Card className="flex-1 bg-gradient-to-b from-card to-background border-muted/40 shadow-sm relative overflow-hidden">
-                    {/* Subtle background decoration */}
-                    <div className="absolute top-0 right-0 p-32 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border bg-muted/20 px-5 py-3">
+                  {phase === 'answering' ? (
+                    <>
+                      {!hint && (
+                        <Button type="button" variant="ghost" size="sm" onClick={() => setHint(true)} className="mr-auto text-muted-foreground">
+                          <Lightbulb className="mr-1.5 h-4 w-4" aria-hidden="true" /> Hint
+                        </Button>
+                      )}
+                      <Button type="button" variant="ghost" size="sm" onClick={skip} className="text-muted-foreground">
+                        <SkipForward className="mr-1.5 h-4 w-4" aria-hidden="true" /> Skip
+                      </Button>
+                      <Button type="button" size="sm" disabled={!answer.trim()} onClick={submit}>
+                        Check <span className="ml-2 hidden text-[11px] opacity-70 sm:inline">↵</span>
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button type="button" variant="ghost" size="sm" onClick={() => { setPhase('answering'); setResult(null); requestAnimationFrame(() => inputRef.current?.focus()); }}>
+                        <RotateCcw className="mr-1.5 h-4 w-4" aria-hidden="true" /> Try again
+                      </Button>
+                      <Button type="button" variant="outline" size="sm" onClick={skip}>
+                        Next <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden="true" />
+                      </Button>
+                      <Button type="button" size="sm" onClick={markMastered} autoFocus>
+                        <Check className="mr-1.5 h-4 w-4" aria-hidden="true" /> {result?.verdict === 'exact' ? 'Mastered — next' : 'I knew it — next'}
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </section>
+            )}
+          </div>
 
-                    <div className="p-6 md:p-10 flex flex-col h-full gap-8">
-                        {/* Question Section */}
-                        <div className="space-y-4 relative z-10">
-                            <div className="flex items-center gap-3">
-                                <Badge variant="outline" className="px-3 py-1 text-xs font-mono uppercase tracking-wider bg-background/50 backdrop-blur">
-                                    {currentChallenge?.category}
-                                </Badge>
-                                <div className="h-1 w-1 rounded-full bg-muted-foreground/30" />
-                                <span className="text-sm font-medium text-primary/80 font-mono">
-                                    {currentChallenge?.tool}
-                                </span>
-
-                            </div>
-
-                            <div className="space-y-2">
-                                <h2 className="text-xl md:text-2xl font-medium leading-relaxed">
-                                    Using <span className="text-primary font-bold">"{currentChallenge?.tool}"</span>: {currentChallenge?.explanation}
-                                </h2>
-                            </div>
-
-                            {/* Mission Context Parameters */}
-                            {contextParams.length > 0 && (
-                                <div className="flex flex-wrap gap-3 mt-4 p-4 bg-muted/30 rounded border border-muted/50 border-dashed">
-                                    <div className="w-full text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 flex items-center gap-2">
-                                        <AlertCircle className="w-3 h-3" />
-                                        Mission Parameters
-                                    </div>
-                                    {contextParams.map((param, i) => (
-                                        <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-background rounded border border-border text-sm font-mono shadow-sm">
-                                            <span className="text-muted-foreground text-xs">{param.label}:</span>
-                                            <span className="text-primary font-medium select-all">{param.value}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Terminal Interface */}
-                        <div className="mt-auto space-y-6 relative z-10">
-                            <TerminalInputSimple
-                                value={inputValue}
-                                onChange={setInputValue}
-                                onEnter={handleVerify}
-                                disabled={feedbackState === 'success' || feedbackState === 'verifying'}
-                                promptLabel="root@terminal:~#"
-                            />
-
-                            {/* Verification UI - Comparisons */}
-                            {feedbackState === 'verifying' && (
-                                <div className="animate-in slide-in-from-top-2 fade-in duration-300 rounded-lg border border-border bg-muted/40 p-4 space-y-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-1">
-                                            <p className="text-xs font-mono uppercase text-muted-foreground">Your Command</p>
-                                            <div className="p-3 rounded bg-black/20 font-mono text-sm border border-white/10 break-all">
-                                                {inputValue}
-                                            </div>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <p className="text-xs font-mono uppercase text-green-500/80">Correct Answer</p>
-                                            <div className="p-3 rounded bg-green-500/10 font-mono text-sm border border-green-500/20 text-green-400 break-all">
-                                                {currentChallenge?.command}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="pt-2 flex flex-col items-center gap-3">
-                                        <p className="text-sm font-medium text-center">Did you get it right?</p>
-                                        <div className="flex gap-3 w-full justify-center">
-                                            <Button
-                                                variant="outline"
-                                                className="w-32 border-red-500/20 hover:bg-red-500/10 hover:text-red-400"
-                                                onClick={() => handleSelfCorrect(false)}
-                                            >
-                                                No, Retry
-                                            </Button>
-                                            <Button
-                                                className="w-32 bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-900/20"
-                                                onClick={() => handleSelfCorrect(true)}
-                                            >
-                                                Yes, Correct
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Controls */}
-                            {feedbackState !== 'verifying' && feedbackState !== 'success' && (
-                                <div className="flex gap-3 justify-end items-center">
-                                    <Button
-                                        variant="ghost"
-                                        onClick={handleSkip}
-                                        className="text-muted-foreground hover:text-foreground"
-                                    >
-                                        Skip
-                                    </Button>
-                                    <Button
-                                        onClick={handleVerify}
-                                        disabled={!inputValue.trim()}
-                                        className="min-w-[120px] shadow-lg shadow-primary/20"
-                                    >
-                                        Verify Answer
-                                    </Button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </Card>
+          <aside className="space-y-4" aria-label="Progress">
+            <div className="surface space-y-3 p-5">
+              <div className="flex items-baseline justify-between">
+                <p className="text-sm font-medium">Mastered</p>
+                <p className="font-mono text-sm tabular-nums text-muted-foreground">
+                  {doneInPool.toLocaleString('en-US')} / {pool.length.toLocaleString('en-US')}
+                </p>
+              </div>
+              <Progress value={pool.length ? (doneInPool / pool.length) * 100 : 0} className="h-1.5" aria-label="Mastery progress" />
+              <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                <Flame className={cn('h-4 w-4', streak > 0 ? 'text-warning' : 'opacity-50')} aria-hidden="true" />
+                Streak: <span className="font-mono tabular-nums text-foreground">{streak}</span>
+              </p>
             </div>
+            <div className="surface p-5 text-sm leading-6 text-muted-foreground">
+              <p className="font-medium text-foreground">How it works</p>
+              <ul className="mt-2 list-disc space-y-1 pl-4">
+                <li>Press Enter to check your answer.</li>
+                <li>Mark a card mastered to retire it.</li>
+                <li>Skipped cards come back later.</li>
+                <li>Progress stays in this browser.</li>
+              </ul>
+            </div>
+            {mastered.length > 0 &&
+              (confirmReset ? (
+                <div className="flex items-center gap-2 text-sm" role="alert">
+                  <span className="text-muted-foreground">Reset all progress?</span>
+                  <Button size="sm" variant="ghost" onClick={() => setConfirmReset(false)}>
+                    No
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => {
+                      masteredStore.write([]);
+                      setSkipped(new Set());
+                      setConfirmReset(false);
+                    }}
+                  >
+                    Reset
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={() => setConfirmReset(true)}>
+                  <RotateCcw className="mr-1.5 h-4 w-4" aria-hidden="true" /> Reset progress
+                </Button>
+              ))}
+          </aside>
         </div>
-    );
-};
-
-export default PracticePage;
+      )}
+    </div>
+  );
+}

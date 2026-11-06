@@ -1,0 +1,113 @@
+{
+  "tool": "whoami",
+  "name": "whoami",
+  "description": "Prints the effective user name — the first question after landing a shell.",
+  "tags": [
+    "users",
+    "privilege"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/whoami.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "su",
+    "ps"
+  ],
+  "total_commands": 13,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Identity",
+      "command": "whoami",
+      "example": "whoami",
+      "explanation": "Prints the effective user name."
+    },
+    {
+      "id": 2,
+      "category": "Identity",
+      "command": "id",
+      "example": "id",
+      "explanation": "User ID, primary group and every supplementary group. Groups like sudo, wheel, docker, lxd or disk often mean a path to root."
+    },
+    {
+      "id": 3,
+      "category": "Identity",
+      "command": "id <user>",
+      "example": "id alice",
+      "explanation": "Another user’s IDs and groups."
+    },
+    {
+      "id": 4,
+      "category": "Identity",
+      "command": "groups",
+      "example": "groups",
+      "explanation": "Just the group names."
+    },
+    {
+      "id": 5,
+      "category": "Identity",
+      "command": "logname",
+      "example": "logname",
+      "explanation": "The user who originally logged in, even after su or sudo."
+    },
+    {
+      "id": 6,
+      "category": "Identity",
+      "command": "echo $USER $HOME $SHELL",
+      "example": "echo $USER $HOME $SHELL",
+      "explanation": "Common identity environment variables."
+    },
+    {
+      "id": 7,
+      "category": "Privileges",
+      "command": "sudo -l",
+      "example": "sudo -l",
+      "explanation": "Lists what you may run with sudo. Entries marked NOPASSWD and editable scripts are classic escalation paths."
+    },
+    {
+      "id": 8,
+      "category": "Privileges",
+      "command": "sudo -n true && echo yes",
+      "example": "sudo -n true && echo yes",
+      "explanation": "Checks whether sudo works without a password."
+    },
+    {
+      "id": 9,
+      "category": "Privileges",
+      "command": "getcap -r / 2>/dev/null",
+      "example": "getcap -r / 2>/dev/null",
+      "explanation": "Binaries with Linux capabilities such as cap_setuid that can lead to root."
+    },
+    {
+      "id": 10,
+      "category": "Who else is here",
+      "command": "who",
+      "example": "who",
+      "explanation": "Users logged in now, their terminals and where they came from."
+    },
+    {
+      "id": 11,
+      "category": "Who else is here",
+      "command": "w",
+      "example": "w",
+      "explanation": "Logged-in users plus what each is running and how long they have been idle."
+    },
+    {
+      "id": 12,
+      "category": "Who else is here",
+      "command": "last -n 20",
+      "example": "last -n 20",
+      "explanation": "Recent logins and reboots from /var/log/wtmp."
+    },
+    {
+      "id": 13,
+      "category": "Who else is here",
+      "command": "lastlog",
+      "example": "lastlog",
+      "explanation": "The last login of every account."
+    }
+  ]
+}

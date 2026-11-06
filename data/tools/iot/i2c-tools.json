@@ -1,0 +1,120 @@
+{
+  "tool": "i2c-tools",
+  "name": "i2c-tools",
+  "description": "Utilities to detect, read and write devices on an I²C bus: i2cdetect, i2cget, i2cset and i2cdump.",
+  "tags": [
+    "I2C",
+    "hardware",
+    "embedded"
+  ],
+  "homepage": "https://i2c.wiki.kernel.org/index.php/I2C_Tools",
+  "docs": "https://man7.org/linux/man-pages/man8/i2cdetect.8.html",
+  "install": {
+    "apt": "sudo apt install i2c-tools"
+  },
+  "related": [
+    "gpio",
+    "raspi-config"
+  ],
+  "total_commands": 14,
+  "commands": [
+    {
+      "id": 2,
+      "category": "Discovering",
+      "command": "i2cdetect -l",
+      "example": "i2cdetect -l",
+      "explanation": "Lists the I²C buses on the system."
+    },
+    {
+      "id": 11,
+      "category": "Discovering",
+      "command": "i2cdetect -y 1",
+      "example": "i2cdetect -y 1",
+      "explanation": "Scans bus 1 and shows a grid of responding 7-bit addresses. -y skips the confirmation prompt."
+    },
+    {
+      "id": 12,
+      "category": "Discovering",
+      "command": "i2cdetect -y -r 1",
+      "example": "i2cdetect -y -r 1",
+      "explanation": "Scans with read-byte commands instead of quick-write — safer for some write-sensitive chips."
+    },
+    {
+      "id": 13,
+      "category": "Discovering",
+      "command": "i2cdetect -F 1",
+      "example": "i2cdetect -F 1",
+      "explanation": "Shows what the bus adapter supports."
+    },
+    {
+      "id": 14,
+      "category": "Reading",
+      "command": "i2cget -y <bus> <addr> <reg>",
+      "example": "i2cget -y 1 0x76 0xD0",
+      "explanation": "Reads one register. 0xD0 on a BME280 at 0x76 returns its chip ID (0x60)."
+    },
+    {
+      "id": 15,
+      "category": "Reading",
+      "command": "i2cget -y <bus> <addr> <reg> w",
+      "example": "i2cget -y 1 0x48 0x00 w",
+      "explanation": "Reads a 16-bit word. Note the byte order may be swapped relative to the datasheet."
+    },
+    {
+      "id": 16,
+      "category": "Reading",
+      "command": "i2cdump -y <bus> <addr>",
+      "example": "i2cdump -y 1 0x50",
+      "explanation": "Dumps all 256 registers — on an EEPROM at 0x50 this reads stored data."
+    },
+    {
+      "id": 17,
+      "category": "Reading",
+      "command": "i2cdump -y -r <start>-<end> <bus> <addr>",
+      "example": "i2cdump -y -r 0x00-0x0F 1 0x68",
+      "explanation": "Dumps only a range of registers."
+    },
+    {
+      "id": 18,
+      "category": "Writing",
+      "command": "i2cset -y <bus> <addr> <reg> <value>",
+      "example": "i2cset -y 1 0x20 0x00 0x00",
+      "explanation": "Writes a byte to a register — here, setting all pins of an MCP23017 as outputs."
+    },
+    {
+      "id": 19,
+      "category": "Writing",
+      "command": "i2cset -y <bus> <addr> <reg> <value> w",
+      "example": "i2cset -y 1 0x40 0x00 0x1234 w",
+      "explanation": "Writes a 16-bit word."
+    },
+    {
+      "id": 20,
+      "category": "Writing",
+      "command": "i2ctransfer -y <bus> w<n>@<addr> <bytes> r<m>",
+      "example": "i2ctransfer -y 1 w1@0x50 0x00 r16",
+      "explanation": "Combined write-then-read in one transaction — here, setting an EEPROM pointer to 0 and reading 16 bytes."
+    },
+    {
+      "id": 21,
+      "category": "Setup",
+      "command": "sudo raspi-config nonint do_i2c 0",
+      "example": "sudo raspi-config nonint do_i2c 0",
+      "explanation": "Enables I²C on a Raspberry Pi."
+    },
+    {
+      "id": 22,
+      "category": "Setup",
+      "command": "ls /dev/i2c-*",
+      "example": "ls /dev/i2c-*",
+      "explanation": "Confirms the bus device nodes exist."
+    },
+    {
+      "id": 23,
+      "category": "Setup",
+      "command": "sudo usermod -aG i2c $USER",
+      "example": "sudo usermod -aG i2c $USER",
+      "explanation": "Lets your user access I²C without sudo (log out and back in)."
+    }
+  ]
+}

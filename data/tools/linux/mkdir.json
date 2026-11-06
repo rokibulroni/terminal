@@ -1,0 +1,77 @@
+{
+  "tool": "mkdir",
+  "name": "mkdir",
+  "description": "Creates directories, including parent paths and with specific permissions.",
+  "tags": [
+    "directories"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "cd",
+    "chmod"
+  ],
+  "total_commands": 8,
+  "commands": [
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "mkdir <dir>",
+      "example": "mkdir notes",
+      "explanation": "Creates a directory."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "mkdir -p <path>",
+      "example": "mkdir -p cases/2026/acme/evidence",
+      "explanation": "Creates the full path, including missing parents; no error if it exists."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "mkdir <a> <b> <c>",
+      "example": "mkdir logs scans loot",
+      "explanation": "Creates several directories at once."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "mkdir -p <dir>/{<a>,<b>,<c>}",
+      "example": "mkdir -p engagement/{recon,exploit,loot,report}",
+      "explanation": "Brace expansion builds a whole project layout in one go."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "mkdir -m <mode> <dir>",
+      "example": "mkdir -m 700 private",
+      "explanation": "Sets permissions at creation — 700 means only the owner can enter."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "mkdir -v <dir>",
+      "example": "mkdir -v <dir>",
+      "explanation": "Prints each directory created."
+    },
+    {
+      "id": 10,
+      "category": "Basics",
+      "command": "mkdir -p <dir> && cd <dir>",
+      "example": "mkdir -p work && cd work",
+      "explanation": "Creates a directory and enters it."
+    },
+    {
+      "id": 11,
+      "category": "Basics",
+      "command": "mktemp -d",
+      "example": "mktemp -d",
+      "explanation": "Creates a uniquely named temporary directory and prints its path — safer than a fixed name in /tmp."
+    }
+  ]
+}

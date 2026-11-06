@@ -1,0 +1,129 @@
+{
+  "tool": "ghidra",
+  "name": "Ghidra",
+  "description": "The NSA’s open-source reverse-engineering suite with a powerful decompiler; scriptable headless analysis from the command line.",
+  "tags": [
+    "decompiler",
+    "reverse engineering",
+    "malware analysis"
+  ],
+  "homepage": "https://ghidra-sre.org",
+  "docs": "https://ghidra-sre.org/CheatSheet.html",
+  "install": {
+    "brew": "brew install --cask ghidra",
+    "other": "Download a release from https://github.com/NationalSecurityAgency/ghidra/releases"
+  },
+  "related": [
+    "radare2",
+    "gdb",
+    "objdump"
+  ],
+  "total_commands": 15,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Running",
+      "command": "ghidraRun",
+      "example": "ghidraRun",
+      "explanation": "Starts the Ghidra GUI (ghidraRun.bat on Windows). Requires a supported JDK (21 for current releases)."
+    },
+    {
+      "id": 12,
+      "category": "Running",
+      "command": "<ghidra>/support/analyzeHeadless <project_dir> <project> -import <binary>",
+      "example": "analyzeHeadless ~/ghidra_projects demo -import ./malware.bin",
+      "explanation": "Headless mode: creates a project, imports a binary and runs auto-analysis without the GUI."
+    },
+    {
+      "id": 13,
+      "category": "Running",
+      "command": "analyzeHeadless <project_dir> <project> -import <dir> -recursive",
+      "example": "analyzeHeadless ~/ghidra_projects firmware -import ./extracted -recursive",
+      "explanation": "Imports and analyses every file under a directory."
+    },
+    {
+      "id": 14,
+      "category": "Running",
+      "command": "analyzeHeadless <project_dir> <project> -process <file> -noanalysis",
+      "example": "analyzeHeadless ~/ghidra_projects demo -process malware.bin -noanalysis",
+      "explanation": "Opens an existing program in a project without reanalysing it."
+    },
+    {
+      "id": 15,
+      "category": "Scripting",
+      "command": "analyzeHeadless <project_dir> <project> -import <binary> -postScript <script>",
+      "example": "analyzeHeadless ~/ghidra_projects demo -import a.out -postScript ExportDecompiled.java",
+      "explanation": "Runs a script after analysis — useful for batch decompilation or IOC extraction."
+    },
+    {
+      "id": 16,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -scriptPath <dir>",
+      "example": "analyzeHeadless ~/ghidra_projects demo -process a.out -scriptPath ~/ghidra_scripts -postScript FindCrypto.py",
+      "explanation": "Adds a directory of your own scripts."
+    },
+    {
+      "id": 17,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -deleteProject",
+      "example": "analyzeHeadless /tmp gh -import sample.exe -postScript Dump.java -deleteProject",
+      "explanation": "Removes the temporary project afterwards."
+    },
+    {
+      "id": 18,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -processor <lang>",
+      "example": "analyzeHeadless /tmp gh -import fw.bin -processor ARM:LE:32:v7",
+      "explanation": "Forces a processor for raw firmware with no headers."
+    },
+    {
+      "id": 19,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -log <file> -scriptlog <file>",
+      "example": "analyzeHeadless /tmp gh -import a.out -log ghidra.log -scriptlog script.log",
+      "explanation": "Writes analysis and script logs to files."
+    },
+    {
+      "id": 20,
+      "category": "GUI shortcuts",
+      "command": "G",
+      "example": "G",
+      "explanation": "Go to an address or label."
+    },
+    {
+      "id": 21,
+      "category": "GUI shortcuts",
+      "command": "L",
+      "example": "L",
+      "explanation": "Rename the selected function, variable or label."
+    },
+    {
+      "id": 22,
+      "category": "GUI shortcuts",
+      "command": "Ctrl-L",
+      "example": "Ctrl-L",
+      "explanation": "Retype a variable in the decompiler."
+    },
+    {
+      "id": 23,
+      "category": "GUI shortcuts",
+      "command": "Ctrl-Shift-F",
+      "example": "Ctrl-Shift-F",
+      "explanation": "Find references to the selected item."
+    },
+    {
+      "id": 24,
+      "category": "GUI shortcuts",
+      "command": "Search → For Strings",
+      "example": "Search → For Strings",
+      "explanation": "Lists defined and undefined strings, a quick way to find interesting code."
+    },
+    {
+      "id": 25,
+      "category": "GUI shortcuts",
+      "command": "Window → Function Graph",
+      "example": "Window → Function Graph",
+      "explanation": "Shows the control-flow graph of the current function."
+    }
+  ]
+}

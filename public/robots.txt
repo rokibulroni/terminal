@@ -1,14 +1,31 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# Terminal — https://terminal.rokibulroni.com
+# Search engines and AI crawlers are welcome. Content is MIT-licensed.
+# For bulk access please use the API instead of crawling HTML:
+#   https://terminal.rokibulroni.com/developers
+#   https://terminal.rokibulroni.com/llms.txt
 
 User-agent: *
 Allow: /
+Disallow: /favorites
+
+# AI search and training crawlers — explicitly allowed.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Meta-ExternalAgent
+User-agent: Bytespider
+User-agent: cohere-ai
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /favorites
+
+Sitemap: https://terminal.rokibulroni.com/sitemap.xml

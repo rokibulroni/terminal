@@ -1,0 +1,120 @@
+{
+  "tool": "gpio",
+  "name": "GPIO tools",
+  "description": "Reading and driving Raspberry Pi GPIO pins from the shell using pinctrl and the libgpiod utilities (gpiodetect, gpioget, gpioset).",
+  "tags": [
+    "GPIO",
+    "Raspberry Pi",
+    "hardware"
+  ],
+  "homepage": "https://www.raspberrypi.com/documentation/computers/os.html#gpio-and-the-40-pin-header",
+  "docs": "https://libgpiod.readthedocs.io",
+  "install": {
+    "apt": "sudo apt install gpiod"
+  },
+  "related": [
+    "i2c-tools",
+    "raspi-config"
+  ],
+  "total_commands": 14,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Discovering",
+      "command": "pinout",
+      "example": "pinout",
+      "explanation": "Prints a diagram of the 40-pin header for the board you are on (from python3-gpiozero)."
+    },
+    {
+      "id": 12,
+      "category": "Discovering",
+      "command": "gpiodetect",
+      "example": "gpiodetect",
+      "explanation": "Lists GPIO chips. On a Pi 5 the header is on gpiochip4 (or a chip labelled pinctrl-rp1); on earlier models gpiochip0."
+    },
+    {
+      "id": 13,
+      "category": "Discovering",
+      "command": "gpioinfo",
+      "example": "gpioinfo",
+      "explanation": "Every line on every chip with its name, direction and whether it is in use."
+    },
+    {
+      "id": 14,
+      "category": "Discovering",
+      "command": "gpiofind <name>",
+      "example": "gpiofind GPIO17",
+      "explanation": "Finds the chip and offset for a named line (libgpiod 1.x)."
+    },
+    {
+      "id": 15,
+      "category": "Reading and writing (libgpiod)",
+      "command": "gpioget <chip> <line>",
+      "example": "gpioget gpiochip0 17",
+      "explanation": "Reads the current value of a line (1.x syntax; in 2.x use gpioget -c gpiochip0 17)."
+    },
+    {
+      "id": 16,
+      "category": "Reading and writing (libgpiod)",
+      "command": "gpioset <chip> <line>=<value>",
+      "example": "gpioset gpiochip0 17=1",
+      "explanation": "Drives a line high. In libgpiod 2.x gpioset keeps running to hold the value until you stop it."
+    },
+    {
+      "id": 17,
+      "category": "Reading and writing (libgpiod)",
+      "command": "gpiomon <chip> <line>",
+      "example": "gpiomon gpiochip0 27",
+      "explanation": "Waits for and prints edge events, such as a button press."
+    },
+    {
+      "id": 18,
+      "category": "Reading and writing (libgpiod)",
+      "command": "gpioget -B pull-up <chip> <line>",
+      "example": "gpioget -B pull-up gpiochip0 22",
+      "explanation": "Enables the internal pull-up resistor while reading."
+    },
+    {
+      "id": 19,
+      "category": "pinctrl (Raspberry Pi OS)",
+      "command": "pinctrl get",
+      "example": "pinctrl get",
+      "explanation": "State of every pin: function, direction, pull and level."
+    },
+    {
+      "id": 20,
+      "category": "pinctrl (Raspberry Pi OS)",
+      "command": "pinctrl get <pin>",
+      "example": "pinctrl get 17",
+      "explanation": "State of one pin."
+    },
+    {
+      "id": 21,
+      "category": "pinctrl (Raspberry Pi OS)",
+      "command": "pinctrl set <pin> op dh",
+      "example": "pinctrl set 17 op dh",
+      "explanation": "Sets a pin as an output driving high; dl drives low."
+    },
+    {
+      "id": 22,
+      "category": "pinctrl (Raspberry Pi OS)",
+      "command": "pinctrl set <pin> ip pu",
+      "example": "pinctrl set 22 ip pu",
+      "explanation": "Sets a pin as an input with pull-up."
+    },
+    {
+      "id": 23,
+      "category": "pinctrl (Raspberry Pi OS)",
+      "command": "pinctrl funcs <pin>",
+      "example": "pinctrl funcs 14",
+      "explanation": "Lists the alternate functions a pin supports (UART, SPI, I²C…)."
+    },
+    {
+      "id": 24,
+      "category": "Python",
+      "command": "python3 -c \"from gpiozero import LED; from time import sleep; l=LED(17); l.on(); sleep(1); l.off()\"",
+      "example": "python3 -c \"from gpiozero import LED; from time import sleep; l=LED(17); l.on(); sleep(1); l.off()\"",
+      "explanation": "Blinks an LED on GPIO17 once using gpiozero."
+    }
+  ]
+}

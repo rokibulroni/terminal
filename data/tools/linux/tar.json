@@ -1,0 +1,114 @@
+{
+  "tool": "tar",
+  "name": "tar",
+  "description": "Creates and extracts archives, with gzip, bzip2, xz or zstd compression.",
+  "tags": [
+    "archives",
+    "compression",
+    "backups"
+  ],
+  "homepage": "https://www.gnu.org/software/tar/",
+  "docs": "https://www.gnu.org/software/tar/manual/tar.html",
+  "install": {
+    "apt": "sudo apt install tar",
+    "brew": "brew install gnu-tar"
+  },
+  "related": [
+    "cp",
+    "find"
+  ],
+  "total_commands": 13,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Creating",
+      "command": "tar -cvf <archive>.tar <paths>",
+      "example": "tar -cvf backup.tar /etc /home/alice",
+      "explanation": "Creates an uncompressed archive. c = create, v = verbose, f = file name."
+    },
+    {
+      "id": 12,
+      "category": "Creating",
+      "command": "tar -czvf <archive>.tar.gz <paths>",
+      "example": "tar -czvf site.tar.gz /var/www",
+      "explanation": "gzip compression."
+    },
+    {
+      "id": 13,
+      "category": "Creating",
+      "command": "tar -cJvf <archive>.tar.xz <paths>",
+      "example": "tar -cJvf logs.tar.xz /var/log",
+      "explanation": "xz compression: smaller but slower."
+    },
+    {
+      "id": 14,
+      "category": "Creating",
+      "command": "tar --zstd -cvf <archive>.tar.zst <paths>",
+      "example": "tar --zstd -cvf data.tar.zst data/",
+      "explanation": "zstd compression: fast and small."
+    },
+    {
+      "id": 15,
+      "category": "Creating",
+      "command": "tar -czvf <archive> --exclude=<pattern> <dir>",
+      "example": "tar -czvf src.tar.gz --exclude=node_modules --exclude=.git project/",
+      "explanation": "Leaves out matching paths."
+    },
+    {
+      "id": 16,
+      "category": "Creating",
+      "command": "tar -czpf <archive> -C <dir> .",
+      "example": "tar -czpf etc.tar.gz -C /etc .",
+      "explanation": "Archives a directory’s contents with relative paths and preserved permissions."
+    },
+    {
+      "id": 17,
+      "category": "Extracting",
+      "command": "tar -xvf <archive>",
+      "example": "tar -xvf backup.tar",
+      "explanation": "Extracts into the current directory. GNU tar detects compression automatically."
+    },
+    {
+      "id": 18,
+      "category": "Extracting",
+      "command": "tar -xzvf <archive> -C <dir>",
+      "example": "tar -xzvf site.tar.gz -C /tmp/restore",
+      "explanation": "Extracts into a specific directory."
+    },
+    {
+      "id": 19,
+      "category": "Extracting",
+      "command": "tar -xvf <archive> <path>",
+      "example": "tar -xvf backup.tar etc/hosts",
+      "explanation": "Extracts a single file."
+    },
+    {
+      "id": 20,
+      "category": "Extracting",
+      "command": "tar -xvf <archive> --strip-components=1",
+      "example": "tar -xvf tool-1.2.tar.gz --strip-components=1",
+      "explanation": "Drops the top-level directory from extracted paths."
+    },
+    {
+      "id": 21,
+      "category": "Inspecting",
+      "command": "tar -tvf <archive>",
+      "example": "tar -tvf backup.tar.gz",
+      "explanation": "Lists contents without extracting. Always check archives from untrusted sources for ../ paths first."
+    },
+    {
+      "id": 22,
+      "category": "Inspecting",
+      "command": "tar -df <archive>",
+      "example": "tar -df <archive>",
+      "explanation": "Compares an archive against the file system and reports differences."
+    },
+    {
+      "id": 23,
+      "category": "Inspecting",
+      "command": "tar -czf - <dir> | ssh <host> \"tar -xzf - -C <dest>\"",
+      "example": "tar -czf - project | ssh backup \"tar -xzf - -C /srv\"",
+      "explanation": "Streams a directory to another machine over SSH without a temporary file."
+    }
+  ]
+}

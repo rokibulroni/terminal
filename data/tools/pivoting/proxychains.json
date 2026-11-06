@@ -1,0 +1,80 @@
+{
+  "tool": "proxychains",
+  "name": "ProxyChains-NG",
+  "description": "Forces any program’s TCP traffic through a chain of SOCKS or HTTP proxies — the standard way to run tools across a SOCKS pivot.",
+  "tags": [
+    "pivoting",
+    "SOCKS",
+    "proxy"
+  ],
+  "homepage": "https://github.com/rofl0r/proxychains-ng",
+  "docs": "https://github.com/rofl0r/proxychains-ng",
+  "install": {
+    "apt": "sudo apt install proxychains4",
+    "brew": "brew install proxychains-ng"
+  },
+  "related": [
+    "chisel",
+    "ligolo-ng",
+    "ssh"
+  ],
+  "total_commands": 8,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Configuration",
+      "command": "cat /etc/proxychains4.conf",
+      "example": "cat /etc/proxychains4.conf",
+      "explanation": "The config file. The proxy list at the bottom defines the chain; add `socks5 127.0.0.1 1080` to use a SOCKS proxy from chisel or SSH."
+    },
+    {
+      "id": 2,
+      "category": "Configuration",
+      "command": "set dynamic_chain in the config",
+      "example": "set dynamic_chain in the config",
+      "explanation": "Dynamic chain skips dead proxies; strict_chain requires every proxy in order; random_chain picks a random subset."
+    },
+    {
+      "id": 3,
+      "category": "Configuration",
+      "command": "set proxy_dns in the config",
+      "example": "set proxy_dns in the config",
+      "explanation": "Resolves DNS through the proxy so internal names work and you do not leak lookups."
+    },
+    {
+      "id": 4,
+      "category": "Running tools",
+      "command": "proxychains <command>",
+      "example": "proxychains curl http://172.16.0.10",
+      "explanation": "Routes a command’s TCP connections through the configured proxy chain."
+    },
+    {
+      "id": 5,
+      "category": "Running tools",
+      "command": "proxychains -q <command>",
+      "example": "proxychains -q firefox",
+      "explanation": "Quiet mode, without the per-connection output."
+    },
+    {
+      "id": 6,
+      "category": "Running tools",
+      "command": "proxychains nmap -sT -Pn -n <target>",
+      "example": "proxychains nmap -sT -Pn -n 172.16.0.0/24",
+      "explanation": "Scans through the proxy. Use -sT (full connect) and -Pn, since SOCKS cannot carry raw SYN or ICMP."
+    },
+    {
+      "id": 7,
+      "category": "Running tools",
+      "command": "proxychains -f <conf> <command>",
+      "example": "proxychains -f ./custom.conf crackmapexec smb 172.16.0.10",
+      "explanation": "Uses an alternate config file."
+    },
+    {
+      "id": 8,
+      "category": "Tips",
+      "command": "ssh -D <port> <user>@<host> then use socks5 127.0.0.1 <port>",
+      "example": "ssh -D 1080 user@pivot",
+      "explanation": "SSH dynamic forwarding provides a SOCKS proxy that proxychains can use directly."
+    }
+  ]
+}

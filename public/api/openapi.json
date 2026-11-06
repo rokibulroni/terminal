@@ -1,0 +1,149 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Terminal command reference API",
+    "version": "1.0.0",
+    "summary": "Read-only, static JSON access to every tool and command on Terminal.",
+    "description": "All endpoints are static files: no authentication, CORS enabled for GET. Data is MIT-licensed. Please cache responses.",
+    "license": { "name": "MIT", "url": "https://opensource.org/licenses/MIT" },
+    "contact": { "name": "Terminal", "url": "https://terminal.rokibulroni.com/developers" }
+  },
+  "servers": [{ "url": "https://terminal.rokibulroni.com" }],
+  "paths": {
+    "/api/v1/manifest.json": {
+      "get": {
+        "operationId": "getManifest",
+        "summary": "List all categories and tool summaries",
+        "responses": { "200": { "description": "Manifest", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Manifest" } } } } }
+      }
+    },
+    "/api/v1/tools/{category}/{slug}.json": {
+      "get": {
+        "operationId": "getTool",
+        "summary": "Get a tool with all its commands",
+        "parameters": [
+          { "name": "category", "in": "path", "required": true, "schema": { "type": "string" }, "example": "network" },
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" }, "example": "nmap" }
+        ],
+        "responses": {
+          "200": { "description": "Tool", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Tool" } } } },
+          "404": { "description": "Unknown tool" }
+        }
+      }
+    },
+    "/api/v1/tools/{category}/{slug}.md": {
+      "get": {
+        "operationId": "getToolMarkdown",
+        "summary": "Get a tool as Markdown",
+        "parameters": [
+          { "name": "category", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Markdown", "content": { "text/markdown": { "schema": { "type": "string" } } } } }
+      }
+    },
+    "/api/v1/search-index.json": {
+      "get": {
+        "operationId": "getSearchIndex",
+        "summary": "Compact index of every tool and command",
+        "responses": { "200": { "description": "Search index", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SearchIndex" } } } } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Command": {
+        "type": "object",
+        "required": ["id", "category", "command", "example", "explanation"],
+        "properties": {
+          "id": { "type": "integer", "description": "Stable within the tool" },
+          "category": { "type": "string", "description": "Section heading" },
+          "command": { "type": "string", "description": "Command with <placeholders>" },
+          "example": { "type": "string", "description": "Command with realistic values" },
+          "explanation": { "type": "string" }
+        }
+      },
+      "Install": {
+        "type": "object",
+        "additionalProperties": { "type": "string" },
+        "description": "Install command keyed by method (apt, brew, pip, go, docker, ...)"
+      },
+      "ToolSummary": {
+        "type": "object",
+        "required": ["slug", "name", "category", "description", "tags", "commandCount", "sections", "related"],
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "category": { "type": "string" },
+          "description": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "commandCount": { "type": "integer" },
+          "sections": { "type": "array", "items": { "type": "string" } },
+          "related": { "type": "array", "items": { "type": "string" } },
+          "homepage": { "type": "string", "format": "uri" },
+          "docs": { "type": "string", "format": "uri" },
+          "install": { "$ref": "#/components/schemas/Install" },
+          "lastmod": { "type": "string", "format": "date" }
+        }
+      },
+      "Tool": {
+        "type": "object",
+        "required": ["tool", "slug", "name", "category", "description", "url", "total_commands", "commands"],
+        "properties": {
+          "tool": { "type": "string" },
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "category": { "type": "string" },
+          "description": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "markdown": { "type": "string", "format": "uri" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "homepage": { "type": "string", "format": "uri" },
+          "docs": { "type": "string", "format": "uri" },
+          "install": { "$ref": "#/components/schemas/Install" },
+          "related": { "type": "array", "items": { "type": "string" } },
+          "total_commands": { "type": "integer" },
+          "commands": { "type": "array", "items": { "$ref": "#/components/schemas/Command" } }
+        }
+      },
+      "Manifest": {
+        "type": "object",
+        "properties": {
+          "version": { "type": "integer" },
+          "generatedAt": { "type": "string", "format": "date-time" },
+          "totals": {
+            "type": "object",
+            "properties": { "categories": { "type": "integer" }, "tools": { "type": "integer" }, "commands": { "type": "integer" } }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "intro": { "type": "string" },
+                "groups": {
+                  "type": "array",
+                  "items": { "type": "object", "properties": { "name": { "type": "string" }, "tools": { "type": "array", "items": { "type": "string" } } } }
+                },
+                "toolCount": { "type": "integer" },
+                "commandCount": { "type": "integer" }
+              }
+            }
+          },
+          "tools": { "type": "object", "additionalProperties": { "$ref": "#/components/schemas/ToolSummary" } }
+        }
+      },
+      "SearchIndex": {
+        "type": "object",
+        "properties": {
+          "version": { "type": "integer" },
+          "tools": { "type": "array", "description": "[slug, category, name, description, tags]", "items": { "type": "array", "items": { "type": "string" } } },
+          "commands": { "type": "array", "description": "[toolIndex, commandId, command, explanation, section]", "items": { "type": "array" } }
+        }
+      }
+    }
+  }
+}

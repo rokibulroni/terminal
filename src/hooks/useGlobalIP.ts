@@ -1,74 +1,63 @@
 import { useCallback, useSyncExternalStore } from 'react';
 
-const GLOBAL_IP_KEY = 'terminal-global-ip';
+/**
+ * The user's target host, persisted in localStorage (it was a cookie before;
+ * the old cookie is migrated once and then removed so it is never sent to
+ * the server).
+ */
+const KEY = 'terminal-global-ip';
 
-// Cookie expiry in days
-const COOKIE_DAYS = 30;
-
-let globalIPCache: string | null = null;
+let cache: string | null = null;
 const listeners = new Set<() => void>();
 
-function getCookie(name: string): string | null {
-  if (typeof document === 'undefined') return null;
-  const nameEQ = name + '=';
-  const ca = document.cookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+function load(): string {
+  if (cache !== null) return cache;
+  if (typeof window === 'undefined') return '';
+  let value = '';
+  try {
+    value = localStorage.getItem(KEY) ?? '';
+    const legacy = document.cookie.split('; ').find((c) => c.startsWith(`${KEY}=`));
+    if (legacy) {
+      if (!value) value = decodeURIComponent(legacy.slice(KEY.length + 1));
+      document.cookie = `${KEY}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+      if (value) localStorage.setItem(KEY, value);
+    }
+  } catch {
+    /* storage unavailable */
   }
-  return null;
+  cache = value;
+  return value;
 }
 
-function setCookie(name: string, value: string, days: number) {
-  if (typeof document === 'undefined') return;
-  let expires = '';
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = '; expires=' + date.toUTCString();
+function save(next: string) {
+  cache = next;
+  try {
+    if (next) localStorage.setItem(KEY, next);
+    else localStorage.removeItem(KEY);
+  } catch {
+    /* storage unavailable — keep in memory for this visit */
   }
-  document.cookie = name + '=' + (value || '') + expires + '; path=/';
-}
-
-function getGlobalIPValue(): string {
-  if (globalIPCache !== null) return globalIPCache;
-  const stored = getCookie(GLOBAL_IP_KEY);
-  globalIPCache = stored || '';
-  return globalIPCache;
-}
-
-function setGlobalIPValue(next: string) {
-  globalIPCache = next;
-  setCookie(GLOBAL_IP_KEY, next, next ? COOKIE_DAYS : -1);
   listeners.forEach((l) => l());
 }
 
 function subscribe(listener: () => void) {
   listeners.add(listener);
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === KEY) {
+      cache = e.newValue ?? '';
+      listener();
+    }
+  };
+  window.addEventListener('storage', onStorage);
   return () => {
     listeners.delete(listener);
+    window.removeEventListener('storage', onStorage);
   };
 }
 
-function getSnapshot(): string {
-  return getGlobalIPValue();
-}
-
-function getServerSnapshot(): string {
-  return '';
-}
-
 export function useGlobalIP() {
-  const globalIP = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-
-  const setGlobalIP = useCallback((ip: string) => {
-    setGlobalIPValue(ip);
-  }, []);
-
-  const clearGlobalIP = useCallback(() => {
-    setGlobalIPValue('');
-  }, []);
-
+  const globalIP = useSyncExternalStore(subscribe, load, () => '');
+  const setGlobalIP = useCallback((ip: string) => save(ip.trim()), []);
+  const clearGlobalIP = useCallback(() => save(''), []);
   return { globalIP, setGlobalIP, clearGlobalIP };
 }

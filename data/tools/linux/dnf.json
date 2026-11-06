@@ -1,0 +1,152 @@
+{
+  "tool": "dnf",
+  "name": "DNF",
+  "description": "The package manager for Fedora, RHEL and derivatives: install, update, query and roll back packages.",
+  "tags": [
+    "packages",
+    "Fedora",
+    "RHEL"
+  ],
+  "homepage": "https://github.com/rpm-software-management/dnf",
+  "docs": "https://dnf.readthedocs.io",
+  "related": [
+    "apt",
+    "pacman"
+  ],
+  "total_commands": 19,
+  "commands": [
+    {
+      "id": 11,
+      "category": "Installing",
+      "command": "sudo dnf install <package>",
+      "example": "sudo dnf install nmap",
+      "explanation": "Installs a package with its dependencies."
+    },
+    {
+      "id": 12,
+      "category": "Installing",
+      "command": "sudo dnf install <file>.rpm",
+      "example": "sudo dnf install ./tool-1.0.x86_64.rpm",
+      "explanation": "Installs a local RPM and resolves dependencies."
+    },
+    {
+      "id": 13,
+      "category": "Installing",
+      "command": "sudo dnf reinstall <package>",
+      "example": "sudo dnf reinstall openssh-server",
+      "explanation": "Reinstalls a package."
+    },
+    {
+      "id": 14,
+      "category": "Installing",
+      "command": "sudo dnf install epel-release",
+      "example": "sudo dnf install epel-release",
+      "explanation": "Enables EPEL, which carries many security tools on RHEL-based systems."
+    },
+    {
+      "id": 15,
+      "category": "Updating and removing",
+      "command": "sudo dnf check-update",
+      "example": "sudo dnf check-update",
+      "explanation": "Lists available updates."
+    },
+    {
+      "id": 16,
+      "category": "Updating and removing",
+      "command": "sudo dnf upgrade",
+      "example": "sudo dnf upgrade",
+      "explanation": "Upgrades every package."
+    },
+    {
+      "id": 17,
+      "category": "Updating and removing",
+      "command": "sudo dnf upgrade --security",
+      "example": "sudo dnf upgrade --security",
+      "explanation": "Applies only security updates."
+    },
+    {
+      "id": 18,
+      "category": "Updating and removing",
+      "command": "dnf updateinfo list security",
+      "example": "dnf updateinfo list security",
+      "explanation": "Lists outstanding security advisories."
+    },
+    {
+      "id": 19,
+      "category": "Updating and removing",
+      "command": "sudo dnf remove <package>",
+      "example": "sudo dnf remove telnet",
+      "explanation": "Removes a package."
+    },
+    {
+      "id": 20,
+      "category": "Updating and removing",
+      "command": "sudo dnf autoremove",
+      "example": "sudo dnf autoremove",
+      "explanation": "Removes unneeded dependencies."
+    },
+    {
+      "id": 21,
+      "category": "Querying",
+      "command": "dnf search <term>",
+      "example": "dnf search wireshark",
+      "explanation": "Searches packages."
+    },
+    {
+      "id": 22,
+      "category": "Querying",
+      "command": "dnf info <package>",
+      "example": "dnf info openssl",
+      "explanation": "Package details."
+    },
+    {
+      "id": 23,
+      "category": "Querying",
+      "command": "dnf provides <path>",
+      "example": "dnf provides /usr/bin/dig",
+      "explanation": "Which package supplies a file or command."
+    },
+    {
+      "id": 24,
+      "category": "Querying",
+      "command": "dnf list installed",
+      "example": "dnf list installed",
+      "explanation": "Installed packages."
+    },
+    {
+      "id": 25,
+      "category": "Querying",
+      "command": "dnf repolist",
+      "example": "dnf repolist",
+      "explanation": "Enabled repositories."
+    },
+    {
+      "id": 26,
+      "category": "Querying",
+      "command": "rpm -qf <path>",
+      "example": "rpm -qf /usr/bin/ssh",
+      "explanation": "Which installed package owns a file."
+    },
+    {
+      "id": 27,
+      "category": "Querying",
+      "command": "rpm -Va",
+      "example": "rpm -Va",
+      "explanation": "Verifies every installed file against the RPM database and flags changes to size, checksum or permissions."
+    },
+    {
+      "id": 7,
+      "category": "History",
+      "command": "dnf history",
+      "example": "dnf history",
+      "explanation": "Every install, upgrade and removal transaction."
+    },
+    {
+      "id": 28,
+      "category": "History",
+      "command": "sudo dnf history undo <id>",
+      "example": "sudo dnf history undo 42",
+      "explanation": "Rolls back a transaction."
+    }
+  ]
+}

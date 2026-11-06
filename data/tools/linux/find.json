@@ -1,0 +1,178 @@
+{
+  "tool": "find",
+  "name": "find",
+  "description": "Searches the directory tree by name, type, size, time, owner or permissions — and runs actions on matches.",
+  "tags": [
+    "search",
+    "files",
+    "permissions"
+  ],
+  "homepage": "https://www.gnu.org/software/findutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/find.1.html",
+  "install": {
+    "apt": "sudo apt install findutils",
+    "brew": "brew install findutils"
+  },
+  "related": [
+    "grep",
+    "xargs",
+    "ls"
+  ],
+  "total_commands": 22,
+  "commands": [
+    {
+      "id": 11,
+      "category": "By name and type",
+      "command": "find <dir> -name \"<pattern>\"",
+      "example": "find /etc -name \"*.conf\"",
+      "explanation": "Finds files whose name matches a glob (case-sensitive)."
+    },
+    {
+      "id": 12,
+      "category": "By name and type",
+      "command": "find <dir> -iname \"<pattern>\"",
+      "example": "find / -iname \"*backup*\" 2>/dev/null",
+      "explanation": "Case-insensitive name match; 2>/dev/null hides permission errors."
+    },
+    {
+      "id": 13,
+      "category": "By name and type",
+      "command": "find <dir> -type f",
+      "example": "find /var/www -type f",
+      "explanation": "Files only. Use -type d for directories and -type l for symlinks."
+    },
+    {
+      "id": 14,
+      "category": "By name and type",
+      "command": "find <dir> -maxdepth <n> -name \"<pattern>\"",
+      "example": "find . -maxdepth 2 -name \"*.py\"",
+      "explanation": "Limits how deep the search goes."
+    },
+    {
+      "id": 15,
+      "category": "By name and type",
+      "command": "find <dir> -path \"<pattern>\" -prune -o -name \"<name>\" -print",
+      "example": "find . -path ./node_modules -prune -o -name \"*.js\" -print",
+      "explanation": "Skips a directory tree entirely."
+    },
+    {
+      "id": 16,
+      "category": "By size and time",
+      "command": "find <dir> -size +<n>",
+      "example": "find / -type f -size +500M 2>/dev/null",
+      "explanation": "Files larger than a size (k, M, G). Use - for smaller."
+    },
+    {
+      "id": 17,
+      "category": "By size and time",
+      "command": "find <dir> -empty",
+      "example": "find /tmp -empty",
+      "explanation": "Empty files and directories."
+    },
+    {
+      "id": 18,
+      "category": "By size and time",
+      "command": "find <dir> -mtime -<n>",
+      "example": "find /etc -mtime -1",
+      "explanation": "Modified in the last n days."
+    },
+    {
+      "id": 19,
+      "category": "By size and time",
+      "command": "find <dir> -mmin -<n>",
+      "example": "find /var/www -mmin -30",
+      "explanation": "Modified in the last n minutes — useful when investigating a recent compromise."
+    },
+    {
+      "id": 20,
+      "category": "By size and time",
+      "command": "find <dir> -newer <file>",
+      "example": "find / -newer /tmp/marker -type f 2>/dev/null",
+      "explanation": "Files modified more recently than a reference file."
+    },
+    {
+      "id": 21,
+      "category": "By size and time",
+      "command": "find <dir> -newermt \"<date>\"",
+      "example": "find /home -newermt \"2026-11-01\" ! -newermt \"2026-11-03\"",
+      "explanation": "Files modified between two dates."
+    },
+    {
+      "id": 22,
+      "category": "By owner and permission",
+      "command": "find / -perm -4000 -type f 2>/dev/null",
+      "example": "find / -perm -4000 -type f 2>/dev/null",
+      "explanation": "Lists SUID binaries. Compare against GTFOBins for privilege-escalation paths."
+    },
+    {
+      "id": 23,
+      "category": "By owner and permission",
+      "command": "find / -perm -2000 -type f 2>/dev/null",
+      "example": "find / -perm -2000 -type f 2>/dev/null",
+      "explanation": "Lists SGID binaries."
+    },
+    {
+      "id": 24,
+      "category": "By owner and permission",
+      "command": "find / -writable -type d 2>/dev/null",
+      "example": "find / -writable -type d 2>/dev/null",
+      "explanation": "Directories your current user can write to."
+    },
+    {
+      "id": 25,
+      "category": "By owner and permission",
+      "command": "find / -perm -o+w -type f ! -path \"/proc/*\" 2>/dev/null",
+      "example": "find / -perm -o+w -type f ! -path \"/proc/*\" 2>/dev/null",
+      "explanation": "World-writable files outside /proc."
+    },
+    {
+      "id": 26,
+      "category": "By owner and permission",
+      "command": "find <dir> -user <user>",
+      "example": "find / -user www-data -type f 2>/dev/null",
+      "explanation": "Files owned by a user."
+    },
+    {
+      "id": 27,
+      "category": "By owner and permission",
+      "command": "find / -nouser -o -nogroup 2>/dev/null",
+      "example": "find / -nouser -o -nogroup 2>/dev/null",
+      "explanation": "Files whose owner or group no longer exists."
+    },
+    {
+      "id": 28,
+      "category": "Acting on results",
+      "command": "find <dir> -name \"<pattern>\" -exec <cmd> {} \\;",
+      "example": "find . -name \"*.log\" -exec gzip {} \\;",
+      "explanation": "Runs a command on each result."
+    },
+    {
+      "id": 29,
+      "category": "Acting on results",
+      "command": "find <dir> -name \"<pattern>\" -exec <cmd> {} +",
+      "example": "find . -name \"*.txt\" -exec grep -l \"secret\" {} +",
+      "explanation": "Passes many results to one command invocation — much faster."
+    },
+    {
+      "id": 30,
+      "category": "Acting on results",
+      "command": "find <dir> -name \"<pattern>\" -delete",
+      "example": "find /tmp -name \"*.tmp\" -mtime +7 -delete",
+      "explanation": "Deletes matches. Run without -delete first to check what will go."
+    },
+    {
+      "id": 31,
+      "category": "Acting on results",
+      "command": "find <dir> -type f -print0 | xargs -0 <cmd>",
+      "example": "find . -type f -print0 | xargs -0 sha256sum",
+      "explanation": "Safely handles names with spaces or newlines."
+    },
+    {
+      "id": 32,
+      "category": "Acting on results",
+      "command": "find <dir> -type f -printf \"%T@ %p\\n\" | sort -n | tail",
+      "example": "find /var/www -type f -printf \"%T@ %p\\n\" | sort -n | tail",
+      "explanation": "Lists the most recently modified files (GNU find)."
+    }
+  ]
+}

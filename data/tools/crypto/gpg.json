@@ -1,0 +1,136 @@
+{
+  "tool": "gpg",
+  "name": "GnuPG",
+  "description": "The free implementation of OpenPGP: generate keys, encrypt and decrypt files, and create and verify digital signatures — used everywhere from email to release verification.",
+  "tags": [
+    "encryption",
+    "PGP",
+    "signing",
+    "keys"
+  ],
+  "homepage": "https://gnupg.org",
+  "docs": "https://www.gnupg.org/documentation/manuals/gnupg/",
+  "install": {
+    "apt": "sudo apt install gnupg",
+    "brew": "brew install gnupg"
+  },
+  "related": [
+    "openssl",
+    "base64"
+  ],
+  "total_commands": 16,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Keys",
+      "command": "gpg --full-generate-key",
+      "example": "gpg --full-generate-key",
+      "explanation": "Interactively creates a new key pair; choose RSA 4096 or an ECC curve."
+    },
+    {
+      "id": 2,
+      "category": "Keys",
+      "command": "gpg --list-keys",
+      "example": "gpg --list-keys",
+      "explanation": "Lists public keys in your keyring; --list-secret-keys shows private keys."
+    },
+    {
+      "id": 3,
+      "category": "Keys",
+      "command": "gpg --export -a <id> > <file>",
+      "example": "gpg --export -a alice@example.com > alice.pub",
+      "explanation": "Exports a public key in ASCII-armored form."
+    },
+    {
+      "id": 4,
+      "category": "Keys",
+      "command": "gpg --import <file>",
+      "example": "gpg --import alice.pub",
+      "explanation": "Imports a key into your keyring."
+    },
+    {
+      "id": 5,
+      "category": "Keys",
+      "command": "gpg --fingerprint <id>",
+      "example": "gpg --fingerprint alice@example.com",
+      "explanation": "Shows a key’s fingerprint to verify it out of band."
+    },
+    {
+      "id": 6,
+      "category": "Encrypting",
+      "command": "gpg -e -r <recipient> <file>",
+      "example": "gpg -e -r alice@example.com report.pdf",
+      "explanation": "Encrypts a file to a recipient’s public key, producing file.gpg."
+    },
+    {
+      "id": 7,
+      "category": "Encrypting",
+      "command": "gpg -e -r <a> -r <b> <file>",
+      "example": "gpg -e -r alice@example.com -r bob@example.com report.pdf",
+      "explanation": "Encrypts so several recipients can each decrypt."
+    },
+    {
+      "id": 8,
+      "category": "Encrypting",
+      "command": "gpg -c <file>",
+      "example": "gpg -c backup.tar",
+      "explanation": "Symmetric encryption with a passphrase — no keys needed."
+    },
+    {
+      "id": 9,
+      "category": "Encrypting",
+      "command": "gpg -d <file>.gpg > <out>",
+      "example": "gpg -d report.pdf.gpg > report.pdf",
+      "explanation": "Decrypts a file."
+    },
+    {
+      "id": 10,
+      "category": "Signing & verifying",
+      "command": "gpg --sign <file>",
+      "example": "gpg --sign release.tar",
+      "explanation": "Creates a signed, compressed version of a file."
+    },
+    {
+      "id": 11,
+      "category": "Signing & verifying",
+      "command": "gpg --detach-sign -a <file>",
+      "example": "gpg --detach-sign -a release.tar",
+      "explanation": "Creates a separate .asc signature, the usual way to sign releases."
+    },
+    {
+      "id": 12,
+      "category": "Signing & verifying",
+      "command": "gpg --verify <sig> <file>",
+      "example": "gpg --verify release.tar.asc release.tar",
+      "explanation": "Verifies a detached signature against the file."
+    },
+    {
+      "id": 13,
+      "category": "Signing & verifying",
+      "command": "gpg --verify <file>.asc",
+      "example": "gpg --verify SHA256SUMS.asc",
+      "explanation": "Verifies a clearsigned or inline-signed file."
+    },
+    {
+      "id": 14,
+      "category": "Maintenance",
+      "command": "gpg --edit-key <id>",
+      "example": "gpg --edit-key alice@example.com",
+      "explanation": "Opens the key editor to set trust, add user IDs or expiry."
+    },
+    {
+      "id": 15,
+      "category": "Maintenance",
+      "command": "gpg --export-secret-keys -a <id> > <file>",
+      "example": "gpg --export-secret-keys -a alice@example.com > alice.key",
+      "explanation": "Backs up a private key — store it somewhere safe."
+    },
+    {
+      "id": 16,
+      "category": "Maintenance",
+      "command": "gpg --armor --export <id> | gpg --keyserver <ks> --send-keys <id>",
+      "example": "gpg --send-keys 0xDEADBEEF",
+      "explanation": "Publishes a public key to a keyserver."
+    }
+  ]
+}

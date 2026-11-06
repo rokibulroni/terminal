@@ -1,0 +1,108 @@
+{
+  "tool": "cd",
+  "name": "cd",
+  "description": "The shell built-in that changes the current directory, including shortcuts for home, previous and parent directories.",
+  "tags": [
+    "navigation",
+    "shell built-in"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/bash.html#index-cd",
+  "related": [
+    "pwd",
+    "ls"
+  ],
+  "total_commands": 13,
+  "commands": [
+    {
+      "id": 5,
+      "category": "Navigation",
+      "command": "cd <path>",
+      "example": "cd /var/log",
+      "explanation": "Changes the current directory to an absolute or relative path."
+    },
+    {
+      "id": 6,
+      "category": "Navigation",
+      "command": "cd",
+      "example": "cd",
+      "explanation": "With no argument, returns to your home directory."
+    },
+    {
+      "id": 2,
+      "category": "Navigation",
+      "command": "cd ~",
+      "example": "cd ~",
+      "explanation": "Also goes home; ~ expands to $HOME."
+    },
+    {
+      "id": 7,
+      "category": "Navigation",
+      "command": "cd ~<user>",
+      "example": "cd ~alice",
+      "explanation": "Goes to another user's home directory, if you have permission."
+    },
+    {
+      "id": 4,
+      "category": "Navigation",
+      "command": "cd ..",
+      "example": "cd ..",
+      "explanation": "Moves up one level to the parent directory."
+    },
+    {
+      "id": 8,
+      "category": "Navigation",
+      "command": "cd ../..",
+      "example": "cd ../..",
+      "explanation": "Moves up two levels."
+    },
+    {
+      "id": 3,
+      "category": "Navigation",
+      "command": "cd -",
+      "example": "cd -",
+      "explanation": "Jumps back to the previous directory and prints its path — toggles between two locations."
+    },
+    {
+      "id": 9,
+      "category": "Links and the stack",
+      "command": "cd -P <path>",
+      "example": "cd -P /var/www/current",
+      "explanation": "Resolves symbolic links and enters the physical directory."
+    },
+    {
+      "id": 10,
+      "category": "Links and the stack",
+      "command": "pushd <path>",
+      "example": "pushd /etc/nginx",
+      "explanation": "Changes directory and pushes the old one onto a stack."
+    },
+    {
+      "id": 11,
+      "category": "Links and the stack",
+      "command": "popd",
+      "example": "popd",
+      "explanation": "Returns to the directory on top of the stack."
+    },
+    {
+      "id": 12,
+      "category": "Links and the stack",
+      "command": "dirs -v",
+      "example": "dirs -v",
+      "explanation": "Shows the directory stack with index numbers."
+    },
+    {
+      "id": 13,
+      "category": "Tips",
+      "command": "cd \"<path with spaces>\"",
+      "example": "cd \"My Documents\"",
+      "explanation": "Quote paths that contain spaces, or escape each space with a backslash."
+    },
+    {
+      "id": 14,
+      "category": "Tips",
+      "command": "CDPATH=.:~/projects",
+      "example": "CDPATH=.:~/projects; cd terminal",
+      "explanation": "Sets extra base directories that cd searches, so you can jump to frequent folders by name."
+    }
+  ]
+}

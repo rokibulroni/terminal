@@ -1,0 +1,149 @@
+{
+  "tool": "frida",
+  "name": "Frida",
+  "description": "A dynamic instrumentation toolkit: inject JavaScript into running processes on Android, iOS, Windows, macOS and Linux to trace and modify behaviour.",
+  "tags": [
+    "instrumentation",
+    "hooking",
+    "mobile"
+  ],
+  "homepage": "https://frida.re",
+  "docs": "https://frida.re/docs/home/",
+  "install": {
+    "pipx": "pipx install frida-tools"
+  },
+  "related": [
+    "objection",
+    "adb",
+    "drozer"
+  ],
+  "total_commands": 18,
+  "commands": [
+    {
+      "id": 16,
+      "category": "Setup",
+      "command": "pip install frida-tools",
+      "example": "pip install frida-tools",
+      "explanation": "Installs the Frida CLI tools. The frida-server on the device must match this version exactly."
+    },
+    {
+      "id": 10,
+      "category": "Setup",
+      "command": "frida --version",
+      "example": "frida --version",
+      "explanation": "Prints the client version, so you can download the matching frida-server."
+    },
+    {
+      "id": 17,
+      "category": "Setup",
+      "command": "adb push frida-server /data/local/tmp/ && adb shell \"chmod 755 /data/local/tmp/frida-server\"",
+      "example": "adb push frida-server /data/local/tmp/ && adb shell \"chmod 755 /data/local/tmp/frida-server\"",
+      "explanation": "Copies frida-server to a rooted Android device and makes it executable."
+    },
+    {
+      "id": 18,
+      "category": "Setup",
+      "command": "adb shell \"su -c /data/local/tmp/frida-server &\"",
+      "example": "adb shell \"su -c /data/local/tmp/frida-server &\"",
+      "explanation": "Starts frida-server as root in the background."
+    },
+    {
+      "id": 19,
+      "category": "Discovery",
+      "command": "frida-ls-devices",
+      "example": "frida-ls-devices",
+      "explanation": "Lists devices Frida can see."
+    },
+    {
+      "id": 6,
+      "category": "Discovery",
+      "command": "frida-ps -U",
+      "example": "frida-ps -U",
+      "explanation": "Processes on the USB-connected device."
+    },
+    {
+      "id": 20,
+      "category": "Discovery",
+      "command": "frida-ps -Uai",
+      "example": "frida-ps -Uai",
+      "explanation": "Installed apps with their identifiers and PIDs of running ones."
+    },
+    {
+      "id": 2,
+      "category": "Attaching and spawning",
+      "command": "frida -U -f <package>",
+      "example": "frida -U -f com.example.app",
+      "explanation": "Spawns the app with Frida attached and opens a JavaScript REPL. Spawning catches code that runs at startup."
+    },
+    {
+      "id": 21,
+      "category": "Attaching and spawning",
+      "command": "frida -U -n <name>",
+      "example": "frida -U -n \"Example\"",
+      "explanation": "Attaches to an already running process by name."
+    },
+    {
+      "id": 22,
+      "category": "Attaching and spawning",
+      "command": "frida -U -p <pid>",
+      "example": "frida -U -p 4321",
+      "explanation": "Attaches by PID."
+    },
+    {
+      "id": 23,
+      "category": "Attaching and spawning",
+      "command": "frida -U -f <package> -l <script>",
+      "example": "frida -U -f com.example.app -l bypass.js",
+      "explanation": "Loads a script into the process at startup."
+    },
+    {
+      "id": 24,
+      "category": "Attaching and spawning",
+      "command": "frida -U -f <package> --codeshare <handle>",
+      "example": "frida -U -f com.example.app --codeshare akabe1/frida-multiple-unpinning",
+      "explanation": "Loads a community script from Frida CodeShare. Read it before running it."
+    },
+    {
+      "id": 25,
+      "category": "Attaching and spawning",
+      "command": "frida -H <ip>:<port> -n <name>",
+      "example": "frida -H 192.168.1.50:27042 -n target",
+      "explanation": "Connects to a remote frida-server over the network."
+    },
+    {
+      "id": 26,
+      "category": "Tracing",
+      "command": "frida-trace -U -f <package> -j \"<class>!<method>\"",
+      "example": "frida-trace -U -f com.example.app -j \"*Crypto*!*\"",
+      "explanation": "Auto-generates hooks for Java methods matching a pattern and logs calls."
+    },
+    {
+      "id": 27,
+      "category": "Tracing",
+      "command": "frida-trace -U -n <name> -i \"<function>\"",
+      "example": "frida-trace -U -n target -i \"open*\"",
+      "explanation": "Traces native functions such as open and openat."
+    },
+    {
+      "id": 28,
+      "category": "Tracing",
+      "command": "frida-trace -U -n <name> -m \"-[<class> <selector>]\"",
+      "example": "frida-trace -U -n Example -m \"-[NSURLSession *]\"",
+      "explanation": "Traces Objective-C methods on iOS."
+    },
+    {
+      "id": 29,
+      "category": "Snippets",
+      "command": "Java.perform(() => { const C = Java.use('<class>'); C.<method>.implementation = function () { return true; }; });",
+      "example": "Java.perform(() => { const C = Java.use('com.example.Security'); C.isRooted.implementation = function () { return false; }; });",
+      "explanation": "REPL or script snippet: replaces a Java method’s return value — here, defeating a root check."
+    },
+    {
+      "id": 30,
+      "category": "Snippets",
+      "command": "Interceptor.attach(Module.getExportByName(null, '<fn>'), { onEnter(args) { console.log(args[0].readUtf8String()); } });",
+      "example": "Interceptor.attach(Module.getExportByName(null, 'open'), { onEnter(args) { console.log(args[0].readUtf8String()); } });",
+      "explanation": "Hooks a native function and logs its first argument."
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "tool": "vcgencmd",
+  "name": "vcgencmd",
+  "description": "Queries the Raspberry Pi’s VideoCore firmware: temperature, clock speeds, voltages, throttling state and memory split.",
+  "tags": [
+    "Raspberry Pi",
+    "hardware",
+    "monitoring"
+  ],
+  "homepage": "https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd",
+  "docs": "https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd",
+  "install": {
+    "apt": "sudo apt install libraspberrypi-bin"
+  },
+  "related": [
+    "raspi-config",
+    "gpio"
+  ],
+  "total_commands": 16,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Health",
+      "command": "vcgencmd measure_temp",
+      "example": "vcgencmd measure_temp",
+      "explanation": "SoC temperature. The Pi starts throttling at about 80 °C."
+    },
+    {
+      "id": 5,
+      "category": "Health",
+      "command": "vcgencmd get_throttled",
+      "example": "vcgencmd get_throttled",
+      "explanation": "Throttling flags as a hex bitmask. 0x0 is healthy; bit 0 is under-voltage now, bit 2 throttled now, bit 16 under-voltage has occurred since boot."
+    },
+    {
+      "id": 4,
+      "category": "Health",
+      "command": "vcgencmd measure_volts core",
+      "example": "vcgencmd measure_volts core",
+      "explanation": "Core voltage. Also accepts sdram_c, sdram_i and sdram_p."
+    },
+    {
+      "id": 16,
+      "category": "Health",
+      "command": "watch -n 1 vcgencmd measure_temp",
+      "example": "watch -n 1 vcgencmd measure_temp",
+      "explanation": "Watches temperature once a second, for example during a stress test."
+    },
+    {
+      "id": 17,
+      "category": "Health",
+      "command": "vcgencmd pmic_read_adc",
+      "example": "vcgencmd pmic_read_adc",
+      "explanation": "Raw PMIC voltages and currents on the Raspberry Pi 5."
+    },
+    {
+      "id": 2,
+      "category": "Clocks",
+      "command": "vcgencmd measure_clock arm",
+      "example": "vcgencmd measure_clock arm",
+      "explanation": "Current ARM CPU frequency in Hz."
+    },
+    {
+      "id": 3,
+      "category": "Clocks",
+      "command": "vcgencmd measure_clock core",
+      "example": "vcgencmd measure_clock core",
+      "explanation": "GPU core frequency."
+    },
+    {
+      "id": 18,
+      "category": "Clocks",
+      "command": "for c in arm core h264 isp v3d uart emmc; do echo \"$c: $(vcgencmd measure_clock $c)\"; done",
+      "example": "for c in arm core h264 isp v3d uart emmc; do echo \"$c: $(vcgencmd measure_clock $c)\"; done",
+      "explanation": "Prints every major clock."
+    },
+    {
+      "id": 19,
+      "category": "Clocks",
+      "command": "vcgencmd get_config arm_freq",
+      "example": "vcgencmd get_config arm_freq",
+      "explanation": "Configured maximum ARM frequency from config.txt."
+    },
+    {
+      "id": 6,
+      "category": "Memory and firmware",
+      "command": "vcgencmd get_mem arm",
+      "example": "vcgencmd get_mem arm",
+      "explanation": "Memory available to the ARM CPU."
+    },
+    {
+      "id": 7,
+      "category": "Memory and firmware",
+      "command": "vcgencmd get_mem gpu",
+      "example": "vcgencmd get_mem gpu",
+      "explanation": "Memory reserved for the GPU."
+    },
+    {
+      "id": 20,
+      "category": "Memory and firmware",
+      "command": "vcgencmd version",
+      "example": "vcgencmd version",
+      "explanation": "Firmware build date and version."
+    },
+    {
+      "id": 9,
+      "category": "Memory and firmware",
+      "command": "vcgencmd get_config int",
+      "example": "vcgencmd get_config int",
+      "explanation": "Every integer setting the firmware loaded from config.txt."
+    },
+    {
+      "id": 10,
+      "category": "Memory and firmware",
+      "command": "vcgencmd codec_enabled H264",
+      "example": "vcgencmd codec_enabled H264",
+      "explanation": "Whether a hardware codec is enabled."
+    },
+    {
+      "id": 21,
+      "category": "Memory and firmware",
+      "command": "vcgencmd display_power 0",
+      "example": "vcgencmd display_power 0",
+      "explanation": "Turns HDMI output off; 1 turns it back on."
+    },
+    {
+      "id": 14,
+      "category": "Memory and firmware",
+      "command": "vcgencmd otp_dump",
+      "example": "vcgencmd otp_dump",
+      "explanation": "One-time-programmable memory, including the board serial and revision."
+    }
+  ]
+}
