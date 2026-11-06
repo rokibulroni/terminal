@@ -1,0 +1,42 @@
+{
+  "tool": "cp",
+  "description": "[cp] - Copy files and directories. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "cp file1 file2",
+      "example": "cp file1 file2",
+      "explanation": "Copy source file to destination."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "cp -r dir1 dir2",
+      "example": "cp -r dir1 dir2",
+      "explanation": "Recursively copy directories and their contents."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "cp -i file1 dir/",
+      "example": "cp -i file1 dir/",
+      "explanation": "Copy interactively (prompt before overwrite)."
+    },
+    {
+      "id": 4,
+      "category": "linux",
+      "command": "cp -u file1 dir/",
+      "example": "cp -u file1 dir/",
+      "explanation": "Copy only if source is newer than destination or destination is missing."
+    },
+    {
+      "id": 5,
+      "category": "linux",
+      "command": "cp -v file1 file2",
+      "example": "cp -v file1 file2",
+      "explanation": "Verbose output explaining what is being copied."
+    }
+  ],
+  "total_commands": 5
+}

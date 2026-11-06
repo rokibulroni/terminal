@@ -1,0 +1,427 @@
+{
+  "tool": "masscan",
+  "description": "Complete Masscan command reference from beginner to advanced",
+  "total_commands": 60,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Scan",
+      "command": "masscan 192.168.1.1 -p80",
+      "example": "masscan 192.168.1.1 -p80",
+      "explanation": "Scans a single IP address for port 80.\nProvides a quick check for web service availability on the target."
+    },
+    {
+      "id": 2,
+      "category": "Basic Scan",
+      "command": "masscan 10.0.0.0/24 -p443",
+      "example": "masscan 10.0.0.0/24 -p443",
+      "explanation": "Scans an entire CIDR subnet for port 443.\nEfficiently maps SSL/TLS services across a local or remote network."
+    },
+    {
+      "id": 3,
+      "category": "Basic Scan",
+      "command": "masscan 192.168.1.1 -p22,80,443",
+      "example": "masscan 192.168.1.1 -p22,80,443",
+      "explanation": "Scans a target for multiple specific ports.\nSimultaneously probes SSH, HTTP, and HTTPS services on a single host."
+    },
+    {
+      "id": 4,
+      "category": "Port Selection",
+      "command": "masscan 192.168.1.1 -p1-1024",
+      "example": "masscan 192.168.1.1 -p1-1024",
+      "explanation": "Scans a comprehensive range of privileged ports.\nIdentifies common system and server services running on the target."
+    },
+    {
+      "id": 5,
+      "category": "Port Selection",
+      "command": "masscan 10.0.0.0/8 -p0-65535",
+      "example": "masscan 10.0.0.0/8 -p0-65535",
+      "explanation": "Performs a full port scan on a large network range.\nDiscovers all active TCP services across a wide swath of IP addresses."
+    },
+    {
+      "id": 6,
+      "category": "Rate Control",
+      "command": "masscan 10.0.0.0/16 -p80 --rate 100",
+      "example": "masscan 10.0.0.0/16 -p80 --rate 100",
+      "explanation": "Throttles scan speed to 100 packets per second.\nReduces network impact and helps avoid triggering basic rate-limiting alerts."
+    },
+    {
+      "id": 7,
+      "category": "Rate Control",
+      "command": "masscan 10.0.0.0/8 -p80 --rate 100000",
+      "example": "masscan 10.0.0.0/8 -p80 --rate 100000",
+      "explanation": "Configures a high-speed scan rate of 100k pps.\nForces rapid network discovery for large-scale infrastructure audits."
+    },
+    {
+      "id": 8,
+      "category": "Output Formats",
+      "command": "masscan 192.168.1.0/24 -p80 -oX output.xml",
+      "example": "masscan 192.168.1.0/24 -p80 -oX output.xml",
+      "explanation": "Exports scan results to an XML file (-oX).\nGenerates structured data suitable for integration with reporting tools."
+    },
+    {
+      "id": 9,
+      "category": "Output Formats",
+      "command": "masscan 192.168.1.0/24 -p80 -oJ output.json",
+      "example": "masscan 192.168.1.0/24 -p80 -oJ output.json",
+      "explanation": "Exports scan results to a JSON file (-oJ).\nProvides a modern, machine-parseable format for automation and analysis."
+    },
+    {
+      "id": 10,
+      "category": "Output Formats",
+      "command": "masscan 192.168.1.0/24 -p80 -oL output.txt",
+      "example": "masscan 192.168.1.0/24 -p80 -oL output.txt",
+      "explanation": "Saves results in a simple grepable list (-oL).\nIdeal for quick command-line filtering and extracting host lists."
+    },
+    {
+      "id": 11,
+      "category": "Output Formats",
+      "command": "masscan 192.168.1.0/24 -p80 -oB output.bin",
+      "example": "masscan 192.168.1.0/24 -p80 -oB output.bin",
+      "explanation": "Saves results in binary format for efficiency (-oB).\nIdeal for high-speed scanning where minimizing disk I/O is critical."
+    },
+    {
+      "id": 12,
+      "category": "TCP and UDP Scanning",
+      "command": "masscan 192.168.1.100 -pU:53",
+      "example": "masscan 192.168.1.100 -pU:53",
+      "explanation": "Performs a scan specifically for UDP port 53.\nIdentifies reachable DNS servers on the target IP or range."
+    },
+    {
+      "id": 13,
+      "category": "TCP and UDP Scanning",
+      "command": "masscan 192.168.1.100 -pU:161,162",
+      "example": "masscan 192.168.1.100 -pU:161,162",
+      "explanation": "Scans for standard SNMP UDP ports 161 and 162.\nDiscovers network devices and services exposing management interfaces."
+    },
+    {
+      "id": 14,
+      "category": "TCP and UDP Scanning",
+      "command": "masscan 192.168.1.1 -p80,U:53",
+      "example": "masscan 192.168.1.1 -p80,U:53",
+      "explanation": "Combines TCP and UDP ports in a single scan run.\nBroadens discovery coverage across different transport layer protocols."
+    },
+    {
+      "id": 15,
+      "category": "Excluding Targets",
+      "command": "masscan 10.0.0.0/8 -p80 --exclude 10.0.0.1",
+      "example": "masscan 10.0.0.0/8 -p80 --exclude 10.0.0.1",
+      "explanation": "Excludes specific IP addresses from the scan task.\nEnsures critical or sensitive hosts are not probed during discovery."
+    },
+    {
+      "id": 16,
+      "category": "Excluding Targets",
+      "command": "masscan 10.0.0.0/8 -p80 --excludefile exclude.txt",
+      "example": "masscan 10.0.0.0/8 -p80 --excludefile exclude.txt",
+      "explanation": "Excludes a list of targets provided in a text file.\nEnables systematic avoidance of restricted IP ranges and hostlists."
+    },
+    {
+      "id": 17,
+      "category": "Interface Configuration",
+      "command": "masscan 192.168.1.0/24 -p80 --interface eth0",
+      "example": "masscan 192.168.1.0/24 -p80 --interface eth0",
+      "explanation": "Forces the scan to use a specific network adapter.\nEnsures traffic exits through the correct physical or logical interface."
+    },
+    {
+      "id": 18,
+      "category": "Interface Configuration",
+      "command": "masscan 192.168.1.0/24 -p80 --router-mac 00:11:22:33:44:55",
+      "example": "masscan 192.168.1.0/24 -p80 --router-mac 00:11:22:33:44:55",
+      "explanation": "Specifies the gateway MAC address explicitly.\nBypasses local routing lookups to increase packet generation efficiency."
+    },
+    {
+      "id": 19,
+      "category": "Source Configuration",
+      "command": "masscan 10.0.0.0/8 -p80 --adapter-ip 192.168.1.200",
+      "example": "masscan 10.0.0.0/8 -p80 --adapter-ip 192.168.1.200",
+      "explanation": "Sets a custom source IP for outgoing scan packets.\nMakes discovery traffic appear to originate from a different host."
+    },
+    {
+      "id": 20,
+      "category": "Source Configuration",
+      "command": "masscan 10.0.0.0/8 -p80 --adapter-port 60000",
+      "example": "masscan 10.0.0.0/8 -p80 --adapter-port 60000",
+      "explanation": "Sets a fixed source port for the scan session.\nUseful for testing through firewalls that permit specific source ports."
+    },
+    {
+      "id": 21,
+      "category": "Source Configuration",
+      "command": "masscan 10.0.0.0/8 -p80 --adapter-port 60000-60100",
+      "example": "masscan 10.0.0.0/8 -p80 --adapter-port 60000-60100",
+      "explanation": "Uses a specific range of source ports for probes.\nPrevents traffic pattern signatures from being tied to a single source port."
+    },
+    {
+      "id": 22,
+      "category": "Banner Grabbing",
+      "command": "masscan 10.0.0.0/24 -p80 --banners",
+      "example": "masscan 10.0.0.0/24 -p80 --banners",
+      "explanation": "Attempts to capture service banners from open ports.\nEnables light service identification and version detection during scanning."
+    },
+    {
+      "id": 23,
+      "category": "Banner Grabbing",
+      "command": "masscan 10.0.0.0/24 -p80 --banners --http-user-agent \"Mozilla/5.0\"",
+      "example": "masscan 10.0.0.0/24 -p80 --banners --http-user-agent \"Mozilla/5.0\"",
+      "explanation": "Specifies a custom User-Agent for banner grabbing.\nMimics legitimate browser traffic to bypass simple HTTP security filters."
+    },
+    {
+      "id": 24,
+      "category": "Banner Grabbing",
+      "command": "masscan 192.168.1.0/24 -p22 --banners --source-ip 192.168.1.200",
+      "example": "masscan 192.168.1.0/24 -p22 --banners --source-ip 192.168.1.200",
+      "explanation": "Grabs SSH banners using a specific source IP address.\nCombines service probing with source IP obfuscation for reconnaissance."
+    },
+    {
+      "id": 25,
+      "category": "Configuration Files",
+      "command": "masscan -c scan.conf",
+      "example": "masscan -c scan.conf",
+      "explanation": "Executes a scan using settings from a config file (-c).\nStandardizes complex scan parameters for repeatable security audits."
+    },
+    {
+      "id": 26,
+      "category": "Configuration Files",
+      "command": "masscan 10.0.0.0/24 -p80 --echo > scan.conf",
+      "example": "masscan 10.0.0.0/24 -p80 --echo > scan.conf",
+      "explanation": "Saves current scan parameters to a configuration file.\nEnables documentation and subsequent reuse of specific scan settings."
+    },
+    {
+      "id": 27,
+      "category": "Scanning Efficiency",
+      "command": "masscan 0.0.0.0/0 -p80 --shard 1/10",
+      "example": "masscan 0.0.0.0/0 -p80 --shard 1/10",
+      "explanation": "Participates in a distributed scan using sharding.\nDivides the workload across multiple machines for massively parallel discovery."
+    },
+    {
+      "id": 28,
+      "category": "Scanning Efficiency",
+      "command": "masscan 0.0.0.0/0 -p80 --seed 123456",
+      "example": "masscan 0.0.0.0/0 -p80 --seed 123456",
+      "explanation": "Randomizes IP generation using a specific seed value.\nEnsures reproducible scan order for verification and debugging."
+    },
+    {
+      "id": 29,
+      "category": "Scanning Efficiency",
+      "command": "masscan --resume paused.conf",
+      "example": "masscan --resume paused.conf",
+      "explanation": "Resumes an interrupted scan from a saved state file.\nPrevents data loss and redundant probing on long-running network scans."
+    },
+    {
+      "id": 30,
+      "category": "Safe Internal Network Scanning",
+      "command": "masscan 10.0.0.0/8 -p80 --rate 500 --ttl 10",
+      "example": "masscan 10.0.0.0/8 -p80 --rate 500 --ttl 10",
+      "explanation": "Low-rate internal scan with restricted hop limits (TTL).\nSafely discovery internal assets while preventing packets from exiting the network."
+    },
+    {
+      "id": 31,
+      "category": "Safe Internal Network Scanning",
+      "command": "masscan 192.168.0.0/16 -p445 --rate 100 --wait 0",
+      "example": "masscan 192.168.0.0/16 -p445 --rate 100 --wait 0",
+      "explanation": "Rapidly probes for SMB services without long waits.\nQuickly identifies systems exposing Windows file sharing ports."
+    },
+    {
+      "id": 32,
+      "category": "Output Control",
+      "command": "masscan 10.0.0.0/24 -p80 --open-only",
+      "example": "masscan 10.0.0.0/24 -p80 --open-only",
+      "explanation": "Reports only open ports and suppresses all other output.\nStreamlines discovery results for immediate action or pipe consumption."
+    },
+    {
+      "id": 33,
+      "category": "Output Control",
+      "command": "masscan 10.0.0.0/24 -p80 --pcap output.pcap",
+      "example": "masscan 10.0.0.0/24 -p80 --pcap output.pcap",
+      "explanation": "Captures raw scan traffic directly to a PCAP file.\nEnables detailed offline analysis of network responses and behaviors."
+    },
+    {
+      "id": 34,
+      "category": "Packet Customization",
+      "command": "masscan 10.0.0.0/24 -p80 --hello-string \"GET / HTTP/1.1\\r\\nHost: example.com\\r\\n\\r\\n\"",
+      "example": "masscan 10.0.0.0/24 -p80 --hello-string \"GET / HTTP/1.1\\r\\nHost: example.com\\r\\n\\r\\n\"",
+      "explanation": "Sends a custom payload string upon connection establishment.\nProbes application-layer behavior with specific protocol-compliant strings."
+    },
+    {
+      "id": 35,
+      "category": "Reliability",
+      "command": "masscan 10.0.0.0/24 -p80 --retries 3",
+      "example": "masscan 10.0.0.0/24 -p80 --retries 3",
+      "explanation": "Retries failed packet transmissions to improve scan accuracy.\nEssential for reliable results on lossy or high-congestion network links."
+    },
+    {
+      "id": 36,
+      "category": "Advanced",
+      "command": "masscan 10.0.0.0/16 --top-ports 100 --rate 1000",
+      "example": "masscan 10.0.0.0/16 --top-ports 100 --rate 1000",
+      "explanation": "Scans the 100 most statistically common network ports.\nPrioritizes high-value service discovery to speed up the reconnaissance phase."
+    },
+    {
+      "id": 37,
+      "category": "Advanced",
+      "command": "masscan 192.168.1.1 -p0-65535 --rate 100000 --banner",
+      "example": "masscan 192.168.1.1 -p0-65535 --rate 100000 --banner",
+      "explanation": "Full range port scan with high-speed banner grabbing.\nDeeply audits a single host for all services at maximum tool performance."
+    },
+    {
+      "id": 38,
+      "category": "Status Monitoring",
+      "command": "masscan 10.0.0.0/8 -p80 --status-seconds 10",
+      "example": "masscan 10.0.0.0/8 -p80 --status-seconds 10",
+      "explanation": "Prints scan status updates every 10 seconds in the console.\nProvides visibility into progress and ETA during long-running tasks."
+    },
+    {
+      "id": 39,
+      "category": "Input Handling",
+      "command": "masscan -iL targets.txt -p80",
+      "example": "masscan -iL targets.txt -p80",
+      "explanation": "Loads target IP lists from an external text file (-iL).\nStandardizes targets for large-scale security assessments across ranges."
+    },
+    {
+      "id": 40,
+      "category": "Multiple Ranges",
+      "command": "masscan 10.0.0.0/8 192.168.0.0/16 -p80,443",
+      "example": "masscan 10.0.0.0/8 192.168.0.0/16 -p80,443",
+      "explanation": "Scans multiple disjoint networks in a single execution.\nConsolidates discovery efforts for varied infrastructure in one task."
+    },
+    {
+      "id": 41,
+      "category": "Internet Scale",
+      "command": "masscan 0.0.0.0/0 -p443 --exclude 255.255.255.255",
+      "example": "masscan 0.0.0.0/0 -p443 --exclude 255.255.255.255",
+      "explanation": "Attempts a full IP space scan for port 443 availability.\nAn extreme internet-scale operation for world-wide service mapping."
+    },
+    {
+      "id": 42,
+      "category": "Internet Scale",
+      "command": "masscan 0.0.0.0/0 -p80 --max-rate 10000000",
+      "example": "masscan 0.0.0.0/0 -p80 --max-rate 10000000",
+      "explanation": "Simulates 10 million packets per second internet scan throughput.\nTests hardware and network stack limits for peak scanning performance."
+    },
+    {
+      "id": 43,
+      "category": "Heartbleed Check",
+      "command": "masscan 10.0.0.0/24 -p443 --heartbleed",
+      "example": "masscan 10.0.0.0/24 -p443 --heartbleed",
+      "explanation": "Audits SSL/TLS endpoints for the Heartbleed vulnerability.\nSpecifically detects systems with vulnerable OpenSSL implementations on port 443."
+    },
+    {
+      "id": 44,
+      "category": "Combined Use Case",
+      "command": "masscan 192.168.1.0/24 -p22,80,443,3389 --rate 1000 --banners -oJ detailed.json",
+      "example": "masscan 192.168.1.0/24 -p22,80,443,3389 --rate 1000 --banners -oJ detailed.json",
+      "explanation": "Comprehensive scan targeting common administrative and web ports.\nIncludes banner identification and structured JSON output for documentation."
+    },
+    {
+      "id": 45,
+      "category": "Combined Use Case",
+      "command": "masscan 10.0.0.0/16 -p80 --adapter-ip 192.168.1.10 --adapter-port 40000 --rate 500",
+      "example": "masscan 10.0.0.0/16 -p80 --adapter-ip 192.168.1.10 --adapter-port 40000 --rate 500",
+      "explanation": "Controlled rate scan with fixed source parameters.\nMimics a specific network device while discovering web services."
+    },
+    {
+      "id": 46,
+      "category": "Ping Scan",
+      "command": "masscan 192.168.1.0/24 --ping",
+      "example": "masscan 192.168.1.0/24 --ping",
+      "explanation": "Performs an ICMP ping scan to identify reachable hosts.\nQuickly detects live systems without performing transport layer port audits."
+    },
+    {
+      "id": 47,
+      "category": "Connection Timeout",
+      "command": "masscan 10.0.0.0/24 -p80 --wait 5",
+      "example": "masscan 10.0.0.0/24 -p80 --wait 5",
+      "explanation": "Configures a 5-second wait for probe response before timeout.\nAdjusts tool sensitivity for high-latency or slow-responding networks."
+    },
+    {
+      "id": 48,
+      "category": "ARP Scanning",
+      "command": "masscan 192.168.1.0/24 --arp",
+      "example": "masscan 192.168.1.0/24 --arp",
+      "explanation": "Uses ARP requests for local network asset discovery.\nExtremely fast and effective method for mapping the local L2 segment."
+    },
+    {
+      "id": 49,
+      "category": "Hardware Address",
+      "command": "masscan 192.168.1.0/24 -p80 --adapter-mac 00:11:22:33:44:55",
+      "example": "masscan 192.168.1.0/24 -p80 --adapter-mac 00:11:22:33:44:55",
+      "explanation": "Spoofs the source hardware MAC address for scan traffic.\nBypasses MAC-based filters or identifies as another device on the network."
+    },
+    {
+      "id": 50,
+      "category": "Vulnerability Scanning",
+      "command": "masscan 10.0.0.0/16 -p443 --script safe",
+      "example": "masscan 10.0.0.0/16 -p443 --script safe",
+      "explanation": "Runs limited safe scripts against HTTPS service endpoints.\nAttempts basic vulnerability detection during the scanning phase."
+    },
+    {
+      "id": 51,
+      "category": "Offline Analysis",
+      "command": "masscan --readscan output.bin -oX converted.xml",
+      "example": "masscan --readscan output.bin -oX converted.xml",
+      "explanation": "Converts binary scan logs into structured XML for viewing.\nEnables offline processing and reporting from previously run high-speed scans."
+    },
+    {
+      "id": 52,
+      "category": "Blacklist",
+      "command": "masscan 0.0.0.0/0 -p80 --blackrock-rounds 4",
+      "example": "masscan 0.0.0.0/0 -p80 --blackrock-rounds 4",
+      "explanation": "Increases cryptographic randomization rounds for IP sequencing.\nObfuscates the scanning pattern to avoid simple sequence-based detection."
+    },
+    {
+      "id": 53,
+      "category": "Red Team",
+      "command": "masscan 10.0.0.0/8 -p22,3389 --rate 100 --adapter-port 53",
+      "example": "masscan 10.0.0.0/8 -p22,3389 --rate 100 --adapter-port 53",
+      "explanation": "Slowly scans for administrative ports using DNS source port 53.\nOptimized for evading ingress filters that trust common network protocols."
+    },
+    {
+      "id": 54,
+      "category": "Blue Team",
+      "command": "masscan 192.168.0.0/16 -p0-65535 --rate 100000 --banners -oB baseline.bin",
+      "example": "masscan 192.168.0.0/16 -p0-65535 --rate 100000 --banners -oB baseline.bin",
+      "explanation": "Rapidly baselines all TCP services across an entire network.\nGenerates a complete snapshot of the network state for defensive monitoring."
+    },
+    {
+      "id": 55,
+      "category": "Service Discovery",
+      "command": "masscan 10.0.0.0/16 -p80,8080,8000,8888 --banners",
+      "example": "masscan 10.0.0.0/16 -p80,8080,8000,8888 --banners",
+      "explanation": "Searches for web servers on common and alternative HTTP ports.\nIdentifies development and standard web interfaces across the infrastructure."
+    },
+    {
+      "id": 56,
+      "category": "Database Discovery",
+      "command": "masscan 10.0.0.0/16 -p3306,5432,1433,27017",
+      "example": "masscan 10.0.0.0/16 -p3306,5432,1433,27017",
+      "explanation": "Targets standard database listener ports on the network.\nIdentifies MySQL, MariaDB, Postgres, and SQL Server instances efficiently."
+    },
+    {
+      "id": 57,
+      "category": "Infrastructure",
+      "command": "masscan 10.0.0.0/8 -p179,500,4500",
+      "example": "masscan 10.0.0.0/8 -p179,500,4500",
+      "explanation": "Identifies routing and VPN infrastructure through key ports.\nDiscovers BGP peering points and IPsec/VPN terminators."
+    },
+    {
+      "id": 58,
+      "category": "Randomization",
+      "command": "masscan 10.0.0.0/16 -p80 --randomize-hosts",
+      "example": "masscan 10.0.0.0/16 -p80 --randomize-hosts",
+      "explanation": "Enforces non-sequential target IP order during the scan.\nReduces the likelihood of triggering simple range-based scanning alerts."
+    },
+    {
+      "id": 59,
+      "category": "Capture Filter",
+      "command": "masscan 10.0.0.0/24 -p80 --capture html",
+      "example": "masscan 10.0.0.0/24 -p80 --capture html",
+      "explanation": "Extracts HTML response data from reachable web servers.\nEnables light content reconnaissance and identification of page titles."
+    },
+    {
+      "id": 60,
+      "category": "Debug",
+      "command": "masscan 192.168.1.1 -p80 --debug",
+      "example": "masscan 192.168.1.1 -p80 --debug",
+      "explanation": "Displays low-level packets and internal tool debugging data.\nEssential for troubleshooting connection issues or tool execution failures."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "tool": "sort",
+  "description": "[sort] - Sort lines of text files. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "sort file1",
+      "example": "sort file1",
+      "explanation": "Alphabetically sort the contents of a file."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "sort -n file1",
+      "example": "sort -n file1",
+      "explanation": "Numerically sort the contents of a file."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "sort -r file1",
+      "example": "sort -r file1",
+      "explanation": "Reverse the sort order."
+    },
+    {
+      "id": 4,
+      "category": "linux",
+      "command": "sort -k 2 file1",
+      "example": "sort -k 2 file1",
+      "explanation": "Sort the file explicitly by the second column."
+    }
+  ],
+  "total_commands": 4
+}

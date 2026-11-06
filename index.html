@@ -1,42 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#faf7f2" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="author" content="Rokibul Roni" />
+    <meta name="generator" content="Terminal" />
+    <meta name="format-detection" content="telephone=no" />
 
+    <link rel="icon" type="image/png" href="/fav.png" />
+    <link rel="apple-touch-icon" href="/fav.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+    <link rel="service-desc" type="application/json" href="/api/openapi.json" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Apply the saved theme before first paint to avoid a flash. -->
+    <script>
+      (function () {
+        try {
+          var d = document.documentElement;
+          var m = localStorage.getItem('terminal-mode');
+          var c = localStorage.getItem('terminal-color-theme');
+          var dark = m ? m === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (dark) d.classList.add('dark');
+          d.setAttribute('data-theme', c === 'crimson' || c === 'forest' ? c : 'harvest');
+          if (dark) document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18120e');
+        } catch (e) {}
+      })();
+    </script>
 
-  <!-- Favicon for all devices -->
-  <link rel="icon" href="/fav.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/fav.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/fav.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="/fav.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/fav.png" />
+    <!--seo-->
+    <title data-seo>Terminal — Cybersecurity Command Reference</title>
+    <meta data-seo name="description" content="Searchable, copy-ready command references for penetration testing, network analysis, forensics, cloud security and Linux administration — with explanations for every command." />
+    <!--/seo-->
+  </head>
 
-
-
-  <title>Terminal - Cybersecurity Command Hub</title>
-  <meta name="description"
-    content="Terminal is a centralized command reference hub for cybersecurity, networking, and security operations." />
-  <meta name="author" content="Terminal" />
-
-  <meta property="og:title" content="Terminal" />
-  <meta property="og:description"
-    content="A professional terminal command knowledge base for cybersecurity, networking, and security operations." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/og.png" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Terminal" />
-  <meta name="twitter:description"
-    content="Centralized terminal command reference for cybersecurity and network operations." />
-  <meta name="twitter:image" content="/og.png" />
-</head>
-
-
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-
+  <body>
+    <noscript>
+      <p style="padding:1rem;font-family:system-ui">
+        Terminal works best with JavaScript enabled. All content is also available as
+        <a href="/llms.txt">plain text</a> and <a href="/api/v1/manifest.json">JSON</a>.
+      </p>
+    </noscript>
+    <div id="root"><!--app--></div>
+    <!--state-->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

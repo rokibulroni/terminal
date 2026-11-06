@@ -1,0 +1,427 @@
+{
+  "tool": "arp-scan",
+  "description": "Complete arp-scan command reference covering all options from basic to advanced",
+  "total_commands": 60,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Scan",
+      "command": "arp-scan -l",
+      "example": "arp-scan -l",
+      "explanation": "Detects the local interface and subnet for discovery (-l).\nAutomatically requests mapping for active hosts on the connected local network segment."
+    },
+    {
+      "id": 2,
+      "category": "Basic Scan",
+      "command": "arp-scan --localnet",
+      "example": "arp-scan --localnet",
+      "explanation": "Verbose alias for local network scanning (--localnet).\nConvenient way to scan the locally attached subnet using system configuration."
+    },
+    {
+      "id": 3,
+      "category": "Target Specification",
+      "command": "arp-scan 192.168.1.1",
+      "example": "arp-scan 192.168.1.1",
+      "explanation": "Sends ARP requests to a single IP address.\nUsed to determine if a specific host is online and what its MAC address is."
+    },
+    {
+      "id": 4,
+      "category": "Target Specification",
+      "command": "arp-scan 192.168.1.0/24",
+      "example": "arp-scan 192.168.1.0/24",
+      "explanation": "Scans an entire CIDR subnet block.\nIdentifies all active devices within the specified network range."
+    },
+    {
+      "id": 5,
+      "category": "Target Specification",
+      "command": "arp-scan 10.0.0.1 10.0.0.2 10.0.0.3",
+      "example": "arp-scan 10.0.0.1 10.0.0.2 10.0.0.3",
+      "explanation": "Scans a space-delimited list of IP addresses.\nAllows targeting a specific set of hosts without scanning the whole subnet."
+    },
+    {
+      "id": 6,
+      "category": "Target Specification",
+      "command": "arp-scan 172.16.0.0:255.255.0.0",
+      "example": "arp-scan 172.16.0.0:255.255.0.0",
+      "explanation": "Defines target network using IP:Netmask format.\nAlternative notation for specifying network ranges to scan."
+    },
+    {
+      "id": 7,
+      "category": "Target Specification",
+      "command": "arp-scan 192.168.1.10-192.168.1.50",
+      "example": "arp-scan 192.168.1.10-192.168.1.50",
+      "explanation": "Scans an inclusive range of IP addresses.\nUseful for scanning a sub-segment of a larger network block."
+    },
+    {
+      "id": 8,
+      "category": "Interface Selection",
+      "command": "arp-scan -I eth0 -l",
+      "example": "arp-scan -I eth0 -l",
+      "explanation": "Forces usage of a specific network interface (-I).\nRequired when the system has multiple interfaces or for non-default routes."
+    },
+    {
+      "id": 9,
+      "category": "Interface Selection",
+      "command": "arp-scan --interface=wlan0 192.168.0.0/24",
+      "example": "arp-scan --interface=wlan0 192.168.0.0/24",
+      "explanation": "Specifies a wireless interface using the long flag.\nEnsures ARP requests are sent over the correct wifi adapter."
+    },
+    {
+      "id": 10,
+      "category": "Target Specification",
+      "command": "arp-scan -f hosts.txt",
+      "example": "arp-scan -f hosts.txt",
+      "explanation": "Reads targets from a file (-f).\nEnables batch scanning of large or complex lists of IP addresses."
+    },
+    {
+      "id": 11,
+      "category": "Retry and Timeout",
+      "command": "arp-scan -r 5 -l",
+      "example": "arp-scan -r 5 -l",
+      "explanation": "Increases retry count to 5 (-r) for reliability.\nHelps when scanning over lossy wifi or congested networks."
+    },
+    {
+      "id": 12,
+      "category": "Retry and Timeout",
+      "command": "arp-scan --retry=1 192.168.1.0/24",
+      "example": "arp-scan --retry=1 192.168.1.0/24",
+      "explanation": "Reduces retries to 1 for speed.\nSuitable for reliable wired networks where packet loss is negligible."
+    },
+    {
+      "id": 13,
+      "category": "Retry and Timeout",
+      "command": "arp-scan -t 2000 -l",
+      "example": "arp-scan -t 2000 -l",
+      "explanation": "Sets per-host timeout to 2000ms (-t).\nGives devices ample time to respond, useful for slow or busy hosts."
+    },
+    {
+      "id": 14,
+      "category": "Retry and Timeout",
+      "command": "arp-scan --timeout=200 10.0.0.0/8",
+      "example": "arp-scan --timeout=200 10.0.0.0/8",
+      "explanation": "Sets a short 200ms timeout for speed.\nIdeal for high-speed scanning of responsive local networks."
+    },
+    {
+      "id": 15,
+      "category": "Retry and Timeout",
+      "command": "arp-scan -i 100 -l",
+      "example": "arp-scan -i 100 -l",
+      "explanation": "Enforces a 100ms packet interval delay (-i).\nSlows down the scan to reduce network load or avoid detection."
+    },
+    {
+      "id": 16,
+      "category": "Retry and Timeout",
+      "command": "arp-scan --interval=1000 192.168.1.0/24",
+      "example": "arp-scan --interval=1000 192.168.1.0/24",
+      "explanation": "Sets a 1-second delay between packets.\nStealthy mode that minimizes the chance of triggering traffic alarms."
+    },
+    {
+      "id": 17,
+      "category": "Retry and Timeout",
+      "command": "arp-scan -B 2 -l",
+      "example": "arp-scan -B 2 -l",
+      "explanation": "Sets backoff factor to 2 (-B).\nDoubles the wait time after each dropped packet to adaptively handle congestion."
+    },
+    {
+      "id": 18,
+      "category": "Output Formatting",
+      "command": "arp-scan -q -l",
+      "example": "arp-scan -q -l",
+      "explanation": "Runs in quiet mode (-q).\nSuppresses non-essential headers and metadata for cleaner output."
+    },
+    {
+      "id": 19,
+      "category": "Output Formatting",
+      "command": "arp-scan --plain -l",
+      "example": "arp-scan --plain -l",
+      "explanation": "Outputs plain data (IP and MAC) only (--plain).\nSimplifies output parsing for scripts by removing formatting."
+    },
+    {
+      "id": 20,
+      "category": "Output Formatting",
+      "command": "arp-scan -N -l",
+      "example": "arp-scan -N -l",
+      "explanation": "Displays unaligned columns (-N).\nRemoving alignment spaces makes it easier to cut/awk specific fields."
+    },
+    {
+      "id": 21,
+      "category": "Output Formatting",
+      "command": "arp-scan -n -l",
+      "example": "arp-scan -n -l",
+      "explanation": "Numeric only mode (-n).\nDisables DNS resolution to speed up the scan and prevent DNS traffic."
+    },
+    {
+      "id": 22,
+      "category": "Output Formatting",
+      "command": "arp-scan -v -l",
+      "example": "arp-scan -v -l",
+      "explanation": "Enables verbose output (-v).\nShows details about packet construction and the scanning process."
+    },
+    {
+      "id": 23,
+      "category": "Output Formatting",
+      "command": "arp-scan -vv -l",
+      "example": "arp-scan -vv -l",
+      "explanation": "Enables extra verbose output (-vv).\nProvides deep debugging information about ARP packet fields."
+    },
+    {
+      "id": 24,
+      "category": "Output Formatting",
+      "command": "arp-scan -e -l",
+      "example": "arp-scan -e -l",
+      "explanation": "Displays Round Trip Time (-e).\nMeasures latency to each host, helping identify network performance issues."
+    },
+    {
+      "id": 25,
+      "category": "Output Formatting",
+      "command": "arp-scan -x -l",
+      "example": "arp-scan -x -l",
+      "explanation": "Displays packet data in hex (-x).\nUseful for analyzing non-standard data in ARP payloads."
+    },
+    {
+      "id": 26,
+      "category": "Filtering",
+      "command": "arp-scan -g -l",
+      "example": "arp-scan -g -l",
+      "explanation": "Ignores duplicate ARP replies (-g).\nPrevents clutter when multiple interfaces or paths return a response."
+    },
+    {
+      "id": 27,
+      "category": "Filtering",
+      "command": "arp-scan --ignoredups -l",
+      "example": "arp-scan --ignoredups -l",
+      "explanation": "Suppress duplicate packet responses (--ignoredups).\nEnsures each host is listed only once in the final report."
+    },
+    {
+      "id": 28,
+      "category": "ARP Packet Customization",
+      "command": "arp-scan -s 10.0.0.50 192.168.1.0/24",
+      "example": "arp-scan -s 10.0.0.50 192.168.1.0/24",
+      "explanation": "Spoofs the source IP address (-s).\nMakes ARP requests appear to originate from another IP on the subnet."
+    },
+    {
+      "id": 29,
+      "category": "ARP Packet Customization",
+      "command": "arp-scan --arpspa=10.0.0.99 -l",
+      "example": "arp-scan --arpspa=10.0.0.99 -l",
+      "explanation": "Sets ARP Source Protocol Address (SPA) explicitly.\nAdvanced spoofing control for testing ARP handling."
+    },
+    {
+      "id": 30,
+      "category": "ARP Packet Customization",
+      "command": "arp-scan -S 00:11:22:33:44:55 -l",
+      "example": "arp-scan -S 00:11:22:33:44:55 -l",
+      "explanation": "Spoofs the source MAC address (-S).\nMasquerades the sender's physical identity."
+    },
+    {
+      "id": 31,
+      "category": "ARP Packet Customization",
+      "command": "arp-scan --arpsha=DE:AD:BE:EF:CA:FE 192.168.1.1",
+      "example": "arp-scan --arpsha=DE:AD:BE:EF:CA:FE 192.168.1.1",
+      "explanation": "Sets ARP Source Hardware Address (SHA) explicitly.\nAdvanced control for crafting specific ARP payloads."
+    },
+    {
+      "id": 32,
+      "category": "ARP Packet Customization",
+      "command": "arp-scan -T 01:00:5e:00:00:01 192.168.1.0/24",
+      "example": "arp-scan -T 01:00:5e:00:00:01 192.168.1.0/24",
+      "explanation": "Sets the Target MAC address in the Ethernet frame (-T).\nRarely used, but allows directing unicast ARP requests."
+    },
+    {
+      "id": 33,
+      "category": "ARP Packet Customization",
+      "command": "arp-scan --destaddr=FF:FF:FF:FF:FF:FF -l",
+      "example": "arp-scan --destaddr=FF:FF:FF:FF:FF:FF -l",
+      "explanation": "Sets the destination MAC address explicitly.\nCan be used to test how devices handle broadcast vs unicast ARPs."
+    },
+    {
+      "id": 34,
+      "category": "Advanced Features",
+      "command": "arp-scan -Q 10 -l",
+      "example": "arp-scan -Q 10 -l",
+      "explanation": "Adds an 802.1Q VLAN tag (-Q).\nRequired when scanning tagged VLAN trunks directly."
+    },
+    {
+      "id": 35,
+      "category": "Advanced Features",
+      "command": "arp-scan --vlan=20 192.168.50.0/24",
+      "example": "arp-scan --vlan=20 192.168.50.0/24",
+      "explanation": "Scans a specific VLAN ID.\nAllows mapping hosts segregated on different virtual LANs."
+    },
+    {
+      "id": 36,
+      "category": "Advanced Features",
+      "command": "arp-scan -A -l",
+      "example": "arp-scan -A -l",
+      "explanation": "Uses ARP packet padding (-A).\nFills the frame to meet minimum Ethernet length standards."
+    },
+    {
+      "id": 37,
+      "category": "Advanced Features",
+      "command": "arp-scan --padding=32 -l",
+      "example": "arp-scan --padding=32 -l",
+      "explanation": "Adds 32 bytes of padding to the payload.\nCan be used to test how devices handle oversized ARP packets."
+    },
+    {
+      "id": 38,
+      "category": "MAC Vendor Resolution",
+      "command": "arp-scan -O /usr/share/arp-scan/ieee-oui.txt -l",
+      "example": "arp-scan -O /usr/share/arp-scan/ieee-oui.txt -l",
+      "explanation": "Specifies a custom OUI file (-O).\nEnables manufacturer resolution using a specific database."
+    },
+    {
+      "id": 39,
+      "category": "MAC Vendor Resolution",
+      "command": "arp-scan --ouifile=./custom-oui.txt 192.168.1.0/24",
+      "example": "arp-scan --ouifile=./custom-oui.txt 192.168.1.0/24",
+      "explanation": "Uses a local custom file for OUI resolution.\nUseful when working with private or unlisted manufacturer codes."
+    },
+    {
+      "id": 40,
+      "category": "File Output",
+      "command": "arp-scan -W scan_results.pcap -l",
+      "example": "arp-scan -W scan_results.pcap -l",
+      "explanation": "Writes ARP responses to a PCAP file (-W).\nEssential for capturing evidence or detailed traffic analysis."
+    },
+    {
+      "id": 41,
+      "category": "File Output",
+      "command": "arp-scan --write=evidence.pcap 192.168.1.100",
+      "example": "arp-scan --write=evidence.pcap 192.168.1.100",
+      "explanation": "Captures ARP exchange to a file.\nLogs the specific interaction with the target host."
+    },
+    {
+      "id": 42,
+      "category": "Advanced Randomization",
+      "command": "arp-scan -R -l",
+      "example": "arp-scan -R -l",
+      "explanation": "Randomizes the target scan order (-R).\nPrevents scanning sequentially, which can trigger IDS thresholds."
+    },
+    {
+      "id": 43,
+      "category": "Advanced Randomization",
+      "command": "arp-scan --random -l",
+      "example": "arp-scan --random -l",
+      "explanation": "Randomizes target list order.\nStealth technique to distribute traffic patterns across the subnet."
+    },
+    {
+      "id": 44,
+      "category": "Performance Tuning",
+      "command": "arp-scan -B 1.5 -r 3 -t 500 -l",
+      "example": "arp-scan -B 1.5 -r 3 -t 500 -l",
+      "explanation": "Optimized adaptive scan settings (-B -r -t).\nCombines backoff, retry, and timeout for a balanced approach."
+    },
+    {
+      "id": 45,
+      "category": "Red Team Recon",
+      "command": "arp-scan -s 0.0.0.0 -l",
+      "example": "arp-scan -s 0.0.0.0 -l",
+      "explanation": "Sets source IP to 0.0.0.0 (Duplicate Address Detection).\nCan provoke replies from some stacks that ignore other ARPs."
+    },
+    {
+      "id": 46,
+      "category": "Red Team Recon",
+      "command": "arp-scan -S 00:00:00:00:00:00 -l",
+      "example": "arp-scan -S 00:00:00:00:00:00 -l",
+      "explanation": "Uses a null MAC source address.\nTests switch security controls and port security configurations."
+    },
+    {
+      "id": 47,
+      "category": "Blue Team Validation",
+      "command": "arp-scan --destaddr=01:00:0c:cc:cc:cc -l",
+      "example": "arp-scan --destaddr=01:00:0c:cc:cc:cc -l",
+      "explanation": "Sends to Cisco CDP/VTP multicast address.\nUsed to identify Cisco network equipment listening on this address."
+    },
+    {
+      "id": 48,
+      "category": "Asset Inventory",
+      "command": "arp-scan -l -e --plain --ignoredups",
+      "example": "arp-scan -l -e --plain --ignoredups",
+      "explanation": "Produces a clean asset list with metrics.\nIdeal for generating inventory reports with latency data."
+    },
+    {
+      "id": 49,
+      "category": "General Utility",
+      "command": "arp-scan --version",
+      "example": "arp-scan --version",
+      "explanation": "Displays installed version info.\nChecks version and dependencies for compatibility verification."
+    },
+    {
+      "id": 50,
+      "category": "General Utility",
+      "command": "arp-scan --help",
+      "example": "arp-scan --help",
+      "explanation": "Prints help menu.\nShows all available command-line flags and usage syntax."
+    },
+    {
+      "id": 51,
+      "category": "Advanced Limits",
+      "command": "arp-scan -l --limit=1024",
+      "example": "arp-scan -l --limit=1024",
+      "explanation": "Limits max hosts to scan (--limit).\nCaps the scan size to prevent overwhelming the application or network."
+    },
+    {
+      "id": 52,
+      "category": "Output Control",
+      "command": "arp-scan -l -q > active_hosts.txt",
+      "example": "arp-scan -l -q > active_hosts.txt",
+      "explanation": "Redirects quiet output to a file.\nSaves the list of discovered active hosts for scripting and automation."
+    },
+    {
+      "id": 53,
+      "category": "Red Team Recon",
+      "command": "arp-scan -l -s 192.168.1.1",
+      "example": "arp-scan -l -s 192.168.1.1",
+      "explanation": "Impersonates the gateway IP address (-s).\nCan bypass some client-side filters that accept ARP only from the gateway."
+    },
+    {
+      "id": 54,
+      "category": "Combined Scan",
+      "command": "arp-scan -I eth0 -l --retry=5 --timeout=3000",
+      "example": "arp-scan -I eth0 -l --retry=5 --timeout=3000",
+      "explanation": "High-reliability scan profile.\nUses aggressive retries and long timeouts for difficult network conditions."
+    },
+    {
+      "id": 55,
+      "category": "Combined Scan",
+      "command": "arp-scan -I eth0 -l --interval=5000",
+      "example": "arp-scan -I eth0 -l --interval=5000",
+      "explanation": "Low-and-slow stealth scan.\nSends packets infrequently to avoid detection by traffic monitors."
+    },
+    {
+      "id": 56,
+      "category": "VLAN Discovery",
+      "command": "arp-scan -Q 100 -s 10.100.0.1 10.100.0.0/24",
+      "example": "arp-scan -Q 100 -s 10.100.0.1 10.100.0.0/24",
+      "explanation": "Attempts to map a specific VLAN.\nSpoofs the gateway IP for that VLAN to elicit responses from hosts."
+    },
+    {
+      "id": 57,
+      "category": "Advanced Output",
+      "command": "arp-scan -l --pcapsave=trace.pcap",
+      "example": "arp-scan -l --pcapsave=trace.pcap",
+      "explanation": "Saves output to PCAP (alias).\nConvenient method for capturing scan traffic for Wireshark."
+    },
+    {
+      "id": 58,
+      "category": "Blue Team Validation",
+      "command": "arp-scan -l --arpsha=00:50:56:XX:XX:XX",
+      "example": "arp-scan -l --arpsha=00:50:56:00:00:01",
+      "explanation": "Uses a VMware OUI source.\nTests if the network permits or blocks virtualization specific OUI ranges."
+    },
+    {
+      "id": 59,
+      "category": "Target Specification",
+      "command": "arp-scan 10.0.0.0/24:10.0.1.0/24",
+      "example": "arp-scan 10.0.0.0/24:10.0.1.0/24",
+      "explanation": "Scans multiple CIDR ranges.\nAccepts multiple arguments to scan distinct subnets in one pass."
+    },
+    {
+      "id": 60,
+      "category": "Advanced Features",
+      "command": "arp-scan --snap -l",
+      "example": "arp-scan --snap -l",
+      "explanation": "Forces 802.2 LLC/SNAP encapsulation (--snap).\nUses legacy framing format to test compatibility or specific detection."
+    }
+  ]
+}

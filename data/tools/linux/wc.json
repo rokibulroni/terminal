@@ -1,0 +1,28 @@
+{
+  "tool": "wc",
+  "description": "[wc] - Print newline, word, and byte counts for each file. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "wc -l file1",
+      "example": "wc -l file1",
+      "explanation": "Print the number of lines entirely."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "wc -w file1",
+      "example": "wc -w file1",
+      "explanation": "Print the exact number of words."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "wc -c file1",
+      "example": "wc -c file1",
+      "explanation": "Print the explicit byte count."
+    }
+  ],
+  "total_commands": 3
+}

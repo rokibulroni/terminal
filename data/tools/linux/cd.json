@@ -1,0 +1,35 @@
+{
+  "tool": "cd",
+  "description": "[cd] - Change the shell working directory. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "cd /",
+      "example": "cd /",
+      "explanation": "Change to the root directory."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "cd ~",
+      "example": "cd ~",
+      "explanation": "Change to the current user's home directory."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "cd -",
+      "example": "cd -",
+      "explanation": "Change to the previous directory."
+    },
+    {
+      "id": 4,
+      "category": "linux",
+      "command": "cd ..",
+      "example": "cd ..",
+      "explanation": "Move up one directory level."
+    }
+  ],
+  "total_commands": 4
+}

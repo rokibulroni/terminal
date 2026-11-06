@@ -1,0 +1,14 @@
+{
+  "tool": "whoami",
+  "description": "[whoami] - Print effective userid. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "whoami",
+      "example": "whoami",
+      "explanation": "Print the username associated with the current effective user ID."
+    }
+  ],
+  "total_commands": 1
+}

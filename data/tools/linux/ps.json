@@ -1,0 +1,35 @@
+{
+  "tool": "ps",
+  "description": "[ps] - Report a snapshot of the current processes. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "ps aux",
+      "example": "ps aux",
+      "explanation": "View all current running processes with detailed stats."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "ps -ef",
+      "example": "ps -ef",
+      "explanation": "View all processes in standard system V format."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "ps -u username",
+      "example": "ps -u username",
+      "explanation": "View processes running under a specific user."
+    },
+    {
+      "id": 4,
+      "category": "linux",
+      "command": "ps aux | grep process_name",
+      "example": "ps aux | grep process_name",
+      "explanation": "Filter the process list for a specific name."
+    }
+  ],
+  "total_commands": 4
+}

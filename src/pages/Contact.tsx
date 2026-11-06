@@ -1,100 +1,46 @@
-import { Mail, Github, Globe, Linkedin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useCallback } from 'react';
+import { Mail, Github, Globe, Linkedin, Bug } from 'lucide-react';
+import { Seo } from '@/components/Seo';
+import { Breadcrumbs } from '@/components/common/Breadcrumbs';
+import { SITE } from '@/data/registry';
 
-// Email obfuscation to protect from bots (similar to Cloudflare email protection)
-const getEmail = () => {
-  const parts = ['hello', 'rokibulroni', 'com'];
-  return `${parts[0]}@${parts[1]}.${parts[2]}`;
-};
-
-const getEmailDisplay = () => {
-  return 'hello [at] rokibulroni [dot] com';
-};
+// Assembled at runtime so the address isn't sitting in the HTML for scrapers.
+const emailParts = ['hello', 'rokibulroni.com'];
 
 export function ContactPage() {
-  const handleEmailClick = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    window.location.href = `mailto:${getEmail()}`;
-  }, []);
-
+  const channels = [
+    { icon: Bug, title: 'Report a mistake', body: 'Wrong flag, broken link or outdated command? Open an issue.', href: `${SITE.repo}/issues/new`, cta: 'Open an issue' },
+    { icon: Github, title: 'Contribute', body: 'Send a pull request with new tools, commands or fixes.', href: SITE.repo, cta: 'View the repository' },
+    { icon: Linkedin, title: 'LinkedIn', body: 'Connect with the author.', href: SITE.author.linkedin, cta: 'Open LinkedIn' },
+    { icon: Globe, title: 'Website', body: 'More projects and writing.', href: SITE.author.url, cta: 'rokibulroni.com' },
+  ];
   return (
-    <div className="space-y-8 animate-fade-in max-w-3xl mx-auto">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex justify-center">
-          <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-            <Mail className="h-10 w-10 text-primary" />
-          </div>
-        </div>
-        <h1 className="text-3xl font-bold font-mono">Contact Us</h1>
-        <p className="text-muted-foreground">Get in touch with the Terminal team</p>
-      </div>
+    <div className="animate-fade-in">
+      <Seo title="Contact" description="Report a mistake, suggest a tool or get in touch with the maintainer of Terminal." path="/contact" />
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Contact' }]} />
+      <header className="mb-10 max-w-2xl space-y-3">
+        <p className="eyebrow">Contact</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Get in touch</h1>
+        <p className="text-lg leading-8 text-muted-foreground">The fastest way to fix something is a GitHub issue. For anything else, email works too.</p>
+      </header>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <button 
-          onClick={handleEmailClick}
-          className="terminal-card p-6 hover-lift flex flex-col items-center text-center space-y-3 group cursor-pointer w-full"
+      <div className="grid max-w-3xl gap-3 sm:grid-cols-2">
+        <button
+          type="button"
+          onClick={() => (window.location.href = `mailto:${emailParts.join('@')}`)}
+          className="surface-interactive flex flex-col items-start p-5 text-left sm:col-span-2"
         >
-          <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-            <Mail className="h-6 w-6 text-primary" />
-          </div>
-          <h3 className="font-semibold">Email</h3>
-          <p className="text-sm text-muted-foreground">{getEmailDisplay()}</p>
+          <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
+          <span className="mt-3 font-semibold">Email</span>
+          <span className="mt-1 text-sm text-muted-foreground">hello [at] rokibulroni [dot] com — usually answered within a few days.</span>
         </button>
-
-        <a 
-          href="https://github.com/rokibulroni/terminal" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="terminal-card p-6 hover-lift flex flex-col items-center text-center space-y-3 group"
-        >
-          <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-            <Github className="h-6 w-6 text-primary" />
-          </div>
-          <h3 className="font-semibold">GitHub</h3>
-          <p className="text-sm text-muted-foreground">Report issues & contribute</p>
-        </a>
-
-        <a 
-          href="https://rokibulroni.com" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="terminal-card p-6 hover-lift flex flex-col items-center text-center space-y-3 group"
-        >
-          <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-            <Globe className="h-6 w-6 text-primary" />
-          </div>
-          <h3 className="font-semibold">Website</h3>
-          <p className="text-sm text-muted-foreground">rokibulroni.com</p>
-        </a>
-
-        <a 
-          href="https://linkedin.com/in/rokibulroni" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="terminal-card p-6 hover-lift flex flex-col items-center text-center space-y-3 group"
-        >
-          <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-            <Linkedin className="h-6 w-6 text-primary" />
-          </div>
-          <h3 className="font-semibold">LinkedIn</h3>
-          <p className="text-sm text-muted-foreground">Connect professionally</p>
-        </a>
-      </div>
-
-      <div className="terminal-card p-6 text-center space-y-4">
-        <h2 className="text-lg font-semibold">Want to Contribute?</h2>
-        <p className="text-muted-foreground">
-          Terminal is open for contributions! If you'd like to add new tools, fix errors, 
-          or improve the documentation, feel free to submit a pull request on GitHub.
-        </p>
-        <Button className="font-mono" asChild>
-          <a href="https://github.com/rokibulroni/terminal" target="_blank" rel="noopener noreferrer">
-            <Github className="h-4 w-4 mr-2" />
-            View on GitHub
+        {channels.map((c) => (
+          <a key={c.title} href={c.href} target="_blank" rel="noopener noreferrer" className="surface-interactive flex flex-col items-start p-5">
+            <c.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+            <span className="mt-3 font-semibold">{c.title}</span>
+            <span className="mt-1 flex-1 text-sm text-muted-foreground">{c.body}</span>
+            <span className="mt-3 text-sm font-medium text-primary">{c.cta} →</span>
           </a>
-        </Button>
+        ))}
       </div>
     </div>
   );

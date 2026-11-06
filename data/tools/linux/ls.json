@@ -1,0 +1,49 @@
+{
+  "tool": "ls",
+  "description": "[ls] - List directory contents. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "ls -la",
+      "example": "ls -la",
+      "explanation": "List all files in long format including hidden."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "ls -lh",
+      "example": "ls -lh",
+      "explanation": "List files with human-readable file sizes."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "ls -lt",
+      "example": "ls -lt",
+      "explanation": "List files sorted by modification time (newest first)."
+    },
+    {
+      "id": 4,
+      "category": "linux",
+      "command": "ls -lS",
+      "example": "ls -lS",
+      "explanation": "List files sorted by size (largest first)."
+    },
+    {
+      "id": 5,
+      "category": "linux",
+      "command": "ls -ld */",
+      "example": "ls -ld */",
+      "explanation": "List only directories."
+    },
+    {
+      "id": 6,
+      "category": "linux",
+      "command": "ls -1",
+      "example": "ls -1",
+      "explanation": "List one file per line."
+    }
+  ],
+  "total_commands": 6
+}

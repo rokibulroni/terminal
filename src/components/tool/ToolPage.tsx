@@ -1,314 +1,402 @@
-import { useState, useMemo, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Search, FileJson, ChevronRight, ChevronLeft, ListTree } from 'lucide-react';
-import { useToolData } from '@/hooks/useToolData';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { Search, X, ExternalLink, BookOpen, FileText, Braces, ListTree, ChevronLeft, ChevronRight, RotateCw, AlertTriangle } from 'lucide-react';
+import { useTool, getCategory, getToolSummary, getAdjacentTools, getRelatedTools } from '@/lib/data';
 import { useRecentTools } from '@/hooks/useFavorites';
 import { CommandCard } from './CommandCard';
-import { Input } from '@/components/ui/input';
+import { InstallPanel } from './InstallPanel';
+import { Seo } from '@/components/Seo';
+import { Breadcrumbs } from '@/components/common/Breadcrumbs';
+import { EmptyState } from '@/components/common/EmptyState';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger, DrawerClose } from '@/components/ui/drawer';
+import { breadcrumbLd, techArticleLd } from '@/lib/structured-data';
+import { toolApiPath, toolMarkdownPath } from '@/data/routes';
+import { GUIDES } from '@/data/guides';
+import NotFound from '@/pages/NotFound';
 import { cn } from '@/lib/utils';
-import { createPortal } from 'react-dom';
+import type { Command } from '@/data/types';
 
+const sectionId = (name: string) => `section-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+
+/** Route wrapper: keys the page by tool so all state resets on navigation. */
 export function ToolPage() {
-  const { category, tool: toolName } = useParams<{ category: string; tool: string }>();
-  const { tool, loading, error } = useToolData(category || '', toolName || '');
-  const { addRecent } = useRecentTools();
-  
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string>('');
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { category = '', tool = '' } = useParams();
+  const summary = getToolSummary(tool);
+  if (!summary || summary.category !== category) return <NotFound what="tool" />;
+  return <ToolPageInner key={`${category}/${tool}`} category={category} slug={tool} />;
+}
 
-  // Auto-scroll Drawer to active category when opened
+function useScrollSpy(ids: string[]) {
+  const [active, setActive] = useState<string>(ids[0] ?? '');
   useEffect(() => {
-    if (drawerOpen && activeCategory) {
-      setTimeout(() => {
-        const activeItem = document.getElementById(`drawer-item-${activeCategory}`);
-        if (activeItem) {
-          activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!ids.length || typeof IntersectionObserver === 'undefined') return;
+    const visible = new Map<string, number>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) visible.set(e.target.id, e.boundingClientRect.top);
+          else visible.delete(e.target.id);
         }
-      }, 200); // wait for drawer animation to finish (vaul uses ~150-200ms)
-    }
-  }, [drawerOpen, activeCategory]);
-
-  // Track recent view
-  useEffect(() => {
-    if (category && toolName && tool) {
-      addRecent(category, toolName);
-    }
-  }, [category, toolName, tool, addRecent]);
-
-  // Group commands by category based on search
-  const groupedCommands = useMemo(() => {
-    if (!tool) return {};
-    
-    const filtered = tool.commands.filter(cmd => {
-      return searchQuery === '' || 
-        (cmd.command || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (cmd.explanation || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (cmd.category || '').toLowerCase().includes(searchQuery.toLowerCase());
-    });
-
-    const groups: Record<string, typeof tool.commands> = {};
-    filtered.forEach(cmd => {
-      if (!groups[cmd.category]) groups[cmd.category] = [];
-      groups[cmd.category].push(cmd);
-    });
-    
-    return groups;
-  }, [tool, searchQuery]);
-
-  // Extract ordered categories
-  const displayCategories = useMemo(() => {
-    return Object.keys(groupedCommands).sort();
-  }, [groupedCommands]);
-
-  // Initialize first category as active by default if none clicked
-  useEffect(() => {
-    if (displayCategories.length > 0 && !activeCategory) {
-      setActiveCategory(`category-${displayCategories[0].replace(/[^a-zA-Z0-9]/g, '-')}`);
-    }
-  }, [displayCategories, activeCategory]);
-
-  if (loading) {
-    return (
-      <div className="space-y-6 animate-fade-in">
-        <div className="flex items-center gap-2">
-          <Skeleton className="h-4 w-16" />
-          <Skeleton className="h-4 w-4" />
-          <Skeleton className="h-4 w-24" />
-        </div>
-        <Skeleton className="h-10 w-64" />
-        <Skeleton className="h-4 w-96" />
-        <div className="flex gap-4">
-          <Skeleton className="h-10 flex-1" />
-        </div>
-        <div className="grid gap-4">
-          {[1, 2, 3].map(i => (
-            <Skeleton key={i} className="h-32 w-full" />
-          ))}
-        </div>
-      </div>
+        const first = ids.find((id) => visible.has(id));
+        if (first) setActive(first);
+      },
+      { rootMargin: '-80px 0px -55% 0px' },
     );
-  }
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, [ids]);
+  return [active, setActive] as const;
+}
 
-  if (error || !tool) {
-    return (
-      <div className="flex flex-col items-center justify-center py-16 animate-fade-in">
-        <div className="text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mx-auto">
-            <FileJson className="h-8 w-8 text-destructive" />
-          </div>
-          <h2 className="text-2xl font-bold">Tool Not Found</h2>
-          <p className="text-muted-foreground max-w-md">
-            {error || 'The requested tool could not be loaded. Make sure the JSON file exists in the correct location.'}
-          </p>
-          <Link to="/">
-            <Button variant="outline" className="mt-4">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+function ToolPageInner({ category, slug }: { category: string; slug: string }) {
+  const summary = getToolSummary(slug)!;
+  const cat = getCategory(category)!;
+  const { data: tool, isLoading, isError, refetch } = useTool(category, slug);
+  const { addRecent } = useRecentTools();
+  const { hash } = useLocation();
+  const [query, setQuery] = useState('');
+  const [highlightId, setHighlightId] = useState<number | null>(null);
+
+  useEffect(() => {
+    addRecent(category, slug);
+  }, [addRecent, category, slug]);
+
+  const groups = useMemo(() => {
+    if (!tool) return [] as { name: string; id: string; commands: Command[] }[];
+    const q = query.trim().toLowerCase();
+    const map = new Map<string, Command[]>();
+    for (const c of tool.commands) {
+      if (q && !`${c.command}\n${c.explanation}\n${c.category}`.toLowerCase().includes(q)) continue;
+      if (!map.has(c.category)) map.set(c.category, []);
+      map.get(c.category)!.push(c);
+    }
+    // Keep the order sections first appear in (authored learning order).
+    return [...map.entries()].map(([name, commands]) => ({ name, id: sectionId(name), commands }));
+  }, [tool, query]);
+
+  const sectionIds = useMemo(() => groups.map((g) => g.id), [groups]);
+  const [activeSection, setActiveSection] = useScrollSpy(sectionIds);
+  const matchCount = groups.reduce((n, g) => n + g.commands.length, 0);
+
+  // Deep links: #cmd-12 or #section-name, once data has rendered.
+  useEffect(() => {
+    if (!tool || !hash) return;
+    const id = decodeURIComponent(hash.slice(1));
+    const el = document.getElementById(id);
+    if (!el) return;
+    requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    const m = /^cmd-(\d+)$/.exec(id);
+    if (m) {
+      setHighlightId(Number(m[1]));
+      const t = setTimeout(() => setHighlightId(null), 2400);
+      return () => clearTimeout(t);
+    }
+  }, [tool, hash]);
+
+  const { prev, next } = getAdjacentTools(slug);
+  const related = getRelatedTools(slug);
+  const guides = GUIDES.filter((g) => g.steps.some((s) => s.tool === slug));
+  const path = `/tool/${category}/${slug}`;
+
+  const jumpTo = (id: string) => {
+    setActiveSection(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const seoDescription = `${summary.name}: ${summary.description} ${summary.commandCount} copy-ready commands with explanations${
+    summary.sections.length ? ` covering ${summary.sections.slice(0, 4).join(', ').toLowerCase()}` : ''
+  }.`;
 
   return (
-    <div className="space-y-6 animate-fade-in relative">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm">
-        <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
-          Home
-        </Link>
-        <span className="text-muted-foreground">/</span>
-        <span className="text-muted-foreground capitalize">{category}</span>
-        <span className="text-muted-foreground">/</span>
-        <span className="text-foreground font-medium font-mono">{tool.tool}</span>
-      </nav>
+    <div className="animate-fade-in">
+      <Seo
+        title={`${summary.name} commands & cheat sheet`}
+        description={seoDescription}
+        path={path}
+        type="article"
+        markdown={toolMarkdownPath(category, slug)}
+        json={toolApiPath(category, slug)}
+        jsonLd={[
+          techArticleLd({
+            headline: `${summary.name} command reference`,
+            description: summary.description,
+            path,
+            dateModified: summary.lastmod,
+            keywords: [summary.name, ...summary.tags, cat.name],
+            about: { name: summary.name, url: summary.homepage },
+            sections: summary.sections,
+          }),
+          breadcrumbLd([
+            { name: 'Home', path: '/' },
+            { name: cat.name, path: `/category/${cat.id}` },
+            { name: summary.name, path },
+          ]),
+        ]}
+      />
+
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: cat.name, path: `/category/${cat.id}` }, { name: summary.name }]} />
 
       {/* Header */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="text-3xl sm:text-4xl font-bold font-mono">
-            <span className="gradient-text">{tool.tool}</span>
-          </h1>
-          <Badge variant="secondary" className="font-mono text-sm">
-            {tool.total_commands} commands
-          </Badge>
+      <header className="mb-8 space-y-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="font-mono text-3xl font-semibold tracking-tight sm:text-4xl">{summary.name}</h1>
+          <span className="rounded-full border border-border bg-muted/50 px-2.5 py-0.5 font-mono text-xs tabular-nums text-muted-foreground">
+            {summary.commandCount} commands
+          </span>
         </div>
-        <p className="text-muted-foreground max-w-2xl leading-relaxed">{tool.description}</p>
-      </div>
+        <p className="max-w-3xl text-[15px] leading-7 text-muted-foreground">{summary.description}</p>
+        {summary.tags.length > 0 && (
+          <ul className="flex flex-wrap gap-1.5" aria-label="Tags">
+            {summary.tags.map((t) => (
+              <li key={t} className="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="flex flex-wrap gap-2 pt-1">
+          {summary.docs && (
+            <Button asChild variant="outline" size="sm" className="rounded-lg">
+              <a href={summary.docs} target="_blank" rel="noopener noreferrer">
+                <BookOpen className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" /> Official docs
+                <ExternalLink className="ml-1.5 h-3 w-3 opacity-60" aria-hidden="true" />
+              </a>
+            </Button>
+          )}
+          {summary.homepage && summary.homepage !== summary.docs && (
+            <Button asChild variant="outline" size="sm" className="rounded-lg">
+              <a href={summary.homepage} target="_blank" rel="noopener noreferrer">
+                Project site <ExternalLink className="ml-1.5 h-3 w-3 opacity-60" aria-hidden="true" />
+              </a>
+            </Button>
+          )}
+          <Button asChild variant="ghost" size="sm" className="rounded-lg text-muted-foreground">
+            <a href={toolMarkdownPath(category, slug)} title="This page as Markdown">
+              <FileText className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" /> Markdown
+            </a>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="rounded-lg text-muted-foreground">
+            <a href={toolApiPath(category, slug)} title="This page as JSON">
+              <Braces className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" /> JSON
+            </a>
+          </Button>
+        </div>
+      </header>
 
-      <div className="flex flex-col lg:flex-row gap-8 items-start relative">
-        <div className="flex-1 w-full min-w-0 space-y-8">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search in commands or explanations..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 bg-muted/30"
-            />
+      {summary.install && Object.keys(summary.install).length > 0 && <InstallPanel install={summary.install} name={summary.name} />}
+
+      <div className="flex items-start gap-10">
+        <div className="min-w-0 flex-1">
+          {/* Toolbar */}
+          <div className="sticky top-14 z-20 -mx-4 mb-6 border-b border-border/60 bg-background/90 px-4 py-3 backdrop-blur-xl sm:-mx-6 sm:px-6 lg:mx-0 lg:rounded-b-xl lg:px-0">
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={`Filter ${summary.commandCount} ${summary.name} commands…`}
+                  aria-label={`Filter ${summary.name} commands`}
+                  className="h-10 w-full rounded-lg border border-input bg-muted/40 pl-9 pr-9 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 focus:bg-background [&::-webkit-search-cancel-button]:hidden"
+                />
+                {query && (
+                  <button type="button" onClick={() => setQuery('')} aria-label="Clear filter" className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:text-foreground">
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              {groups.length > 1 && (
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <Button variant="outline" className="h-10 shrink-0 rounded-lg lg:hidden" aria-label="Jump to section">
+                      <ListTree className="h-4 w-4 sm:mr-2" aria-hidden="true" />
+                      <span className="hidden sm:inline">Sections</span>
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent className="max-h-[80vh]">
+                    <DrawerHeader className="text-left">
+                      <DrawerTitle>On this page</DrawerTitle>
+                      <DrawerDescription>{groups.length} sections</DrawerDescription>
+                    </DrawerHeader>
+                    <nav className="custom-scrollbar overflow-y-auto px-4 pb-8" aria-label="Sections">
+                      {groups.map((g) => (
+                        <DrawerClose asChild key={g.id}>
+                          <button
+                            type="button"
+                            onClick={() => setTimeout(() => jumpTo(g.id), 250)}
+                            className={cn(
+                              'flex w-full items-center justify-between rounded-lg px-3 py-3 text-left text-sm',
+                              activeSection === g.id ? 'bg-primary/10 font-medium text-primary' : 'hover:bg-muted',
+                            )}
+                          >
+                            <span className="truncate pr-4">{g.name}</span>
+                            <span className="font-mono text-xs tabular-nums text-muted-foreground">{g.commands.length}</span>
+                          </button>
+                        </DrawerClose>
+                      ))}
+                    </nav>
+                  </DrawerContent>
+                </Drawer>
+              )}
+            </div>
+            {query && tool && (
+              <p className="mt-2 text-xs text-muted-foreground" role="status">
+                {matchCount} of {tool.commands.length} commands match
+              </p>
+            )}
           </div>
 
-          {/* Mobile TOC - Edge Floating Drawer Trigger */}
-          {displayCategories.length > 0 && typeof document !== 'undefined' && createPortal(
-            <div className="lg:hidden fixed top-1/2 right-0 z-[100] -translate-y-1/2">
-              <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-                <DrawerTrigger asChild>
-                  <button 
-                    className="p-2.5 bg-sidebar border border-sidebar-border border-r-0 rounded-l-xl shadow-2xl hover:bg-sidebar-accent transition-colors group flex items-center justify-center outline-none"
-                    aria-label="Expand Table of Contents"
-                  >
-                    <ChevronLeft className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </button>
-                </DrawerTrigger>
-                <DrawerContent className="max-h-[85vh]">
-                  <DrawerHeader className="border-b border-border/50 pb-4 text-left">
-                    <DrawerTitle>On this page</DrawerTitle>
-                    <DrawerDescription>Jump directly to a specific command category.</DrawerDescription>
-                  </DrawerHeader>
-                  <div className="overflow-y-auto p-4 custom-scrollbar">
-                    <div className="grid gap-2 mb-8">
-                       {displayCategories.map(cat => {
-                         const catId = `category-${cat.replace(/[^a-zA-Z0-9]/g, '-')}`;
-                         const isActive = activeCategory === catId;
-
-                         return (
-                           <DrawerClose key={cat} asChild>
-                             <Button 
-                               id={`drawer-item-${catId}`}
-                               variant="outline"
-                               className={cn(
-                                 "justify-between w-full h-auto py-3.5 px-4 transition-all shadow-sm",
-                                 isActive 
-                                   ? "bg-primary/10 text-primary border-primary/50 border-l-4 font-bold" 
-                                   : "font-normal hover:bg-primary/10 hover:text-primary border-border bg-card"
-                               )}
-                               onClick={() => {
-                                 setActiveCategory(catId);
-                                 setTimeout(() => {
-                                   document.getElementById(catId)?.scrollIntoView({ behavior: 'smooth' });
-                                 }, 150);
-                               }}
-                             >
-                               <span className="truncate pr-4 text-sm">{cat}</span>
-                               <Badge variant={isActive ? "default" : "secondary"} className="shrink-0">
-                                 {groupedCommands[cat].length}
-                               </Badge>
-                             </Button>
-                           </DrawerClose>
-                         );
-                       })}
-                    </div>
-                  </div>
-                </DrawerContent>
-              </Drawer>
-            </div>,
-            document.body
+          {/* Content */}
+          {isLoading && (
+            <div className="space-y-4" aria-busy="true" aria-label="Loading commands">
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className="space-y-3 rounded-xl border border-border p-5">
+                  <Skeleton className="h-11 w-full rounded-lg" />
+                  <Skeleton className="h-4 w-4/5" />
+                  <Skeleton className="h-4 w-2/5" />
+                </div>
+              ))}
+            </div>
           )}
 
-          {/* Results Count */}
-          <div className="text-sm text-muted-foreground">
-            {searchQuery && (
-              <span>
-                Found {Object.values(groupedCommands).reduce((acc, cmds) => acc + cmds.length, 0)} commands matching your search
-              </span>
-            )}
-          </div>
-
-          {/* Content Grouped by Category */}
-          <div className="space-y-12">
-            {displayCategories.length === 0 ? (
-              <div className="text-center py-12 border rounded-xl bg-card/50">
-                <Search className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
-                <p className="text-muted-foreground">No commands match your search.</p>
-                <Button 
-                  variant="link" 
-                  onClick={() => setSearchQuery('')}
-                  className="mt-2"
-                >
-                  Clear search
+          {isError && (
+            <EmptyState
+              icon={AlertTriangle}
+              tone="error"
+              title="Couldn’t load the commands"
+              description="Check your connection and try again."
+              action={
+                <Button onClick={() => refetch()}>
+                  <RotateCw className="mr-2 h-4 w-4" aria-hidden="true" /> Retry
                 </Button>
-              </div>
-            ) : (
-              displayCategories.map(cat => (
-                <div key={cat} id={`category-${cat.replace(/[^a-zA-Z0-9]/g, '-')}`} className="scroll-mt-24 space-y-4">
-                  <h2 className="text-xl font-bold font-mono pb-2 border-b border-border text-foreground">
-                    <span className="text-primary mr-2">#</span>{cat}
+              }
+            />
+          )}
+
+          {tool && groups.length === 0 && (
+            <EmptyState
+              icon={Search}
+              title={`No commands match “${query}”`}
+              description="Try a shorter term or a flag name."
+              action={
+                <Button variant="outline" onClick={() => setQuery('')}>
+                  Clear filter
+                </Button>
+              }
+            />
+          )}
+
+          {tool && (
+            <div className="space-y-12">
+              {groups.map((g) => (
+                <section key={g.id} id={g.id} aria-labelledby={`${g.id}-h`} className="scroll-mt-32 space-y-4">
+                  <h2 id={`${g.id}-h`} className="flex items-baseline gap-3 border-b border-border pb-2 text-lg font-semibold tracking-tight">
+                    {g.name}
+                    <span className="font-mono text-xs font-normal tabular-nums text-muted-foreground">{g.commands.length}</span>
                   </h2>
-                  <div className="grid gap-4">
-                    {groupedCommands[cat].map(cmd => (
-                      <CommandCard 
-                        key={cmd.id} 
-                        command={cmd} 
-                        toolName={toolName || ''}
-                        toolDisplayName={tool.tool}
-                        category={category || ''}
-                      />
+                  <div className="space-y-3">
+                    {g.commands.map((c) => (
+                      <CommandCard key={c.id} command={c} toolName={slug} toolDisplayName={summary.name} category={category} highlighted={highlightId === c.id} />
                     ))}
                   </div>
+                </section>
+              ))}
+            </div>
+          )}
+
+          {/* Discovery */}
+          <div className="mt-16 space-y-10">
+            {guides.length > 0 && (
+              <section aria-labelledby="guides-h">
+                <h2 id="guides-h" className="mb-4 text-lg font-semibold tracking-tight">Used in these guides</h2>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {guides.map((g) => (
+                    <Link key={g.slug} to={`/guide/${g.slug}`} className="surface-interactive block p-4">
+                      <p className="font-medium">{g.title}</p>
+                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{g.description}</p>
+                    </Link>
+                  ))}
                 </div>
-              ))
+              </section>
             )}
+
+            {related.length > 0 && (
+              <section aria-labelledby="related-h">
+                <h2 id="related-h" className="mb-4 text-lg font-semibold tracking-tight">Related tools</h2>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {related.map((r) => (
+                    <Link key={r.slug} to={`/tool/${r.category}/${r.slug}`} className="surface-interactive block p-4">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-mono font-medium">{r.name}</span>
+                        <span className="font-mono text-[11px] tabular-nums text-muted-foreground">{r.commandCount}</span>
+                      </div>
+                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{r.description}</p>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <nav aria-label="More tools in this category" className="grid gap-3 sm:grid-cols-2">
+              {prev ? (
+                <Link to={`/tool/${prev.category}/${prev.slug}`} className="surface-interactive group flex items-center gap-3 p-4">
+                  <ChevronLeft className="h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-x-0.5" aria-hidden="true" />
+                  <span>
+                    <span className="block text-xs text-muted-foreground">Previous in {cat.name}</span>
+                    <span className="font-mono font-medium">{prev.name}</span>
+                  </span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {next && (
+                <Link to={`/tool/${next.category}/${next.slug}`} className="surface-interactive group flex items-center justify-end gap-3 p-4 text-right">
+                  <span>
+                    <span className="block text-xs text-muted-foreground">Next in {cat.name}</span>
+                    <span className="font-mono font-medium">{next.name}</span>
+                  </span>
+                  <ChevronRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                </Link>
+              )}
+            </nav>
           </div>
         </div>
 
-        {/* Right Sidebar TOC - Hidden on Mobile */}
-        {displayCategories.length > 0 && (
-          <div className="hidden lg:block w-64 shrink-0 sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto custom-scrollbar pb-8">
-            <div className="p-4 rounded-xl border border-border bg-card/50 backdrop-blur-sm">
-              <h3 className="font-bold mb-4 flex items-center text-sm uppercase tracking-widest text-muted-foreground">
-                On this page
-              </h3>
-              <nav className="space-y-1">
-                {displayCategories.map(cat => {
-                  const catId = `category-${cat.replace(/[^a-zA-Z0-9]/g, '-')}`;
-                  const isActive = activeCategory === catId;
-
-                  return (
-                    <a 
-                      key={cat} 
-                      href={`#${catId}`}
-                      className={cn(
-                        "group flex gap-2 items-center px-2 py-1.5 text-sm rounded-md transition-colors",
-                        isActive 
-                          ? "bg-primary/10 text-primary font-bold relative after:absolute after:left-0 after:top-1/2 after:-translate-y-1/2 after:h-4 after:w-1.5 after:bg-primary after:rounded-r-md"
-                          : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
-                      )}
+        {/* Desktop table of contents */}
+        {groups.length > 1 && (
+          <aside className="sticky top-20 hidden w-56 shrink-0 lg:block" aria-label="On this page">
+            <p className="eyebrow mb-3 px-2">On this page</p>
+            <nav className="custom-scrollbar max-h-[calc(100vh-8rem)] overflow-y-auto pb-6">
+              <ul className="space-y-0.5 border-l border-border">
+                {groups.map((g) => (
+                  <li key={g.id}>
+                    <a
+                      href={`#${g.id}`}
                       onClick={(e) => {
                         e.preventDefault();
-                        setActiveCategory(catId);
-                        document.getElementById(catId)?.scrollIntoView({ behavior: 'smooth' });
+                        jumpTo(g.id);
+                        window.history.replaceState(null, '', `#${g.id}`);
                       }}
+                      aria-current={activeSection === g.id ? 'location' : undefined}
+                      className={cn(
+                        '-ml-px flex items-center justify-between gap-2 border-l-2 py-1.5 pl-3 pr-2 text-[13px] transition-colors',
+                        activeSection === g.id ? 'border-primary font-medium text-primary' : 'border-transparent text-muted-foreground hover:text-foreground',
+                      )}
                     >
-                      <ChevronRight className={cn(
-                        "h-3 w-3 transition-all",
-                        isActive ? "opacity-100 ml-0" : "opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0"
-                      )} />
-                      <span className="flex-1 truncate">{cat}</span>
-                      <Badge variant={isActive ? "default" : "secondary"} className="text-[10px] px-1.5 py-0 min-w-5 justify-center">
-                        {groupedCommands[cat].length}
-                      </Badge>
+                      <span className="truncate">{g.name}</span>
+                      <span className="font-mono text-[10px] tabular-nums opacity-70">{g.commands.length}</span>
                     </a>
-                  );
-                })}
-              </nav>
-            </div>
-          </div>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
         )}
       </div>
     </div>

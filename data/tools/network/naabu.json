@@ -1,0 +1,322 @@
+{
+  "tool": "naabu",
+  "description": "Complete Naabu command reference covering all options from basic to advanced",
+  "total_commands": 45,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic Scanning",
+      "command": "naabu -host 192.168.1.1",
+      "example": "naabu -host 192.168.1.1",
+      "explanation": "Performs a default TCP scan against a single IP target.\nProvides a fast and effective way to identify common open ports."
+    },
+    {
+      "id": 2,
+      "category": "Basic Scanning",
+      "command": "naabu -host scanme.nmap.org",
+      "example": "naabu -host scanme.nmap.org",
+      "explanation": "Scans a domain name for available TCP services.\nAutomatically resolves the target to its IP addresses before probing."
+    },
+    {
+      "id": 3,
+      "category": "Target Specification",
+      "command": "naabu -host 10.10.10.0/24",
+      "example": "naabu -host 10.10.10.0/24",
+      "explanation": "Scans an entire CIDR subnet range for open ports.\nEnables rapid service discovery across local or remote network segments."
+    },
+    {
+      "id": 4,
+      "category": "Target Specification",
+      "command": "naabu -list hosts.txt",
+      "example": "naabu -list hosts.txt",
+      "explanation": "Loads target lists from an external text file (-list).\nProcesses multiple hosts or ranges in a single automated scan run."
+    },
+    {
+      "id": 5,
+      "category": "Port Selection",
+      "command": "naabu -host 192.168.1.1 -p 80",
+      "example": "naabu -host 192.168.1.1 -p 80",
+      "explanation": "Explicitly scans a single specified port on the target.\nUseful for targeted checks of a specific service like HTTP or SSH."
+    },
+    {
+      "id": 6,
+      "category": "Port Selection",
+      "command": "naabu -host 192.168.1.1 -p 80,443,8080",
+      "example": "naabu -host 192.168.1.1 -p 80,443,8080",
+      "explanation": "Scans a custom list of comma-separated ports.\nProvides granular control over which services are probed for availability."
+    },
+    {
+      "id": 7,
+      "category": "Port Selection",
+      "command": "naabu -host 192.168.1.1 -p 1-1000",
+      "example": "naabu -host 192.168.1.1 -p 1-1000",
+      "explanation": "Scans a range of ports from 1 to 1000 inclusively.\nIdentifies most common system and service ports on the target."
+    },
+    {
+      "id": 8,
+      "category": "Port Selection",
+      "command": "naabu -host 192.168.1.1 -p -",
+      "example": "naabu -host 192.168.1.1 -p -",
+      "explanation": "Performs a comprehensive scan of all 65,535 TCP ports.\nEnsures complete visibility of all services running on the target host."
+    },
+    {
+      "id": 9,
+      "category": "Top Ports",
+      "command": "naabu -host 192.168.1.1 -top-ports 100",
+      "example": "naabu -host 192.168.1.1 -top-ports 100",
+      "explanation": "Scans the 100 most statistically common ports.\nPrioritizes high-value service discovery to optimize scan time."
+    },
+    {
+      "id": 10,
+      "category": "Top Ports",
+      "command": "naabu -host 192.168.1.1 -top-ports 1000",
+      "example": "naabu -host 192.168.1.1 -top-ports 1000",
+      "explanation": "Scans the 1000 most common network ports.\nProvides a baseline survey of services using standard port mappings."
+    },
+    {
+      "id": 11,
+      "category": "Excluding Hosts and Ports",
+      "command": "naabu -host 192.168.1.1 -exclude-ports 80,443",
+      "example": "naabu -host 192.168.1.1 -exclude-ports 80,443",
+      "explanation": "Excludes specific ports from the scan session.\nPrevents interference with sensitive services or known restricted ports."
+    },
+    {
+      "id": 12,
+      "category": "Excluding Hosts and Ports",
+      "command": "naabu -host 192.168.1.0/24 -exclude-hosts 192.168.1.5",
+      "example": "naabu -host 192.168.1.0/24 -exclude-hosts 192.168.1.5",
+      "explanation": "Excludes specific host IPs from a larger range scan.\nEnsures critical systems are bypassed during automated network audits."
+    },
+    {
+      "id": 13,
+      "category": "Scan Rate and Performance",
+      "command": "naabu -host 192.168.1.1 -rate 100",
+      "example": "naabu -host 192.168.1.1 -rate 100",
+      "explanation": "Throttles the scan to 100 packets per second (-rate).\nBalances reconnaissance speed with network stability and stealth."
+    },
+    {
+      "id": 14,
+      "category": "Scan Rate and Performance",
+      "command": "naabu -host 192.168.1.1 -c 50",
+      "example": "naabu -host 192.168.1.1 -c 50",
+      "explanation": "Sets concurrency to 50 simultaneous worker threads (-c).\nAccelerates large-scale scans by processing multiple ports in parallel."
+    },
+    {
+      "id": 15,
+      "category": "Timeout and Retries",
+      "command": "naabu -host 192.168.1.1 -timeout 2000",
+      "example": "naabu -host 192.168.1.1 -timeout 2000",
+      "explanation": "Sets probe timeout to 2 seconds per port (-timeout).\nAdjusts tool sensitivity for high-latency or slow-responding networks."
+    },
+    {
+      "id": 16,
+      "category": "Timeout and Retries",
+      "command": "naabu -host 192.168.1.1 -retries 3",
+      "example": "naabu -host 192.168.1.1 -retries 3",
+      "explanation": "Retries failed port probes up to 3 times.\nEnsures reliable service detection on lossy or congested network links."
+    },
+    {
+      "id": 17,
+      "category": "Timeout and Retries",
+      "command": "naabu -host 192.168.1.1 -warm-up-time 5",
+      "example": "naabu -host 192.168.1.1 -warm-up-time 5",
+      "explanation": "Adds a 5-second warm-up delay before scanning.\nAllows the network stack and connection to stabilize before traffic peaks."
+    },
+    {
+      "id": 18,
+      "category": "Output Formats",
+      "command": "naabu -host 192.168.1.1 -o output.txt",
+      "example": "naabu -host 192.168.1.1 -o output.txt",
+      "explanation": "Saves findings to a simple text output file (-o).\nProvides a clear log of identified open ports for documentation."
+    },
+    {
+      "id": 19,
+      "category": "JSON Output",
+      "command": "naabu -host 192.168.1.1 -json -o results.json",
+      "example": "naabu -host 192.168.1.1 -json -o results.json",
+      "explanation": "Generates structured JSON output saved to a file.\nIdeal for integration with post-processing scripts and security dashboards."
+    },
+    {
+      "id": 20,
+      "category": "Silent and Minimal Output",
+      "command": "naabu -host 192.168.1.1 -silent",
+      "example": "naabu -host 192.168.1.1 -silent",
+      "explanation": "Suppresses standard tool banners and progress indicators.\nOutputs only the raw port data, perfect for command-line pipes."
+    },
+    {
+      "id": 21,
+      "category": "Verbose and Debug",
+      "command": "naabu -host 192.168.1.1 -v",
+      "example": "naabu -host 192.168.1.1 -v",
+      "explanation": "Enables verbose output for detailed execution tracking (-v).\nDisplays real-time status and information about individual probe attempts."
+    },
+    {
+      "id": 22,
+      "category": "Verbose and Debug",
+      "command": "naabu -host 192.168.1.1 -no-color",
+      "example": "naabu -host 192.168.1.1 -no-color",
+      "explanation": "Disables colored text in the terminal output.\nEnsures clean, readable logs when results are redirected to files or pipes."
+    },
+    {
+      "id": 23,
+      "category": "Output Formats",
+      "command": "naabu -host 192.168.1.1 -csv",
+      "example": "naabu -host 192.168.1.1 -csv",
+      "explanation": "Outputs scan results in CSV format.\nEnables easy data import into spreadsheet software for reporting."
+    },
+    {
+      "id": 24,
+      "category": "Interface Configuration",
+      "command": "naabu -host 192.168.1.1 -interface eth0",
+      "example": "naabu -host 192.168.1.1 -interface eth0",
+      "explanation": "Binds the scan to a specific network interface adapter.\nForces traffic through the correct logical or physical connection point."
+    },
+    {
+      "id": 25,
+      "category": "Source IP Configuration",
+      "command": "naabu -host 192.168.1.1 -source-ip 192.168.1.5",
+      "example": "naabu -host 192.168.1.1 -source-ip 192.168.1.5",
+      "explanation": "Sets a specific source IP address for outgoing probes.\nControls the originating identity of the scan for advanced network testing."
+    },
+    {
+      "id": 26,
+      "category": "Firewall Friendly Scanning",
+      "command": "naabu -host 192.168.1.1 -source-port 53",
+      "example": "naabu -host 192.168.1.1 -source-port 53",
+      "explanation": "Configures a specific source port for discovery packets.\nMimics legitimate traffic types like DNS (53) to test ingress filters."
+    },
+    {
+      "id": 27,
+      "category": "Verification",
+      "command": "naabu -host 192.168.1.1 -verify",
+      "example": "naabu -host 192.168.1.1 -verify",
+      "explanation": "Validates open ports with a secondary verification check.\nSignificantly reduces false positive rates in dynamic environments."
+    },
+    {
+      "id": 28,
+      "category": "Host Discovery",
+      "command": "naabu -host 10.10.10.0/24 -ping",
+      "example": "naabu -host 10.10.10.0/24 -ping",
+      "explanation": "Performs host discovery to identify live systems before scanning.\nConserves resources by only probing ports on reachable network entities."
+    },
+    {
+      "id": 29,
+      "category": "Integration with Nmap",
+      "command": "naabu -host 192.168.1.1 -nmap-cli 'nmap -sV'",
+      "example": "naabu -host 192.168.1.1 -nmap-cli 'nmap -sV'",
+      "explanation": "Pipes identified open ports to Nmap for service versioning.\nProvides a bridge between high-speed discovery and deep inspection."
+    },
+    {
+      "id": 30,
+      "category": "Integration with Nmap",
+      "command": "naabu -host 192.168.1.1 -nmap-cli 'nmap -O -sC'",
+      "example": "naabu -host 192.168.1.1 -nmap-cli 'nmap -O -sC'",
+      "explanation": "Runs Nmap OS detection and vulnerability scripts on found ports.\nCombines Naabu's scanning speed with Nmap's powerful scripting engine."
+    },
+    {
+      "id": 31,
+      "category": "IPv6 Scanning",
+      "command": "naabu -host ::1 -ipv6",
+      "example": "naabu -host ::1 -ipv6",
+      "explanation": "Enables IPv6 transport mode for the scan session.\nRequired for auditing services available on modern IPv6 addresses."
+    },
+    {
+      "id": 32,
+      "category": "DNS and IP Handling",
+      "command": "naabu -host example.com -scan-all-ips",
+      "example": "naabu -host example.com -scan-all-ips",
+      "explanation": "Scans all resolved IP addresses for a given hostname.\nEnsures comprehensive coverage for domains with multiple DNS records."
+    },
+    {
+      "id": 33,
+      "category": "Proxy Usage",
+      "command": "naabu -host 192.168.1.1 -proxy socks5://127.0.0.1:9050",
+      "example": "naabu -host 192.168.1.1 -proxy socks5://127.0.0.1:9050",
+      "explanation": "Routes all scan traffic through a SOCKS5 proxy server.\nObfuscates the scanning source and enables audits from alternate locations."
+    },
+    {
+      "id": 34,
+      "category": "Resume Scan",
+      "command": "naabu -host 192.168.1.1 -resume",
+      "example": "naabu -host 192.168.1.1 -resume",
+      "explanation": "Resumes a previously interrupted scan from its last state.\nAvoids redundant effort and saves time on long-running network audits."
+    },
+    {
+      "id": 35,
+      "category": "Statistics",
+      "command": "naabu -host 10.10.10.0/24 -stats",
+      "example": "naabu -host 10.10.10.0/24 -stats",
+      "explanation": "Displays real-time statistics about scan progress and health.\nMonitor PPS rates, completion percentage, and estimated time remaining."
+    },
+    {
+      "id": 36,
+      "category": "Port Lists from File",
+      "command": "naabu -host 192.168.1.1 -ports-file custom_ports.txt",
+      "example": "naabu -host 192.168.1.1 -ports-file custom_ports.txt",
+      "explanation": "Scans specifically enumerated ports from a local file.\nAllows focusing the audit on custom or sensitive application ports."
+    },
+    {
+      "id": 37,
+      "category": "Exclude from File",
+      "command": "naabu -list targets.txt -exclude-file ignore.txt",
+      "example": "naabu -list targets.txt -exclude-file ignore.txt",
+      "explanation": "Skips hosts listed in a specific suppression file.\nEnsures production or sensitive system IP addresses are not probed."
+    },
+    {
+      "id": 38,
+      "category": "Passive Discovery",
+      "command": "naabu -host example.com -passive",
+      "example": "naabu -host example.com -passive",
+      "explanation": "Uses passive external records only to discover open ports.\nIdentifies reachable services without sending any direct traffic to the target."
+    },
+    {
+      "id": 39,
+      "category": "Real World Red Team",
+      "command": "naabu -list hosts.txt -p - -rate 3000 -silent -o all_ports.txt",
+      "example": "naabu -list hosts.txt -p - -rate 3000 -silent -o all_ports.txt",
+      "explanation": "High-intensity silent scan across all 65k TCP ports.\nGenerates a complete port map for a large list of hosts rapidly."
+    },
+    {
+      "id": 40,
+      "category": "Defensive Validation",
+      "command": "naabu -host 192.168.1.0/24 -top-ports 1000 -nmap-cli 'nmap -sV --script vulners'",
+      "example": "naabu -host 192.168.1.0/24 -top-ports 1000 -nmap-cli 'nmap -sV --script vulners'",
+      "explanation": "Finds ports and immediately runs Nmap vulnerability scripts.\nStreamlines the workflow from asset discovery to security validation."
+    },
+    {
+      "id": 41,
+      "category": "Stealth Scanning",
+      "command": "naabu -host 192.168.1.1 -rate 50 -retries 2 -warm-up-time 10",
+      "example": "naabu -host 192.168.1.1 -rate 50 -retries 2 -warm-up-time 10",
+      "explanation": "Carefully throttled scan with extended warm-up intervals.\nimplements a low-profile audit to minimize network disruption and footprint."
+    },
+    {
+      "id": 42,
+      "category": "Automation Pipeline",
+      "command": "echo 192.168.1.1 | naabu -silent -json",
+      "example": "echo 192.168.1.1 | naabu -silent -json",
+      "explanation": "Accepts target IP/Domain via standard input stream.\nIntegrates seamlessly into complex command chains and automation scripts."
+    },
+    {
+      "id": 43,
+      "category": "Advanced",
+      "command": "naabu -host 192.168.1.1 -rev-ptr",
+      "example": "naabu -host 192.168.1.1 -rev-ptr",
+      "explanation": "Performs Reverse PTR lookups for identified IP addresses.\nResolves systems to hostnames for easier identification and inventory."
+    },
+    {
+      "id": 44,
+      "category": "Service Discovery",
+      "command": "naabu -host 192.168.1.1 -s d",
+      "example": "naabu -host 192.168.1.1 -s d",
+      "explanation": "Attempts to fingerprint services running on found open ports.\nSupplements basic discovery with high-level protocol and service markers."
+    },
+    {
+      "id": 45,
+      "category": "Host Discovery Only",
+      "command": "naabu -host 10.10.10.0/24 -host-discovery -silent",
+      "example": "naabu -host 10.10.10.0/24 -host-discovery -silent",
+      "explanation": "Identifies live hosts on a network without port auditing.\nGenerates a list of reachable IP addresses for subsequent deeper scans."
+    }
+  ]
+}

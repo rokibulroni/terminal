@@ -1,0 +1,28 @@
+{
+  "tool": "uniq",
+  "description": "[uniq] - Report or omit repeated lines. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "uniq file1",
+      "example": "uniq file1",
+      "explanation": "Remove consecutive duplicate lines from output."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "sort file1 | uniq -c",
+      "example": "sort file1 | uniq -c",
+      "explanation": "Count the number of occurrences of each identical line."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "uniq -d file1",
+      "example": "uniq -d file1",
+      "explanation": "Only print out lines that were duplicated."
+    }
+  ],
+  "total_commands": 3
+}

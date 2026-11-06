@@ -1,99 +1,75 @@
-import { Github, Code, FileText, Bug, Terminal, GitPullRequest } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { StaticPage } from '@/components/common/StaticPage';
+import { SITE } from '@/data/registry';
+
+const EXAMPLE = `{
+  "tool": "nmap",
+  "name": "Nmap",
+  "description": "Network scanner for host discovery, port scanning and service detection.",
+  "tags": ["port scanning", "service detection"],
+  "homepage": "https://nmap.org",
+  "docs": "https://nmap.org/book/man.html",
+  "install": { "apt": "sudo apt install nmap", "brew": "brew install nmap" },
+  "related": ["masscan", "RustScan"],
+  "total_commands": 1,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Service Detection",
+      "command": "nmap -sV <target>",
+      "example": "nmap -sV 10.10.11.5",
+      "explanation": "Probes open ports to identify the service and version behind each one."
+    }
+  ]
+}`;
 
 export function ContributePage() {
   return (
-    <div className="space-y-12 animate-fade-in max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex justify-center">
-          <div className="p-4 rounded-3xl bg-primary/10 border border-primary/20">
-            <GitPullRequest className="h-12 w-12 text-primary" />
-          </div>
-        </div>
-        <h1 className="text-4xl font-bold font-mono gradient-text">Contribute</h1>
-        <p className="text-xl text-muted-foreground">
-          Help us build the ultimate cybersecurity reference database
-        </p>
-      </div>
+    <StaticPage
+      seo={{ title: 'Contribute', description: 'How to add tools and commands to Terminal, the data format, quality bar and the pull-request workflow.', path: '/contribute' }}
+      eyebrow="Open source"
+      title="Contribute to Terminal"
+      lead="Every command on this site lives in a plain JSON file. If you can edit JSON, you can improve the reference."
+    >
+      <h2>Ways to help</h2>
+      <ul>
+        <li><strong>Fix a mistake</strong> — a wrong flag, a typo or an outdated command.</li>
+        <li><strong>Improve an explanation</strong> — say what the command does and when you would use it.</li>
+        <li><strong>Add a tool</strong> — create a new file and list it in the registry.</li>
+        <li><strong>Write a guide</strong> — a workflow that strings tools together (<code>src/data/guides.ts</code>).</li>
+        <li><strong>Improve the app</strong> — accessibility, performance or new features in React/Tailwind.</li>
+      </ul>
 
-      <div className="terminal-card p-8 space-y-6">
-        <h2 className="text-2xl font-bold font-mono flex items-center gap-3">
-          <Github className="text-primary" />
-          Open Source
-        </h2>
-        <p className="text-muted-foreground leading-relaxed">
-          Terminal Command Hub is fully open-source and thrives on community contributions. 
-          Whether you're fixing a typo, adding an advanced command to our JSON databases, 
-          or building entirely new frontend features, your help is incredibly valuable!
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Button size="lg" className="font-mono bg-[#2b3137] hover:bg-[#24292e] text-white" asChild>
-            <a href="https://github.com/rokibulroni/terminal" target="_blank" rel="noopener noreferrer">
-              <Github className="h-4 w-4 mr-2" />
-              Fork Repository
-            </a>
-          </Button>
-        </div>
-      </div>
+      <h2>Where the data lives</h2>
+      <p>
+        Tools live in <code>data/tools/&lt;category&gt;/&lt;slug&gt;.json</code>. The file name is the URL slug. Categories, their groups and the order tools appear in
+        are defined in <code>src/data/registry.ts</code>.
+      </p>
+      <pre className="custom-scrollbar overflow-x-auto rounded-xl border border-border bg-[hsl(var(--command-bg))] p-4 text-[13px] leading-6 text-foreground">
+        <code className="bg-transparent p-0">{EXAMPLE}</code>
+      </pre>
 
-      {/* Ways to Contribute */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold font-mono">How You Can Help</h2>
-        
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="terminal-card p-6 space-y-4">
-            <div className="p-3 rounded-xl bg-success/10 w-fit">
-              <Terminal className="h-6 w-6 text-success" />
-            </div>
-            <h3 className="text-xl font-semibold">Expand Databases</h3>
-            <p className="text-sm text-muted-foreground">
-              Our massive databases are structurally built using easily edited JSON arrays located in the <code className="text-primary bg-primary/10 px-1 py-0.5 rounded">public/jsons/</code> directory. Create new tools or add complex commands to existing libraries!
-            </p>
-          </div>
+      <h2>Quality bar</h2>
+      <ul>
+        <li>Commands must be accurate for the current release of the tool. Check the official documentation.</li>
+        <li>Use placeholders like <code>&lt;target&gt;</code> in <code>command</code> and realistic values in <code>example</code>. Use private or documentation IP ranges (10.x, 192.168.x, 192.0.2.x).</li>
+        <li>Explanations start with what the command does in one sentence. Add a second line for when or why to use it.</li>
+        <li>Group commands under clear section names, ordered from basic to advanced.</li>
+        <li>Keep <code>id</code> values stable — favourites and deep links depend on them. Add new commands with new ids.</li>
+      </ul>
 
-          <div className="terminal-card p-6 space-y-4">
-            <div className="p-3 rounded-xl bg-accent/10 w-fit">
-              <Code className="h-6 w-6 text-accent" />
-            </div>
-            <h3 className="text-xl font-semibold">Frontend Features</h3>
-            <p className="text-sm text-muted-foreground">
-              Written in React and TailwindCSS. You can optimize components, implement new UI layouts, add different generic color themes, or improve accessibility structure.
-            </p>
-          </div>
+      <h2>Check your change</h2>
+      <p>The build validates every file against the schema and the registry, and fails with a clear message if something is off:</p>
+      <pre className="overflow-x-auto rounded-xl border border-border bg-[hsl(var(--command-bg))] p-4 text-[13px] leading-6 text-foreground">
+        <code className="bg-transparent p-0">{`npm install\nnpm run data:check   # validate data only\nnpm run dev          # preview locally`}</code>
+      </pre>
 
-          <div className="terminal-card p-6 space-y-4">
-            <div className="p-3 rounded-xl bg-warning/10 w-fit">
-              <Bug className="h-6 w-6 text-warning" />
-            </div>
-            <h3 className="text-xl font-semibold">Report Bugs</h3>
-            <p className="text-sm text-muted-foreground">
-              Find a broken feature or an incorrect command string? Open a GitHub Issue to report it so we can investigate and safely patch the framework.
-            </p>
-          </div>
-
-          <div className="terminal-card p-6 space-y-4">
-            <div className="p-3 rounded-xl bg-primary/10 w-fit">
-              <FileText className="h-6 w-6 text-primary" />
-            </div>
-            <h3 className="text-xl font-semibold">Documentation</h3>
-            <p className="text-sm text-muted-foreground">
-              Help us translate the platform or document API schemas, user-guides, and developer references.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="terminal-card p-8 border-l-4 border-l-primary space-y-4">
-        <h3 className="text-lg font-bold font-mono text-primary">Steps to Submit</h3>
-        <ol className="list-decimal list-inside space-y-2 text-muted-foreground ml-2">
-          <li><strong>Fork</strong> the repository on GitHub.</li>
-          <li><strong>Branch</strong> your work (<code className="text-xs bg-muted px-1.5 py-0.5 rounded">git checkout -b feature/new-tool</code>).</li>
-          <li><strong>Commit</strong> changes with descriptive messages.</li>
-          <li><strong>Push</strong> to your local fork.</li>
-          <li><strong>Submit</strong> a Pull Request (PR) merging into the main branch.</li>
-        </ol>
-      </div>
-    </div>
+      <h2>Submit</h2>
+      <ol className="list-decimal space-y-1.5 pl-5">
+        <li>Fork <a href={SITE.repo} target="_blank" rel="noopener noreferrer">the repository</a> and create a branch.</li>
+        <li>Make your change and run <code>npm run data:check</code>.</li>
+        <li>Open a pull request describing what changed and how you verified it.</li>
+      </ol>
+      <p>By contributing you agree that your contribution is released under the project’s MIT License.</p>
+    </StaticPage>
   );
 }

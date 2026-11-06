@@ -1,0 +1,35 @@
+{
+  "tool": "sed",
+  "description": "[sed] - Stream editor for filtering and transforming text. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "sed 's/old/new/g' file1",
+      "example": "sed 's/old/new/g' file1",
+      "explanation": "Replace all occurrences of 'old' with 'new' in standard output."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "sed -i 's/old/new/g' file1",
+      "example": "sed -i 's/old/new/g' file1",
+      "explanation": "Edit the file exactly in-place (dangerous)."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "sed '/pattern/d' file1",
+      "example": "sed '/pattern/d' file1",
+      "explanation": "Delete lines matching the specified pattern."
+    },
+    {
+      "id": 4,
+      "category": "linux",
+      "command": "sed -n '5,10p' file1",
+      "example": "sed -n '5,10p' file1",
+      "explanation": "Print only lines 5 through 10."
+    }
+  ],
+  "total_commands": 4
+}

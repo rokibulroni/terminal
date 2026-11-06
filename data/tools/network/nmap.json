@@ -1,0 +1,602 @@
+{
+  "tool": "nmap",
+  "description": "Complete Nmap command reference from beginner to advanced",
+  "total_commands": 85,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Host Discovery",
+      "command": "nmap 192.168.1.1",
+      "example": "nmap 192.168.1.1",
+      "explanation": "Scans a single IP address with default parameters.\nProbes the top 1000 ports to identify active services on the target."
+    },
+    {
+      "id": 2,
+      "category": "Host Discovery",
+      "command": "nmap scanme.nmap.org",
+      "example": "nmap scanme.nmap.org",
+      "explanation": "Performs a scan using a domain hostname.\nAutomatically handles DNS resolution to find the target's IP address."
+    },
+    {
+      "id": 3,
+      "category": "Host Discovery",
+      "command": "nmap 192.168.1.1 192.168.1.2",
+      "example": "nmap 192.168.1.1 192.168.1.2",
+      "explanation": "Probes multiple specific IP addresses in one execution.\nUseful for auditing a distinct subset of hosts within a larger network."
+    },
+    {
+      "id": 4,
+      "category": "Host Discovery",
+      "command": "nmap 192.168.1.1-50",
+      "example": "nmap 192.168.1.1-50",
+      "explanation": "Scans a contiguous range of IP addresses (1 through 50).\nEfficiently audits a specific localized pool of network devices."
+    },
+    {
+      "id": 5,
+      "category": "Host Discovery",
+      "command": "nmap 192.168.1.0/24",
+      "example": "nmap 192.168.1.0/24",
+      "explanation": "Performs a scan on a full CIDR-defined subnet.\nEnables systematic discovery of all devices sharing the same network segment."
+    },
+    {
+      "id": 6,
+      "category": "Host Discovery",
+      "command": "nmap -iL targets.txt",
+      "example": "nmap -iL targets.txt",
+      "explanation": "Loads a list of target IPs or domains from a text file (-iL).\nStandardizes large-scale security assessments across non-contiguous networks."
+    },
+    {
+      "id": 7,
+      "category": "Host Discovery",
+      "command": "nmap -sn 192.168.1.0/24",
+      "example": "nmap -sn 192.168.1.0/24",
+      "explanation": "Conducts a Ping Sweep to detect live hosts (-sn).\nIdentifies active network entities without triggering port-level alerts."
+    },
+    {
+      "id": 8,
+      "category": "Host Discovery",
+      "command": "nmap -Pn 192.168.1.1",
+      "example": "nmap -Pn 192.168.1.1",
+      "explanation": "Skips host discovery and treats the target as online (-Pn).\nNecessary for scanning hosts that block standard ICMP echo requests (ping)."
+    },
+    {
+      "id": 9,
+      "category": "Host Discovery",
+      "command": "nmap -PS 192.168.1.1",
+      "example": "nmap -PS 192.168.1.1",
+      "explanation": "Performs a TCP SYN Ping discovery check (-PS).\nSends empty SYN packets to common ports to elicit a response from live hosts."
+    },
+    {
+      "id": 10,
+      "category": "Host Discovery",
+      "command": "nmap -PA 192.168.1.1",
+      "example": "nmap -PA 192.168.1.1",
+      "explanation": "Performs a TCP ACK Ping discovery check (-PA).\nElicits RST responses from hosts to confirm they are reachable through filters."
+    },
+    {
+      "id": 11,
+      "category": "Host Discovery",
+      "command": "nmap -PU 192.168.1.1",
+      "example": "nmap -PU 192.168.1.1",
+      "explanation": "Performs a UDP Ping discovery check (-PU).\nTargets uncommon UDP ports to identify systems that may only respond to datagrams."
+    },
+    {
+      "id": 12,
+      "category": "Host Discovery",
+      "command": "nmap -PE 192.168.1.1",
+      "example": "nmap -PE 192.168.1.1",
+      "explanation": "Uses standard ICMP Echo Request packets for discovery (-PE).\nClassic method for mapping network occupancy if ICMP is not restricted."
+    },
+    {
+      "id": 13,
+      "category": "Host Discovery",
+      "command": "nmap -n 192.168.1.1",
+      "example": "nmap -n 192.168.1.1",
+      "explanation": "Disables DNS name resolution for all targets (-n).\nSignificantly reduces scan completion time by only reporting IP addresses."
+    },
+    {
+      "id": 14,
+      "category": "Host Discovery",
+      "command": "nmap -R 192.168.1.1",
+      "example": "nmap -R 192.168.1.1",
+      "explanation": "Forces reverse DNS resolution for all IP addresses (-R).\nUsed to identify server roles and associations based on PTR records."
+    },
+    {
+      "id": 15,
+      "category": "Host Discovery",
+      "command": "nmap --traceroute 192.168.1.1",
+      "example": "nmap --traceroute 192.168.1.1",
+      "explanation": "Traces the network path to each target host (--traceroute).\nVisualizes the intermediate hops and latency for each probe."
+    },
+    {
+      "id": 16,
+      "category": "Basic Scanning",
+      "command": "nmap -sS 192.168.1.1",
+      "example": "nmap -sS 192.168.1.1",
+      "explanation": "Performs a semi-open TCP SYN 'Stealth' scan (-sS).\nFast and relatively low-profile method for identifying active TCP services."
+    },
+    {
+      "id": 17,
+      "category": "Basic Scanning",
+      "command": "nmap -sT 192.168.1.1",
+      "example": "nmap -sT 192.168.1.1",
+      "explanation": "Executes a full 3-way TCP Connect scan (-sT).\nUses the OS networking stack to establish connections, ensuring reliability."
+    },
+    {
+      "id": 18,
+      "category": "Basic Scanning",
+      "command": "nmap -sU 192.168.1.1",
+      "example": "nmap -sU 192.168.1.1",
+      "explanation": "Checks for open User Datagram Protocol ports (-sU).\nIdentifies UDP-based services like DNS, DHCP, and SNMP."
+    },
+    {
+      "id": 19,
+      "category": "Basic Scanning",
+      "command": "nmap -sY 192.168.1.1",
+      "example": "nmap -sY 192.168.1.1",
+      "explanation": "Performs a Stream Control Transmission Protocol (SCTP) INIT scan (-sY).\nTargets specialized communication stacks often found in telephony and mobile networks."
+    },
+    {
+      "id": 20,
+      "category": "Basic Scanning",
+      "command": "nmap -sO 192.168.1.1",
+      "example": "nmap -sO 192.168.1.1",
+      "explanation": "Conducts an raw IP Protocol scan (-sO).\nDetermines which protocols (beyond TCP/UDP) are supported by the target stack."
+    },
+    {
+      "id": 21,
+      "category": "Port Selection",
+      "command": "nmap -p 80 192.168.1.1",
+      "example": "nmap -p 80 192.168.1.1",
+      "explanation": "Probes a single specific port number.\nUseful for targeted service availability checks on a known port (e.g., 80)."
+    },
+    {
+      "id": 22,
+      "category": "Port Selection",
+      "command": "nmap -p 80,443 192.168.1.1",
+      "example": "nmap -p 80,443 192.168.1.1",
+      "explanation": "Probes multiple explicitly defined ports.\nSimultaneously audits several high-value services in a single task."
+    },
+    {
+      "id": 23,
+      "category": "Port Selection",
+      "command": "nmap -p 1-100 192.168.1.1",
+      "example": "nmap -p 1-100 192.168.1.1",
+      "explanation": "Scans a sequential numerical range of ports.\nIdentifies all services within a specific standard or custom port block."
+    },
+    {
+      "id": 24,
+      "category": "Port Selection",
+      "command": "nmap -p- 192.168.1.1",
+      "example": "nmap -p- 192.168.1.1",
+      "explanation": "Conducts a full audit of all 65,535 TCP ports (-p-).\nPrevents missing non-standard services hidden on high-numbered ports."
+    },
+    {
+      "id": 25,
+      "category": "Port Selection",
+      "command": "nmap -F 192.168.1.1",
+      "example": "nmap -F 192.168.1.1",
+      "explanation": "Enables Fast Mode to scan only the top 100 ports (-F).\nDrastically reduces scan time while still identifying common entry points."
+    },
+    {
+      "id": 26,
+      "category": "Port Selection",
+      "command": "nmap --top-ports 2000 192.168.1.1",
+      "example": "nmap --top-ports 2000 192.168.1.1",
+      "explanation": "Probes the top 2000 most statistically common ports.\nOptimizes for high-probability discovery across a wide range of services."
+    },
+    {
+      "id": 27,
+      "category": "Port Selection",
+      "command": "nmap -p U:53,T:21-25 192.168.1.1",
+      "example": "nmap -p U:53,T:21-25 192.168.1.1",
+      "explanation": "Combines UDP and TCP port groups in one execution.\nBroadens discovery by auditing multiple protocols in a single scan pass."
+    },
+    {
+      "id": 28,
+      "category": "Port Selection",
+      "command": "nmap -p http,https 192.168.1.1",
+      "example": "nmap -p http,https 192.168.1.1",
+      "explanation": "Audits ports based on recognized service names.\nMakes scripts more readable by using protocol names like 'http' instead of numbers."
+    },
+    {
+      "id": 29,
+      "category": "Service and Version Detection",
+      "command": "nmap -sV 192.168.1.1",
+      "example": "nmap -sV 192.168.1.1",
+      "explanation": "Identifies the software and version of reachable services (-sV).\nEssential for determining the exact vulnerability profile of each open port."
+    },
+    {
+      "id": 30,
+      "category": "Service and Version Detection",
+      "command": "nmap -sV --version-intensity 9 192.168.1.1",
+      "example": "nmap -sV --version-intensity 9 192.168.1.1",
+      "explanation": "Sets version detection to the highest intensity level (9).\nFavors thoroughness and identification accuracy over speed."
+    },
+    {
+      "id": 31,
+      "category": "Service and Version Detection",
+      "command": "nmap -sV --version-light 192.168.1.1",
+      "example": "nmap -sV --version-light 192.168.1.1",
+      "explanation": "Configures a faster, lighter version detection intensity.\nProvides a quick overview of server software without exhaustive probing."
+    },
+    {
+      "id": 32,
+      "category": "Service and Version Detection",
+      "command": "nmap -sV --version-all 192.168.1.1",
+      "example": "nmap -sV --version-all 192.168.1.1",
+      "explanation": "Exhaustively runs every probe for version identification.\nMaximizes the possibility of fingerprinting obscured or non-standard services."
+    },
+    {
+      "id": 33,
+      "category": "OS Detection",
+      "command": "nmap -O 192.168.1.1",
+      "example": "nmap -O 192.168.1.1",
+      "explanation": "Attempts to identify the host Operating System (-O).\nFingerprints the network stack behavior to predict the target OS and version."
+    },
+    {
+      "id": 34,
+      "category": "OS Detection",
+      "command": "nmap -O --osscan-guess 192.168.1.1",
+      "example": "nmap -O --osscan-guess 192.168.1.1",
+      "explanation": "Asks Nmap to guess the OS if results are ambiguous.\nEnables aggressive probabilistic detection when a direct match is unavailable."
+    },
+    {
+      "id": 35,
+      "category": "OS Detection",
+      "command": "nmap -O --max-os-tries 1 192.168.1.1",
+      "example": "nmap -O --max-os-tries 1 192.168.1.1",
+      "explanation": "Limits OS detection to a single attempt per host.\nAcccelerates overall scan speed on large network ranges."
+    },
+    {
+      "id": 36,
+      "category": "Timing and Performance",
+      "command": "nmap -T0 192.168.1.1",
+      "example": "nmap -T0 192.168.1.1",
+      "explanation": "Paranoid timing template (T0) to evade IDS filters.\nExecutes extremely slowly to appear as normal background noise."
+    },
+    {
+      "id": 37,
+      "category": "Timing and Performance",
+      "command": "nmap -T1 192.168.1.1",
+      "example": "nmap -T1 192.168.1.1",
+      "explanation": "Sneaky timing template (T1) optimized for stealth.\nSlows packet delivery to minimize detection by perimeter security controls."
+    },
+    {
+      "id": 38,
+      "category": "Timing and Performance",
+      "command": "nmap -T2 192.168.1.1",
+      "example": "nmap -T2 192.168.1.1",
+      "explanation": "Polite timing template (T2) to reduce system load.\nEnsures low resource consumption and avoids overwhelming the target's bandwidth."
+    },
+    {
+      "id": 39,
+      "category": "Timing and Performance",
+      "command": "nmap -T3 192.168.1.1",
+      "example": "nmap -T3 192.168.1.1",
+      "explanation": "Uses the default (Normal) timing template (T3).\nStandard balance of scan speed and accuracy for regular auditing."
+    },
+    {
+      "id": 40,
+      "category": "Timing and Performance",
+      "command": "nmap -T4 192.168.1.1",
+      "example": "nmap -T4 192.168.1.1",
+      "explanation": "Aggressive timing template (T4) for rapid execution.\nOptimized for high-speed network environments where detection is less critical."
+    },
+    {
+      "id": 41,
+      "category": "Timing and Performance",
+      "command": "nmap -T5 192.168.1.1",
+      "example": "nmap -T5 192.168.1.1",
+      "explanation": "Insane timing template (T5) for maximum throughput.\nExtremely fast mode that may sacrifice accuracy or crash sensitive legacy hosts."
+    },
+    {
+      "id": 42,
+      "category": "Timing and Performance",
+      "command": "nmap --min-rate 1000 192.168.1.1",
+      "example": "nmap --min-rate 1000 192.168.1.1",
+      "explanation": "Enforces a minimum packet transmission rate.\nPrevents Nmap from slowing down too much on high-latency or busy links."
+    },
+    {
+      "id": 43,
+      "category": "Timing and Performance",
+      "command": "nmap --max-retries 1 192.168.1.1",
+      "example": "nmap --max-retries 1 192.168.1.1",
+      "explanation": "Caps the number of probe retransmissions to one.\nReduces scan time by avoiding redundant attempts on non-responding ports."
+    },
+    {
+      "id": 44,
+      "category": "Timing and Performance",
+      "command": "nmap --host-timeout 10m 192.168.1.1",
+      "example": "nmap --host-timeout 10m 192.168.1.1",
+      "explanation": "Abandons a target host after 10 minutes of probing.\nPrevents a single slow-responding system from stalling a large network audit."
+    },
+    {
+      "id": 45,
+      "category": "Script Scanning (NSE)",
+      "command": "nmap -sC 192.168.1.1",
+      "example": "nmap -sC 192.168.1.1",
+      "explanation": "Executes the default suite of Nmap Scripting Engine (NSE) tasks (-sC).\nAutomates common discovery and security tests during scanning."
+    },
+    {
+      "id": 46,
+      "category": "Script Scanning (NSE)",
+      "command": "nmap --script=banner 192.168.1.1",
+      "example": "nmap --script=banner 192.168.1.1",
+      "explanation": "Runs the specific 'banner' script to grab service headers.\nIdentifies server software identity strings immediately upon connection."
+    },
+    {
+      "id": 47,
+      "category": "Script Scanning (NSE)",
+      "command": "nmap --script=http* 192.168.1.1",
+      "example": "nmap --script=http* 192.168.1.1",
+      "explanation": "Executes all scripts matching the 'http' wildcard pattern.\nAutomates deep discovery of web headers, paths, and configurations."
+    },
+    {
+      "id": 48,
+      "category": "Vulnerability Detection",
+      "command": "nmap --script=vuln 192.168.1.1",
+      "example": "nmap --script=vuln 192.168.1.1",
+      "explanation": "Runs a group of scripts designed for vulnerability identification.\nChecks targets for common CVEs and security misconfigurations automatically."
+    },
+    {
+      "id": 49,
+      "category": "Authentication and Brute Force",
+      "command": "nmap --script=auth 192.168.1.1",
+      "example": "nmap --script=auth 192.168.1.1",
+      "explanation": "Executes authentication-related security scripts.\nTests for default credentials and common service authentication flaws."
+    },
+    {
+      "id": 50,
+      "category": "Advanced Scripting",
+      "command": "nmap --script-args user=admin,pass=123 192.168.1.1",
+      "example": "nmap --script-args user=admin,pass=123 192.168.1.1",
+      "explanation": "Passes custom credentials or parameters to execution scripts.\nEnables deep authenticated auditing using known administrative information."
+    },
+    {
+      "id": 51,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap -f 192.168.1.1",
+      "example": "nmap -f 192.168.1.1",
+      "explanation": "Fragments IP packets into 8-byte chunks (-f).\nAttempts to evade stateless firewalls that cannot reassemble small fragments."
+    },
+    {
+      "id": 52,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap --mtu 24 192.168.1.1",
+      "example": "nmap --mtu 24 192.168.1.1",
+      "explanation": "Fragments packets using a custom Maximum Transmission Unit (MTU).\nEnables precise control over packet fragmentation for evasion testing."
+    },
+    {
+      "id": 53,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap -D RND:10 192.168.1.1",
+      "example": "nmap -D RND:10 192.168.1.1",
+      "explanation": "Injects 10 random decoy IP addresses to mask the scan source.\nMakes it difficult for defenders to isolate the actual scanning host."
+    },
+    {
+      "id": 54,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap -S 192.168.1.200 -e eth0 192.168.1.1",
+      "example": "nmap -S 192.168.1.200 -e eth0 192.168.1.1",
+      "explanation": "Sets a custom source IP and interface for outgoing probes (-S).\nSpoofs the identity of the scanner for network policy verification."
+    },
+    {
+      "id": 55,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap --source-port 53 192.168.1.1",
+      "example": "nmap --source-port 53 192.168.1.1",
+      "explanation": "Sets the source port to 53 (DNS).\nOften used to bypass old firewall rules that trust traffic from well-known ports."
+    },
+    {
+      "id": 56,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap --data-length 25 192.168.1.1",
+      "example": "nmap --data-length 25 192.168.1.1",
+      "explanation": "Appends random data to outgoing scan packets.\nChanges the packet size and signature to bypass basic payload analysis."
+    },
+    {
+      "id": 57,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap --randomize-hosts 192.168.1.0/24",
+      "example": "nmap --randomize-hosts 192.168.1.0/24",
+      "explanation": "Shuffles the order of target hosts during a range scan.\nReduces the probability of triggering simple sequential discovery alerts."
+    },
+    {
+      "id": 58,
+      "category": "Firewall and IDS Evasion",
+      "command": "nmap --badsum 192.168.1.1",
+      "example": "nmap --badsum 192.168.1.1",
+      "explanation": "Sends packets with deliberate invalid checksums.\nIdentifies firewalls and IDSs that drop packets containing checksum errors."
+    },
+    {
+      "id": 59,
+      "category": "Advanced and Combined Scans",
+      "command": "nmap -sN 192.168.1.1",
+      "example": "nmap -sN 192.168.1.1",
+      "explanation": "Executes a TCP Null scan by sending packets with no flags (-sN).\nTrick designed to elicit unique responses from non-Windows stacks."
+    },
+    {
+      "id": 60,
+      "category": "Advanced and Combined Scans",
+      "command": "nmap -sF 192.168.1.1",
+      "example": "nmap -sF 192.168.1.1",
+      "explanation": "Performs a TCP FIN scan by sending probe packets with the FIN flag (-sF).\nTests for standard stack behavior in response to closing signals."
+    },
+    {
+      "id": 61,
+      "category": "Advanced and Combined Scans",
+      "command": "nmap -sX 192.168.1.1",
+      "example": "nmap -sX 192.168.1.1",
+      "explanation": "Executes a TCP Xmas scan with FIN, PSH, and URG flags set (-sX).\nProbes host response to an illegal and highly distinct flag combination."
+    },
+    {
+      "id": 62,
+      "category": "Advanced and Combined Scans",
+      "command": "nmap -sA 192.168.1.1",
+      "example": "nmap -sA 192.168.1.1",
+      "explanation": "Conducts a TCP ACK scan (-sA).\nSpecifically used to identify firewall filtering rules rather than open ports."
+    },
+    {
+      "id": 63,
+      "category": "Advanced and Combined Scans",
+      "command": "nmap -A 192.168.1.1",
+      "example": "nmap -A 192.168.1.1",
+      "explanation": "Performs a deep Aggressive scan on the target (-A).\nConsolidates OS/version detection, scripting, and traceroute in one step."
+    },
+    {
+      "id": 64,
+      "category": "Output and Reporting",
+      "command": "nmap -oN output.txt 192.168.1.1",
+      "example": "nmap -oN output.txt 192.168.1.1",
+      "explanation": "Saves findings in a normal human-readable text file (-oN).\nStandard format for documenting audit results and manual review."
+    },
+    {
+      "id": 65,
+      "category": "Output and Reporting",
+      "command": "nmap -oX output.xml 192.168.1.1",
+      "example": "nmap -oX output.xml 192.168.1.1",
+      "explanation": "Exports scan data to an XML file (-oX).\nGenerates structured results for consumption by post-processing or reporting tools."
+    },
+    {
+      "id": 66,
+      "category": "Output and Reporting",
+      "command": "nmap -oG output.grep 192.168.1.1",
+      "example": "nmap -oG output.grep 192.168.1.1",
+      "explanation": "Exports data in a Grepable format for CLI processing (-oG).\nIdeal for extracting host and port lists using standard linux search tools."
+    },
+    {
+      "id": 67,
+      "category": "Output and Reporting",
+      "command": "nmap -oA scan_results 192.168.1.1",
+      "example": "nmap -oA scan_results 192.168.1.1",
+      "explanation": "Exports results in all three primary formats simultaneously (-oA).\nEnsures data is available for both human review and automated analysis."
+    },
+    {
+      "id": 68,
+      "category": "Output and Reporting",
+      "command": "nmap -v 192.168.1.1",
+      "example": "nmap -v 192.168.1.1",
+      "explanation": "Increases the detail level of console output (-v).\nProvides real-time visibility into scan progress and discovered ports."
+    },
+    {
+      "id": 69,
+      "category": "Output and Reporting",
+      "command": "nmap -vv 192.168.1.1",
+      "example": "nmap -vv 192.168.1.1",
+      "explanation": "Enables double-verbose output for maximal real-time info (-vv).\nDisplays every probe event and background task as it happens."
+    },
+    {
+      "id": 70,
+      "category": "Output and Reporting",
+      "command": "nmap --reason 192.168.1.1",
+      "example": "nmap --reason 192.168.1.1",
+      "explanation": "Includes the reason for each port classification in the results.\nProvides technical justification (e.g. 'syn-ack') for port status determinations."
+    },
+    {
+      "id": 71,
+      "category": "Output and Reporting",
+      "command": "nmap --open 192.168.1.1",
+      "example": "nmap --open 192.168.1.1",
+      "explanation": "Filters output to show only open ports (--open).\nHides the noise of closed and filtered ports for clearer vulnerability mapping."
+    },
+    {
+      "id": 72,
+      "category": "Output and Reporting",
+      "command": "nmap --packet-trace 192.168.1.1",
+      "example": "nmap --packet-trace 192.168.1.1",
+      "explanation": "Shows all sent and received packets during the scan session.\nEssential diagnostic tool for debugging connection issues or firewall behavior."
+    },
+    {
+      "id": 73,
+      "category": "IPv6 Scanning",
+      "command": "nmap -6 2001:db8::1",
+      "example": "nmap -6 2001:db8::1",
+      "explanation": "Enables IPv6 transport for targeting modern addresses (-6).\nNecessary for identifying security posture on next-generation IP infrastructure."
+    },
+    {
+      "id": 74,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -sS -sV -sC -oA full_scan 192.168.1.1",
+      "example": "nmap -sS -sV -sC -oA full_scan 192.168.1.1",
+      "explanation": "Executes a standard comprehensive initial pentest scan.\nCombines stealth discovery, versioning, and default security scripts."
+    },
+    {
+      "id": 75,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -sU -sS -p U:53,111,137,T:21-25,80,139,8080 192.168.1.1",
+      "example": "nmap -sU -sS -p U:53,111,137,T:21-25,80,139,8080 192.168.1.1",
+      "explanation": "Conducts a dual-protocol audit of critical administrative ports.\nSimultaneously probes high-value TCP and UDP services for exposure."
+    },
+    {
+      "id": 76,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -p 445 --script=smb-os-discovery 192.168.1.1",
+      "example": "nmap -p 445 --script=smb-os-discovery 192.168.1.1",
+      "explanation": "Specifically targets port 445 for SMB identification scripts.\nDiscovers hostname, server role, and precise Windows build numbers."
+    },
+    {
+      "id": 77,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -p 80,443 --script=http-title,http-headers 192.168.1.1",
+      "example": "nmap -p 80,443 --script=http-title,http-headers 192.168.1.1",
+      "explanation": "Performs quick reconnaissance of web server identity strings.\nCaptures page titles and server headers for immediate application context."
+    },
+    {
+      "id": 78,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -p 443 --script=ssl-enum-ciphers 192.168.1.1",
+      "example": "nmap -p 443 --script=ssl-enum-ciphers 192.168.1.1",
+      "explanation": "Enumerates available SSL/TLS cipher suites on port 443.\nIdentifies weak encryption algorithms or outdated protocol versions."
+    },
+    {
+      "id": 79,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap --script=smb-vuln* -p 445 192.168.1.1",
+      "example": "nmap --script=smb-vuln* -p 445 192.168.1.1",
+      "explanation": "Searches for common SMB-layer vulnerabilities like MS17-010.\nIdentifies critical patch deficiencies in Windows file sharing services."
+    },
+    {
+      "id": 80,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -sV --script=vulners 192.168.1.1",
+      "example": "nmap -sV --script=vulners 192.168.1.1",
+      "explanation": "Uses external vulnerability datasets to map versions to CVEs.\nProvides immediate context on known exploits for identified service versions."
+    },
+    {
+      "id": 81,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap --script=ftp-brute -p 21 192.168.1.1",
+      "example": "nmap --script=ftp-brute -p 21 192.168.1.1",
+      "explanation": "Attempts to brute-force FTP credentials on port 21.\nTests systems for weak or common passwords on file transfer services."
+    },
+    {
+      "id": 82,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -sS -p- -T4 -v 192.168.1.1",
+      "example": "nmap -sS -p- -T4 -v 192.168.1.1",
+      "explanation": "Conducts a fast, full-range stealth scan with verbosity.\nRapidly uncovers every possible TCP listener across the entire port space."
+    },
+    {
+      "id": 83,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -sn -PE -PP -PS21,22,23,80,3389 192.168.1.0/24",
+      "example": "nmap -sn -PE -PP -PS21,22,23,80,3389 192.168.1.0/24",
+      "explanation": "Runs a deep multi-method discovery sweep on a subnet.\nUses mixed probes to find hidden hosts that ignore standard ping requests."
+    },
+    {
+      "id": 84,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap --resume scan_results.gnmap",
+      "example": "nmap --resume scan_results.gnmap",
+      "explanation": "Resumes a previous scan task using its grepable output log.\nSaves significant time when continuing an interrupted large-scale audit."
+    },
+    {
+      "id": 85,
+      "category": "Real world Penetration Testing Use Cases",
+      "command": "nmap -sU -p 161 --script=snmp-info 192.168.1.1",
+      "example": "nmap -sU -p 161 --script=snmp-info 192.168.1.1",
+      "explanation": "Targets port 161 to extract system info via SNMP probes.\nIdentifies hardware, OS versions, and network roles of management interfaces."
+    }
+  ]
+}

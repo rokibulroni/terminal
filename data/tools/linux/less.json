@@ -1,0 +1,28 @@
+{
+  "tool": "less",
+  "description": "[less] - File pager for reading long text files interactively. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "less file1",
+      "example": "less file1",
+      "explanation": "Open a file for interactive reading."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "less -N file1",
+      "example": "less -N file1",
+      "explanation": "Open file showing line numbers."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "less +F file1",
+      "example": "less +F file1",
+      "explanation": "Open file and immediately follow log append output (like tail -f)."
+    }
+  ],
+  "total_commands": 3
+}

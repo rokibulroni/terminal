@@ -1,0 +1,28 @@
+{
+  "tool": "head",
+  "description": "[head] - Output the first part of files. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "head file1",
+      "example": "head file1",
+      "explanation": "Output the first 10 lines of a file."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "head -n 20 file1",
+      "example": "head -n 20 file1",
+      "explanation": "Output the first N lines of a file."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "head -c 100 file1",
+      "example": "head -c 100 file1",
+      "explanation": "Output the first N bytes of a file."
+    }
+  ],
+  "total_commands": 3
+}

@@ -1,8 +1,10 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
   	container: {
@@ -15,7 +17,7 @@ export default {
   	extend: {
   		fontFamily: {
   			sans: [
-  				'Roboto',
+  				'Inter Variable',
   				'ui-sans-serif',
   				'system-ui',
   				'-apple-system',
@@ -27,7 +29,7 @@ export default {
   				'sans-serif'
   			],
   			mono: [
-  				'Roboto Mono',
+  				'JetBrains Mono Variable',
   				'ui-monospace',
   				'SFMono-Regular',
   				'Menlo',
@@ -37,16 +39,7 @@ export default {
   				'Courier New',
   				'monospace'
   			],
-  			serif: [
-  				'Libre Caslon Text',
-  				'ui-serif',
-  				'Georgia',
-  				'Cambria',
-  				'Times New Roman',
-  				'Times',
-  				'serif'
-  			]
-  		},
+    		},
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
@@ -138,6 +131,9 @@ export default {
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			'pulse-glow': 'pulse-glow 2s ease-in-out infinite'
   		},
+  		transitionTimingFunction: {
+  			'out-expo': 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+  		},
   		boxShadow: {
   			'2xs': 'var(--shadow-2xs)',
   			xs: 'var(--shadow-xs)',
@@ -149,5 +145,5 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate, typography],
 } satisfies Config;

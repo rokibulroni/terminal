@@ -1,0 +1,28 @@
+{
+  "tool": "mv",
+  "description": "[mv] - Move or rename files and directories. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "mv file1 file2",
+      "example": "mv file1 file2",
+      "explanation": "Rename a file or move to a new location."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "mv -i file1 file2",
+      "example": "mv -i file1 file2",
+      "explanation": "Prompt before overwriting an existing destination."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "mv -n file1 file2",
+      "example": "mv -n file1 file2",
+      "explanation": "Do not overwrite an existing file."
+    }
+  ],
+  "total_commands": 3
+}

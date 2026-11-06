@@ -1,6 +1,8 @@
-import { useCallback, useSyncExternalStore } from 'react';
+import { useCallback } from 'react';
+import { createPersistentStore } from '@/lib/persistent-store';
 
 export interface FavoriteCommand {
+  /** `${category}-${toolSlug}-${commandId}` */
   id: string;
   toolName: string;
   toolDisplayName?: string;
@@ -16,148 +18,69 @@ export interface RecentTool {
   visitedAt: number;
 }
 
-const FAVORITES_KEY = 'terminal-favorites';
-const RECENT_KEY = 'terminal-recent';
 const MAX_RECENT = 8;
 
-// ─────────────────────────────────────────────────────────────
-// Favorites Store (shared across all hook instances)
-// ─────────────────────────────────────────────────────────────
-let favoritesCache: FavoriteCommand[] | null = null;
-const favoritesListeners = new Set<() => void>();
+const isFavoriteRecord = (v: unknown): v is FavoriteCommand => {
+  const f = v as FavoriteCommand;
+  return !!f && typeof f.id === 'string' && typeof f.command === 'string' && typeof f.toolName === 'string' && typeof f.category === 'string';
+};
+const isFavoriteList = (v: unknown): v is FavoriteCommand[] => Array.isArray(v) && v.every(isFavoriteRecord);
+const isRecentList = (v: unknown): v is RecentTool[] =>
+  Array.isArray(v) && v.every((r) => r && typeof r.category === 'string' && typeof r.tool === 'string');
 
-function getFavorites(): FavoriteCommand[] {
-  if (favoritesCache !== null) return favoritesCache;
-  if (typeof window === 'undefined') return [];
-  try {
-    const stored = localStorage.getItem(FAVORITES_KEY);
-    favoritesCache = stored ? JSON.parse(stored) : [];
-  } catch {
-    favoritesCache = [];
-  }
-  return favoritesCache!;
-}
+const EMPTY_FAVORITES: FavoriteCommand[] = [];
+const EMPTY_RECENT: RecentTool[] = [];
 
-function setFavorites(next: FavoriteCommand[]) {
-  favoritesCache = next;
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
-  }
-  favoritesListeners.forEach((l) => l());
-}
-
-function subscribeFavorites(listener: () => void) {
-  favoritesListeners.add(listener);
-  return () => {
-    favoritesListeners.delete(listener);
-  };
-}
-
-function getSnapshotFavorites(): FavoriteCommand[] {
-  return getFavorites();
-}
-
-function getServerSnapshotFavorites(): FavoriteCommand[] {
-  return [];
-}
+const favoritesStore = createPersistentStore('terminal-favorites', EMPTY_FAVORITES, isFavoriteList);
+const recentStore = createPersistentStore('terminal-recent', EMPTY_RECENT, isRecentList);
 
 export function useFavorites() {
-  const favorites = useSyncExternalStore(
-    subscribeFavorites,
-    getSnapshotFavorites,
-    getServerSnapshotFavorites
-  );
+  const favorites = favoritesStore.useStore();
 
   const addFavorite = useCallback((command: Omit<FavoriteCommand, 'addedAt'>) => {
-    const prev = getFavorites();
+    const prev = favoritesStore.read();
     if (prev.some((f) => f.id === command.id)) return;
-    setFavorites([...prev, { ...command, addedAt: Date.now() }]);
+    favoritesStore.write([...prev, { ...command, addedAt: Date.now() }]);
   }, []);
 
   const removeFavorite = useCallback((id: string) => {
-    setFavorites(getFavorites().filter((f) => f.id !== id));
+    favoritesStore.write(favoritesStore.read().filter((f) => f.id !== id));
   }, []);
-
-  const isFavorite = useCallback(
-    (id: string) => favorites.some((f) => f.id === id),
-    [favorites]
-  );
 
   const toggleFavorite = useCallback((command: Omit<FavoriteCommand, 'addedAt'>) => {
-    const prev = getFavorites();
-    const exists = prev.some((f) => f.id === command.id);
-    if (exists) {
-      setFavorites(prev.filter((f) => f.id !== command.id));
-    } else {
-      setFavorites([...prev, { ...command, addedAt: Date.now() }]);
-    }
+    const prev = favoritesStore.read();
+    if (prev.some((f) => f.id === command.id)) favoritesStore.write(prev.filter((f) => f.id !== command.id));
+    else favoritesStore.write([...prev, { ...command, addedAt: Date.now() }]);
   }, []);
 
-  return {
-    favorites,
-    addFavorite,
-    removeFavorite,
-    isFavorite,
-    toggleFavorite,
-    count: favorites.length,
-  };
-}
+  const isFavorite = useCallback((id: string) => favorites.some((f) => f.id === id), [favorites]);
 
-// ─────────────────────────────────────────────────────────────
-// Recent Tools Store
-// ─────────────────────────────────────────────────────────────
-let recentCache: RecentTool[] | null = null;
-const recentListeners = new Set<() => void>();
+  /** Merge favorites from an exported file. Returns how many were added. */
+  const importFavorites = useCallback((data: unknown): number => {
+    const list = Array.isArray(data) ? data.filter(isFavoriteRecord) : [];
+    const prev = favoritesStore.read();
+    const ids = new Set(prev.map((f) => f.id));
+    const added = list.filter((f) => !ids.has(f.id)).map((f) => ({ ...f, addedAt: typeof f.addedAt === 'number' ? f.addedAt : Date.now() }));
+    if (added.length) favoritesStore.write([...prev, ...added]);
+    return added.length;
+  }, []);
 
-function getRecent(): RecentTool[] {
-  if (recentCache !== null) return recentCache;
-  if (typeof window === 'undefined') return [];
-  try {
-    const stored = localStorage.getItem(RECENT_KEY);
-    recentCache = stored ? JSON.parse(stored) : [];
-  } catch {
-    recentCache = [];
-  }
-  return recentCache!;
-}
+  const clearFavorites = useCallback(() => favoritesStore.write([]), []);
 
-function setRecent(next: RecentTool[]) {
-  recentCache = next;
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(RECENT_KEY, JSON.stringify(next));
-  }
-  recentListeners.forEach((l) => l());
-}
-
-function subscribeRecent(listener: () => void) {
-  recentListeners.add(listener);
-  return () => {
-    recentListeners.delete(listener);
-  };
-}
-
-function getSnapshotRecent(): RecentTool[] {
-  return getRecent();
-}
-
-function getServerSnapshotRecent(): RecentTool[] {
-  return [];
+  return { favorites, addFavorite, removeFavorite, isFavorite, toggleFavorite, importFavorites, clearFavorites, count: favorites.length };
 }
 
 export function useRecentTools() {
-  const recent = useSyncExternalStore(
-    subscribeRecent,
-    getSnapshotRecent,
-    getServerSnapshotRecent
-  );
+  const recent = recentStore.useStore();
 
   const addRecent = useCallback((category: string, tool: string) => {
-    const prev = getRecent();
+    const prev = recentStore.read();
+    if (prev[0]?.category === category && prev[0]?.tool === tool) return;
     const filtered = prev.filter((r) => !(r.category === category && r.tool === tool));
-    const next = [{ category, tool, visitedAt: Date.now() }, ...filtered].slice(0, MAX_RECENT);
-    setRecent(next);
+    recentStore.write([{ category, tool, visitedAt: Date.now() }, ...filtered].slice(0, MAX_RECENT));
   }, []);
 
-  return { recent, addRecent };
-}
+  const clearRecent = useCallback(() => recentStore.write([]), []);
 
+  return { recent, addRecent, clearRecent };
+}

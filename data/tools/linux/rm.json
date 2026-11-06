@@ -1,0 +1,42 @@
+{
+  "tool": "rm",
+  "description": "[rm] - Remove files or directories. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "rm file1",
+      "example": "rm file1",
+      "explanation": "Remove a specific file."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "rm -i file1",
+      "example": "rm -i file1",
+      "explanation": "Prompt for confirmation before removal."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "rm -r dir1",
+      "example": "rm -r dir1",
+      "explanation": "Recursively remove a directory and its contents."
+    },
+    {
+      "id": 4,
+      "category": "linux",
+      "command": "rm -rf dir1",
+      "example": "rm -rf dir1",
+      "explanation": "Forcefully and recursively remove a directory without prompting."
+    },
+    {
+      "id": 5,
+      "category": "linux",
+      "command": "rm -d dir1",
+      "example": "rm -d dir1",
+      "explanation": "Remove an empty directory."
+    }
+  ],
+  "total_commands": 5
+}

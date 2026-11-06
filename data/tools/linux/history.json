@@ -1,0 +1,28 @@
+{
+  "tool": "history",
+  "description": "[history] - Show command history. Sourced directly from Linux Journey curriculum foundations.",
+  "commands": [
+    {
+      "id": 1,
+      "category": "linux",
+      "command": "history",
+      "example": "history",
+      "explanation": "Print the command line history entirely."
+    },
+    {
+      "id": 2,
+      "category": "linux",
+      "command": "history | grep search_term",
+      "example": "history | grep search_term",
+      "explanation": "Search through your bash history for specific commands."
+    },
+    {
+      "id": 3,
+      "category": "linux",
+      "command": "history -c",
+      "example": "history -c",
+      "explanation": "Clear the entire bash history temporarily."
+    }
+  ],
+  "total_commands": 3
+}
