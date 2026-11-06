@@ -1,6 +1,23 @@
 {
   "tool": "dirsearch",
-  "description": "Complete dirsearch command reference covering all options from basic to advanced",
+  "name": "dirsearch",
+  "description": "A web path scanner that brute-forces directories and files with smart extension handling, recursion and filtering.",
+  "tags": [
+    "content discovery",
+    "brute force",
+    "directories"
+  ],
+  "homepage": "https://github.com/maurosoria/dirsearch",
+  "docs": "https://github.com/maurosoria/dirsearch#usage",
+  "install": {
+    "apt": "sudo apt install dirsearch",
+    "pipx": "pipx install dirsearch"
+  },
+  "related": [
+    "ffuf",
+    "gobuster",
+    "wfuzz"
+  ],
   "total_commands": 70,
   "commands": [
     {

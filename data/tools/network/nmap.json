@@ -1,6 +1,27 @@
 {
   "tool": "nmap",
-  "description": "Complete Nmap command reference from beginner to advanced",
+  "name": "Nmap",
+  "description": "The standard network scanner: discovers hosts, open ports, running services and versions, operating systems, and runs NSE scripts for deeper checks.",
+  "tags": [
+    "port scanning",
+    "service detection",
+    "OS fingerprinting",
+    "NSE"
+  ],
+  "homepage": "https://nmap.org",
+  "docs": "https://nmap.org/book/man.html",
+  "install": {
+    "apt": "sudo apt install nmap",
+    "dnf": "sudo dnf install nmap",
+    "brew": "brew install nmap",
+    "windows": "winget install Insecure.Nmap"
+  },
+  "related": [
+    "masscan",
+    "RustScan",
+    "naabu",
+    "ZMap"
+  ],
   "total_commands": 85,
   "commands": [
     {

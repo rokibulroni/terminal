@@ -1,6 +1,22 @@
 {
   "tool": "wazuh-agent",
-  "description": "Complete Wazuh Agent command and workflow reference from basic to advanced endpoint monitoring and detection",
+  "name": "Wazuh agent",
+  "description": "The endpoint agent for the open-source Wazuh SIEM/XDR: log collection, file-integrity monitoring and vulnerability detection.",
+  "tags": [
+    "SIEM",
+    "XDR",
+    "file integrity"
+  ],
+  "homepage": "https://wazuh.com",
+  "docs": "https://documentation.wazuh.com/current/user-manual/agent/index.html",
+  "install": {
+    "other": "See https://documentation.wazuh.com/current/installation-guide/wazuh-agent/"
+  },
+  "related": [
+    "osquery",
+    "sysmon",
+    "auditd"
+  ],
   "total_commands": 60,
   "commands": [
     {

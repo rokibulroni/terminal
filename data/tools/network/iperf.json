@@ -1,6 +1,23 @@
 {
   "tool": "iperf3",
-  "description": "Complete iperf3 command reference covering all options from basic to advanced",
+  "name": "iperf3",
+  "description": "Measures maximum TCP and UDP throughput between two hosts — the standard tool for testing network bandwidth and link quality.",
+  "tags": [
+    "bandwidth",
+    "performance",
+    "throughput"
+  ],
+  "homepage": "https://iperf.fr",
+  "docs": "https://iperf.fr/iperf-doc.php",
+  "install": {
+    "apt": "sudo apt install iperf3",
+    "brew": "brew install iperf3",
+    "windows": "winget install ar51an.iPerf3"
+  },
+  "related": [
+    "ping",
+    "ss"
+  ],
   "total_commands": 75,
   "commands": [
     {

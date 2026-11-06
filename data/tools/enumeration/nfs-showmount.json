@@ -1,6 +1,19 @@
 {
   "tool": "nfs-showmount",
-  "description": "Complete nfs-showmount command reference covering all options from basic to advanced for NFS enumeration and reconnaissance.",
+  "name": "NFS enumeration",
+  "description": "Enumerating and mounting NFS exports: list shares, check their access controls and mount them to inspect files and permissions.",
+  "tags": [
+    "NFS",
+    "file shares"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/showmount.8.html",
+  "install": {
+    "apt": "sudo apt install nfs-common"
+  },
+  "related": [
+    "showmount",
+    "nmap"
+  ],
   "total_commands": 25,
   "commands": [
     {

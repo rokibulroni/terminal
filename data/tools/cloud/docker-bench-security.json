@@ -1,6 +1,22 @@
 {
   "tool": "docker-bench-security",
-  "description": "Complete Docker Bench for Security command and workflow reference from basic to advanced container security auditing",
+  "name": "Docker Bench for Security",
+  "description": "A script that checks a Docker host against dozens of CIS Docker Benchmark best practices for production deployments.",
+  "tags": [
+    "Docker",
+    "CIS benchmark",
+    "hardening"
+  ],
+  "homepage": "https://github.com/docker/docker-bench-security",
+  "docs": "https://github.com/docker/docker-bench-security#running-docker-bench-for-security",
+  "install": {
+    "other": "git clone https://github.com/docker/docker-bench-security.git && cd docker-bench-security && sudo sh docker-bench-security.sh"
+  },
+  "related": [
+    "docker",
+    "kube-bench",
+    "trivy"
+  ],
   "total_commands": 50,
   "commands": [
     {

@@ -1,6 +1,23 @@
 {
   "tool": "fping",
-  "description": "Complete fping command reference covering all options from basic to advanced",
+  "name": "fping",
+  "description": "Pings many hosts in parallel and reports which are alive — a faster, script-friendly alternative to looping over ping.",
+  "tags": [
+    "host discovery",
+    "ICMP",
+    "ping sweep"
+  ],
+  "homepage": "https://fping.org",
+  "docs": "https://fping.org/fping.8.html",
+  "install": {
+    "apt": "sudo apt install fping",
+    "brew": "brew install fping"
+  },
+  "related": [
+    "ping",
+    "nmap",
+    "arp-scan"
+  ],
   "total_commands": 30,
   "commands": [
     {

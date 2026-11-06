@@ -1,6 +1,19 @@
 {
   "tool": "amap",
-  "description": "Complete amap command reference covering all options from basic to advanced for service fingerprinting and application mapping.",
+  "name": "amap",
+  "description": "An application-protocol mapper that identifies which service is really running on a port, even on non-standard ports.",
+  "tags": [
+    "service detection",
+    "fingerprinting"
+  ],
+  "homepage": "https://github.com/vanhauser-thc/THC-Archive",
+  "install": {
+    "apt": "sudo apt install amap"
+  },
+  "related": [
+    "nmap",
+    "whatweb"
+  ],
   "total_commands": 45,
   "commands": [
     {

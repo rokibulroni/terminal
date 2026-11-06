@@ -1,6 +1,23 @@
 {
   "tool": "zeek",
-  "description": "Complete Zeek command and workflow reference from basic to advanced network monitoring and traffic analysis",
+  "name": "Zeek",
+  "description": "A network security monitor that turns traffic into rich, structured logs of connections, DNS, HTTP, TLS and files.",
+  "tags": [
+    "NSM",
+    "network logs",
+    "threat hunting"
+  ],
+  "homepage": "https://zeek.org",
+  "docs": "https://docs.zeek.org",
+  "install": {
+    "brew": "brew install zeek",
+    "other": "See https://docs.zeek.org/en/master/install.html for distribution packages"
+  },
+  "related": [
+    "suricata",
+    "snort",
+    "tshark"
+  ],
   "total_commands": 60,
   "commands": [
     {

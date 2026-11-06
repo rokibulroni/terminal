@@ -1,6 +1,17 @@
 {
   "tool": "volatility",
-  "description": "Complete Volatility command and workflow reference from basic to advanced memory forensics",
+  "name": "Volatility 2",
+  "description": "The original Python 2 memory-forensics framework using profiles. Superseded by Volatility 3 but still found in older workflows and courses.",
+  "tags": [
+    "memory forensics",
+    "DFIR",
+    "legacy"
+  ],
+  "homepage": "https://github.com/volatilityfoundation/volatility",
+  "docs": "https://github.com/volatilityfoundation/volatility/wiki/Command-Reference",
+  "related": [
+    "volatility3"
+  ],
   "total_commands": 85,
   "commands": [
     {

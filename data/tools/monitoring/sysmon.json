@@ -1,6 +1,23 @@
 {
   "tool": "sysmon",
-  "description": "Complete Sysmon command and workflow reference from basic to advanced Windows endpoint monitoring",
+  "name": "Sysmon",
+  "description": "Microsoft Sysinternals System Monitor: logs process creation, network connections, file changes and more to the Windows (and Linux) event log.",
+  "tags": [
+    "Windows",
+    "event logging",
+    "detection"
+  ],
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/sysmon",
+  "docs": "https://learn.microsoft.com/sysinternals/downloads/sysmon",
+  "install": {
+    "windows": "winget install Microsoft.Sysinternals.Sysmon",
+    "apt": "sudo apt install sysmonforlinux"
+  },
+  "related": [
+    "osquery",
+    "wazuh-agent",
+    "auditd"
+  ],
   "total_commands": 75,
   "commands": [
     {

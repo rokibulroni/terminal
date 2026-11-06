@@ -1,6 +1,24 @@
 {
   "tool": "osquery",
-  "description": "Complete osquery command and workflow reference from basic to advanced endpoint monitoring and detection",
+  "name": "osquery",
+  "description": "Exposes the operating system as a SQL database: query processes, users, ports, packages and more across Linux, macOS and Windows.",
+  "tags": [
+    "endpoint visibility",
+    "SQL",
+    "detection"
+  ],
+  "homepage": "https://osquery.io",
+  "docs": "https://osquery.readthedocs.io",
+  "install": {
+    "brew": "brew install --cask osquery",
+    "apt": "sudo apt install osquery",
+    "windows": "winget install osquery.osquery"
+  },
+  "related": [
+    "auditd",
+    "sysmon",
+    "wazuh-agent"
+  ],
   "total_commands": 85,
   "commands": [
     {

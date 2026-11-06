@@ -1,0 +1,95 @@
+{
+  "tool": "dnsrecon",
+  "name": "dnsrecon",
+  "description": "A DNS enumeration script: record retrieval, zone transfers, subdomain brute forcing, reverse lookups, SRV discovery and certificate-log harvesting.",
+  "tags": [
+    "DNS",
+    "enumeration",
+    "recon",
+    "subdomains"
+  ],
+  "homepage": "https://github.com/darkoperator/dnsrecon",
+  "docs": "https://github.com/darkoperator/dnsrecon",
+  "install": {
+    "apt": "sudo apt install dnsrecon",
+    "pipx": "pipx install dnsrecon"
+  },
+  "related": [
+    "dig",
+    "whois",
+    "amass"
+  ],
+  "total_commands": 10,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Standard enumeration",
+      "command": "dnsrecon -d <domain>",
+      "example": "dnsrecon -d example.com",
+      "explanation": "Default scan: SOA, NS, MX, A, AAAA, SRV and TXT records, plus a zone-transfer attempt."
+    },
+    {
+      "id": 2,
+      "category": "Standard enumeration",
+      "command": "dnsrecon -d <domain> -a",
+      "example": "dnsrecon -d example.com -a",
+      "explanation": "Also tries AXFR zone transfers against every name server."
+    },
+    {
+      "id": 3,
+      "category": "Standard enumeration",
+      "command": "dnsrecon -d <domain> -n <server>",
+      "example": "dnsrecon -d example.com -n 1.1.1.1",
+      "explanation": "Uses a specific resolver."
+    },
+    {
+      "id": 4,
+      "category": "Brute forcing",
+      "command": "dnsrecon -d <domain> -D <wordlist> -t brt",
+      "example": "dnsrecon -d example.com -D subdomains.txt -t brt",
+      "explanation": "Brute-forces subdomains from a wordlist."
+    },
+    {
+      "id": 5,
+      "category": "Brute forcing",
+      "command": "dnsrecon -d <domain> -t std,brt -D <wordlist>",
+      "example": "dnsrecon -d example.com -t std,brt -D /usr/share/wordlists/dnsmap.txt",
+      "explanation": "Combines standard enumeration with brute forcing."
+    },
+    {
+      "id": 6,
+      "category": "Brute forcing",
+      "command": "dnsrecon -d <domain> -t srv",
+      "example": "dnsrecon -d example.com -t srv",
+      "explanation": "Enumerates common SRV records (LDAP, Kerberos, SIP, autodiscover) — useful for finding AD and VoIP services."
+    },
+    {
+      "id": 7,
+      "category": "Other modes",
+      "command": "dnsrecon -r <cidr>",
+      "example": "dnsrecon -r 203.0.113.0/24",
+      "explanation": "Reverse lookups across a network range."
+    },
+    {
+      "id": 8,
+      "category": "Other modes",
+      "command": "dnsrecon -d <domain> -t zonewalk",
+      "example": "dnsrecon -d example.com -t zonewalk",
+      "explanation": "Walks an NSEC-signed zone to enumerate names."
+    },
+    {
+      "id": 9,
+      "category": "Other modes",
+      "command": "dnsrecon -d <domain> -j <file>",
+      "example": "dnsrecon -d example.com -j out.json",
+      "explanation": "Saves results as JSON; -c writes CSV and -x XML."
+    },
+    {
+      "id": 10,
+      "category": "Other modes",
+      "command": "dnsrecon -d <domain> -t goo,crt",
+      "example": "dnsrecon -d example.com -t crt",
+      "explanation": "Pulls subdomains from certificate-transparency logs (crt) and search engines (goo)."
+    }
+  ]
+}

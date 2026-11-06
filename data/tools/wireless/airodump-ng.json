@@ -1,6 +1,22 @@
 {
   "tool": "airodump-ng",
-  "description": "Complete airodump-ng command and workflow reference from basic to advanced wireless monitoring and capture",
+  "name": "airodump-ng",
+  "description": "Captures raw 802.11 frames and lists nearby access points and clients — the first step for handshake capture.",
+  "tags": [
+    "Wi-Fi",
+    "capture",
+    "handshakes"
+  ],
+  "homepage": "https://www.aircrack-ng.org",
+  "docs": "https://www.aircrack-ng.org/doku.php?id=airodump-ng",
+  "install": {
+    "apt": "sudo apt install aircrack-ng"
+  },
+  "related": [
+    "airmon-ng",
+    "aireplay-ng",
+    "aircrack-ng"
+  ],
   "total_commands": 60,
   "commands": [
     {

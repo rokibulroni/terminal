@@ -1,112 +1,241 @@
 {
   "tool": "adb",
-  "description": "Android Debug Bridge (ADB): A highly versatile and immensely powerful command-line tool allowing absolute administrative communication interfacing directly into operational Android devices.",
-  "total_commands": 15,
+  "name": "ADB",
+  "description": "Android Debug Bridge: install apps, open a shell, pull files, forward ports and read logs on Android devices and emulators.",
+  "tags": [
+    "Android",
+    "debugging"
+  ],
+  "homepage": "https://developer.android.com/tools/adb",
+  "docs": "https://developer.android.com/tools/adb",
+  "install": {
+    "apt": "sudo apt install adb",
+    "brew": "brew install --cask android-platform-tools",
+    "windows": "winget install Google.PlatformTools"
+  },
+  "related": [
+    "frida",
+    "objection",
+    "apktool"
+  ],
+  "total_commands": 31,
   "commands": [
     {
-      "id": 1,
-      "category": "Device Detection",
-      "command": "adb devices",
+      "id": 16,
+      "category": "Devices",
+      "command": "adb devices -l",
       "example": "adb devices -l",
-      "explanation": "Enumerates all actively mounted emulators or hardware units currently bridged via USB or TCP networks, verifying operational daemon synchronization."
+      "explanation": "Lists connected devices and emulators with model and transport ID. “unauthorized” means you must accept the prompt on the device."
+    },
+    {
+      "id": 17,
+      "category": "Devices",
+      "command": "adb -s <serial> <command>",
+      "example": "adb -s emulator-5554 shell",
+      "explanation": "Targets one device when several are connected."
+    },
+    {
+      "id": 18,
+      "category": "Devices",
+      "command": "adb tcpip 5555",
+      "example": "adb tcpip 5555",
+      "explanation": "Restarts adbd listening on TCP so you can disconnect the cable."
     },
     {
       "id": 2,
-      "category": "Remote Routing",
+      "category": "Devices",
       "command": "adb connect <ip>:<port>",
-      "example": "adb connect 192.168.1.100:5555",
-      "explanation": "Establishes a completely wireless remote debug connection executing strictly through a WLAN architecture without structural USB cabling."
+      "example": "adb connect 192.168.1.50:5555",
+      "explanation": "Connects over the network."
     },
     {
-      "id": 3,
-      "category": "Root Elevation",
-      "command": "adb root",
-      "example": "adb root",
-      "explanation": "Orders the active internal adbd system daemon to terminate entirely and forcefully restart assuming god-level root privileges."
+      "id": 19,
+      "category": "Devices",
+      "command": "adb pair <ip>:<port>",
+      "example": "adb pair 192.168.1.50:37123",
+      "explanation": "Pairs with Android 11+ wireless debugging using the code shown on the device."
+    },
+    {
+      "id": 20,
+      "category": "Devices",
+      "command": "adb kill-server && adb start-server",
+      "example": "adb kill-server && adb start-server",
+      "explanation": "Restarts the local adb server when devices stop showing up."
     },
     {
       "id": 4,
-      "category": "Shell Interaction",
+      "category": "Shell",
       "command": "adb shell",
       "example": "adb shell",
-      "explanation": "Inverts standard terminal processing explicitly dropping the CLI user perfectly into an interactive UNIX shell natively enclosed within the Android device."
+      "explanation": "Opens an interactive shell on the device."
     },
     {
-      "id": 5,
-      "category": "File Extraction (Pull)",
-      "command": "adb pull <remote> <local>",
-      "example": "adb pull /sdcard/camera/ ./pictures/",
-      "explanation": "Downloads specified massive files or directory structures natively ripping them from the Android filesystem directly to the local computer."
+      "id": 21,
+      "category": "Shell",
+      "command": "adb shell <command>",
+      "example": "adb shell getprop ro.build.version.release",
+      "explanation": "Runs a single command — here, printing the Android version."
     },
     {
-      "id": 6,
-      "category": "File Injection (Push)",
-      "command": "adb push <local> <remote>",
-      "example": "adb push custom_payload.apk /data/local/tmp/",
-      "explanation": "Securely uploads payloads, configs, or binaries directly traversing off the local hard drive cleanly onto the target embedded architecture."
+      "id": 3,
+      "category": "Shell",
+      "command": "adb root",
+      "example": "adb root",
+      "explanation": "Restarts adbd as root. Works on emulators and userdebug builds, not on production phones."
+    },
+    {
+      "id": 22,
+      "category": "Shell",
+      "command": "adb shell \"su -c <command>\"",
+      "example": "adb shell \"su -c id\"",
+      "explanation": "Runs a command as root on a rooted device."
+    },
+    {
+      "id": 23,
+      "category": "Shell",
+      "command": "adb shell getprop",
+      "example": "adb shell getprop",
+      "explanation": "Every system property: build fingerprint, security patch level, debuggable flag and more."
     },
     {
       "id": 7,
-      "category": "Package Installation",
+      "category": "Apps",
       "command": "adb install <apk>",
-      "example": "adb install -r -d target_app.apk",
-      "explanation": "Directly compiles and forces the execution of package payloads into the Android OS (Using -r to replace overriding previous installations)."
+      "example": "adb install app.apk",
+      "explanation": "Installs an APK. -r reinstalls keeping data; -g grants all runtime permissions."
+    },
+    {
+      "id": 24,
+      "category": "Apps",
+      "command": "adb install-multiple <apks>",
+      "example": "adb install-multiple base.apk split_config.arm64_v8a.apk",
+      "explanation": "Installs a split APK set."
+    },
+    {
+      "id": 25,
+      "category": "Apps",
+      "command": "adb uninstall <package>",
+      "example": "adb uninstall com.example.app",
+      "explanation": "Removes an app. -k keeps its data."
+    },
+    {
+      "id": 26,
+      "category": "Apps",
+      "command": "adb shell pm list packages -3",
+      "example": "adb shell pm list packages -3",
+      "explanation": "Third-party packages. Add -f to show the APK path."
+    },
+    {
+      "id": 27,
+      "category": "Apps",
+      "command": "adb shell pm path <package>",
+      "example": "adb shell pm path com.example.app",
+      "explanation": "Where the APK lives, so you can pull it."
+    },
+    {
+      "id": 28,
+      "category": "Apps",
+      "command": "adb shell dumpsys package <package>",
+      "example": "adb shell dumpsys package com.example.app",
+      "explanation": "Permissions, activities, version and signing details."
+    },
+    {
+      "id": 29,
+      "category": "Apps",
+      "command": "adb shell am start -n <package>/<activity>",
+      "example": "adb shell am start -n com.example.app/.MainActivity",
+      "explanation": "Launches an activity, including non-exported ones when run as root."
+    },
+    {
+      "id": 30,
+      "category": "Apps",
+      "command": "adb shell am force-stop <package>",
+      "example": "adb shell am force-stop com.example.app",
+      "explanation": "Kills an app."
+    },
+    {
+      "id": 31,
+      "category": "Apps",
+      "command": "adb shell run-as <package> ls files",
+      "example": "adb shell run-as com.example.app ls shared_prefs",
+      "explanation": "Accesses a debuggable app’s private data without root."
+    },
+    {
+      "id": 5,
+      "category": "Files and logs",
+      "command": "adb pull <remote> <local>",
+      "example": "adb pull /sdcard/Download/ ./loot/",
+      "explanation": "Copies from the device."
+    },
+    {
+      "id": 6,
+      "category": "Files and logs",
+      "command": "adb push <local> <remote>",
+      "example": "adb push frida-server /data/local/tmp/",
+      "explanation": "Copies to the device; /data/local/tmp is writable and executable."
     },
     {
       "id": 8,
-      "category": "Log Extraction",
+      "category": "Files and logs",
       "command": "adb logcat",
-      "example": "adb logcat -d > dump.txt",
-      "explanation": "Hooks directly into the system arrays immediately dumping the complete continuous real-time Android system debugging console into stdout."
+      "example": "adb logcat",
+      "explanation": "Streams the system log."
     },
     {
-      "id": 9,
-      "category": "Application Activity",
-      "command": "adb shell am start -n <package/activity>",
-      "example": "adb shell am start -n com.example.app/.MainActivity",
-      "explanation": "Commands the Activity Manager (am) to radically execute explicit intents forcing deep unseen activities or applications to forcibly launch."
+      "id": 32,
+      "category": "Files and logs",
+      "command": "adb logcat --pid=$(adb shell pidof -s <package>)",
+      "example": "adb logcat --pid=$(adb shell pidof -s com.example.app)",
+      "explanation": "Logs from a single app — watch for leaked tokens and debug output."
     },
     {
-      "id": 10,
-      "category": "Application Disassembly",
-      "command": "adb shell pm clear <package>",
-      "example": "adb shell pm clear com.target.app",
-      "explanation": "Commands the Package Manager (pm) wiping all isolated cached internal SQLite arrays immediately restoring the target application strictly to factory default states."
+      "id": 33,
+      "category": "Files and logs",
+      "command": "adb logcat -c",
+      "example": "adb logcat -c",
+      "explanation": "Clears the log buffer."
     },
     {
-      "id": 11,
-      "category": "Memory Tracing",
-      "command": "adb shell procrank",
-      "example": "adb shell procrank",
-      "explanation": "Generates a highly-structured table detailing explicitly active Android processor memory (VSS, RSS, PSS, USS) inherently mapping massive system memory leaks."
+      "id": 34,
+      "category": "Files and logs",
+      "command": "adb bugreport <file>.zip",
+      "example": "adb bugreport report.zip",
+      "explanation": "Collects a full diagnostic bundle."
     },
     {
-      "id": 12,
-      "category": "Network Emulation",
-      "command": "adb shell svc wifi disable",
-      "example": "adb shell svc wifi disable",
-      "explanation": "Hard-kills inherently active wireless controllers cleanly forcing the Android networking logic to rely utterly explicitly on cellular data fallback."
+      "id": 35,
+      "category": "Network and screen",
+      "command": "adb forward tcp:<local> tcp:<remote>",
+      "example": "adb forward tcp:27042 tcp:27042",
+      "explanation": "Forwards a local port to the device — used by Frida and debuggers."
     },
     {
-      "id": 13,
-      "category": "Screen Capture",
-      "command": "adb shell screencap -p > <file.png>",
-      "example": "adb shell screencap -p > screenshot.png",
-      "explanation": "Immediately snaps fundamental high-definition raw images of the active remote display fundamentally sending the PNG bytes straight off the device."
+      "id": 36,
+      "category": "Network and screen",
+      "command": "adb reverse tcp:<remote> tcp:<local>",
+      "example": "adb reverse tcp:8080 tcp:8080",
+      "explanation": "Lets the device reach a port on your computer, for example an intercepting proxy."
     },
     {
-      "id": 14,
-      "category": "Media Capture",
-      "command": "adb shell screenrecord <path.mp4>",
-      "example": "adb shell screenrecord --time-limit 10 /sdcard/demo.mp4",
-      "explanation": "Drives native hardware-accelerated video recording completely unnotified cleanly bypassing standard Application layer security matrices generating physical HD video files natively."
+      "id": 37,
+      "category": "Network and screen",
+      "command": "adb shell settings put global http_proxy <ip>:<port>",
+      "example": "adb shell settings put global http_proxy 192.168.1.10:8080",
+      "explanation": "Sets a global HTTP proxy; reset with :0."
     },
     {
-      "id": 15,
-      "category": "Deep Hardware Bridging",
-      "command": "adb shell dumpsys battery set level <val>",
-      "example": "adb shell dumpsys battery set level 5",
-      "explanation": "Spoofs incredibly complex deeply hidden internal hardware system states actively forcing the OS to falsely believe massive battery-drain scenarios triggering deep Low-Power states."
+      "id": 38,
+      "category": "Network and screen",
+      "command": "adb exec-out screencap -p > <file>",
+      "example": "adb exec-out screencap -p > screen.png",
+      "explanation": "Takes a screenshot."
+    },
+    {
+      "id": 39,
+      "category": "Network and screen",
+      "command": "adb shell screenrecord /sdcard/<file>",
+      "example": "adb shell screenrecord /sdcard/demo.mp4",
+      "explanation": "Records the screen (up to three minutes)."
     }
   ]
 }

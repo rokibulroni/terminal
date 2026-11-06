@@ -1,6 +1,20 @@
 {
   "tool": "watch",
-  "description": "Complete watch command and workflow reference from basic to advanced real time command monitoring",
+  "name": "watch",
+  "description": "Runs a command repeatedly and shows its output full-screen, highlighting what changes between runs.",
+  "tags": [
+    "monitoring",
+    "repetition"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/watch.1.html",
+  "install": {
+    "apt": "sudo apt install procps",
+    "brew": "brew install watch"
+  },
+  "related": [
+    "top",
+    "tail"
+  ],
   "total_commands": 75,
   "commands": [
     {

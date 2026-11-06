@@ -1,0 +1,74 @@
+{
+  "tool": "whois",
+  "name": "whois",
+  "description": "Looks up registration records for domains, IP addresses and autonomous systems — ownership, dates and abuse contacts for attack-surface mapping.",
+  "tags": [
+    "WHOIS",
+    "recon",
+    "OSINT",
+    "DNS"
+  ],
+  "homepage": "https://github.com/rfc1036/whois",
+  "docs": "https://man7.org/linux/man-pages/man1/whois.1.html",
+  "install": {
+    "apt": "sudo apt install whois",
+    "brew": "brew install whois"
+  },
+  "related": [
+    "dig",
+    "dnsrecon",
+    "amass"
+  ],
+  "total_commands": 7,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Domains",
+      "command": "whois <domain>",
+      "example": "whois example.com",
+      "explanation": "Registration details: registrar, creation and expiry dates, name servers and (unless redacted) contacts."
+    },
+    {
+      "id": 2,
+      "category": "Domains",
+      "command": "whois <domain> | grep -iE \"registrar|creat|expir|name server\"",
+      "example": "whois example.com | grep -iE \"registrar|creat|expir|name server\"",
+      "explanation": "Pulls the lines that matter most for recon."
+    },
+    {
+      "id": 3,
+      "category": "Domains",
+      "command": "whois -h <server> <query>",
+      "example": "whois -h whois.verisign-grs.com example.com",
+      "explanation": "Queries a specific WHOIS server."
+    },
+    {
+      "id": 4,
+      "category": "IP addresses & networks",
+      "command": "whois <ip>",
+      "example": "whois 203.0.113.10",
+      "explanation": "The organisation, network range and abuse contact that owns an IP — maps targets to owners."
+    },
+    {
+      "id": 5,
+      "category": "IP addresses & networks",
+      "command": "whois <ip> | grep -iE \"orgname|netrange|cidr|country\"",
+      "example": "whois 8.8.8.8 | grep -iE \"orgname|netrange|cidr|country\"",
+      "explanation": "The ownership summary for an address."
+    },
+    {
+      "id": 6,
+      "category": "IP addresses & networks",
+      "command": "whois -h whois.cymru.com \" -v <ip>\"",
+      "example": "whois -h whois.cymru.com \" -v 8.8.8.8\"",
+      "explanation": "Team Cymru: maps an IP to its ASN, owner and country in one line."
+    },
+    {
+      "id": 7,
+      "category": "IP addresses & networks",
+      "command": "whois AS<number>",
+      "example": "whois AS15169",
+      "explanation": "Details of an autonomous system."
+    }
+  ]
+}

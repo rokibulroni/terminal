@@ -1,28 +1,85 @@
 {
   "tool": "cut",
-  "description": "[cut] - Remove sections from each line of files. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "cut",
+  "description": "Extracts columns, fields or characters from each line of input.",
+  "tags": [
+    "text processing",
+    "columns"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/cut.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "awk",
+    "sort"
+  ],
+  "total_commands": 9,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "cut -d':' -f1 /etc/passwd",
-      "example": "cut -d':' -f1 /etc/passwd",
-      "explanation": "Extract the first field using colon as delimiter (get usernames)."
+      "id": 4,
+      "category": "Fields",
+      "command": "cut -d'<sep>' -f<n> <file>",
+      "example": "cut -d: -f1 /etc/passwd",
+      "explanation": "Prints field n using a delimiter — here, every user name."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "cut -c 1-5 file1",
-      "example": "cut -c 1-5 file1",
-      "explanation": "Extract characters 1 through 5 from each line."
+      "id": 5,
+      "category": "Fields",
+      "command": "cut -d'<sep>' -f<a>,<b> <file>",
+      "example": "cut -d: -f1,6 /etc/passwd",
+      "explanation": "Prints several fields; the delimiter is kept between them."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "cut -f2-4 file1",
-      "example": "cut -f2-4 file1",
-      "explanation": "Extract fields 2 through 4 (tab delimited default)."
+      "id": 6,
+      "category": "Fields",
+      "command": "cut -d'<sep>' -f<a>- <file>",
+      "example": "cut -d, -f3- data.csv",
+      "explanation": "Prints field n and everything after it."
+    },
+    {
+      "id": 7,
+      "category": "Fields",
+      "command": "cut -d'<sep>' -f<n> --output-delimiter='<s>' <file>",
+      "example": "cut -d: -f1,7 --output-delimiter=' -> ' /etc/passwd",
+      "explanation": "Changes the delimiter used in the output (GNU)."
+    },
+    {
+      "id": 8,
+      "category": "Fields",
+      "command": "cut -d'<sep>' -s -f<n> <file>",
+      "example": "cut -d= -s -f2 settings.conf",
+      "explanation": "Skips lines that do not contain the delimiter."
+    },
+    {
+      "id": 9,
+      "category": "Characters and bytes",
+      "command": "cut -c<a>-<b> <file>",
+      "example": "cut -c1-8 hashes.txt",
+      "explanation": "Prints characters a through b of each line."
+    },
+    {
+      "id": 10,
+      "category": "Characters and bytes",
+      "command": "cut -b<n> <file>",
+      "example": "cut -b1-4 data.bin",
+      "explanation": "Selects bytes instead of characters."
+    },
+    {
+      "id": 11,
+      "category": "In pipelines",
+      "command": "<command> | cut -d' ' -f<n>",
+      "example": "who | cut -d' ' -f1 | sort -u",
+      "explanation": "Extracts a column from command output — here, logged-in users."
+    },
+    {
+      "id": 12,
+      "category": "In pipelines",
+      "command": "cut -d' ' -f1 <log> | sort | uniq -c | sort -rn",
+      "example": "cut -d' ' -f1 access.log | sort | uniq -c | sort -rn | head",
+      "explanation": "The classic top-talkers pipeline for web logs."
     }
-  ],
-  "total_commands": 3
+  ]
 }

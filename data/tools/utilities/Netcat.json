@@ -1,6 +1,23 @@
 {
   "tool": "netcat",
-  "description": "Complete Netcat command reference covering all options from basic to advanced",
+  "name": "Netcat",
+  "description": "The TCP/IP Swiss-army knife: connect to and listen on ports, transfer files, banner-grab and catch reverse shells.",
+  "tags": [
+    "networking",
+    "shells",
+    "file transfer"
+  ],
+  "homepage": "https://nmap.org/ncat/",
+  "docs": "https://nmap.org/ncat/guide/",
+  "install": {
+    "apt": "sudo apt install netcat-openbsd ncat",
+    "brew": "brew install netcat"
+  },
+  "related": [
+    "socat",
+    "curl",
+    "ssh"
+  ],
   "total_commands": 60,
   "commands": [
     {

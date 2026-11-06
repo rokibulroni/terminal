@@ -1,35 +1,119 @@
 {
   "tool": "sort",
-  "description": "[sort] - Sort lines of text files. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "sort",
+  "description": "Sorts lines of text alphabetically, numerically, by field or by human-readable size.",
+  "tags": [
+    "text processing"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/sort.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "uniq",
+    "cut"
+  ],
+  "total_commands": 14,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "sort file1",
-      "example": "sort file1",
-      "explanation": "Alphabetically sort the contents of a file."
+      "id": 5,
+      "category": "Basics",
+      "command": "sort <file>",
+      "example": "sort names.txt",
+      "explanation": "Sorts lines alphabetically."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "sort -n file1",
-      "example": "sort -n file1",
-      "explanation": "Numerically sort the contents of a file."
+      "id": 6,
+      "category": "Basics",
+      "command": "sort -r <file>",
+      "example": "sort -r names.txt",
+      "explanation": "Reverse order."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "sort -r file1",
-      "example": "sort -r file1",
-      "explanation": "Reverse the sort order."
+      "id": 7,
+      "category": "Basics",
+      "command": "sort -n <file>",
+      "example": "sort -n numbers.txt",
+      "explanation": "Numeric sort, so 10 comes after 9."
     },
     {
-      "id": 4,
-      "category": "linux",
-      "command": "sort -k 2 file1",
-      "example": "sort -k 2 file1",
-      "explanation": "Sort the file explicitly by the second column."
+      "id": 8,
+      "category": "Basics",
+      "command": "sort -h <file>",
+      "example": "du -sh * | sort -h",
+      "explanation": "Sorts human-readable sizes like 4K, 2M and 1G correctly."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "sort -u <file>",
+      "example": "sort -u ips.txt",
+      "explanation": "Sorts and removes duplicates in one step."
+    },
+    {
+      "id": 10,
+      "category": "Basics",
+      "command": "sort -f <file>",
+      "example": "sort -f words.txt",
+      "explanation": "Ignores case."
+    },
+    {
+      "id": 11,
+      "category": "Keys and fields",
+      "command": "sort -t<sep> -k<n> <file>",
+      "example": "sort -t: -k3 -n /etc/passwd",
+      "explanation": "Sorts by field n using a delimiter — here, by UID."
+    },
+    {
+      "id": 12,
+      "category": "Keys and fields",
+      "command": "sort -k<n>,<n>nr <file>",
+      "example": "sort -k2,2nr scores.txt",
+      "explanation": "Sorts by one field numerically in reverse; limiting the key to n,n stops it spilling into later fields."
+    },
+    {
+      "id": 13,
+      "category": "Keys and fields",
+      "command": "sort -V <file>",
+      "example": "sort -V versions.txt",
+      "explanation": "Version sort: 1.2 < 1.10."
+    },
+    {
+      "id": 14,
+      "category": "Keys and fields",
+      "command": "sort -t. -k1,1n -k2,2n -k3,3n -k4,4n <file>",
+      "example": "sort -t. -k1,1n -k2,2n -k3,3n -k4,4n ips.txt",
+      "explanation": "Sorts IPv4 addresses numerically, octet by octet."
+    },
+    {
+      "id": 15,
+      "category": "Large data",
+      "command": "sort -o <file> <file>",
+      "example": "sort -o list.txt list.txt",
+      "explanation": "Writes the result back to the same file safely (unlike > list.txt)."
+    },
+    {
+      "id": 16,
+      "category": "Large data",
+      "command": "sort -R <file>",
+      "example": "sort -R wordlist.txt",
+      "explanation": "Shuffles lines randomly."
+    },
+    {
+      "id": 17,
+      "category": "Large data",
+      "command": "sort --parallel=<n> -S <size> <file>",
+      "example": "sort --parallel=4 -S 2G huge.txt",
+      "explanation": "Uses more threads and memory for very large files."
+    },
+    {
+      "id": 18,
+      "category": "Large data",
+      "command": "sort -c <file>",
+      "example": "sort -c ids.txt",
+      "explanation": "Checks whether a file is already sorted."
     }
-  ],
-  "total_commands": 4
+  ]
 }

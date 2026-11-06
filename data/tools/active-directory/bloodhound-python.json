@@ -1,0 +1,81 @@
+{
+  "tool": "bloodhound-python",
+  "name": "BloodHound.py",
+  "description": "A Python ingestor for BloodHound that collects Active Directory objects, ACLs and sessions from Linux, revealing attack paths to high-value targets.",
+  "tags": [
+    "Active Directory",
+    "BloodHound",
+    "enumeration",
+    "attack paths"
+  ],
+  "homepage": "https://github.com/dirkjanm/BloodHound.py",
+  "docs": "https://github.com/dirkjanm/BloodHound.py",
+  "install": {
+    "pipx": "pipx install bloodhound"
+  },
+  "related": [
+    "crackmapexec",
+    "impacket",
+    "ldapsearch",
+    "certipy"
+  ],
+  "total_commands": 8,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Collection",
+      "command": "bloodhound-python -u <user> -p <pass> -d <domain> -ns <dc-ip> -c Default",
+      "example": "bloodhound-python -u svc -p pass -d corp.local -ns 10.10.10.1 -c Default",
+      "explanation": "Collects AD objects and relationships over LDAP and saves JSON for BloodHound."
+    },
+    {
+      "id": 2,
+      "category": "Collection",
+      "command": "bloodhound-python -u <user> -p <pass> -d <domain> -ns <dc-ip> -c All",
+      "example": "bloodhound-python -u svc -p pass -d corp.local -ns 10.10.10.1 -c All",
+      "explanation": "Runs every collection method, including session and local-admin enumeration."
+    },
+    {
+      "id": 3,
+      "category": "Collection",
+      "command": "bloodhound-python -u <user> --hashes <lm>:<nt> -d <domain> -ns <dc-ip> -c All",
+      "example": "bloodhound-python -u svc --hashes :31d6cfe0d16ae931b73c59d7e0c089c0 -d corp.local -ns 10.10.10.1 -c All",
+      "explanation": "Collects using pass-the-hash instead of a password."
+    },
+    {
+      "id": 4,
+      "category": "Collection",
+      "command": "bloodhound-python -u <user> -p <pass> -d <domain> -ns <dc-ip> -c All --zip",
+      "example": "bloodhound-python -u svc -p pass -d corp.local -ns 10.10.10.1 -c All --zip",
+      "explanation": "Bundles the JSON output into a single zip for import."
+    },
+    {
+      "id": 5,
+      "category": "Collection",
+      "command": "bloodhound-python -u <user> -p <pass> -d <domain> -dc <fqdn> -ns <ip> -c All",
+      "example": "bloodhound-python -u svc -p pass -d corp.local -dc dc01.corp.local -ns 10.10.10.1 -c All",
+      "explanation": "Targets a named domain controller when DNS is awkward."
+    },
+    {
+      "id": 6,
+      "category": "Using the data",
+      "command": "sudo neo4j console",
+      "example": "sudo neo4j console",
+      "explanation": "Starts the Neo4j database that the BloodHound GUI reads."
+    },
+    {
+      "id": 7,
+      "category": "Using the data",
+      "command": "bloodhound",
+      "example": "bloodhound",
+      "explanation": "Launches the BloodHound GUI; drag the collected zip onto it to import."
+    },
+    {
+      "id": 8,
+      "category": "Using the data",
+      "command": "MATCH p=shortestPath((u {owned:true})-[*1..]->(g:Group {name:\"DOMAIN ADMINS@CORP.LOCAL\"})) RETURN p",
+      "example": "MATCH p=shortestPath((u {owned:true})-[*1..]->(g:Group {name:\"DOMAIN ADMINS@CORP.LOCAL\"})) RETURN p",
+      "explanation": "A Cypher query in the GUI: the shortest path from an owned node to Domain Admins."
+    }
+  ]
+}

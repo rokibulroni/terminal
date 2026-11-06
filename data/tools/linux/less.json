@@ -1,28 +1,106 @@
 {
   "tool": "less",
-  "description": "[less] - File pager for reading long text files interactively. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "less",
+  "description": "A pager for viewing large files and command output one screen at a time, with search and follow mode.",
+  "tags": [
+    "pager",
+    "text"
+  ],
+  "homepage": "https://www.greenwoodsoftware.com/less/",
+  "docs": "https://man7.org/linux/man-pages/man1/less.1.html",
+  "install": {
+    "apt": "sudo apt install less"
+  },
+  "related": [
+    "cat",
+    "tail",
+    "grep"
+  ],
+  "total_commands": 12,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "less file1",
-      "example": "less file1",
-      "explanation": "Open a file for interactive reading."
+      "id": 4,
+      "category": "Opening",
+      "command": "less <file>",
+      "example": "less /var/log/syslog",
+      "explanation": "Opens a file in a scrollable pager without loading it all into memory."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "less -N file1",
-      "example": "less -N file1",
-      "explanation": "Open file showing line numbers."
+      "id": 5,
+      "category": "Opening",
+      "command": "less -N <file>",
+      "example": "less -N app.py",
+      "explanation": "Shows line numbers."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "less +F file1",
-      "example": "less +F file1",
-      "explanation": "Open file and immediately follow log append output (like tail -f)."
+      "id": 6,
+      "category": "Opening",
+      "command": "less -S <file>",
+      "example": "less -S access.log",
+      "explanation": "Chops long lines instead of wrapping — scroll sideways with the arrow keys."
+    },
+    {
+      "id": 7,
+      "category": "Opening",
+      "command": "less +F <file>",
+      "example": "less +F /var/log/auth.log",
+      "explanation": "Follows the file like tail -f. Press Ctrl-C to stop following and F to resume."
+    },
+    {
+      "id": 8,
+      "category": "Opening",
+      "command": "less -R <file>",
+      "example": "less -R build.log",
+      "explanation": "Displays ANSI colour codes correctly."
+    },
+    {
+      "id": 9,
+      "category": "Opening",
+      "command": "<command> | less",
+      "example": "journalctl -b | less",
+      "explanation": "Pages through the output of any command."
+    },
+    {
+      "id": 10,
+      "category": "Inside less",
+      "command": "/<pattern>",
+      "example": "/error",
+      "explanation": "Searches forward; press n for the next match and N for the previous."
+    },
+    {
+      "id": 11,
+      "category": "Inside less",
+      "command": "?<pattern>",
+      "example": "?Failed password",
+      "explanation": "Searches backward."
+    },
+    {
+      "id": 12,
+      "category": "Inside less",
+      "command": "&<pattern>",
+      "example": "&sshd",
+      "explanation": "Shows only lines matching the pattern; & with no pattern clears the filter."
+    },
+    {
+      "id": 13,
+      "category": "Inside less",
+      "command": "g / G",
+      "example": "g / G",
+      "explanation": "Jumps to the start (g) or end (G) of the file."
+    },
+    {
+      "id": 14,
+      "category": "Inside less",
+      "command": "<n>g",
+      "example": "250g",
+      "explanation": "Jumps to line n."
+    },
+    {
+      "id": 15,
+      "category": "Inside less",
+      "command": "q",
+      "example": "q",
+      "explanation": "Quits."
     }
-  ],
-  "total_commands": 3
+  ]
 }

@@ -1,6 +1,20 @@
 {
   "tool": "ngrep",
-  "description": "Complete ngrep command reference covering all options from basic to advanced",
+  "name": "ngrep",
+  "description": "“Network grep” — matches regular expressions against packet payloads, like grep for network traffic.",
+  "tags": [
+    "packet capture",
+    "pattern matching"
+  ],
+  "homepage": "https://github.com/jpr5/ngrep",
+  "install": {
+    "apt": "sudo apt install ngrep",
+    "brew": "brew install ngrep"
+  },
+  "related": [
+    "TCPDump",
+    "tshark"
+  ],
   "total_commands": 100,
   "commands": [
     {

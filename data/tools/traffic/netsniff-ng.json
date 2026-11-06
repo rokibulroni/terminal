@@ -1,6 +1,21 @@
 {
   "tool": "netsniff-ng",
-  "description": "Complete netsniff-ng command reference covering all options from basic to advanced zero-copy packet capture and replay",
+  "name": "netsniff-ng",
+  "description": "A high-performance Linux networking toolkit using zero-copy packet mmap: capture, replay, traffic generation and analysis.",
+  "tags": [
+    "packet capture",
+    "performance",
+    "Linux"
+  ],
+  "homepage": "http://netsniff-ng.org",
+  "docs": "http://netsniff-ng.org",
+  "install": {
+    "apt": "sudo apt install netsniff-ng"
+  },
+  "related": [
+    "TCPDump",
+    "tcpreplay"
+  ],
   "total_commands": 45,
   "commands": [
     {

@@ -1,112 +1,134 @@
 {
   "tool": "vcgencmd",
-  "description": "VideoCore General Command (vcgencmd) acts as the bridge to the Raspberry Pi's core GPU processing unit, offering absolute unadulterated access to voltages, system clocks, and hardware throttling states.",
-  "total_commands": 15,
+  "name": "vcgencmd",
+  "description": "Queries the Raspberry Pi’s VideoCore firmware: temperature, clock speeds, voltages, throttling state and memory split.",
+  "tags": [
+    "Raspberry Pi",
+    "hardware",
+    "monitoring"
+  ],
+  "homepage": "https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd",
+  "docs": "https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd",
+  "install": {
+    "apt": "sudo apt install libraspberrypi-bin"
+  },
+  "related": [
+    "raspi-config",
+    "gpio"
+  ],
+  "total_commands": 16,
   "commands": [
     {
       "id": 1,
-      "category": "Thermal Diagnostics",
+      "category": "Health",
       "command": "vcgencmd measure_temp",
       "example": "vcgencmd measure_temp",
-      "explanation": "Extracts the exact real-time celsius temperature directly from the central SoC silicon."
-    },
-    {
-      "id": 2,
-      "category": "Clock Diagnostics",
-      "command": "vcgencmd measure_clock arm",
-      "example": "vcgencmd measure_clock arm",
-      "explanation": "Outputs the current operational CPU processing frequency in Hertz. Crucial for verifying if an overclock is adhering or if throttling is occurring."
-    },
-    {
-      "id": 3,
-      "category": "Clock Diagnostics",
-      "command": "vcgencmd measure_clock core",
-      "example": "vcgencmd measure_clock core",
-      "explanation": "Measures the operational frequency of the GPU core, distinct from the ARM CPU cores."
-    },
-    {
-      "id": 4,
-      "category": "Voltage Regulation",
-      "command": "vcgencmd measure_volts core",
-      "example": "vcgencmd measure_volts core",
-      "explanation": "Identifies the core electrical voltage being inherently consumed. Overvoltage limits generally halt around 1.4v dynamically."
+      "explanation": "SoC temperature. The Pi starts throttling at about 80 °C."
     },
     {
       "id": 5,
-      "category": "System Health",
+      "category": "Health",
       "command": "vcgencmd get_throttled",
       "example": "vcgencmd get_throttled",
-      "explanation": "The ultimate hardware health check. Returns a 20-bit hexadecimal string indicating if under-voltage has occurred or if current thermal throttling is actively engaged."
+      "explanation": "Throttling flags as a hex bitmask. 0x0 is healthy; bit 0 is under-voltage now, bit 2 throttled now, bit 16 under-voltage has occurred since boot."
+    },
+    {
+      "id": 4,
+      "category": "Health",
+      "command": "vcgencmd measure_volts core",
+      "example": "vcgencmd measure_volts core",
+      "explanation": "Core voltage. Also accepts sdram_c, sdram_i and sdram_p."
+    },
+    {
+      "id": 16,
+      "category": "Health",
+      "command": "watch -n 1 vcgencmd measure_temp",
+      "example": "watch -n 1 vcgencmd measure_temp",
+      "explanation": "Watches temperature once a second, for example during a stress test."
+    },
+    {
+      "id": 17,
+      "category": "Health",
+      "command": "vcgencmd pmic_read_adc",
+      "example": "vcgencmd pmic_read_adc",
+      "explanation": "Raw PMIC voltages and currents on the Raspberry Pi 5."
+    },
+    {
+      "id": 2,
+      "category": "Clocks",
+      "command": "vcgencmd measure_clock arm",
+      "example": "vcgencmd measure_clock arm",
+      "explanation": "Current ARM CPU frequency in Hz."
+    },
+    {
+      "id": 3,
+      "category": "Clocks",
+      "command": "vcgencmd measure_clock core",
+      "example": "vcgencmd measure_clock core",
+      "explanation": "GPU core frequency."
+    },
+    {
+      "id": 18,
+      "category": "Clocks",
+      "command": "for c in arm core h264 isp v3d uart emmc; do echo \"$c: $(vcgencmd measure_clock $c)\"; done",
+      "example": "for c in arm core h264 isp v3d uart emmc; do echo \"$c: $(vcgencmd measure_clock $c)\"; done",
+      "explanation": "Prints every major clock."
+    },
+    {
+      "id": 19,
+      "category": "Clocks",
+      "command": "vcgencmd get_config arm_freq",
+      "example": "vcgencmd get_config arm_freq",
+      "explanation": "Configured maximum ARM frequency from config.txt."
     },
     {
       "id": 6,
-      "category": "Memory Alignment",
+      "category": "Memory and firmware",
       "command": "vcgencmd get_mem arm",
       "example": "vcgencmd get_mem arm",
-      "explanation": "Examines the system's memory split showing exactly how many Megabytes of ram are strictly designated to the CPU."
+      "explanation": "Memory available to the ARM CPU."
     },
     {
       "id": 7,
-      "category": "Memory Alignment",
+      "category": "Memory and firmware",
       "command": "vcgencmd get_mem gpu",
       "example": "vcgencmd get_mem gpu",
-      "explanation": "Outputs the specific block of Megabytes explicitly reserved for graphical rendering operations."
+      "explanation": "Memory reserved for the GPU."
     },
     {
-      "id": 8,
-      "category": "Displays & Optics",
-      "command": "vcgencmd display_power",
-      "example": "vcgencmd display_power",
-      "explanation": "Returns '1' if the HDMI display connection is fundamentally energized, and '0' if it is asleep."
+      "id": 20,
+      "category": "Memory and firmware",
+      "command": "vcgencmd version",
+      "example": "vcgencmd version",
+      "explanation": "Firmware build date and version."
     },
     {
       "id": 9,
-      "category": "Configuration Maps",
+      "category": "Memory and firmware",
       "command": "vcgencmd get_config int",
       "example": "vcgencmd get_config int",
-      "explanation": "Dumps the absolute matrix of all numerical system configurations currently cached and operational from the /boot/config.txt."
+      "explanation": "Every integer setting the firmware loaded from config.txt."
     },
     {
       "id": 10,
-      "category": "Codec Processing",
+      "category": "Memory and firmware",
       "command": "vcgencmd codec_enabled H264",
       "example": "vcgencmd codec_enabled H264",
-      "explanation": "Verifies whether the hardware-accelerated H264 video decoding block is fundamentally licensed and engaged natively on the SoC."
+      "explanation": "Whether a hardware codec is enabled."
     },
     {
-      "id": 11,
-      "category": "Hardware Limits",
-      "command": "vcgencmd get_config temp_limit",
-      "example": "vcgencmd get_config temp_limit",
-      "explanation": "Extracts the absolutely explicit maximum localized Celsius boundary natively fundamentally establishing hardware-level unmitigated SoC throttling limits dynamically."
-    },
-    {
-      "id": 12,
-      "category": "Memory Leaks",
-      "command": "vcgencmd get_mem reloc",
-      "example": "vcgencmd get_mem reloc",
-      "explanation": "Checks massively dense explicit core relocation memory mapping inherently identifying strictly defined graphics fragmentation processing dynamically."
-    },
-    {
-      "id": 13,
-      "category": "Display Metrics",
-      "command": "vcgencmd get_lcd_info",
-      "example": "vcgencmd get_lcd_info",
-      "explanation": "Dumps the explicit deep active internal hardware limits identifying native exactly bridged optical resolution arrays connected internally to the raw native ribbon bindings."
+      "id": 21,
+      "category": "Memory and firmware",
+      "command": "vcgencmd display_power 0",
+      "example": "vcgencmd display_power 0",
+      "explanation": "Turns HDMI output off; 1 turns it back on."
     },
     {
       "id": 14,
-      "category": "Architecture Keys",
+      "category": "Memory and firmware",
       "command": "vcgencmd otp_dump",
       "example": "vcgencmd otp_dump",
-      "explanation": "Triggers highly volatile unencrypted silicon parsing actively inherently dumping native inherently permanent One-Time-Programmable silicon register strings uniquely identifying identical boards."
-    },
-    {
-      "id": 15,
-      "category": "Frequency Sweeps",
-      "command": "vcgencmd measure_clock h264",
-      "example": "vcgencmd measure_clock h264",
-      "explanation": "Exclusively monitors explicit localized heavily distinct hardware block controllers dynamically outputting the active precise integer Hertz speed powering native video algorithms."
+      "explanation": "One-time-programmable memory, including the board serial and revision."
     }
   ]
 }

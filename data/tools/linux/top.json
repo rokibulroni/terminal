@@ -1,28 +1,127 @@
 {
   "tool": "top",
-  "description": "[top] - Display Linux processes. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "top",
+  "description": "A live, sortable view of processes and system load, CPU and memory.",
+  "tags": [
+    "processes",
+    "performance"
+  ],
+  "homepage": "https://gitlab.com/procps-ng/procps",
+  "docs": "https://man7.org/linux/man-pages/man1/top.1.html",
+  "install": {
+    "apt": "sudo apt install procps"
+  },
+  "related": [
+    "ps",
+    "free",
+    "kill"
+  ],
+  "total_commands": 15,
   "commands": [
     {
       "id": 1,
-      "category": "linux",
+      "category": "Running",
       "command": "top",
       "example": "top",
-      "explanation": "Launch the interactive process viewer."
+      "explanation": "A live view of load, CPU, memory and the busiest processes. Press q to quit."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "top -u username",
-      "example": "top -u username",
-      "explanation": "View processes for a specific user only."
+      "id": 4,
+      "category": "Running",
+      "command": "top -u <user>",
+      "example": "top -u postgres",
+      "explanation": "Only one user’s processes."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "top -d 1",
+      "id": 5,
+      "category": "Running",
+      "command": "top -p <pid>,<pid>",
+      "example": "top -p 1337,2048",
+      "explanation": "Watches specific processes."
+    },
+    {
+      "id": 6,
+      "category": "Running",
+      "command": "top -d <seconds>",
       "example": "top -d 1",
-      "explanation": "Set the delay interval to 1 second."
+      "explanation": "Changes the refresh interval."
+    },
+    {
+      "id": 7,
+      "category": "Running",
+      "command": "top -o %MEM",
+      "example": "top -o %MEM",
+      "explanation": "Sorts by memory instead of CPU."
+    },
+    {
+      "id": 8,
+      "category": "Running",
+      "command": "top -b -n 1 | head -n 20",
+      "example": "top -b -n 1 | head -n 20",
+      "explanation": "Batch mode: one snapshot printed as plain text, suitable for logs and scripts."
+    },
+    {
+      "id": 9,
+      "category": "Running",
+      "command": "top -H -p <pid>",
+      "example": "top -H -p 1337",
+      "explanation": "Shows the threads of one process."
+    },
+    {
+      "id": 10,
+      "category": "Keys inside top",
+      "command": "P / M / T",
+      "example": "P / M / T",
+      "explanation": "Sort by CPU, memory or running time."
+    },
+    {
+      "id": 11,
+      "category": "Keys inside top",
+      "command": "c",
+      "example": "c",
+      "explanation": "Toggle full command lines."
+    },
+    {
+      "id": 12,
+      "category": "Keys inside top",
+      "command": "1",
+      "example": "1",
+      "explanation": "Show each CPU core separately."
+    },
+    {
+      "id": 13,
+      "category": "Keys inside top",
+      "command": "k",
+      "example": "k",
+      "explanation": "Send a signal to a process by PID."
+    },
+    {
+      "id": 14,
+      "category": "Keys inside top",
+      "command": "V",
+      "example": "V",
+      "explanation": "Tree view of parents and children."
+    },
+    {
+      "id": 15,
+      "category": "Keys inside top",
+      "command": "W",
+      "example": "W",
+      "explanation": "Save the current layout to ~/.config/procps/toprc."
+    },
+    {
+      "id": 16,
+      "category": "Alternatives",
+      "command": "htop",
+      "example": "htop",
+      "explanation": "A friendlier interactive viewer with mouse support, tree view and per-core bars."
+    },
+    {
+      "id": 17,
+      "category": "Alternatives",
+      "command": "btop",
+      "example": "btop",
+      "explanation": "A modern resource monitor that also shows disk and network graphs."
     }
-  ],
-  "total_commands": 3
+  ]
 }

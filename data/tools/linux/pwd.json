@@ -1,21 +1,63 @@
 {
   "tool": "pwd",
-  "description": "[pwd] - Print name of current/working directory. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "pwd",
+  "description": "Prints the full path of the current working directory, optionally resolving symbolic links.",
+  "tags": [
+    "navigation"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/pwd.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "cd",
+    "ls"
+  ],
+  "total_commands": 6,
   "commands": [
     {
       "id": 1,
-      "category": "linux",
+      "category": "Basics",
       "command": "pwd",
       "example": "pwd",
-      "explanation": "Print the current working directory path."
+      "explanation": "Prints the absolute path of the current working directory."
     },
     {
       "id": 2,
-      "category": "linux",
+      "category": "Basics",
       "command": "pwd -P",
       "example": "pwd -P",
-      "explanation": "Print the physical directory, resolving all symlinks."
+      "explanation": "Prints the physical path with all symbolic links resolved."
+    },
+    {
+      "id": 3,
+      "category": "Basics",
+      "command": "pwd -L",
+      "example": "pwd -L",
+      "explanation": "Prints the logical path, keeping symbolic links as you navigated them (the default)."
+    },
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "echo \"$PWD\"",
+      "example": "echo \"$PWD\"",
+      "explanation": "The same information from the PWD environment variable, useful in scripts."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "echo \"$OLDPWD\"",
+      "example": "echo \"$OLDPWD\"",
+      "explanation": "Shows the previous directory, which `cd -` returns to."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "readlink -f .",
+      "example": "readlink -f .",
+      "explanation": "Another way to print the fully resolved path of the current directory."
     }
-  ],
-  "total_commands": 2
+  ]
 }

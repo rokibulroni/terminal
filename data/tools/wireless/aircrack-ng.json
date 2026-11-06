@@ -1,6 +1,24 @@
 {
   "tool": "aircrack-ng",
-  "description": "Complete Aircrack-ng command and workflow reference from basic to advanced wireless key cracking",
+  "name": "Aircrack-ng",
+  "description": "The core of the Aircrack-ng suite: cracks WEP keys and WPA/WPA2-PSK handshakes captured from Wi-Fi networks.",
+  "tags": [
+    "Wi-Fi",
+    "WPA",
+    "cracking"
+  ],
+  "homepage": "https://www.aircrack-ng.org",
+  "docs": "https://www.aircrack-ng.org/doku.php?id=aircrack-ng",
+  "install": {
+    "apt": "sudo apt install aircrack-ng",
+    "brew": "brew install aircrack-ng"
+  },
+  "related": [
+    "airodump-ng",
+    "aireplay-ng",
+    "airmon-ng",
+    "hashcat"
+  ],
   "total_commands": 80,
   "commands": [
     {

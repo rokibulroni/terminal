@@ -1,49 +1,156 @@
 {
   "tool": "ls",
-  "description": "[ls] - List directory contents. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "ls",
+  "description": "Lists directory contents with sizes, permissions, owners, timestamps and hidden files.",
+  "tags": [
+    "files",
+    "directories"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/ls.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "cd",
+    "find",
+    "chmod"
+  ],
+  "total_commands": 19,
   "commands": [
     {
+      "id": 7,
+      "category": "Basics",
+      "command": "ls",
+      "example": "ls",
+      "explanation": "Lists the visible files and folders in the current directory."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "ls <path>",
+      "example": "ls /etc",
+      "explanation": "Lists the contents of another directory without changing into it."
+    },
+    {
       "id": 1,
-      "category": "linux",
+      "category": "Basics",
       "command": "ls -la",
-      "example": "ls -la",
-      "explanation": "List all files in long format including hidden."
+      "example": "ls -la /home/alice",
+      "explanation": "Long listing of everything, including hidden dot-files: permissions, link count, owner, group, size and modification time."
     },
     {
       "id": 2,
-      "category": "linux",
+      "category": "Basics",
       "command": "ls -lh",
-      "example": "ls -lh",
-      "explanation": "List files with human-readable file sizes."
-    },
-    {
-      "id": 3,
-      "category": "linux",
-      "command": "ls -lt",
-      "example": "ls -lt",
-      "explanation": "List files sorted by modification time (newest first)."
-    },
-    {
-      "id": 4,
-      "category": "linux",
-      "command": "ls -lS",
-      "example": "ls -lS",
-      "explanation": "List files sorted by size (largest first)."
-    },
-    {
-      "id": 5,
-      "category": "linux",
-      "command": "ls -ld */",
-      "example": "ls -ld */",
-      "explanation": "List only directories."
+      "example": "ls -lh /var/log",
+      "explanation": "Long listing with human-readable sizes (K, M, G) instead of bytes."
     },
     {
       "id": 6,
-      "category": "linux",
+      "category": "Basics",
       "command": "ls -1",
       "example": "ls -1",
-      "explanation": "List one file per line."
+      "explanation": "Prints one name per line — handy when piping into other commands."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "ls -d */",
+      "example": "ls -d */",
+      "explanation": "Lists only the directories in the current folder."
+    },
+    {
+      "id": 3,
+      "category": "Sorting",
+      "command": "ls -lt",
+      "example": "ls -lt",
+      "explanation": "Sorts by modification time, newest first. Add -r to reverse."
+    },
+    {
+      "id": 10,
+      "category": "Sorting",
+      "command": "ls -ltr /tmp",
+      "example": "ls -ltr /tmp",
+      "explanation": "Oldest first — the most recently changed files end up at the bottom, next to your prompt."
+    },
+    {
+      "id": 4,
+      "category": "Sorting",
+      "command": "ls -lS",
+      "example": "ls -lS",
+      "explanation": "Sorts by file size, largest first."
+    },
+    {
+      "id": 11,
+      "category": "Sorting",
+      "command": "ls -lX",
+      "example": "ls -lX",
+      "explanation": "Groups files by extension (GNU ls)."
+    },
+    {
+      "id": 12,
+      "category": "Details",
+      "command": "ls -i",
+      "example": "ls -i",
+      "explanation": "Shows inode numbers — useful for spotting hard links and deleting files with awkward names."
+    },
+    {
+      "id": 13,
+      "category": "Details",
+      "command": "ls -ln",
+      "example": "ls -ln",
+      "explanation": "Shows numeric UIDs and GIDs instead of names — reveals files owned by deleted users."
+    },
+    {
+      "id": 14,
+      "category": "Details",
+      "command": "ls -l --time-style=full-iso",
+      "example": "ls -l --time-style=full-iso",
+      "explanation": "Shows full timestamps with seconds and timezone, useful when building a forensic timeline."
+    },
+    {
+      "id": 15,
+      "category": "Details",
+      "command": "ls -lu",
+      "example": "ls -lu",
+      "explanation": "Shows (and with -t, sorts by) last access time instead of modification time."
+    },
+    {
+      "id": 16,
+      "category": "Details",
+      "command": "ls -lR <path>",
+      "example": "ls -lR /opt/app",
+      "explanation": "Lists a directory tree recursively."
+    },
+    {
+      "id": 17,
+      "category": "Details",
+      "command": "ls -la --color=auto",
+      "example": "ls -la --color=auto",
+      "explanation": "Colours files by type; most distributions alias ls to this already."
+    },
+    {
+      "id": 18,
+      "category": "Security checks",
+      "command": "ls -la /root",
+      "example": "ls -la /root",
+      "explanation": "Checks whether the root home directory is readable by your user — it should not be."
+    },
+    {
+      "id": 19,
+      "category": "Security checks",
+      "command": "ls -l /etc/passwd /etc/shadow",
+      "example": "ls -l /etc/passwd /etc/shadow",
+      "explanation": "Verifies permissions on the account files: passwd should be 644, shadow 640 or stricter. A world-readable shadow is a serious finding."
+    },
+    {
+      "id": 20,
+      "category": "Security checks",
+      "command": "ls -la /etc/cron*",
+      "example": "ls -la /etc/cron*",
+      "explanation": "Lists cron directories and files to find scheduled jobs and check who can modify them."
     }
-  ],
-  "total_commands": 6
+  ]
 }

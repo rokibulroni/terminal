@@ -1,6 +1,23 @@
 {
   "tool": "curl",
-  "description": "Complete curl command and workflow reference from basic to advanced network and web interactions",
+  "name": "curl",
+  "description": "Transfers data with URLs over HTTP, FTP and many other protocols. Indispensable for testing APIs, headers and authentication.",
+  "tags": [
+    "HTTP",
+    "APIs",
+    "downloads"
+  ],
+  "homepage": "https://curl.se",
+  "docs": "https://curl.se/docs/manpage.html",
+  "install": {
+    "apt": "sudo apt install curl",
+    "brew": "brew install curl"
+  },
+  "related": [
+    "wget",
+    "httpie",
+    "jq"
+  ],
   "total_commands": 150,
   "commands": [
     {

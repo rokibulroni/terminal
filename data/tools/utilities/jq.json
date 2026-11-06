@@ -1,6 +1,24 @@
 {
   "tool": "jq",
-  "description": "Complete jq command and workflow reference from basic to advanced JSON parsing and transformation",
+  "name": "jq",
+  "description": "A lightweight command-line JSON processor: filter, transform and pretty-print JSON from APIs, logs and tool output.",
+  "tags": [
+    "JSON",
+    "parsing",
+    "data"
+  ],
+  "homepage": "https://jqlang.org",
+  "docs": "https://jqlang.org/manual/",
+  "install": {
+    "apt": "sudo apt install jq",
+    "brew": "brew install jq",
+    "windows": "winget install jqlang.jq"
+  },
+  "related": [
+    "curl",
+    "httpie",
+    "awk"
+  ],
   "total_commands": 120,
   "commands": [
     {

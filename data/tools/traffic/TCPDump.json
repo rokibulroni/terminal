@@ -1,6 +1,23 @@
 {
   "tool": "tcpdump",
-  "description": "Complete tcpdump command reference covering all options from basic to advanced",
+  "name": "tcpdump",
+  "description": "The classic packet capture tool: capture and filter traffic with BPF expressions and write it to pcap files for later analysis.",
+  "tags": [
+    "packet capture",
+    "pcap",
+    "BPF"
+  ],
+  "homepage": "https://www.tcpdump.org",
+  "docs": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+  "install": {
+    "apt": "sudo apt install tcpdump",
+    "brew": "brew install tcpdump"
+  },
+  "related": [
+    "tshark",
+    "ngrep",
+    "wireshark-cli"
+  ],
   "total_commands": 85,
   "commands": [
     {

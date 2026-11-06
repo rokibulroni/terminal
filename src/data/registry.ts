@@ -56,6 +56,7 @@ export const CATEGORIES: CategoryDef[] = [
     groups: [
       { name: 'Port Scanners', tools: ['nmap', 'masscan', 'RustScan', 'Unicornscan', 'ZMap', 'naabu'] },
       { name: 'Host Discovery', tools: ['arp-scan', 'fping', 'hping3', 'netdiscover', 'amap', 'ike-scan'] },
+      { name: 'DNS & WHOIS', tools: ['dig', 'whois', 'dnsrecon'] },
       { name: 'Network Analysis', tools: ['netstat', 'ss', 'iperf', 'p0f'] },
     ],
   },
@@ -67,10 +68,11 @@ export const CATEGORIES: CategoryDef[] = [
     intro:
       'Tools for mapping and testing web applications: collect URLs, discover hidden content, fingerprint technologies and probe for common vulnerability classes such as SQL injection and XSS.',
     groups: [
-      { name: 'Fuzzing & Content Discovery', tools: ['dirsearch', 'ffuf', 'gobuster', 'wfuzz'] },
+      { name: 'Fuzzing & Content Discovery', tools: ['ffuf', 'feroxbuster', 'dirsearch', 'gobuster', 'wfuzz'] },
       { name: 'Vulnerability Scanners', tools: ['nikto', 'nuclei', 'wpscan'] },
       { name: 'Injection Testing', tools: ['sqlmap', 'xsser'] },
-      { name: 'Recon & URLs', tools: ['gau', 'waybackurls', 'httpx', 'whatweb'] },
+      { name: 'Subdomains & DNS', tools: ['subfinder', 'dnsx'] },
+      { name: 'Recon & URLs', tools: ['httpx', 'katana', 'gau', 'waybackurls', 'whatweb'] },
     ],
   },
   {
@@ -277,6 +279,43 @@ export const CATEGORIES: CategoryDef[] = [
     groups: [
       { name: 'Raspberry Pi System', tools: ['raspi-config', 'vcgencmd'] },
       { name: 'Hardware Interfaces', tools: ['gpio', 'i2c-tools', 'libcamera'] },
+    ],
+  },
+  {
+    id: 'active-directory',
+    name: 'Active Directory',
+    icon: 'Building2',
+    description: 'Windows domain attacks: Kerberos, credentials, relaying and attack paths.',
+    intro:
+      'Attacking and auditing Windows Active Directory environments: enumerate the domain, roast and spray Kerberos, relay NTLM, dump credentials and map attack paths to Domain Admin. For authorised engagements against domains you are permitted to test.',
+    groups: [
+      { name: 'Protocol Toolkits', tools: ['impacket', 'crackmapexec'] },
+      { name: 'Kerberos & Credentials', tools: ['kerbrute', 'certipy', 'mimikatz', 'rubeus'] },
+      { name: 'Enumeration & Relaying', tools: ['bloodhound-python', 'responder'] },
+    ],
+  },
+  {
+    id: 'pivoting',
+    name: 'Pivoting & Tunneling',
+    icon: 'Waypoints',
+    description: 'Proxies and tunnels for reaching internal networks through a foothold.',
+    intro:
+      'Once you have a foothold, pivoting tools route your traffic deeper into a network. Build SOCKS proxies, forward ports and tunnel whole subnets through a compromised host — always within the agreed scope.',
+    groups: [
+      { name: 'Tunnels & Proxies', tools: ['chisel', 'ligolo-ng', 'sshuttle'] },
+      { name: 'Proxy Clients', tools: ['proxychains'] },
+    ],
+  },
+  {
+    id: 'crypto',
+    name: 'Crypto & Encoding',
+    icon: 'Key',
+    description: 'TLS, certificates, encryption, signing and everyday encoding.',
+    intro:
+      'Work with certificates and keys, encrypt and sign data, and convert between the encodings that turn up throughout security work — from Base64 tokens to PEM bundles.',
+    groups: [
+      { name: 'Cryptography', tools: ['openssl', 'gpg'] },
+      { name: 'Encoding', tools: ['base64'] },
     ],
   },
 ];

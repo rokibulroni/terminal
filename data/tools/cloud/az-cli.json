@@ -1,6 +1,23 @@
 {
   "tool": "az-cli",
-  "description": "Complete Azure CLI command and workflow reference from basic to advanced cloud operations and security auditing",
+  "name": "Azure CLI",
+  "description": "Microsoft’s cross-platform CLI for Azure: manage subscriptions, Entra ID, VMs, storage and networking, and review security posture.",
+  "tags": [
+    "Azure",
+    "cloud",
+    "Entra ID"
+  ],
+  "homepage": "https://learn.microsoft.com/cli/azure/",
+  "docs": "https://learn.microsoft.com/cli/azure/reference-index",
+  "install": {
+    "brew": "brew install azure-cli",
+    "windows": "winget install Microsoft.AzureCLI",
+    "other": "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash"
+  },
+  "related": [
+    "awscli",
+    "gcloud"
+  ],
   "total_commands": 160,
   "commands": [
     {

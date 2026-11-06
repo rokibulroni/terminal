@@ -1,6 +1,23 @@
 {
   "tool": "exiftool",
-  "description": "Complete ExifTool command and workflow reference from basic to advanced metadata analysis and manipulation",
+  "name": "ExifTool",
+  "description": "Reads, writes and strips metadata in images, documents, audio and video — invaluable for OSINT and forensics.",
+  "tags": [
+    "metadata",
+    "OSINT",
+    "images"
+  ],
+  "homepage": "https://exiftool.org",
+  "docs": "https://exiftool.org/exiftool_pod.html",
+  "install": {
+    "apt": "sudo apt install libimage-exiftool-perl",
+    "brew": "brew install exiftool",
+    "windows": "winget install OliverBetz.ExifTool"
+  },
+  "related": [
+    "binwalk",
+    "strings"
+  ],
   "total_commands": 60,
   "commands": [
     {

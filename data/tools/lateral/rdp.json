@@ -1,6 +1,22 @@
 {
   "tool": "rdp",
-  "description": "Complete RDP command and workflow reference from basic to advanced remote desktop access and lateral movement",
+  "name": "RDP clients",
+  "description": "Connecting to Windows Remote Desktop from Linux with xfreerdp and rdesktop — including pass-the-hash, drive sharing and clipboard.",
+  "tags": [
+    "RDP",
+    "remote desktop",
+    "Windows"
+  ],
+  "homepage": "https://www.freerdp.com",
+  "docs": "https://github.com/FreeRDP/FreeRDP/wiki/CommandLineInterface-(3.x)",
+  "install": {
+    "apt": "sudo apt install freerdp2-x11",
+    "brew": "brew install freerdp"
+  },
+  "related": [
+    "ncrack",
+    "evil-winrm"
+  ],
   "total_commands": 60,
   "commands": [
     {

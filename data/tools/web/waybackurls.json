@@ -1,6 +1,20 @@
 {
   "tool": "waybackurls",
-  "description": "Complete waybackurls command reference covering all usage patterns from basic to advanced, including filtering, pipelines, and integrations.",
+  "name": "waybackurls",
+  "description": "Pulls every URL the Wayback Machine has archived for a domain — a quick way to find old endpoints and parameters.",
+  "tags": [
+    "URL discovery",
+    "passive recon",
+    "archive"
+  ],
+  "homepage": "https://github.com/tomnomnom/waybackurls",
+  "install": {
+    "go": "go install github.com/tomnomnom/waybackurls@latest"
+  },
+  "related": [
+    "gau",
+    "httpx"
+  ],
   "total_commands": 45,
   "commands": [
     {

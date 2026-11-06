@@ -1,6 +1,22 @@
 {
   "tool": "ike-scan",
-  "description": "Complete ike-scan command reference covering all options from basic to advanced",
+  "name": "ike-scan",
+  "description": "Discovers and fingerprints IPsec VPN servers using IKE, and can capture aggressive-mode PSK hashes for offline cracking.",
+  "tags": [
+    "VPN",
+    "IPsec",
+    "IKE"
+  ],
+  "homepage": "https://github.com/royhills/ike-scan",
+  "docs": "https://github.com/royhills/ike-scan/wiki",
+  "install": {
+    "apt": "sudo apt install ike-scan",
+    "brew": "brew install ike-scan"
+  },
+  "related": [
+    "nmap",
+    "hashcat"
+  ],
   "total_commands": 30,
   "commands": [
     {

@@ -1,6 +1,21 @@
 {
   "tool": "gau",
-  "description": "Complete gau command reference covering all options from basic to advanced for web reconnaissance",
+  "name": "gau",
+  "description": "“GetAllUrls” — fetches known URLs for a domain from the Wayback Machine, Common Crawl, OTX and URLScan for passive recon.",
+  "tags": [
+    "URL discovery",
+    "passive recon"
+  ],
+  "homepage": "https://github.com/lc/gau",
+  "docs": "https://github.com/lc/gau#usage",
+  "install": {
+    "go": "go install github.com/lc/gau/v2/cmd/gau@latest"
+  },
+  "related": [
+    "waybackurls",
+    "httpx",
+    "ffuf"
+  ],
   "total_commands": 45,
   "commands": [
     {

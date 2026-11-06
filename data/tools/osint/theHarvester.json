@@ -1,77 +1,114 @@
 {
   "tool": "theHarvester",
-  "description": "theHarvester: The quintessential tool designed for gathering e-mail accounts, subdomain names, virtual hosts, open ports, and employee names from an organization.",
-  "total_commands": 10,
+  "name": "theHarvester",
+  "description": "Gathers emails, names, subdomains, IPs and URLs about a domain from public sources like search engines and certificate logs.",
+  "tags": [
+    "emails",
+    "subdomains",
+    "reconnaissance"
+  ],
+  "homepage": "https://github.com/laramies/theHarvester",
+  "docs": "https://github.com/laramies/theHarvester/wiki",
+  "install": {
+    "apt": "sudo apt install theharvester"
+  },
+  "related": [
+    "amass",
+    "recon-ng",
+    "spiderfoot"
+  ],
+  "total_commands": 13,
   "commands": [
     {
-      "id": 1,
-      "category": "Basic Scan",
-      "command": "theHarvester -d <domain> -b <source>",
-      "example": "theHarvester -d target.com -b google",
-      "explanation": "Executes an immediate baseline scraping query targeting a specific external search engine to yield exposed emails/subdomains."
+      "id": 11,
+      "category": "Collecting",
+      "command": "theHarvester -d <domain> -b <sources>",
+      "example": "theHarvester -d example.com -b crtsh,duckduckgo,bing",
+      "explanation": "Searches the chosen sources for emails, hosts and IPs related to the domain."
     },
     {
       "id": 2,
-      "category": "Broad Targeting",
+      "category": "Collecting",
       "command": "theHarvester -d <domain> -b all",
-      "example": "theHarvester -d target.com -b all",
-      "explanation": "A highly noisy extraction method instructing the tool to aggressively query every single supported index (LinkedIn, Bing, Google, DuckDuckGo) simultaneously."
+      "example": "theHarvester -d example.com -b all",
+      "explanation": "Queries every available source. Sources that need API keys are skipped unless keys are configured."
     },
     {
-      "id": 3,
-      "category": "Limits",
-      "command": "theHarvester -d <domain> -l <limit>",
-      "example": "theHarvester -d target.com -l 500 -b bing",
-      "explanation": "Restricts parsing arrays exactly to the indicated numerical depth limit of Search Engine results (e.g. Top 500 pages) to prevent aggressive IP blocking."
+      "id": 12,
+      "category": "Collecting",
+      "command": "theHarvester -d <domain> -b crtsh",
+      "example": "theHarvester -d example.com -b crtsh",
+      "explanation": "Subdomains from certificate-transparency logs — fast and keyless."
     },
     {
-      "id": 4,
-      "category": "DNS Brute-forcing",
-      "command": "theHarvester -d <domain> -c",
-      "example": "theHarvester -d target.com -c -b all",
-      "explanation": "Augments passive scraping explicitly executing a highly aggressive active dictionary brute-force attacking the Target's primary DNS tables."
+      "id": 13,
+      "category": "Collecting",
+      "command": "theHarvester -d <domain> -b <source> -l <n>",
+      "example": "theHarvester -d example.com -b bing -l 500",
+      "explanation": "Limits the number of results fetched from search engines."
     },
     {
-      "id": 5,
-      "category": "Takeover Validations",
-      "command": "theHarvester -d <domain> -t",
-      "example": "theHarvester -d target.com -t -b all",
-      "explanation": "Forces the resolution arrays to continuously ping subdomains verifying explicitly if a DNS CNAME point exists allowing for Subdomain Takeovers."
+      "id": 14,
+      "category": "Collecting",
+      "command": "theHarvester -d <domain> -b <source> -S <start>",
+      "example": "theHarvester -d example.com -b bing -S 100",
+      "explanation": "Starts from a later result offset."
     },
     {
-      "id": 6,
-      "category": "Output File",
-      "command": "theHarvester -f <filename>",
-      "example": "theHarvester -d corp.net -b all -f intel_dump",
-      "explanation": "Automates standard text dumping explicitly writing both highly structured JSON files and HTML tables concurrently directly into the current directory."
+      "id": 15,
+      "category": "Active checks",
+      "command": "theHarvester -d <domain> -b <source> -r",
+      "example": "theHarvester -d example.com -b crtsh -r",
+      "explanation": "Resolves discovered hosts with DNS."
     },
     {
-      "id": 7,
-      "category": "Virtual Hosts",
-      "command": "theHarvester -v",
-      "example": "theHarvester -d company.com -v -b bing",
-      "explanation": "Leverages Microsoft Bing reverse-indexing attempting to unmask distinct auxiliary Virtual Hosts sharing the exact same IP stack."
+      "id": 16,
+      "category": "Active checks",
+      "command": "theHarvester -d <domain> -b <source> -c",
+      "example": "theHarvester -d example.com -b crtsh -c",
+      "explanation": "DNS brute-forces subdomains."
     },
     {
-      "id": 8,
-      "category": "Shodan Pipeline",
-      "command": "theHarvester -d <domain> -s",
-      "example": "theHarvester -d target.com -b all -s",
-      "explanation": "Integrates natively directly into the Shodan infrastructure verifying all located host architectures against known open ports instantly."
+      "id": 17,
+      "category": "Active checks",
+      "command": "theHarvester -d <domain> -b <source> -n",
+      "example": "theHarvester -d example.com -b crtsh -n",
+      "explanation": "Reverse DNS lookups on discovered IP ranges."
     },
     {
-      "id": 9,
-      "category": "Proxy Logic",
-      "command": "theHarvester -p <proxy>",
-      "example": "theHarvester -d target.com -b google -p http://127.0.0.1:8080",
-      "explanation": "Channels the Python processing HTTP streams seamlessly overriding outbound tracking connecting through defined Proxy architectures."
+      "id": 18,
+      "category": "Active checks",
+      "command": "theHarvester -d <domain> -b <source> -t",
+      "example": "theHarvester -d example.com -b crtsh -t",
+      "explanation": "Checks discovered hosts for subdomain-takeover candidates."
     },
     {
-      "id": 10,
-      "category": "Custom Resolvers",
-      "command": "theHarvester -r <server>",
-      "example": "theHarvester -d test.com -b all -r 8.8.8.8",
-      "explanation": "Modifies the inherent socket stack forcing all explicit active DNS interrogations directly out through the specified custom recursive DNS server."
+      "id": 19,
+      "category": "Active checks",
+      "command": "theHarvester -d <domain> -b shodan",
+      "example": "theHarvester -d example.com -b shodan",
+      "explanation": "Enriches hosts with Shodan data (needs an API key)."
+    },
+    {
+      "id": 20,
+      "category": "Output",
+      "command": "theHarvester -d <domain> -b <source> -f <file>",
+      "example": "theHarvester -d example.com -b all -f example_report",
+      "explanation": "Saves results as XML and JSON."
+    },
+    {
+      "id": 21,
+      "category": "Output",
+      "command": "theHarvester -d <domain> -b <source> -q",
+      "example": "theHarvester -d example.com -b crtsh -q",
+      "explanation": "Quiet mode with fewer warnings."
+    },
+    {
+      "id": 22,
+      "category": "Output",
+      "command": "cat ~/.theHarvester/api-keys.yaml",
+      "example": "cat ~/.theHarvester/api-keys.yaml",
+      "explanation": "API key configuration file (in /etc/theHarvester/ on some installs). Adding keys unlocks sources like Hunter, Shodan and SecurityTrails."
     }
   ]
 }

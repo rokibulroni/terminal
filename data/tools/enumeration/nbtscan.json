@@ -1,6 +1,20 @@
 {
   "tool": "nbtscan",
-  "description": "Complete nbtscan command reference covering all options from basic to advanced",
+  "name": "nbtscan",
+  "description": "Scans networks for NetBIOS name information — hostnames, logged-in users and MAC addresses of Windows machines.",
+  "tags": [
+    "NetBIOS",
+    "SMB",
+    "host discovery"
+  ],
+  "homepage": "http://www.unixwiz.net/tools/nbtscan.html",
+  "install": {
+    "apt": "sudo apt install nbtscan"
+  },
+  "related": [
+    "enum4linux",
+    "nmap"
+  ],
   "total_commands": 30,
   "commands": [
     {

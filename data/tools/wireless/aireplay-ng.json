@@ -1,6 +1,21 @@
 {
   "tool": "aireplay-ng",
-  "description": "Complete aireplay-ng command and workflow reference from basic to advanced wireless packet injection and attack simulation",
+  "name": "aireplay-ng",
+  "description": "Injects 802.11 frames: deauthentication, fake authentication and ARP replay to generate traffic or capture handshakes.",
+  "tags": [
+    "Wi-Fi",
+    "packet injection",
+    "deauth"
+  ],
+  "homepage": "https://www.aircrack-ng.org",
+  "docs": "https://www.aircrack-ng.org/doku.php?id=aireplay-ng",
+  "install": {
+    "apt": "sudo apt install aircrack-ng"
+  },
+  "related": [
+    "airodump-ng",
+    "aircrack-ng"
+  ],
   "total_commands": 55,
   "commands": [
     {

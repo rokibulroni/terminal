@@ -1,77 +1,155 @@
 {
   "tool": "objection",
-  "description": "Objection: A runtime mobile exploration toolkit powered by Frida. Built specifically to help assess mobile applications and their security posture without the need for a jailbroken or rooted device.",
-  "total_commands": 10,
+  "name": "objection",
+  "description": "A runtime mobile-exploration toolkit powered by Frida: bypass SSL pinning, explore the file system and dump keychains without a jailbreak.",
+  "tags": [
+    "mobile",
+    "Frida",
+    "SSL pinning"
+  ],
+  "homepage": "https://github.com/sensepost/objection",
+  "docs": "https://github.com/sensepost/objection/wiki",
+  "install": {
+    "pipx": "pipx install objection"
+  },
+  "related": [
+    "frida",
+    "adb"
+  ],
+  "total_commands": 19,
   "commands": [
     {
       "id": 1,
-      "category": "Exploration Mode",
+      "category": "Starting",
       "command": "objection -g <package> explore",
-      "example": "objection -g com.target.app explore",
-      "explanation": "Executes an immediate hook natively connecting directly into the application wrapping the system in a massive pre-programmed exploitation console interface."
+      "example": "objection -g com.example.app explore",
+      "explanation": "Attaches to a running app through Frida and opens the objection REPL."
+    },
+    {
+      "id": 11,
+      "category": "Starting",
+      "command": "objection -g <package> explore -s \"<command>\"",
+      "example": "objection -g com.example.app explore -s \"android sslpinning disable\"",
+      "explanation": "Runs a startup command right after attaching."
+    },
+    {
+      "id": 12,
+      "category": "Starting",
+      "command": "objection patchapk -s <apk>",
+      "example": "objection patchapk -s app.apk",
+      "explanation": "Embeds the Frida gadget into an APK so it works on non-rooted devices."
+    },
+    {
+      "id": 13,
+      "category": "Starting",
+      "command": "objection patchipa -s <ipa> -c <codesign-id>",
+      "example": "objection patchipa -s app.ipa -c \"Apple Development: …\"",
+      "explanation": "Embeds the gadget into an iOS IPA and re-signs it."
     },
     {
       "id": 2,
-      "category": "Certificate Pinning",
+      "category": "Bypasses",
       "command": "android sslpinning disable",
       "example": "android sslpinning disable",
-      "explanation": "Dynamically neutralizes active Java certificate bounds dynamically re-routing raw HTTPS packet traffic completely unencrypted cleanly into Burp Suite proxies."
+      "explanation": "Hooks common pinning implementations (OkHttp, TrustManager and others) so a proxy can intercept TLS."
     },
     {
       "id": 3,
-      "category": "Root Bypassing",
+      "category": "Bypasses",
       "command": "android root disable",
       "example": "android root disable",
-      "explanation": "Disables standard boolean logical gates intercepting SU checks causing standard anti-root libraries to implicitly return false validations dynamically."
+      "explanation": "Defeats common root-detection checks."
+    },
+    {
+      "id": 14,
+      "category": "Bypasses",
+      "command": "ios sslpinning disable",
+      "example": "ios sslpinning disable",
+      "explanation": "Bypasses pinning on iOS."
+    },
+    {
+      "id": 15,
+      "category": "Bypasses",
+      "command": "ios jailbreak disable",
+      "example": "ios jailbreak disable",
+      "explanation": "Defeats common jailbreak checks."
+    },
+    {
+      "id": 16,
+      "category": "Exploring",
+      "command": "env",
+      "example": "env",
+      "explanation": "The app’s data, cache and files directories."
+    },
+    {
+      "id": 17,
+      "category": "Exploring",
+      "command": "ls",
+      "example": "ls",
+      "explanation": "Lists files in the current directory on the device; cd and file download work too."
+    },
+    {
+      "id": 18,
+      "category": "Exploring",
+      "command": "file download <remote> <local>",
+      "example": "file download shared_prefs/prefs.xml prefs.xml",
+      "explanation": "Downloads a file from the app sandbox."
+    },
+    {
+      "id": 19,
+      "category": "Exploring",
+      "command": "android hooking list activities",
+      "example": "android hooking list activities",
+      "explanation": "Lists activities."
+    },
+    {
+      "id": 20,
+      "category": "Exploring",
+      "command": "android intent launch_activity <activity>",
+      "example": "android intent launch_activity com.example.app.AdminActivity",
+      "explanation": "Launches an activity directly, bypassing the normal flow."
+    },
+    {
+      "id": 21,
+      "category": "Exploring",
+      "command": "android hooking search classes <pattern>",
+      "example": "android hooking search classes crypto",
+      "explanation": "Finds loaded classes by name."
+    },
+    {
+      "id": 22,
+      "category": "Exploring",
+      "command": "android hooking watch class_method <method> --dump-args --dump-return",
+      "example": "android hooking watch class_method com.example.Auth.check --dump-args --dump-return",
+      "explanation": "Logs every call to a method with arguments and return value."
+    },
+    {
+      "id": 23,
+      "category": "Exploring",
+      "command": "android hooking set return_value <method> <bool>",
+      "example": "android hooking set return_value com.example.License.isValid true",
+      "explanation": "Forces a method’s return value."
     },
     {
       "id": 4,
-      "category": "Keystore Dumping",
+      "category": "Exploring",
       "command": "android keystore list",
       "example": "android keystore list",
-      "explanation": "Forcefully extracts incredibly highly secure proprietary system aliases specifically ripping unencrypted raw authorization cryptographic keys dynamically out of Android Vault Memory."
+      "explanation": "Lists entries in the Android keystore."
     },
     {
-      "id": 5,
-      "category": "Clipboard Tracking",
-      "command": "android clipboard monitor",
-      "example": "android clipboard monitor",
-      "explanation": "Reroutes all Android OS clipboard copy/paste buffers natively echoing out password management interactions locally directly to the CLI monitor."
+      "id": 24,
+      "category": "Exploring",
+      "command": "ios keychain dump",
+      "example": "ios keychain dump",
+      "explanation": "Dumps keychain items accessible to the app."
     },
     {
-      "id": 6,
-      "category": "Activity Execution",
-      "command": "android intent launch_activity",
-      "example": "android intent launch_activity com.app.SecretAdminDash",
-      "explanation": "Circumvents login portals by invoking absolute Activity Intents directly injecting the user immediately right past traditional authentication barriers."
-    },
-    {
-      "id": 7,
-      "category": "Database Execution",
-      "command": "sqlite connect <file.db>",
-      "example": "sqlite connect /data/data/com.app/databases/cache.db",
-      "explanation": "Boots a flawless live synchronous Sqlite connection fundamentally writing or manipulating unencrypted raw database schemas native inside the application."
-    },
-    {
-      "id": 8,
-      "category": "Memory Searches",
-      "command": "memory search <regex>",
-      "example": "memory search 'password123'",
-      "explanation": "Traverses and dissects active active RAM mappings locating unique occurrences of extremely specific variable arrays across internal app containers."
-    },
-    {
-      "id": 9,
-      "category": "Hooking Classes",
-      "command": "android hooking watch class <class>",
-      "example": "android hooking watch class com.example.crypto.AESUtil",
-      "explanation": "Automates complex analysis cleanly by explicitly printing the internal live arguments explicitly being passed back and forth into Java-written cryptography classes."
-    },
-    {
-      "id": 10,
-      "category": "Hooking Methods",
-      "command": "android hooking watch class_method",
-      "example": "android hooking watch class_method com.app.AESUtil.encrypt",
-      "explanation": "Targets explicitly singular class methods isolating console output strictly verifying specific execution parameters dynamically eliminating heavy stdout noise."
+      "id": 25,
+      "category": "Exploring",
+      "command": "memory search \"<string>\" --string",
+      "example": "memory search \"password\" --string",
+      "explanation": "Searches process memory for a string."
     }
   ]
 }

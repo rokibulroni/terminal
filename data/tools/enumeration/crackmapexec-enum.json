@@ -1,6 +1,23 @@
 {
   "tool": "crackmapexec-enum",
-  "description": "Complete CrackMapExec enumeration command reference covering all protocols from basic to advanced",
+  "name": "CrackMapExec (enumeration)",
+  "description": "Using CrackMapExec/NetExec to enumerate SMB, LDAP, WinRM and MSSQL across a network: shares, users, sessions, policies and more.",
+  "tags": [
+    "Active Directory",
+    "SMB",
+    "LDAP"
+  ],
+  "homepage": "https://www.netexec.wiki",
+  "docs": "https://www.netexec.wiki",
+  "install": {
+    "pipx": "pipx install git+https://github.com/Pennyw0rth/NetExec",
+    "apt": "sudo apt install netexec"
+  },
+  "related": [
+    "crackmapexec",
+    "ldapsearch",
+    "bloodhound-python"
+  ],
   "total_commands": 65,
   "commands": [
     {

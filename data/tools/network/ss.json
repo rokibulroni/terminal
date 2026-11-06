@@ -1,6 +1,20 @@
 {
   "tool": "ss",
-  "description": "Complete ss command reference covering all options from basic to advanced",
+  "name": "ss",
+  "description": "The modern Linux socket statistics tool: lists listening ports, established connections and the processes behind them, faster than netstat.",
+  "tags": [
+    "connections",
+    "listening ports",
+    "sockets"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/ss.8.html",
+  "install": {
+    "apt": "sudo apt install iproute2"
+  },
+  "related": [
+    "netstat",
+    "ip"
+  ],
   "total_commands": 100,
   "commands": [
     {

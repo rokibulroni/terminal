@@ -1,6 +1,22 @@
 {
   "tool": "wfuzz",
-  "description": "Complete wfuzz command reference covering all options from basic to advanced",
+  "name": "Wfuzz",
+  "description": "A Python web fuzzer that replaces the FUZZ keyword in any part of a request — paths, parameters, headers or cookies — with payloads.",
+  "tags": [
+    "fuzzing",
+    "parameters",
+    "brute force"
+  ],
+  "homepage": "https://github.com/xmendez/wfuzz",
+  "docs": "https://wfuzz.readthedocs.io",
+  "install": {
+    "apt": "sudo apt install wfuzz",
+    "pipx": "pipx install wfuzz"
+  },
+  "related": [
+    "ffuf",
+    "gobuster"
+  ],
   "total_commands": 60,
   "commands": [
     {

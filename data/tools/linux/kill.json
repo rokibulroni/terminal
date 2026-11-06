@@ -1,28 +1,112 @@
 {
   "tool": "kill",
-  "description": "[kill] - Send a signal to a process. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "kill",
+  "description": "Sends signals to processes — terminate gracefully, force-kill, reload or pause.",
+  "tags": [
+    "processes",
+    "signals"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/kill.1.html",
+  "install": {
+    "apt": "sudo apt install procps"
+  },
+  "related": [
+    "ps",
+    "top",
+    "systemctl"
+  ],
+  "total_commands": 13,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "kill 1234",
-      "example": "kill 1234",
-      "explanation": "Send SIGTERM (15) to process ID 1234 (graceful stop)."
+      "id": 4,
+      "category": "Signals",
+      "command": "kill <pid>",
+      "example": "kill 1337",
+      "explanation": "Sends SIGTERM (15) asking the process to exit cleanly."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "kill -9 1234",
-      "example": "kill -9 1234",
-      "explanation": "Send SIGKILL (9) to gracefully force stop a process."
+      "id": 5,
+      "category": "Signals",
+      "command": "kill -9 <pid>",
+      "example": "kill -9 1337",
+      "explanation": "SIGKILL: ends the process immediately. It cannot clean up, so use it last."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "kill -HUP 1234",
-      "example": "kill -HUP 1234",
-      "explanation": "Send SIGHUP (1) to restart/reload the process."
+      "id": 6,
+      "category": "Signals",
+      "command": "kill -HUP <pid>",
+      "example": "kill -HUP $(pidof nginx)",
+      "explanation": "SIGHUP: many daemons reload their configuration on this signal."
+    },
+    {
+      "id": 7,
+      "category": "Signals",
+      "command": "kill -STOP <pid>",
+      "example": "kill -STOP 1337",
+      "explanation": "Freezes a process without killing it — useful to preserve a suspicious process for memory capture."
+    },
+    {
+      "id": 8,
+      "category": "Signals",
+      "command": "kill -CONT <pid>",
+      "example": "kill -CONT 1337",
+      "explanation": "Resumes a stopped process."
+    },
+    {
+      "id": 9,
+      "category": "Signals",
+      "command": "kill -l",
+      "example": "kill -l",
+      "explanation": "Lists every signal name and number."
+    },
+    {
+      "id": 10,
+      "category": "Signals",
+      "command": "kill -0 <pid>",
+      "example": "kill -0 1337 && echo alive",
+      "explanation": "Checks a process exists without sending anything."
+    },
+    {
+      "id": 11,
+      "category": "By name",
+      "command": "pkill <name>",
+      "example": "pkill -f \"python3 server.py\"",
+      "explanation": "Signals processes by name; -f matches the full command line."
+    },
+    {
+      "id": 12,
+      "category": "By name",
+      "command": "pkill -u <user>",
+      "example": "sudo pkill -u mallory",
+      "explanation": "Ends every process of a user — part of locking out a compromised account."
+    },
+    {
+      "id": 13,
+      "category": "By name",
+      "command": "killall <name>",
+      "example": "killall firefox",
+      "explanation": "Signals every process with that exact name."
+    },
+    {
+      "id": 14,
+      "category": "By name",
+      "command": "pgrep -l <name>",
+      "example": "pgrep -l ssh",
+      "explanation": "Previews which processes a pattern matches before you kill them."
+    },
+    {
+      "id": 15,
+      "category": "Jobs",
+      "command": "kill %<job>",
+      "example": "kill %1",
+      "explanation": "Signals a background job from the current shell."
+    },
+    {
+      "id": 16,
+      "category": "Jobs",
+      "command": "fuser -k <port>/tcp",
+      "example": "sudo fuser -k 8080/tcp",
+      "explanation": "Kills whatever is listening on a port."
     }
-  ],
-  "total_commands": 3
+  ]
 }

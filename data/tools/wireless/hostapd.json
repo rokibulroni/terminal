@@ -1,6 +1,20 @@
 {
   "tool": "hostapd",
-  "description": "Complete hostapd command and workflow reference from basic to advanced wireless access point configuration",
+  "name": "hostapd",
+  "description": "A user-space daemon that turns a wireless card into an access point — used for test networks and rogue-AP assessments.",
+  "tags": [
+    "Wi-Fi",
+    "access point"
+  ],
+  "homepage": "https://w1.fi/hostapd/",
+  "docs": "https://w1.fi/cgit/hostap/plain/hostapd/hostapd.conf",
+  "install": {
+    "apt": "sudo apt install hostapd"
+  },
+  "related": [
+    "iw",
+    "airmon-ng"
+  ],
   "total_commands": 60,
   "commands": [
     {

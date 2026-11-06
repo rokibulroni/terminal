@@ -1,6 +1,24 @@
 {
   "tool": "kubectl",
-  "description": "Complete kubectl command and workflow reference from basic to advanced Kubernetes cluster operations",
+  "name": "kubectl",
+  "description": "The Kubernetes command line: inspect and manage clusters, workloads, RBAC and secrets — and check what an identity is allowed to do.",
+  "tags": [
+    "Kubernetes",
+    "containers",
+    "RBAC"
+  ],
+  "homepage": "https://kubernetes.io/docs/reference/kubectl/",
+  "docs": "https://kubernetes.io/docs/reference/kubectl/quick-reference/",
+  "install": {
+    "brew": "brew install kubectl",
+    "apt": "sudo snap install kubectl --classic",
+    "windows": "winget install Kubernetes.kubectl"
+  },
+  "related": [
+    "kube-bench",
+    "kube-hunter",
+    "docker"
+  ],
   "total_commands": 125,
   "commands": [
     {

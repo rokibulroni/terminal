@@ -1,6 +1,23 @@
 {
   "tool": "auditd",
-  "description": "Complete auditd command and workflow reference from basic to advanced Linux auditing and monitoring",
+  "name": "auditd",
+  "description": "The Linux Audit daemon: records system calls, file access and command execution according to rules, for compliance and detection.",
+  "tags": [
+    "Linux",
+    "auditing",
+    "detection"
+  ],
+  "homepage": "https://github.com/linux-audit/audit-userspace",
+  "docs": "https://man7.org/linux/man-pages/man8/auditctl.8.html",
+  "install": {
+    "apt": "sudo apt install auditd",
+    "dnf": "sudo dnf install audit"
+  },
+  "related": [
+    "osquery",
+    "sysmon",
+    "journalctl"
+  ],
   "total_commands": 150,
   "commands": [
     {

@@ -1,6 +1,22 @@
 {
   "tool": "smbclient",
-  "description": "Complete smbclient command reference covering all options from basic to advanced",
+  "name": "smbclient",
+  "description": "An FTP-like client for SMB/CIFS shares: list shares, browse, upload and download files, with or without credentials.",
+  "tags": [
+    "SMB",
+    "file shares"
+  ],
+  "homepage": "https://www.samba.org",
+  "docs": "https://www.samba.org/samba/docs/current/man-html/smbclient.1.html",
+  "install": {
+    "apt": "sudo apt install smbclient",
+    "brew": "brew install samba"
+  },
+  "related": [
+    "rpcclient",
+    "enum4linux",
+    "crackmapexec"
+  ],
   "total_commands": 60,
   "commands": [
     {

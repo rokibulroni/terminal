@@ -1,6 +1,22 @@
 {
   "tool": "screen",
-  "description": "Complete GNU Screen command and workflow reference from basic to advanced terminal multiplexing and session management",
+  "name": "GNU Screen",
+  "description": "The original terminal multiplexer: detachable sessions, multiple windows and serial-console access.",
+  "tags": [
+    "terminal",
+    "sessions",
+    "serial"
+  ],
+  "homepage": "https://www.gnu.org/software/screen/",
+  "docs": "https://www.gnu.org/software/screen/manual/screen.html",
+  "install": {
+    "apt": "sudo apt install screen",
+    "brew": "brew install screen"
+  },
+  "related": [
+    "tmux",
+    "ssh"
+  ],
   "total_commands": 100,
   "commands": [
     {

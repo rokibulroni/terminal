@@ -1,77 +1,149 @@
 {
   "tool": "drozer",
-  "description": "Drozer: A comprehensive security and attack framework explicitly tailored to bridge deep physical exploitation across Android Inter-Process Communication (IPC) layers.",
-  "total_commands": 10,
+  "name": "drozer",
+  "description": "A security-testing framework for Android that interacts with app components — activities, providers, services — over IPC to find weaknesses.",
+  "tags": [
+    "Android",
+    "IPC",
+    "app security"
+  ],
+  "homepage": "https://github.com/WithSecureLabs/drozer",
+  "docs": "https://github.com/WithSecureLabs/drozer#usage",
+  "install": {
+    "pipx": "pipx install drozer"
+  },
+  "related": [
+    "adb",
+    "frida",
+    "apktool"
+  ],
+  "total_commands": 18,
   "commands": [
     {
+      "id": 11,
+      "category": "Connecting",
+      "command": "adb forward tcp:31415 tcp:31415",
+      "example": "adb forward tcp:31415 tcp:31415",
+      "explanation": "Forwards the drozer agent port from the device. Start the drozer Agent app and turn its server on first."
+    },
+    {
       "id": 1,
-      "category": "Console Attachment",
+      "category": "Connecting",
       "command": "drozer console connect",
       "example": "drozer console connect",
-      "explanation": "Initializes the python REPL socket mapping establishing a high-bandwidth connection heavily interfacing with the Drozer APK agent installed natively on the phone."
+      "explanation": "Connects to the agent and opens the drozer console."
+    },
+    {
+      "id": 12,
+      "category": "Connecting",
+      "command": "drozer console connect --server <ip>",
+      "example": "drozer console connect --server 192.168.1.50",
+      "explanation": "Connects to an agent over the network."
+    },
+    {
+      "id": 13,
+      "category": "Recon",
+      "command": "run app.package.list -f <filter>",
+      "example": "run app.package.list -f example",
+      "explanation": "Finds installed packages by name."
     },
     {
       "id": 2,
-      "category": "Package Information",
+      "category": "Recon",
       "command": "run app.package.info -a <package>",
-      "example": "run app.package.info -a com.target.app",
-      "explanation": "Disects absolute localized Android architectures pulling UUIDs, installed system paths, permission data, and deeply embedded proprietary package logic."
+      "example": "run app.package.info -a com.example.app",
+      "explanation": "Version, data directory, UID and requested permissions."
     },
     {
       "id": 3,
-      "category": "Attack Surface",
+      "category": "Recon",
       "command": "run app.package.attacksurface <package>",
-      "example": "run app.package.attacksurface com.target.app",
-      "explanation": "Pings the AndroidManifest explicitly charting exactly how many Activities, Providers, Receivers, and Services are inherently publicly mapped and exploitable."
+      "example": "run app.package.attacksurface com.example.app",
+      "explanation": "Counts exported activities, services, receivers and providers, and flags debuggable apps."
+    },
+    {
+      "id": 14,
+      "category": "Recon",
+      "command": "run app.package.manifest <package>",
+      "example": "run app.package.manifest com.example.app",
+      "explanation": "Prints the manifest."
     },
     {
       "id": 4,
-      "category": "Activity Extraction",
+      "category": "Activities and services",
       "command": "run app.activity.info -a <package>",
-      "example": "run app.activity.info -a com.target.app",
-      "explanation": "Maps deeply unprotected Activity intents rendering an explicit view representing exact classes that can automatically be initialized bypassing authentication layers."
+      "example": "run app.activity.info -a com.example.app",
+      "explanation": "Lists exported activities and the permissions protecting them."
     },
     {
-      "id": 5,
-      "category": "Activity Bypassing",
-      "command": "run app.activity.start --component <pkg> <class>",
-      "example": "run app.activity.start --component com.target.app com.target.AdminDash",
-      "explanation": "Fires a custom explicit Android Intent structurally coercing the Android OS to immediately execute the identified highly vulnerable hidden Administrator Dashboard."
+      "id": 15,
+      "category": "Activities and services",
+      "command": "run app.activity.start --component <package> <activity>",
+      "example": "run app.activity.start --component com.example.app com.example.app.AdminActivity",
+      "explanation": "Starts an exported activity directly — tests for authentication bypass."
+    },
+    {
+      "id": 16,
+      "category": "Activities and services",
+      "command": "run app.service.info -a <package>",
+      "example": "run app.service.info -a com.example.app",
+      "explanation": "Exported services."
+    },
+    {
+      "id": 17,
+      "category": "Activities and services",
+      "command": "run app.broadcast.info -a <package>",
+      "example": "run app.broadcast.info -a com.example.app",
+      "explanation": "Exported broadcast receivers."
+    },
+    {
+      "id": 18,
+      "category": "Activities and services",
+      "command": "run app.broadcast.send --action <action> --extra string <key> <value>",
+      "example": "run app.broadcast.send --action com.example.RESET --extra string user admin",
+      "explanation": "Sends a crafted broadcast to a receiver."
     },
     {
       "id": 6,
-      "category": "Content Provider Enumeration",
+      "category": "Content providers",
       "command": "run app.provider.info -a <package>",
-      "example": "run app.provider.info -a com.target.app",
-      "explanation": "Evaluates internal raw SQL databases fundamentally verifying whether external URI endpoints uniquely allow unauthenticated queries exposing massive datasets."
+      "example": "run app.provider.info -a com.example.app",
+      "explanation": "Exported content providers and their permissions."
+    },
+    {
+      "id": 19,
+      "category": "Content providers",
+      "command": "run scanner.provider.finduris -a <package>",
+      "example": "run scanner.provider.finduris -a com.example.app",
+      "explanation": "Guesses accessible content URIs."
     },
     {
       "id": 7,
-      "category": "Database Querying",
+      "category": "Content providers",
       "command": "run app.provider.query <uri>",
-      "example": "run app.provider.query content://com.target.provider/users",
-      "explanation": "Forcefully dumps and inherently leaks massive raw internal SQLite matrices bypassing API restrictions exactly like standard generic Web SQL Injection attacks."
+      "example": "run app.provider.query content://com.example.app.provider/users",
+      "explanation": "Queries a provider — may expose private data."
     },
     {
       "id": 8,
-      "category": "Database Vulnerability",
+      "category": "Content providers",
       "command": "run scanner.provider.injection -a <package>",
-      "example": "run scanner.provider.injection -a com.target.app",
-      "explanation": "Executes fully automated SQL payload sweeping explicitly injecting randomized matrices locating definitively exploitable Content Provider API mappings."
+      "example": "run scanner.provider.injection -a com.example.app",
+      "explanation": "Tests providers for SQL injection."
     },
     {
       "id": 9,
-      "category": "Path Traversal",
+      "category": "Content providers",
       "command": "run scanner.provider.traversal -a <package>",
-      "example": "run scanner.provider.traversal -a com.target.app",
-      "explanation": "Automates complex relative-path resolution hacking cleanly attempting to manipulate URI links strictly retrieving `/etc/hosts` arrays across app bounds."
+      "example": "run scanner.provider.traversal -a com.example.app",
+      "explanation": "Tests file-backed providers for path traversal."
     },
     {
-      "id": 10,
-      "category": "Broadcast Execution",
-      "command": "run app.broadcast.send --action",
-      "example": "run app.broadcast.send --action android.intent.action.BOOT_COMPLETED",
-      "explanation": "Simulates complex hidden hardware triggers (e.g. system reboots, SMS received) tricking isolated Android packages to aggressively initialize background tracking daemons."
+      "id": 20,
+      "category": "Content providers",
+      "command": "run app.provider.read <uri>",
+      "example": "run app.provider.read content://com.example.app.files/../../../../etc/hosts",
+      "explanation": "Reads a file through a provider, for example to confirm traversal."
     }
   ]
 }

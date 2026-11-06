@@ -1,6 +1,24 @@
 {
   "tool": "rustscan",
-  "description": "Complete RustScan command reference from beginner to advanced",
+  "name": "RustScan",
+  "description": "A fast port scanner written in Rust that finds open ports in seconds and then hands them to Nmap for detailed service detection.",
+  "tags": [
+    "port scanning",
+    "fast",
+    "nmap integration"
+  ],
+  "homepage": "https://github.com/bee-san/RustScan",
+  "docs": "https://github.com/bee-san/RustScan/wiki",
+  "install": {
+    "brew": "brew install rustscan",
+    "cargo": "cargo install rustscan",
+    "docker": "docker run -it --rm rustscan/rustscan:latest -a <target>"
+  },
+  "related": [
+    "nmap",
+    "masscan",
+    "naabu"
+  ],
   "total_commands": 45,
   "commands": [
     {

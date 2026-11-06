@@ -1,6 +1,23 @@
 {
   "tool": "psexec",
-  "description": "Complete PsExec command and workflow reference from basic to advanced remote execution and lateral movement",
+  "name": "PsExec",
+  "description": "Running commands on remote Windows hosts via the Service Control Manager — Sysinternals PsExec and Impacket’s psexec.py.",
+  "tags": [
+    "remote execution",
+    "SMB",
+    "Windows"
+  ],
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/psexec",
+  "docs": "https://github.com/fortra/impacket",
+  "install": {
+    "pipx": "pipx install impacket",
+    "apt": "sudo apt install python3-impacket"
+  },
+  "related": [
+    "smbexec",
+    "wmiexec",
+    "crackmapexec"
+  ],
   "total_commands": 55,
   "commands": [
     {

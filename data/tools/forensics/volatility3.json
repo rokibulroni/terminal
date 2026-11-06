@@ -1,6 +1,23 @@
 {
   "tool": "volatility3",
-  "description": "Complete Volatility 3 command and workflow reference from basic to advanced memory forensics",
+  "name": "Volatility 3",
+  "description": "The current memory-forensics framework: analyse RAM images from Windows, Linux and macOS for processes, network connections, injected code and more.",
+  "tags": [
+    "memory forensics",
+    "DFIR",
+    "malware"
+  ],
+  "homepage": "https://github.com/volatilityfoundation/volatility3",
+  "docs": "https://volatility3.readthedocs.io",
+  "install": {
+    "pipx": "pipx install volatility3",
+    "apt": "sudo apt install volatility3"
+  },
+  "related": [
+    "volatility",
+    "strings",
+    "plaso"
+  ],
   "total_commands": 75,
   "commands": [
     {

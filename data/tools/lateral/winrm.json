@@ -1,6 +1,18 @@
 {
   "tool": "winrm",
-  "description": "Complete WinRM command and workflow reference from basic to advanced remote management and lateral movement",
+  "name": "WinRM",
+  "description": "Windows Remote Management from Linux and PowerShell: Enter-PSSession, Invoke-Command and service configuration.",
+  "tags": [
+    "WinRM",
+    "PowerShell",
+    "remote management"
+  ],
+  "homepage": "https://learn.microsoft.com/windows/win32/winrm/portal",
+  "docs": "https://learn.microsoft.com/powershell/scripting/learn/remoting/running-remote-commands",
+  "related": [
+    "evil-winrm",
+    "psexec"
+  ],
   "total_commands": 60,
   "commands": [
     {

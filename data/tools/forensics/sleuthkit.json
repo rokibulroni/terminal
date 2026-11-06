@@ -1,6 +1,23 @@
 {
   "tool": "sleuthkit",
-  "description": "Complete Sleuth Kit command and workflow reference from basic to advanced disk and file system forensics",
+  "name": "The Sleuth Kit",
+  "description": "Command-line tools for analysing disk images and file systems: list files, recover deleted ones and build timelines.",
+  "tags": [
+    "disk forensics",
+    "file systems",
+    "DFIR"
+  ],
+  "homepage": "https://sleuthkit.org",
+  "docs": "https://wiki.sleuthkit.org",
+  "install": {
+    "apt": "sudo apt install sleuthkit",
+    "brew": "brew install sleuthkit"
+  },
+  "related": [
+    "autopsy",
+    "foremost",
+    "plaso"
+  ],
   "total_commands": 100,
   "commands": [
     {

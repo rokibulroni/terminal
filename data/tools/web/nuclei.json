@@ -1,6 +1,25 @@
 {
   "tool": "nuclei",
-  "description": "Complete Nuclei command reference covering all options from basic to advanced",
+  "name": "Nuclei",
+  "description": "A fast, template-based vulnerability scanner. Thousands of community YAML templates detect CVEs, misconfigurations and exposures.",
+  "tags": [
+    "vulnerability scanning",
+    "templates",
+    "CVE",
+    "ProjectDiscovery"
+  ],
+  "homepage": "https://github.com/projectdiscovery/nuclei",
+  "docs": "https://docs.projectdiscovery.io/tools/nuclei/overview",
+  "install": {
+    "go": "go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest",
+    "apt": "sudo apt install nuclei",
+    "brew": "brew install nuclei"
+  },
+  "related": [
+    "httpx",
+    "naabu",
+    "nikto"
+  ],
   "total_commands": 100,
   "commands": [
     {

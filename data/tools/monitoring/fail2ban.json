@@ -1,6 +1,22 @@
 {
   "tool": "fail2ban",
-  "description": "Complete Fail2Ban command and workflow reference from basic to advanced intrusion prevention and monitoring",
+  "name": "Fail2ban",
+  "description": "Watches log files for repeated failures — SSH, web logins, mail — and bans offending IPs with firewall rules.",
+  "tags": [
+    "intrusion prevention",
+    "SSH",
+    "firewall"
+  ],
+  "homepage": "https://github.com/fail2ban/fail2ban",
+  "docs": "https://github.com/fail2ban/fail2ban/wiki",
+  "install": {
+    "apt": "sudo apt install fail2ban",
+    "dnf": "sudo dnf install fail2ban"
+  },
+  "related": [
+    "journalctl",
+    "auditd"
+  ],
   "total_commands": 105,
   "commands": [
     {

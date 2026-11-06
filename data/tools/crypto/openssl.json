@@ -1,0 +1,158 @@
+{
+  "tool": "openssl",
+  "name": "OpenSSL",
+  "description": "The ubiquitous toolkit for TLS and general cryptography: inspect certificates, generate keys and CSRs, convert formats, hash, encrypt and create random secrets.",
+  "tags": [
+    "TLS",
+    "certificates",
+    "cryptography",
+    "encoding"
+  ],
+  "homepage": "https://www.openssl.org",
+  "docs": "https://docs.openssl.org/master/man1/",
+  "install": {
+    "apt": "sudo apt install openssl",
+    "brew": "brew install openssl"
+  },
+  "related": [
+    "gpg",
+    "base64",
+    "curl"
+  ],
+  "total_commands": 19,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Inspecting certificates",
+      "command": "openssl s_client -connect <host>:<port>",
+      "example": "openssl s_client -connect example.com:443",
+      "explanation": "Opens a TLS connection and prints the certificate chain and negotiated parameters."
+    },
+    {
+      "id": 2,
+      "category": "Inspecting certificates",
+      "command": "openssl s_client -connect <host>:443 -servername <host> </dev/null 2>/dev/null | openssl x509 -noout -text",
+      "example": "openssl s_client -connect example.com:443 -servername example.com </dev/null 2>/dev/null | openssl x509 -noout -text",
+      "explanation": "Fetches and fully decodes a server certificate, SNI included."
+    },
+    {
+      "id": 3,
+      "category": "Inspecting certificates",
+      "command": "openssl x509 -in <file> -noout -text",
+      "example": "openssl x509 -in cert.pem -noout -text",
+      "explanation": "Decodes a certificate file to human-readable form."
+    },
+    {
+      "id": 4,
+      "category": "Inspecting certificates",
+      "command": "openssl x509 -in <file> -noout -dates",
+      "example": "openssl x509 -in cert.pem -noout -dates",
+      "explanation": "Just the validity dates — handy for expiry checks."
+    },
+    {
+      "id": 5,
+      "category": "Inspecting certificates",
+      "command": "openssl x509 -in <file> -noout -fingerprint -sha256",
+      "example": "openssl x509 -in <file> -noout -fingerprint -sha256",
+      "explanation": "The SHA-256 fingerprint of a certificate."
+    },
+    {
+      "id": 6,
+      "category": "Keys and CSRs",
+      "command": "openssl genrsa -out <file> <bits>",
+      "example": "openssl genrsa -out key.pem 4096",
+      "explanation": "Generates an RSA private key."
+    },
+    {
+      "id": 7,
+      "category": "Keys and CSRs",
+      "command": "openssl ecparam -genkey -name prime256v1 -out <file>",
+      "example": "openssl ecparam -genkey -name prime256v1 -out ec-key.pem",
+      "explanation": "Generates an elliptic-curve private key."
+    },
+    {
+      "id": 8,
+      "category": "Keys and CSRs",
+      "command": "openssl req -new -key <key> -out <csr>",
+      "example": "openssl req -new -key key.pem -out req.csr",
+      "explanation": "Creates a certificate signing request."
+    },
+    {
+      "id": 9,
+      "category": "Keys and CSRs",
+      "command": "openssl req -x509 -newkey rsa:4096 -keyout <key> -out <cert> -days <n> -nodes",
+      "example": "openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes",
+      "explanation": "Creates a self-signed certificate and key in one step."
+    },
+    {
+      "id": 10,
+      "category": "Keys and CSRs",
+      "command": "openssl rsa -in <key> -noout -check",
+      "example": "openssl rsa -in key.pem -noout -check",
+      "explanation": "Validates an RSA private key."
+    },
+    {
+      "id": 11,
+      "category": "Converting formats",
+      "command": "openssl pkcs12 -export -out <p12> -inkey <key> -in <cert>",
+      "example": "openssl pkcs12 -export -out bundle.p12 -inkey key.pem -in cert.pem",
+      "explanation": "Bundles a key and certificate into a PKCS#12 file."
+    },
+    {
+      "id": 12,
+      "category": "Converting formats",
+      "command": "openssl pkcs12 -in <p12> -nodes -out <pem>",
+      "example": "openssl pkcs12 -in bundle.p12 -nodes -out all.pem",
+      "explanation": "Extracts a key and certificate from a .p12."
+    },
+    {
+      "id": 13,
+      "category": "Converting formats",
+      "command": "openssl x509 -in <der> -inform der -out <pem> -outform pem",
+      "example": "openssl x509 -in cert.der -inform der -out cert.pem -outform pem",
+      "explanation": "Converts DER to PEM."
+    },
+    {
+      "id": 14,
+      "category": "Hashing, encoding and crypto",
+      "command": "openssl dgst -sha256 <file>",
+      "example": "openssl dgst -sha256 payload.bin",
+      "explanation": "SHA-256 digest of a file."
+    },
+    {
+      "id": 15,
+      "category": "Hashing, encoding and crypto",
+      "command": "openssl rand -base64 <n>",
+      "example": "openssl rand -base64 24",
+      "explanation": "Generates cryptographically random bytes — a quick password or token."
+    },
+    {
+      "id": 16,
+      "category": "Hashing, encoding and crypto",
+      "command": "openssl rand -hex <n>",
+      "example": "openssl rand -hex 16",
+      "explanation": "Random bytes as hex."
+    },
+    {
+      "id": 17,
+      "category": "Hashing, encoding and crypto",
+      "command": "openssl enc -aes-256-cbc -salt -pbkdf2 -in <in> -out <out>",
+      "example": "openssl enc -aes-256-cbc -salt -pbkdf2 -in secret.txt -out secret.enc",
+      "explanation": "Encrypts a file with AES; add -d to decrypt. Always use -pbkdf2."
+    },
+    {
+      "id": 18,
+      "category": "Hashing, encoding and crypto",
+      "command": "openssl passwd -6 <password>",
+      "example": "openssl passwd -6 Summer2026",
+      "explanation": "Generates a SHA-512 crypt hash suitable for /etc/shadow."
+    },
+    {
+      "id": 19,
+      "category": "Hashing, encoding and crypto",
+      "command": "echo -n \"<text>\" | openssl base64",
+      "example": "echo -n \"admin:pass\" | openssl base64",
+      "explanation": "Base64-encodes input; add -d to decode."
+    }
+  ]
+}

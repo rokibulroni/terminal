@@ -1,28 +1,129 @@
 {
   "tool": "history",
-  "description": "[history] - Show command history. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "history",
+  "description": "The shell built-in that lists, searches and re-runs previous commands, and manages the history file.",
+  "tags": [
+    "shell built-in",
+    "forensics"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/bash.html#Bash-History-Builtins",
+  "related": [
+    "grep",
+    "tail"
+  ],
+  "total_commands": 16,
   "commands": [
     {
       "id": 1,
-      "category": "linux",
+      "category": "Viewing",
       "command": "history",
       "example": "history",
-      "explanation": "Print the command line history entirely."
+      "explanation": "Numbered list of commands from this shell session and the history file."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "history | grep search_term",
-      "example": "history | grep search_term",
-      "explanation": "Search through your bash history for specific commands."
+      "id": 4,
+      "category": "Viewing",
+      "command": "history <n>",
+      "example": "history 20",
+      "explanation": "The last n commands."
+    },
+    {
+      "id": 5,
+      "category": "Viewing",
+      "command": "history | grep <text>",
+      "example": "history | grep ssh",
+      "explanation": "Searches past commands."
+    },
+    {
+      "id": 6,
+      "category": "Viewing",
+      "command": "Ctrl-R",
+      "example": "Ctrl-R",
+      "explanation": "Reverse incremental search: type part of a command and press Ctrl-R again for older matches."
+    },
+    {
+      "id": 7,
+      "category": "Viewing",
+      "command": "HISTTIMEFORMAT=\"%F %T \" history",
+      "example": "HISTTIMEFORMAT=\"%F %T \" history",
+      "explanation": "Shows when each command was run (bash records times only if this was set when they ran)."
+    },
+    {
+      "id": 8,
+      "category": "Re-running",
+      "command": "!!",
+      "example": "!!",
+      "explanation": "Repeats the last command — sudo !! reruns it as root."
+    },
+    {
+      "id": 9,
+      "category": "Re-running",
+      "command": "!<n>",
+      "example": "!42",
+      "explanation": "Runs command number n."
+    },
+    {
+      "id": 10,
+      "category": "Re-running",
+      "command": "!<prefix>",
+      "example": "!ssh",
+      "explanation": "Runs the most recent command starting with the text."
+    },
+    {
+      "id": 11,
+      "category": "Re-running",
+      "command": "!$",
+      "example": "!$",
+      "explanation": "The last argument of the previous command."
+    },
+    {
+      "id": 12,
+      "category": "Re-running",
+      "command": "^<old>^<new>",
+      "example": "^tcp^udp",
+      "explanation": "Reruns the previous command with a substitution."
     },
     {
       "id": 3,
-      "category": "linux",
+      "category": "Managing",
       "command": "history -c",
       "example": "history -c",
-      "explanation": "Clear the entire bash history temporarily."
+      "explanation": "Clears the in-memory history of this session."
+    },
+    {
+      "id": 13,
+      "category": "Managing",
+      "command": "history -d <n>",
+      "example": "history -d 105",
+      "explanation": "Deletes one entry."
+    },
+    {
+      "id": 14,
+      "category": "Managing",
+      "command": "history -a",
+      "example": "history -a",
+      "explanation": "Writes this session’s commands to the history file now."
+    },
+    {
+      "id": 15,
+      "category": "Managing",
+      "command": " <command>",
+      "example": " export API_KEY=secret",
+      "explanation": "With HISTCONTROL=ignorespace, a leading space keeps a command out of history."
+    },
+    {
+      "id": 16,
+      "category": "Forensics",
+      "command": "cat /home/*/.bash_history /root/.bash_history 2>/dev/null",
+      "example": "cat /home/*/.bash_history /root/.bash_history 2>/dev/null",
+      "explanation": "Reads history files for every user. Empty or missing files, or a link to /dev/null, can indicate tampering."
+    },
+    {
+      "id": 17,
+      "category": "Forensics",
+      "command": "ls -la ~/.*history",
+      "example": "ls -la ~/.*history",
+      "explanation": "Lists history files for different shells (bash, zsh, python, mysql, less)."
     }
-  ],
-  "total_commands": 3
+  ]
 }

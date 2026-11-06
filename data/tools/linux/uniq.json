@@ -1,28 +1,85 @@
 {
   "tool": "uniq",
-  "description": "[uniq] - Report or omit repeated lines. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "uniq",
+  "description": "Filters or counts adjacent duplicate lines — usually paired with sort.",
+  "tags": [
+    "text processing",
+    "counting"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "sort",
+    "wc"
+  ],
+  "total_commands": 9,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "uniq file1",
-      "example": "uniq file1",
-      "explanation": "Remove consecutive duplicate lines from output."
+      "id": 4,
+      "category": "Basics",
+      "command": "sort <file> | uniq",
+      "example": "sort ips.txt | uniq",
+      "explanation": "Removes duplicate lines. uniq only compares neighbours, so sort first."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "sort file1 | uniq -c",
-      "example": "sort file1 | uniq -c",
-      "explanation": "Count the number of occurrences of each identical line."
+      "id": 5,
+      "category": "Basics",
+      "command": "sort <file> | uniq -c",
+      "example": "sort ips.txt | uniq -c",
+      "explanation": "Prefixes each line with how many times it occurs."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "uniq -d file1",
-      "example": "uniq -d file1",
-      "explanation": "Only print out lines that were duplicated."
+      "id": 6,
+      "category": "Basics",
+      "command": "sort <file> | uniq -c | sort -rn",
+      "example": "sort ips.txt | uniq -c | sort -rn | head",
+      "explanation": "Frequency ranking — the most common lines first."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "sort <file> | uniq -d",
+      "example": "sort users.txt | uniq -d",
+      "explanation": "Prints only lines that appear more than once."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "sort <file> | uniq -u",
+      "example": "sort users.txt | uniq -u",
+      "explanation": "Prints only lines that appear exactly once."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "sort <file> | uniq -i",
+      "example": "sort -f names.txt | uniq -i",
+      "explanation": "Ignores case when comparing."
+    },
+    {
+      "id": 10,
+      "category": "Fields",
+      "command": "uniq -f <n> <file>",
+      "example": "uniq -f 1 events.txt",
+      "explanation": "Skips the first n fields when comparing — useful when lines start with timestamps."
+    },
+    {
+      "id": 11,
+      "category": "Fields",
+      "command": "uniq -s <n> <file>",
+      "example": "uniq -s 20 log.txt",
+      "explanation": "Skips the first n characters when comparing."
+    },
+    {
+      "id": 12,
+      "category": "Fields",
+      "command": "uniq -w <n> <file>",
+      "example": "uniq -w 12 macs.txt",
+      "explanation": "Compares only the first n characters."
     }
-  ],
-  "total_commands": 3
+  ]
 }

@@ -1,6 +1,20 @@
 {
   "tool": "iwconfig",
-  "description": "Complete iwconfig command and workflow reference from basic to advanced wireless interface configuration",
+  "name": "iwconfig",
+  "description": "The legacy wireless-extensions tool for viewing and setting interface parameters like mode, channel and power. Prefer iw on modern systems.",
+  "tags": [
+    "Wi-Fi",
+    "configuration",
+    "legacy"
+  ],
+  "docs": "https://linux.die.net/man/8/iwconfig",
+  "install": {
+    "apt": "sudo apt install wireless-tools"
+  },
+  "related": [
+    "iw",
+    "airmon-ng"
+  ],
   "total_commands": 72,
   "commands": [
     {

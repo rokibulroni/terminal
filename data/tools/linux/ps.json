@@ -1,35 +1,134 @@
 {
   "tool": "ps",
-  "description": "[ps] - Report a snapshot of the current processes. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "ps",
+  "description": "Reports a snapshot of running processes, with owners, resource usage and full command lines.",
+  "tags": [
+    "processes",
+    "triage"
+  ],
+  "homepage": "https://gitlab.com/procps-ng/procps",
+  "docs": "https://man7.org/linux/man-pages/man1/ps.1.html",
+  "install": {
+    "apt": "sudo apt install procps"
+  },
+  "related": [
+    "top",
+    "kill",
+    "ss"
+  ],
+  "total_commands": 16,
   "commands": [
     {
       "id": 1,
-      "category": "linux",
+      "category": "Listing",
       "command": "ps aux",
       "example": "ps aux",
-      "explanation": "View all current running processes with detailed stats."
+      "explanation": "Every process on the system (BSD style): user, PID, CPU and memory share, start time and full command."
     },
     {
       "id": 2,
-      "category": "linux",
+      "category": "Listing",
       "command": "ps -ef",
       "example": "ps -ef",
-      "explanation": "View all processes in standard system V format."
+      "explanation": "Every process (System V style) with parent PIDs — good for seeing what started what."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "ps -u username",
-      "example": "ps -u username",
-      "explanation": "View processes running under a specific user."
+      "id": 5,
+      "category": "Listing",
+      "command": "ps -ef --forest",
+      "example": "ps -ef --forest",
+      "explanation": "Draws the process tree, making a suspicious child under a web server easy to spot."
     },
     {
-      "id": 4,
-      "category": "linux",
-      "command": "ps aux | grep process_name",
-      "example": "ps aux | grep process_name",
-      "explanation": "Filter the process list for a specific name."
+      "id": 6,
+      "category": "Listing",
+      "command": "ps -u <user>",
+      "example": "ps -u www-data",
+      "explanation": "Processes owned by one user."
+    },
+    {
+      "id": 7,
+      "category": "Listing",
+      "command": "ps -p <pid> -o pid,ppid,user,etime,cmd",
+      "example": "ps -p 1337 -o pid,ppid,user,etime,cmd",
+      "explanation": "Chosen columns for one process, including how long it has been running."
+    },
+    {
+      "id": 8,
+      "category": "Listing",
+      "command": "ps -C <name>",
+      "example": "ps -C sshd",
+      "explanation": "Processes by command name."
+    },
+    {
+      "id": 9,
+      "category": "Sorting and formatting",
+      "command": "ps aux --sort=-%cpu | head",
+      "example": "ps aux --sort=-%cpu | head",
+      "explanation": "The top CPU consumers."
+    },
+    {
+      "id": 10,
+      "category": "Sorting and formatting",
+      "command": "ps aux --sort=-%mem | head",
+      "example": "ps aux --sort=-%mem | head",
+      "explanation": "The top memory consumers."
+    },
+    {
+      "id": 11,
+      "category": "Sorting and formatting",
+      "command": "ps -eo pid,user,lstart,cmd",
+      "example": "ps -eo pid,user,lstart,cmd",
+      "explanation": "Exact start time of each process — useful for incident timelines."
+    },
+    {
+      "id": 12,
+      "category": "Sorting and formatting",
+      "command": "ps -eo pid,ppid,cmd --no-headers",
+      "example": "ps -eo pid,ppid,cmd --no-headers",
+      "explanation": "Scriptable output without the header line."
+    },
+    {
+      "id": 13,
+      "category": "Sorting and formatting",
+      "command": "ps -eLf",
+      "example": "ps -eLf",
+      "explanation": "Shows individual threads."
+    },
+    {
+      "id": 14,
+      "category": "Investigation",
+      "command": "ps aux | grep -v \"\\]$\"",
+      "example": "ps aux | grep -v \"\\]$\"",
+      "explanation": "Hides kernel threads (shown in brackets) to focus on user-space processes."
+    },
+    {
+      "id": 15,
+      "category": "Investigation",
+      "command": "ls -l /proc/<pid>/exe",
+      "example": "ls -l /proc/1337/exe",
+      "explanation": "Shows the binary a process is really running; “(deleted)” means it was removed from disk after starting — a common malware trick."
+    },
+    {
+      "id": 16,
+      "category": "Investigation",
+      "command": "cat /proc/<pid>/cmdline | tr \"\\0\" \" \"",
+      "example": "cat /proc/1337/cmdline | tr \"\\0\" \" \"",
+      "explanation": "Reads the exact command line, arguments included."
+    },
+    {
+      "id": 17,
+      "category": "Investigation",
+      "command": "ls -l /proc/<pid>/cwd",
+      "example": "ls -l /proc/1337/cwd",
+      "explanation": "Shows the working directory of a process."
+    },
+    {
+      "id": 18,
+      "category": "Investigation",
+      "command": "pgrep -a <name>",
+      "example": "pgrep -a python",
+      "explanation": "Finds PIDs by name and shows their command lines."
     }
-  ],
-  "total_commands": 4
+  ]
 }

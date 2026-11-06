@@ -1,6 +1,22 @@
 {
   "tool": "strings",
-  "description": "Complete strings command and workflow reference from basic to advanced binary and forensic analysis",
+  "name": "strings",
+  "description": "Prints sequences of printable characters from binary files — a fast first look at executables, memory dumps and unknown data.",
+  "tags": [
+    "binary analysis",
+    "triage"
+  ],
+  "homepage": "https://www.gnu.org/software/binutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/strings.1.html",
+  "install": {
+    "apt": "sudo apt install binutils",
+    "brew": "brew install binutils"
+  },
+  "related": [
+    "objdump",
+    "binwalk",
+    "bulk-extractor"
+  ],
   "total_commands": 65,
   "commands": [
     {

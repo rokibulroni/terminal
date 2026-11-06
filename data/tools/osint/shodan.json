@@ -1,112 +1,156 @@
 {
   "tool": "shodan",
-  "description": "Shodan: The world's primary search engine for Internet-connected devices, exploiting exposed IoT, databases, and infrastructural services.",
-  "total_commands": 15,
+  "name": "Shodan CLI",
+  "description": "The command line for Shodan, the search engine for internet-connected devices: search banners, look up hosts and monitor networks.",
+  "tags": [
+    "internet scanning",
+    "devices",
+    "search"
+  ],
+  "homepage": "https://www.shodan.io",
+  "docs": "https://cli.shodan.io",
+  "install": {
+    "pipx": "pipx install shodan"
+  },
+  "related": [
+    "spiderfoot",
+    "amass",
+    "masscan"
+  ],
+  "total_commands": 19,
   "commands": [
     {
       "id": 1,
-      "category": "Initialization",
+      "category": "Setup",
       "command": "shodan init <api_key>",
-      "example": "shodan init ABCDEF1234567890",
-      "explanation": "Initializes the CLI client natively linking it to your authenticated Shodan account."
-    },
-    {
-      "id": 2,
-      "category": "Basic Queries",
-      "command": "shodan search <query>",
-      "example": "shodan search apache",
-      "explanation": "Retrieves a vast listing of all IP addresses and banners globally matching the specified search string."
-    },
-    {
-      "id": 3,
-      "category": "Network Specifics",
-      "command": "shodan host <ip>",
-      "example": "shodan host 8.8.8.8",
-      "explanation": "Queries the main historical database directly dumping all accumulated intelligence associated with a singular IPv4 address."
-    },
-    {
-      "id": 4,
-      "category": "Vulnerability Tracking",
-      "command": "shodan search vuln:<cve>",
-      "example": "shodan search vuln:cve-2019-0708",
-      "explanation": "Isolates and extracts absolute active targets known to be visibly vulnerable to a specific CVE identifier."
-    },
-    {
-      "id": 5,
-      "category": "Real-Time",
-      "command": "shodan stream",
-      "example": "shodan stream --ports 80,443",
-      "explanation": "Taps directly into the Shodan firehose rendering an infinite real-time stream of all incoming global port discovery scans."
-    },
-    {
-      "id": 6,
-      "category": "Filtering",
-      "command": "shodan search org:<name>",
-      "example": "shodan search org:Amazon",
-      "explanation": "Explicitly limits query matching constraining the global search strictly to ASN architectures owned by the target Organization."
-    },
-    {
-      "id": 7,
-      "category": "Metadata Analytics",
-      "command": "shodan stats <query>",
-      "example": "shodan stats port:22",
-      "explanation": "Generates categorical algorithmic overviews charting the geographical and volumetric distributions of the requested search."
-    },
-    {
-      "id": 8,
-      "category": "Alert Handling",
-      "command": "shodan alert create <name> <netblock>",
-      "example": "shodan alert create 'My Network' 10.0.0.0/24",
-      "explanation": "Forces Shodan's backend to actively monitor specific CIDR blocks and ping you upon newly exposed port surface areas."
-    },
-    {
-      "id": 9,
-      "category": "Honeypot Logic",
-      "command": "shodan honeyscore <ip>",
-      "example": "shodan honeyscore 1.2.3.4",
-      "explanation": "Calculates a strict mathematical probability determining whether the target IP is an actual physical machine or an emulated Honeypot trap."
-    },
-    {
-      "id": 10,
-      "category": "Downloads",
-      "command": "shodan download <filename> <query>",
-      "example": "shodan download sql_servers port:3306",
-      "explanation": "Safely downloads massive bulk JSON/JSONL querying arrays for offline local intelligence processing and parsing."
-    },
-    {
-      "id": 11,
-      "category": "Industrial Control Systems",
-      "command": "shodan search tag:ics",
-      "example": "shodan search tag:ics",
-      "explanation": "Massively filters searches querying the highly sensitive and deeply isolated Industrial Control Systems (SCADA) tag across the globe."
-    },
-    {
-      "id": 12,
-      "category": "Facets & Filtering",
-      "command": "shodan stats --facets <facet> <query>",
-      "example": "shodan stats --facets os:10 apache",
-      "explanation": "Summarizes the absolute entire dataset breaking returns strictly into distinct statistical groupings explicitly displaying the top 10 operating systems natively running Apache."
+      "example": "shodan init YOUR_API_KEY",
+      "explanation": "Stores your API key. Query credits and filters depend on your plan."
     },
     {
       "id": 13,
-      "category": "API Management",
+      "category": "Setup",
       "command": "shodan info",
       "example": "shodan info",
-      "explanation": "Extracts systemic account states detailing explicit query credits, active scan credits, and your fundamental API authentication tier natively."
-    },
-    {
-      "id": 14,
-      "category": "Exploit Framework",
-      "command": "shodan exploit <query>",
-      "example": "shodan exploit type:remote AND platform:linux",
-      "explanation": "Accesses Shodan's integrated global exploit database actively correlating raw public Proof-Of-Concept deployment code specifically mapped to active platform parameters."
+      "explanation": "Shows remaining query and scan credits."
     },
     {
       "id": 15,
-      "category": "Network Routing",
+      "category": "Setup",
       "command": "shodan myip",
       "example": "shodan myip",
-      "explanation": "Echoes back the absolute external public IP address intrinsically perceived by Shodan's deep internet tracing indexers bypassing local NAT."
+      "explanation": "Your public IP address as Shodan sees it."
+    },
+    {
+      "id": 16,
+      "category": "Searching",
+      "command": "shodan search \"<query>\"",
+      "example": "shodan search \"product:nginx country:GB\"",
+      "explanation": "Searches banners. Uses query credits for filters and paging."
+    },
+    {
+      "id": 17,
+      "category": "Searching",
+      "command": "shodan search --fields ip_str,port,org,hostnames \"<query>\"",
+      "example": "shodan search --fields ip_str,port,org,hostnames \"ssl.cert.subject.cn:example.com\"",
+      "explanation": "Prints only the chosen fields."
+    },
+    {
+      "id": 18,
+      "category": "Searching",
+      "command": "shodan count \"<query>\"",
+      "example": "shodan count \"port:3389 country:US\"",
+      "explanation": "Number of results without spending credits on the data."
+    },
+    {
+      "id": 19,
+      "category": "Searching",
+      "command": "shodan stats --facets <facet> \"<query>\"",
+      "example": "shodan stats --facets org,port \"hostname:example.com\"",
+      "explanation": "Top values for a facet — a fast attack-surface overview."
+    },
+    {
+      "id": 20,
+      "category": "Searching",
+      "command": "shodan search \"hostname:<domain>\"",
+      "example": "shodan search \"hostname:example.com\"",
+      "explanation": "Hosts whose reverse DNS or certificates match a domain."
+    },
+    {
+      "id": 21,
+      "category": "Searching",
+      "command": "shodan search \"net:<cidr>\"",
+      "example": "shodan search \"net:203.0.113.0/24\"",
+      "explanation": "Everything Shodan has seen in a network range."
+    },
+    {
+      "id": 22,
+      "category": "Searching",
+      "command": "shodan search \"http.title:\\\"<title>\\\"\"",
+      "example": "shodan search \"http.title:\\\"Grafana\\\"\"",
+      "explanation": "Finds web apps by page title."
+    },
+    {
+      "id": 23,
+      "category": "Searching",
+      "command": "shodan search \"vuln:<cve>\"",
+      "example": "shodan search \"vuln:CVE-2021-44228 org:\\\"Example Corp\\\"\"",
+      "explanation": "Hosts flagged as vulnerable to a CVE (needs a qualifying plan)."
+    },
+    {
+      "id": 3,
+      "category": "Hosts and data",
+      "command": "shodan host <ip>",
+      "example": "shodan host 203.0.113.10",
+      "explanation": "Every service, banner, location and known vulnerability for one IP."
+    },
+    {
+      "id": 24,
+      "category": "Hosts and data",
+      "command": "shodan domain <domain>",
+      "example": "shodan domain example.com",
+      "explanation": "Subdomains and DNS records Shodan knows about."
+    },
+    {
+      "id": 25,
+      "category": "Hosts and data",
+      "command": "shodan download <file> \"<query>\"",
+      "example": "shodan download results \"org:\\\"Example Corp\\\"\"",
+      "explanation": "Saves full results to a compressed JSON file."
+    },
+    {
+      "id": 26,
+      "category": "Hosts and data",
+      "command": "shodan parse --fields ip_str,port <file>.json.gz",
+      "example": "shodan parse --fields ip_str,port results.json.gz",
+      "explanation": "Extracts fields from a download."
+    },
+    {
+      "id": 27,
+      "category": "Hosts and data",
+      "command": "shodan convert <file>.json.gz <format>",
+      "example": "shodan convert results.json.gz csv",
+      "explanation": "Converts downloads to csv, kml, xlsx or images."
+    },
+    {
+      "id": 28,
+      "category": "Scanning and alerts",
+      "command": "shodan scan submit <cidr>",
+      "example": "shodan scan submit 203.0.113.0/28",
+      "explanation": "Requests an on-demand scan of your own network (uses scan credits)."
+    },
+    {
+      "id": 29,
+      "category": "Scanning and alerts",
+      "command": "shodan alert create \"<name>\" <cidr>",
+      "example": "shodan alert create \"Office\" 203.0.113.0/28",
+      "explanation": "Monitors a range and notifies you about new services."
+    },
+    {
+      "id": 30,
+      "category": "Scanning and alerts",
+      "command": "shodan stream --ports <ports>",
+      "example": "shodan stream --ports 23,2323",
+      "explanation": "Real-time stream of new banners (higher plans)."
     }
   ]
 }

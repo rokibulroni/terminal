@@ -1,6 +1,19 @@
 {
   "tool": "sniffit",
-  "description": "Complete sniffit command reference covering all options from basic to advanced",
+  "name": "Sniffit",
+  "description": "A legacy packet sniffer with an interactive ncurses mode for watching TCP sessions in real time.",
+  "tags": [
+    "packet capture",
+    "legacy"
+  ],
+  "homepage": "https://github.com/resurrecting-open-source-projects/sniffit",
+  "install": {
+    "apt": "sudo apt install sniffit"
+  },
+  "related": [
+    "TCPDump",
+    "ngrep"
+  ],
   "total_commands": 60,
   "commands": [
     {

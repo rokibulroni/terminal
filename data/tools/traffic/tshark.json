@@ -1,6 +1,23 @@
 {
   "tool": "tshark",
-  "description": "Complete tshark command reference covering all options from basic to advanced",
+  "name": "TShark",
+  "description": "Wireshark’s terminal version: capture and decode traffic with full dissectors and display filters, and extract fields to text.",
+  "tags": [
+    "packet analysis",
+    "Wireshark",
+    "dissectors"
+  ],
+  "homepage": "https://www.wireshark.org",
+  "docs": "https://www.wireshark.org/docs/man-pages/tshark.html",
+  "install": {
+    "apt": "sudo apt install tshark",
+    "brew": "brew install wireshark"
+  },
+  "related": [
+    "wireshark-cli",
+    "TCPDump",
+    "zeek"
+  ],
   "total_commands": 100,
   "commands": [
     {

@@ -1,6 +1,23 @@
 {
   "tool": "wireshark-cli",
-  "description": "Complete Wireshark CLI command reference covering tshark, dumpcap, and capinfos from basic to advanced",
+  "name": "Wireshark CLI tools",
+  "description": "The utilities that ship with Wireshark — editcap, mergecap, capinfos, dumpcap and text2pcap — for working with capture files.",
+  "tags": [
+    "pcap",
+    "capture files",
+    "Wireshark"
+  ],
+  "homepage": "https://www.wireshark.org",
+  "docs": "https://www.wireshark.org/docs/man-pages/",
+  "install": {
+    "apt": "sudo apt install wireshark-common",
+    "brew": "brew install wireshark"
+  },
+  "related": [
+    "tshark",
+    "TCPDump",
+    "tcpreplay"
+  ],
   "total_commands": 100,
   "commands": [
     {

@@ -1,6 +1,23 @@
 {
   "tool": "tcpreplay",
-  "description": "Complete tcpreplay command reference covering all options from basic to advanced",
+  "name": "Tcpreplay",
+  "description": "Replays captured pcap traffic onto a network at chosen speeds — useful for testing IDS rules and network devices.",
+  "tags": [
+    "pcap",
+    "replay",
+    "testing"
+  ],
+  "homepage": "https://tcpreplay.appneta.com",
+  "docs": "https://tcpreplay.appneta.com/wiki/tcpreplay-man.html",
+  "install": {
+    "apt": "sudo apt install tcpreplay",
+    "brew": "brew install tcpreplay"
+  },
+  "related": [
+    "TCPDump",
+    "suricata",
+    "snort"
+  ],
   "total_commands": 50,
   "commands": [
     {

@@ -1,6 +1,22 @@
 {
   "tool": "whatweb",
-  "description": "Complete WhatWeb command reference covering all options from basic to advanced",
+  "name": "WhatWeb",
+  "description": "Identifies the technologies behind a website — CMS, frameworks, server software, analytics and versions — using over 1,800 plugins.",
+  "tags": [
+    "fingerprinting",
+    "technology detection"
+  ],
+  "homepage": "https://github.com/urbanadventurer/WhatWeb",
+  "docs": "https://github.com/urbanadventurer/WhatWeb/wiki",
+  "install": {
+    "apt": "sudo apt install whatweb",
+    "brew": "brew install whatweb"
+  },
+  "related": [
+    "httpx",
+    "wpscan",
+    "nikto"
+  ],
   "total_commands": 70,
   "commands": [
     {

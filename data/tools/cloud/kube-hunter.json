@@ -1,6 +1,20 @@
 {
   "tool": "kube-hunter",
-  "description": "Complete kube-hunter command and workflow reference from basic to advanced Kubernetes hunting and exposure assessment",
+  "name": "kube-hunter",
+  "description": "Hunts for security weaknesses in Kubernetes clusters from inside or outside, reporting exposed components and known issues. Archived upstream but still informative.",
+  "tags": [
+    "Kubernetes",
+    "penetration testing"
+  ],
+  "homepage": "https://github.com/aquasecurity/kube-hunter",
+  "install": {
+    "pipx": "pipx install kube-hunter",
+    "docker": "docker run -it --rm --network host aquasec/kube-hunter"
+  },
+  "related": [
+    "kube-bench",
+    "kubectl"
+  ],
   "total_commands": 60,
   "commands": [
     {

@@ -1,6 +1,23 @@
 {
   "tool": "nikto",
-  "description": "Complete Nikto command reference covering all options from basic to advanced",
+  "name": "Nikto",
+  "description": "A web server scanner that checks for thousands of dangerous files, outdated software and common misconfigurations. Noisy by design.",
+  "tags": [
+    "vulnerability scanning",
+    "web server",
+    "misconfiguration"
+  ],
+  "homepage": "https://cirt.net/Nikto2",
+  "docs": "https://github.com/sullo/nikto/wiki",
+  "install": {
+    "apt": "sudo apt install nikto",
+    "brew": "brew install nikto"
+  },
+  "related": [
+    "nuclei",
+    "whatweb",
+    "wpscan"
+  ],
   "total_commands": 105,
   "commands": [
     {

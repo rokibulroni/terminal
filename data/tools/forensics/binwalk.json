@@ -1,6 +1,24 @@
 {
   "tool": "binwalk",
-  "description": "Complete Binwalk command and workflow reference from basic to advanced firmware and binary analysis",
+  "name": "Binwalk",
+  "description": "Analyses and extracts firmware images: finds embedded file systems, compressed data and executable code by signature and entropy.",
+  "tags": [
+    "firmware",
+    "reverse engineering",
+    "extraction"
+  ],
+  "homepage": "https://github.com/ReFirmLabs/binwalk",
+  "docs": "https://github.com/ReFirmLabs/binwalk/wiki",
+  "install": {
+    "apt": "sudo apt install binwalk",
+    "brew": "brew install binwalk",
+    "cargo": "cargo install binwalk"
+  },
+  "related": [
+    "foremost",
+    "strings",
+    "exiftool"
+  ],
   "total_commands": 65,
   "commands": [
     {

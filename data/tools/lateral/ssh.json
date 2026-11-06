@@ -1,6 +1,23 @@
 {
   "tool": "ssh",
-  "description": "Complete OpenSSH command and workflow reference from basic to advanced remote access and lateral movement",
+  "name": "SSH",
+  "description": "OpenSSH: secure remote login, key management, file transfer and port forwarding — local, remote and dynamic SOCKS tunnels.",
+  "tags": [
+    "remote access",
+    "tunneling",
+    "keys"
+  ],
+  "homepage": "https://www.openssh.com",
+  "docs": "https://man.openbsd.org/ssh",
+  "install": {
+    "apt": "sudo apt install openssh-client",
+    "brew": "brew install openssh"
+  },
+  "related": [
+    "socat",
+    "chisel",
+    "sshuttle"
+  ],
   "total_commands": 85,
   "commands": [
     {

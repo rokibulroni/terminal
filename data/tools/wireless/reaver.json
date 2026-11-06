@@ -1,6 +1,20 @@
 {
   "tool": "reaver",
-  "description": "Complete Reaver command and workflow reference from basic to advanced WPS security auditing",
+  "name": "Reaver",
+  "description": "Brute-forces WPS PINs to recover WPA/WPA2 passphrases from access points with vulnerable WPS implementations.",
+  "tags": [
+    "Wi-Fi",
+    "WPS",
+    "brute force"
+  ],
+  "homepage": "https://github.com/t6x/reaver-wps-fork-t6x",
+  "install": {
+    "apt": "sudo apt install reaver"
+  },
+  "related": [
+    "bully",
+    "airodump-ng"
+  ],
   "total_commands": 45,
   "commands": [
     {

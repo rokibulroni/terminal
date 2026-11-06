@@ -1,6 +1,23 @@
 {
   "tool": "kube-bench",
-  "description": "Complete kube-bench command and workflow reference from basic to advanced Kubernetes security auditing",
+  "name": "kube-bench",
+  "description": "Checks whether a Kubernetes cluster is deployed securely by running the CIS Kubernetes Benchmark tests against nodes and control plane.",
+  "tags": [
+    "Kubernetes",
+    "CIS benchmark",
+    "hardening"
+  ],
+  "homepage": "https://github.com/aquasecurity/kube-bench",
+  "docs": "https://github.com/aquasecurity/kube-bench/blob/main/docs/running.md",
+  "install": {
+    "docker": "docker run --rm --pid=host -v /etc:/etc:ro -v /var:/var:ro aquasec/kube-bench:latest",
+    "brew": "brew install kube-bench"
+  },
+  "related": [
+    "kube-hunter",
+    "kubectl",
+    "docker-bench-security"
+  ],
   "total_commands": 60,
   "commands": [
     {

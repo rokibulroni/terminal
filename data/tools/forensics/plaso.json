@@ -1,6 +1,23 @@
 {
   "tool": "plaso",
-  "description": "Complete Plaso command and workflow reference from basic to advanced forensic timeline generation",
+  "name": "Plaso (log2timeline)",
+  "description": "Extracts timestamps from hundreds of artefact types and builds a “super timeline” for forensic investigation.",
+  "tags": [
+    "timeline",
+    "DFIR",
+    "artefacts"
+  ],
+  "homepage": "https://github.com/log2timeline/plaso",
+  "docs": "https://plaso.readthedocs.io",
+  "install": {
+    "docker": "docker run -it --rm log2timeline/plaso log2timeline --help",
+    "apt": "sudo apt install plaso"
+  },
+  "related": [
+    "sleuthkit",
+    "autopsy",
+    "volatility3"
+  ],
   "total_commands": 70,
   "commands": [
     {

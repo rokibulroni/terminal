@@ -1,77 +1,159 @@
 {
   "tool": "apt",
-  "description": "Advanced Package Tool (APT): The core package management system used by Debian, Ubuntu, and related Linux distributions to install, update, configure, and remove software.",
-  "total_commands": 10,
+  "name": "APT",
+  "description": "Debian and Ubuntu’s package manager: install, update, search and remove software and inspect package sources.",
+  "tags": [
+    "packages",
+    "Debian",
+    "Ubuntu"
+  ],
+  "homepage": "https://wiki.debian.org/Apt",
+  "docs": "https://manpages.debian.org/apt",
+  "related": [
+    "dnf",
+    "pacman"
+  ],
+  "total_commands": 20,
   "commands": [
     {
-      "id": 1,
-      "category": "Basic Operations",
-      "command": "apt update",
-      "example": "apt update",
-      "explanation": "Synchronizes the local package index with the remote repositories. (Run this before upgrades or installations)."
+      "id": 11,
+      "category": "Installing",
+      "command": "sudo apt update",
+      "example": "sudo apt update",
+      "explanation": "Refreshes the package lists from the configured repositories. Run this before installing or upgrading."
     },
     {
-      "id": 2,
-      "category": "Basic Operations",
-      "command": "apt upgrade -y",
-      "example": "apt upgrade -y",
-      "explanation": "Upgrades all installed packages to their newest versions automatically skipping confirmation prompts."
+      "id": 12,
+      "category": "Installing",
+      "command": "sudo apt install <package>",
+      "example": "sudo apt install nmap",
+      "explanation": "Installs a package and its dependencies."
     },
     {
-      "id": 3,
-      "category": "Basic Operations",
-      "command": "apt install <package_name>",
-      "example": "apt install nginx",
-      "explanation": "Installs the specified package and its required dependencies."
+      "id": 13,
+      "category": "Installing",
+      "command": "sudo apt install --no-install-recommends <package>",
+      "example": "sudo apt install --no-install-recommends ffuf",
+      "explanation": "Skips recommended extras to keep the system lean."
     },
     {
-      "id": 4,
-      "category": "Removal",
-      "command": "apt remove <package_name>",
-      "example": "apt remove apache2",
-      "explanation": "Removes the specified package but leaves its configuration files intact on the system."
+      "id": 14,
+      "category": "Installing",
+      "command": "sudo apt install ./<file>.deb",
+      "example": "sudo apt install ./tool_1.0_amd64.deb",
+      "explanation": "Installs a local .deb and resolves its dependencies."
     },
     {
-      "id": 5,
-      "category": "Removal",
-      "command": "apt purge <package_name>",
-      "example": "apt purge apache2",
-      "explanation": "Completely removes the specified package AND deletes all of its associated systemic configuration files."
+      "id": 15,
+      "category": "Installing",
+      "command": "sudo apt reinstall <package>",
+      "example": "sudo apt reinstall openssh-server",
+      "explanation": "Reinstalls a package, restoring modified files."
     },
     {
-      "id": 6,
-      "category": "Maintenance",
-      "command": "apt autoremove -y",
-      "example": "apt autoremove -y",
-      "explanation": "Automatically removes any packages (such as orphaned dependencies) that were installed by other packages and are no longer needed."
+      "id": 16,
+      "category": "Upgrading and removing",
+      "command": "sudo apt upgrade",
+      "example": "sudo apt upgrade",
+      "explanation": "Upgrades installed packages without removing any."
     },
     {
-      "id": 7,
-      "category": "Searching",
-      "command": "apt search <keyword>",
-      "example": "apt search python3",
-      "explanation": "Searches the remote package list for the specified sequence or keyword."
+      "id": 17,
+      "category": "Upgrading and removing",
+      "command": "sudo apt full-upgrade",
+      "example": "sudo apt full-upgrade",
+      "explanation": "Upgrades and allows removals when dependencies change."
     },
     {
-      "id": 8,
-      "category": "Information",
-      "command": "apt show <package_name>",
-      "example": "apt show curl",
-      "explanation": "Displays detailed information about a package including its version, size, dependencies, and maintainer."
+      "id": 18,
+      "category": "Upgrading and removing",
+      "command": "apt list --upgradable",
+      "example": "apt list --upgradable",
+      "explanation": "Shows pending upgrades."
     },
     {
-      "id": 9,
-      "category": "Repositories",
-      "command": "add-apt-repository <ppa_name>",
-      "example": "add-apt-repository ppa:ondrej/php",
-      "explanation": "Adds a new Personal Package Archive (PPA) to your system's software sources list."
+      "id": 19,
+      "category": "Upgrading and removing",
+      "command": "sudo apt remove <package>",
+      "example": "sudo apt remove telnet",
+      "explanation": "Removes a package but keeps its configuration."
     },
     {
-      "id": 10,
-      "category": "Maintenance",
-      "command": "apt clean",
-      "example": "apt clean",
-      "explanation": "Clears out the local repository of retrieved package files (.deb) inside /var/cache/apt/archives/ freeing up disk space."
+      "id": 20,
+      "category": "Upgrading and removing",
+      "command": "sudo apt purge <package>",
+      "example": "sudo apt purge apache2",
+      "explanation": "Removes a package and its configuration."
+    },
+    {
+      "id": 21,
+      "category": "Upgrading and removing",
+      "command": "sudo apt autoremove",
+      "example": "sudo apt autoremove",
+      "explanation": "Removes dependencies no longer needed."
+    },
+    {
+      "id": 22,
+      "category": "Querying",
+      "command": "apt search <term>",
+      "example": "apt search wordlist",
+      "explanation": "Searches package names and descriptions."
+    },
+    {
+      "id": 23,
+      "category": "Querying",
+      "command": "apt show <package>",
+      "example": "apt show hashcat",
+      "explanation": "Version, size, dependencies and description."
+    },
+    {
+      "id": 24,
+      "category": "Querying",
+      "command": "apt list --installed",
+      "example": "apt list --installed",
+      "explanation": "Every installed package."
+    },
+    {
+      "id": 25,
+      "category": "Querying",
+      "command": "apt-cache policy <package>",
+      "example": "apt-cache policy openssl",
+      "explanation": "Installed and candidate versions and which repository each comes from."
+    },
+    {
+      "id": 26,
+      "category": "Querying",
+      "command": "dpkg -L <package>",
+      "example": "dpkg -L openssh-server",
+      "explanation": "Files installed by a package."
+    },
+    {
+      "id": 27,
+      "category": "Querying",
+      "command": "dpkg -S <path>",
+      "example": "dpkg -S /usr/bin/nc",
+      "explanation": "Which package owns a file."
+    },
+    {
+      "id": 28,
+      "category": "Querying",
+      "command": "dpkg --verify",
+      "example": "dpkg --verify",
+      "explanation": "Reports installed files whose checksums no longer match the package — a quick integrity check after a compromise."
+    },
+    {
+      "id": 29,
+      "category": "Holding",
+      "command": "sudo apt-mark hold <package>",
+      "example": "sudo apt-mark hold linux-image-generic",
+      "explanation": "Pins a package at its current version."
+    },
+    {
+      "id": 30,
+      "category": "Holding",
+      "command": "apt-mark showmanual",
+      "example": "apt-mark showmanual",
+      "explanation": "Packages that were installed explicitly rather than as dependencies."
     }
   ]
 }

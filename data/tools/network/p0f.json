@@ -1,6 +1,19 @@
 {
   "tool": "p0f",
-  "description": "Complete p0f command reference covering all options from basic to advanced",
+  "name": "p0f",
+  "description": "A passive OS fingerprinting tool that identifies operating systems and clients from traffic it observes, without sending any packets.",
+  "tags": [
+    "passive",
+    "OS fingerprinting"
+  ],
+  "homepage": "https://lcamtuf.coredump.cx/p0f3/",
+  "install": {
+    "apt": "sudo apt install p0f"
+  },
+  "related": [
+    "nmap",
+    "zeek"
+  ],
   "total_commands": 55,
   "commands": [
     {

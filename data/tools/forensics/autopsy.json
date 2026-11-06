@@ -1,6 +1,23 @@
 {
   "tool": "autopsy",
-  "description": "Complete Autopsy workflow and feature reference from basic to advanced digital forensics analysis",
+  "name": "Autopsy",
+  "description": "A graphical digital-forensics platform built on The Sleuth Kit for disk image analysis, timelines, keyword search and file recovery.",
+  "tags": [
+    "disk forensics",
+    "DFIR",
+    "GUI"
+  ],
+  "homepage": "https://www.autopsy.com",
+  "docs": "https://sleuthkit.org/autopsy/docs/user-docs/latest/",
+  "install": {
+    "apt": "sudo apt install autopsy",
+    "windows": "Download the installer from https://www.autopsy.com/download/"
+  },
+  "related": [
+    "sleuthkit",
+    "plaso",
+    "foremost"
+  ],
   "total_commands": 165,
   "commands": [
     {

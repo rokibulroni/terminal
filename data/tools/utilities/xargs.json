@@ -1,6 +1,22 @@
 {
   "tool": "xargs",
-  "description": "Complete xargs command and workflow reference from basic to advanced argument processing and automation",
+  "name": "xargs",
+  "description": "Builds and runs command lines from standard input — the glue for batch operations and parallel jobs in pipelines.",
+  "tags": [
+    "pipelines",
+    "batch",
+    "parallel"
+  ],
+  "homepage": "https://www.gnu.org/software/findutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+  "install": {
+    "apt": "sudo apt install findutils"
+  },
+  "related": [
+    "find",
+    "grep",
+    "awk"
+  ],
   "total_commands": 105,
   "commands": [
     {

@@ -1,6 +1,25 @@
 {
   "tool": "awscli",
-  "description": "Complete AWS CLI command and workflow reference from basic to advanced cloud operations and security auditing",
+  "name": "AWS CLI",
+  "description": "Amazon’s official command line for AWS: manage IAM, S3, EC2, Lambda and every other service, and audit an account’s configuration.",
+  "tags": [
+    "AWS",
+    "cloud",
+    "IAM"
+  ],
+  "homepage": "https://aws.amazon.com/cli/",
+  "docs": "https://docs.aws.amazon.com/cli/latest/reference/",
+  "install": {
+    "brew": "brew install awscli",
+    "pipx": "pipx install awscli",
+    "windows": "winget install Amazon.AWSCLI",
+    "other": "curl \"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip\" -o awscliv2.zip && unzip awscliv2.zip && sudo ./aws/install"
+  },
+  "related": [
+    "az-cli",
+    "gcloud",
+    "kubectl"
+  ],
   "total_commands": 92,
   "commands": [
     {

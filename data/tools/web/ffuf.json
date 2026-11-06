@@ -1,6 +1,24 @@
 {
   "tool": "ffuf",
-  "description": "Complete ffuf command reference covering all options from basic to advanced",
+  "name": "ffuf",
+  "description": "“Fuzz Faster U Fool” — a very fast web fuzzer for directories, parameters, virtual hosts and POST data, with flexible matching and filtering.",
+  "tags": [
+    "fuzzing",
+    "content discovery",
+    "vhosts"
+  ],
+  "homepage": "https://github.com/ffuf/ffuf",
+  "docs": "https://github.com/ffuf/ffuf/wiki",
+  "install": {
+    "apt": "sudo apt install ffuf",
+    "brew": "brew install ffuf",
+    "go": "go install github.com/ffuf/ffuf/v2@latest"
+  },
+  "related": [
+    "gobuster",
+    "dirsearch",
+    "wfuzz"
+  ],
   "total_commands": 85,
   "commands": [
     {

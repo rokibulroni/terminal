@@ -1,0 +1,123 @@
+{
+  "tool": "dig",
+  "name": "dig",
+  "description": "The go-to DNS lookup tool: query any record type, pick the server, attempt zone transfers and trace resolution from the root — essential for recon.",
+  "tags": [
+    "DNS",
+    "recon",
+    "enumeration"
+  ],
+  "homepage": "https://www.isc.org/bind/",
+  "docs": "https://linux.die.net/man/1/dig",
+  "install": {
+    "apt": "sudo apt install dnsutils",
+    "dnf": "sudo dnf install bind-utils",
+    "brew": "brew install bind"
+  },
+  "related": [
+    "whois",
+    "dnsrecon",
+    "amass"
+  ],
+  "total_commands": 14,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basic lookups",
+      "command": "dig <domain>",
+      "example": "dig example.com",
+      "explanation": "Queries the A records for a domain with full detail."
+    },
+    {
+      "id": 2,
+      "category": "Basic lookups",
+      "command": "dig <domain> +short",
+      "example": "dig example.com +short",
+      "explanation": "Just the answer, ideal for scripts."
+    },
+    {
+      "id": 3,
+      "category": "Basic lookups",
+      "command": "dig <domain> <type>",
+      "example": "dig example.com MX",
+      "explanation": "Queries a specific record type: A, AAAA, MX, NS, TXT, SOA, CNAME, SRV, CAA, PTR."
+    },
+    {
+      "id": 4,
+      "category": "Basic lookups",
+      "command": "dig <domain> ANY",
+      "example": "dig example.com ANY",
+      "explanation": "Asks for all record types (many servers now refuse or minimise this)."
+    },
+    {
+      "id": 5,
+      "category": "Basic lookups",
+      "command": "dig @<server> <domain>",
+      "example": "dig @1.1.1.1 example.com",
+      "explanation": "Queries a specific DNS server instead of your resolver."
+    },
+    {
+      "id": 6,
+      "category": "Recon",
+      "command": "dig <domain> NS +short",
+      "example": "dig example.com NS +short",
+      "explanation": "The authoritative name servers — the first step before a zone transfer attempt."
+    },
+    {
+      "id": 7,
+      "category": "Recon",
+      "command": "dig <domain> TXT +short",
+      "example": "dig example.com TXT +short",
+      "explanation": "TXT records, which hold SPF, DKIM, DMARC and verification tokens that can leak services in use."
+    },
+    {
+      "id": 8,
+      "category": "Recon",
+      "command": "dig -x <ip> +short",
+      "example": "dig -x 203.0.113.10 +short",
+      "explanation": "Reverse lookup: the PTR record for an IP."
+    },
+    {
+      "id": 9,
+      "category": "Recon",
+      "command": "dig axfr <domain> @<ns>",
+      "example": "dig axfr example.com @ns1.example.com",
+      "explanation": "Attempts a zone transfer; a misconfigured server dumps every record — a classic finding."
+    },
+    {
+      "id": 10,
+      "category": "Recon",
+      "command": "dig <domain> +trace",
+      "example": "dig example.com +trace",
+      "explanation": "Traces resolution from the root servers down, showing the full delegation path."
+    },
+    {
+      "id": 11,
+      "category": "Recon",
+      "command": "dig CAA <domain> +short",
+      "example": "dig CAA example.com +short",
+      "explanation": "Which certificate authorities are allowed to issue for the domain."
+    },
+    {
+      "id": 12,
+      "category": "Troubleshooting",
+      "command": "dig <domain> +noall +answer",
+      "example": "dig example.com +noall +answer",
+      "explanation": "Prints only the answer section."
+    },
+    {
+      "id": 13,
+      "category": "Troubleshooting",
+      "command": "dig <domain> +dnssec",
+      "example": "dig example.com +dnssec",
+      "explanation": "Requests DNSSEC records (RRSIG) to check signing."
+    },
+    {
+      "id": 14,
+      "category": "Troubleshooting",
+      "command": "dig +nssearch <domain>",
+      "example": "dig +nssearch example.com",
+      "explanation": "Queries each authoritative server for the SOA to spot inconsistencies."
+    }
+  ]
+}

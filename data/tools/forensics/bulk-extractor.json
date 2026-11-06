@@ -1,6 +1,21 @@
 {
   "tool": "bulk-extractor",
-  "description": "Complete bulk extractor command and workflow reference from basic to advanced forensic artifact extraction",
+  "name": "bulk_extractor",
+  "description": "Scans disk images and files for email addresses, URLs, credit-card numbers and other features without parsing the file system.",
+  "tags": [
+    "DFIR",
+    "feature extraction"
+  ],
+  "homepage": "https://github.com/simsong/bulk_extractor",
+  "docs": "https://github.com/simsong/bulk_extractor/wiki",
+  "install": {
+    "apt": "sudo apt install bulk-extractor",
+    "brew": "brew install bulk_extractor"
+  },
+  "related": [
+    "foremost",
+    "strings"
+  ],
   "total_commands": 65,
   "commands": [
     {

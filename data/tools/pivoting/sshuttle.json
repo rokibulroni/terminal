@@ -1,0 +1,76 @@
+{
+  "tool": "sshuttle",
+  "name": "sshuttle",
+  "description": "A transparent proxy that tunnels a whole subnet over a plain SSH connection, with DNS support and no special software on the remote host.",
+  "tags": [
+    "pivoting",
+    "VPN",
+    "SSH",
+    "tunneling"
+  ],
+  "homepage": "https://github.com/sshuttle/sshuttle",
+  "docs": "https://sshuttle.readthedocs.io",
+  "install": {
+    "apt": "sudo apt install sshuttle",
+    "brew": "brew install sshuttle",
+    "pipx": "pipx install sshuttle"
+  },
+  "related": [
+    "chisel",
+    "ligolo-ng",
+    "proxychains",
+    "ssh"
+  ],
+  "total_commands": 7,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basics",
+      "command": "sshuttle -r <user>@<host> <subnet>",
+      "example": "sshuttle -r user@pivot 172.16.0.0/24",
+      "explanation": "Transparently routes a subnet through SSH — like a poor man’s VPN, no config on the remote side."
+    },
+    {
+      "id": 2,
+      "category": "Basics",
+      "command": "sshuttle -r <user>@<host> 0/0",
+      "example": "sshuttle -r user@pivot 0/0",
+      "explanation": "Routes all traffic through the host."
+    },
+    {
+      "id": 3,
+      "category": "Basics",
+      "command": "sshuttle -r <user>@<host> --dns <subnet>",
+      "example": "sshuttle -r user@pivot --dns 172.16.0.0/24",
+      "explanation": "Also sends DNS queries through the tunnel so internal names resolve."
+    },
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "sshuttle -r <user>@<host> <subnet> -x <exclude>",
+      "example": "sshuttle -r user@pivot 172.16.0.0/24 -x 172.16.0.1",
+      "explanation": "Excludes an address, such as the gateway, from the tunnel."
+    },
+    {
+      "id": 5,
+      "category": "Options",
+      "command": "sshuttle -r <user>@<host> <subnet> --ssh-cmd \"ssh -i <key>\"",
+      "example": "sshuttle -r user@pivot 172.16.0.0/24 --ssh-cmd \"ssh -i id_ed25519\"",
+      "explanation": "Passes extra SSH options such as a key file."
+    },
+    {
+      "id": 6,
+      "category": "Options",
+      "command": "sshuttle -r <user>@<host> <subnet> -v",
+      "example": "sshuttle -r user@pivot 172.16.0.0/24 -vv",
+      "explanation": "Verbose output for debugging the tunnel."
+    },
+    {
+      "id": 7,
+      "category": "Options",
+      "command": "sshuttle -r <user>@<host> <subnet> -D",
+      "example": "sshuttle -r user@pivot 172.16.0.0/24 -D",
+      "explanation": "Runs as a daemon in the background."
+    }
+  ]
+}

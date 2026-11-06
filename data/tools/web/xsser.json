@@ -1,6 +1,19 @@
 {
   "tool": "xsser",
-  "description": "Complete xsser command reference covering all options from basic to advanced",
+  "name": "XSSer",
+  "description": "An automated framework for detecting and exploiting cross-site scripting (XSS) vulnerabilities in web applications.",
+  "tags": [
+    "XSS",
+    "injection"
+  ],
+  "homepage": "https://github.com/epsylon/xsser",
+  "install": {
+    "apt": "sudo apt install xsser"
+  },
+  "related": [
+    "sqlmap",
+    "nuclei"
+  ],
   "total_commands": 75,
   "commands": [
     {

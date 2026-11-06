@@ -1,77 +1,136 @@
 {
   "tool": "apktool",
-  "description": "Apktool: A critical Reverse Engineering utility designed natively for unpacking, decoding, modifying, and completely rebuilding 3rd party, closed, binary Android apps.",
-  "total_commands": 10,
+  "name": "Apktool",
+  "description": "Decodes Android APKs to near-original resources and smali code, and rebuilds them after modification.",
+  "tags": [
+    "Android",
+    "reverse engineering",
+    "APK"
+  ],
+  "homepage": "https://apktool.org",
+  "docs": "https://apktool.org/docs/the-basics/intro",
+  "install": {
+    "apt": "sudo apt install apktool",
+    "brew": "brew install apktool"
+  },
+  "related": [
+    "adb",
+    "frida",
+    "ghidra"
+  ],
+  "total_commands": 16,
   "commands": [
     {
       "id": 1,
-      "category": "Decompilation",
+      "category": "Decoding",
       "command": "apktool d <apk>",
-      "example": "apktool d target_app.apk",
-      "explanation": "Decodes the compressed raw Java/Smali bytecodes and unzips internal encrypted AndroidManifests leaving completely readable resources mapped natively in a new directory."
+      "example": "apktool d app.apk",
+      "explanation": "Decodes resources and AndroidManifest.xml to readable XML and the code to smali, in a folder named after the APK."
     },
     {
-      "id": 2,
-      "category": "No-Src Decompliation",
-      "command": "apktool d -s <apk>",
-      "example": "apktool d -s target_app.apk",
-      "explanation": "Surgically executes logic extraction completely avoiding disassembling dex files. The `.dex` files are left heavily raw avoiding enormous Smali generation times."
-    },
-    {
-      "id": 3,
-      "category": "Rebuilding Array",
-      "command": "apktool b <directory>",
-      "example": "apktool b target_app_folder",
-      "explanation": "Inverts disassembly reading all heavily modified `.smali` codes bridging them automatically recreating absolute raw unaligned `.apk` payloads."
-    },
-    {
-      "id": 4,
-      "category": "Framework Alignment",
-      "command": "apktool if <framework.apk>",
-      "example": "apktool if framework-res.apk",
-      "explanation": "Injects localized OEM-specific graphical processing libraries allowing complex hardware-proprietary apps to disassemble cleanly."
-    },
-    {
-      "id": 5,
-      "category": "Debugging Logic",
-      "command": "apktool d -d <apk>",
-      "example": "apktool d -d app.apk",
-      "explanation": "Injects deep debug-mode parameters radically generating inherently step-compatible `.java` bridges for use natively in IDE architectures."
+      "id": 11,
+      "category": "Decoding",
+      "command": "apktool d <apk> -o <dir>",
+      "example": "apktool d app.apk -o app_src",
+      "explanation": "Chooses the output directory."
     },
     {
       "id": 6,
-      "category": "Force Overwrite",
+      "category": "Decoding",
       "command": "apktool d -f <apk>",
-      "example": "apktool d -f app.apk",
-      "explanation": "Forcefully drops new decoded folders instantly bypassing errors by actively eradicating previous analysis folders containing matching names."
+      "example": "apktool d -f <apk>",
+      "explanation": "Overwrites an existing output directory."
     },
     {
-      "id": 7,
-      "category": "Information Dump",
-      "command": "apktool empty-framework-dir",
-      "example": "apktool empty-framework-dir",
-      "explanation": "Safely unlinks all locally stored OEM mapping libraries forcing the internal system framework paths to physically factory reset."
+      "id": 2,
+      "category": "Decoding",
+      "command": "apktool d -s <apk>",
+      "example": "apktool d -s <apk>",
+      "explanation": "Keeps classes.dex undecoded — faster when you only need resources and the manifest."
     },
     {
-      "id": 8,
-      "category": "Match Original",
-      "command": "apktool d -m <apk>",
-      "example": "apktool d -m app.apk",
-      "explanation": "Directs Smali mapping exactly matching the canonical physical architecture array maintaining absolute raw 1:1 file paths during edits."
+      "id": 12,
+      "category": "Decoding",
+      "command": "apktool d -r <apk>",
+      "example": "apktool d -r <apk>",
+      "explanation": "Leaves resources undecoded, which avoids rebuild problems when you only edit smali."
     },
     {
-      "id": 9,
-      "category": "AAPT Replacement",
-      "command": "apktool b -a <path> <dir>",
-      "example": "apktool b -a /usr/bin/aapt2 target_app",
-      "explanation": "Overrides inherent package packaging algorithms explicitly leveraging advanced specified customized Android Asset Packaging Tools (AAPT2)."
+      "id": 13,
+      "category": "Decoding",
+      "command": "apktool d --only-main-classes <apk>",
+      "example": "apktool d --only-main-classes <apk>",
+      "explanation": "Skips extra dex files that are not part of the main app code."
     },
     {
-      "id": 10,
-      "category": "Version Check",
-      "command": "apktool --version",
-      "example": "apktool --version",
-      "explanation": "A critical system verification ensuring the installed internal library dependencies explicitly map to the proper java environment variable matrices."
+      "id": 14,
+      "category": "Reviewing",
+      "command": "grep -E \"debuggable|allowBackup|exported|usesCleartextTraffic\" <dir>/AndroidManifest.xml",
+      "example": "grep -E \"debuggable|allowBackup|exported|usesCleartextTraffic\" app_src/AndroidManifest.xml",
+      "explanation": "Quick manifest review for risky flags and exported components."
+    },
+    {
+      "id": 15,
+      "category": "Reviewing",
+      "command": "grep -rniE \"api[_-]?key|secret|password|token\" <dir>/res",
+      "example": "grep -rniE \"api[_-]?key|secret|password|token\" app_src/res",
+      "explanation": "Hunts for hard-coded secrets in resources."
+    },
+    {
+      "id": 16,
+      "category": "Reviewing",
+      "command": "cat <dir>/res/xml/network_security_config.xml",
+      "example": "cat app_src/res/xml/network_security_config.xml",
+      "explanation": "Shows certificate pinning and cleartext rules."
+    },
+    {
+      "id": 17,
+      "category": "Rebuilding",
+      "command": "apktool b <dir>",
+      "example": "apktool b app_src",
+      "explanation": "Rebuilds the APK into <dir>/dist/."
+    },
+    {
+      "id": 18,
+      "category": "Rebuilding",
+      "command": "apktool b <dir> -o <apk>",
+      "example": "apktool b app_src -o patched.apk",
+      "explanation": "Rebuilds to a chosen file name."
+    },
+    {
+      "id": 19,
+      "category": "Rebuilding",
+      "command": "zipalign -p -f 4 <in> <out>",
+      "example": "zipalign -p -f 4 patched.apk aligned.apk",
+      "explanation": "Aligns the APK, required before signing with apksigner."
+    },
+    {
+      "id": 20,
+      "category": "Rebuilding",
+      "command": "apksigner sign --ks <keystore> <apk>",
+      "example": "apksigner sign --ks test.keystore aligned.apk",
+      "explanation": "Signs the rebuilt APK so it can be installed."
+    },
+    {
+      "id": 21,
+      "category": "Rebuilding",
+      "command": "keytool -genkey -v -keystore <file> -alias <alias> -keyalg RSA -keysize 2048 -validity 10000",
+      "example": "keytool -genkey -v -keystore test.keystore -alias test -keyalg RSA -keysize 2048 -validity 10000",
+      "explanation": "Creates a throwaway signing key."
+    },
+    {
+      "id": 22,
+      "category": "Frameworks",
+      "command": "apktool if <framework-res.apk>",
+      "example": "apktool if framework-res.apk",
+      "explanation": "Installs a vendor framework needed to decode some system apps."
+    },
+    {
+      "id": 23,
+      "category": "Frameworks",
+      "command": "apktool empty-framework-dir --force",
+      "example": "apktool empty-framework-dir --force",
+      "explanation": "Clears cached frameworks when decoding fails with resource errors."
     }
   ]
 }

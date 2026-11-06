@@ -1,6 +1,23 @@
 {
   "tool": "masscan",
-  "description": "Complete Masscan command reference from beginner to advanced",
+  "name": "Masscan",
+  "description": "An asynchronous TCP port scanner built for speed — it can sweep huge address ranges in minutes using its own TCP/IP stack.",
+  "tags": [
+    "port scanning",
+    "internet-scale",
+    "fast"
+  ],
+  "homepage": "https://github.com/robertdavidgraham/masscan",
+  "docs": "https://github.com/robertdavidgraham/masscan#usage",
+  "install": {
+    "apt": "sudo apt install masscan",
+    "brew": "brew install masscan"
+  },
+  "related": [
+    "nmap",
+    "ZMap",
+    "RustScan"
+  ],
   "total_commands": 60,
   "commands": [
     {

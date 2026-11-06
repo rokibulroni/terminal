@@ -1,6 +1,23 @@
 {
   "tool": "suricata",
-  "description": "Complete Suricata command and workflow reference from basic to advanced network intrusion detection and monitoring",
+  "name": "Suricata",
+  "description": "A high-performance, multi-threaded IDS/IPS and network security monitoring engine with EVE JSON logging.",
+  "tags": [
+    "IDS",
+    "IPS",
+    "NSM"
+  ],
+  "homepage": "https://suricata.io",
+  "docs": "https://docs.suricata.io",
+  "install": {
+    "apt": "sudo apt install suricata",
+    "brew": "brew install suricata"
+  },
+  "related": [
+    "snort",
+    "zeek",
+    "TCPDump"
+  ],
   "total_commands": 65,
   "commands": [
     {

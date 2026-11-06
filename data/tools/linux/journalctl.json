@@ -1,77 +1,167 @@
 {
   "tool": "journalctl",
-  "description": "Journalctl allows for complex querying and reading of the detailed binary log data collected by systemd.",
-  "total_commands": 10,
+  "name": "journalctl",
+  "description": "Queries the systemd journal: logs by service, boot, time range, priority and more.",
+  "tags": [
+    "logs",
+    "systemd",
+    "incident response"
+  ],
+  "homepage": "https://systemd.io",
+  "docs": "https://www.freedesktop.org/software/systemd/man/latest/journalctl.html",
+  "related": [
+    "systemctl",
+    "tail",
+    "auditd"
+  ],
+  "total_commands": 21,
   "commands": [
     {
       "id": 1,
-      "category": "Basic Access",
+      "category": "Reading",
       "command": "journalctl",
       "example": "journalctl",
-      "explanation": "Starts paging through all chronologically assembled systemd logs from the beginning of recorded history."
+      "explanation": "The whole journal, oldest first, in a pager."
+    },
+    {
+      "id": 11,
+      "category": "Reading",
+      "command": "journalctl -r",
+      "example": "journalctl -r",
+      "explanation": "Newest first."
     },
     {
       "id": 2,
-      "category": "Tailing",
+      "category": "Reading",
       "command": "journalctl -f",
       "example": "journalctl -f",
-      "explanation": "Continually follows newly generated logs in real-time. Equivalent to 'tail -f'."
+      "explanation": "Follows new entries live, like tail -f."
     },
     {
-      "id": 3,
-      "category": "Tailing",
-      "command": "journalctl -n <lines>",
-      "example": "journalctl -n 50",
-      "explanation": "Simply prints the exact specified number of the most recent log lines."
+      "id": 12,
+      "category": "Reading",
+      "command": "journalctl -n <n>",
+      "example": "journalctl -n 100",
+      "explanation": "The last n entries."
     },
     {
-      "id": 4,
+      "id": 13,
+      "category": "Reading",
+      "command": "journalctl -e",
+      "example": "journalctl -e",
+      "explanation": "Opens at the end of the journal."
+    },
+    {
+      "id": 14,
+      "category": "Reading",
+      "command": "journalctl -x -e",
+      "example": "journalctl -x -e",
+      "explanation": "Adds explanatory help text to entries where available."
+    },
+    {
+      "id": 15,
       "category": "Filtering",
-      "command": "journalctl -u <service_name>",
-      "example": "journalctl -u sshd",
-      "explanation": "Strictly filters tracking metadata so only logs belonging to the specified systemd unit/service are shown."
+      "command": "journalctl -u <unit>",
+      "example": "journalctl -u ssh",
+      "explanation": "Entries from one service."
     },
     {
-      "id": 5,
+      "id": 16,
       "category": "Filtering",
-      "command": "journalctl -p <priority_level>",
-      "example": "journalctl -p err",
-      "explanation": "Returns logs restricted by severity level. (Levels: 'emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug')."
+      "command": "journalctl -u <unit> --since \"<time>\"",
+      "example": "journalctl -u nginx --since \"1 hour ago\"",
+      "explanation": "Time-limited; accepts “today”, “yesterday” or exact timestamps."
+    },
+    {
+      "id": 17,
+      "category": "Filtering",
+      "command": "journalctl --since \"<start>\" --until \"<end>\"",
+      "example": "journalctl --since \"2026-11-05 22:00\" --until \"2026-11-06 02:00\"",
+      "explanation": "A specific window — the core of incident triage."
     },
     {
       "id": 6,
-      "category": "Boot Tracking",
+      "category": "Filtering",
       "command": "journalctl -b",
       "example": "journalctl -b",
-      "explanation": "Isolates and prints all logs exclusively tied to the current system boot sequence."
+      "explanation": "The current boot only. -b -1 is the previous boot."
     },
     {
-      "id": 7,
-      "category": "Boot Tracking",
-      "command": "journalctl -b -<boot_offset>",
-      "example": "journalctl -b -1",
-      "explanation": "Reviews logs exclusively attached to historical boots. (-1 is the previous boot, -2 is two boots ago)."
+      "id": 18,
+      "category": "Filtering",
+      "command": "journalctl --list-boots",
+      "example": "journalctl --list-boots",
+      "explanation": "Every recorded boot with its time range — shows unexpected reboots."
     },
     {
-      "id": 8,
-      "category": "Time Boxing",
-      "command": "journalctl --since=\"<time>\" --until=\"<time>\"",
-      "example": "journalctl --since=\"2023-01-01 12:00:00\" --until=\"1 hour ago\"",
-      "explanation": "Parses logs bounded by explicit timestamps or human-readable time intervals."
+      "id": 19,
+      "category": "Filtering",
+      "command": "journalctl -p err -b",
+      "example": "journalctl -p err -b",
+      "explanation": "Errors and worse since boot. Levels: emerg, alert, crit, err, warning, notice, info, debug."
+    },
+    {
+      "id": 20,
+      "category": "Filtering",
+      "command": "journalctl -k",
+      "example": "journalctl -k",
+      "explanation": "Kernel messages, like dmesg."
+    },
+    {
+      "id": 21,
+      "category": "Filtering",
+      "command": "journalctl _UID=<uid>",
+      "example": "journalctl _UID=1001",
+      "explanation": "Entries generated by a user."
+    },
+    {
+      "id": 22,
+      "category": "Filtering",
+      "command": "journalctl _COMM=<name>",
+      "example": "journalctl _COMM=sudo",
+      "explanation": "Entries from one executable — here, every sudo use."
+    },
+    {
+      "id": 23,
+      "category": "Filtering",
+      "command": "journalctl -g \"<regex>\"",
+      "example": "journalctl -u ssh -g \"Failed password|Invalid user\"",
+      "explanation": "Greps message text (systemd 237+)."
+    },
+    {
+      "id": 24,
+      "category": "Output and maintenance",
+      "command": "journalctl -o json-pretty -n 5",
+      "example": "journalctl -o json-pretty -n 5",
+      "explanation": "Structured output with every field — useful for shipping to a SIEM."
+    },
+    {
+      "id": 25,
+      "category": "Output and maintenance",
+      "command": "journalctl -o short-iso",
+      "example": "journalctl -o short-iso",
+      "explanation": "ISO 8601 timestamps."
     },
     {
       "id": 9,
-      "category": "Information",
+      "category": "Output and maintenance",
       "command": "journalctl --disk-usage",
       "example": "journalctl --disk-usage",
-      "explanation": "Displays the precise amount of disk space occupied by the compiled binary journal storage."
+      "explanation": "How much space the journal uses."
     },
     {
-      "id": 10,
-      "category": "Maintenance",
-      "command": "journalctl --vacuum-size=<size>",
-      "example": "journalctl --vacuum-size=500M",
-      "explanation": "Forcefully cleans out old logs, restricting the maximum journal archive size to the provided parameter."
+      "id": 26,
+      "category": "Output and maintenance",
+      "command": "sudo journalctl --vacuum-time=<age>",
+      "example": "sudo journalctl --vacuum-time=30d",
+      "explanation": "Deletes entries older than the given age."
+    },
+    {
+      "id": 27,
+      "category": "Output and maintenance",
+      "command": "journalctl --verify",
+      "example": "journalctl --verify",
+      "explanation": "Checks journal files for corruption or tampering when sealing is enabled."
     }
   ]
 }

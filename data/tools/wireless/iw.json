@@ -1,6 +1,22 @@
 {
   "tool": "iw",
-  "description": "Complete iw command and workflow reference from basic to advanced wireless interface management and inspection",
+  "name": "iw",
+  "description": "The modern nl80211 tool for configuring Linux wireless devices: scan, set channels, switch modes and inspect capabilities.",
+  "tags": [
+    "Wi-Fi",
+    "configuration",
+    "Linux"
+  ],
+  "homepage": "https://wireless.docs.kernel.org/en/latest/en/users/documentation/iw.html",
+  "docs": "https://wireless.docs.kernel.org/en/latest/en/users/documentation/iw.html",
+  "install": {
+    "apt": "sudo apt install iw"
+  },
+  "related": [
+    "iwconfig",
+    "airmon-ng",
+    "ip"
+  ],
   "total_commands": 100,
   "commands": [
     {

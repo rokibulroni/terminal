@@ -1,6 +1,23 @@
 {
   "tool": "arp-scan",
-  "description": "Complete arp-scan command reference covering all options from basic to advanced",
+  "name": "arp-scan",
+  "description": "Discovers every device on the local network segment by sending ARP requests — finds hosts that ignore ping and identifies vendors by MAC.",
+  "tags": [
+    "host discovery",
+    "ARP",
+    "layer 2"
+  ],
+  "homepage": "https://github.com/royhills/arp-scan",
+  "docs": "https://github.com/royhills/arp-scan/wiki/arp-scan-User-Guide",
+  "install": {
+    "apt": "sudo apt install arp-scan",
+    "brew": "brew install arp-scan"
+  },
+  "related": [
+    "netdiscover",
+    "fping",
+    "nmap"
+  ],
   "total_commands": 60,
   "commands": [
     {

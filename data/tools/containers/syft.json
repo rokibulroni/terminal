@@ -1,77 +1,142 @@
 {
   "tool": "syft",
-  "description": "Syft: The premier specialized dependency analyzer. It strictly parses deeply encrypted structural packages explicitly mapping absolutely enormous accurate Software Bill of Materials natively out of container payloads.",
-  "total_commands": 10,
+  "name": "Syft",
+  "description": "Generates a software bill of materials (SBOM) from container images and filesystems in SPDX, CycloneDX and other formats.",
+  "tags": [
+    "SBOM",
+    "containers",
+    "supply chain"
+  ],
+  "homepage": "https://github.com/anchore/syft",
+  "docs": "https://github.com/anchore/syft/wiki",
+  "install": {
+    "brew": "brew install syft",
+    "other": "curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin"
+  },
+  "related": [
+    "grype",
+    "trivy"
+  ],
+  "total_commands": 17,
   "commands": [
     {
       "id": 1,
-      "category": "Image Parsing",
+      "category": "Generating SBOMs",
       "command": "syft <image>",
-      "example": "syft node:14",
-      "explanation": "Dives internally deeply analyzing native OCI layers extracting foundational absolute localized systemic packages natively tracking explicitly exact installed historical module versions."
-    },
-    {
-      "id": 2,
-      "category": "SBOM Execution",
-      "command": "syft <image> -o spdx-json",
-      "example": "syft my_app:latest -o spdx-json",
-      "explanation": "Serializes complex analytical data natively enforcing massive global SPDX standard architecture structures fundamentally allowing precise external vendor vulnerability tracking."
+      "example": "syft nginx:1.27",
+      "explanation": "Lists every package found in an image as a table."
     },
     {
       "id": 3,
-      "category": "Filesystem Syfting",
+      "category": "Generating SBOMs",
       "command": "syft dir:<path>",
       "example": "syft dir:.",
-      "explanation": "Unlinks baseline Docker constraints actively probing inherent flat-file local explicit physical source code repositories explicitly identifying localized deeply embedded `package.json` logic."
+      "explanation": "Catalogues a directory — lock files, manifests and binaries."
     },
     {
-      "id": 4,
-      "category": "File Classifications",
-      "command": "syft file:<file>",
-      "example": "syft file:payload.jar",
-      "explanation": "Overrides standard OS extraction loops directly analyzing massive single-packaged monolithic archives completely breaking apart internal logic structures directly inside standalone JARs."
+      "id": 11,
+      "category": "Generating SBOMs",
+      "command": "syft file:<path>",
+      "example": "syft file:./app.jar",
+      "explanation": "Catalogues a single file such as a JAR or binary."
     },
     {
-      "id": 5,
-      "category": "Exclude Tracking",
-      "command": "syft dir:<path> --exclude <regex>",
-      "example": "syft dir:. --exclude '**/node_modules/**'",
-      "explanation": "Enhances inherently immense recursive indexing dynamically filtering logic skipping vast complex local explicitly noisy development libraries reducing execution times exponentially."
+      "id": 12,
+      "category": "Generating SBOMs",
+      "command": "syft docker-archive:<file>",
+      "example": "syft docker-archive:image.tar",
+      "explanation": "Reads an image saved with docker save."
+    },
+    {
+      "id": 13,
+      "category": "Generating SBOMs",
+      "command": "syft registry:<image>",
+      "example": "syft registry:ghcr.io/org/app:latest",
+      "explanation": "Pulls straight from a registry without a Docker daemon."
     },
     {
       "id": 6,
-      "category": "Layer Extractions",
+      "category": "Generating SBOMs",
       "command": "syft <image> --scope all-layers",
-      "example": "syft base:v1 --scope all-layers",
-      "explanation": "Dissects incredibly complex inherited cached overlay variables completely unearthing deeply historically established packages completely decoupled actively bypassing container runtime masking."
+      "example": "syft app:latest --scope all-layers",
+      "explanation": "Includes packages from every layer, even ones deleted later."
     },
     {
-      "id": 7,
-      "category": "Output File",
-      "command": "syft <image> --file <path>",
-      "example": "syft app:latest --file sbom.txt",
-      "explanation": "Automates execution streams automatically capturing enormous explicit multi-line analytical arrays seamlessly writing securely completely to localized targeted filesystem paths."
+      "id": 14,
+      "category": "Generating SBOMs",
+      "command": "syft <image> --exclude <glob>",
+      "example": "syft dir:. --exclude './node_modules/**'",
+      "explanation": "Skips paths you do not want catalogued."
     },
     {
-      "id": 8,
-      "category": "Output CYCLONEDX",
-      "command": "syft <image> -o cyclonedx-xml",
-      "example": "syft ubuntu:latest -o cyclonedx-xml",
-      "explanation": "Converts extraction logic natively aligning universally integrated OWASP CycloneDX methodologies cleanly targeting extensive enterprise-level cybersecurity tracking mandates."
+      "id": 2,
+      "category": "Formats",
+      "command": "syft <image> -o spdx-json",
+      "example": "syft app:latest -o spdx-json > sbom.spdx.json",
+      "explanation": "SPDX JSON, a widely accepted SBOM standard."
     },
     {
-      "id": 9,
-      "category": "Config Management",
-      "command": "syft -c <file>",
-      "example": "syft -c syft.yaml app:latest",
-      "explanation": "Integrates natively executing parameters referencing external completely detailed explicit YAML architectures overriding standardized inherent systemic package matching bounds."
+      "id": 15,
+      "category": "Formats",
+      "command": "syft <image> -o cyclonedx-json",
+      "example": "syft app:latest -o cyclonedx-json > sbom.cdx.json",
+      "explanation": "CycloneDX JSON, preferred by many security platforms."
     },
     {
-      "id": 10,
-      "category": "Verbose Routing",
-      "command": "syft <image> -v",
-      "example": "syft target:latest -v",
-      "explanation": "Appends explicit live output streaming dynamically unmasking deeply processed local background executions structurally analyzing explicit tracking parsing operations dynamically."
+      "id": 16,
+      "category": "Formats",
+      "command": "syft <image> -o syft-json",
+      "example": "syft app:latest -o syft-json > sbom.json",
+      "explanation": "Syft’s own lossless format with the most detail."
+    },
+    {
+      "id": 17,
+      "category": "Formats",
+      "command": "syft <image> -o table -o spdx-json=<file>",
+      "example": "syft app:latest -o table -o spdx-json=sbom.json",
+      "explanation": "Writes several formats in one run."
+    },
+    {
+      "id": 18,
+      "category": "Formats",
+      "command": "syft convert <sbom> -o <format>",
+      "example": "syft convert sbom.json -o cyclonedx-json",
+      "explanation": "Converts an existing SBOM between formats."
+    },
+    {
+      "id": 19,
+      "category": "Inspecting",
+      "command": "syft <image> -o json | jq '.artifacts[] | {name, version, type}'",
+      "example": "syft alpine -o json | jq '.artifacts[] | {name, version, type}'",
+      "explanation": "Extracts package names, versions and ecosystems with jq."
+    },
+    {
+      "id": 20,
+      "category": "Inspecting",
+      "command": "syft <image> --select-catalogers <name>",
+      "example": "syft dir:. --select-catalogers python",
+      "explanation": "Runs only particular catalogers, such as Python or Java."
+    },
+    {
+      "id": 21,
+      "category": "Inspecting",
+      "command": "syft cataloger list",
+      "example": "syft cataloger list",
+      "explanation": "Lists all available catalogers."
+    },
+    {
+      "id": 22,
+      "category": "Attestation",
+      "command": "syft attest --output spdx-json <image>",
+      "example": "syft attest --output spdx-json ghcr.io/org/app:1.0",
+      "explanation": "Generates an SBOM and signs it as an in-toto attestation with cosign."
+    },
+    {
+      "id": 23,
+      "category": "Attestation",
+      "command": "syft <image> -o spdx-json | grype",
+      "example": "syft <image> -o spdx-json | grype",
+      "explanation": "Pipes the SBOM straight into Grype for vulnerability matching."
     }
   ]
 }

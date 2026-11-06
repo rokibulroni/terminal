@@ -1,6 +1,24 @@
 {
   "tool": "gobuster",
-  "description": "Complete gobuster command reference covering all modes from basic to advanced including dir, dns, vhost, fuzz, s3, and gcs.",
+  "name": "Gobuster",
+  "description": "Brute-forces URIs, DNS subdomains, virtual hosts and cloud buckets. Simple, fast and written in Go.",
+  "tags": [
+    "content discovery",
+    "subdomains",
+    "vhosts"
+  ],
+  "homepage": "https://github.com/OJ/gobuster",
+  "docs": "https://github.com/OJ/gobuster#usage",
+  "install": {
+    "apt": "sudo apt install gobuster",
+    "brew": "brew install gobuster",
+    "go": "go install github.com/OJ/gobuster/v3@latest"
+  },
+  "related": [
+    "ffuf",
+    "dirsearch",
+    "amass"
+  ],
   "total_commands": 70,
   "commands": [
     {

@@ -1,6 +1,24 @@
 {
   "tool": "httpx",
-  "description": "Complete httpx command reference covering all options from basic to advanced",
+  "name": "httpx",
+  "description": "ProjectDiscovery’s HTTP toolkit: probes lists of hosts for live web servers and reports status, title, technologies, TLS details and more.",
+  "tags": [
+    "probing",
+    "web recon",
+    "ProjectDiscovery"
+  ],
+  "homepage": "https://github.com/projectdiscovery/httpx",
+  "docs": "https://docs.projectdiscovery.io/tools/httpx/overview",
+  "install": {
+    "go": "go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest",
+    "apt": "sudo apt install httpx-toolkit"
+  },
+  "related": [
+    "naabu",
+    "nuclei",
+    "subfinder",
+    "katana"
+  ],
   "total_commands": 110,
   "commands": [
     {

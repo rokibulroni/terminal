@@ -1,6 +1,23 @@
 {
   "tool": "evil-winrm",
-  "description": "Complete Evil-WinRM command and workflow reference from basic to advanced remote PowerShell execution and lateral movement",
+  "name": "Evil-WinRM",
+  "description": "The go-to WinRM shell for penetration testers: upload and download files, load PowerShell scripts and pass the hash.",
+  "tags": [
+    "WinRM",
+    "PowerShell",
+    "Windows"
+  ],
+  "homepage": "https://github.com/Hackplayers/evil-winrm",
+  "docs": "https://github.com/Hackplayers/evil-winrm#usage",
+  "install": {
+    "apt": "sudo apt install evil-winrm",
+    "other": "gem install evil-winrm"
+  },
+  "related": [
+    "winrm",
+    "crackmapexec",
+    "psexec"
+  ],
   "total_commands": 25,
   "commands": [
     {

@@ -1,77 +1,149 @@
 {
   "tool": "strace",
-  "description": "Strace: The absolute foundational process logging tool intercepting and aggressively monitoring deep root Linux System Calls (Syscalls) interfacing bridging standard programs across local Kernels.",
-  "total_commands": 10,
+  "name": "strace",
+  "description": "Traces the system calls and signals of a process — see which files it opens, what it sends and why it fails.",
+  "tags": [
+    "tracing",
+    "system calls",
+    "debugging"
+  ],
+  "homepage": "https://strace.io",
+  "docs": "https://man7.org/linux/man-pages/man1/strace.1.html",
+  "install": {
+    "apt": "sudo apt install strace",
+    "dnf": "sudo dnf install strace"
+  },
+  "related": [
+    "gdb",
+    "ps"
+  ],
+  "total_commands": 18,
   "commands": [
     {
-      "id": 1,
-      "category": "Active Monitoring",
-      "command": "strace <binary>",
-      "example": "strace ./target_malware",
-      "explanation": "Executes explicitly bounded binaries dynamically mapping every single deeply hooked system call (like file reads, IP accesses) actively streaming it straight into live stdout logs."
-    },
-    {
-      "id": 2,
-      "category": "Filter Expressions",
-      "command": "strace -e trace=<syscall> <binary>",
-      "example": "strace -e trace=open,read ./target",
-      "explanation": "Eliminates extreme tracking noise inherently restricting the execution pipeline logic strictly trapping ONLY specified systemic interactions."
-    },
-    {
-      "id": 3,
-      "category": "Network Tracking",
-      "command": "strace -e trace=network <binary>",
-      "example": "strace -e trace=network ./target",
-      "explanation": "Forcefully isolates deeply embedded logic matrices dynamically capturing any localized raw API requests executing explicitly attempting outbound global internet connections."
+      "id": 11,
+      "category": "Tracing",
+      "command": "strace <command>",
+      "example": "strace ./app",
+      "explanation": "Runs a program and prints every system call with arguments and return values to stderr."
     },
     {
       "id": 4,
-      "category": "Process Interception",
+      "category": "Tracing",
       "command": "strace -p <pid>",
-      "example": "strace -p 1234",
-      "explanation": "Attaches the aggressive monitoring layer onto a completely decoupled natively running background process exposing real-time explicit data-manipulations without termination loops."
+      "example": "sudo strace -p 1337",
+      "explanation": "Attaches to a running process."
     },
     {
-      "id": 5,
-      "category": "Fork Tracing",
-      "command": "strace -f <binary>",
-      "example": "strace -f ./target_malware",
-      "explanation": "Follows deeply obfuscated binaries recursively enabling tracking logics to completely penetrate into new explicitly spawned sub-threads natively escaping basic tracking vectors."
+      "id": 12,
+      "category": "Tracing",
+      "command": "strace -f <command>",
+      "example": "strace -f ./server",
+      "explanation": "Follows child processes and threads."
     },
     {
-      "id": 6,
-      "category": "Instruction Counting",
-      "command": "strace -c <binary>",
-      "example": "strace -c ./target",
-      "explanation": "Modifies logging fundamentally eliminating live streams instead mathematically summing exactly how many times each System Call natively executing outputting clean statistical aggregate distributions."
+      "id": 13,
+      "category": "Tracing",
+      "command": "strace -o <file> <command>",
+      "example": "strace -o trace.txt ./app",
+      "explanation": "Writes the trace to a file."
     },
     {
-      "id": 7,
-      "category": "Timing Mappings",
-      "command": "strace -t <binary>",
-      "example": "strace -t ./target",
-      "explanation": "Prepends standard system clock logic explicitly appending highly explicit live millisecond timestamps cleanly aligned vertically directly next to execution strings."
+      "id": 14,
+      "category": "Tracing",
+      "command": "strace -ff -o <prefix> <command>",
+      "example": "strace -ff -o trace ./server",
+      "explanation": "One output file per process (trace.<pid>)."
     },
     {
-      "id": 8,
-      "category": "Log Extraction",
-      "command": "strace -o <file> <binary>",
-      "example": "strace -o trace_logs.txt ./target",
-      "explanation": "Forcefully mitigates chaotic visual terminal overload executing massive systemic tracking outputs seamlessly redirecting raw text exclusively into localized filesystem locations."
+      "id": 15,
+      "category": "Filtering",
+      "command": "strace -e trace=<calls> <command>",
+      "example": "strace -e trace=openat,read ./app",
+      "explanation": "Only the listed system calls."
     },
     {
-      "id": 9,
-      "category": "String Deep-Dives",
-      "command": "strace -s <size> <binary>",
-      "example": "strace -s 512 ./target",
-      "explanation": "Modifies standard byte limits forcefully allowing incredibly massive long unencrypted internal string arrays (like massive SQL queries) to inherently print instead of heavily truncating."
+      "id": 16,
+      "category": "Filtering",
+      "command": "strace -e trace=%file <command>",
+      "example": "strace -e trace=%file ./app",
+      "explanation": "Every call that takes a file name — shows config files and libraries it looks for."
     },
     {
-      "id": 10,
-      "category": "Relative Timing",
-      "command": "strace -r <binary>",
-      "example": "strace -r ./target",
-      "explanation": "Injects native chronological processing logic establishing exact elapsed execution millisecond timings bridged directly between every explicit sequentially intercepted local System Call."
+      "id": 17,
+      "category": "Filtering",
+      "command": "strace -e trace=%network <command>",
+      "example": "strace -e trace=%network curl -s example.com",
+      "explanation": "Network calls: socket, connect, sendto and friends."
+    },
+    {
+      "id": 18,
+      "category": "Filtering",
+      "command": "strace -e trace=%process <command>",
+      "example": "strace -f -e trace=%process ./installer",
+      "explanation": "Process lifecycle: fork, clone, execve, exit."
+    },
+    {
+      "id": 19,
+      "category": "Filtering",
+      "command": "strace -e trace=execve -f <command>",
+      "example": "strace -e trace=execve -f ./setup.sh",
+      "explanation": "Every program a script launches."
+    },
+    {
+      "id": 20,
+      "category": "Filtering",
+      "command": "strace -e status=failed <command>",
+      "example": "strace -e status=failed ./app",
+      "explanation": "Only calls that failed (strace 5.2+) — quickly shows missing files and permission errors."
+    },
+    {
+      "id": 21,
+      "category": "Detail and timing",
+      "command": "strace -s <n> <command>",
+      "example": "strace -s 256 -e trace=write ./app",
+      "explanation": "Shows up to n characters of string arguments (default 32)."
+    },
+    {
+      "id": 22,
+      "category": "Detail and timing",
+      "command": "strace -tt -T <command>",
+      "example": "strace -tt -T ./app",
+      "explanation": "Microsecond timestamps and time spent in each call."
+    },
+    {
+      "id": 23,
+      "category": "Detail and timing",
+      "command": "strace -c <command>",
+      "example": "strace -c ./app",
+      "explanation": "A summary table of call counts, errors and time instead of a full trace."
+    },
+    {
+      "id": 24,
+      "category": "Detail and timing",
+      "command": "strace -y <command>",
+      "example": "strace -y ./app",
+      "explanation": "Prints the path behind each file descriptor."
+    },
+    {
+      "id": 25,
+      "category": "Detail and timing",
+      "command": "strace -k <command>",
+      "example": "strace -k -e trace=openat ./app",
+      "explanation": "Prints a stack trace for each call."
+    },
+    {
+      "id": 26,
+      "category": "Library calls",
+      "command": "ltrace <command>",
+      "example": "ltrace ./crackme",
+      "explanation": "Traces calls into shared libraries — strcmp calls often reveal hard-coded passwords."
+    },
+    {
+      "id": 27,
+      "category": "Library calls",
+      "command": "ltrace -e <function> <command>",
+      "example": "ltrace -e strcmp ./crackme",
+      "explanation": "Traces only the named library function."
     }
   ]
 }

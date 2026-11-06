@@ -1,6 +1,22 @@
 {
   "tool": "wget",
-  "description": "Complete wget command and workflow reference from basic to advanced file retrieval and web mirroring",
+  "name": "Wget",
+  "description": "A non-interactive downloader for HTTP, HTTPS and FTP that can resume, retry and mirror entire websites recursively.",
+  "tags": [
+    "downloads",
+    "mirroring",
+    "HTTP"
+  ],
+  "homepage": "https://www.gnu.org/software/wget/",
+  "docs": "https://www.gnu.org/software/wget/manual/wget.html",
+  "install": {
+    "apt": "sudo apt install wget",
+    "brew": "brew install wget"
+  },
+  "related": [
+    "curl",
+    "httpie"
+  ],
   "total_commands": 125,
   "commands": [
     {

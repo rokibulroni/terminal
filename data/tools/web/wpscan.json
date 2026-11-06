@@ -1,6 +1,24 @@
 {
   "tool": "wpscan",
-  "description": "Complete WPScan command reference covering all options from basic to advanced",
+  "name": "WPScan",
+  "description": "A WordPress security scanner that enumerates versions, plugins, themes and users and checks them against a vulnerability database.",
+  "tags": [
+    "WordPress",
+    "CMS",
+    "enumeration"
+  ],
+  "homepage": "https://wpscan.com",
+  "docs": "https://github.com/wpscanteam/wpscan/wiki/WPScan-User-Documentation",
+  "install": {
+    "apt": "sudo apt install wpscan",
+    "brew": "brew install wpscanteam/tap/wpscan",
+    "docker": "docker run -it --rm wpscanteam/wpscan --url <target>"
+  },
+  "related": [
+    "nikto",
+    "nuclei",
+    "whatweb"
+  ],
   "total_commands": 85,
   "commands": [
     {

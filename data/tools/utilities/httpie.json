@@ -1,6 +1,24 @@
 {
   "tool": "httpie",
-  "description": "Complete HTTPie command and workflow reference from basic to advanced HTTP and API interactions",
+  "name": "HTTPie",
+  "description": "A human-friendly HTTP client with intuitive syntax, JSON support and coloured output — great for exploring APIs.",
+  "tags": [
+    "HTTP",
+    "APIs",
+    "JSON"
+  ],
+  "homepage": "https://httpie.io/cli",
+  "docs": "https://httpie.io/docs/cli",
+  "install": {
+    "apt": "sudo apt install httpie",
+    "brew": "brew install httpie",
+    "pipx": "pipx install httpie"
+  },
+  "related": [
+    "curl",
+    "jq",
+    "wget"
+  ],
   "total_commands": 100,
   "commands": [
     {

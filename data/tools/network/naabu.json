@@ -1,6 +1,25 @@
 {
   "tool": "naabu",
-  "description": "Complete Naabu command reference covering all options from basic to advanced",
+  "name": "Naabu",
+  "description": "ProjectDiscovery’s fast port scanner (SYN/CONNECT) with host deduplication and easy piping into httpx and nuclei.",
+  "tags": [
+    "port scanning",
+    "recon pipeline",
+    "ProjectDiscovery"
+  ],
+  "homepage": "https://github.com/projectdiscovery/naabu",
+  "docs": "https://docs.projectdiscovery.io/tools/naabu/overview",
+  "install": {
+    "go": "go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest",
+    "apt": "sudo apt install naabu",
+    "docker": "docker run -it --rm projectdiscovery/naabu -host <target>"
+  },
+  "related": [
+    "nmap",
+    "httpx",
+    "nuclei",
+    "RustScan"
+  ],
   "total_commands": 45,
   "commands": [
     {

@@ -1,6 +1,22 @@
 {
   "tool": "zmap",
-  "description": "Complete ZMap command reference covering all options from basic to advanced",
+  "name": "ZMap",
+  "description": "A single-packet network scanner designed to survey the entire IPv4 address space for one port at a time, used in internet-wide research.",
+  "tags": [
+    "internet-scale",
+    "research",
+    "port scanning"
+  ],
+  "homepage": "https://zmap.io",
+  "docs": "https://github.com/zmap/zmap/wiki",
+  "install": {
+    "apt": "sudo apt install zmap",
+    "brew": "brew install zmap"
+  },
+  "related": [
+    "masscan",
+    "nmap"
+  ],
   "total_commands": 72,
   "commands": [
     {

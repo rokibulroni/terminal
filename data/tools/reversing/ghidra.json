@@ -1,77 +1,129 @@
 {
   "tool": "ghidra",
-  "description": "Ghidra: The NSA's premier, enterprise-level reverse engineering framework boasting phenomenal headless scripting execution tools alongside absolute cross-platform graphical decompiling.",
-  "total_commands": 10,
+  "name": "Ghidra",
+  "description": "The NSA’s open-source reverse-engineering suite with a powerful decompiler; scriptable headless analysis from the command line.",
+  "tags": [
+    "decompiler",
+    "reverse engineering",
+    "malware analysis"
+  ],
+  "homepage": "https://ghidra-sre.org",
+  "docs": "https://ghidra-sre.org/CheatSheet.html",
+  "install": {
+    "brew": "brew install --cask ghidra",
+    "other": "Download a release from https://github.com/NationalSecurityAgency/ghidra/releases"
+  },
+  "related": [
+    "radare2",
+    "gdb",
+    "objdump"
+  ],
+  "total_commands": 15,
   "commands": [
     {
-      "id": 1,
-      "category": "Headless Analysis",
-      "command": "analyzeHeadless <proj_dir> <proj_name> -import <binary>",
-      "example": "analyzeHeadless ./project MyProj -import malware.exe",
-      "explanation": "Forces Ghidra to ingest and process extremely complex binary analysis layers strictly utilizing terminal loops devoid entirely of graphical visual overheads."
+      "id": 11,
+      "category": "Running",
+      "command": "ghidraRun",
+      "example": "ghidraRun",
+      "explanation": "Starts the Ghidra GUI (ghidraRun.bat on Windows). Requires a supported JDK (21 for current releases)."
     },
     {
-      "id": 2,
-      "category": "Script Injection",
-      "command": "analyzeHeadless <proj> <name> -process <binary> -postScript <script>",
-      "example": "analyzeHeadless ./proj MyProj -process malware.exe -postScript ExtractStrings.java",
-      "explanation": "Bridges highly custom NSA Java APIs deeply parsing the exact fully analyzed executable automating variable extraction strictly out to stdout."
+      "id": 12,
+      "category": "Running",
+      "command": "<ghidra>/support/analyzeHeadless <project_dir> <project> -import <binary>",
+      "example": "analyzeHeadless ~/ghidra_projects demo -import ./malware.bin",
+      "explanation": "Headless mode: creates a project, imports a binary and runs auto-analysis without the GUI."
     },
     {
-      "id": 3,
-      "category": "Recursive Directory Syncing",
-      "command": "analyzeHeadless <proj_dir> <proj_name> -import <dir>",
-      "example": "analyzeHeadless ./proj MyProj -import /bin/ -recursive",
-      "explanation": "Parses absolutely enormous full Linux operating system system folders mapping every single contained architectural binary cleanly into massive project index formats."
+      "id": 13,
+      "category": "Running",
+      "command": "analyzeHeadless <project_dir> <project> -import <dir> -recursive",
+      "example": "analyzeHeadless ~/ghidra_projects firmware -import ./extracted -recursive",
+      "explanation": "Imports and analyses every file under a directory."
     },
     {
-      "id": 4,
-      "category": "Bypassing Analysis",
-      "command": "analyzeHeadless <proj> <name> -import <binary> -noanalysis",
-      "example": "analyzeHeadless ./proj MyProj -import raw.bin -noanalysis",
-      "explanation": "Bypasses inherently lengthy auto-analysis engines cleanly enabling direct ultra-fast flat binary ingestion directly targeting immediate native scripting applications."
+      "id": 14,
+      "category": "Running",
+      "command": "analyzeHeadless <project_dir> <project> -process <file> -noanalysis",
+      "example": "analyzeHeadless ~/ghidra_projects demo -process malware.bin -noanalysis",
+      "explanation": "Opens an existing program in a project without reanalysing it."
     },
     {
-      "id": 5,
-      "category": "Overwrite Projects",
-      "command": "analyzeHeadless <proj> <name> -import <binary> -overwrite",
-      "example": "analyzeHeadless ./proj MyProj -import malware.exe -overwrite",
-      "explanation": "Destroys pre-existing historical complex project states fundamentally resetting the underlying logic arrays to aggressively accept newly updated or compiled binary versions."
+      "id": 15,
+      "category": "Scripting",
+      "command": "analyzeHeadless <project_dir> <project> -import <binary> -postScript <script>",
+      "example": "analyzeHeadless ~/ghidra_projects demo -import a.out -postScript ExportDecompiled.java",
+      "explanation": "Runs a script after analysis — useful for batch decompilation or IOC extraction."
     },
     {
-      "id": 6,
-      "category": "Exporting Binaries",
-      "command": "analyzeHeadless <proj> <name> -process <file> -export <out>",
-      "example": "analyzeHeadless ./proj MyProj -process app.apk -export ./dump.gz",
-      "explanation": "Encapsulates fully-analyzed Ghidra project data structures structurally encoding and outputting them completely into massive universal proprietary transfer archives."
+      "id": 16,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -scriptPath <dir>",
+      "example": "analyzeHeadless ~/ghidra_projects demo -process a.out -scriptPath ~/ghidra_scripts -postScript FindCrypto.py",
+      "explanation": "Adds a directory of your own scripts."
     },
     {
-      "id": 7,
-      "category": "Architecture Overrides",
-      "command": "analyzeHeadless <proj> <name> -import <file> -cspec <spec>",
-      "example": "analyzeHeadless ./proj MyProj -import raw.bin -cspec ARM:LE:32:cortex",
-      "explanation": "Overrides internal guessing engines natively supplying mandatory explicit architecture parameters enabling structural parsing of obfuscated raw Embedded IoT memory dumps."
+      "id": 17,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -deleteProject",
+      "example": "analyzeHeadless /tmp gh -import sample.exe -postScript Dump.java -deleteProject",
+      "explanation": "Removes the temporary project afterwards."
     },
     {
-      "id": 8,
-      "category": "Script Pathing",
-      "command": "analyzeHeadless <proj> <name> -process <file> -scriptPath <dir>",
-      "example": "analyzeHeadless ./proj MyProj -process my.exe -scriptPath ./py_scripts/",
-      "explanation": "Alters system configuration matrices extending native plugin folders enabling arbitrary customized Python (Jython) script arrays strictly across external directories."
+      "id": 18,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -processor <lang>",
+      "example": "analyzeHeadless /tmp gh -import fw.bin -processor ARM:LE:32:v7",
+      "explanation": "Forces a processor for raw firmware with no headers."
     },
     {
-      "id": 9,
-      "category": "Delete Logs",
-      "command": "analyzeHeadless <proj> <name> -import <file> -deleteProject",
-      "example": "analyzeHeadless ./proj Temp -import malware.exe -postScript Dump.java -deleteProject",
-      "explanation": "Orchestrates highly sophisticated ephemeral extraction loops aggressively wiping the complex massive databases natively immediately following the script sequence output."
+      "id": 19,
+      "category": "Scripting",
+      "command": "analyzeHeadless … -log <file> -scriptlog <file>",
+      "example": "analyzeHeadless /tmp gh -import a.out -log ghidra.log -scriptlog script.log",
+      "explanation": "Writes analysis and script logs to files."
     },
     {
-      "id": 10,
-      "category": "Help Output",
-      "command": "analyzeHeadless -help",
-      "example": "analyzeHeadless -help",
-      "explanation": "Echoes complex CLI execution parameters mapping highly variable syntax architectures inherent to the massive enterprise Java executable."
+      "id": 20,
+      "category": "GUI shortcuts",
+      "command": "G",
+      "example": "G",
+      "explanation": "Go to an address or label."
+    },
+    {
+      "id": 21,
+      "category": "GUI shortcuts",
+      "command": "L",
+      "example": "L",
+      "explanation": "Rename the selected function, variable or label."
+    },
+    {
+      "id": 22,
+      "category": "GUI shortcuts",
+      "command": "Ctrl-L",
+      "example": "Ctrl-L",
+      "explanation": "Retype a variable in the decompiler."
+    },
+    {
+      "id": 23,
+      "category": "GUI shortcuts",
+      "command": "Ctrl-Shift-F",
+      "example": "Ctrl-Shift-F",
+      "explanation": "Find references to the selected item."
+    },
+    {
+      "id": 24,
+      "category": "GUI shortcuts",
+      "command": "Search → For Strings",
+      "example": "Search → For Strings",
+      "explanation": "Lists defined and undefined strings, a quick way to find interesting code."
+    },
+    {
+      "id": 25,
+      "category": "GUI shortcuts",
+      "command": "Window → Function Graph",
+      "example": "Window → Function Graph",
+      "explanation": "Shows the control-flow graph of the current function."
     }
   ]
 }

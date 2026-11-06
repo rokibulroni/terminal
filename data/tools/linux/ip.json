@@ -1,35 +1,142 @@
 {
   "tool": "ip",
-  "description": "[ip] - Show or manipulate routing, network devices, interfaces and tunnels. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "ip",
+  "description": "The iproute2 tool for addresses, links, routes, neighbours and network namespaces — the modern replacement for ifconfig and route.",
+  "tags": [
+    "networking",
+    "routing",
+    "interfaces"
+  ],
+  "homepage": "https://wiki.linuxfoundation.org/networking/iproute2",
+  "docs": "https://man7.org/linux/man-pages/man8/ip.8.html",
+  "install": {
+    "apt": "sudo apt install iproute2"
+  },
+  "related": [
+    "ss",
+    "ping",
+    "netstat"
+  ],
+  "total_commands": 17,
   "commands": [
     {
       "id": 1,
-      "category": "linux",
+      "category": "Addresses",
       "command": "ip a",
       "example": "ip a",
-      "explanation": "Display IP addresses and property info for all active interfaces."
+      "explanation": "Every interface and its IPv4 and IPv6 addresses (short for ip address show)."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "ip link show",
-      "example": "ip link show",
-      "explanation": "Display link layer information."
+      "id": 5,
+      "category": "Addresses",
+      "command": "ip -br a",
+      "example": "ip -br a",
+      "explanation": "Brief one-line-per-interface summary."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "ip route show",
-      "example": "ip route show",
-      "explanation": "Display the IP routing table details."
+      "id": 6,
+      "category": "Addresses",
+      "command": "ip -4 a show <iface>",
+      "example": "ip -4 a show eth0",
+      "explanation": "IPv4 addresses on one interface."
+    },
+    {
+      "id": 7,
+      "category": "Addresses",
+      "command": "sudo ip addr add <cidr> dev <iface>",
+      "example": "sudo ip addr add 10.10.14.5/24 dev eth0",
+      "explanation": "Adds an address (not persistent across reboots)."
+    },
+    {
+      "id": 8,
+      "category": "Addresses",
+      "command": "sudo ip addr del <cidr> dev <iface>",
+      "example": "sudo ip addr del 10.10.14.5/24 dev eth0",
+      "explanation": "Removes an address."
+    },
+    {
+      "id": 9,
+      "category": "Links",
+      "command": "ip -br link",
+      "example": "ip -br link",
+      "explanation": "Interfaces, their state and MAC addresses."
+    },
+    {
+      "id": 10,
+      "category": "Links",
+      "command": "sudo ip link set <iface> up",
+      "example": "sudo ip link set eth0 up",
+      "explanation": "Brings an interface up; use down to disable it."
+    },
+    {
+      "id": 11,
+      "category": "Links",
+      "command": "sudo ip link set dev <iface> address <mac>",
+      "example": "sudo ip link set dev wlan0 address 02:11:22:33:44:55",
+      "explanation": "Changes the MAC address (bring the interface down first)."
+    },
+    {
+      "id": 12,
+      "category": "Links",
+      "command": "ip -s link show <iface>",
+      "example": "ip -s link show eth0",
+      "explanation": "Packet, byte, error and drop counters."
+    },
+    {
+      "id": 13,
+      "category": "Routing",
+      "command": "ip r",
+      "example": "ip r",
+      "explanation": "The routing table; the default route shows your gateway."
+    },
+    {
+      "id": 14,
+      "category": "Routing",
+      "command": "ip route get <ip>",
+      "example": "ip route get 8.8.8.8",
+      "explanation": "Which interface, source address and gateway the kernel would use to reach an address."
+    },
+    {
+      "id": 15,
+      "category": "Routing",
+      "command": "sudo ip route add <cidr> via <gateway>",
+      "example": "sudo ip route add 172.16.0.0/16 via 10.10.14.1",
+      "explanation": "Adds a static route — common when pivoting into internal networks."
+    },
+    {
+      "id": 16,
+      "category": "Routing",
+      "command": "sudo ip route del <cidr>",
+      "example": "sudo ip route del 172.16.0.0/16",
+      "explanation": "Deletes a route."
     },
     {
       "id": 4,
-      "category": "linux",
+      "category": "Neighbours and namespaces",
       "command": "ip neigh",
       "example": "ip neigh",
-      "explanation": "Display local ARP/neighbor tables for the network segment."
+      "explanation": "The ARP/NDP cache: nearby hosts this machine has talked to."
+    },
+    {
+      "id": 17,
+      "category": "Neighbours and namespaces",
+      "command": "sudo ip neigh flush all",
+      "example": "sudo ip neigh flush all",
+      "explanation": "Clears the neighbour cache."
+    },
+    {
+      "id": 18,
+      "category": "Neighbours and namespaces",
+      "command": "ip netns list",
+      "example": "ip netns list",
+      "explanation": "Network namespaces, used by containers and for isolated testing."
+    },
+    {
+      "id": 19,
+      "category": "Neighbours and namespaces",
+      "command": "sudo ip netns exec <ns> <cmd>",
+      "example": "sudo ip netns exec lab ip a",
+      "explanation": "Runs a command inside a namespace."
     }
-  ],
-  "total_commands": 4
+  ]
 }

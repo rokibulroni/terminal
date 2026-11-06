@@ -1,28 +1,100 @@
 {
   "tool": "du",
-  "description": "[du] - Estimate file space usage. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "du",
+  "description": "Estimates how much space files and directories use — find what is filling a disk.",
+  "tags": [
+    "disk",
+    "storage"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/du.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "df",
+    "find",
+    "sort"
+  ],
+  "total_commands": 11,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "du -sh directory/",
-      "example": "du -sh directory/",
-      "explanation": "Show absolute total disk usage for a specific directory."
+      "id": 4,
+      "category": "Basics",
+      "command": "du -sh <dir>",
+      "example": "du -sh /var/log",
+      "explanation": "Total size of a directory, human-readable."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "du -ah /path | sort -rh | head -n 10",
-      "example": "du -ah /path | sort -rh | head -n 10",
-      "explanation": "Find the top 10 largest files/directories starting at path."
+      "id": 5,
+      "category": "Basics",
+      "command": "du -sh *",
+      "example": "du -sh *",
+      "explanation": "Size of each item in the current directory."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "du -sk * | sort -n",
-      "example": "du -sk * | sort -n",
-      "explanation": "List directories sorted by size incrementally."
+      "id": 6,
+      "category": "Basics",
+      "command": "du -sh .[!.]* *",
+      "example": "du -sh .[!.]* *",
+      "explanation": "Includes hidden files and directories."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "du -h --max-depth=1 <dir>",
+      "example": "du -h --max-depth=1 /home",
+      "explanation": "One level of subdirectories (on macOS use -d 1)."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "du -ah <dir>",
+      "example": "du -ah /etc/nginx",
+      "explanation": "Lists files as well as directories."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "du -c <files>",
+      "example": "du -ch *.log",
+      "explanation": "Adds a grand total."
+    },
+    {
+      "id": 10,
+      "category": "Finding space hogs",
+      "command": "du -sh * | sort -h",
+      "example": "du -sh * | sort -h",
+      "explanation": "Sorted smallest to largest."
+    },
+    {
+      "id": 11,
+      "category": "Finding space hogs",
+      "command": "du -ah <dir> 2>/dev/null | sort -rh | head -n 20",
+      "example": "du -ah / 2>/dev/null | sort -rh | head -n 20",
+      "explanation": "The 20 largest files and directories."
+    },
+    {
+      "id": 12,
+      "category": "Finding space hogs",
+      "command": "du -xh --max-depth=1 / 2>/dev/null | sort -h",
+      "example": "du -xh --max-depth=1 / 2>/dev/null | sort -h",
+      "explanation": "Stays on one file system (-x) so mounted volumes are not counted."
+    },
+    {
+      "id": 13,
+      "category": "Finding space hogs",
+      "command": "du -sh --exclude=<pattern> <dir>",
+      "example": "du -sh --exclude=node_modules ~/projects",
+      "explanation": "Leaves out matching paths."
+    },
+    {
+      "id": 14,
+      "category": "Finding space hogs",
+      "command": "du --apparent-size -sh <file>",
+      "example": "du --apparent-size -sh disk.img",
+      "explanation": "Shows the logical size, which differs from disk usage for sparse files."
     }
-  ],
-  "total_commands": 3
+  ]
 }

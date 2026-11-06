@@ -1,6 +1,20 @@
 {
   "tool": "unicornscan",
-  "description": "Complete Unicornscan command reference covering all options from basic to advanced",
+  "name": "Unicornscan",
+  "description": "An asynchronous stateless scanner for TCP and UDP that correlates responses separately from sending probes, useful for large or UDP-heavy scans.",
+  "tags": [
+    "port scanning",
+    "UDP",
+    "asynchronous"
+  ],
+  "homepage": "https://sourceforge.net/projects/osace/",
+  "install": {
+    "apt": "sudo apt install unicornscan"
+  },
+  "related": [
+    "masscan",
+    "nmap"
+  ],
   "total_commands": 60,
   "commands": [
     {

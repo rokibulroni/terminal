@@ -1,112 +1,241 @@
 {
   "tool": "gdb",
-  "description": "GNU Debugger (GDB): The definitive open-source debugger natively executing step-through arrays checking C, C++, and Assembly runtime memories.",
-  "total_commands": 15,
+  "name": "GDB",
+  "description": "The GNU Debugger: set breakpoints, step through code, inspect memory and registers. Pair with GEF or pwndbg for exploit development.",
+  "tags": [
+    "debugging",
+    "exploit development",
+    "ELF"
+  ],
+  "homepage": "https://www.sourceware.org/gdb/",
+  "docs": "https://sourceware.org/gdb/current/onlinedocs/gdb.html/",
+  "install": {
+    "apt": "sudo apt install gdb",
+    "brew": "brew install gdb"
+  },
+  "related": [
+    "radare2",
+    "strace",
+    "objdump"
+  ],
+  "total_commands": 31,
   "commands": [
     {
       "id": 1,
-      "category": "Initialization",
+      "category": "Starting",
       "command": "gdb <binary>",
-      "example": "gdb ./target_binary",
-      "explanation": "Loads the specified local ELF binary structure actively into the massive internal GDB runtime environment preparing it strictly for detailed manipulation."
+      "example": "gdb ./vuln",
+      "explanation": "Loads a program without running it."
+    },
+    {
+      "id": 16,
+      "category": "Starting",
+      "command": "gdb -q --args <binary> <args>",
+      "example": "gdb -q --args ./vuln AAAA",
+      "explanation": "Loads it with command-line arguments; -q skips the banner."
+    },
+    {
+      "id": 17,
+      "category": "Starting",
+      "command": "gdb -p <pid>",
+      "example": "sudo gdb -p 1337",
+      "explanation": "Attaches to a running process."
+    },
+    {
+      "id": 18,
+      "category": "Starting",
+      "command": "gdb <binary> <core>",
+      "example": "gdb ./server core.1337",
+      "explanation": "Opens a core dump to see where a crash happened."
+    },
+    {
+      "id": 19,
+      "category": "Starting",
+      "command": "gdb -batch -ex \"<cmd>\" <binary>",
+      "example": "gdb -batch -ex \"disassemble main\" ./vuln",
+      "explanation": "Runs commands non-interactively and exits."
     },
     {
       "id": 2,
-      "category": "Running Threads",
+      "category": "Running",
       "command": "run",
-      "example": "run arg1 arg2",
-      "explanation": "Fires the inherent system execution algorithms natively compiling the binary with attached external trailing arguments matching an exact live shell execution."
+      "example": "run",
+      "explanation": "Starts the program (r). run < input.txt feeds a file to stdin."
     },
     {
-      "id": 3,
-      "category": "Breakpointing",
-      "command": "break *<address>",
-      "example": "break *0x004005d0",
-      "explanation": "Drops a hard logic stop immediately pausing the live process exclusively at the designated raw hexidecimal execution memory offset."
-    },
-    {
-      "id": 4,
-      "category": "Function Breaking",
-      "command": "break <function>",
-      "example": "break main",
-      "explanation": "Reroutes debugging matrices natively hooking a designated function name allowing execution flows to strictly halt specifically when standard APIs are invoked."
-    },
-    {
-      "id": 5,
-      "category": "Memory Stepping",
-      "command": "stepi",
-      "example": "stepi",
-      "explanation": "Advances the execution grid moving explicitly forward one precise absolute assembly manipulation instruction without circumventing or jumping deep subroutines."
+      "id": 20,
+      "category": "Running",
+      "command": "start",
+      "example": "start",
+      "explanation": "Runs to the start of main and stops."
     },
     {
       "id": 6,
-      "category": "Execution Jumping",
+      "category": "Running",
       "command": "continue",
       "example": "continue",
-      "explanation": "Bypasses all localized pausing inherently dumping active control processing logic straight through until the subsequent hardcoded system breakpoint is encountered."
+      "explanation": "Resumes until the next breakpoint (c)."
+    },
+    {
+      "id": 5,
+      "category": "Running",
+      "command": "stepi",
+      "example": "stepi",
+      "explanation": "Executes one machine instruction, entering calls (si). nexti (ni) steps over calls."
+    },
+    {
+      "id": 21,
+      "category": "Running",
+      "command": "step / next",
+      "example": "step / next",
+      "explanation": "Source-level stepping into or over function calls when debug symbols exist."
+    },
+    {
+      "id": 22,
+      "category": "Running",
+      "command": "finish",
+      "example": "finish",
+      "explanation": "Runs until the current function returns."
+    },
+    {
+      "id": 23,
+      "category": "Breakpoints",
+      "command": "break <location>",
+      "example": "break main",
+      "explanation": "Sets a breakpoint on a function, file:line or address (b *0x401136)."
+    },
+    {
+      "id": 24,
+      "category": "Breakpoints",
+      "command": "break <function> if <condition>",
+      "example": "break strcmp if $rdi != 0",
+      "explanation": "Conditional breakpoint."
+    },
+    {
+      "id": 25,
+      "category": "Breakpoints",
+      "command": "watch <expr>",
+      "example": "watch *(int*)0x404040",
+      "explanation": "Stops when a memory location changes."
+    },
+    {
+      "id": 26,
+      "category": "Breakpoints",
+      "command": "info breakpoints",
+      "example": "info breakpoints",
+      "explanation": "Lists breakpoints; delete <n> removes one."
+    },
+    {
+      "id": 27,
+      "category": "Breakpoints",
+      "command": "catch syscall <name>",
+      "example": "catch syscall execve",
+      "explanation": "Stops on a system call."
     },
     {
       "id": 7,
-      "category": "Register Diagnostics",
+      "category": "Inspecting",
       "command": "info registers",
       "example": "info registers",
-      "explanation": "Reveals real-time structural CPU matrices heavily detailing every exact variable array immediately residing inside RAX, RBX, RCX processors natively."
+      "explanation": "All general-purpose registers (i r). info registers rip for one."
     },
     {
-      "id": 8,
-      "category": "Memory Dumps",
-      "command": "x/8xw $rsp",
-      "example": "x/8xw $rsp",
-      "explanation": "Extracts complex arbitrary unencrypted memory grids natively dumping 8 explicit hexadecimal words structurally originating natively from the live Stack Pointer ($rsp)."
+      "id": 28,
+      "category": "Inspecting",
+      "command": "x/<n><fmt> <addr>",
+      "example": "x/32gx $rsp",
+      "explanation": "Examines memory: n units in a format — x hex, s string, i instructions, g giant (8-byte) words."
     },
     {
-      "id": 9,
-      "category": "String Extractions",
-      "command": "x/s <address>",
-      "example": "x/s 0x004006c0",
-      "explanation": "Translates contiguous unstructured hex values located precisely at the specified offset memory address inherently dropping them locally as absolute plaintext strings."
+      "id": 29,
+      "category": "Inspecting",
+      "command": "x/10i $rip",
+      "example": "x/10i $rip",
+      "explanation": "The next ten instructions."
     },
     {
-      "id": 10,
-      "category": "Layout Switching",
-      "command": "layout asm",
-      "example": "layout asm",
-      "explanation": "Overhauls the generic legacy monolithic CLI outputs inherently splitting the terminal visualization mapping directly showing live updating parallel assembly and register panels."
+      "id": 30,
+      "category": "Inspecting",
+      "command": "disassemble <function>",
+      "example": "disassemble main",
+      "explanation": "Disassembles a function."
     },
     {
-      "id": 11,
-      "category": "Signal Integration",
-      "command": "handle <signal> <action>",
-      "example": "handle SIGINT nostop noprint pass",
-      "explanation": "Overrides default UNIX signal routing structurally preventing custom malware algorithms from natively terminating the explicit localized GDB debugging sandbox dynamically."
+      "id": 31,
+      "category": "Inspecting",
+      "command": "set disassembly-flavor intel",
+      "example": "set disassembly-flavor intel",
+      "explanation": "Intel syntax instead of AT&T; put it in ~/.gdbinit."
     },
     {
-      "id": 12,
-      "category": "Thread Execution",
-      "command": "info threads",
-      "example": "info threads",
-      "explanation": "Dumps utterly complex deeply obfuscated execution tables structurally mapping every single asynchronously spawned background process actively bridged to the target."
+      "id": 32,
+      "category": "Inspecting",
+      "command": "backtrace",
+      "example": "backtrace",
+      "explanation": "The call stack (bt)."
     },
     {
-      "id": 13,
-      "category": "Watchpointing",
-      "command": "watch *<address>",
-      "example": "watch *0x00405020",
-      "explanation": "Engages inherently decoupled hardware-level logic traps fundamentally stopping total active process execution strictly precisely when the defined memory array actively modifies."
+      "id": 33,
+      "category": "Inspecting",
+      "command": "info proc mappings",
+      "example": "info proc mappings",
+      "explanation": "The process memory map — find libc and stack base addresses."
     },
     {
-      "id": 14,
-      "category": "Data Bridging",
-      "command": "set {int}<address> = <value>",
-      "example": "set {int}0x8048990 = 1",
-      "explanation": "Reroutes deep physical memory layouts actively overwriting strict Boolean parameters inherently breaking localized validation matrix algorithms dynamically bypassing unauthenticated loops."
+      "id": 34,
+      "category": "Inspecting",
+      "command": "print <expr>",
+      "example": "print system",
+      "explanation": "Evaluates an expression, such as the address of a libc function."
     },
     {
-      "id": 15,
-      "category": "Stack Trace",
-      "command": "backtrace full",
-      "example": "backtrace full",
-      "explanation": "Examines extremely granular inherent core dumps tracking absolutely entire execution arrays directly exposing explicitly deeply historically referenced nested function arrays natively."
+      "id": 35,
+      "category": "Inspecting",
+      "command": "set {int}<addr> = <value>",
+      "example": "set {int}0x404040 = 1",
+      "explanation": "Writes to memory."
+    },
+    {
+      "id": 36,
+      "category": "Inspecting",
+      "command": "set $<reg> = <value>",
+      "example": "set $rax = 0",
+      "explanation": "Changes a register — for example to flip a check’s result."
+    },
+    {
+      "id": 37,
+      "category": "Exploit development (GEF / pwndbg)",
+      "command": "checksec",
+      "example": "checksec",
+      "explanation": "Shows NX, PIE, RELRO, canary and Fortify status of the binary."
+    },
+    {
+      "id": 38,
+      "category": "Exploit development (GEF / pwndbg)",
+      "command": "pattern create <n>",
+      "example": "pattern create 200",
+      "explanation": "Generates a cyclic pattern to find the offset that overwrites the return address."
+    },
+    {
+      "id": 39,
+      "category": "Exploit development (GEF / pwndbg)",
+      "command": "pattern search $rsp",
+      "example": "pattern search $rsp",
+      "explanation": "Finds the offset of the pattern in a register or memory after a crash."
+    },
+    {
+      "id": 40,
+      "category": "Exploit development (GEF / pwndbg)",
+      "command": "vmmap",
+      "example": "vmmap",
+      "explanation": "Colour-coded memory map with permissions."
+    },
+    {
+      "id": 41,
+      "category": "Exploit development (GEF / pwndbg)",
+      "command": "telescope $rsp 20",
+      "example": "telescope $rsp 20",
+      "explanation": "Dereferences stack values recursively (pwndbg)."
     }
   ]
 }

@@ -1,6 +1,22 @@
 {
   "tool": "smbexec",
-  "description": "Complete SMBExec command and workflow reference from basic to advanced remote execution and lateral movement",
+  "name": "smbexec",
+  "description": "Impacket’s smbexec.py: a semi-interactive shell over SMB that creates a service per command instead of uploading a binary.",
+  "tags": [
+    "remote execution",
+    "SMB",
+    "Impacket"
+  ],
+  "homepage": "https://github.com/fortra/impacket",
+  "docs": "https://github.com/fortra/impacket",
+  "install": {
+    "pipx": "pipx install impacket",
+    "apt": "sudo apt install python3-impacket"
+  },
+  "related": [
+    "psexec",
+    "wmiexec"
+  ],
   "total_commands": 45,
   "commands": [
     {

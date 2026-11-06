@@ -1,6 +1,23 @@
 {
   "tool": "snort",
-  "description": "Complete Snort command and workflow reference from basic to advanced network intrusion detection and monitoring",
+  "name": "Snort",
+  "description": "A network intrusion detection and prevention system that inspects traffic in real time against a rule language.",
+  "tags": [
+    "IDS",
+    "IPS",
+    "network monitoring"
+  ],
+  "homepage": "https://www.snort.org",
+  "docs": "https://docs.snort.org",
+  "install": {
+    "apt": "sudo apt install snort",
+    "brew": "brew install snort"
+  },
+  "related": [
+    "suricata",
+    "zeek",
+    "tshark"
+  ],
   "total_commands": 75,
   "commands": [
     {

@@ -1,6 +1,20 @@
 {
   "tool": "bully",
-  "description": "Complete Bully command and workflow reference from basic to advanced WPS security auditing",
+  "name": "Bully",
+  "description": "A WPS brute-force tool written in C, an alternative to Reaver with improved handling of some access points.",
+  "tags": [
+    "Wi-Fi",
+    "WPS",
+    "brute force"
+  ],
+  "homepage": "https://github.com/aanarchyy/bully",
+  "install": {
+    "apt": "sudo apt install bully"
+  },
+  "related": [
+    "reaver",
+    "airodump-ng"
+  ],
   "total_commands": 50,
   "commands": [
     {

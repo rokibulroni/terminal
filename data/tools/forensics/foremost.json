@@ -1,6 +1,22 @@
 {
   "tool": "foremost",
-  "description": "Complete Foremost command and workflow reference from basic to advanced file carving and data recovery",
+  "name": "Foremost",
+  "description": "Recovers files from disk images and raw data by carving their headers and footers, even without a file system.",
+  "tags": [
+    "file carving",
+    "recovery",
+    "DFIR"
+  ],
+  "homepage": "https://foremost.sourceforge.net",
+  "install": {
+    "apt": "sudo apt install foremost",
+    "brew": "brew install foremost"
+  },
+  "related": [
+    "bulk-extractor",
+    "binwalk",
+    "sleuthkit"
+  ],
   "total_commands": 60,
   "commands": [
     {

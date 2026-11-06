@@ -1,6 +1,24 @@
 {
   "tool": "crackmapexec",
-  "description": "Complete CrackMapExec command and workflow reference from basic to advanced lateral movement and credential testing",
+  "name": "CrackMapExec / NetExec",
+  "description": "The Swiss-army knife for Windows networks: spray credentials, execute commands and dump secrets across SMB, WinRM, LDAP and MSSQL. NetExec (nxc) is the maintained fork.",
+  "tags": [
+    "Active Directory",
+    "SMB",
+    "lateral movement"
+  ],
+  "homepage": "https://www.netexec.wiki",
+  "docs": "https://www.netexec.wiki",
+  "install": {
+    "pipx": "pipx install git+https://github.com/Pennyw0rth/NetExec",
+    "apt": "sudo apt install netexec"
+  },
+  "related": [
+    "crackmapexec-enum",
+    "evil-winrm",
+    "impacket",
+    "bloodhound-python"
+  ],
   "total_commands": 100,
   "commands": [
     {

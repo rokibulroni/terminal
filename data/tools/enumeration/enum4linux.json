@@ -1,6 +1,21 @@
 {
   "tool": "enum4linux",
-  "description": "Complete enum4linux command reference covering all options from basic to advanced",
+  "name": "enum4linux",
+  "description": "A wrapper around Samba tools that enumerates users, groups, shares, password policy and OS details from Windows and Samba hosts.",
+  "tags": [
+    "SMB",
+    "users",
+    "shares"
+  ],
+  "homepage": "https://github.com/CiscoCXSecurity/enum4linux",
+  "install": {
+    "apt": "sudo apt install enum4linux"
+  },
+  "related": [
+    "smbclient",
+    "rpcclient",
+    "crackmapexec-enum"
+  ],
   "total_commands": 45,
   "commands": [
     {

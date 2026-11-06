@@ -1,6 +1,23 @@
 {
   "tool": "docker",
-  "description": "Complete Docker command and workflow reference from basic to advanced container and cloud operations",
+  "name": "Docker",
+  "description": "The Docker CLI: build, run and inspect containers and images, and audit their configuration, mounts, capabilities and networks.",
+  "tags": [
+    "containers",
+    "images"
+  ],
+  "homepage": "https://www.docker.com",
+  "docs": "https://docs.docker.com/reference/cli/docker/",
+  "install": {
+    "apt": "sudo apt install docker.io",
+    "brew": "brew install --cask docker",
+    "windows": "winget install Docker.DockerDesktop"
+  },
+  "related": [
+    "docker-bench-security",
+    "trivy",
+    "kubectl"
+  ],
   "total_commands": 140,
   "commands": [
     {

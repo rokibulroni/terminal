@@ -1,6 +1,23 @@
 {
   "tool": "gcloud",
-  "description": "Complete gcloud CLI command and workflow reference from basic to advanced cloud operations and security auditing",
+  "name": "Google Cloud CLI",
+  "description": "The gcloud CLI for Google Cloud: manage projects, IAM, Compute Engine, GKE and storage from the terminal.",
+  "tags": [
+    "GCP",
+    "cloud",
+    "IAM"
+  ],
+  "homepage": "https://cloud.google.com/sdk",
+  "docs": "https://cloud.google.com/sdk/gcloud/reference",
+  "install": {
+    "brew": "brew install --cask google-cloud-sdk",
+    "other": "curl https://sdk.cloud.google.com | bash"
+  },
+  "related": [
+    "awscli",
+    "az-cli",
+    "kubectl"
+  ],
   "total_commands": 160,
   "commands": [
     {

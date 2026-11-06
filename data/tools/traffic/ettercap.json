@@ -1,6 +1,23 @@
 {
   "tool": "ettercap",
-  "description": "Complete Ettercap command reference covering all options from basic to advanced",
+  "name": "Ettercap",
+  "description": "A suite for man-in-the-middle attacks on LANs: ARP poisoning, sniffing and content filtering, for authorised testing.",
+  "tags": [
+    "MITM",
+    "ARP spoofing",
+    "sniffing"
+  ],
+  "homepage": "https://www.ettercap-project.org",
+  "docs": "https://linux.die.net/man/8/ettercap",
+  "install": {
+    "apt": "sudo apt install ettercap-text-only",
+    "brew": "brew install ettercap"
+  },
+  "related": [
+    "TCPDump",
+    "tshark",
+    "arp-scan"
+  ],
   "total_commands": 60,
   "commands": [
     {

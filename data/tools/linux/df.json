@@ -1,28 +1,78 @@
 {
   "tool": "df",
-  "description": "[df] - Report file system disk space usage. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "df",
+  "description": "Reports free and used disk space on mounted file systems.",
+  "tags": [
+    "disk",
+    "storage"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/df.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "du",
+    "free"
+  ],
+  "total_commands": 8,
   "commands": [
     {
       "id": 1,
-      "category": "linux",
+      "category": "Basics",
       "command": "df -h",
       "example": "df -h",
-      "explanation": "Show disk space in human-readable format (MB, GB)."
+      "explanation": "Shows disk space for every mounted file system in human-readable units."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "df -T",
-      "example": "df -T",
-      "explanation": "Show file system types alongside usage."
+      "id": 4,
+      "category": "Basics",
+      "command": "df -h <path>",
+      "example": "df -h /var",
+      "explanation": "Shows the file system that holds a path."
+    },
+    {
+      "id": 5,
+      "category": "Basics",
+      "command": "df -hT",
+      "example": "df -hT",
+      "explanation": "Adds the file-system type column (ext4, xfs, tmpfs…)."
     },
     {
       "id": 3,
-      "category": "linux",
+      "category": "Basics",
       "command": "df -i",
       "example": "df -i",
-      "explanation": "Show inode usage information."
+      "explanation": "Shows inode usage. A disk can be “full” with free space if inodes run out."
+    },
+    {
+      "id": 6,
+      "category": "Basics",
+      "command": "df -x tmpfs -x devtmpfs -h",
+      "example": "df -x tmpfs -x devtmpfs -h",
+      "explanation": "Hides virtual file systems so only real disks remain."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "df -t <type> -h",
+      "example": "df -t ext4 -h",
+      "explanation": "Shows only one file-system type."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "df --output=source,pcent,target",
+      "example": "df --output=source,pcent,target",
+      "explanation": "Chooses which columns to print (GNU)."
+    },
+    {
+      "id": 9,
+      "category": "Basics",
+      "command": "df -h | awk '$5+0 > 80'",
+      "example": "df -h | awk '$5+0 > 80'",
+      "explanation": "Lists file systems more than 80% full."
     }
-  ],
-  "total_commands": 3
+  ]
 }

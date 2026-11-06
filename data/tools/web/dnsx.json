@@ -1,0 +1,104 @@
+{
+  "tool": "dnsx",
+  "name": "dnsx",
+  "description": "A fast, multi-purpose DNS toolkit from ProjectDiscovery: bulk resolution, record lookups, brute forcing and filtering, built for recon pipelines.",
+  "tags": [
+    "DNS",
+    "recon",
+    "resolution",
+    "ProjectDiscovery"
+  ],
+  "homepage": "https://github.com/projectdiscovery/dnsx",
+  "docs": "https://docs.projectdiscovery.io/tools/dnsx/overview",
+  "install": {
+    "go": "go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest",
+    "brew": "brew install dnsx",
+    "apt": "sudo apt install dnsx"
+  },
+  "related": [
+    "subfinder",
+    "httpx",
+    "dig",
+    "amass"
+  ],
+  "total_commands": 11,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Resolving",
+      "command": "dnsx -l <file> -silent",
+      "example": "dnsx -l hosts.txt -silent",
+      "explanation": "Resolves a list of hosts and keeps only the ones that exist."
+    },
+    {
+      "id": 2,
+      "category": "Resolving",
+      "command": "dnsx -l <file> -a -resp",
+      "example": "dnsx -l hosts.txt -a -resp",
+      "explanation": "Shows A records next to each host."
+    },
+    {
+      "id": 3,
+      "category": "Resolving",
+      "command": "subfinder -d <domain> -silent | dnsx -silent",
+      "example": "subfinder -d example.com -silent | dnsx -silent",
+      "explanation": "Filters a subdomain list down to live names."
+    },
+    {
+      "id": 4,
+      "category": "Resolving",
+      "command": "dnsx -l <file> -cname -resp",
+      "example": "dnsx -l hosts.txt -cname -resp",
+      "explanation": "Shows CNAME targets — useful for spotting subdomain-takeover candidates."
+    },
+    {
+      "id": 5,
+      "category": "Record types",
+      "command": "dnsx -l <file> -mx -resp",
+      "example": "dnsx -l domains.txt -mx -resp",
+      "explanation": "Mail servers."
+    },
+    {
+      "id": 6,
+      "category": "Record types",
+      "command": "dnsx -l <file> -ns -resp",
+      "example": "dnsx -l domains.txt -ns -resp",
+      "explanation": "Name servers."
+    },
+    {
+      "id": 7,
+      "category": "Record types",
+      "command": "dnsx -l <file> -txt -resp",
+      "example": "dnsx -l domains.txt -txt -resp",
+      "explanation": "TXT records in bulk."
+    },
+    {
+      "id": 8,
+      "category": "Record types",
+      "command": "dnsx -d <domain> -w <wordlist> -silent",
+      "example": "dnsx -d example.com -w subdomains.txt -silent",
+      "explanation": "DNS brute forcing with a wordlist using the {domain} placeholder."
+    },
+    {
+      "id": 9,
+      "category": "Advanced",
+      "command": "dnsx -l <file> -ptr -resp-only",
+      "example": "dnsx -l ips.txt -ptr -resp-only",
+      "explanation": "Reverse lookups for a list of IPs."
+    },
+    {
+      "id": 10,
+      "category": "Advanced",
+      "command": "dnsx -l <file> -rcode noerror,nxdomain",
+      "example": "dnsx -l hosts.txt -rcode noerror",
+      "explanation": "Filters by DNS response code."
+    },
+    {
+      "id": 11,
+      "category": "Advanced",
+      "command": "dnsx -l <file> -r <resolvers>",
+      "example": "dnsx -l hosts.txt -r resolvers.txt",
+      "explanation": "Uses a custom resolver list for speed and reliability."
+    }
+  ]
+}

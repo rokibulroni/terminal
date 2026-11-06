@@ -1,6 +1,20 @@
 {
   "tool": "snmpwalk",
-  "description": "Complete snmpwalk command reference covering all options from basic to advanced",
+  "name": "snmpwalk",
+  "description": "Walks an SNMP agent’s MIB tree with GETNEXT requests, retrieving everything the community string exposes.",
+  "tags": [
+    "SNMP",
+    "MIB"
+  ],
+  "homepage": "http://www.net-snmp.org",
+  "docs": "http://www.net-snmp.org/docs/man/snmpwalk.html",
+  "install": {
+    "apt": "sudo apt install snmp",
+    "brew": "brew install net-snmp"
+  },
+  "related": [
+    "snmpcheck"
+  ],
   "total_commands": 60,
   "commands": [
     {

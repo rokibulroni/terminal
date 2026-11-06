@@ -1,0 +1,117 @@
+{
+  "tool": "feroxbuster",
+  "name": "feroxbuster",
+  "description": "A fast, recursive content-discovery tool in Rust: brute-force directories and files with rich filtering, recursion and resume support.",
+  "tags": [
+    "content discovery",
+    "brute force",
+    "directories",
+    "Rust"
+  ],
+  "homepage": "https://github.com/epi052/feroxbuster",
+  "docs": "https://epi052.github.io/feroxbuster-docs/",
+  "install": {
+    "apt": "sudo apt install feroxbuster",
+    "brew": "brew install feroxbuster",
+    "cargo": "cargo install feroxbuster"
+  },
+  "related": [
+    "ffuf",
+    "gobuster",
+    "dirsearch"
+  ],
+  "total_commands": 13,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Basics",
+      "command": "feroxbuster -u <url>",
+      "example": "feroxbuster -u https://example.com",
+      "explanation": "Recursively brute-forces content with the default wordlist."
+    },
+    {
+      "id": 2,
+      "category": "Basics",
+      "command": "feroxbuster -u <url> -w <wordlist>",
+      "example": "feroxbuster -u https://example.com -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt",
+      "explanation": "Uses a specific wordlist."
+    },
+    {
+      "id": 3,
+      "category": "Basics",
+      "command": "feroxbuster -u <url> -x <exts>",
+      "example": "feroxbuster -u https://example.com -x php,html,txt",
+      "explanation": "Appends extensions to each word."
+    },
+    {
+      "id": 4,
+      "category": "Basics",
+      "command": "feroxbuster -u <url> --depth <n>",
+      "example": "feroxbuster -u https://example.com --depth 2",
+      "explanation": "Limits recursion depth; -n turns recursion off entirely."
+    },
+    {
+      "id": 5,
+      "category": "Filtering",
+      "command": "feroxbuster -u <url> -s <codes>",
+      "example": "feroxbuster -u https://example.com -s 200,301,302",
+      "explanation": "Shows only certain status codes."
+    },
+    {
+      "id": 6,
+      "category": "Filtering",
+      "command": "feroxbuster -u <url> -C <codes>",
+      "example": "feroxbuster -u https://example.com -C 404,403",
+      "explanation": "Hides certain status codes."
+    },
+    {
+      "id": 7,
+      "category": "Filtering",
+      "command": "feroxbuster -u <url> --filter-size <n>",
+      "example": "feroxbuster -u https://example.com --filter-size 1234",
+      "explanation": "Filters out responses of a given byte size — removes a noisy soft-404 page."
+    },
+    {
+      "id": 8,
+      "category": "Filtering",
+      "command": "feroxbuster -u <url> --filter-words <n>",
+      "example": "feroxbuster -u https://example.com --filter-words 57",
+      "explanation": "Filters by word count instead of size."
+    },
+    {
+      "id": 9,
+      "category": "Options",
+      "command": "feroxbuster -u <url> -H \"<header>\"",
+      "example": "feroxbuster -u https://example.com -H \"Authorization: Bearer TOKEN\"",
+      "explanation": "Adds a header, for example to scan an authenticated area."
+    },
+    {
+      "id": 10,
+      "category": "Options",
+      "command": "feroxbuster -u <url> -b \"<cookie>\"",
+      "example": "feroxbuster -u https://example.com -b \"session=abc123\"",
+      "explanation": "Sends a cookie."
+    },
+    {
+      "id": 11,
+      "category": "Options",
+      "command": "feroxbuster -u <url> -t <n>",
+      "example": "feroxbuster -u https://example.com -t 50",
+      "explanation": "Sets the number of concurrent threads."
+    },
+    {
+      "id": 12,
+      "category": "Options",
+      "command": "feroxbuster -u <url> -o <file>",
+      "example": "feroxbuster -u https://example.com -o ferox.txt",
+      "explanation": "Saves results."
+    },
+    {
+      "id": 13,
+      "category": "Options",
+      "command": "feroxbuster --resume-from <state>",
+      "example": "feroxbuster --resume-from ferox.state",
+      "explanation": "Resumes an interrupted scan from its saved state."
+    }
+  ]
+}

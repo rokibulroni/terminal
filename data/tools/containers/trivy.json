@@ -1,6 +1,26 @@
 {
   "tool": "trivy",
-  "description": "Complete Trivy command and workflow reference from basic to advanced cloud and container security scanning",
+  "name": "Trivy",
+  "description": "Aqua’s all-in-one scanner for vulnerabilities, misconfigurations, secrets and licenses in container images, filesystems, repositories, IaC and Kubernetes.",
+  "tags": [
+    "vulnerability scanning",
+    "containers",
+    "IaC",
+    "SBOM"
+  ],
+  "homepage": "https://trivy.dev",
+  "docs": "https://trivy.dev/latest/docs/",
+  "install": {
+    "brew": "brew install trivy",
+    "apt": "sudo apt install trivy",
+    "docker": "docker run --rm aquasec/trivy image <image>"
+  },
+  "related": [
+    "grype",
+    "syft",
+    "clair",
+    "docker"
+  ],
   "total_commands": 115,
   "commands": [
     {

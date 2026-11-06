@@ -1,6 +1,24 @@
 {
   "tool": "sqlmap",
-  "description": "Complete sqlmap command reference covering all options from basic to advanced",
+  "name": "sqlmap",
+  "description": "Automates detection and exploitation of SQL injection: fingerprints the database, extracts data and can reach the file system or OS.",
+  "tags": [
+    "SQL injection",
+    "databases",
+    "exploitation"
+  ],
+  "homepage": "https://sqlmap.org",
+  "docs": "https://github.com/sqlmapproject/sqlmap/wiki/Usage",
+  "install": {
+    "apt": "sudo apt install sqlmap",
+    "brew": "brew install sqlmap",
+    "pipx": "pipx install sqlmap"
+  },
+  "related": [
+    "xsser",
+    "ffuf",
+    "nuclei"
+  ],
   "total_commands": 100,
   "commands": [
     {

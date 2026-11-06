@@ -1,6 +1,21 @@
 {
   "tool": "rpcclient",
-  "description": "Complete rpcclient command reference covering all options from basic to advanced",
+  "name": "rpcclient",
+  "description": "Samba’s MS-RPC client. Queries domain users, groups, password policies and SIDs over SMB, often with a null or low-privilege session.",
+  "tags": [
+    "MS-RPC",
+    "SMB",
+    "Active Directory"
+  ],
+  "homepage": "https://www.samba.org",
+  "docs": "https://www.samba.org/samba/docs/current/man-html/rpcclient.1.html",
+  "install": {
+    "apt": "sudo apt install smbclient"
+  },
+  "related": [
+    "enum4linux",
+    "smbclient"
+  ],
   "total_commands": 100,
   "commands": [
     {

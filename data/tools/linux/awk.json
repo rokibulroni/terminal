@@ -1,35 +1,128 @@
 {
   "tool": "awk",
-  "description": "[awk] - Pattern scanning and processing language. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "awk",
+  "description": "A pattern-scanning language for column-based text: extract fields, compute totals and reformat output.",
+  "tags": [
+    "text processing",
+    "columns"
+  ],
+  "homepage": "https://www.gnu.org/software/gawk/",
+  "docs": "https://www.gnu.org/software/gawk/manual/gawk.html",
+  "install": {
+    "apt": "sudo apt install gawk",
+    "brew": "brew install gawk"
+  },
+  "related": [
+    "sed",
+    "cut",
+    "grep"
+  ],
+  "total_commands": 15,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "awk '{print $1}' file1",
-      "example": "awk '{print $1}' file1",
-      "explanation": "Print the first column of the text file."
+      "id": 5,
+      "category": "Fields",
+      "command": "awk '{print $1}' <file>",
+      "example": "awk '{print $1}' access.log",
+      "explanation": "Prints the first whitespace-separated field of each line — the client IP in a web log."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "awk -F: '{print $1}' /etc/passwd",
-      "example": "awk -F: '{print $1}' /etc/passwd",
-      "explanation": "Print the first column using colon as a delimiter."
+      "id": 6,
+      "category": "Fields",
+      "command": "awk '{print $1, $NF}' <file>",
+      "example": "awk '{print $1, $NF}' data.txt",
+      "explanation": "Prints the first and last field; NF is the number of fields."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "awk '/pattern/ {print $0}' file1",
-      "example": "awk '/pattern/ {print $0}' file1",
-      "explanation": "Print the entire line if it matches the regex pattern."
+      "id": 7,
+      "category": "Fields",
+      "command": "awk -F'<sep>' '{print $<n>}' <file>",
+      "example": "awk -F: '{print $1, $7}' /etc/passwd",
+      "explanation": "Sets a custom field separator — here, user names and login shells."
     },
     {
-      "id": 4,
-      "category": "linux",
-      "command": "awk '{sum+=$1} END {print sum}' file1",
-      "example": "awk '{sum+=$1} END {print sum}' file1",
-      "explanation": "Calculate the sum of all numbers in the first column."
+      "id": 8,
+      "category": "Fields",
+      "command": "awk -F, 'NR>1 {print $2}' <file>",
+      "example": "awk -F, 'NR>1 {print $2}' users.csv",
+      "explanation": "Skips the header row (NR is the line number)."
+    },
+    {
+      "id": 9,
+      "category": "Filtering",
+      "command": "awk '/<pattern>/' <file>",
+      "example": "awk '/Failed password/' /var/log/auth.log",
+      "explanation": "Prints lines matching a regex, like grep."
+    },
+    {
+      "id": 10,
+      "category": "Filtering",
+      "command": "awk '$<n> <op> <value>' <file>",
+      "example": "awk '$9 == 404' access.log",
+      "explanation": "Filters on a field value — here, requests that returned 404."
+    },
+    {
+      "id": 11,
+      "category": "Filtering",
+      "command": "awk -F: '$3 == 0' /etc/passwd",
+      "example": "awk -F: '$3 == 0' /etc/passwd",
+      "explanation": "Finds every account with UID 0. Anything other than root is a red flag."
+    },
+    {
+      "id": 12,
+      "category": "Filtering",
+      "command": "awk -F: '$7 !~ /nologin|false/' /etc/passwd",
+      "example": "awk -F: '$7 !~ /nologin|false/' /etc/passwd",
+      "explanation": "Lists accounts that have a real login shell."
+    },
+    {
+      "id": 13,
+      "category": "Filtering",
+      "command": "awk 'length > <n>' <file>",
+      "example": "awk 'length > 200' app.log",
+      "explanation": "Prints lines longer than n characters."
+    },
+    {
+      "id": 14,
+      "category": "Counting and summing",
+      "command": "awk '{sum += $<n>} END {print sum}' <file>",
+      "example": "awk '{sum += $10} END {print sum}' access.log",
+      "explanation": "Sums a column — here, total bytes sent."
+    },
+    {
+      "id": 15,
+      "category": "Counting and summing",
+      "command": "awk '{c[$1]++} END {for (k in c) print c[k], k}' <file> | sort -rn",
+      "example": "awk '{c[$1]++} END {for (k in c) print c[k], k}' access.log | sort -rn | head",
+      "explanation": "Counts occurrences of each value — the top requesting IPs."
+    },
+    {
+      "id": 16,
+      "category": "Counting and summing",
+      "command": "awk 'END {print NR}' <file>",
+      "example": "awk 'END {print NR}' targets.txt",
+      "explanation": "Counts lines, like wc -l."
+    },
+    {
+      "id": 17,
+      "category": "Counting and summing",
+      "command": "awk '!seen[$0]++' <file>",
+      "example": "awk '!seen[$0]++' urls.txt",
+      "explanation": "Removes duplicate lines while keeping the original order."
+    },
+    {
+      "id": 18,
+      "category": "Formatting",
+      "command": "awk '{printf \"%-20s %s\\n\", $1, $2}' <file>",
+      "example": "awk '{printf \"%-20s %s\\n\", $1, $2}' hosts.txt",
+      "explanation": "Formats output in aligned columns with printf."
+    },
+    {
+      "id": 19,
+      "category": "Formatting",
+      "command": "awk 'BEGIN {OFS=\",\"} {$1=$1; print}' <file>",
+      "example": "awk 'BEGIN {OFS=\",\"} {$1=$1; print}' table.txt",
+      "explanation": "Converts whitespace-separated columns to CSV."
     }
-  ],
-  "total_commands": 4
+  ]
 }

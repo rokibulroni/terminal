@@ -1,77 +1,122 @@
 {
   "tool": "spiderfoot",
-  "description": "SpiderFoot: An incredibly comprehensive OSINT automation engine designed to rapidly integrate over 200 different modules bridging black-box footprints.",
-  "total_commands": 10,
+  "name": "SpiderFoot",
+  "description": "Automates OSINT collection across 200+ modules and correlates results about IPs, domains, emails, names and more, via CLI or web UI.",
+  "tags": [
+    "automation",
+    "reconnaissance",
+    "correlation"
+  ],
+  "homepage": "https://github.com/smicallef/spiderfoot",
+  "docs": "https://github.com/smicallef/spiderfoot#readme",
+  "install": {
+    "apt": "sudo apt install spiderfoot",
+    "docker": "docker run -p 5001:5001 smicallef/spiderfoot"
+  },
+  "related": [
+    "recon-ng",
+    "theHarvester",
+    "shodan"
+  ],
+  "total_commands": 14,
   "commands": [
     {
-      "id": 1,
-      "category": "Headless Initialization",
-      "command": "spiderfoot -s <target>",
-      "example": "spiderfoot -s example.com",
-      "explanation": "Boots a terminal-only CLI automation loop exclusively scanning the defined target with standard modules natively."
-    },
-    {
-      "id": 2,
-      "category": "Web Interface",
-      "command": "spiderfoot -l <ip>:<port>",
+      "id": 11,
+      "category": "Web UI",
+      "command": "spiderfoot -l 127.0.0.1:5001",
       "example": "spiderfoot -l 127.0.0.1:5001",
-      "explanation": "Deploys a robust local HTTP dashboard web server enabling highly visual graphical configuration mapping."
+      "explanation": "Starts the web interface on port 5001. Keep it on localhost; it has no authentication by default."
     },
     {
-      "id": 3,
-      "category": "Module Filtering",
-      "command": "spiderfoot -m <modules> -s <target>",
-      "example": "spiderfoot -m sfp_shodan,sfp_whois -s example.com",
-      "explanation": "Bypasses overall mass scanning explicitly restricting execution ONLY to the specified programmatic modules."
+      "id": 12,
+      "category": "Web UI",
+      "command": "docker run -p 127.0.0.1:5001:5001 smicallef/spiderfoot",
+      "example": "docker run -p 127.0.0.1:5001:5001 smicallef/spiderfoot",
+      "explanation": "Runs the web UI in Docker, published only on localhost."
     },
     {
-      "id": 4,
-      "category": "Event Depth",
-      "command": "spiderfoot -s <target> -q -F",
-      "example": "spiderfoot -s target.com -q -F",
-      "explanation": "Executes the scan extremely rapidly without stdout spam (-q), strictly enforcing deep brute-force analysis directives (-F)."
+      "id": 13,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -u passive",
+      "example": "spiderfoot -s example.com -u passive",
+      "explanation": "Runs every module that does not touch the target directly."
     },
     {
-      "id": 5,
-      "category": "Configuration Setup",
-      "command": "spiderfoot -C <file>",
-      "example": "spiderfoot -C custom_opts.txt -s target.com",
-      "explanation": "Automates API authentication parameters bridging customized module rules directly from a local configuration artifact."
+      "id": 14,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -u footprint",
+      "example": "spiderfoot -s example.com -u footprint",
+      "explanation": "Footprinting: maps the target’s internet presence."
     },
     {
-      "id": 6,
-      "category": "Data Reporting",
-      "command": "spiderfoot -t <target> -o <format>",
-      "example": "spiderfoot -s target.com -o json",
-      "explanation": "Dumps the absolute aggregated OSINT analytical results explicitly formatting them as native raw JSON, CSV, or GEXF."
+      "id": 15,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -u investigate",
+      "example": "spiderfoot -s 203.0.113.10 -u investigate",
+      "explanation": "Investigation: looks for malicious indicators about the target."
     },
     {
-      "id": 7,
-      "category": "Status Checks",
-      "command": "spiderfoot CLI",
-      "example": "spiderfoot -cli",
-      "explanation": "Drops into a passive interactive CLI explicitly utilized for tracking the internal status of asynchronously running background scans."
+      "id": 16,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -u all",
+      "example": "spiderfoot -s example.com -u all",
+      "explanation": "Every module — slow and can be noisy."
     },
     {
-      "id": 8,
-      "category": "Database Purging",
-      "command": "spiderfoot -X <scan_id>",
-      "example": "spiderfoot -X 21A4B022",
-      "explanation": "Deletes incredibly massive internal local sql caches completely erasing historical execution data associated with the Target ID."
+      "id": 17,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -m <modules>",
+      "example": "spiderfoot -s example.com -m sfp_dnsresolve,sfp_crt,sfp_whois",
+      "explanation": "Only the listed modules."
     },
     {
-      "id": 9,
-      "category": "Proxy Routing",
-      "command": "spiderfoot -r <proxy>",
-      "example": "spiderfoot -r socks5://127.0.0.1:9050 -s deepweb.onion",
-      "explanation": "Forces the entire python request architecture explicitly through an active TOR/SOCKS proxy layer."
+      "id": 18,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -t <types>",
+      "example": "spiderfoot -s example.com -t EMAILADDR,INTERNET_NAME",
+      "explanation": "Only collects certain data types."
     },
     {
-      "id": 10,
-      "category": "Custom Signatures",
-      "command": "spiderfoot -s <target> -u <type>",
-      "example": "spiderfoot -s 192.168.1.1 -u IP",
-      "explanation": "Strictly defines the data-type format (IP, Domain, Email, User) preventing the internal engines from guessing the baseline target type."
+      "id": 19,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -u passive -o json > <file>",
+      "example": "spiderfoot -s example.com -u passive -o json > results.json",
+      "explanation": "JSON output for later processing; csv and tab are also available."
+    },
+    {
+      "id": 20,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -u passive -q",
+      "example": "spiderfoot -s example.com -u passive -q",
+      "explanation": "Hides log messages and prints only results."
+    },
+    {
+      "id": 21,
+      "category": "Command-line scans",
+      "command": "spiderfoot -s <target> -u passive -x -t <type>",
+      "example": "spiderfoot -s example.com -x -t EMAILADDR",
+      "explanation": "Strict mode: only modules that directly produce the requested type."
+    },
+    {
+      "id": 22,
+      "category": "Reference",
+      "command": "spiderfoot -M",
+      "example": "spiderfoot -M",
+      "explanation": "Lists all modules with short descriptions."
+    },
+    {
+      "id": 23,
+      "category": "Reference",
+      "command": "spiderfoot -T",
+      "example": "spiderfoot -T",
+      "explanation": "Lists every data type modules can produce."
+    },
+    {
+      "id": 24,
+      "category": "Reference",
+      "command": "spiderfoot -C <scan_id>",
+      "example": "spiderfoot -C 3F6A2B…",
+      "explanation": "Runs the correlation rules against a completed scan."
     }
   ]
 }

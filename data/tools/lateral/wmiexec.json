@@ -1,6 +1,23 @@
 {
   "tool": "wmiexec",
-  "description": "Complete WMIExec command and workflow reference from basic to advanced remote execution and lateral movement",
+  "name": "wmiexec",
+  "description": "Impacket’s wmiexec.py: a semi-interactive shell over DCOM/WMI that leaves fewer artefacts than service-based execution.",
+  "tags": [
+    "remote execution",
+    "WMI",
+    "Impacket"
+  ],
+  "homepage": "https://github.com/fortra/impacket",
+  "docs": "https://github.com/fortra/impacket",
+  "install": {
+    "pipx": "pipx install impacket",
+    "apt": "sudo apt install python3-impacket"
+  },
+  "related": [
+    "psexec",
+    "smbexec",
+    "crackmapexec"
+  ],
   "total_commands": 30,
   "commands": [
     {

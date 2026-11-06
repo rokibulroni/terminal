@@ -1,0 +1,104 @@
+{
+  "tool": "subfinder",
+  "name": "Subfinder",
+  "description": "ProjectDiscovery’s fast passive subdomain enumeration tool, pulling from many sources and designed to slot into a recon pipeline.",
+  "tags": [
+    "subdomains",
+    "recon",
+    "passive",
+    "ProjectDiscovery"
+  ],
+  "homepage": "https://github.com/projectdiscovery/subfinder",
+  "docs": "https://docs.projectdiscovery.io/tools/subfinder/overview",
+  "install": {
+    "go": "go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest",
+    "brew": "brew install subfinder",
+    "apt": "sudo apt install subfinder"
+  },
+  "related": [
+    "amass",
+    "dnsx",
+    "httpx",
+    "gobuster"
+  ],
+  "total_commands": 11,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Discovery",
+      "command": "subfinder -d <domain>",
+      "example": "subfinder -d example.com",
+      "explanation": "Passive subdomain discovery from dozens of online sources."
+    },
+    {
+      "id": 2,
+      "category": "Discovery",
+      "command": "subfinder -d <domain> -silent",
+      "example": "subfinder -d example.com -silent",
+      "explanation": "Prints only the subdomains, perfect for piping."
+    },
+    {
+      "id": 3,
+      "category": "Discovery",
+      "command": "subfinder -dL <file> -silent",
+      "example": "subfinder -dL domains.txt -silent",
+      "explanation": "Enumerates many root domains from a file."
+    },
+    {
+      "id": 4,
+      "category": "Discovery",
+      "command": "subfinder -d <domain> -all",
+      "example": "subfinder -d example.com -all",
+      "explanation": "Uses every source, including the slower ones."
+    },
+    {
+      "id": 5,
+      "category": "Discovery",
+      "command": "subfinder -d <domain> -recursive",
+      "example": "subfinder -d example.com -recursive",
+      "explanation": "Recursively enumerates sources that can reveal deeper subdomains."
+    },
+    {
+      "id": 6,
+      "category": "Output & pipelines",
+      "command": "subfinder -d <domain> -o <file>",
+      "example": "subfinder -d example.com -o subs.txt",
+      "explanation": "Writes results to a file."
+    },
+    {
+      "id": 7,
+      "category": "Output & pipelines",
+      "command": "subfinder -d <domain> -oJ -o <file>",
+      "example": "subfinder -d example.com -oJ -o subs.json",
+      "explanation": "JSON Lines output with the source of each finding."
+    },
+    {
+      "id": 8,
+      "category": "Output & pipelines",
+      "command": "subfinder -d <domain> -silent | httpx -silent",
+      "example": "subfinder -d example.com -silent | httpx -silent",
+      "explanation": "Finds subdomains, then live web servers among them."
+    },
+    {
+      "id": 9,
+      "category": "Output & pipelines",
+      "command": "subfinder -d <domain> -silent | dnsx -silent -a -resp",
+      "example": "subfinder -d example.com -silent | dnsx -silent -a -resp",
+      "explanation": "Resolves discovered subdomains to filter out dead ones."
+    },
+    {
+      "id": 10,
+      "category": "Configuration",
+      "command": "subfinder -ls",
+      "example": "subfinder -ls",
+      "explanation": "Lists the available sources."
+    },
+    {
+      "id": 11,
+      "category": "Configuration",
+      "command": "cat ~/.config/subfinder/provider-config.yaml",
+      "example": "cat ~/.config/subfinder/provider-config.yaml",
+      "explanation": "API keys for sources like Censys, SecurityTrails and Shodan — adding them greatly widens coverage."
+    }
+  ]
+}

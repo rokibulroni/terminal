@@ -1,35 +1,114 @@
 {
   "tool": "cat",
-  "description": "[cat] - Concatenate files and print on the standard output. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "cat",
+  "description": "Concatenates files and prints them to standard output — view, combine and create files.",
+  "tags": [
+    "files",
+    "text"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/cat.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "less",
+    "head",
+    "tail"
+  ],
+  "total_commands": 13,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "cat file1",
-      "example": "cat file1",
-      "explanation": "Output contents of a file to terminal."
+      "id": 5,
+      "category": "Viewing",
+      "command": "cat <file>",
+      "example": "cat /etc/os-release",
+      "explanation": "Prints a file to the terminal. /etc/os-release is a quick way to identify the distribution."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "cat -n file1",
-      "example": "cat -n file1",
-      "explanation": "Output contents with line numbers."
+      "id": 6,
+      "category": "Viewing",
+      "command": "cat -n <file>",
+      "example": "cat -n script.sh",
+      "explanation": "Numbers every output line."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "cat file1 file2 > newfile",
-      "example": "cat file1 file2 > newfile",
-      "explanation": "Concatenate multiple files into a single new file."
+      "id": 7,
+      "category": "Viewing",
+      "command": "cat -b <file>",
+      "example": "cat -b config.ini",
+      "explanation": "Numbers only non-blank lines."
     },
     {
-      "id": 4,
-      "category": "linux",
-      "command": "cat file1 >> existingfile",
-      "example": "cat file1 >> existingfile",
-      "explanation": "Append configuration lines to an existing file."
+      "id": 8,
+      "category": "Viewing",
+      "command": "cat -A <file>",
+      "example": "cat -A data.csv",
+      "explanation": "Reveals hidden characters: tabs as ^I, line ends as $ — great for spotting Windows line endings (^M$)."
+    },
+    {
+      "id": 9,
+      "category": "Viewing",
+      "command": "cat -s <file>",
+      "example": "cat -s notes.txt",
+      "explanation": "Squeezes repeated blank lines into one."
+    },
+    {
+      "id": 10,
+      "category": "Combining and creating",
+      "command": "cat <file1> <file2> > <out>",
+      "example": "cat part1.txt part2.txt > full.txt",
+      "explanation": "Concatenates files into a new file."
+    },
+    {
+      "id": 11,
+      "category": "Combining and creating",
+      "command": "cat <file> >> <out>",
+      "example": "cat new-hosts.txt >> targets.txt",
+      "explanation": "Appends a file to the end of another."
+    },
+    {
+      "id": 12,
+      "category": "Combining and creating",
+      "command": "cat > <file> << 'EOF'",
+      "example": "cat > hello.sh << 'EOF'\n#!/bin/sh\necho hello\nEOF",
+      "explanation": "Writes multiple lines into a file using a here-document; quoting EOF stops variable expansion."
+    },
+    {
+      "id": 13,
+      "category": "Combining and creating",
+      "command": "cat -",
+      "example": "cat -",
+      "explanation": "Reads from standard input until Ctrl-D — a quick way to paste text."
+    },
+    {
+      "id": 14,
+      "category": "Recon",
+      "command": "cat /etc/passwd",
+      "example": "cat /etc/passwd",
+      "explanation": "Lists local accounts, their UID/GID, home directory and login shell."
+    },
+    {
+      "id": 15,
+      "category": "Recon",
+      "command": "cat /proc/version",
+      "example": "cat /proc/version",
+      "explanation": "Shows the kernel version and the compiler used to build it."
+    },
+    {
+      "id": 16,
+      "category": "Recon",
+      "command": "cat /etc/hosts",
+      "example": "cat /etc/hosts",
+      "explanation": "Shows static hostname mappings, which can reveal internal hosts."
+    },
+    {
+      "id": 17,
+      "category": "Recon",
+      "command": "cat ~/.bash_history",
+      "example": "cat ~/.bash_history",
+      "explanation": "Reads the shell history — often contains typed passwords, hostnames and paths."
     }
-  ],
-  "total_commands": 4
+  ]
 }

@@ -1,6 +1,21 @@
 {
   "tool": "hping3",
-  "description": "Complete hping3 command reference covering all options from basic to advanced",
+  "name": "hping3",
+  "description": "A packet crafter for TCP, UDP and ICMP: test firewall rules, perform idle scans, trace paths with custom packets and measure latency.",
+  "tags": [
+    "packet crafting",
+    "firewall testing",
+    "TCP/IP"
+  ],
+  "homepage": "http://www.hping.org",
+  "docs": "http://www.hping.org/manpage.html",
+  "install": {
+    "apt": "sudo apt install hping3"
+  },
+  "related": [
+    "nmap",
+    "fping"
+  ],
   "total_commands": 100,
   "commands": [
     {

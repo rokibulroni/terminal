@@ -1,6 +1,20 @@
 {
   "tool": "netdiscover",
-  "description": "Complete netdiscover command reference covering all options from basic to advanced",
+  "name": "netdiscover",
+  "description": "An active and passive ARP reconnaissance tool for finding live hosts on wireless or switched networks, especially those without DHCP.",
+  "tags": [
+    "host discovery",
+    "ARP",
+    "passive"
+  ],
+  "homepage": "https://github.com/netdiscover-scanner/netdiscover",
+  "install": {
+    "apt": "sudo apt install netdiscover"
+  },
+  "related": [
+    "arp-scan",
+    "nmap"
+  ],
   "total_commands": 28,
   "commands": [
     {

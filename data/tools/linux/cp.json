@@ -1,42 +1,105 @@
 {
   "tool": "cp",
-  "description": "[cp] - Copy files and directories. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "cp",
+  "description": "Copies files and directories, preserving attributes when asked.",
+  "tags": [
+    "files"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/cp.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "mv",
+    "rm"
+  ],
+  "total_commands": 12,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "cp file1 file2",
-      "example": "cp file1 file2",
-      "explanation": "Copy source file to destination."
+      "id": 6,
+      "category": "Basics",
+      "command": "cp <src> <dest>",
+      "example": "cp config.yml config.yml.bak",
+      "explanation": "Copies a file. Overwrites the destination without asking."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "cp -r dir1 dir2",
-      "example": "cp -r dir1 dir2",
-      "explanation": "Recursively copy directories and their contents."
+      "id": 7,
+      "category": "Basics",
+      "command": "cp <file1> <file2> <dir>/",
+      "example": "cp a.txt b.txt backup/",
+      "explanation": "Copies several files into a directory."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "cp -i file1 dir/",
-      "example": "cp -i file1 dir/",
-      "explanation": "Copy interactively (prompt before overwrite)."
+      "id": 8,
+      "category": "Basics",
+      "command": "cp -r <dir> <dest>",
+      "example": "cp -r project project-copy",
+      "explanation": "Copies a directory recursively."
     },
     {
-      "id": 4,
-      "category": "linux",
-      "command": "cp -u file1 dir/",
-      "example": "cp -u file1 dir/",
-      "explanation": "Copy only if source is newer than destination or destination is missing."
+      "id": 9,
+      "category": "Basics",
+      "command": "cp -i <src> <dest>",
+      "example": "cp -i <src> <dest>",
+      "explanation": "Asks before overwriting."
     },
     {
-      "id": 5,
-      "category": "linux",
-      "command": "cp -v file1 file2",
-      "example": "cp -v file1 file2",
-      "explanation": "Verbose output explaining what is being copied."
+      "id": 10,
+      "category": "Basics",
+      "command": "cp -n <src> <dest>",
+      "example": "cp -n <src> <dest>",
+      "explanation": "Never overwrites existing files."
+    },
+    {
+      "id": 11,
+      "category": "Basics",
+      "command": "cp -v <src> <dest>",
+      "example": "cp -v <src> <dest>",
+      "explanation": "Prints each file as it is copied."
+    },
+    {
+      "id": 12,
+      "category": "Preserving attributes",
+      "command": "cp -p <src> <dest>",
+      "example": "cp -p evidence.log /cases/",
+      "explanation": "Keeps mode, ownership and timestamps."
+    },
+    {
+      "id": 13,
+      "category": "Preserving attributes",
+      "command": "cp -a <src> <dest>",
+      "example": "cp -a /etc /backup/etc",
+      "explanation": "Archive mode: recursive, preserves everything including symlinks. Best for backups."
+    },
+    {
+      "id": 14,
+      "category": "Preserving attributes",
+      "command": "cp -u <src> <dest>",
+      "example": "cp -u *.html /var/www/",
+      "explanation": "Copies only when the source is newer or the destination is missing."
+    },
+    {
+      "id": 15,
+      "category": "Preserving attributes",
+      "command": "cp --backup=numbered <src> <dest>",
+      "example": "cp --backup=numbered app.conf /etc/app/",
+      "explanation": "Keeps numbered backups of anything it overwrites (GNU)."
+    },
+    {
+      "id": 16,
+      "category": "Links",
+      "command": "cp -L <link> <dest>",
+      "example": "cp -L <link> <dest>",
+      "explanation": "Follows symbolic links and copies what they point to."
+    },
+    {
+      "id": 17,
+      "category": "Links",
+      "command": "cp -s <src> <link>",
+      "example": "cp -s /opt/tool/bin/tool ~/bin/tool",
+      "explanation": "Creates a symbolic link instead of copying."
     }
-  ],
-  "total_commands": 5
+  ]
 }

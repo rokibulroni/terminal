@@ -1,28 +1,78 @@
 {
   "tool": "head",
-  "description": "[head] - Output the first part of files. Sourced directly from Linux Journey curriculum foundations.",
+  "name": "head",
+  "description": "Prints the first lines or bytes of files — quick previews of logs and data.",
+  "tags": [
+    "text",
+    "files"
+  ],
+  "homepage": "https://www.gnu.org/software/coreutils/",
+  "docs": "https://man7.org/linux/man-pages/man1/head.1.html",
+  "install": {
+    "apt": "sudo apt install coreutils",
+    "brew": "brew install coreutils"
+  },
+  "related": [
+    "tail",
+    "less"
+  ],
+  "total_commands": 8,
   "commands": [
     {
-      "id": 1,
-      "category": "linux",
-      "command": "head file1",
-      "example": "head file1",
-      "explanation": "Output the first 10 lines of a file."
+      "id": 4,
+      "category": "Basics",
+      "command": "head <file>",
+      "example": "head access.log",
+      "explanation": "Prints the first 10 lines."
     },
     {
-      "id": 2,
-      "category": "linux",
-      "command": "head -n 20 file1",
-      "example": "head -n 20 file1",
-      "explanation": "Output the first N lines of a file."
+      "id": 5,
+      "category": "Basics",
+      "command": "head -n <n> <file>",
+      "example": "head -n 25 /etc/passwd",
+      "explanation": "Prints the first n lines."
     },
     {
-      "id": 3,
-      "category": "linux",
-      "command": "head -c 100 file1",
-      "example": "head -c 100 file1",
-      "explanation": "Output the first N bytes of a file."
+      "id": 6,
+      "category": "Basics",
+      "command": "head -n -<n> <file>",
+      "example": "head -n -5 report.txt",
+      "explanation": "Prints everything except the last n lines (GNU)."
+    },
+    {
+      "id": 7,
+      "category": "Basics",
+      "command": "head -c <bytes> <file>",
+      "example": "head -c 64 firmware.bin",
+      "explanation": "Prints the first n bytes — useful for checking file headers."
+    },
+    {
+      "id": 8,
+      "category": "Basics",
+      "command": "head -n 1 <file1> <file2>",
+      "example": "head -n 1 *.csv",
+      "explanation": "Shows the first line of several files, each with a header naming the file."
+    },
+    {
+      "id": 9,
+      "category": "In pipelines",
+      "command": "<command> | head -n <n>",
+      "example": "ls -lt | head -n 5",
+      "explanation": "Keeps only the first lines of output — here the five most recently modified files."
+    },
+    {
+      "id": 10,
+      "category": "In pipelines",
+      "command": "sort -rn <file> | head",
+      "example": "sort -rn counts.txt | head",
+      "explanation": "A top-ten list from numeric data."
+    },
+    {
+      "id": 11,
+      "category": "In pipelines",
+      "command": "head -c 16 /dev/urandom | xxd",
+      "example": "head -c 16 /dev/urandom | xxd",
+      "explanation": "Reads 16 random bytes and shows them in hex."
     }
-  ],
-  "total_commands": 3
+  ]
 }

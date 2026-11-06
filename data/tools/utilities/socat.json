@@ -1,6 +1,22 @@
 {
   "tool": "socat",
-  "description": "Complete socat command and workflow reference from basic to advanced socket and data relay operations",
+  "name": "socat",
+  "description": "A bidirectional data relay between almost any two endpoints — sockets, files, pipes, TLS — ideal for port forwarding and stable shells.",
+  "tags": [
+    "networking",
+    "relay",
+    "port forwarding"
+  ],
+  "homepage": "http://www.dest-unreach.org/socat/",
+  "docs": "http://www.dest-unreach.org/socat/doc/socat.html",
+  "install": {
+    "apt": "sudo apt install socat",
+    "brew": "brew install socat"
+  },
+  "related": [
+    "Netcat",
+    "ssh"
+  ],
   "total_commands": 150,
   "commands": [
     {

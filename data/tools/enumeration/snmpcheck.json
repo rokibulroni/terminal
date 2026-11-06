@@ -1,6 +1,18 @@
 {
   "tool": "snmpcheck",
-  "description": "Complete snmpcheck command reference covering all options from basic to advanced",
+  "name": "snmp-check",
+  "description": "Enumerates SNMP devices and prints a readable report of system info, network interfaces, routes, processes and installed software.",
+  "tags": [
+    "SNMP",
+    "enumeration"
+  ],
+  "homepage": "https://www.nothink.org/codes/snmpcheck/",
+  "install": {
+    "apt": "sudo apt install snmpcheck"
+  },
+  "related": [
+    "snmpwalk"
+  ],
   "total_commands": 32,
   "commands": [
     {

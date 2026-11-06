@@ -1,0 +1,59 @@
+{
+  "tool": "kerbrute",
+  "name": "Kerbrute",
+  "description": "A fast Go tool for Kerberos pre-authentication: username enumeration and password spraying against a domain controller, with no Windows event 4625 noise.",
+  "tags": [
+    "Active Directory",
+    "Kerberos",
+    "password spraying",
+    "enumeration"
+  ],
+  "homepage": "https://github.com/ropnop/kerbrute",
+  "docs": "https://github.com/ropnop/kerbrute",
+  "install": {
+    "go": "go install github.com/ropnop/kerbrute@latest"
+  },
+  "related": [
+    "impacket",
+    "crackmapexec",
+    "hydra"
+  ],
+  "total_commands": 5,
+  "commands": [
+    {
+      "id": 1,
+      "category": "Enumeration",
+      "command": "kerbrute userenum -d <domain> --dc <dc-ip> <userlist>",
+      "example": "kerbrute userenum -d corp.local --dc 10.10.10.1 users.txt",
+      "explanation": "Validates which usernames exist by watching Kerberos pre-auth responses — quiet and does not lock accounts."
+    },
+    {
+      "id": 2,
+      "category": "Password attacks",
+      "command": "kerbrute passwordspray -d <domain> --dc <dc-ip> <userlist> <password>",
+      "example": "kerbrute passwordspray -d corp.local --dc 10.10.10.1 valid_users.txt Spring2026!",
+      "explanation": "Tries one password against many users, staying under lockout thresholds."
+    },
+    {
+      "id": 3,
+      "category": "Password attacks",
+      "command": "kerbrute bruteuser -d <domain> --dc <dc-ip> <passwordlist> <user>",
+      "example": "kerbrute bruteuser -d corp.local --dc 10.10.10.1 passwords.txt admin",
+      "explanation": "Tries many passwords against one user (watch the lockout policy)."
+    },
+    {
+      "id": 4,
+      "category": "Password attacks",
+      "command": "kerbrute passwordspray -d <domain> --dc <dc-ip> --safe <userlist> <password>",
+      "example": "kerbrute passwordspray -d corp.local --dc 10.10.10.1 --safe users.txt Winter2026",
+      "explanation": "Stops immediately if any account shows signs of being locked."
+    },
+    {
+      "id": 5,
+      "category": "Output",
+      "command": "kerbrute userenum -d <domain> --dc <dc-ip> <userlist> -o <file>",
+      "example": "kerbrute userenum -d corp.local --dc 10.10.10.1 users.txt -o valid.txt",
+      "explanation": "Writes valid results to a file for the next stage."
+    }
+  ]
+}

@@ -1,77 +1,112 @@
 {
   "tool": "libcamera",
-  "description": "libcamera is the standard next-generation suite inherently replacing legacy raspistill bridging strict multi-threaded hardware-level camera ISP handling.",
-  "total_commands": 10,
+  "name": "libcamera apps",
+  "description": "Capture stills and video from Raspberry Pi camera modules with rpicam-still, rpicam-vid and friends (formerly libcamera-*).",
+  "tags": [
+    "camera",
+    "Raspberry Pi"
+  ],
+  "homepage": "https://libcamera.org",
+  "docs": "https://www.raspberrypi.com/documentation/computers/camera_software.html",
+  "install": {
+    "apt": "sudo apt install rpicam-apps"
+  },
+  "related": [
+    "raspi-config",
+    "vcgencmd"
+  ],
+  "total_commands": 13,
   "commands": [
     {
-      "id": 1,
-      "category": "Information",
-      "command": "libcamera-hello",
-      "example": "libcamera-hello",
-      "explanation": "Boots the optic sensor executing a quick 5-second graphical preview window explicitly validating that the physical ribbon connections and optics are responsive."
+      "id": 11,
+      "category": "Detecting",
+      "command": "rpicam-hello --list-cameras",
+      "example": "rpicam-hello --list-cameras",
+      "explanation": "Lists connected cameras with their sensor modes and resolutions."
     },
     {
-      "id": 2,
-      "category": "Information",
-      "command": "libcamera-hello --list-cameras",
-      "example": "libcamera-hello --list-cameras",
-      "explanation": "Extracts systemic configurations listing the exact specific underlying camera models (imx219, imx477) currently actively recognized upon the CSI ports."
+      "id": 12,
+      "category": "Detecting",
+      "command": "rpicam-hello -t 0",
+      "example": "rpicam-hello -t 0",
+      "explanation": "Shows a live preview until you stop it. On older releases the command is libcamera-hello."
     },
     {
-      "id": 3,
-      "category": "Image Capture",
-      "command": "libcamera-jpeg -o <file.jpg>",
-      "example": "libcamera-jpeg -o test.jpg",
-      "explanation": "Engages the sensor focusing arrays, compiles a standard uncompressed image feed, and encodes it executing an immediate JPG save."
+      "id": 13,
+      "category": "Stills",
+      "command": "rpicam-still -o <file>",
+      "example": "rpicam-still -o photo.jpg",
+      "explanation": "Takes a JPEG after a short preview for auto-exposure."
     },
     {
-      "id": 4,
-      "category": "Image Capture",
-      "command": "libcamera-still -o <file.png> --encoding png",
-      "example": "libcamera-still -o raw_test.png --encoding png",
-      "explanation": "Leverages the `still` command explicitly forcing the internal software encoder to preserve lossless clarity outputting to an absolute PNG schema."
+      "id": 14,
+      "category": "Stills",
+      "command": "rpicam-still -n -t 1 -o <file>",
+      "example": "rpicam-still -n -t 1 -o quick.jpg",
+      "explanation": "No preview and minimal delay — useful in scripts."
     },
     {
-      "id": 5,
-      "category": "Image Capture",
-      "command": "libcamera-still -o <file.jpg> --autofocus",
-      "example": "libcamera-still -o focus_test.jpg --autofocus",
-      "explanation": "Commands advanced optical arrays (like Pi Camera Module 3) triggering internal Voice Coil Motors to dial perfect sharp programmatic physical lens focus."
+      "id": 15,
+      "category": "Stills",
+      "command": "rpicam-still --width <w> --height <h> -o <file>",
+      "example": "rpicam-still --width 1920 --height 1080 -o hd.jpg",
+      "explanation": "Sets the resolution."
     },
     {
-      "id": 6,
-      "category": "Video Capture",
-      "command": "libcamera-vid -t <time_ms> -o <file.h264>",
-      "example": "libcamera-vid -t 10000 -o vid.h264",
-      "explanation": "Forces the integrated system block to parse video capturing raw hardware-accelerated fluid H264 feeds for exactly the specific inputted milliseconds duration (e.g. 10s)."
+      "id": 16,
+      "category": "Stills",
+      "command": "rpicam-still -r -o <file>",
+      "example": "rpicam-still -r -o raw.jpg",
+      "explanation": "Also saves a DNG raw file."
     },
     {
-      "id": 7,
-      "category": "Video Capture",
-      "command": "libcamera-vid -t 0 --inline -o tcp://0.0.0.0:8000",
-      "example": "libcamera-vid -t 0 --inline -o tcp://0.0.0.0:8000",
-      "explanation": "Establishes a limitless TCP stream fundamentally transmitting active raw internal video frames inherently broadcasting them live across the LAN network."
+      "id": 17,
+      "category": "Stills",
+      "command": "rpicam-still --timelapse <ms> -t <ms> -o <pattern>",
+      "example": "rpicam-still --timelapse 60000 -t 3600000 -o tl_%04d.jpg",
+      "explanation": "One frame a minute for an hour."
     },
     {
-      "id": 8,
-      "category": "Automation",
-      "command": "libcamera-still -t <total_ms> --timelapse <interval_ms> -o <prefix%04d.jpg>",
-      "example": "libcamera-still -t 60000 -timelapse 2000 -o img%04d.jpg",
-      "explanation": "Initiates an automated timelapse execution shooting cyclical periodic absolute still frames precisely every targeted interval milliseconds natively scaling internal image numeration arrays."
+      "id": 18,
+      "category": "Stills",
+      "command": "rpicam-still --shutter <us> --gain <g> -o <file>",
+      "example": "rpicam-still --shutter 2000000 --gain 1 -o night.jpg",
+      "explanation": "Manual exposure: a 2-second shutter at base gain."
     },
     {
-      "id": 9,
-      "category": "Optics Tuning",
-      "command": "libcamera-vid --exposure <mode>",
-      "example": "libcamera-vid --exposure sports -o fast.h264",
-      "explanation": "Dynamically adjusts algorithmic shutter calculations inherently limiting trailing blur explicitly tuned for specific extreme lighting situations (normal, sport, night)."
+      "id": 19,
+      "category": "Stills",
+      "command": "rpicam-still --hflip --vflip -o <file>",
+      "example": "rpicam-still --hflip --vflip -o <file>",
+      "explanation": "Flips the image when the camera is mounted upside down."
     },
     {
-      "id": 10,
-      "category": "Raw Sensor Bridging",
-      "command": "libcamera-raw -t 5000 -o raw_feed.raw",
-      "example": "libcamera-raw -t 5000 -o test.raw",
-      "explanation": "Absolutely circumvents all internal Post-Processing pipelines dumping pure uncompressed literal pixel Bayer arrays bypassing systemic JPG compression losses."
+      "id": 20,
+      "category": "Video",
+      "command": "rpicam-vid -t <ms> -o <file>",
+      "example": "rpicam-vid -t 10000 -o clip.h264",
+      "explanation": "Records raw H.264 for the given milliseconds."
+    },
+    {
+      "id": 21,
+      "category": "Video",
+      "command": "rpicam-vid -t <ms> --codec libav -o <file>.mp4",
+      "example": "rpicam-vid -t 10000 --codec libav -o clip.mp4",
+      "explanation": "Records straight to MP4."
+    },
+    {
+      "id": 22,
+      "category": "Video",
+      "command": "rpicam-vid -t 0 --inline --listen -o tcp://0.0.0.0:<port>",
+      "example": "rpicam-vid -t 0 --inline --listen -o tcp://0.0.0.0:8888",
+      "explanation": "Streams video over TCP; open tcp://<pi>:8888 in VLC or ffplay."
+    },
+    {
+      "id": 23,
+      "category": "Video",
+      "command": "rpicam-vid --framerate <fps> --width <w> --height <h> -o <file>",
+      "example": "rpicam-vid --framerate 60 --width 1280 --height 720 -t 5000 -o fast.h264",
+      "explanation": "Sets resolution and frame rate."
     }
   ]
 }

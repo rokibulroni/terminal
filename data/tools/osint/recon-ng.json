@@ -1,77 +1,169 @@
 {
   "tool": "recon-ng",
-  "description": "Recon-ng: A full-featured Web Reconnaissance framework built in Python mirroring Metasploit's powerful internal database and modular architecture.",
-  "total_commands": 10,
+  "name": "Recon-ng",
+  "description": "A modular web-reconnaissance framework with a Metasploit-style console, a workspace database and marketplace modules.",
+  "tags": [
+    "framework",
+    "reconnaissance"
+  ],
+  "homepage": "https://github.com/lanmaster53/recon-ng",
+  "docs": "https://github.com/lanmaster53/recon-ng/wiki",
+  "install": {
+    "apt": "sudo apt install recon-ng"
+  },
+  "related": [
+    "theHarvester",
+    "spiderfoot",
+    "amass"
+  ],
+  "total_commands": 21,
   "commands": [
     {
       "id": 1,
-      "category": "Initialization",
+      "category": "Workspaces",
       "command": "recon-ng",
       "example": "recon-ng",
-      "explanation": "Launches the interactive modular console structure locking the CLI into the explicit Recon-ng framework."
+      "explanation": "Starts the console."
     },
     {
-      "id": 2,
-      "category": "Marketplace",
-      "command": "marketplace install <module>",
-      "example": "marketplace install all",
-      "explanation": "Contacts the centralized module repository to download necessary APIs and exploitation scripts."
-    },
-    {
-      "id": 3,
-      "category": "Search Logic",
-      "command": "marketplace search <string>",
-      "example": "marketplace search xss",
-      "explanation": "Searches the central repository module listing for scripts containing the defined keyword or capability."
+      "id": 11,
+      "category": "Workspaces",
+      "command": "recon-ng -w <workspace>",
+      "example": "recon-ng -w acme",
+      "explanation": "Starts in a named workspace; each workspace has its own database."
     },
     {
       "id": 4,
       "category": "Workspaces",
       "command": "workspaces create <name>",
-      "example": "workspaces create target_corp",
-      "explanation": "Instantiates a completely isolated internal sqlite database container guaranteeing the current target's intel does not blend into older campaigns."
+      "example": "workspaces create acme",
+      "explanation": "Creates a workspace from inside the console."
     },
     {
-      "id": 5,
-      "category": "Module Deployment",
-      "command": "modules load <path>",
-      "example": "modules load recon/domains-hosts/bing_domain_web",
-      "explanation": "Engages a specific installed module moving the framework context over to its specific payload parameters."
+      "id": 12,
+      "category": "Workspaces",
+      "command": "workspaces list",
+      "example": "workspaces list",
+      "explanation": "Lists workspaces."
+    },
+    {
+      "id": 13,
+      "category": "Modules",
+      "command": "marketplace refresh",
+      "example": "marketplace refresh",
+      "explanation": "Updates the module index from the marketplace."
+    },
+    {
+      "id": 14,
+      "category": "Modules",
+      "command": "marketplace search <term>",
+      "example": "marketplace search domains-hosts",
+      "explanation": "Finds modules by name or category."
+    },
+    {
+      "id": 2,
+      "category": "Modules",
+      "command": "marketplace install <module>",
+      "example": "marketplace install recon/domains-hosts/certificate_transparency",
+      "explanation": "Installs a module."
+    },
+    {
+      "id": 15,
+      "category": "Modules",
+      "command": "marketplace install all",
+      "example": "marketplace install all",
+      "explanation": "Installs every module (some still need API keys)."
+    },
+    {
+      "id": 16,
+      "category": "Modules",
+      "command": "modules load <module>",
+      "example": "modules load recon/domains-hosts/hackertarget",
+      "explanation": "Loads a module."
     },
     {
       "id": 6,
-      "category": "Info / Options",
+      "category": "Modules",
       "command": "info",
       "example": "info",
-      "explanation": "Extracts the parameter structure required for the currently loaded module ensuring you know exactly what variables to set."
+      "explanation": "Shows the loaded module’s description and options."
     },
     {
-      "id": 7,
-      "category": "Variable Control",
-      "command": "options set <name> <value>",
+      "id": 17,
+      "category": "Modules",
+      "command": "options set SOURCE <value>",
       "example": "options set SOURCE example.com",
-      "explanation": "Defines the required global execution constraints or targeted domain spaces for the active loaded module."
-    },
-    {
-      "id": 8,
-      "category": "API Management",
-      "command": "keys add <name> <key>",
-      "example": "keys add shodan_api 12345",
-      "explanation": "Permanently installs authorization tokens allowing modules to seamlessly interact with rate-limited global intelligence databases."
+      "explanation": "Sets the module input; by default modules read from the database."
     },
     {
       "id": 9,
-      "category": "Execution Engine",
+      "category": "Modules",
       "command": "run",
       "example": "run",
-      "explanation": "Instructs the currently loaded, perfectly-configured module to actively process the intelligence operation."
+      "explanation": "Runs the module and stores results in the workspace database."
     },
     {
-      "id": 10,
-      "category": "Database Reporting",
-      "command": "show <table_name>",
+      "id": 18,
+      "category": "Data",
+      "command": "db insert domains",
+      "example": "db insert domains",
+      "explanation": "Adds a seed domain to the database interactively."
+    },
+    {
+      "id": 19,
+      "category": "Data",
+      "command": "show hosts",
       "example": "show hosts",
-      "explanation": "Prints out the raw internal data logic acquired during executions (e.g. hosts, domains, ports, vulnerabilities) into standard columns."
+      "explanation": "Hosts collected so far. Other tables include contacts, credentials and ports."
+    },
+    {
+      "id": 20,
+      "category": "Data",
+      "command": "db query SELECT host, ip_address FROM hosts WHERE ip_address IS NOT NULL",
+      "example": "db query SELECT host, ip_address FROM hosts WHERE ip_address IS NOT NULL",
+      "explanation": "Runs SQL against the workspace."
+    },
+    {
+      "id": 21,
+      "category": "Data",
+      "command": "keys add <name> <value>",
+      "example": "keys add shodan_api ABC123",
+      "explanation": "Stores an API key for modules that need one."
+    },
+    {
+      "id": 22,
+      "category": "Data",
+      "command": "keys list",
+      "example": "keys list",
+      "explanation": "Shows configured keys."
+    },
+    {
+      "id": 23,
+      "category": "Reporting and automation",
+      "command": "modules load reporting/html",
+      "example": "modules load reporting/html",
+      "explanation": "Loads the HTML report module; set CREATOR and CUSTOMER, then run."
+    },
+    {
+      "id": 24,
+      "category": "Reporting and automation",
+      "command": "modules load reporting/csv",
+      "example": "modules load reporting/csv",
+      "explanation": "Exports a table to CSV."
+    },
+    {
+      "id": 25,
+      "category": "Reporting and automation",
+      "command": "recon-cli -w <workspace> -m <module> -o SOURCE=<value> -x",
+      "example": "recon-cli -w acme -m recon/domains-hosts/hackertarget -o SOURCE=example.com -x",
+      "explanation": "Runs a module non-interactively for scripting."
+    },
+    {
+      "id": 26,
+      "category": "Reporting and automation",
+      "command": "recon-ng -r <file>",
+      "example": "recon-ng -r commands.rc",
+      "explanation": "Runs console commands from a resource file."
     }
   ]
 }
