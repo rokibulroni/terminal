@@ -22,6 +22,7 @@ import { GuidesPage } from '@/pages/Guides';
 import { GuidePage } from '@/pages/Guide';
 import { GlossaryPage } from '@/pages/Glossary';
 import { DevelopersPage } from '@/pages/Developers';
+import { AgentsPage } from '@/pages/Agents';
 import PracticePage from '@/pages/PracticePage';
 import NotFound from '@/pages/NotFound';
 
@@ -40,6 +41,7 @@ export function AppRoutes() {
           <Route path="/practice" element={<PracticePage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/developers" element={<DevelopersPage />} />
+          <Route path="/agents" element={<AgentsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/how-to-use" element={<HowToUsePage />} />
           <Route path="/contribute" element={<ContributePage />} />

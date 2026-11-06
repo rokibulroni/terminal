@@ -25,6 +25,7 @@ const COLUMNS: { title: string; links: { to: string; label: string; external?: b
   {
     title: 'For developers',
     links: [
+      { to: '/agents', label: 'AI agents & MCP' },
       { to: '/developers', label: 'API & data' },
       { to: '/llms.txt', label: 'llms.txt', external: true },
       { to: '/sitemap.xml', label: 'Sitemap', external: true },

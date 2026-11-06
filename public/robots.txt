@@ -3,6 +3,8 @@
 # For bulk access please use the API instead of crawling HTML:
 #   https://terminal.rokibulroni.com/developers
 #   https://terminal.rokibulroni.com/llms.txt
+# AI agents: install skills or connect the MCP server —
+#   https://terminal.rokibulroni.com/agents
 
 User-agent: *
 Allow: /

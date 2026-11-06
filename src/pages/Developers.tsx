@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
 import { StaticPage } from '@/components/common/StaticPage';
+import { CodeBlock as Code } from '@/components/common/CodeBlock';
 import { manifest } from '@/lib/data';
 import { SITE } from '@/data/registry';
-
-const Code = ({ children }: { children: string }) => (
-  <pre className="custom-scrollbar overflow-x-auto rounded-xl border border-border bg-[hsl(var(--command-bg))] p-4 text-[13px] leading-6 text-foreground">
-    <code className="bg-transparent p-0">{children}</code>
-  </pre>
-);
 
 const ENDPOINTS: [string, string][] = [
   ['/api/v1/manifest.json', 'Every category and tool: names, summaries, tags, install methods, related tools, section names and counts.'],
   ['/api/v1/tools/{category}/{slug}.json', 'A full tool: metadata plus every command with its example and explanation.'],
   ['/api/v1/tools/{category}/{slug}.md', 'The same tool as Markdown — ideal for LLM context windows.'],
+  ['/api/v1/guides/index.json', 'Every workflow guide; each is also at /api/v1/guides/{slug}.json and .md.'],
+  ['/api/v1/glossary.json', 'The glossary (also as /api/v1/glossary.md).'],
+  ['/skills/index.json', 'Installable Agent Skills (SKILL.md folders, .zip and .tar.gz).'],
+  ['/mcp', 'Remote MCP server (Streamable HTTP, POST JSON-RPC).'],
   ['/api/v1/search-index.json', 'A compact index of every tool and command (used by the site’s own search).'],
   ['/api/openapi.json', 'OpenAPI 3.1 description of the endpoints above.'],
   ['/llms.txt', 'An llms.txt overview with links to every tool’s Markdown.'],
@@ -29,6 +28,11 @@ export function DevelopersPage() {
       title="Open data for scripts and AI agents"
       lead={`Everything on this site — ${manifest.totals.commands.toLocaleString('en-US')} commands across ${manifest.totals.tools} tools — is available as static JSON and Markdown. No key, no sign-up.`}
     >
+      <p>
+        Using Claude Code, Codex, Cursor or another agent? <Link to="/agents">Install the skills or connect the MCP server</Link> instead of wiring up
+        the API yourself.
+      </p>
+
       <h2>Endpoints</h2>
       <p>All endpoints are static files served from <code>{SITE.url}</code> over HTTPS, with CORS enabled for <code>GET</code>.</p>
       <ul>

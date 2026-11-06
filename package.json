@@ -11,7 +11,8 @@
     "data": "node scripts/build-data.ts",
     "data:check": "node scripts/build-data.ts --check",
     "predev": "npm run data",
-    "typecheck": "tsc -p tsconfig.app.json --noEmit"
+    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p functions/tsconfig.json",
+    "preview:functions": "npm run build && npx wrangler@4 pages dev dist --port 8788 --compatibility-date 2026-06-01"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
