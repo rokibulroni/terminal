@@ -131,7 +131,10 @@ public/sitemap.xml
 public/llms.txt
 public/llms-full.txt
 public/_redirects
+public/skills/
+public/.well-known/mcp.json
 dist-ssr/
 
 # Local Claude Code config
 .claude/
+.wrangler/

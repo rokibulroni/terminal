@@ -42,6 +42,21 @@ Terminal Command Hub is an elite web application built for developers, security 
 - **Persistent Favorites:** Find an important command? Bookmark it instantly! Favorites stay synced locally.
 - **Responsive Architecture:** Fully optimized for mobile, tablet, and desktop viewports.
 
+<a id="ai-agents"></a>
+## 🤖 Use with AI agents
+
+The whole reference is available to Claude Code, Claude, Codex, Cursor, VS Code and any MCP client — see [terminal.rokibulroni.com/agents](https://terminal.rokibulroni.com/agents).
+
+```bash
+# Agent Skills (one per category + a router skill) into ~/.claude/skills
+curl -fsSL https://terminal.rokibulroni.com/skills/install.sh | sh
+
+# Remote MCP server (read-only, no key)
+claude mcp add --transport http terminal-hub https://terminal.rokibulroni.com/mcp
+```
+
+Skills are generated from `data/tools` by `npm run data` (`scripts/lib/agents.ts`) into `public/skills/`; the MCP server is a Cloudflare Pages Function in `functions/mcp.ts` that reads the static API. Test it locally with `npm run preview:functions`.
+
 <a id="quick-start"></a>
 ## 🚀 Quick Start
 
@@ -61,7 +76,7 @@ npm install
 # 4. Start the development server
 npm run dev
 ```
-Open up [http://localhost:5173](http://localhost:5173) in your browser!
+Open up [http://localhost:8080](http://localhost:8080) in your browser!
 
 <a id="contributing"></a>
 ## 🤝 Contributing

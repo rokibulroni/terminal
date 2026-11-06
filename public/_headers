@@ -22,6 +22,31 @@
 /api/v1/tools/*.md
   Content-Type: text/markdown; charset=utf-8
 
+/api/v1/guides/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/api/v1/glossary.md
+  Content-Type: text/markdown; charset=utf-8
+
+# Agent Skills (generated). The MCP endpoint (/mcp) is a Pages Function and
+# sets its own CORS headers — _headers does not apply to Function responses.
+/skills/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  X-Robots-Tag: noindex
+
+/skills/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/skills/install.sh
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/.well-known/mcp.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
 /llms.txt
   Content-Type: text/plain; charset=utf-8
   Access-Control-Allow-Origin: *
